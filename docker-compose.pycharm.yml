@@ -1,0 +1,20 @@
+version: '3.8'
+
+x-app_environment: &app_environment
+  environment:
+    - DEBUG
+    - SECRET_KEY
+    - POSTGRES_PASSWORD
+    - POSTGRES_HOST
+    - POSTGRES_PORT
+    - POSTGRES_NAME
+    - POSTGRES_USER
+    - SITE_HOST
+
+services:
+  backend:
+    build:
+      context: .
+    volumes:
+      - .:/app/:cached
+    <<: *app_environment

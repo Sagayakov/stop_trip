@@ -1,26 +1,42 @@
 version: "3.8"
 
+x-app_environment: &app_environment
+  environment:
+    - DEBUG
+    - SECRET_KEY
+    - POSTGRES_PASSWORD
+    - POSTGRES_HOST
+    - POSTGRES_PORT
+    - POSTGRES_NAME
+    - POSTGRES_USER
+    - SITE_HOST
+
 services:
-    django:
-        build: .
-        command: python manage.py runserver 0.0.0.0:8000
-        volumes:
-          - .:/usr/scr/app
-        ports:
-          - "8000:8000"
+    backend:
+      build: .
+      volumes:
+        - .:/app/:cached
+      restart: unless-stopped
+#      entrypoint: ./entrypoint.sh  # todo permission denied, поправить
+      command: python manage.py runserver 0.0.0.0:8000
+      depends_on:
+        - db
+      ports:
+        - 8000:8000
+      <<: *app_environment
 
-        depends_on:
-          - pgdb
-    pgdb:
-        image: postgres
+    db:
+        image: postgres:14.5-alpine
+        volumes:
+          - postgresdata:/var/lib/postgresql/data
         environment:
-          - POSTGRES_DB=postgres
-          - POSTGRES_USER=postgres
           - POSTGRES_PASSWORD=postgres
-        volumes:
-          - pgdata:/var/lib/postgres/data/
+          - POSTGRES_PORT=postgres
+          - POSTGRES_NAME=postgres
+          - POSTGRES_USER=postgres
+        restart: unless-stopped
+        ports:
+          - 15239:5432
+
 volumes:
-    pgdata:
-
-
-
+  postgresdata:
