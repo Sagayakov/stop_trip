@@ -18,7 +18,7 @@ services:
         - .:/app/:cached
       restart: unless-stopped
 #      entrypoint: ./entrypoint.sh  # todo permission denied, поправить
-      command: python manage.py runserver 0.0.0.0:8000
+      command: sh -c "python3 manage.py migrate & python3 manage.py runserver 0.0.0.0:8000"
       depends_on:
         - db
       ports:
