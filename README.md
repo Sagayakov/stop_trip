@@ -34,7 +34,9 @@
 
 ```shell
 docker-compose build
-# Не забудьте создать файл .env
+```
+Не забудьте создать файл .env
+```shell
 docker-compose up
 ```
 
