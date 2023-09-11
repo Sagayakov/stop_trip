@@ -3,6 +3,9 @@ from os.path import join
 from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
+from dotenv import load_dotenv
+
+load_dotenv()
 
 SITE_HOST = getenv("SITE_HOST")
 
@@ -33,6 +36,10 @@ INSTALLED_APPS = [
     "corsheaders",
     "phonenumber_field",
     "django_filters",
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     # apps
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",
@@ -47,6 +54,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 if DEBUG:
@@ -56,7 +64,7 @@ if DEBUG:
     def show_toolbar_callback(_):
         return DEBUG
 
-    DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "config.settings.show_toolbar_callback"}
+DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "config.settings.show_toolbar_callback"}
 
 ROOT_URLCONF = "config.urls"
 
@@ -212,7 +220,10 @@ if not DEBUG:
 SESSION_COOKIE_AGE = 31_536_000
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
-AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.ModelBackend"]
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # Кастомный пользователь
 AUTH_USER_MODEL = "users.User"
@@ -222,3 +233,14 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+        'APP': {
+            'client_id': getenv('GOOGLE_CLIENT_ID'),
+            'secret': getenv('GOOGLE_SECRET'),
+        }
+    }
+}

@@ -8,6 +8,11 @@ from .routers import router
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    # OAuth
+    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.socialaccount.urls')),
+
     path("api/", include(router.urls)),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
