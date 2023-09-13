@@ -29,9 +29,9 @@ class SubCategory(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=100)
     subcategory = models.ForeignKey(
-        "offers.SubCategory", on_delete=models.CASCADE
-    )  # todo добавить verbose_name и related_name
-    attributes = models.ManyToManyField("Attributes")
+        "offers.SubCategory", on_delete=models.CASCADE, related_name="products"
+    )
+    attributes = models.ManyToManyField("Attribute")
 
     def __str__(self):
         return self.title
@@ -42,9 +42,9 @@ class Product(models.Model):
 
 
 class Image(models.Model):
-    property = models.ForeignKey(
+    advertisements = models.ForeignKey(
         "offers.Advertisement", related_name="images", on_delete=models.CASCADE
-    )  # todo название поля должно соответствовать названию FK класса
+    )
     photo = models.ImageField(upload_to="images/", blank=True, null=True)
 
     def __str__(self) -> str:
@@ -55,7 +55,7 @@ class Image(models.Model):
         verbose_name_plural = "Изображения"
 
 
-class Attributes(models.Model):
+class Attribute(models.Model):
     title = models.CharField(max_length=30)
 
     def __str__(self):
@@ -71,7 +71,7 @@ class Advertisement(models.Model):
         "offers.Product", on_delete=models.CASCADE, verbose_name="Товар"
     )  # todo я бы делал, что объявление представляет собой товар (без промежуточной модели Product)
     price = models.PositiveIntegerField(default=0, verbose_name="Цена")
-    contact = models.ForeignKey(
+    owner = models.ForeignKey(
         "users.User", on_delete=models.SET_NULL, null=True, verbose_name="Создатель модели"
     )
     description = models.CharField(max_length=2048, verbose_name="Описание")
@@ -82,11 +82,11 @@ class Advertisement(models.Model):
     # временное решение
     # проработать нужно добавление карты, отображение города
     slug = models.SlugField(
-        blank=True, null=True, db_index=True, unique=True, verbose_name="Ссылка"
-    )  # todo слаг - это не ссылка, а представление названия в английской раскладке для использования в URL
+        blank=True, null=True, db_index=True, unique=True, verbose_name="Слаг"
+    )
 
     def __str__(self):
-        return self.product  # todo такое представление не очень корректно
+        return f"ID: {self.id} | Product: {self.product.title}. Owner: {self.owner.username}"
 
     class Meta:
         verbose_name = "Объявление"
