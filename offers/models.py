@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, verbose_name="Название")
     date_create = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     date_update = models.DateTimeField(auto_now=True, verbose_name="Дата редактирования")
 
@@ -15,8 +15,10 @@ class Category(models.Model):
 
 
 class SubCategory(models.Model):
-    title = models.CharField(max_length=50)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50, verbose_name='Название')
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, verbose_name='Категория', related_name='subcategories'
+    )
 
     def __str__(self):
         return self.title
@@ -26,26 +28,11 @@ class SubCategory(models.Model):
         verbose_name_plural = "Подкатегории"
 
 
-class Product(models.Model):
-    title = models.CharField(max_length=100)
-    subcategory = models.ForeignKey(
-        "offers.SubCategory", on_delete=models.CASCADE, related_name="products"
-    )
-    attributes = models.ManyToManyField("Attribute")
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = "Товар"
-        verbose_name_plural = "Товары"
-
-
 class Image(models.Model):
     advertisements = models.ForeignKey(
-        "offers.Advertisement", related_name="images", on_delete=models.CASCADE
+        "offers.Advertisement", related_name="images", on_delete=models.CASCADE, verbose_name='Объявление'
     )
-    photo = models.ImageField(upload_to="images/", blank=True, null=True)
+    photo = models.ImageField(upload_to="offers/image/photo", blank=True, null=True, verbose_name='Фотография')
 
     def __str__(self) -> str:
         return f"{self.pk}"
@@ -56,7 +43,7 @@ class Image(models.Model):
 
 
 class Attribute(models.Model):
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=30, verbose_name='Название')
 
     def __str__(self):
         return self.title
@@ -67,12 +54,14 @@ class Attribute(models.Model):
 
 
 class Advertisement(models.Model):
-    product = models.ForeignKey(
-        "offers.Product", on_delete=models.CASCADE, verbose_name="Товар"
-    )  # todo я бы делал, что объявление представляет собой товар (без промежуточной модели Product)
+    title = models.CharField(max_length=100, verbose_name='Название')
+    subcategory = models.ForeignKey(
+        "offers.SubCategory", on_delete=models.CASCADE, related_name="advertisements", verbose_name='Подкатегория'
+    )
+    attributes = models.ManyToManyField("Attribute", verbose_name='Аттрибуты', related_name='advertisements')
     price = models.PositiveIntegerField(default=0, verbose_name="Цена")
     owner = models.ForeignKey(
-        "users.User", on_delete=models.SET_NULL, null=True, verbose_name="Создатель модели"
+        "users.User", on_delete=models.SET_NULL, null=True, related_name="advertisements", verbose_name="Создатель"
     )
     description = models.CharField(max_length=2048, verbose_name="Описание")
     is_public = models.BooleanField(default=True, verbose_name="Публикация")
@@ -86,7 +75,7 @@ class Advertisement(models.Model):
     )
 
     def __str__(self):
-        return f"ID: {self.id} | Product: {self.product.title}. Owner: {self.owner.username}"
+        return f"ID: {self.pk} | Product: {self.title}. Owner: {self.owner.username}"
 
     class Meta:
         verbose_name = "Объявление"
@@ -94,8 +83,6 @@ class Advertisement(models.Model):
 
 
 # todo разнести по файлам модели
-# todo добавить всем полям параметр verbose_name (для FK и M2M ещё related_name)
 # todo просмотреть возможность замены CharField на TextField или RichTextField
 # todo добавить линтер black
 # todo написать тесты и проверить количество запросов
-# todo поправить поля upload_to (путь 'app_name/class_name/field_name')

@@ -133,7 +133,7 @@ STATIC_ROOT = join(BASE_DIR, "static")
 MEDIA_URL = "/m/"
 MEDIA_ROOT = join(BASE_DIR, "media")
 
-DEFAULT_FILE_STORAGE = "django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage"
+DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 BASE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
