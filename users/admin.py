@@ -30,19 +30,19 @@ from .models import User
 #     )
 class UserAdmin(Admin):
     model = User
-    list_display = ("email", "is_staff", "is_active",)
+    list_display = ("full_name", "email", "is_staff", "is_active")
     list_filter = ("email", "is_staff", "is_active",)
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (None, {"fields": ("full_name", "email", "password")}),
         (_("Permissions"), {"fields": ("is_staff", "is_active", "groups", "user_permissions")}),
     )
     add_fieldsets = (
         (None, {
             "classes": ("wide",),
-            "fields": (
-                "email", "password1", "password2", "is_staff",
-                "is_active", "groups", "user_permissions"
-            )}
+            "fields": ("full_name",
+                       "email", "password1", "password2", "is_staff",
+                       "is_active", "groups", "user_permissions"
+                       )}
          ),
     )
     search_fields = ("email",)

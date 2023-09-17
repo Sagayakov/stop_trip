@@ -26,3 +26,9 @@ typing_extensions==4.7.1
 uritemplate==4.1.1
 djangorestframework-simplejwt==5.3.0
 djoser==2.2.0
+pytest==7.4.2
+pytest-django==4.5.2
+factory-boy==3.3.0
+Faker==19.6.1
+pytest-factoryboy==2.1.0
+

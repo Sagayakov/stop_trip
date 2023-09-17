@@ -10,7 +10,7 @@ SITE_HOST = getenv("SITE_HOST")
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = getenv("SECRET_KEY")
 
-DEBUG = getenv("DEBUG", "True")
+DEBUG = getenv("DEBUG", True)
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://localhost:3000"]
@@ -57,11 +57,11 @@ if DEBUG:
     MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
 
 
-    def show_toolbar_callback(_):
-        return DEBUG
-
-
-    DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "config.settings.show_toolbar_callback"}
+    # def show_toolbar_callback(_):
+    #     return DEBUG
+    #
+    #
+    # DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "config.settings.show_toolbar_callback"}
 
 ROOT_URLCONF = "config.urls"
 
@@ -210,8 +210,8 @@ REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework.authentication.SessionAuthentication",
-                                       "rest_framework_simplejwt.authentication.JWTAuthentication",)
+    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",
+                                       "rest_framework.authentication.SessionAuthentication",)
 }
 
 SIMPLE_JWT = {
