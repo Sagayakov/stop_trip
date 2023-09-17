@@ -1,6 +1,11 @@
 from django.contrib.admin import register, ModelAdmin, StackedInline
 
-from ..models import Advertisement, AdvertisementImage
+from ..models import Advertisement, AdvertisementImage, PropertyAmenity
+
+
+@register(PropertyAmenity)
+class PropertyAmenityAdmin(ModelAdmin):
+    pass
 
 
 class AdvertisementImageInline(StackedInline):
