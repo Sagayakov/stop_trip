@@ -48,6 +48,14 @@ Admin - http://0.0.0.0:8000/admin/
 
 ***
 
+## Макеты
+
+[Figma](https://www.figma.com/file/41Hcq7Feg81dkeuxbzkJrP/StopTrip?type=design&node-id=204-182&mode=design&t=yMN0H2PGqcE1JEWK-0)
+
+[Miro](https://miro.com/app/board/uXjVMs_qgJk=/?share_link_id=530992704029)
+
+***
+
 ## ENV
 
 ### Backend
