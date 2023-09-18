@@ -33,15 +33,17 @@ INSTALLED_APPS = [
     "rest_framework",
     "djoser",
     "corsheaders",
+    'social_django',
     "rest_framework_simplejwt",
     "phonenumber_field",
     "django_filters",
-    # apps
+    "rest_framework_simplejwt.token_blacklist",    # apps
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",
 ]
 
 MIDDLEWARE = [
+    "social_django.middleware.SocialAuthExceptionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -55,7 +57,6 @@ MIDDLEWARE = [
 if DEBUG:
     INSTALLED_APPS.append("debug_toolbar")
     MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
-
 
     # def show_toolbar_callback(_):
     #     return DEBUG
@@ -76,6 +77,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -133,6 +136,8 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 STATIC_URL = "/s/"
 STATIC_ROOT = join(BASE_DIR, "static")
+
+
 
 # Media
 MEDIA_URL = "/m/"
@@ -207,41 +212,53 @@ CKEDITOR_CONFIGS = {
 }
 
 REST_FRAMEWORK = {
-    # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",
-                                       "rest_framework.authentication.SessionAuthentication",)
+    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",)
 }
+
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
+)
 
 SIMPLE_JWT = {
-    "AUTH_HEADER_TYPES": ("JWT",),
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",)
-
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_TOKEN_CLASSES': (
+        'rest_framework_simplejwt.tokens.AccessToken',
+    )
 }
 DJOSER = {
-    "LOGIN_FIELD": "email",
-    "USER_CREATE_PASSWORD_RETYPE": True,
-    "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
-    "SEND_CONFIRMATION_EMAIL": True,
-    "SET_PASSWORD_RETYPE": True,
-    "PASSWORD_RESET_CONFIRM_URL": "email/reset/confirm/{uid}/{token}",
-    "ACTIVATION_URL": "activate/{uid}/{token}",
-    "SEND_ACTIVATION_EMAIL": True,
-    # "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
-    # "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": [
-    #     "your redirect url",
-    #     "your redirect url",
-    # ],
-    "SERIALIZERS": {
-        "user_create": "accounts.serializers.UserCreateSerializer",  # custom serializer
-        "user": "djoser.serializers.UserSerializer",
-        "current_user": "djoser.serializers.UserSerializer",
-        "user_delete": "djoser.serializers.UserSerializer",
-    },
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    'SEND_CONFIRMATION_EMAIL': True,
+    'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000/google'],
+    'SERIALIZERS': {
+        'user_create': 'users.serializers.UserCreateSerializer',
+        'user': 'users.serializers.UserCreateSerializer',
+        'current_user': 'users.serializers.UserCreateSerializer',
+        'user_delete': 'djoser.serializers.UserDeleteSerializer',
+    }
 }
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '122772244998-vb3lifol0idvv8p7m112bglj35fch77l.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.email',
+                                   'https://www.googleapis.com/auth/userinfo.profile',
+                                   'openid',
+                                   ]
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name']
 
 if not DEBUG:
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = ["rest_framework.renderers.JSONRenderer"]
