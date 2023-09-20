@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "phonenumber_field",
     "django_filters",
+    "location_field.apps.DefaultConfig",
     # apps
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",
@@ -133,7 +134,7 @@ STATIC_ROOT = join(BASE_DIR, "static")
 MEDIA_URL = "/m/"
 MEDIA_ROOT = join(BASE_DIR, "media")
 
-DEFAULT_FILE_STORAGE = "django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage"
+DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 BASE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
@@ -222,3 +223,29 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 SITE_ID = 1
+
+# Django location_field
+# todo js в админке не тот, разобраться
+LOCATION_FIELD_PATH = "/s/" + "location_field"
+LOCATION_FIELD = {
+    "map.provider": "google",
+    "map.zoom": 13,
+    "search.provider": "google",
+    "search.suffix": "",
+    # Google
+    "provider.google.api": "//maps.google.com/maps/api/js?sensor=false",
+    "provider.google.api_key": "",
+    "provider.google.api_libraries": "",
+    "provider.google.map.type": "ROADMAP",
+    # Mapbox
+    "provider.mapbox.access_token": "",
+    "provider.mapbox.max_zoom": 18,
+    "provider.mapbox.id": "mapbox.streets",
+    # OpenStreetMap
+    "provider.openstreetmap.max_zoom": 18,
+    # misc
+    "resources.root_path": LOCATION_FIELD_PATH,
+    "resources.media": {
+        "js": (LOCATION_FIELD_PATH + "/js/form.js",),
+    },
+}
