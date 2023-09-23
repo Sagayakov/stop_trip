@@ -24,10 +24,26 @@ class AdvertisementModelViewSet(mixins.RetrieveModelMixin,
     @action(detail=False, methods=['POST'])
     def property_create(self, request):
         serializer_class = self.get_serializer_class()
-        serializer = serializer_class(data=self.request.data)
+        serializer = serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['PUT'])
+    def property_update(self, request, pk=None):
+        try:
+            advertisement = Advertisement.objects.get(pk=pk)
+        except Advertisement.DoesNotExist:
+            return Response({"detail": "Advertisement not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer_class = self.get_serializer_class()
+        serializer = serializer_class(advertisement, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
