@@ -6,6 +6,7 @@ from offers import views
 router = DefaultRouter()
 router.register('advertisements', views.AdvertisementModelViewSet)
 router.register('categories', views.CategoryModelViewSet)
+router.register('subcategories', views.SubCategoryModelViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

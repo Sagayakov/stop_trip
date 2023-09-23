@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from offers.models import Advertisement, Category
+from offers.models import Advertisement, Category, SubCategory
 
 
 class AdvertisementSerializer(serializers.ModelSerializer):
@@ -9,7 +9,26 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class PropertySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Advertisement
+        fields = (
+            'id', 'subcategory', 'owner', 'title', 'price', 'description', 'is_published', 'date_create', 'date_update',
+            'slug', 'property_type_of_service', 'property_city', 'property_district', 'property_coords',
+            'property_building_max_floor', 'property_floor', 'property_bathroom_count', 'property_bathroom_type',
+            'property_area', 'property_living_area', 'property_balcony', 'property_has_furniture',
+            'property_house_type', 'property_has_parking', 'property_rental_condition', 'property_prepayment',
+            'property_sleeping_places'
+        )
+
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
+        fields = '__all__'
+
+
+class SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubCategory
         fields = '__all__'

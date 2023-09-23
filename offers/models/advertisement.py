@@ -31,7 +31,7 @@ class Advertisement(AbsTransport, AbsProperty):
     slug = models.SlugField("Слаг", blank=True, null=True, db_index=True, unique=True)
 
     def __str__(self):
-        return f"Product: {self.title}. Owner: {self.owner.username}"
+        return f"Объявление: {self.title}. Владелец: {self.owner}"
 
     class Meta:
         verbose_name = "Объявление"
