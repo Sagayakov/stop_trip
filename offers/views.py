@@ -23,8 +23,7 @@ class AdvertisementModelViewSet(mixins.RetrieveModelMixin,
 
     @action(detail=False, methods=['POST'])
     def property_create(self, request):
-        serializer_class = self.get_serializer_class()
-        serializer = serializer_class(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -38,9 +37,7 @@ class AdvertisementModelViewSet(mixins.RetrieveModelMixin,
         except Advertisement.DoesNotExist:
             return Response({"detail": "Advertisement not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer_class = self.get_serializer_class()
-        serializer = serializer_class(advertisement, data=request.data)
-
+        serializer = self.get_serializer(advertisement, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -48,11 +45,13 @@ class AdvertisementModelViewSet(mixins.RetrieveModelMixin,
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@extend_schema(tags=["Category"])
 class CategoryModelViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
+@extend_schema(tags=["SubCategory"])
 class SubCategoryModelViewSet(ModelViewSet):
     queryset = SubCategory.objects.all()
     serializer_class = SubCategorySerializer
