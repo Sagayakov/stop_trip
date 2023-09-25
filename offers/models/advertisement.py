@@ -2,17 +2,19 @@ from django.db import models
 
 from .property_abs_model import AbsProperty
 from .transport_abs_model import AbsTransport
+from ..constants.subcategory_constants import SubCategoryChoices
 
 
 class Advertisement(AbsTransport, AbsProperty):
     """Объявления."""
 
-    subcategory = models.ForeignKey(
-        "offers.SubCategory",
-        on_delete=models.CASCADE,
-        related_name="advertisements",
-        verbose_name="Подкатегория",
-    )
+    # subcategory = models.ForeignKey(
+    #     "offers.SubCategory",
+    #     on_delete=models.CASCADE,
+    #     related_name="advertisements",
+    #     verbose_name="Подкатегория",
+    # )
+    subcategory = models.CharField(choices=SubCategoryChoices.choices, verbose_name='Подкатегории')
     owner = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
@@ -20,7 +22,6 @@ class Advertisement(AbsTransport, AbsProperty):
         related_name="advertisements",
         verbose_name="Создатель",
     )
-
     title = models.CharField("Название", max_length=100)
     price = models.PositiveIntegerField("Цена", default=0)
     description = models.TextField("Описание", max_length=1000)

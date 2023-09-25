@@ -1,48 +1,33 @@
 from drf_spectacular.utils import extend_schema
-from rest_framework import mixins, status
-from rest_framework.decorators import action
+from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.viewsets import ModelViewSet
 
-from offers.models import Advertisement, Category, SubCategory
-from offers.serializers import CategorySerializer, SubCategorySerializer, PropertySerializer, AdvertisementSerializer
+from .constants.subcategory_constants import SubCategoryChoices
+from .models import Advertisement, Category, SubCategory
+from .serializers import CategorySerializer, SubCategorySerializer, PropertySerializer, AdvertisementSerializer
 
 
 @extend_schema(tags=["Advertisement"])
-class AdvertisementModelViewSet(mixins.RetrieveModelMixin,
-                                mixins.DestroyModelMixin,
-                                mixins.ListModelMixin,
-                                GenericViewSet):
+class AdvertisementModelViewSet(ModelViewSet):
     queryset = Advertisement.objects.all()
 
     def get_serializer_class(self):
-        if self.action in ('property_update', 'property_create'):
-            return PropertySerializer
-        else:
-            return AdvertisementSerializer
+        subcategories_serializers = {
+            SubCategoryChoices.PROPERTY: PropertySerializer,
+            SubCategoryChoices.TRANSPORT: ...,
+        }
+        if subcategory := self.request.data.get("subcategory"):
+            return subcategories_serializers[subcategory]
+        return AdvertisementSerializer
 
-    @action(detail=False, methods=['POST'])
-    def property_create(self, request):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @action(detail=True, methods=['PUT'])
-    def property_update(self, request, pk=None):
-        try:
-            advertisement = Advertisement.objects.get(pk=pk)
-        except Advertisement.DoesNotExist:
-            return Response({"detail": "Advertisement not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        serializer = self.get_serializer(advertisement, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def create(self, request, *args, **kwargs):
+        owner = self.request.user
+        request_data = {'owner': owner, **self.request.data}
+        serializer = self.get_serializer(data=request_data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 @extend_schema(tags=["Category"])
