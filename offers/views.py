@@ -5,7 +5,8 @@ from rest_framework.viewsets import ModelViewSet
 
 from .constants.subcategory_constants import SubCategoryChoices
 from .models import Advertisement, Category, SubCategory
-from .serializers import CategorySerializer, SubCategorySerializer, PropertySerializer, AdvertisementSerializer
+from .serializers import CategorySerializer, SubCategorySerializer, PropertySerializer, AdvertisementSerializer, \
+    TransportSerializer
 
 
 @extend_schema(tags=["Advertisement"])
@@ -15,7 +16,7 @@ class AdvertisementModelViewSet(ModelViewSet):
     def get_serializer_class(self):
         subcategories_serializers = {
             SubCategoryChoices.PROPERTY: PropertySerializer,
-            SubCategoryChoices.TRANSPORT: ...,
+            SubCategoryChoices.TRANSPORT: TransportSerializer,
         }
         if subcategory := self.request.data.get("subcategory"):
             return subcategories_serializers[subcategory]

@@ -30,6 +30,19 @@ class PropertySerializer(AdvertisementSerializer):
         )
 
 
+class TransportSerializer(AdvertisementSerializer):
+    transport_brand = serializers.CharField(max_length=100, allow_null=False)
+    transport_model = serializers.CharField(max_length=100, allow_null=False)
+
+    class Meta:
+        model = Advertisement
+        fields = AdvertisementSerializer.Meta.fields + (
+            'transport_type_of_service', 'transport_type', 'transport_category', 'transport_brand', 'transport_model',
+            'transport_engine_type', 'transport_drive_type', 'transport_engine_volume', 'transport_year_of_production',
+            'transport_transmission_type', 'transport_body_type', 'transport_condition', 'transport_passengers_quality'
+        )
+
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
