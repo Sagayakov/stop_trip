@@ -21,28 +21,28 @@ class AbsProperty(models.Model):
     property_district = models.CharField("Район", max_length=100, blank=True)
     property_coords = PlainLocationField(verbose_name="Координаты", blank=True)
     property_building_max_floor = models.PositiveSmallIntegerField(
-        "Количество этажей в доме", null=True, blank=True
+        verbose_name="Количество этажей в доме", null=True, blank=True
     )
-    property_floor = models.PositiveSmallIntegerField("Номер этажа", null=True, blank=True)
+    property_floor = models.PositiveSmallIntegerField(verbose_name="Номер этажа", null=True, blank=True)
     property_bathroom_count = models.PositiveSmallIntegerField(
-        "Количество санузлов", null=True, blank=True
+        verbose_name="Количество санузлов", null=True, blank=True
     )
     property_bathroom_type = models.CharField(
         "Тип санузла", max_length=100, choices=PropertyBathroomType.choices, blank=True
     )
-    property_area = models.PositiveSmallIntegerField("Общая площадь", null=True, blank=True)
-    property_living_area = models.PositiveSmallIntegerField("Жилая площадь", null=True, blank=True)
+    property_area = models.PositiveSmallIntegerField(verbose_name="Общая площадь", null=True, blank=True)
+    property_living_area = models.PositiveSmallIntegerField(verbose_name="Жилая площадь", null=True, blank=True)
     property_balcony = models.CharField(
         "Балкон", max_length=50, choices=PropertyBalcony.choices, blank=True
     )
-    property_has_furniture = models.BooleanField("Мебель", default=False)
+    property_has_furniture = models.BooleanField(verbose_name="Мебель", default=False)
     property_amenities = models.ManyToManyField(
         "offers.PropertyAmenity", verbose_name="Удобства", related_name="amenities", blank=True
     )
     property_house_type = models.CharField(
         "Тип дома", max_length=100, choices=PropertyHouseType.choices, blank=True
     )
-    property_has_parking = models.BooleanField("Есть парковка", default=False)
+    property_has_parking = models.BooleanField(verbose_name="Есть парковка", default=False)
     property_rental_condition = models.CharField(
         "Условия аренды", max_length=100, choices=PropertyRentalCondition.choices, blank=True
     )
@@ -50,7 +50,10 @@ class AbsProperty(models.Model):
         "Предоплата", max_length=50, choices=PropertyPrepayment.choices, blank=True
     )
     property_sleeping_places = models.PositiveSmallIntegerField(
-        "Количество спальных мест", null=True, blank=True
+        verbose_name="Количество спальных мест", null=True, blank=True
+    )
+    property_rooms_count = models.PositiveSmallIntegerField(
+         verbose_name="Количество комнат", null=True, blank=True
     )
 
     class Meta:

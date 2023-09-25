@@ -16,6 +16,9 @@ class AdvertisementSerializer(serializers.ModelSerializer):
 
 
 class PropertySerializer(AdvertisementSerializer):
+    property_city = serializers.CharField(allow_null=False, max_length=100)
+    property_rooms_count = serializers.IntegerField(allow_null=False)
+
     class Meta:
         model = Advertisement
         fields = AdvertisementSerializer.Meta.fields + (
@@ -23,7 +26,7 @@ class PropertySerializer(AdvertisementSerializer):
             'property_building_max_floor', 'property_floor', 'property_bathroom_count', 'property_bathroom_type',
             'property_area', 'property_living_area', 'property_balcony', 'property_has_furniture', 'property_amenities',
             'property_house_type', 'property_has_parking', 'property_rental_condition', 'property_prepayment',
-            'property_sleeping_places'
+            'property_sleeping_places', 'property_rooms_count'
         )
 
 
