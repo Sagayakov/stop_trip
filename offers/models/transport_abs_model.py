@@ -19,25 +19,25 @@ class AbsTransport(models.Model):
     """Абстрактная модель транспорта."""
 
     transport_type_of_service = models.CharField(
-        "Тип услуги", max_length=25, choices=TransportTypeOfService.choices, blank=True
+        "Тип услуги", max_length=25, choices=TransportTypeOfService.choices, null=True, blank=True
     )
     transport_type = models.CharField(
-        "Тип транспорта", max_length=50, choices=TransportType.choices, blank=True
+        "Тип транспорта", max_length=50, choices=TransportType.choices, null=True, blank=True
     )
     transport_category = models.CharField(
-        "Категория транспорта", max_length=50, choices=TransportCategory.choices, blank=True
+        "Категория транспорта", max_length=50, choices=TransportCategory.choices, null=True, blank=True
     )
     transport_brand = models.CharField(
-        "Марка", max_length=100, choices=TransportBrand.choices, blank=True
+        "Марка", max_length=100, choices=TransportBrand.choices, null=True, blank=True
     )
     transport_model = models.CharField(
-        "Модель", max_length=100, choices=TransportModel.choices, blank=True
+        "Модель", max_length=100, choices=TransportModel.choices, null=True, blank=True
     )
     transport_engine_type = models.CharField(
-        "Тип двигателя", max_length=100, choices=TransportEngineType.choices, blank=True
+        "Тип двигателя", max_length=100, choices=TransportEngineType.choices, null=True, blank=True
     )
     transport_drive_type = models.CharField(
-        "Привод", max_length=50, choices=TransportDriveType.choices, blank=True
+        "Привод", max_length=50, choices=TransportDriveType.choices, null=True, blank=True
     )
     transport_engine_volume = models.FloatField(
         "Объём",
@@ -52,13 +52,13 @@ class AbsTransport(models.Model):
         blank=True,
     )
     transport_transmission_type = models.CharField(
-        "Тип коробки передач", max_length=50, choices=TransportTransmissionType.choices, blank=True
+        "Тип коробки передач", max_length=50, choices=TransportTransmissionType.choices, null=True, blank=True
     )
     transport_body_type = models.CharField(
-        "Тип кузова", max_length=50, choices=TransportBodyType.choices, blank=True
+        "Тип кузова", max_length=50, choices=TransportBodyType.choices, null=True, blank=True
     )
     transport_condition = models.CharField(
-        "Состояние", max_length=100, choices=TransportCondition.choices, blank=True
+        "Состояние", max_length=100, choices=TransportCondition.choices, null=True, blank=True
     )
     transport_passengers_quality = models.PositiveSmallIntegerField(
         "Кол-во пассажиров", null=True, blank=True
