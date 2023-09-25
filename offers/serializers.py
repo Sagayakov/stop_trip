@@ -1,22 +1,18 @@
 from rest_framework import serializers
 
 from .models import Advertisement, Category, SubCategory
-from users.models import User
 
 
 class AdvertisementSerializer(serializers.ModelSerializer):
     subcategory = serializers.CharField(allow_null=False)
-    owner = serializers.PrimaryKeyRelatedField(allow_null=False, queryset=User.objects.all())
+    # owner = serializers.PrimaryKeyRelatedField(allow_null=False, queryset=User.objects.all())
     title = serializers.CharField(allow_null=False, max_length=100)
-    price = serializers.IntegerField()
-    description = serializers.CharField(max_length=1000)
-    is_published = serializers.BooleanField()
+    price = serializers.IntegerField(allow_null=False)
 
     class Meta:
         model = Advertisement
-        fields = (
-            'id', 'subcategory', 'title', 'price', 'description', 'is_published', 'slug', 'date_create', 'date_update'
-        )
+        fields = ('id', 'subcategory', 'title', 'price', 'description', 'is_published', 'slug', 'date_create',
+                  'date_update')
 
 
 class PropertySerializer(AdvertisementSerializer):
