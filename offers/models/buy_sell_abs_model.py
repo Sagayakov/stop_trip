@@ -9,7 +9,7 @@ class AbsBuySell(models.Model):
     buy_sell_delivery = models.BooleanField("Доставка", default=False)
     buy_sell_product = models.ForeignKey(
         "offers.Item", verbose_name="Товар", on_delete=models.CASCADE,
-        related_name="items"
+        related_name="items", null=True, blank=True
     )
     used_item = models.BooleanField(default=False, verbose_name="Б/У")
     item_condition = models.CharField(choices=BuySellItemCondition.choices, verbose_name="Состояние")
@@ -25,7 +25,3 @@ class Item(models.Model):
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
-
-
-
-

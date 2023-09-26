@@ -6,7 +6,6 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('offers', '0002_alter_advertisement_transport_body_type_and_more'),
         ('offers', '0003_alter_advertisement_description'),
     ]
 
