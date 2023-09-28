@@ -5,21 +5,20 @@ from rest_framework import status
 
 
 @pytest.mark.django_db
-def test_create_property(api_client):
-    payload = json.dumps({
-        "subcategory": "property",
+def test_create_transport(api_client):
+    payload = {
+        "subcategory": "transport",
         "title": "test",
         "price": 0,
         "transport_brand": "test",
         "transport_model": "test",
-        "property_city": "test",
-        "property_rooms_count": 0
-    })
+    }
 
     response = api_client.post(
-        'http://127.0.0.1:8000/api/v1/advertisements/',
-        data=payload,
+        '/api/v1/advertisements/',
+        data=json.dumps(payload),
         content_type='application/json'
     )
 
     assert response.status_code == status.HTTP_201_CREATED
+    assert response.data['transport_brand'] == payload['transport_brand']
