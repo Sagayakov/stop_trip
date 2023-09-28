@@ -4,6 +4,8 @@ from users.tests.factories import UserFactory
 
 register(UserFactory)
 
+pytest_plugins = ['offers.tests.fixtures']
+
 
 @pytest.fixture
 def api_client():
