@@ -1,11 +1,11 @@
 from uuid import uuid4
-# from phonenumber_field.modelfields import PhoneNumberField
+from phonenumber_field.modelfields import PhoneNumberField
 
 #
 # class User(AbstractUser):
 #     """Пользователи."""
 #
-#     phone = PhoneNumberField("Телефон", blank=True)
+#
 #
 #     def __str__(self) -> str:
 #         return self.username
@@ -23,6 +23,7 @@ from .managers import CustomUserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=50, verbose_name="Имя пользователя")
+    phone = PhoneNumberField("Телефон", blank=True, null=True)
     email = models.EmailField(_("email address"), unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
