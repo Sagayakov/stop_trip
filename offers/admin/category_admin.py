@@ -1,13 +1,15 @@
 from django.contrib.admin import register, ModelAdmin, StackedInline
 
-from ..models import Category, SubCategory
+from ..models import Category
 
 
-class SubCategoryInline(StackedInline):
-    model = SubCategory
-    extra = 0
+# class SubCategoryInline(StackedInline):
+#     model = SubCategory
+#     extra = 0
 
 
 @register(Category)
 class CategoryAdmin(ModelAdmin):
-    inlines = (SubCategoryInline,)
+    list_display = ["title",
+                    "date_create",
+                    "date_update"]

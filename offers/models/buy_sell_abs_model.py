@@ -7,12 +7,13 @@ class AbsBuySell(models.Model):
     buy_sell_unit = models.CharField("Единица измерения", max_length=10, choices=BuySellUnit.choices, blank=True,
                                      null=True)
     buy_sell_delivery = models.BooleanField("Доставка", default=False)
-    buy_sell_product = models.ForeignKey(
+    buy_sell_item = models.ForeignKey(
         "offers.Item", verbose_name="Товар", on_delete=models.CASCADE,
-        related_name="items"
+        related_name="items", null=True, blank=True
     )
     used_item = models.BooleanField(default=False, verbose_name="Б/У")
-    item_condition = models.CharField(choices=BuySellItemCondition.choices, verbose_name="Состояние")
+    item_condition = models.CharField(choices=BuySellItemCondition.choices, verbose_name="Состояние",
+                                      blank=True, null=True)
 
     class Meta:
         abstract = True
@@ -20,7 +21,7 @@ class AbsBuySell(models.Model):
 
 class Item(models.Model):
     "Товар для продажи или купли"
-    name = models.CharField(max_length=255, verbose_name="Товар")
+    name = models.CharField(max_length=255, verbose_name="Товар", blank=True, null=True)
 
     class Meta:
         verbose_name = "Товар"

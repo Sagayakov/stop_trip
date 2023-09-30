@@ -20,11 +20,11 @@ class Advertisement(AbsTransport,
 
     """Объявления."""
 
-    subcategory = models.ForeignKey(
-        "offers.SubCategory",
+    category = models.ForeignKey(
+        "offers.Category",
         on_delete=models.CASCADE,
         related_name="advertisements",
-        verbose_name="Подкатегория",
+        verbose_name="Категория",
     )
     owner = models.ForeignKey(
         "users.User",
@@ -44,7 +44,7 @@ class Advertisement(AbsTransport,
     slug = models.SlugField("Слаг", blank=True, null=True, db_index=True, unique=True)
 
     def __str__(self):
-        return f"Product: {self.title}. Owner: {self.owner.username}"
+        return f"Product: {self.title}. Owner: {self.owner.email}"
 
     class Meta:
         verbose_name = "Объявление"
