@@ -1,3 +1,4 @@
+import sys
 from os import getenv
 from os.path import join
 from pathlib import Path
@@ -9,7 +10,13 @@ SITE_HOST = getenv("SITE_HOST")
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = getenv("SECRET_KEY")
 
-DEBUG = getenv("DEBUG", "True")
+# todo в тестах должно проставляться в False
+# print('pytest' in sys.modules)
+debug_value = getenv("DEBUG")
+if (debug_value is None) or (debug_value.lower() == 'true'):
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://localhost:3000"]
