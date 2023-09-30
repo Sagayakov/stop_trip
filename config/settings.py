@@ -18,7 +18,6 @@ CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://localhost:3000"]
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -30,11 +29,15 @@ INSTALLED_APPS = [
     # Third party
     "solo",
     "ckeditor",
+    "djoser",
+    "social_django",
+    "rest_framework_simplejwt",
     "drf_spectacular",
     "rest_framework",
     "corsheaders",
     "phonenumber_field",
     "django_filters",
+    "rest_framework_simplejwt.token_blacklist",
     "location_field.apps.DefaultConfig",
     # apps
     "offers.apps.OfferConfig",
@@ -244,6 +247,13 @@ DJOSER = {
         "user_delete": "djoser.serializers.UserSerializer",
     },
 }
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '122772244998-vb3lifol0idvv8p7m112bglj35fch77l.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.email',
+                                   'https://www.googleapis.com/auth/userinfo.profile',
+                                   'openid',
+                                   ]
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name']
 
 if not DEBUG:
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = ["rest_framework.renderers.JSONRenderer"]
@@ -261,6 +271,13 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 SITE_ID = 1
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "tripstop756@gmail.com"
+EMAIL_HOST_PASSWORD = "tgtbrulnxevkxtlb"
+EMAIL_USE_TLS = True
 
 # Django location_field
 # todo js в админке не тот, разобраться
