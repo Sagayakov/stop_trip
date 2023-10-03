@@ -8,6 +8,9 @@ class PropertyTypeOfService(TextChoices):
 
 class PropertyType(TextChoices):
     FLAT = "flat", "Квартира"
+    HOUSE = "house", "Дом"
+    ROOM = "room", "Комната"
+    BED_PLACE = "bed_place", "Кровать"
     PARKING = "parking", "Парковочное место"
     COMMERCIAL = "commercial", "Коммерческое помещение"
 
@@ -32,6 +35,8 @@ class PropertyHouseType(TextChoices):
 
 class PropertyRentalCondition(TextChoices):
     FAMILY = "family", "Семье"
+    ALONE = "alone", "Для одного"
+    GIRLS = "girls", "Девушке"
     OFFICE = "office", "Под офис"
     STUDENTS = "students", "Студентам"
     NOT_COMPANIES = "not_companies", "Не компаниям"

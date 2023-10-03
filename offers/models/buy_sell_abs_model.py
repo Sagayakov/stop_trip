@@ -20,7 +20,7 @@ class AbsBuySell(models.Model):
 
 
 class Item(models.Model):
-    "Товар для продажи или купли"
+    """Товар для продажи или купли"""
     name = models.CharField(max_length=255, verbose_name="Товар", blank=True, null=True)
 
     class Meta:
