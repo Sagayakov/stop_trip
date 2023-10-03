@@ -1,2 +1,2 @@
 from .advertisement_admin import AdvertisementAdmin, PropertyAmenityAdmin
-from .category_admin import CategoryAdmin
+from .transport_admin import TransportBrandAdmin, TransportModelAdmin

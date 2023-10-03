@@ -29,16 +29,6 @@ class TransportCategory(TextChoices):
     OTHER = "other", "Другое"
 
 
-class TransportBrand(TextChoices):
-    # todo Вродумать заполнение. Вручную геморрно, возможно написать парсер, а потом заполнить через него (в любом случае нужно заполнять тут, потому что если будет меняться кол-во брэндов или названия - будет падать сайт, потому что миграции не проведены)
-    ...
-
-
-class TransportModel(TextChoices):
-    # todo аналогичная фигня, как с бэндами
-    ...
-
-
 class TransportEngineType(TextChoices):
     FUEL = "fuel", "Бензин"
     DIESEL = "diesel", "Дизель"

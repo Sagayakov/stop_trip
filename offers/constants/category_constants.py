@@ -1,6 +1,6 @@
 from django.db.models import TextChoices
 
 
-class SubCategoryChoices(TextChoices):
+class CategoryChoices(TextChoices):
     PROPERTY = "property", "Недвижимость"
     TRANSPORT = "transport", "Транспорт"

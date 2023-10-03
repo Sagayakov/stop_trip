@@ -1,10 +1,8 @@
-
 from datetime import timedelta
-import sys
-
 from os import getenv
 from os.path import join
 from pathlib import Path
+from sys import argv
 
 from django.utils.translation import gettext_lazy as _
 
@@ -13,13 +11,8 @@ SITE_HOST = getenv("SITE_HOST")
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = getenv("SECRET_KEY")
 
-# todo в тестах должно проставляться в False
-# print('pytest' in sys.modules)
-debug_value = getenv("DEBUG")
-if (debug_value is None) or (debug_value.lower() == 'true'):
-    DEBUG = True
-else:
-    DEBUG = False
+TESTING = "test" in argv or len(argv) >= 1 and "pytest" in argv[0]
+DEBUG = getenv("DEBUG", "True") == "True" and not TESTING
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://localhost:3000"]
@@ -68,10 +61,8 @@ if DEBUG:
     INSTALLED_APPS.append("debug_toolbar")
     MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
 
-
     def show_toolbar_callback(_):
         return DEBUG
-
 
     DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "config.settings.show_toolbar_callback"}
 
@@ -222,17 +213,17 @@ REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework.authentication.SessionAuthentication",
-                                       "rest_framework_simplejwt.authentication.JWTAuthentication",)
-
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
 }
 
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",)
-
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }
 
 DJOSER = {
@@ -256,13 +247,16 @@ DJOSER = {
         "user_delete": "djoser.serializers.UserSerializer",
     },
 }
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '122772244998-vb3lifol0idvv8p7m112bglj35fch77l.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.email',
-                                   'https://www.googleapis.com/auth/userinfo.profile',
-                                   'openid',
-                                   ]
-SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name']
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
+    "122772244998-vb3lifol0idvv8p7m112bglj35fch77l.apps.googleusercontent.com"
+)
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/userinfo.profile",
+    "openid",
+]
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ["first_name"]
 
 if not DEBUG:
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = ["rest_framework.renderers.JSONRenderer"]

@@ -1,40 +1,16 @@
 from django.db import models
 
-from .property_abs_model import AbsProperty
-from .transport_abs_model import AbsTransport
-from ..constants.subcategory_constants import SubCategoryChoices
-from .job_abs_model import AbsJob
-from .buy_sell_abs_model import AbsBuySell
-from .trip_abs_model import AbsTrip
-from .event_abs_model import AbsEvent
-from .taxi_abs_model import AbsTaxi
-from .service_abs_model import AbsService
+from .abs_event_model import AbsEvent
+from .abs_job_model import AbsJob
+from .abs_property_model import AbsProperty
+from .abs_service_model import AbsService
+from .abs_taxi_model import AbsTaxi
+from .abs_transport_model import AbsTransport
+from ..constants import CategoryChoices
 
 
-class Advertisement(AbsTransport,
-                    AbsProperty,
-                    AbsJob,
-                    AbsBuySell,
-                    AbsTrip,
-                    AbsEvent,
-                    AbsTaxi,
-                    AbsService):
+class Advertisement(AbsTransport, AbsProperty, AbsJob, AbsEvent, AbsTaxi, AbsService):
     """Объявления."""
-
-    category = models.ForeignKey(
-        "offers.Category",
-        on_delete=models.CASCADE,
-        related_name="advertisements",
-        verbose_name="Категория",
-    )
-
-    # subcategory = models.ForeignKey(
-    #     "offers.SubCategory",
-    #     on_delete=models.CASCADE,
-    #     related_name="advertisements",
-    #     verbose_name="Подкатегория",
-    # )
-    # subcategory = models.CharField(choices=SubCategoryChoices.choices, verbose_name='Подкатегории')
 
     owner = models.ForeignKey(
         "users.User",
@@ -43,6 +19,8 @@ class Advertisement(AbsTransport,
         related_name="advertisements",
         verbose_name="Создатель",
     )
+
+    category = models.CharField("Категории", choices=CategoryChoices.choices)
     title = models.CharField("Название", max_length=100)
     price = models.PositiveIntegerField(verbose_name="Цена", default=0)
     description = models.TextField("Описание", max_length=1000, null=True, blank=True)
@@ -52,9 +30,6 @@ class Advertisement(AbsTransport,
     # location = models.CharField(max_length=128, verbose_name="Локация", null=True, blank=True)
     slug = models.SlugField("Слаг", blank=True, null=True, db_index=True, unique=True)
 
-    # def __str__(self):
-    #     return f"Product: {self.title}. Owner: {self.owner.email}"
-
     class Meta:
         verbose_name = "Объявление"
         verbose_name_plural = "Объявления"
@@ -62,7 +37,7 @@ class Advertisement(AbsTransport,
     def __str__(self):
         return f"Объявление: {self.title}. Владелец: {self.owner}"
 
-    # чтобы в методе save проставлялся слаг
+    # todo чтобы в методе save проставлялся слаг
 
 
 class AdvertisementImage(models.Model):
@@ -74,6 +49,7 @@ class AdvertisementImage(models.Model):
         related_name="images",
         verbose_name="Объявление",
     )
+
     image = models.ImageField(
         upload_to="offers/advertisement_image/image",
         blank=True,

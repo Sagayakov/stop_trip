@@ -1,7 +1,7 @@
 from django.db import models
 from location_field.models.plain import PlainLocationField
 
-from offers.constants import (
+from ..constants import (
     PropertyTypeOfService,
     PropertyBathroomType,
     PropertyBalcony,
@@ -70,4 +70,4 @@ class PropertyAmenity(models.Model):
         verbose_name_plural = "Удобства"
 
     def __str__(self):
-        return
+        return self.name

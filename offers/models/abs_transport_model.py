@@ -4,8 +4,6 @@ from django.db import models
 from ..constants import (
     TransportTypeOfService,
     TransportCategory,
-    TransportBrand,
-    TransportModel,
     TransportEngineType,
     TransportDriveType,
     TransportTransmissionType,
@@ -13,6 +11,36 @@ from ..constants import (
     TransportCondition,
     TransportType,
 )
+
+
+class TransportBrand(models.Model):
+    """Марки."""
+
+    name = models.CharField("Название", db_index=True)
+    slug = models.SlugField("Слаг", unique=True, db_index=True)
+
+    class Meta:
+        verbose_name = "Марка"
+        verbose_name_plural = "Марки"
+        ordering = ("name",)
+
+    def __str__(self):
+        return self.name
+
+
+class TransportModel(models.Model):
+    """Модели."""
+
+    name = models.CharField("Название", db_index=True)
+    slug = models.SlugField("Слаг", unique=True, db_index=True)
+
+    class Meta:
+        verbose_name = "Модель"
+        verbose_name_plural = "Модели"
+        ordering = ("name",)
+
+    def __str__(self):
+        return self.name
 
 
 class AbsTransport(models.Model):
@@ -25,14 +53,30 @@ class AbsTransport(models.Model):
         "Тип транспорта", max_length=50, choices=TransportType.choices, null=True, blank=True
     )
     transport_category = models.CharField(
-        "Категория транспорта", max_length=50, choices=TransportCategory.choices, null=True, blank=True
+        "Категория транспорта",
+        max_length=50,
+        choices=TransportCategory.choices,
+        null=True,
+        blank=True,
     )
-    transport_brand = models.CharField(
-        "Марка", max_length=100, choices=TransportBrand.choices, null=True, blank=True
+
+    transport_brand = models.ForeignKey(
+        "offers.TransportBrand",
+        on_delete=models.CASCADE,
+        verbose_name="Марка",
+        related_name="transports",
+        null=True,
+        blank=True,
     )
-    transport_model = models.CharField(
-        "Модель", max_length=100, choices=TransportModel.choices, null=True, blank=True
+    transport_model = models.ForeignKey(
+        "offers.TransportModel",
+        on_delete=models.CASCADE,
+        verbose_name="Модель",
+        related_name="transports",
+        null=True,
+        blank=True,
     )
+
     transport_engine_type = models.CharField(
         "Тип двигателя", max_length=100, choices=TransportEngineType.choices, null=True, blank=True
     )
@@ -43,7 +87,7 @@ class AbsTransport(models.Model):
         "Объём",
         choices=list([(float(i / 10), float(i / 10)) for i in range(10, 100)]),
         null=True,
-        blank=True,  # todo переписать через choices
+        blank=True,
     )
     transport_year_of_production = models.PositiveSmallIntegerField(
         "Год производства",
@@ -52,7 +96,11 @@ class AbsTransport(models.Model):
         blank=True,
     )
     transport_transmission_type = models.CharField(
-        "Тип коробки передач", max_length=50, choices=TransportTransmissionType.choices, null=True, blank=True
+        "Тип коробки передач",
+        max_length=50,
+        choices=TransportTransmissionType.choices,
+        null=True,
+        blank=True,
     )
     transport_body_type = models.CharField(
         "Тип кузова", max_length=50, choices=TransportBodyType.choices, null=True, blank=True
