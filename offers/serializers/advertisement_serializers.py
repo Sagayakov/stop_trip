@@ -41,10 +41,27 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
 
 
 class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
-    """Деталка объявления."""
+    """Сериализатор деталки объявления."""
 
     images = AdvertisementImageSerializer(many=True)
 
     class Meta:
         model = Advertisement
         fields = "__all__"
+
+
+class AdvertisementUpdateSerializer(serializers.ModelSerializer):
+    """Сериализатор обновления объявления."""
+
+    category = serializers.CharField(required=False)
+    title = serializers.CharField(required=False)
+    price = serializers.IntegerField(required=False)
+
+    class Meta:
+        model = Advertisement
+        exclude = (
+            "is_published",
+            "date_create",
+            "date_update",
+            "slug",
+        )

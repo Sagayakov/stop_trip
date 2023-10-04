@@ -1,13 +1,8 @@
 import pytest
-from pytest_factoryboy import register
-from users.tests.factories import UserFactory
-
-register(UserFactory)
-
-pytest_plugins = ['offers.tests.fixtures']
+from rest_framework.test import APIClient
 
 
-@pytest.fixture
-def api_client():
+@pytest.fixture(scope="function")
+def api_client() -> APIClient:
     from rest_framework.test import APIClient
     return APIClient()

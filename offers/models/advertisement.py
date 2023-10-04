@@ -16,11 +16,12 @@ class Advertisement(AbsTransport, AbsProperty, AbsJob, AbsEvent, AbsTaxi, AbsSer
         "users.User",
         on_delete=models.CASCADE,
         null=True,
+        blank=True,
         related_name="advertisements",
         verbose_name="Создатель",
     )
 
-    category = models.CharField("Категории", choices=CategoryChoices.choices)
+    category = models.CharField("Категории", max_length=100, choices=CategoryChoices.choices)
     title = models.CharField("Название", max_length=100)
     price = models.PositiveIntegerField(verbose_name="Цена", default=0)
     description = models.TextField("Описание", max_length=1000, null=True, blank=True)

@@ -5,8 +5,23 @@ from ..models import Advertisement
 
 
 class PropertyCreateSerializer(AdvertisementCreateSerializer):
-    property_city = serializers.CharField(allow_null=False)
-    property_rooms_count = serializers.IntegerField(allow_null=False)
+    property_type_of_service = serializers.CharField(required=True)
+    property_city = serializers.CharField(required=True)
+    property_coords = serializers.CharField(required=True)
+    property_building_max_floor = serializers.IntegerField(required=True)
+    property_floor = serializers.IntegerField(required=True)
+    property_bathroom_count = serializers.IntegerField(required=True)
+    property_bathroom_type = serializers.CharField(required=True)
+    property_area = serializers.IntegerField(required=True)
+    property_living_area = serializers.IntegerField(required=True)
+    property_balcony = serializers.CharField(required=True)
+    property_has_furniture = serializers.BooleanField(required=True)
+    property_house_type = serializers.CharField(required=True)
+    property_has_parking = serializers.BooleanField(required=True)
+    property_rental_condition = serializers.CharField(required=True)
+    property_prepayment = serializers.CharField(required=True)
+    property_sleeping_places = serializers.IntegerField(required=True)
+    property_rooms_count = serializers.IntegerField(required=True)
 
     class Meta:
         model = Advertisement
