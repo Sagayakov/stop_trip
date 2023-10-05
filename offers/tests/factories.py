@@ -65,3 +65,45 @@ class PropertyAmenityFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = PropertyAmenity
+
+
+# class TransportAdvertisementFactory(BaseAdvertisementFactory):
+#     """Фабрика объявлений по транспорту."""
+#
+#     transport_type_of_service = fuzzy.FuzzyChoice(choices=TransportTypeOfService.values)
+#     transport_type = fuzzy.FuzzyChoice(choices=TransportType.values)
+#     transport_category = fuzzy.FuzzyChoice(choices=TransportCategory.values)
+#     transport_brand = factory.SubFactory('TransportBrandFactory')
+#     transport_model = factory.SubFactory('TransportModelFactory')
+#     transport_engine_type = fuzzy.FuzzyChoice(choices=TransportEngineType.values)
+#     transport_drive_type = fuzzy.FuzzyChoice(choices=TransportDriveType.values)
+#     transport_engine_volume = factory.Faker(
+#         provider="random_element",
+#         elements=[float(i / 10) for i in range(10, 100)],
+#     )
+#     property_rooms_count = factory.Faker(provider="pyint", min_value=1900, max_value=2100)
+#     transport_transmission_type = fuzzy.FuzzyChoice(choices=TransportTransmissionType.values)
+#     transport_body_type = fuzzy.FuzzyChoice(choices=TransportBodyType.values)
+#     transport_condition = fuzzy.FuzzyChoice(choices=TransportCondition.values)
+#     transport_passengers_quality = factory.Faker(provider="pyint", min_value=0, max_value=32767, positive=True)
+#
+#     class Meta:
+#         model = Advertisement
+#
+#
+# class TransportBrandFactory(factory.django.DjangoModelFactory):
+#     """Фабрика бренда машины."""
+#
+#     name = factory.Faker("word")
+#
+#     class Meta:
+#         model = TransportBrand
+#
+#
+# class TransportModelFactory(factory.django.DjangoModelFactory):
+#     """Фабрика модели машины."""
+#
+#     name = factory.Faker("word")
+#
+#     class Meta:
+#         model = TransportModel

@@ -2,6 +2,8 @@ import json
 
 import pytest
 
+from offers.models import Advertisement
+
 
 @pytest.fixture
 def jwt_token(api_client, django_user_model):
@@ -22,6 +24,19 @@ def jwt_token(api_client, django_user_model):
     return response.data['access']
 
 
+@pytest.fixture
+def transport_advertisement():
+    transport_advertisement = Advertisement.objects.create(
+        category="transport", title="test", price=1, transport_type_of_service='sale', transport_type='ground',
+        transport_category='moped', transport_brand=None, transport_model=None, transport_engine_type='fuel',
+        transport_drive_type='rear_wheel', transport_engine_volume=5.2, transport_year_of_production=2023,
+        transport_transmission_type='mechanic', transport_body_type='sedan', transport_condition='new',
+        transport_passengers_quality=4,
+    )
+
+    return transport_advertisement
+
+
 # @pytest.fixture
 # def property_advertisement():
 #     property_amenities1 = PropertyAmenity.objects.create(name='test1')
@@ -38,16 +53,3 @@ def jwt_token(api_client, django_user_model):
 #     property_advertisement.property_amenities.set([property_amenities1, property_amenities2])
 #
 #     return property_advertisement
-#
-#
-# @pytest.fixture
-# def transport_advertisement():
-#     transport_advertisement = Advertisement.objects.create(
-#         subcategory="transport", title="test", price=1, transport_type_of_service='Продажа', transport_type='Наземный',
-#         transport_category='Мотоцикл', transport_brand="test", transport_model="test", transport_engine_type='Бензин',
-#         transport_drive_type='front_wheel', transport_engine_volume=10, transport_year_of_production=2023,
-#         transport_transmission_type='Механическая', transport_body_type='Лифтбэк', transport_condition='Новый',
-#         transport_passengers_quality=4,
-#     )
-#
-#     return transport_advertisement

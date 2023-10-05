@@ -28,8 +28,8 @@ class AdvertisementModelViewSet(ModelViewSet):
     # todo продумать политику создания и изменения объявления (пользователь сам или через админов)
     permission_classes = {
         "create": [IsAuthenticated],  # авторизованные пользователи
-    #     "update": [OwnerPermission],  # собственник объявления
-    #     "destroy": [OwnerPermission, IsAdminUser],  # собственник объявления или админ
+        "update": [IsAuthenticated],  # OwnerPermission # собственник объявления
+        "destroy": [IsAuthenticated],  # [OwnerPermission, IsAdminUser] # собственник объявления или админ
     #     "list": [AllowAny],  # всем
     #     "retrieve": [AllowAny],  # всем
     }
