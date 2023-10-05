@@ -37,6 +37,15 @@ def transport_advertisement():
     return transport_advertisement
 
 
+@pytest.fixture
+def taxi_advertisement():
+    taxi_advertisement = Advertisement.objects.create(
+        category="transport", title="test", price=1, taxi_unit='route', taxi_type='minivan'
+    )
+
+    return taxi_advertisement
+
+
 # @pytest.fixture
 # def property_advertisement():
 #     property_amenities1 = PropertyAmenity.objects.create(name='test1')
