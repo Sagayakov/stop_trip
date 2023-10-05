@@ -1,14 +1,12 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from users.models import User
 from .constants import CategoryChoices
 from .models import Advertisement
-from .permissions import OwnerPermission
 from .serializers import (
     PropertyCreateSerializer,
     AdvertisementListSerializer,
