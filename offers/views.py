@@ -1,6 +1,7 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -25,13 +26,13 @@ class AdvertisementModelViewSet(ModelViewSet):
     """Объявления."""
 
     # todo продумать политику создания и изменения объявления (пользователь сам или через админов)
-    # permission_classes = {
-    #     "create": [IsAuthenticated],  # авторизованные пользователи
+    permission_classes = {
+        "create": [IsAuthenticated],  # авторизованные пользователи
     #     "update": [OwnerPermission],  # собственник объявления
     #     "destroy": [OwnerPermission, IsAdminUser],  # собственник объявления или админ
     #     "list": [AllowAny],  # всем
     #     "retrieve": [AllowAny],  # всем
-    # }
+    }
 
     def get_queryset(self):
         queryset = Advertisement.objects.all()
@@ -70,8 +71,8 @@ class AdvertisementModelViewSet(ModelViewSet):
 
         return AdvertisementListSerializer
 
-    # def get_permissions(self):
-    #     return [permission() for permission in self.permission_classes[self.action]]
+    def get_permissions(self):
+        return [permission() for permission in self.permission_classes[self.action]]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

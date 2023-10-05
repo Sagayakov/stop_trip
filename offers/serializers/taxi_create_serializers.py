@@ -1,5 +1,3 @@
-from rest_framework import serializers
-
 from .advertisement_serializers import AdvertisementCreateSerializer
 from ..models import Advertisement
 
