@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from users.models import User
 from ..constants import CategoryChoices
 from ..models import Advertisement, AdvertisementImage
 
@@ -7,9 +8,10 @@ from ..models import Advertisement, AdvertisementImage
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
     """Сериализатор создания объявления."""
 
+    owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
     category = serializers.ChoiceField(choices=CategoryChoices.choices, required=True)
     title = serializers.CharField(required=True, max_length=100)
-    price = serializers.IntegerField(required=True)
+    # price = serializers.IntegerField(required=True, allow_null=True)
 
     class Meta:
         model = Advertisement
@@ -59,9 +61,10 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
 class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     """Сериализатор обновления объявления."""
 
+    owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
     category = serializers.CharField(required=False)
     title = serializers.CharField(required=False)
-    price = serializers.IntegerField(required=False)
+    # price = serializers.IntegerField(required=False)
 
     class Meta:
         model = Advertisement

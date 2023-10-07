@@ -60,4 +60,5 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
             "transport_body_type",
             "transport_condition",
             "transport_passengers_quality",
+            "transport_vin",
         )

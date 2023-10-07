@@ -8,3 +8,4 @@ class CategoryChoices(TextChoices):
     SERVICE = "service", "Услуги"
     TAXI = "taxi", "Такси"
     EVENT = "event", "События"
+    EXCHANGE_RATE = "exchange_rate", "Обмен валюты"

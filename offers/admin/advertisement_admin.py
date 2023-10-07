@@ -1,11 +1,7 @@
 from django.contrib.admin import register, ModelAdmin, StackedInline
 from django.utils.translation import gettext_lazy as _
-from ..models import Advertisement, AdvertisementImage, PropertyAmenity
 
-
-@register(PropertyAmenity)
-class PropertyAmenityAdmin(ModelAdmin):
-    pass
+from ..models import Advertisement, AdvertisementImage
 
 
 class AdvertisementImageInline(StackedInline):
@@ -16,6 +12,7 @@ class AdvertisementImageInline(StackedInline):
 @register(Advertisement)
 class AdvertisementAdmin(ModelAdmin):
     inlines = (AdvertisementImageInline,)
+    prepopulated_fields = {"slug": ("title",)}
     fieldsets = (
         (
             None,
@@ -34,6 +31,7 @@ class AdvertisementAdmin(ModelAdmin):
         (
             _("Транспорт"),
             {
+                "classes": ("collapse",),
                 "fields": (
                     "transport_type_of_service",
                     "transport_type",
@@ -48,12 +46,13 @@ class AdvertisementAdmin(ModelAdmin):
                     "transport_body_type",
                     "transport_condition",
                     "transport_passengers_quality",
-                )
+                ),
             },
         ),
         (
             _("Недвижимость"),
             {
+                "classes": ("collapse",),
                 "fields": (
                     "property_type_of_service",
                     "property_city",
@@ -73,45 +72,55 @@ class AdvertisementAdmin(ModelAdmin):
                     "property_rental_condition",
                     "property_prepayment",
                     "property_sleeping_places",
-                )
+                ),
             },
         ),
         (
             _("Такси"),
             {
+                "classes": ("collapse",),
                 "fields": (
                     "taxi_unit",
                     "taxi_type",
-                )
+                ),
             },
         ),
         (
             _("Работа"),
             {
+                "classes": ("collapse",),
                 "fields": (
                     "job_type",
                     "job_duration",
                     "job_payment_type",
                     "job_experience",
-                )
+                ),
             },
         ),
         (
             _("Мероприятия"),
             {
+                "classes": ("collapse",),
                 "fields": (
                     "start_date",
                     "end_date",
                     "is_online",
-                )
+                ),
             },
         ),
         (
             _("Услуги"),
+            {"classes": ("collapse",), "fields": ("home_visit",)},
+        ),
+        (
+            _("Валютные пары"),
             {
+                "classes": ("collapse",),
                 "fields": (
-                    "home_visit",
-                )
+                    "proposed_currency",
+                    "exchange_for",
+                    "exchange_rate",
+                ),
             },
         ),
     )
@@ -169,8 +178,10 @@ class AdvertisementAdmin(ModelAdmin):
                     "end_date",
                     "is_online",
                     "home_visit",
+                    "proposed_currency",
+                    "exchange_for",
+                    "exchange_rate",
                 ),
             },
         ),
     )
-    prepopulated_fields = {"slug": ("title",)}

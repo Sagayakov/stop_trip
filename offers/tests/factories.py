@@ -1,4 +1,5 @@
 import datetime
+import random
 
 import factory
 from django.utils.timezone import now
@@ -27,7 +28,14 @@ from offers.constants import (
     JobDurationType
 
 )
-from offers.models import Advertisement, PropertyAmenity, TransportBrand, TransportModel
+from offers.models import (
+    Advertisement,
+    PropertyAmenity,
+    TransportBrand,
+    TransportModel,
+    AdvertisementImage,
+    Currency,
+)
 
 
 class BaseAdvertisementFactory(factory.django.DjangoModelFactory):
@@ -44,6 +52,16 @@ class BaseAdvertisementFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Advertisement
+
+
+class AdvertisementImageFactory(factory.django.DjangoModelFactory):
+    """Фабрика картинок объявлений."""
+
+    advertisement = factory.SubFactory(BaseAdvertisementFactory)
+    image = factory.django.ImageField()
+
+    class Meta:
+        model = AdvertisementImage
 
 
 class PropertyAdvertisementFactory(BaseAdvertisementFactory):
@@ -100,6 +118,7 @@ class TransportModelFactory(factory.django.DjangoModelFactory):
 
     name = factory.Faker("word")
     slug = factory.Sequence(lambda x: f"slug_{x}")
+    brand = factory.SubFactory(TransportBrandFactory)
 
     class Meta:
         model = TransportModel
@@ -116,10 +135,9 @@ class TransportAdvertisementFactory(BaseAdvertisementFactory):
     transport_engine_type = fuzzy.FuzzyChoice(choices=TransportEngineType.values)
     transport_drive_type = fuzzy.FuzzyChoice(choices=TransportDriveType.values)
     transport_engine_volume = factory.Faker(
-        provider="random_element",
+        "random_element",
         elements=[float(i / 10) for i in range(10, 100)],
     )
-    property_rooms_count = factory.Faker(provider="pyint", min_value=1900, max_value=2100)
     transport_transmission_type = fuzzy.FuzzyChoice(choices=TransportTransmissionType.values)
     transport_body_type = fuzzy.FuzzyChoice(choices=TransportBodyType.values)
     transport_condition = fuzzy.FuzzyChoice(choices=TransportCondition.values)
@@ -151,3 +169,31 @@ class JobAdvertisementFactory(BaseAdvertisementFactory):
     job_duration = fuzzy.FuzzyChoice(choices=JobDurationType.values)
     job_payment_type = fuzzy.FuzzyChoice(choices=JobPaymentType.values)
     job_experience = False
+    transport_passengers_quality = factory.Faker("pyint", min_value=0, max_value=100)
+
+
+def eng_alphabet() -> list[str]:
+    return [chr(_) for _ in range(ord("A"), ord("Z") + 1)]
+
+
+def random_letter() -> str:
+    return random.choice(eng_alphabet())
+
+
+class CurrencyFactory(factory.django.DjangoModelFactory):
+    """Фабрика валюты."""
+
+    name = factory.Faker("word")
+    short_name = factory.Sequence(lambda x: f"{random_letter()}{random_letter()}{random_letter()}")
+
+    class Meta:
+        model = Currency
+
+
+class ExchangeAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по валютным парам."""
+
+    proposed_currency = factory.SubFactory(CurrencyFactory)
+    exchange_for = factory.SubFactory(CurrencyFactory)
+    exchange_rate = factory.Faker("pyfloat")
+

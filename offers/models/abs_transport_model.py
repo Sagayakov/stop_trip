@@ -14,14 +14,14 @@ from ..constants import (
 
 
 class TransportBrand(models.Model):
-    """Марки."""
+    """Бренды."""
 
     name = models.CharField("Название", db_index=True)
     slug = models.SlugField("Слаг", unique=True, db_index=True)
 
     class Meta:
-        verbose_name = "Марка"
-        verbose_name_plural = "Марки"
+        verbose_name = "Бренд"
+        verbose_name_plural = "Транспорт - Бренд"
         ordering = ("name",)
 
     def __str__(self):
@@ -31,12 +31,19 @@ class TransportBrand(models.Model):
 class TransportModel(models.Model):
     """Модели."""
 
+    brand = models.ForeignKey(
+        "offers.TransportBrand",
+        on_delete=models.CASCADE,
+        verbose_name="Бренд",
+        related_name="brand_models",
+    )
+
     name = models.CharField("Название", db_index=True)
     slug = models.SlugField("Слаг", unique=True, db_index=True)
 
     class Meta:
         verbose_name = "Модель"
-        verbose_name_plural = "Модели"
+        verbose_name_plural = "Транспорт - Модели"
         ordering = ("name",)
 
     def __str__(self):
@@ -64,7 +71,7 @@ class AbsTransport(models.Model):
         "offers.TransportBrand",
         on_delete=models.CASCADE,
         verbose_name="Марка",
-        related_name="transports",
+        related_name="advertisements",
         null=True,
         blank=True,
     )
@@ -72,7 +79,7 @@ class AbsTransport(models.Model):
         "offers.TransportModel",
         on_delete=models.CASCADE,
         verbose_name="Модель",
-        related_name="transports",
+        related_name="advertisements",
         null=True,
         blank=True,
     )
@@ -111,6 +118,7 @@ class AbsTransport(models.Model):
     transport_passengers_quality = models.PositiveSmallIntegerField(
         "Кол-во пассажиров", null=True, blank=True
     )
+    transport_vin = models.CharField("VIN-номер", max_length=17, null=True, blank=True)
 
     class Meta:
         abstract = True
