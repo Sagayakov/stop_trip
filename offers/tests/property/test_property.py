@@ -24,7 +24,7 @@ from offers.constants import (
     TransportBodyType,
     TransportCondition,
 )
-from offers.models import Advertisement
+from offers.models import Advertisement, AdvertisementImage
 from offers.tests.factories import (
     PropertyAdvertisementFactory,
     PropertyAmenityFactory,
@@ -220,26 +220,6 @@ class AdvertisementViewSetTest(APITestCase):
         user = UserFactory()
         advertisement = PropertyAdvertisementFactory(
             owner=user,
-            title="property",
-            price=1500,
-            property_city="Moscow",
-            property_type_of_service=PropertyTypeOfService.SALE,
-            property_district="district",
-            property_coords="36,36",
-            property_building_max_floor=14,
-            property_floor=4,
-            property_bathroom_count=2,
-            property_bathroom_type=PropertyBathroomType.SEPARATE,
-            property_area=40,
-            property_living_area=25,
-            property_balcony=PropertyBalcony.NO,
-            property_has_furniture=False,
-            property_house_type=PropertyHouseType.BRICK,
-            property_has_parking=False,
-            property_rental_condition=PropertyRentalCondition.OFFICE,
-            property_prepayment=PropertyPrepayment.TWO_MONTHS,
-            property_sleeping_places=2,
-            property_rooms_count=2,
         )
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
         advertisement.property_amenities.set(property_amenities)
@@ -313,10 +293,6 @@ class AdvertisementViewSetTest(APITestCase):
         user = UserFactory()
         advertisement = TaxiAdvertisementFactory(
             owner=user,
-            title="taxi",
-            price=1500,
-            taxi_unit=TaxiUnit.KM.value,
-            taxi_type=TaxiType.ECONOMY.value,
         )
         [AdvertisementImageFactory(advertisement=advertisement) for _ in range(10)]
 
@@ -331,7 +307,7 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_create_transport(self):
         transport_brand = TransportBrandFactory(name="Audi")
-        transport_model = TransportModelFactory(name="A7")
+        transport_model = TransportModelFactory(name="A7", brand=transport_brand)
         payload = {
             "category": CategoryChoices.TRANSPORT.value,
             "title": "test_transport",
@@ -392,7 +368,7 @@ class AdvertisementViewSetTest(APITestCase):
     def test_update_transport(self):
         user = UserFactory()
         transport_brand = TransportBrandFactory(name="Audi")
-        transport_model = TransportModelFactory(name="A7")
+        transport_model = TransportModelFactory(name="A7", brand=transport_brand)
         advertisement = TransportAdvertisementFactory(
             owner=user,
             category=CategoryChoices.TRANSPORT.value,
@@ -470,26 +446,8 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_delete_transport(self):
         user = UserFactory()
-        transport_brand = TransportBrandFactory(name="Audi")
-        transport_model = TransportModelFactory(name="RS7")
         advertisement = TransportAdvertisementFactory(
             owner=user,
-            category=CategoryChoices.TRANSPORT.value,
-            title="test_transport",
-            price=100_000,
-            transport_type_of_service=TransportTypeOfService.SALE,
-            transport_type=TransportType.GROUND,
-            transport_category=TransportCategory.CAR,
-            transport_brand=transport_brand,
-            transport_model=transport_model,
-            transport_engine_type=TransportEngineType.FUEL,
-            transport_drive_type=TransportDriveType.ALL_WHEEL,
-            transport_engine_volume=3.0,
-            transport_year_of_production=2015,
-            transport_transmission_type=TransportTransmissionType.MECHANIC,
-            transport_body_type=TransportBodyType.LIFTBACK,
-            transport_condition=TransportCondition.USED,
-            transport_passengers_quality=5,
         )
         [AdvertisementImageFactory(advertisement=advertisement) for _ in range(10)]
 
@@ -565,15 +523,8 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_delete_exchange_rate(self):
         user = UserFactory()
-        proposed_currency = CurrencyFactory()
-        exchange_for = CurrencyFactory()
         advertisement = ExchangeAdvertisementFactory(
             owner=user,
-            title="exchange_rate",
-            price=1500,
-            proposed_currency=proposed_currency,
-            exchange_for=exchange_for,
-            exchange_rate=3.15,
         )
 
         self.assertEqual(Advertisement.objects.count(), 1)

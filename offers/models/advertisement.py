@@ -20,8 +20,6 @@ class Advertisement(
         on_delete=models.CASCADE,
         related_name="advertisements",
         verbose_name="Создатель",
-        null=True,
-        blank=True,
     )
 
     category = models.CharField("Категории", max_length=100, choices=CategoryChoices.choices)
@@ -37,13 +35,13 @@ class Advertisement(
     class Meta:
         verbose_name = "Объявление"
         verbose_name_plural = "Объявления"
-        constraints = [
-            # у пользователя не может быть несколько объявлений на одну и ту же валютную пару
-            models.UniqueConstraint(
-                fields=["owner", "proposed_currency", "exchange_for"],
-                name="owner_proposed_currency_exchange_for_unique_together",
-            )
-        ]
+        # constraints = [
+        #     # у пользователя не может быть несколько объявлений на одну и ту же валютную пару
+        #     models.UniqueConstraint(
+        #         fields=["owner", "proposed_currency", "exchange_for"],
+        #         name="owner_proposed_currency_exchange_for_unique_together",
+        #     )
+        # ]
 
     def __str__(self):
         return f"Объявление: {self.title}. Владелец: {self.owner}"

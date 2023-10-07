@@ -14,14 +14,14 @@ from ..constants import (
 
 
 class TransportBrand(models.Model):
-    """Марки."""
+    """Бренды."""
 
     name = models.CharField("Название", db_index=True)
     slug = models.SlugField("Слаг", unique=True, db_index=True)
 
     class Meta:
-        verbose_name = "Марка"
-        verbose_name_plural = "Марки"
+        verbose_name = "Бренд"
+        verbose_name_plural = "Транспорт - Бренд"
         ordering = ("name",)
 
     def __str__(self):
@@ -31,12 +31,19 @@ class TransportBrand(models.Model):
 class TransportModel(models.Model):
     """Модели."""
 
+    brand = models.ForeignKey(
+        "offers.TransportBrand",
+        on_delete=models.CASCADE,
+        verbose_name="Бренд",
+        related_name="brand_models",
+    )
+
     name = models.CharField("Название", db_index=True)
     slug = models.SlugField("Слаг", unique=True, db_index=True)
 
     class Meta:
         verbose_name = "Модель"
-        verbose_name_plural = "Модели"
+        verbose_name_plural = "Транспорт - Модели"
         ordering = ("name",)
 
     def __str__(self):
