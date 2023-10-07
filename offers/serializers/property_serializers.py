@@ -1,7 +1,18 @@
 from rest_framework import serializers
 
 from .advertisement_serializers import AdvertisementCreateSerializer
-from ..models import Advertisement
+from ..models import Advertisement, PropertyAmenity
+
+
+class PropertyAmenitySerializer(serializers.ModelSerializer):
+    """Сериализатор удобств недвижимости."""
+
+    class Meta:
+        model = PropertyAmenity
+        fields = (
+            "id",
+            "name",
+        )
 
 
 class PropertyCreateSerializer(AdvertisementCreateSerializer):

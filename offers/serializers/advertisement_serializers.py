@@ -7,14 +7,13 @@ from ..models import Advertisement, AdvertisementImage
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
     """Сериализатор создания объявления."""
 
-    category = serializers.ChoiceField(choices=CategoryChoices.choices, allow_null=False)
-    title = serializers.CharField(allow_null=False, max_length=100)
-    price = serializers.IntegerField(allow_null=False)
+    category = serializers.ChoiceField(choices=CategoryChoices.choices, required=True)
+    title = serializers.CharField(required=True, max_length=100)
+    price = serializers.IntegerField(required=True)
 
     class Meta:
         model = Advertisement
         fields = (
-            "id",
             "category",
             "title",
             "price",
@@ -38,6 +37,7 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertisement
         fields = (
+            "id",
             "category",
             "title",
             "price",

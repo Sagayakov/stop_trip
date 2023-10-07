@@ -1,13 +1,14 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from users.models import User
 from .constants import CategoryChoices
 from .models import Advertisement
+from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
     PropertyCreateSerializer,
     AdvertisementListSerializer,
@@ -25,13 +26,14 @@ from .serializers import (
 class AdvertisementModelViewSet(ModelViewSet):
     """Объявления."""
 
-    # todo продумать политику создания и изменения объявления (пользователь сам или через админов)
     permission_classes = {
-        "create": [IsAuthenticated],  # авторизованные пользователи
-        "update": [IsAuthenticated],  # OwnerPermission # собственник объявления
-        "destroy": [IsAuthenticated],  # [OwnerPermission, IsAdminUser] # собственник объявления или админ
-    #     "list": [AllowAny],  # всем
-    #     "retrieve": [AllowAny],  # всем
+        "create": [IsAuthenticated],
+        "update": [OwnerPermission],
+        "destroy": [
+            OwnerOrAdminPermission,
+        ],
+        "list": [AllowAny],
+        "retrieve": [AllowAny],
     }
 
     def get_queryset(self):
@@ -66,7 +68,7 @@ class AdvertisementModelViewSet(ModelViewSet):
         elif self.action == self.update.__name__:
             return AdvertisementUpdateSerializer
 
-        elif self.action in [self.retrieve.__name__, self.update.__name__]:
+        elif self.action == self.retrieve.__name__:
             return AdvertisementRetrieveSerializer
 
         return AdvertisementListSerializer
@@ -86,5 +88,5 @@ class AdvertisementModelViewSet(ModelViewSet):
         serializer = self.get_serializer(instance, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
-        serializer.save()
+        serializer.save()  # todo оптимизация создания M2M связей
         return Response(serializer.data, status=status.HTTP_201_CREATED)
