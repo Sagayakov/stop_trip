@@ -27,7 +27,7 @@ from .serializers import (
 class AdvertisementModelViewSet(ModelViewSet):
     """Объявления."""
 
-    permission_classes = {
+    custom_permission_classes = {
         "create": [IsAuthenticated],
         "update": [OwnerPermission],
         "destroy": [OwnerOrAdminPermission],
@@ -74,7 +74,9 @@ class AdvertisementModelViewSet(ModelViewSet):
         return AdvertisementListSerializer
 
     def get_permissions(self):
-        return [permission() for permission in self.permission_classes[self.action]]
+        if self.action in self.custom_permission_classes.keys():
+            return [permission() for permission in self.custom_permission_classes[self.action]]
+        return [permission() for permission in self.permission_classes]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
