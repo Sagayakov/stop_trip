@@ -5,9 +5,9 @@ from ..models import TransportModel, TransportBrand
 
 @register(TransportBrand)
 class TransportBrandAdmin(ModelAdmin):
-    pass
+    prepopulated_fields = {"slug": ("name",)}
 
 
 @register(TransportModel)
 class TransportModelAdmin(ModelAdmin):
-    pass
+    prepopulated_fields = {"slug": ("name",)}

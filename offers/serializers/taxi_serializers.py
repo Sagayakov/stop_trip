@@ -1,12 +1,15 @@
 from rest_framework import serializers
 
 from .advertisement_serializers import AdvertisementCreateSerializer
+from ..constants import TaxiUnit, TaxiType
 from ..models import Advertisement
 
 
 class TaxiCreateSerializer(AdvertisementCreateSerializer):
-    taxi_unit = serializers.CharField(required=True)
-    taxi_type = serializers.CharField(required=True)
+    """Сериализатор создания объявления на такси."""
+
+    taxi_unit = serializers.ChoiceField(choices=TaxiUnit.choices, required=True)
+    taxi_type = serializers.ChoiceField(choices=TaxiType.choices, required=True)
 
     class Meta:
         model = Advertisement
