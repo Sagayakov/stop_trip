@@ -1,5 +1,6 @@
+import datetime
 from functools import partial
-
+from django.utils.timezone import now
 from django.urls import reverse
 from pytest import mark
 from rest_framework import status
@@ -23,6 +24,9 @@ from offers.constants import (
     TransportTransmissionType,
     TransportBodyType,
     TransportCondition,
+    JobType,
+    JobPaymentType,
+    JobDurationType
 )
 from offers.models import Advertisement
 from offers.tests.factories import (
@@ -32,6 +36,10 @@ from offers.tests.factories import (
     TransportBrandFactory,
     TransportModelFactory,
     TransportAdvertisementFactory,
+    EventAdvertisementFactory,
+    JobAdvertisementFactory,
+    ServiceAdvertisementFactory
+
 )
 from users.tests.factories import UserFactory
 
@@ -495,3 +503,203 @@ class AdvertisementViewSetTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)
+    def test_create_service(self):
+        payload = {
+            "category": CategoryChoices.SERVICE.value,
+            "title": "test",
+            "price": 10_000,
+            "home_visit": False
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 0)
+        user = UserFactory()
+        self.client.force_login(user)
+
+        with self.assertNumQueries(3):
+            res = self.client.post(self.list_url, data=payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+
+        new_advertisement = Advertisement.objects.first()
+
+        self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.title, payload["title"])
+        self.assertEqual(new_advertisement.price, payload["price"])
+        self.assertEqual(new_advertisement.home_visit, payload["home_visit"])
+
+    def test_update_service(self):
+        user = UserFactory()
+        advertisement = ServiceAdvertisementFactory(owner=user)
+        payload = {
+            "category": CategoryChoices.SERVICE.value,
+            "title": "test",
+            "price": 10_000,
+            "home_visit": True
+
+        }
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+        with self.assertNumQueries(7):
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+        advertisement.refresh_from_db()
+
+        self.assertEqual(advertisement.owner, user)
+        self.assertEqual(advertisement.category, payload["category"])
+        self.assertEqual(advertisement.title, payload["title"])
+        self.assertEqual(advertisement.price, payload["price"])
+
+    def test_delete_service(self):
+        user = UserFactory()
+
+        advertisement = ServiceAdvertisementFactory(
+            owner=user)
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(6):
+            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_create_job(self):
+        payload = {
+            "category": CategoryChoices.JOB.value,
+            "job_type": JobType.PART_TIME,
+            "title": "test",
+            "price": 10_000,
+            "job_duration": JobDurationType.TEMPORARY,
+            "job_payment_type": JobPaymentType.MONTHLY_PAYMENT,
+            "job_experience": True
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 0)
+        user = UserFactory()
+        self.client.force_login(user)
+
+        with self.assertNumQueries(3):
+            res = self.client.post(self.list_url, data=payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+
+        new_advertisement = Advertisement.objects.first()
+
+        self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.job_type, payload["job_type"])
+        self.assertEqual(new_advertisement.job_duration, payload["job_duration"])
+        self.assertEqual(new_advertisement.job_experience, payload["job_experience"])
+
+    def test_update_job(self):
+        user = UserFactory()
+        advertisement = JobAdvertisementFactory(owner=user)
+        payload = {
+            "category": CategoryChoices.JOB.value,
+            "title": "test",
+            "price": 10_000,
+            "job_type": JobType.PART_TIME,
+            "job_duration": JobDurationType.TEMPORARY,
+            "job_payment_type": JobPaymentType.DAILY_PAYMENT,
+            "job_experience": True
+        }
+        self.assertEqual(Advertisement.objects.count(), 1)
+
+        self.client.force_login(user)
+        with self.assertNumQueries(7):
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+        advertisement.refresh_from_db()
+
+        self.assertEqual(advertisement.owner, user)
+        self.assertEqual(advertisement.category, payload["category"])
+        self.assertEqual(advertisement.title, payload["title"])
+        self.assertEqual(advertisement.price, payload["price"])
+        self.assertEqual(advertisement.job_type, payload["job_type"])
+        self.assertEqual(advertisement.job_duration, payload["job_duration"])
+        self.assertEqual(advertisement.job_payment_type, payload["job_payment_type"])
+        self.assertEqual(advertisement.job_experience, payload["job_experience"])
+
+    def test_delete_job(self):
+        user = UserFactory()
+        advertisement = JobAdvertisementFactory(
+            owner=user)
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(6):
+            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_create_event(self):
+        payload = {
+            "category": CategoryChoices.EVENT.value,
+            "title": "test",
+            "price": 12_000,
+            "start_date": now() + datetime.timedelta(days=2),
+            "end_date": now() + datetime.timedelta(days=3),
+            "is_online": True
+        }
+        self.assertEqual(Advertisement.objects.count(), 0)
+        user = UserFactory()
+        self.client.force_login(user)
+
+        with self.assertNumQueries(3):
+            res = self.client.post(self.list_url, data=payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+
+        new_advertisement = Advertisement.objects.first()
+
+        self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.category, payload["category"])
+        self.assertEqual(new_advertisement.title, payload["title"])
+        self.assertEqual(new_advertisement.start_date, payload["start_date"])
+        self.assertEqual(new_advertisement.end_date, payload["end_date"])
+        self.assertEqual(new_advertisement.is_online, payload["is_online"])
+
+    def test_update_event(self):
+        user = UserFactory()
+        advertisement = EventAdvertisementFactory(owner=user)
+        payload = {
+            "category": CategoryChoices.EVENT.value,
+            "title": "event_test",
+            "price": 13_000,
+            "start_date": str(now() + datetime.timedelta(days=2)),
+            "end_date": str(now() + datetime.timedelta(days=3)),
+            "is_online": True
+        }
+        self.assertEqual(Advertisement.objects.count(), 1)
+
+        self.client.force_login(user)
+        with self.assertNumQueries(7):
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+        advertisement.refresh_from_db()
+
+        self.assertEqual(advertisement.owner, user)
+
+    def test_delete_event(self):
+        user = UserFactory()
+        advertisement = EventAdvertisementFactory(
+            owner=user)
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(6):
+            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Advertisement.objects.count(), 0)
+
+

@@ -22,6 +22,10 @@ from offers.constants import (
     TransportTransmissionType,
     TransportBodyType,
     TransportCondition,
+    JobPaymentType,
+    JobType,
+    JobDurationType
+
 )
 from offers.models import Advertisement, PropertyAmenity, TransportBrand, TransportModel
 
@@ -122,3 +126,28 @@ class TransportAdvertisementFactory(BaseAdvertisementFactory):
     transport_passengers_quality = factory.Faker(
         provider="pyint", min_value=0, max_value=32767, positive=True
     )
+
+
+class ServiceAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по услугам."""
+
+    home_visit = True
+
+
+class EventAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по мероприятиям."""
+
+    start_date = "2030-09-09 14:00:00"
+    # now() + datetime.timedelta(days=1),
+    end_date = "2030-09-09 14:00:00"
+    # now() + datetime.timedelta(days=4),
+    is_online = False
+
+
+class JobAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по работе."""
+
+    job_type = fuzzy.FuzzyChoice(choices=JobType.values)
+    job_duration = fuzzy.FuzzyChoice(choices=JobDurationType.values)
+    job_payment_type = fuzzy.FuzzyChoice(choices=JobPaymentType.values)
+    job_experience = False
