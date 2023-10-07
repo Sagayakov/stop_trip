@@ -9,7 +9,7 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
 
     category = serializers.ChoiceField(choices=CategoryChoices.choices, required=True)
     title = serializers.CharField(required=True, max_length=100)
-    price = serializers.IntegerField(required=True)
+    # price = serializers.IntegerField(required=True, allow_null=True)
 
     class Meta:
         model = Advertisement
@@ -61,7 +61,7 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
 
     category = serializers.CharField(required=False)
     title = serializers.CharField(required=False)
-    price = serializers.IntegerField(required=False)
+    # price = serializers.IntegerField(required=False)
 
     class Meta:
         model = Advertisement

@@ -1,4 +1,5 @@
 import datetime
+import random
 
 import factory
 from django.utils.timezone import now
@@ -23,7 +24,14 @@ from offers.constants import (
     TransportBodyType,
     TransportCondition,
 )
-from offers.models import Advertisement, PropertyAmenity, TransportBrand, TransportModel
+from offers.models import (
+    Advertisement,
+    PropertyAmenity,
+    TransportBrand,
+    TransportModel,
+    AdvertisementImage,
+    Currency,
+)
 
 
 class BaseAdvertisementFactory(factory.django.DjangoModelFactory):
@@ -40,6 +48,16 @@ class BaseAdvertisementFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Advertisement
+
+
+class AdvertisementImageFactory(factory.django.DjangoModelFactory):
+    """Фабрика картинок объявлений."""
+
+    advertisement = factory.SubFactory(BaseAdvertisementFactory)
+    image = factory.django.ImageField()
+
+    class Meta:
+        model = AdvertisementImage
 
 
 class PropertyAdvertisementFactory(BaseAdvertisementFactory):
@@ -122,3 +140,29 @@ class TransportAdvertisementFactory(BaseAdvertisementFactory):
     transport_passengers_quality = factory.Faker(
         provider="pyint", min_value=0, max_value=32767, positive=True
     )
+
+
+def eng_alphabet() -> list[str]:
+    return [chr(_) for _ in range(ord("A"), ord("Z") + 1)]
+
+
+def random_letter() -> str:
+    return random.choice(eng_alphabet())
+
+
+class CurrencyFactory(factory.django.DjangoModelFactory):
+    """Фабрика валюты."""
+
+    name = factory.Faker("word")
+    short_name = factory.Sequence(lambda x: f"{random_letter()}{random_letter()}{random_letter()}")
+
+    class Meta:
+        model = Currency
+
+
+class ExchangeAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по валютным парам."""
+
+    proposed_currency = factory.SubFactory(CurrencyFactory)
+    exchange_for = factory.SubFactory(CurrencyFactory)
+    exchange_rate = factory.Faker("pyfloat")

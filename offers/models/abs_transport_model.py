@@ -64,7 +64,7 @@ class AbsTransport(models.Model):
         "offers.TransportBrand",
         on_delete=models.CASCADE,
         verbose_name="Марка",
-        related_name="transports",
+        related_name="advertisements",
         null=True,
         blank=True,
     )
@@ -72,7 +72,7 @@ class AbsTransport(models.Model):
         "offers.TransportModel",
         on_delete=models.CASCADE,
         verbose_name="Модель",
-        related_name="transports",
+        related_name="advertisements",
         null=True,
         blank=True,
     )
@@ -111,6 +111,7 @@ class AbsTransport(models.Model):
     transport_passengers_quality = models.PositiveSmallIntegerField(
         "Кол-во пассажиров", null=True, blank=True
     )
+    transport_vin = models.CharField("VIN-номер", max_length=17, null=True, blank=True)
 
     class Meta:
         abstract = True

@@ -19,6 +19,7 @@ from .serializers import (
     TaxiCreateSerializer,
     EventCreateSerializer,
     AdvertisementUpdateSerializer,
+    ExchangeRateCreateSerializer,
 )
 
 
@@ -29,9 +30,7 @@ class AdvertisementModelViewSet(ModelViewSet):
     permission_classes = {
         "create": [IsAuthenticated],
         "update": [OwnerPermission],
-        "destroy": [
-            OwnerOrAdminPermission,
-        ],
+        "destroy": [OwnerOrAdminPermission],
         "list": [AllowAny],
         "retrieve": [AllowAny],
     }
@@ -39,12 +38,12 @@ class AdvertisementModelViewSet(ModelViewSet):
     def get_queryset(self):
         queryset = Advertisement.objects.all()
 
-        if self.action == self.list.__name__:
+        if self.action in [self.list.__name__, self.retrieve.__name__]:
             queryset = queryset.prefetch_related("images")
 
         if self.action == self.retrieve.__name__:
             queryset = queryset.select_related(
-                "transport_brand", "transport_model"
+                "transport_brand", "transport_model", "proposed_currency", "exchange_for"
             ).prefetch_related("property_amenities")
 
         return queryset
@@ -58,6 +57,7 @@ class AdvertisementModelViewSet(ModelViewSet):
                 CategoryChoices.SERVICE: ServiceCreateSerializer,
                 CategoryChoices.EVENT: EventCreateSerializer,
                 CategoryChoices.TAXI: TaxiCreateSerializer,
+                CategoryChoices.EXCHANGE_RATE: ExchangeRateCreateSerializer,
             }
 
             if category := self.request.data.get("category"):
