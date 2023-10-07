@@ -1,10 +1,15 @@
 from rest_framework import serializers
 
+from ..constants import CategoryChoices
 from ..models import Advertisement, AdvertisementImage
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
     """Сериализатор создания объявления."""
+
+    category = serializers.ChoiceField(choices=CategoryChoices.choices, required=True)
+    title = serializers.CharField(required=True, max_length=100)
+    price = serializers.IntegerField(required=True)
 
     class Meta:
         model = Advertisement
@@ -32,6 +37,7 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertisement
         fields = (
+            "id",
             "category",
             "title",
             "price",
