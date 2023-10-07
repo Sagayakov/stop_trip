@@ -5,6 +5,9 @@ from ..models import Advertisement
 
 
 class TaxiCreateSerializer(AdvertisementCreateSerializer):
+    taxi_unit = serializers.CharField(required=True)
+    taxi_type = serializers.CharField(required=True)
+
     class Meta:
         model = Advertisement
         fields = AdvertisementCreateSerializer.Meta.fields + (

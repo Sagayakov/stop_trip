@@ -5,6 +5,8 @@ from ..models import Advertisement
 
 
 class ServiceCreateSerializer(AdvertisementCreateSerializer):
+    home_visit = serializers.BooleanField(required=True)
+
     class Meta:
         model = Advertisement
         fields = AdvertisementCreateSerializer.Meta.fields + (

@@ -5,6 +5,11 @@ from ..models import Advertisement
 
 
 class JobCreateSerializer(AdvertisementCreateSerializer):
+    job_type = serializers.CharField(required=True)
+    job_duration = serializers.CharField(required=True)
+    job_payment_type = serializers.CharField(required=True)
+    job_experience = serializers.BooleanField(required=True)
+
     class Meta:
         model = Advertisement
         fields = AdvertisementCreateSerializer.Meta.fields + (
