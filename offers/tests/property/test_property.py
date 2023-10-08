@@ -26,7 +26,7 @@ from offers.constants import (
     TransportCondition,
     JobType,
     JobPaymentType,
-    JobDurationType
+    JobDurationType,
 )
 from offers.models import Advertisement, AdvertisementImage
 from offers.tests.factories import (
@@ -42,7 +42,6 @@ from offers.tests.factories import (
     AdvertisementImageFactory,
     ExchangeAdvertisementFactory,
     CurrencyFactory,
-
 )
 from users.tests.factories import UserFactory
 
@@ -543,12 +542,13 @@ class AdvertisementViewSetTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)
+
     def test_create_service(self):
         payload = {
             "category": CategoryChoices.SERVICE.value,
-            "title": "test",
+            "title": "service",
             "price": 10_000,
-            "home_visit": False
+            "home_visit": False,
         }
 
         self.assertEqual(Advertisement.objects.count(), 0)
@@ -572,13 +572,14 @@ class AdvertisementViewSetTest(APITestCase):
         advertisement = ServiceAdvertisementFactory(owner=user)
         payload = {
             "category": CategoryChoices.SERVICE.value,
-            "title": "test",
+            "title": "service",
             "price": 10_000,
-            "home_visit": True
-
+            "home_visit": True,
         }
+
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
+
         with self.assertNumQueries(7):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
@@ -594,8 +595,7 @@ class AdvertisementViewSetTest(APITestCase):
     def test_delete_service(self):
         user = UserFactory()
 
-        advertisement = ServiceAdvertisementFactory(
-            owner=user)
+        advertisement = ServiceAdvertisementFactory(owner=user)
 
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
@@ -609,12 +609,12 @@ class AdvertisementViewSetTest(APITestCase):
     def test_create_job(self):
         payload = {
             "category": CategoryChoices.JOB.value,
-            "job_type": JobType.PART_TIME,
-            "title": "test",
+            "job_type": JobType.PART_TIME.value,
+            "title": "job",
             "price": 10_000,
             "job_duration": JobDurationType.TEMPORARY,
-            "job_payment_type": JobPaymentType.MONTHLY_PAYMENT,
-            "job_experience": True
+            "job_payment_type": JobPaymentType.MONTHLY_PAYMENT.value,
+            "job_experience": True,
         }
 
         self.assertEqual(Advertisement.objects.count(), 0)
@@ -638,12 +638,12 @@ class AdvertisementViewSetTest(APITestCase):
         advertisement = JobAdvertisementFactory(owner=user)
         payload = {
             "category": CategoryChoices.JOB.value,
-            "title": "test",
+            "title": "job",
             "price": 10_000,
             "job_type": JobType.PART_TIME,
-            "job_duration": JobDurationType.TEMPORARY,
-            "job_payment_type": JobPaymentType.DAILY_PAYMENT,
-            "job_experience": True
+            "job_duration": JobDurationType.TEMPORARY.value,
+            "job_payment_type": JobPaymentType.DAILY_PAYMENT.value,
+            "job_experience": True,
         }
         self.assertEqual(Advertisement.objects.count(), 1)
 
@@ -666,8 +666,7 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_delete_job(self):
         user = UserFactory()
-        advertisement = JobAdvertisementFactory(
-            owner=user)
+        advertisement = JobAdvertisementFactory(owner=user)
 
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
@@ -681,11 +680,11 @@ class AdvertisementViewSetTest(APITestCase):
     def test_create_event(self):
         payload = {
             "category": CategoryChoices.EVENT.value,
-            "title": "test",
+            "title": "event",
             "price": 12_000,
-            "start_date": now() + datetime.timedelta(days=2),
-            "end_date": now() + datetime.timedelta(days=3),
-            "is_online": True
+            "start_date": str(now() + datetime.timedelta(days=2)),
+            "end_date": str(now() + datetime.timedelta(days=3)),
+            "is_online": True,
         }
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
@@ -701,8 +700,8 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(new_advertisement.owner, user)
         self.assertEqual(new_advertisement.category, payload["category"])
         self.assertEqual(new_advertisement.title, payload["title"])
-        self.assertEqual(new_advertisement.start_date, payload["start_date"])
-        self.assertEqual(new_advertisement.end_date, payload["end_date"])
+        self.assertEqual(str(new_advertisement.start_date), payload["start_date"])
+        self.assertEqual(str(new_advertisement.end_date), payload["end_date"])
         self.assertEqual(new_advertisement.is_online, payload["is_online"])
 
     def test_update_event(self):
@@ -714,7 +713,7 @@ class AdvertisementViewSetTest(APITestCase):
             "price": 13_000,
             "start_date": str(now() + datetime.timedelta(days=2)),
             "end_date": str(now() + datetime.timedelta(days=3)),
-            "is_online": True
+            "is_online": True,
         }
         self.assertEqual(Advertisement.objects.count(), 1)
 
@@ -730,8 +729,7 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_delete_event(self):
         user = UserFactory()
-        advertisement = EventAdvertisementFactory(
-            owner=user)
+        advertisement = EventAdvertisementFactory(owner=user)
 
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
@@ -741,5 +739,3 @@ class AdvertisementViewSetTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)
-
-

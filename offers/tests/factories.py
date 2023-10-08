@@ -25,8 +25,7 @@ from offers.constants import (
     TransportCondition,
     JobPaymentType,
     JobType,
-    JobDurationType
-
+    JobDurationType,
 )
 from offers.models import (
     Advertisement,
@@ -141,9 +140,7 @@ class TransportAdvertisementFactory(BaseAdvertisementFactory):
     transport_transmission_type = fuzzy.FuzzyChoice(choices=TransportTransmissionType.values)
     transport_body_type = fuzzy.FuzzyChoice(choices=TransportBodyType.values)
     transport_condition = fuzzy.FuzzyChoice(choices=TransportCondition.values)
-    transport_passengers_quality = factory.Faker(
-        provider="pyint", min_value=0, max_value=32767, positive=True
-    )
+    transport_passengers_quality = factory.Faker(provider="pyint", min_value=0, max_value=100)
 
 
 class ServiceAdvertisementFactory(BaseAdvertisementFactory):
@@ -155,10 +152,8 @@ class ServiceAdvertisementFactory(BaseAdvertisementFactory):
 class EventAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по мероприятиям."""
 
-    start_date = "2030-09-09 14:00:00"
-    # now() + datetime.timedelta(days=1),
-    end_date = "2030-09-09 14:00:00"
-    # now() + datetime.timedelta(days=4),
+    start_date = now() + datetime.timedelta(days=1)
+    end_date = now() + datetime.timedelta(days=4)
     is_online = False
 
 
@@ -196,4 +191,3 @@ class ExchangeAdvertisementFactory(BaseAdvertisementFactory):
     proposed_currency = factory.SubFactory(CurrencyFactory)
     exchange_for = factory.SubFactory(CurrencyFactory)
     exchange_rate = factory.Faker("pyfloat")
-
