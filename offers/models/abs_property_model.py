@@ -1,7 +1,7 @@
 from django.db import models
 from location_field.models.plain import PlainLocationField
 
-from offers.constants import (
+from ..constants import (
     PropertyTypeOfService,
     PropertyBathroomType,
     PropertyBalcony,
@@ -37,7 +37,7 @@ class AbsProperty(models.Model):
     )
     property_has_furniture = models.BooleanField(verbose_name="Мебель", default=False)
     property_amenities = models.ManyToManyField(
-        "offers.PropertyAmenity", verbose_name="Удобства", related_name="amenities", blank=True
+        "offers.PropertyAmenity", verbose_name="Удобства", related_name="advertisements", blank=True
     )
     property_house_type = models.CharField(
         "Тип дома", max_length=100, choices=PropertyHouseType.choices, blank=True
@@ -70,4 +70,4 @@ class PropertyAmenity(models.Model):
         verbose_name_plural = "Удобства"
 
     def __str__(self):
-        return
+        return self.name

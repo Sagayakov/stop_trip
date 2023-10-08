@@ -1,43 +1,94 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
+from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from .constants.subcategory_constants import SubCategoryChoices
-from .models import Advertisement, Category, SubCategory
-from .serializers import CategorySerializer, SubCategorySerializer, PropertySerializer, AdvertisementSerializer, \
-    TransportSerializer
+from users.models import User
+from .constants import CategoryChoices
+from .models import Advertisement
+from .permissions import OwnerPermission, OwnerOrAdminPermission
+from .serializers import (
+    PropertyCreateSerializer,
+    AdvertisementListSerializer,
+    TransportCreateSerializer,
+    AdvertisementRetrieveSerializer,
+    JobCreateSerializer,
+    ServiceCreateSerializer,
+    TaxiCreateSerializer,
+    EventCreateSerializer,
+    AdvertisementUpdateSerializer,
+    ExchangeRateCreateSerializer,
+)
 
 
 @extend_schema(tags=["Advertisement"])
 class AdvertisementModelViewSet(ModelViewSet):
-    queryset = Advertisement.objects.all()
+    """Объявления."""
+
+    custom_permission_classes = {
+        "create": [IsAuthenticated],
+        "update": [OwnerPermission],
+        "destroy": [OwnerOrAdminPermission],
+        "list": [AllowAny],
+        "retrieve": [AllowAny],
+    }
+
+    def get_queryset(self):
+        queryset = Advertisement.objects.all()
+
+        if self.action in [self.list.__name__, self.retrieve.__name__]:
+            queryset = queryset.prefetch_related("images")
+
+        if self.action == self.retrieve.__name__:
+            queryset = queryset.select_related(
+                "transport_brand", "transport_model", "proposed_currency", "exchange_for"
+            ).prefetch_related("property_amenities")
+
+        return queryset
 
     def get_serializer_class(self):
-        subcategories_serializers = {
-            SubCategoryChoices.PROPERTY: PropertySerializer,
-            SubCategoryChoices.TRANSPORT: TransportSerializer,
-        }
-        if subcategory := self.request.data.get("subcategory"):
-            return subcategories_serializers[subcategory]
-        return AdvertisementSerializer
+        if self.action == self.create.__name__:
+            subcategories_serializers = {
+                CategoryChoices.PROPERTY.value: PropertyCreateSerializer,
+                CategoryChoices.TRANSPORT: TransportCreateSerializer,
+                CategoryChoices.JOB: JobCreateSerializer,
+                CategoryChoices.SERVICE: ServiceCreateSerializer,
+                CategoryChoices.EVENT: EventCreateSerializer,
+                CategoryChoices.TAXI: TaxiCreateSerializer,
+                CategoryChoices.EXCHANGE_RATE: ExchangeRateCreateSerializer,
+            }
+
+            if category := self.request.data.get("category"):
+                return subcategories_serializers[category]
+            else:
+                raise ValidationError
+
+        elif self.action == self.update.__name__:
+            return AdvertisementUpdateSerializer
+
+        elif self.action == self.retrieve.__name__:
+            return AdvertisementRetrieveSerializer
+
+        return AdvertisementListSerializer
+
+    def get_permissions(self):
+        if self.action in self.custom_permission_classes.keys():
+            return [permission() for permission in self.custom_permission_classes[self.action]]
+        return [permission() for permission in self.permission_classes]
 
     def create(self, request, *args, **kwargs):
-        owner = self.request.user
-        request_data = {'owner': owner, **self.request.data}
-        serializer = self.get_serializer(data=request_data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
+        serializer.save()  # todo оптимизация создания M2M связей
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
-@extend_schema(tags=["Category"])
-class CategoryModelViewSet(ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-
-@extend_schema(tags=["SubCategory"])
-class SubCategoryModelViewSet(ModelViewSet):
-    queryset = SubCategory.objects.all()
-    serializer_class = SubCategorySerializer
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
+        serializer.save()  # todo оптимизация создания M2M связей
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

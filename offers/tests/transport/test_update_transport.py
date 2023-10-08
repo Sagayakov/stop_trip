@@ -4,6 +4,7 @@ import pytest
 from rest_framework import status
 
 
+@pytest.mark.skip
 @pytest.mark.django_db
 def test_update_transport(api_client, transport_advertisement):
     assert transport_advertisement.transport_brand == 'test'

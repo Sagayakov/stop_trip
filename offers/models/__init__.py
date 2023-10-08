@@ -1,4 +1,7 @@
+from .abs_exchange_rate_model import Currency
+from .abs_property_model import PropertyAmenity
+from .abs_transport_model import (
+    TransportBrand,
+    TransportModel,
+)
 from .advertisement import Advertisement, AdvertisementImage
-from .category import Category
-from .subcategory import SubCategory
-from .property_abs_model import PropertyAmenity

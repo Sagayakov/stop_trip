@@ -19,4 +19,3 @@ class JobPaymentType(TextChoices):
     WEEKLY_PAYMENT = "weekly_payment", "еженедельная оплата"
     MONTHLY_PAYMENT = "monthly_payment", "ежемесячная оплата"
     OTHER = "other", "другое"
-

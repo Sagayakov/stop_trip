@@ -1,3 +1,9 @@
+from .category_constants import CategoryChoices
+from .job_constants import (
+    JobDurationType,
+    JobType,
+    JobPaymentType,
+)
 from .property_constants import (
     PropertyBalcony,
     PropertyPrepayment,
@@ -7,11 +13,13 @@ from .property_constants import (
     PropertyHouseType,
     PropertyTypeOfService,
 )
+from .taxi_constants import (
+    TaxiUnit,
+    TaxiType,
+)
 from .transport_constants import (
     TransportCategory,
     TransportType,
-    TransportBrand,
-    TransportModel,
     TransportCondition,
     TransportBodyType,
     TransportDriveType,
