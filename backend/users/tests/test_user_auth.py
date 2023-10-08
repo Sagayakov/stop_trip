@@ -30,6 +30,3 @@
 #     url = reverse('user-list')
 #     response = api_client.post(url, data=payload)
 #     assert response.status_code == status.HTTP_400_BAD_REQUEST
-#
-#
-#
