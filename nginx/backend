@@ -1,0 +1,7 @@
+set $backend_upstream http://backend:8000;
+proxy_pass $backend_upstream;
+proxy_set_header Host $server_name;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-Host $x_forwarded_host;
+proxy_set_header X-Forwarded-Port $server_port;
+proxy_set_header X-Forwarded-Proto $scheme;

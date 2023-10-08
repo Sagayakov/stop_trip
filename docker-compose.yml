@@ -39,5 +39,24 @@ services:
       ports:
         - 15239:5432
 
+    nginx:
+      volumes:
+        - nginx_cache:/var/lib/nginx/proxy_cache
+        - static:/var/www/static/:ro
+      build:
+        context: ./nginx
+      depends_on:
+        - backend
+      ports:
+        - 80:80
+        - 443:443
+      restart: always
+      environment:
+        - TLS_MODE
+        - HTPASSWD_NODE
+        - HTPASSWD
+
 volumes:
   postgresdata:
+  nginx_cache:
+  static:

@@ -1,0 +1,84 @@
+resolver 127.0.0.11 valid=5s ipv6=off;
+
+proxy_cache_path /var/lib/nginx/proxy_cache levels=1:2 keys_zone=CACHE:15m max_size=5G inactive=30d;
+
+map $server_port $x_forwarded_host {
+    default $host:$server_port;
+    80      $host;
+    443     $host;
+}
+
+<% if [ "$TLS_MODE" != "off" ]; then -%>
+    server {
+        server_name <%= $SITE_HOST %>;
+        listen 80;
+        return 301 https://$host$request_uri;
+    }
+<% fi; -%>
+
+server {
+    server_name <%= $SITE_HOST %>;
+
+    <% if [ "$TLS_MODE" != "off" ]; then -%>
+        listen 443 ssl http2;
+        include ssl_params;
+        add_header Strict-Transport-Security "max-age=31536000";
+    <% else -%>
+        listen 80;
+    <% fi -%>
+
+    if ($host ~ ^www\.(?<domain>.+)$) {
+        return  301 https://$domain$request_uri;
+    }
+
+    sendfile on;
+    tcp_nodelay on;
+    tcp_nopush on;
+    gzip on;
+    gzip_disable "msie6";
+    gzip_min_length 1000;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
+    http2_push_preload on;
+    client_max_body_size 5M;
+    merge_slashes off;
+    add_header X-Frame-Options "SAMEORIGIN";
+
+    error_page 497 https://$host:$server_port$request_uri;
+
+    location /s/ {
+        alias /var/www/static/;
+        expires 365d;
+    }
+
+    location /n/ {
+        alias /var/www/nuxt/;
+        expires 365d;
+    }
+
+    location /api/ {
+        include backend;
+    }
+
+    location /admin/ {
+        client_max_body_size 250M;
+        include backend;
+    }
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/local_static/;
+    }
+
+    location @frontend {
+        include frontend;
+    }
+
+    location / {
+        <% if [ "$HTPASSWD_NODE" != "off" ]; then -%>
+        auth_basic "Restricted Content";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+        <% fi; -%>
+        root /var/www/local_static/;
+        try_files $uri @frontend;
+    }
+
+}
