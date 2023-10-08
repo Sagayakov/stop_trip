@@ -13,11 +13,11 @@ x-app_environment: &app_environment
 
 services:
     backend:
-      build: .
+      build:
+        context: ./backend
       volumes:
-        - .:/app/:cached
+        - ./backend/:/app/:cached
       restart: unless-stopped
-#      entrypoint: ./entrypoint.sh  # todo permission denied, поправить
       command: sh -c "python3 manage.py migrate & python3 manage.py runserver 0.0.0.0:8000"
       depends_on:
         - db
@@ -26,17 +26,18 @@ services:
       <<: *app_environment
 
     db:
-        image: postgres:14.5-alpine
-        volumes:
-          - postgresdata:/var/lib/postgresql/data
-        environment:
-          - POSTGRES_PASSWORD=postgres
-          - POSTGRES_PORT=postgres
-          - POSTGRES_NAME=postgres
-          - POSTGRES_USER=postgres
-        restart: unless-stopped
-        ports:
-          - 15239:5432
+      build:
+        context: ./db
+      volumes:
+        - postgresdata:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_PORT=postgres
+        - POSTGRES_NAME=postgres
+        - POSTGRES_USER=postgres
+      restart: unless-stopped
+      ports:
+        - 15239:5432
 
 volumes:
   postgresdata:

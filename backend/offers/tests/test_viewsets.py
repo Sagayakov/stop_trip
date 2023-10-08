@@ -28,8 +28,8 @@ from offers.constants import (
     JobPaymentType,
     JobDurationType,
 )
-from offers.models import Advertisement, AdvertisementImage
-from offers.tests.factories import (
+from offers.models import Advertisement
+from .factories import (
     PropertyAdvertisementFactory,
     PropertyAmenityFactory,
     TaxiAdvertisementFactory,
