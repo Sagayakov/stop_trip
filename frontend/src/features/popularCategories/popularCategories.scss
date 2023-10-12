@@ -1,0 +1,257 @@
+.popular-categories {
+    width: 1440px;
+    margin: 0px auto 80px;
+    .popular-categories-wrapper {
+        width: 1240px;
+        margin: 0 auto;
+        font-family: var(--font-sf);
+        h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+        .categories-list {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            & div {
+                flex-grow: 1;
+                min-width: 190px;
+                max-width: 295px;
+                border: 1px solid var(--main-blue);
+                border-radius: 1rem;
+                padding: 1.5rem;
+                cursor: pointer;
+                p {
+                    font-weight: 600;
+                    font-size: 18px;
+                }
+                span {
+                    display: flex;
+                    align-items: center;
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: var(--main-blue);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1439px) {
+    .popular-categories {
+        width: 100%;
+        margin: 0px auto 40px;
+        .popular-categories-wrapper {
+            width: 85%;
+            margin: 0 auto 40px;
+            font-family: var(--font-inter);
+            h3 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 10px;
+                font-family: var(--font-sf);
+            }
+            .categories-list {
+                overflow-x: scroll;
+                &::-webkit-scrollbar {
+                    width: 0px;
+                }
+                width: 100%;
+                gap: 8px;
+                & div {
+                    width: 18%;
+                    padding: 8px 12px;
+
+                    & svg {
+                        width: 30px;
+                        height: 30px;
+                    }
+                    p {
+                        font-weight: 500;
+                        font-size: 14px;
+                    }
+                    span {
+                        display: none;
+                    }
+                }
+                /* .category {
+                    max-width: 20%;
+                } */
+                /* .realty {
+          width: 126px;
+          min-width: 125px;
+        }
+        .transport {
+          min-width: 106px;
+        }
+        .food {
+          min-width: 100px;
+        }
+        .docs {
+          min-width: 106px;
+        }
+        .currency {
+          min-width: 100px;
+        }
+        .excursion {
+          min-width: 106px;
+        }
+        .job {
+          min-width: 84px;
+        }
+        .taxi {
+          min-width: 84px;
+        }
+        .buysell {
+          min-width: 100px;
+        }
+        .service {
+          min-width: 84px;
+        } */
+            }
+        }
+    }
+}
+
+@media (max-width: 1155px) {
+    .popular-categories {
+        .popular-categories-wrapper {
+            .categories-list {
+                justify-content: space-between;
+                .category {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    min-width: unset;
+                    max-width: 19%;
+                    height: 90px;
+                    p {
+                        width: 80%;
+                        height: 30px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .popular-categories {
+        width: 100%;
+        margin: 0px auto 20px;
+        .popular-categories-wrapper {
+            width: 100%;
+            margin-bottom: 20px;
+            padding-left: 3.25%;
+            font-family: var(--font-inter);
+            .categories-titles {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 97%;
+                h3 {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    margin-bottom: 10px;
+                    font-family: var(--font-sf);
+                }
+                .button-all-categories {
+                    width: 7.5rem;
+                    height: 24px;
+                    border: none;
+                    background: none;
+                    color: var(--main-green);
+                    cursor: pointer;
+                    svg {
+                        display: none;
+                    }
+                }
+            }
+            .categories-list {
+                flex-wrap: nowrap;
+                overflow-x: scroll;
+                &::-webkit-scrollbar {
+                    width: 0px;
+                }
+                width: 100%;
+                height: 107px;
+                gap: 8px;
+                & div {
+                    padding: 8px 12px;
+                    height: auto;
+
+                    & svg {
+                        width: 30px;
+                        height: 30px;
+                    }
+                    p {
+                        font-weight: 500;
+                        font-size: 14px;
+                    }
+                    span {
+                        display: none;
+                    }
+                }
+                .realty {
+                    width: 126px;
+                    min-width: 125px;
+                }
+                .transport {
+                    min-width: 106px;
+                }
+                .food {
+                    min-width: 100px;
+                }
+                .docs {
+                    min-width: 106px;
+                }
+                .currency {
+                    min-width: 100px;
+                }
+                .excursion {
+                    min-width: 106px;
+                }
+                .job {
+                    min-width: 84px;
+                }
+                .taxi {
+                    min-width: 84px;
+                }
+                .buysell {
+                    min-width: 100px;
+                }
+                .service {
+                    min-width: 84px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 474px) {
+    .popular-categories {
+        .popular-categories-wrapper {
+            .categories-titles {
+                gap: 10px;
+                h3 {
+                    font-size: 16px;
+                }
+                .button-all-categories {
+                    font-size: 14px;
+                    text-align: end;
+                }
+            }
+            .categories-list {
+                .category {
+                    p {
+                        width: unset;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,243 @@
+header.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: 0px auto 40px;
+    box-shadow: 0px 6px 8px 0px #00000014;
+    background-color: var(--main-background);
+}
+header {
+    width: 100%;
+    margin: 0px auto 80px;
+    box-shadow: 0px 6px 8px 0px #00000014;
+    position: absolute;
+    z-index: 100;
+    background-color: var(--main-background);
+    // transition: all 0.3s ease;
+
+    .header-wrapper {
+        width: 1240px;
+        padding: 24px 0;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        .addAdvert {
+            width: 262px;
+            height: 3rem;
+            padding: 12px 24px 12px 24px;
+            margin-left: 355px;
+            border: none;
+            border-radius: var(--radii);
+            background-color: var(--main-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            font-family: var(--font-sf);
+            cursor: pointer;
+            .svg {
+                margin-right: 0.5rem;
+            }
+        }
+        .addAdvert:active {
+            opacity: 0.75;
+        }
+        .language-auth {
+            margin-left: 181px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .language {
+                display: flex;
+                justify-content: space-between;
+                font-size: 12px;
+                font-family: var(--font-inter);
+                font-weight: 700;
+                .language-ru {
+                    width: 42px;
+                    height: 36px;
+                    color: var(--main-blue);
+                    border-radius: 8px 0px 0px 8px;
+                    background-color: #f0f0f0;
+                    padding: 10px 12px;
+                    cursor: pointer;
+                }
+                .language-eng {
+                    width: 51px;
+                    height: 36px;
+                    color: var(--grey-3);
+                    border-radius: 0px 8px 8px 0px;
+                    padding: 10px 12px;
+                    cursor: pointer;
+                }
+            }
+            .auth-button {
+                width: 197px;
+                height: 44px;
+                margin-left: 1rem;
+                color: var(--main-blue);
+                border: 2px solid var(--main-blue);
+                border-radius: var(--radii);
+                font-weight: 600;
+                font-family: var(--font-inter);
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media (max-width: 1439px) {
+    header {
+        width: 100%;
+        margin: 0px auto;
+        .header-wrapper {
+            width: 85%;
+            margin: 0 auto;
+            justify-content: space-between;
+            .addAdvert,
+            .language-auth {
+                margin: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 1023px) {
+    header {
+        width: 100%;
+        margin: 0px auto;
+        .header-wrapper {
+            .addAdvert {
+                width: 192px;
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    header {
+        .header-wrapper {
+            width: 85%;
+            justify-content: space-between;
+            .addAdvert {
+                width: 30%;
+            }
+            .language-auth {
+                .auth-button {
+                    width: 85%;
+                    padding: 0 10px;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 601px) and (max-width: 767px) {
+    header {
+        .header-wrapper {
+            width: 90%;
+            justify-content: space-between;
+            .addAdvert {
+                width: 40%;
+            }
+            .addAdvert + svg {
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+@media (min-width: 476px) and (max-width: 600px) {
+    header {
+        .header-wrapper {
+            width: 90%;
+            justify-content: space-between;
+            .addAdvert {
+                width: 40%;
+            }
+            .addAdvert {
+                width: auto;
+                text-align: center;
+            }
+            .addAdvert + svg {
+                width: 35px;
+                height: 35px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media (min-width: 425px) and (max-width: 475px) {
+    header {
+        height: 50px;
+        .header-wrapper {
+            margin-bottom: 1.5rem;
+            width: 400px; //410
+            height: 33px;
+            justify-content: space-between;
+            #logo {
+                width: 110px;
+            }
+            .addAdvert {
+                width: 192px;
+                height: 33px;
+                padding: 8px;
+                font-size: 14px;
+                margin: 0;
+            }
+            .addAdvert + svg {
+                cursor: pointer;
+            }
+
+            .language-auth {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 424px) {
+    header.fixed-header {
+        width: 100%;
+        margin: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 48px;
+    }
+    header {
+        .header-wrapper {
+            width: 93.5%;
+            height: 33px;
+            justify-content: space-between;
+            #logo {
+                width: 110px;
+            }
+            .addAdvert {
+                width: auto;
+                height: 33px;
+                padding: 8px;
+                font-size: 14px;
+                margin: 0;
+            }
+            .addAdvert + svg {
+                cursor: pointer;
+            }
+            .language-auth {
+                display: none;
+            }
+        }
+    }
+}

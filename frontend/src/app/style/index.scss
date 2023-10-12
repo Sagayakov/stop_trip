@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lato:wght@700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/sf-ui-display?styles=16099,16101,16097');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+:root {
+    //colors
+    --main-blue: #1f6fde;
+    --main-black: #1c1c1e;
+    --main-green: #02c66e;
+    --white: #ffffff;
+    --error: #ff3f25;
+    --main-background: #f9f9f9;
+    --grey-1: #dcdcdc;
+    --grey-2: #bcbcbc;
+    --grey-3: #8f8f8f;
+
+    // fonts
+    --font-inter: 'Inter', sans-serif;
+    --font-lato: 'Lato', sans-serif;
+    --font-sf: 'SF UI Display', sans-serif;
+    
+    //border-radius
+    --radii: 8px;
+}

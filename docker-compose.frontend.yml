@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    restart: unless-stopped
+    command: sh -c "npm run dev"
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
