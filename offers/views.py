@@ -89,3 +89,5 @@ class AdvertisementModelViewSet(ModelViewSet):
         serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
