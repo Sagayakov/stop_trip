@@ -1,5 +1,5 @@
 import { FormState } from 'react-hook-form';
-import { AuthRegistration } from '../../lib/RegistrationTypes';
+import { AuthRegistration } from '../../libr/RegistrationTypes';
 
 interface Props {
     formState: FormState<AuthRegistration>;

@@ -1,5 +1,5 @@
 import { FormState, UseFormRegister } from 'react-hook-form';
-import { AuthRegistration } from '../../lib/RegistrationTypes';
+import { AuthRegistration } from '../../libr/RegistrationTypes';
 
 interface Props {
     formState: FormState<AuthRegistration>;
@@ -15,7 +15,7 @@ export const InputName = ({ register, formState }: Props) => {
                 {...register('userName', {
                     required: true,
                     pattern: /^[a-zA-Zа-яА-Я]+$/,
-                    minLength: 2
+                    minLength: 2,
                 })}
                 placeholder="Имя пользователя"
                 style={{
