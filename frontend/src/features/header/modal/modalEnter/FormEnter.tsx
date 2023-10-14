@@ -1,12 +1,12 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import './lib/formEnter.scss';
+import './libr/formEnter.scss';
 import { InputSubmit } from './inputsEnter/InputSubmit';
 import { InputEmail } from './inputsEnter/inputEmail/InputEmail';
 import { InputPassword } from './inputsEnter/inputPassword/InputPassword';
 import { useState } from 'react';
 import { Google } from '../../../../shared/ui/icons/icons-tools/Google';
 import { Vk } from '../../../../shared/ui/icons/icons-tools/Vk';
-import { AuthData } from './lib/EnterType';
+import { AuthData } from './libr/EnterType';
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
