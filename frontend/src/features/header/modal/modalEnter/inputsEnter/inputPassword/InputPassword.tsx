@@ -1,7 +1,7 @@
 import { FormState, UseFormRegister } from 'react-hook-form';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
-import { AuthData } from '../../lib/EnterType';
-import '../../lib/inputEmail.scss';
+import { AuthData } from '../../libr/EnterType';
+import '../../libr/inputEmail.scss';
 import { useRef } from 'react';
 
 interface Props {

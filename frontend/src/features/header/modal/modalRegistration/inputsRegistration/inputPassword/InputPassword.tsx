@@ -1,6 +1,6 @@
 import { FormState, UseFormRegister } from 'react-hook-form';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
-import { AuthRegistration } from '../../lib/RegistrationTypes';
+import { AuthRegistration } from '../../libr/RegistrationTypes';
 
 interface Props {
     formState: FormState<AuthRegistration>;
@@ -26,7 +26,7 @@ export const InputPassword = ({
                 <input
                     {...register('passWord', {
                         required: true,
-                        minLength: 5
+                        minLength: 5,
                     })}
                     placeholder="Пароль"
                     type={showPassword ? 'text' : 'password'}

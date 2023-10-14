@@ -1,22 +1,22 @@
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { InputChechbox } from "./inputsRegistration/inputCheckbox/InputCheckbox";
-import { InputEmail } from "./inputsRegistration/inputEmail/InputEmail";
-import { InputName } from "./inputsRegistration/inputName/InputName";
-import { InputPassword } from "./inputsRegistration/inputPassword/InputPassword";
-import { InputRepeatPassword } from "./inputsRegistration/inputPassword/InputRepeatPassword";
-import { InputPhone } from "./inputsRegistration/inputPhone/InputPhone";
-import { InputSubmit } from "./inputsRegistration/inputSubmit/InputSubmit";
-import { AuthRegistration } from "./lib/RegistrationTypes";
-import "./lib/formRegistration.scss";
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { InputChechbox } from './inputsRegistration/inputCheckbox/InputCheckbox';
+import { InputEmail } from './inputsRegistration/inputEmail/InputEmail';
+import { InputName } from './inputsRegistration/inputName/InputName';
+import { InputPassword } from './inputsRegistration/inputPassword/InputPassword';
+import { InputRepeatPassword } from './inputsRegistration/inputPassword/InputRepeatPassword';
+import { InputPhone } from './inputsRegistration/inputPhone/InputPhone';
+import { InputSubmit } from './inputsRegistration/inputSubmit/InputSubmit';
+import { AuthRegistration } from './libr/RegistrationTypes';
+import './libr/formRegistration.scss';
 // import './inputsRegistration/inputRegistration.scss'
 
 export const FormRegistration = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const { register, handleSubmit, reset, formState, watch } =
-    useForm<AuthRegistration>({
-      mode: "all",
-    });
+    const [showPassword, setShowPassword] = useState(false);
+    const { register, handleSubmit, reset, formState, watch } =
+        useForm<AuthRegistration>({
+            mode: 'all',
+        });
 
     const onsubmit: SubmitHandler<AuthRegistration> = (data) => {
         alert(JSON.stringify(data));

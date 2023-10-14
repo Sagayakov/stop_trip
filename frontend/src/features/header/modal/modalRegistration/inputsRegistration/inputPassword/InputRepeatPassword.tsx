@@ -1,6 +1,6 @@
-import { FormState,  UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { FormState, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
-import { AuthRegistration } from '../../lib/RegistrationTypes';
+import { AuthRegistration } from '../../libr/RegistrationTypes';
 
 interface Props {
     formState: FormState<AuthRegistration>;
@@ -49,7 +49,8 @@ export const InputRepeatPassword = ({
                     <Eye />
                 </div>
                 <div className="input-error">
-                    {(errors?.repeatPassword  || (password !== repeatPassword)) && (
+                    {(errors?.repeatPassword ||
+                        password !== repeatPassword) && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                             Пароли не совпадают
                         </p>

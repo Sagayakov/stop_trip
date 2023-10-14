@@ -1,6 +1,6 @@
 import { FormState, UseFormRegister } from 'react-hook-form';
-import { AuthData } from '../../lib/EnterType';
-import '../../lib/inputEmail.scss';
+import { AuthData } from '../../libr/EnterType';
+import '../../libr/inputEmail.scss';
 
 interface Props {
     formState: FormState<AuthData>;
