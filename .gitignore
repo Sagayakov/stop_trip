@@ -212,6 +212,7 @@ venv.bak/
 
 
 ### Custom rules
+/db
 /local_static
 /backend/media
 /backend/static
