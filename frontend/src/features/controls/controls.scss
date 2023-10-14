@@ -1,7 +1,7 @@
 .controls {
     width: 1440px;
-    margin: 0px auto 80px;
-    padding-top: 176px;
+    margin: 0px auto 50px;
+    padding-top: 146px;
     .controls-wrapper {
         width: 1240px;
         margin: 0 auto;
@@ -66,11 +66,22 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
             select {
                 width: 60%;
                 font-weight: 500;
                 color: var(--main-blue);
                 border: none;
+                -webkit-appearance: none;
+                background-color: white; // для firefox
+                background: url('../../shared/ui/icons/down.svg') right 30%
+                    no-repeat;
+                background-size: 20%;
+            }
+            #arrow-down {
+                position: absolute;
+                top: 13px;
+                right: 5px;
             }
             svg {
                 margin-right: 8px;
@@ -103,6 +114,7 @@
                 padding: 0.5rem;
                 select {
                     width: 80%;
+                    background-size: 15%;
                 }
             }
         }
@@ -112,6 +124,7 @@
     .controls {
         width: 100%;
         margin: 0 0 40px;
+        padding-top: 106px;
         .controls-wrapper {
             .button-all-categories {
                 width: 10rem;
@@ -123,6 +136,9 @@
             }
             .select-wrapper {
                 width: 22%;
+                select {
+                    background-size: 20%;
+                }
                 svg {
                     margin: 0;
                 }
@@ -173,7 +189,7 @@
             }
             .select-wrapper {
                 border: none;
-                width: 85%;
+                width: 90%;
                 padding-left: 0;
                 p {
                     width: 125px;
@@ -186,14 +202,15 @@
 @media (max-width: 475px) {
     .controls {
         width: 100vw;
-        padding-top: 86px;
-
+        padding-top: 76px;
+        margin: 0 0 10px;
         .controls-wrapper {
             width: 100%;
-            margin: 0 0 40px;
+            margin: 0 0 20px;
             display: flex;
             flex-direction: column;
             padding: 0 15px;
+            margin-bottom: 10px;
 
             .button-all-categories {
                 grid-area: button;
@@ -227,13 +244,27 @@
             .select-wrapper {
                 justify-content: flex-start;
                 border: none;
-                width: 55%;
+                width: 45%;
                 padding: 8px 0;
                 p {
-                    width: 145px;
+                    width: 50%;
                 }
                 select {
-                    width: 120px;
+                    width: 50%;
+                    //background-position: right center;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .controls {
+        .controls-wrapper {
+            .select-wrapper {
+                width: 60%;
+                select {
+                    width: 45%;
                 }
             }
         }

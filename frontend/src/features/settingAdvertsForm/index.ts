@@ -1,0 +1,5 @@
+export { Bathroom } from './Bathroom'
+export { LivingSpace } from './LivingSpace'
+export { RoomsQuantity } from './RoomsQuantity'
+export { TotalArea } from './TotalArea'
+export { SettingPrice } from './SettingPrice'

@@ -1,26 +1,29 @@
-import { FormState, UseFormRegister, UseFormWatch } from 'react-hook-form'
-import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye'
-import { AuthRegistration } from '../../lib/RegistrationTypes'
-import { useRef } from 'react'
+import { FormState,  UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
+import { AuthRegistration } from '../../lib/RegistrationTypes';
 
 interface Props {
-    formState: FormState<AuthRegistration>
-    register: UseFormRegister<AuthRegistration>
-    watch: UseFormWatch<AuthRegistration>
-    showPassword: boolean
-    setShowPassword: React.Dispatch<React.SetStateAction<boolean>>
+    formState: FormState<AuthRegistration>;
+    register: UseFormRegister<AuthRegistration>;
+    watch: UseFormWatch<AuthRegistration>;
+    showPassword: boolean;
+    setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const InputRepeatPassword = ({ formState, register, showPassword, watch, setShowPassword }: Props) => {
-    const { errors } = formState
-    const inputRef = useRef<HTMLInputElement | null>(null)
+export const InputRepeatPassword = ({
+    formState,
+    register,
+    showPassword,
+    watch,
+    setShowPassword,
+}: Props) => {
+    const { errors } = formState;
     const handleShowPass = () => {
-        setShowPassword(!showPassword)
-        inputRef.current?.focus()
-    }
-    let password = watch('password')
-    let repeatPassword = watch('repeatPassword')
+        setShowPassword(!showPassword);
+    };
 
+    const password = watch('passWord');
+    const repeatPassword = watch('repeatPassword');
 
     return (
         <>
@@ -34,25 +37,25 @@ export const InputRepeatPassword = ({ formState, register, showPassword, watch, 
                     type={showPassword ? 'text' : 'password'}
                     style={{
                         border: `1px solid ${
-                            errors?.repeatPassword || password !== repeatPassword
+                            errors?.repeatPassword ||
+                            password !== repeatPassword
                                 ? '#FF3F25'
                                 : '#DCDCDC'
                         }`,
                     }}
-                    ref={inputRef}
                     onBlur={() => setShowPassword(false)}
                 />
                 <div id="eye" onClick={handleShowPass}>
                     <Eye />
                 </div>
-                <div style={{ height: '1.5rem' }}>
-                    {(errors?.repeatPassword || password !== repeatPassword) && (
+                <div className="input-error">
+                    {(errors?.repeatPassword  || (password !== repeatPassword)) && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                            Пароли должны совпадать
+                            Пароли не совпадают
                         </p>
                     )}
                 </div>
             </div>
         </>
-    )
-}
+    );
+};

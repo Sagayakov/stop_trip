@@ -1,26 +1,30 @@
-import { Docs } from '../../../../shared/ui/icons/category/Docs'
-import { Favorite } from '../../../../shared/ui/icons/icons-tools/Favorite'
-import { Message } from '../../../../shared/ui/icons/icons-tools/Message'
-import { Setting } from '../../../../shared/ui/icons/icons-tools/Setting'
-import './modalMobile.scss'
+import { Docs } from '../../../../shared/ui/icons/category/Docs';
+import { Favorite } from '../../../../shared/ui/icons/icons-tools/Favorite';
+import { Message } from '../../../../shared/ui/icons/icons-tools/Message';
+import { Setting } from '../../../../shared/ui/icons/icons-tools/Setting';
+import './modalMobile.scss';
 
 interface Props {
-    showUserMenu: boolean
-    setShowUserMenu: React.Dispatch<React.SetStateAction<boolean>>
+    showUserMenu: boolean;
+    setShowUserMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ModalMobile = (props: Props) => {
-    const { showUserMenu, setShowUserMenu } = props
+    const { showUserMenu, setShowUserMenu } = props;
 
     return (
         <div
             className="modal-mobile"
             style={{ display: `${showUserMenu ? 'block' : 'none'}` }}
-            onClick={() => setShowUserMenu(false)}>
-            <div className="modal-mobile-content" onClick={event => event.stopPropagation()}>
+            onClick={() => setShowUserMenu(false)}
+        >
+            <div
+                className="modal-mobile-content"
+                onClick={(event) => event.stopPropagation()}
+            >
                 <div className="menu">
                     <div className="user-option">
-                        <Docs color="#1C1C1E" />
+                        <Docs />
                         <p className="user-option-text">Мои объявления</p>
                     </div>
                     <div className="user-option">
@@ -45,5 +49,5 @@ export const ModalMobile = (props: Props) => {
                 <p>Выход</p>
             </div>
         </div>
-    )
-}
+    );
+};

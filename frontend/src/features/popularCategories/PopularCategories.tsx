@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowRight } from '../../shared/ui/icons/icons-tools/ArrowRight';
 import './popularCategories.scss';
 import { AllCategories, ModalWindow } from '../../entities/controls';
-import { categories } from '../../shared/ui/icons/const/categories';
+import { categories } from '../../shared/const/categories';
 import { useNavigate } from 'react-router-dom';
 
 export const PopularCategories = () => {
@@ -18,7 +18,7 @@ export const PopularCategories = () => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [window.innerWidth]);
+    }, []);
 
     return (
         <div className="popular-categories">

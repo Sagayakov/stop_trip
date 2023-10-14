@@ -1,13 +1,13 @@
-import { BuySell } from '../category/BuySell';
-import { Currency } from '../category/Currency';
-import { Docs } from '../category/Docs';
-import { Excursion } from '../category/Excursion';
-import { Food } from '../category/Food';
-import { Job } from '../category/Job';
-import { Realty } from '../category/Realty';
-import { Service } from '../category/Service';
-import { Taxi } from '../category/Taxi';
-import { Transport } from '../category/Transport';
+import { BuySell } from '../ui/icons/category/BuySell';
+import { Currency } from '../ui/icons/category/Currency';
+import { Docs } from '../ui/icons/category/Docs';
+import { Excursion } from '../ui/icons/category/Excursion';
+import { Food } from '../ui/icons/category/Food';
+import { Job } from '../ui/icons/category/Job';
+import { Realty } from '../ui/icons/category/Realty';
+import { Service } from '../ui/icons/category/Service';
+import { Taxi } from '../ui/icons/category/Taxi';
+import { Transport } from '../ui/icons/category/Transport';
 
 type Category = {
     description: string;

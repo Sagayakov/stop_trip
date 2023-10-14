@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from '../../../shared/ui/icons/icons-tools/ArrowRight';
 import './modal-categories.scss';
-import { categories } from '../../../shared/ui/icons/const/categories';
+import { categories } from '../../../shared/const/categories';
 
 interface Props {
     showModal: boolean;

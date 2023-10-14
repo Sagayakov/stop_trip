@@ -1,6 +1,6 @@
 .popular-categories {
     width: 1440px;
-    margin: 0px auto 80px;
+    margin: 0px auto 50px;
     .popular-categories-wrapper {
         width: 1240px;
         margin: 0 auto;
@@ -72,13 +72,7 @@
                         font-weight: 500;
                         font-size: 14px;
                     }
-                    span {
-                        display: none;
-                    }
                 }
-                /* .category {
-                    max-width: 20%;
-                } */
                 /* .realty {
           width: 126px;
           min-width: 125px;
@@ -126,10 +120,31 @@
                     justify-content: space-between;
                     align-items: center;
                     min-width: unset;
-                    max-width: 19%;
+                    max-width: 24.5%;
                     height: 90px;
                     p {
-                        width: 80%;
+                        width: auto;
+                        height: 30px;
+                        text-align: center;
+                    }
+                    span {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 921px) {
+    .popular-categories {
+        .popular-categories-wrapper {
+            .categories-list {
+                .category {
+                    align-items: center;
+                    max-width: 33%;
+                    height: 90px;
+                    p {
                         height: 30px;
                         text-align: center;
                     }
@@ -146,6 +161,7 @@
         .popular-categories-wrapper {
             width: 100%;
             margin-bottom: 20px;
+
             padding-left: 3.25%;
             font-family: var(--font-inter);
             .categories-titles {
@@ -180,9 +196,10 @@
                 width: 100%;
                 height: 107px;
                 gap: 8px;
-                & div {
+                .category {
                     padding: 8px 12px;
                     height: auto;
+                    width: auto;
 
                     & svg {
                         width: 30px;
@@ -191,6 +208,7 @@
                     p {
                         font-weight: 500;
                         font-size: 14px;
+                        width: auto;
                     }
                     span {
                         display: none;
@@ -234,7 +252,9 @@
 
 @media (max-width: 474px) {
     .popular-categories {
+        margin-bottom: 10px;
         .popular-categories-wrapper {
+            margin-bottom: 10px;
             .categories-titles {
                 gap: 10px;
                 h3 {
@@ -247,8 +267,9 @@
             }
             .categories-list {
                 .category {
+                    max-width: unset;
                     p {
-                        width: unset;
+                        width: auto;
                     }
                 }
             }

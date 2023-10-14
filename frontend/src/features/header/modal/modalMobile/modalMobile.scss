@@ -1,64 +1,77 @@
 .modal-mobile {
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  position: fixed;
-  z-index: 5;
-  background-color: rgba(0, 0, 0, 0.219);
-  .modal-mobile-content {
-    position: absolute;
-    top: 72px;
-    left: calc(85% - 245px);
-    z-index: 10;
-    box-shadow: 0px 0px 20px 0px #00000012;
-    width: 300px;
-    padding: 40px;
-    border-radius: 8px;
-    background-color: var(--main-background);
-    font-weight: 500;
-    font-family: var(--font-sf);
-    .menu {
-      .user-option {
-        display: flex;
-        align-items: center;
-        margin-bottom: 24px;
-        cursor: pointer;
-        svg {
-          width: 24px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.219);
+    .modal-mobile-content {
+        position: absolute;
+        top: 65px;
+        left: calc(85% - 245px);
+        z-index: 10;
+        box-shadow: 0px 0px 20px 0px #00000012;
+        width: 300px;
+        padding: 40px;
+        border-radius: 8px;
+        background-color: var(--main-background);
+        font-weight: 500;
+        font-family: var(--font-sf);
+        .menu {
+            .user-option {
+                display: flex;
+                align-items: center;
+                margin-bottom: 24px;
+                cursor: pointer;
+                svg {
+                    width: 24px;
+                }
+                .user-option-text {
+                    color: var(--main-black);
+                    margin: 4px 0px 4px 24px;
+                }
+                .language-auth {
+                    display: block;
+                }
+            }
+            .user-option:active {
+                color: var(--grey-2);
+            }
         }
-        .user-option-text {
-          color: var(--main-black);
-          margin: 4px 0px 4px 24px;
+        p {
+            margin: 48px 0px 0px;
+            color: #ff3f25;
+            cursor: pointer;
         }
-      }
-      .user-option:active {
-        color: var(--grey-2);
-      }
     }
-    p {
-      margin: 48px 0px 0px;
-      color: #ff3f25;
-      cursor: pointer;
-    }
-  }
 }
 
 @media (min-width: 425px) and (max-width: 474px) {
-  .modal-mobile {
-    .modal-mobile-content {
-      top: 45px;
-      left: calc(35% - 25px);
+    .modal-mobile {
+        .modal-mobile-content {
+            top: 45px;
+            left: calc(35% - 25px);
+            .menu {
+                .language-auth {
+                    display: inline-block;
+                }
+            }
+        }
     }
-  }
 }
 
 @media (max-width: 425px) {
-  .modal-mobile {
-    .modal-mobile-content {
-      top: 50px;
-      left: calc(30% - 20px);
-      width: 70%;
+    .modal-mobile {
+        .modal-mobile-content {
+            top: 50px;
+            left: calc(23% - 20px);
+            width: 80%;
+            .menu {
+                .language-auth {
+                    display: inline-block;
+                }
+            }
+        }
     }
-  }
 }

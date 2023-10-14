@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 import { MainPage } from '../../pages/main/MainPage';
-import { categories } from '../../shared/ui/icons/const/categories';
+import { categories } from '../../shared/const/categories';
 import { CategoryPage } from '../../pages/category/CategoryPage';
 
 interface Route {

@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react'
-import { FeedbackForm } from '../../features/footer'
-import { Facebook } from '../../shared/ui/icons/contacts/Facebook'
-import { Telegram } from '../../shared/ui/icons/contacts/Telegram'
-import { WhatsApp } from '../../shared/ui/icons/contacts/WhatsApp'
-import { LogoHeader } from '../../shared/ui/icons/icons-tools/LogoHeader'
-import './footer.scss'
+import { useEffect, useState } from 'react';
+import { FeedbackForm } from '../../features/footer';
+import { Facebook } from '../../shared/ui/icons/contacts/Facebook';
+import { Telegram } from '../../shared/ui/icons/contacts/Telegram';
+import { WhatsApp } from '../../shared/ui/icons/contacts/WhatsApp';
+import { LogoHeader } from '../../shared/ui/icons/icons-tools/LogoHeader';
+import './footer.scss';
 
 export const Footer = () => {
-    const [width, setWidth] = useState<number>(window.innerWidth)
+    const [width, setWidth] = useState<number>(window.innerWidth);
 
     useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth)
+        const handleResize = () => setWidth(window.innerWidth);
 
-        window.addEventListener('resize', handleResize)
+        window.addEventListener('resize', handleResize);
 
         return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [window.innerWidth])
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <footer>
@@ -53,5 +53,5 @@ export const Footer = () => {
                 )}
             </div>
         </footer>
-    )
-}
+    );
+};

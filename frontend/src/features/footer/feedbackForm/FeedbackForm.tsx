@@ -9,7 +9,7 @@ export const FeedbackForm = () => {
             </div>
             <form>
                 <input type="text" placeholder="Введите текст" />
-                <input type="submit" />
+                <input type="submit" value="Отправить"/>
             </form>
         </div>
     )

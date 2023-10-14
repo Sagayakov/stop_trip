@@ -3,19 +3,17 @@ header.fixed-header {
     top: 0;
     left: 0;
     right: 0;
-    width: 100%;
-    margin: 0px auto 40px;
-    box-shadow: 0px 6px 8px 0px #00000014;
-    background-color: var(--main-background);
+    margin-bottom: 40px;
 }
+
 header {
     width: 100%;
-    margin: 0px auto 80px;
+    margin: 0px auto 50px;
     box-shadow: 0px 6px 8px 0px #00000014;
     position: absolute;
     z-index: 100;
     background-color: var(--main-background);
-    // transition: all 0.3s ease;
+    transition: all 0.7s ease;
 
     .header-wrapper {
         width: 1240px;
@@ -25,6 +23,7 @@ header {
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        transition: all 0.7s ease;
         .addAdvert {
             width: 262px;
             height: 3rem;
@@ -57,21 +56,25 @@ header {
                 font-size: 12px;
                 font-family: var(--font-inter);
                 font-weight: 700;
+                background-color: #f5f3f3;
+                border-radius: 8px;
+                text-align: center;
                 .language-ru {
-                    width: 42px;
+                    width: 50%;
                     height: 36px;
                     color: var(--main-blue);
-                    border-radius: 8px 0px 0px 8px;
                     background-color: #f0f0f0;
-                    padding: 10px 12px;
+                    border-radius: 8px 0px 0px 8px;
+                    padding: 9px 11px;
                     cursor: pointer;
                 }
                 .language-eng {
-                    width: 51px;
+                    width: 50%;
                     height: 36px;
                     color: var(--grey-3);
                     border-radius: 0px 8px 8px 0px;
-                    padding: 10px 12px;
+                    padding: 9px 14px 9px 9px;
+                    border-radius: 0px 8px 8px 0px;
                     cursor: pointer;
                 }
             }
@@ -90,6 +93,14 @@ header {
                 justify-content: center;
                 cursor: pointer;
             }
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    header.fixed-header {
+        .header-wrapper {
+            padding: 10px 0px;
         }
     }
 }
@@ -124,11 +135,39 @@ header {
     }
 }
 
+@media (min-width: 768px) and (max-width: 1439px) {
+    header.fixed-header {
+        // transition: all 0.6s ease 0.5s;
+        .header-wrapper {
+            padding: 5px 0px;
+            #logo {
+                height: 30px;
+            }
+            .addAdvert {
+                height: 35px;
+            }
+            .language-auth {
+                .language {
+                    .language-ru,
+                    .language-eng {
+                        height: 25px;
+                        line-height: 8px;
+                    }
+                }
+            }
+            .auth-button {
+                height: 35px;
+            }
+        }
+    }
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
     header {
         .header-wrapper {
             width: 85%;
             justify-content: space-between;
+            padding: 10px 0px;
             .addAdvert {
                 width: 30%;
             }
@@ -143,12 +182,23 @@ header {
 }
 
 @media (min-width: 601px) and (max-width: 767px) {
+    header.fixed-header {
+        .header-wrapper {
+            height: 40px;
+            .addAdvert {
+                height: 40px;
+                transition: all 0.6s ease;
+            }
+        }
+    }
     header {
         .header-wrapper {
+            height: 70px;
             width: 90%;
             justify-content: space-between;
             .addAdvert {
                 width: 40%;
+                transition: all 0.6s ease;
             }
             .addAdvert + svg {
                 width: 40px;
@@ -159,27 +209,68 @@ header {
     }
 }
 @media (min-width: 476px) and (max-width: 600px) {
+    header.fixed-header {
+        .header-wrapper {
+            height: 40px;
+            #logo {
+                height: 30px;
+                transition: all 0.6s ease;
+            }
+            .addAdvert {
+                height: 30px;
+                transition: all 0.6s ease;
+            }
+            .addAdvert + svg {
+                height: 30px;
+                transition: all 0.6s ease;
+            }
+        }
+    }
     header {
         .header-wrapper {
+            height: 60px;
             width: 90%;
             justify-content: space-between;
-            .addAdvert {
-                width: 40%;
+            #logo {
+                transition: all 0.6s ease;
             }
             .addAdvert {
                 width: auto;
                 text-align: center;
+                transition: all 0.6s ease;
             }
             .addAdvert + svg {
                 width: 35px;
                 height: 35px;
                 cursor: pointer;
+                transition: all 0.6s ease;
             }
         }
     }
 }
 
 @media (min-width: 425px) and (max-width: 475px) {
+    header.fixed-header {
+        height: 40px;
+        margin: 0 auto;
+        .header-wrapper {
+            height: 30px;
+            margin: 0 auto;
+            padding: 20px 0;
+            #logo {
+                height: 30px;
+                transition: all 0.6s ease;
+            }
+            .addAdvert {
+                height: 30px;
+                transition: all 0.6s ease;
+            }
+            .addAdvert + svg {
+                height: 30px;
+                transition: all 0.6s ease;
+            }
+        }
+    }
     header {
         height: 50px;
         .header-wrapper {
@@ -210,12 +301,25 @@ header {
 
 @media (max-width: 424px) {
     header.fixed-header {
-        width: 100%;
-        margin: 0;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 48px;
+        height: 40px;
+        margin: 0 auto;
+        .header-wrapper {
+            height: 30px;
+            margin: 0 auto;
+            padding: 20px 0;
+            #logo {
+                height: 30px;
+                transition: all 0.6s ease;
+            }
+            .addAdvert {
+                height: 30px;
+                transition: all 0.6s ease;
+            }
+            .addAdvert + svg {
+                height: 30px;
+                transition: all 0.6s ease;
+            }
+        }
     }
     header {
         .header-wrapper {
@@ -223,7 +327,8 @@ header {
             height: 33px;
             justify-content: space-between;
             #logo {
-                width: 110px;
+                width: 100px;
+                transition: all 0.6s ease;
             }
             .addAdvert {
                 width: auto;
@@ -231,9 +336,11 @@ header {
                 padding: 8px;
                 font-size: 14px;
                 margin: 0;
+                transition: all 0.6s ease;
             }
             .addAdvert + svg {
                 cursor: pointer;
+                transition: all 0.6s ease;
             }
             .language-auth {
                 display: none;
