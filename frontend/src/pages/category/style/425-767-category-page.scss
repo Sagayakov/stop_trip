@@ -18,6 +18,7 @@
         .filters-adverts{
             width: calc(100% - 30px);
             margin: 0px 15px;
+            flex-direction: column;
 
             .filters{
                 width: 100%;
@@ -63,6 +64,59 @@
                             .bathroom-setting{
                                 width: 70%;
                             }
+                        }
+                    }
+                }
+            }
+            .adverts{
+                width: 100%;
+                .card{
+                    flex-direction: column;
+                    width: 100%;
+                    height: 218px;
+                    .image{
+                        display: flex;
+                        overflow-x: scroll;
+                        gap: 8px;
+                        width: 100%;
+                        height: 100px;
+                        &::-webkit-scrollbar {
+                            overflow: -moz-scrollbars-none;
+                            scrollbar-width: none; // для firefox
+                            width: 0;
+                            height: 0;
+                        }
+                        img{
+                            width: 116px;
+                            height: 100px;
+                            border-radius: var(--radii);
+                            margin-right: 0;
+                        }
+                    }
+                    .add-to-favorite{
+                        top: 110px;
+
+                    }
+                    .description{
+                        margin: 8px 0px 0px;
+                        padding: 0px 8px;
+                        height: 94px;
+                        h2, h3{
+                            font-size: 16px;
+                            margin-bottom: 8px;
+                        }
+                        .description-location{
+                            font-size: 12px;
+                            margin-bottom: 8px;
+                        }
+                        .card-description{
+                            display: none;
+                        }
+                        .time{
+                            position: relative;
+                            bottom: 23px;
+                            left: 185px;
+                            width: 45%;
                         }
                     }
                 }
