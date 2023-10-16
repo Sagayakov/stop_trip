@@ -1,21 +1,28 @@
 @media (min-width: 1024px) and (max-width: 1439px){
     main{
-        width: 85%;
+        width: 100%;
         margin: 0 auto;
 
+        .bread-crumbs{
+            width: 85%;
+            margin: 0 auto;
+        }
+
         h1{
-            width: 100%;
-            margin: 15px 0px 25px;
+            width: 85%;
+            margin: 15px auto 25px;
         }
 
         .filters-adverts{
+            width: 85%;
+            margin: 0 auto;
             .filters{
                 width: 30%;
                 padding: 16px 16px 24px 16px;
 
                 form{
                     input[type='number'] {
-                        width: 100px;
+                        width: 42%;
                         height: 34px;
                         border-radius: var(--radii);
                         padding: 10px;
@@ -32,16 +39,18 @@
                             justify-content: space-between;
                             margin-bottom: 8px;
                             label {
-                                padding: 8px;
+                                padding: 8px 3.5%;
                             }
                         }
                     }
-                    .bathroom{
-                        .bathroom-setting{
-                            flex-direction: column;
-                            align-items: start;
-                            gap: 6px;
-                            height: auto;
+                    .checkboxes{
+                        .bathroom{
+                            .bathroom-setting{
+                                flex-direction: column;
+                                align-items: start;
+                                gap: 6px;
+                                height: auto;
+                            }
                         }
                     }
                      .form-checkbox > input {
@@ -95,6 +104,26 @@
                         .card-description,
                         .time{
                             margin-bottom: 12px;
+                        }
+                    }
+                }
+            }
+        }
+        .pagination{
+            margin: 30px auto 50px;
+        }
+    }
+}
+@media (min-width: 1300px) and (max-width: 1439px){
+    main{
+        .filters-adverts{
+            .filters{
+                form{
+                    .setting-price {
+                        .setting-price-adverts {
+                            label {
+                                padding: 8px 5.5%;
+                            }
                         }
                     }
                 }

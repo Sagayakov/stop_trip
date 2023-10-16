@@ -28,16 +28,18 @@ export const SettingAdvertsForm = () => {
                 <SettingPrice register={register} watch={watch} />
                 <TotalArea register={register} />
                 <LivingSpace register={register} />
-                <RoomsQuantity register={register} />
-                <Bathroom register={register} />
-                <label className="form-checkbox balcony">
-                    <input type="checkbox" {...register('balcony')} />
-                    <span>Балкон</span>
-                </label>
-                <label className="form-checkbox only-with-photo">
-                    <input type="checkbox" {...register('onlyWithPhotos')} />
-                    <span>Только с фотографиями</span>
-                </label>
+                <div className="checkboxes">
+                    <RoomsQuantity register={register} />
+                    <Bathroom register={register} />
+                    <label className="form-checkbox balcony">
+                        <input type="checkbox" {...register('balcony')} />
+                        <span>Балкон</span>
+                    </label>
+                    <label className="form-checkbox only-with-photo">
+                        <input type="checkbox" {...register('onlyWithPhotos')} />
+                        <span>Только с фотографиями</span>
+                    </label>
+                </div>
                 <input type="submit" value="Показать 100 объявлений" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />

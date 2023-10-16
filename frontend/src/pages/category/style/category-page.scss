@@ -99,27 +99,41 @@ main {
                         }
                     }
                 }
-                .rooms-quantity {
-                    .setting-rooms-quantity {
-                        height: 17px;
-                        label {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            font-size: 12px;
-                            font-weight: 500;
+                .checkboxes{
+                    .rooms-quantity {
+                        .setting-rooms-quantity {
+                            height: 17px;
+                            label {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                font-size: 12px;
+                                font-weight: 500;
+                            }
                         }
                     }
-                }
-                .bathroom {
-                    .bathroom-setting {
+                    .bathroom {
+                        .bathroom-setting {
+                            height: 17px;
+                            label {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                font-size: 14px;
+                                font-weight: 400;
+                            }
+                        }
+                    }
+                    .balcony,
+                    .only-with-photo {
+                        margin-bottom: 24px;
                         height: 17px;
-                        label {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            font-size: 14px;
-                            font-weight: 400;
+                        display: flex;
+                        align-items: center;
+                        font-size: 14px;
+                        font-weight: 600;
+                        input {
+                            margin-right: 8px;
                         }
                     }
                 }
@@ -178,18 +192,6 @@ main {
                     box-shadow: none;
                 }
 
-                .balcony,
-                .only-with-photo {
-                    margin-bottom: 24px;
-                    height: 17px;
-                    display: flex;
-                    align-items: center;
-                    font-size: 14px;
-                    font-weight: 600;
-                    input {
-                        margin-right: 8px;
-                    }
-                }
                 .reset-setting-form {
                     padding: 12px 20px;
                     width: 100%;

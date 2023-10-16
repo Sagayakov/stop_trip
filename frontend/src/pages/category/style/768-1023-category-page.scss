@@ -1,0 +1,113 @@
+@media (min-width: 768px) and (max-width:1023px){
+    main{
+        width: 100%;
+        margin: 0 auto;
+
+        .bread-crumbs{
+            width: 85%;
+            margin: 0 auto;
+        }
+
+        h1{
+            width: 85%;
+            margin: 15px auto 25px;
+            font-size: 26px;
+        }
+
+        .filters-adverts{
+            width: 85%;
+            margin: 0 auto;
+            flex-direction: column;
+            gap: 20px;
+
+            .filters{
+                width: 100%;
+                padding: 24px 24px 12px;
+                form{
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-rows: 120px 80px 80px 60px;
+                    grid-template-areas:
+                        "price check"
+                        "area check"
+                        "liv-space check"
+                        "send btn-reset";
+
+                    input[type='number'] {
+                        width: 44%;
+                        height: 34px;
+                        border-radius: var(--radii);
+                        padding: 10px;
+                        border: none;
+                    }
+                    input[type='submit']{
+                        white-space: normal;
+                        height: auto;
+                    }
+
+                    .setting-price,
+                    .total-area,
+                    .living-space,
+                    .rooms-quantity,
+                    .bathroom,
+                    .balcony,
+                    .only-with-photo{
+                        width: 80%;
+                    }
+
+                    .setting-price{
+                        grid-area: price;
+                    }
+                    .total-area{
+                        grid-area: area;
+                    }
+                    .living-space{
+                        grid-area: liv-space;
+                    }
+                    .checboxes{
+                        grid-area: check;
+                    }
+                    input[type="submit"]{
+                        grid-area: send;
+                        width: 85%;
+                    }
+                    .reset-setting-form{
+                        grid-area: btn-reset;
+                        width: 85%;
+                        height: 45px;
+                    }
+
+                }
+            }
+            .adverts{
+                width: 100%;
+                .card{
+                    width: 100%;
+                    .image{
+                        img{
+                            width: 265px;
+                        }
+                    }
+                    .description{
+                        h2{
+                            font-size: 20px;
+                            width: 90%;
+                            margin-bottom: 12px;
+                        }
+                        .description-location,
+                        .card-description{
+                            margin-bottom: 12px;
+                        }
+                        h3{
+                            margin-bottom: 12px;
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+        .pagination{
+            margin: 30px auto 40px;
+        }
+    }
+}
