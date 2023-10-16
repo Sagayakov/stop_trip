@@ -132,6 +132,7 @@ main {
 
                 input[type='submit'] {
                     width: 100%;
+                    height: 43px;
                     padding: 12px 20px;
                     border-radius: var(--radii);
                     border: none;
@@ -140,6 +141,8 @@ main {
                     font-family: var(--font-lato);
                     font-weight: 600;
                     margin-bottom: 16px;
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
                 }
 
                 .form-checkbox {
@@ -168,7 +171,7 @@ main {
                 }
 
                 .form-checkbox > input:checked + span::before {
-                    background: url('../../shared/ui/icons/union.svg') no-repeat
+                    background: url('../../../shared/ui/icons/union.svg') no-repeat
                         center center;
                     background-size: 60%;
                     background-color: var(--main-green);
