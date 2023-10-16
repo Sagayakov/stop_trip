@@ -1,0 +1,105 @@
+@media (min-width: 425px) and (max-width: 767px){
+    main{
+        width: 100vw;
+
+        .bread-crumbs{
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        h1{
+            width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            font-size: 22px;
+        }
+
+        .filters-adverts{
+            width: calc(100% - 30px);
+            margin: 0px 15px;
+
+            .filters{
+                width: 100%;
+                padding: 16px 40px 24px;
+                form{
+                    input[type='number'] {
+                        width: 47%;
+                        height: 34px;
+                        border-radius: var(--radii);
+                        padding: 10px;
+                        border: none;
+                    }
+                    input[type='submit']{
+                        white-space: normal;
+                        height: auto;
+                    }
+
+                    .setting-price,
+                    .total-area,
+                    .living-space,
+                    .rooms-quantity,
+                    .bathroom,
+                    .balcony,
+                    .only-with-photo{
+                        width: 100%;
+                    }
+                   .setting-price{
+                        .setting-price-adverts{
+                            width: 320px; //в процентах не красиво
+                            label{
+                                padding: 10px 14px;
+                            }
+                        }
+                    }
+
+                    .checkboxes{
+                        .rooms-quantity{
+                            .setting-rooms-quantity{
+                                width: 50%;
+                            }
+                        }
+                        .bathroom{
+                            .bathroom-setting{
+                                width: 70%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .pagination{
+            margin: 20px auto 30px;
+        }
+    }
+}
+
+@media(min-width: 425px) and (max-width: 475px){
+    main{
+        .filters-adverts{
+            .filters{
+                form{
+                    .setting-price{
+                        .setting-price-adverts{
+                            width: 48%;
+                            position: absolute;
+                            top: 134px;
+                            left: 48%;
+                            label{
+                                padding: 6px;
+                            }
+                        }
+                    }
+                    .checkboxes{
+                        .bathroom{
+                            .bathroom-setting{
+                                width: 80%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
