@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { InputChechbox } from './inputsRegistration/inputCheckbox/InputCheckbox';
 import { InputEmail } from './inputsRegistration/inputEmail/InputEmail';
@@ -9,40 +9,64 @@ import { InputPhone } from './inputsRegistration/inputPhone/InputPhone';
 import { InputSubmit } from './inputsRegistration/inputSubmit/InputSubmit';
 import { AuthRegistration } from './libr/RegistrationTypes';
 import './libr/formRegistration.scss';
+import { createUser } from './api/createUser';
+import { useAppDispatch } from '../../../../app/store/hooks';
+import { setIsAuth } from '../../../../features/header/model/modalAuth/reducers/setAuth';
+import { toggleModalEnter } from '../../../../features/header/model/modalAuth/reducers/toggleModal';
 // import './inputsRegistration/inputRegistration.scss'
 
 export const FormRegistration = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { register, handleSubmit, reset, formState, watch } =
-        useForm<AuthRegistration>({
-            mode: 'all',
-        });
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { isSubmitSuccessful, errors, isValid },
+        watch,
+    } = useForm<AuthRegistration>({
+        mode: 'all',
+    });
 
-    const onsubmit: SubmitHandler<AuthRegistration> = (data) => {
-        alert(JSON.stringify(data));
-        reset();
+    const dispatch = useAppDispatch();
+
+    const onsubmit: SubmitHandler<AuthRegistration> = async (submitData) => {
+        const authUser = async () =>
+            await createUser({
+                full_name: submitData.userName,
+                email: submitData.email,
+                password: submitData.passWord,
+                re_password: submitData.repeatPassword,
+            });
+
+        await authUser();
+        dispatch(setIsAuth(true));
+        dispatch(toggleModalEnter(false));
     };
+
+    useEffect(() => {
+        isSubmitSuccessful && reset();
+    }, [reset, isSubmitSuccessful]);
 
     return (
         <form onSubmit={handleSubmit(onsubmit)} autoComplete="false">
-            <InputName formState={formState} register={register} />
-            <InputPhone formState={formState} register={register} />
-            <InputEmail formState={formState} register={register} />
+            <InputName errors={errors} register={register} />
+            <InputPhone errors={errors} register={register} />
+            <InputEmail errors={errors} register={register} />
             <InputPassword
-                formState={formState}
+                errors={errors}
                 register={register}
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
             />
             <InputRepeatPassword
-                formState={formState}
+                errors={errors}
                 register={register}
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
                 watch={watch}
             />
-            <InputChechbox register={register} formState={formState} />
-            <InputSubmit formState={formState} />
+            <InputChechbox register={register} errors={errors} />
+            <InputSubmit isValid={isValid} />
         </form>
     );
 };

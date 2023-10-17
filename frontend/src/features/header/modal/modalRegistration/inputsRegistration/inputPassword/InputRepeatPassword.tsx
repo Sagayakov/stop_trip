@@ -1,9 +1,9 @@
-import { FormState, UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 
 interface Props {
-    formState: FormState<AuthRegistration>;
+    errors: FieldErrors<AuthRegistration>;
     register: UseFormRegister<AuthRegistration>;
     watch: UseFormWatch<AuthRegistration>;
     showPassword: boolean;
@@ -11,13 +11,12 @@ interface Props {
 }
 
 export const InputRepeatPassword = ({
-    formState,
+    errors,
     register,
     showPassword,
     watch,
     setShowPassword,
 }: Props) => {
-    const { errors } = formState;
     const handleShowPass = () => {
         setShowPassword(!showPassword);
     };

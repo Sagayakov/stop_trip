@@ -9,7 +9,6 @@ import { Person } from '../../shared/ui/icons/icons-tools/Person';
 import { Plus } from '../../shared/ui/icons/icons-tools/Plus';
 import './header.scss';
 
-
 export const Header = () => {
     const dispatch = useAppDispatch();
     const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
@@ -19,6 +18,7 @@ export const Header = () => {
     const [showUserMenu, setShowUserMenu] = useState(false); //потом переделать на редьюсер
 
     const handleToggleModal = () => dispatch(toggleModalEnter(!toggle));
+    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
 
     useEffect(() => {
         const handleResize = () => {
@@ -55,13 +55,17 @@ export const Header = () => {
                 <NavLink to="/">
                     <LogoHeader />
                 </NavLink>
-                <button className="addAdvert">
+                <button className={isAuth ? 'addAdvert active' : 'addAdvert'}>
                     <Plus color="white" />
                     {width >= 425 ? 'Разместить объявление' : 'Опубликовать'}
                 </button>
                 {width <= 767 ? (
                     <Person
-                        handleClick={() => setShowUserMenu(!showUserMenu)}
+                        handleClick={
+                            isAuth
+                                ? () => setShowUserMenu(!showUserMenu)
+                                : () => handleToggleModal()
+                        }
                     /> //когда будет регистрация, переделать на редьюсер
                 ) : (
                     <div className="language-auth">
@@ -69,12 +73,22 @@ export const Header = () => {
                             <div className="language-ru">RU</div>
                             <div className="language-eng">ENG</div>
                         </div>
-                        <div
-                            className="auth-button"
-                            onClick={handleToggleModal}
-                        >
-                            Вход/Регистрация
-                        </div>
+                        {isAuth ? (
+                            <div className="person-auth">
+                                <Person
+                                    handleClick={() =>
+                                        setShowUserMenu(!showUserMenu)
+                                    }
+                                />
+                            </div>
+                        ) : (
+                            <div
+                                className="auth-button"
+                                onClick={handleToggleModal}
+                            >
+                                Вход/Регистрация
+                            </div>
+                        )}
                     </div>
                 )}
                 <ModalMobile
