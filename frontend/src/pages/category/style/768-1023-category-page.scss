@@ -1,104 +1,120 @@
-@media (min-width: 768px) and (max-width:1023px){
-    main{
+@media (min-width: 768px) and (max-width: 1023px) {
+    main {
         width: 100%;
         margin: 0 auto;
 
-        .bread-crumbs{
+        .bread-crumbs {
             width: 85%;
             margin: 0 auto;
         }
 
-        h1{
+        h1 {
             width: 85%;
             margin: 15px auto 25px;
             font-size: 26px;
         }
 
-        .filters-adverts{
+        .filters-adverts {
             width: 85%;
             margin: 0 auto;
             flex-direction: column;
             gap: 20px;
+            .filter-form {
+                .filters {
+                    width: 100%;
+                    padding: 24px 24px 12px;
+                    form {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        grid-template-rows: 120px 80px 80px 60px;
+                        grid-template-areas:
+                            'price type'
+                            'area check'
+                            'liv-space check'
+                            'send btn-reset';
 
-            .filters{
-                width: 100%;
-                padding: 24px 24px 12px;
-                form{
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    grid-template-rows: 120px 80px 80px 60px;
-                    grid-template-areas:
-                        "price check"
-                        "area check"
-                        "liv-space check"
-                        "send btn-reset";
+                        input[type='number'] {
+                            width: 44%;
+                            height: 34px;
+                            border-radius: var(--radii);
+                            padding: 10px;
+                            border: none;
+                        }
+                        input[type='submit'] {
+                            white-space: normal;
+                            width: 82%;
+                            height: auto;
+                        }
+                        .type-of-property,
+                        .setting-price,
+                        .total-area,
+                        .living-space,
+                        .rooms-quantity,
+                        .bathroom,
+                        .balcony,
+                        .only-with-photo {
+                            width: 80%;
+                        }
 
-                    input[type='number'] {
-                        width: 44%;
-                        height: 34px;
-                        border-radius: var(--radii);
-                        padding: 10px;
-                        border: none;
+                        .type-of-property{
+                            grid-area: type;
+                        }
+                        .setting-price {
+                            grid-area: price;
+                        }
+                        .total-area {
+                            grid-area: area;
+                        }
+                        .living-space {
+                            grid-area: liv-space;
+                        }
+                        .checkboxes {
+                            grid-area: check;
+                        }
+                        input[type='submit'] {
+                            grid-area: send;
+                            width: 85%;
+                        }
+                        .reset-setting-form {
+                            grid-area: btn-reset;
+                            width: 85%;
+                            height: 45px;
+                        }
+                        .type-of-property{
+                            .select-type-of-property-var{
+                                z-index: 1;
+                            }
+                        }
+                        .checkboxes {
+                            position: relative;
+                            bottom: 43px;
+                        }
+                        .reset-setting-form{
+                            width: 82%;
+                        }
                     }
-                    input[type='submit']{
-                        white-space: normal;
-                        height: auto;
-                    }
-
-                    .setting-price,
-                    .total-area,
-                    .living-space,
-                    .rooms-quantity,
-                    .bathroom,
-                    .balcony,
-                    .only-with-photo{
-                        width: 80%;
-                    }
-
-                    .setting-price{
-                        grid-area: price;
-                    }
-                    .total-area{
-                        grid-area: area;
-                    }
-                    .living-space{
-                        grid-area: liv-space;
-                    }
-                    .checboxes{
-                        grid-area: check;
-                    }
-                    input[type="submit"]{
-                        grid-area: send;
-                        width: 85%;
-                    }
-                    .reset-setting-form{
-                        grid-area: btn-reset;
-                        width: 85%;
-                        height: 45px;
-                    }
-
                 }
             }
-            .adverts{
+            .adverts {
                 width: 100%;
-                .card{
+                .card {
                     width: 100%;
-                    .image{
-                        img{
+                    .image {
+                        img {
                             width: 265px;
                         }
                     }
-                    .description{
-                        h2{
+                    .description {
+                        h2 {
                             font-size: 20px;
                             width: 90%;
                             margin-bottom: 12px;
                         }
                         .description-location,
-                        .card-description{
+                        .card-description {
                             margin-bottom: 12px;
                         }
-                        h3{
+                        h3 {
                             margin-bottom: 12px;
                             font-size: 20px;
                         }
@@ -106,13 +122,13 @@
                 }
             }
         }
-        .pagination{
+        .pagination {
             margin: 30px auto 40px;
         }
     }
 }
 
-@media (min-width: 768px) and (max-width: 900px) {
+@media (min-width: 768px) and (max-width: 800px) {
     main {
         .filters-adverts {
             .filter-form {
@@ -120,7 +136,24 @@
                     form {
                         .type-of-property {
                             .select-type-of-property-var {
-                                width: 39.5%;
+                                width: 31.5%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 800px) and (max-width: 900px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 31.75%;
                             }
                         }
                     }
@@ -137,7 +170,7 @@
                     form {
                         .type-of-property {
                             .select-type-of-property-var {
-                                width: 40%;
+                                width: 32.3%;
                             }
                         }
                     }

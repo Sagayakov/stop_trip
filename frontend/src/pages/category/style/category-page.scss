@@ -108,36 +108,9 @@ main {
                                 display: flex;
                                 justify-content: space-between;
                                 align-items: center;
-                                input[type='radio']{
-                                    width: 10px;
+                                input[type='radio'] {
+                                    display: none;
                                 }
-                                // input {
-                                //     // z-index: -1;
-                                // }
-
-                                // label::before {
-                                //     content: '';
-                                //     display: inline-block;
-                                //     width: 14px;
-                                //     height: 14px;
-                                //     flex-shrink: 0;
-                                //     flex-grow: 0;
-                                //     border-radius: 4px;
-                                //     margin: 0 5px 0 0;
-                                //     background-repeat: no-repeat;
-                                //     background-position: center center;
-                                //     background-size: 50% 50%;
-                                //     background-color: var(--grey-1);
-                                // }
-                                // input:checked + label{
-                                //     color: var(--main-green);
-                                // }
-                                // input:checked + label::before {
-                                //     background: url('../../../shared/ui/icons/union.svg')
-                                //         no-repeat center center;
-                                //     background-size: 60%;
-                                //     box-shadow: none;
-                                // }
                             }
                         }
                     }

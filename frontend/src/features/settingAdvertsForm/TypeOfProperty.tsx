@@ -1,7 +1,9 @@
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { ArrowDown } from '../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../shared/ui/icons/icons-tools/ArrowTop';
+import { Jackdaw } from '../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingAdverts } from '../../widgets/settingForm/TypeSettingAdverts';
+import { useEffect } from 'react';
 
 interface Props {
     register: UseFormRegister<TypeSettingAdverts>;
@@ -17,9 +19,11 @@ export const TypeOfProperty = ({
     setShowDropDown,
 }: Props) => {
     const type = watch('typeOfProperty');
-    const checkedSelect = () => {
-        return type === 'Квартира' ? { color: '#02C66E' } : {};
-    };
+
+    useEffect(() => {
+        setShowDropDown(false)
+    }, [type])
+
     return (
         <>
             <div
@@ -48,11 +52,14 @@ export const TypeOfProperty = ({
                             }
                         >
                             Не выбрано
-                            <input
-                                type="radio"
-                                value="Не выбрано"
-                                {...register('typeOfProperty')}
-                            />
+                            <>
+                                {type === 'Не выбрано' && <Jackdaw />}
+                                <input
+                                    type="radio"
+                                    value="Не выбрано"
+                                    {...register('typeOfProperty')}
+                                />
+                            </>
                         </label>
                         <label
                             style={
@@ -60,11 +67,14 @@ export const TypeOfProperty = ({
                             }
                         >
                             Квартира
-                            <input
-                                type="radio"
-                                value="Квартира"
-                                {...register('typeOfProperty')}
-                            />
+                            <>
+                                {type === 'Квартира' && <Jackdaw />}
+                                <input
+                                    type="radio"
+                                    value="Квартира"
+                                    {...register('typeOfProperty')}
+                                />
+                            </>
                         </label>
                         <label
                             style={
@@ -72,21 +82,27 @@ export const TypeOfProperty = ({
                             }
                         >
                             Комната
-                            <input
-                                type="radio"
-                                value="Комната"
-                                {...register('typeOfProperty')}
-                            />
+                            <>
+                                {type === 'Комната' && <Jackdaw />}
+                                <input
+                                    type="radio"
+                                    value="Комната"
+                                    {...register('typeOfProperty')}
+                                />
+                            </>
                         </label>
                         <label
                             style={type === 'Дом' ? { color: '#02C66E' } : {}}
                         >
                             Дом
-                            <input
-                                type="radio"
-                                value="Дом"
-                                {...register('typeOfProperty')}
-                            />
+                            <>
+                                {type === 'Дом' && <Jackdaw />}
+                                <input
+                                    type="radio"
+                                    value="Дом"
+                                    {...register('typeOfProperty')}
+                                />
+                            </>
                         </label>
                     </div>
                 )}

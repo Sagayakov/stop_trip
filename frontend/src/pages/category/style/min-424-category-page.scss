@@ -1,7 +1,6 @@
-@media (min-width: 425px) and (max-width: 767px) {
+@media (max-width: 424px) {
     main {
         width: 100vw;
-
         .bread-crumbs {
             width: 100%;
             margin: 0 auto 16px;
@@ -9,10 +8,13 @@
             display: flex;
             align-items: center;
             svg {
-                display: block;
+                display: flex;
+                align-items: center;
             }
             h1 {
+                font-size: 18px;
                 padding: 0;
+                margin: 0;
                 color: var(--main-black);
             }
             .filter-btn {
@@ -27,19 +29,12 @@
                 font-family: var(--font-inter);
                 font-weight: 500;
                 padding: 10px 17px;
+                margin-left: auto;
             }
         }
-
-        h1 {
-            width: 100%;
-            margin: 0 auto;
-            padding: 15px;
-            font-size: 22px;
-        }
-
         .filters-adverts {
             flex-direction: column;
-            .filter-form{
+            .filter-form {
                 .filters {
                     width: 100%;
                     padding: 16px 40px 24px;
@@ -70,7 +65,7 @@
                         }
                         .setting-price {
                             .setting-price-adverts {
-                                width: 320px; //в процентах не красиво
+                                width: 260px; //в процентах не красиво
                                 label {
                                     padding: 10px 14px;
                                 }
@@ -85,7 +80,7 @@
                             }
                             .bathroom {
                                 .bathroom-setting {
-                                    width: 70%;
+                                    width: 85%;
                                 }
                             }
                         }
@@ -142,6 +137,9 @@
                         }
                         .card-description {
                             display: none;
+                            .author {
+                                gap: 10px;
+                            }
                         }
                         .time {
                             position: relative;
@@ -160,14 +158,77 @@
     }
 }
 
-@media (min-width: 425px) and (max-width: 475px) {
+@media (max-width: 375px) {
+    main {
+        .bread-crumbs {
+            h1 {
+                font-size: 14px;
+            }
+            .filter-btn {
+                padding: 6px 8px;
+            }
+        }
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .checkboxes {
+                            .rooms-quantity{
+                                .setting-rooms-quantity{
+                                    width: 60%;
+                                }
+                            }
+                            .bathroom{
+                                .bathroom-setting {
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .adverts {
+                .card {
+                    .description {
+                        h2,
+                        h3 {
+                            font-size: 14px;
+                        }
+                        .time {
+                            left: 170px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 410px) and (max-width: 424px) {
     main {
         .filters-adverts {
-            .filters {
-                form {
-                    .checkboxes {
-                        .bathroom {
-                            .bathroom-setting {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 81%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 390px) and (max-width: 409px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
                                 width: 80%;
                             }
                         }
@@ -178,7 +239,7 @@
     }
 }
 
-@media (min-width: 730px) and (max-width: 767px) {
+@media (min-width: 370px) and (max-width: 389px) {
     main {
         .filters-adverts {
             .filter-form {
@@ -186,7 +247,7 @@
                     form {
                         .type-of-property {
                             .select-type-of-property-var {
-                                width: 89.5%;
+                                width: 78%;
                             }
                         }
                     }
@@ -195,7 +256,7 @@
         }
     }
 }
-@media (min-width: 700px) and (max-width: 729px) {
+@media (min-width: 350px) and (max-width: 369px) {
     main {
         .filters-adverts {
             .filter-form {
@@ -203,7 +264,7 @@
                     form {
                         .type-of-property {
                             .select-type-of-property-var {
-                                width: 89%;
+                                width: 77.6%;
                             }
                         }
                     }
@@ -212,7 +273,7 @@
         }
     }
 }
-@media (min-width: 670px) and (max-width: 699px) {
+@media (min-width: 345px) and (max-width: 349px) {
     main {
         .filters-adverts {
             .filter-form {
@@ -220,7 +281,7 @@
                     form {
                         .type-of-property {
                             .select-type-of-property-var {
-                                width: 88.5%;
+                                width: 77%;
                             }
                         }
                     }
@@ -229,7 +290,7 @@
         }
     }
 }
-@media (min-width: 640px) and (max-width: 669px) {
+@media (min-width: 330px) and (max-width: 344px) {
     main {
         .filters-adverts {
             .filter-form {
@@ -237,7 +298,7 @@
                     form {
                         .type-of-property {
                             .select-type-of-property-var {
-                                width: 88%;
+                                width: 76%;
                             }
                         }
                     }
@@ -246,7 +307,7 @@
         }
     }
 }
-@media (min-width: 600px) and (max-width: 639px) {
+@media (min-width: 320px) and (max-width: 329px) {
     main {
         .filters-adverts {
             .filter-form {
@@ -254,7 +315,7 @@
                     form {
                         .type-of-property {
                             .select-type-of-property-var {
-                                width: 87%;
+                                width: 75.6%;
                             }
                         }
                     }
@@ -263,7 +324,7 @@
         }
     }
 }
-@media (min-width: 570px) and (max-width: 599px) {
+@media (min-width: 310px) and (max-width: 319px) {
     main {
         .filters-adverts {
             .filter-form {
@@ -271,7 +332,7 @@
                     form {
                         .type-of-property {
                             .select-type-of-property-var {
-                                width: 86.5%;
+                                width: 75%;
                             }
                         }
                     }
@@ -280,7 +341,7 @@
         }
     }
 }
-@media (min-width: 530px) and (max-width: 569px) {
+@media (min-width: 300px) and (max-width: 309px) {
     main {
         .filters-adverts {
             .filter-form {
@@ -288,7 +349,7 @@
                     form {
                         .type-of-property {
                             .select-type-of-property-var {
-                                width: 85.5%;
+                                width: 74.5%;
                             }
                         }
                     }
@@ -297,7 +358,7 @@
         }
     }
 }
-@media (min-width: 500px) and (max-width: 529px) {
+@media (max-width: 299px) {
     main {
         .filters-adverts {
             .filter-form {
@@ -305,58 +366,7 @@
                     form {
                         .type-of-property {
                             .select-type-of-property-var {
-                                width: 84.5%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-@media (min-width: 475px) and (max-width: 499px) {
-    main {
-        .filters-adverts {
-            .filter-form {
-                .filters {
-                    form {
-                        .type-of-property {
-                            .select-type-of-property-var {
-                                width: 83.5%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-@media (min-width: 440px) and (max-width: 474px) {
-    main {
-        .filters-adverts {
-            .filter-form {
-                .filters {
-                    form {
-                        .type-of-property {
-                            .select-type-of-property-var {
-                                width: 82.5%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-@media (min-width: 425px) and (max-width: 439px) {
-    main {
-        .filters-adverts {
-            .filter-form {
-                .filters {
-                    form {
-                        .type-of-property {
-                            .select-type-of-property-var {
-                                width: 81.5%;
+                                width: 70%;
                             }
                         }
                     }
