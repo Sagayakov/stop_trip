@@ -28,184 +28,250 @@ main {
         width: 100%;
         margin: auto;
         gap: 16px;
-
-        .filters {
-            width: 23.8%;
-            border-radius: 16px;
-            height: fit-content;
-            background-color: var(--grey-4);
-            padding: 24px 24px 32px;
-            form {
-                // чтобы стрелочек не было в инпутах
-                input[type='number']::-webkit-outer-spin-button,
-                input[type='number']::-webkit-inner-spin-button {
-                    -webkit-appearance: none;
-                }
-                input[type='number'],
-                input[type='number']:hover,
-                input[type='number']:focus {
-                    appearance: none;
-                    -moz-appearance: textfield;
-                }
-                // чтобы стрелочек не было в инпутах
-                input[type='number'] {
-                    width: 119.5px;
-                    height: 37px;
-                    border-radius: var(--radii);
-                    padding: 10px;
-                    border: none;
-                }
-                font-family: var(--font-inter);
-                .setting-price,
-                .total-area,
-                .living-space,
-                .rooms-quantity,
-                .bathroom {
-                    margin-bottom: 24px;
-                    h3 {
-                        margin-bottom: 8px;
-                        font-size: 16px;
-                        font-weight: 700;
+        .filter-form {
+            .filters {
+                width: 100%;
+                border-radius: 16px;
+                height: fit-content;
+                background-color: var(--grey-4);
+                padding: 24px 24px 32px;
+                form {
+                    // чтобы стрелочек не было в инпутах
+                    input[type='number']::-webkit-outer-spin-button,
+                    input[type='number']::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
                     }
-                }
-                .setting-price-inputs,
-                .total-area-inputs,
-                .living-space-inputs,
-                .setting-rooms-quantity,
-                .bathroom-setting {
-                    display: flex;
-                    justify-content: space-between;
-                }
-                .setting-price {
-                    .setting-price-adverts {
+                    input[type='number'],
+                    input[type='number']:hover,
+                    input[type='number']:focus {
+                        appearance: none;
+                        -moz-appearance: textfield;
+                    }
+                    // чтобы стрелочек не было в инпутах
+                    input[type='number'] {
+                        width: 119.5px;
+                        height: 37px;
+                        border-radius: var(--radii);
+                        padding: 10px;
+                        border: none;
+                    }
+                    font-family: var(--font-inter);
+                    .type-of-property,
+                    .setting-price,
+                    .total-area,
+                    .living-space,
+                    .rooms-quantity,
+                    .bathroom {
+                        margin-bottom: 24px;
+                        h3 {
+                            margin-bottom: 8px;
+                            font-size: 16px;
+                            font-weight: 700;
+                        }
+                    }
+                    .select-type-of-property,
+                    .setting-price-inputs,
+                    .total-area-inputs,
+                    .living-space-inputs,
+                    .setting-rooms-quantity,
+                    .bathroom-setting {
                         display: flex;
                         justify-content: space-between;
-                        margin-bottom: 8px;
-                        label {
-                            cursor: pointer;
-                            background-color: #e8f4ff;
-                            padding: 8px 10px;
-                            font-size: 12px;
-                            font-weight: 600;
+                    }
+                    .type-of-property {
+                        margin-bottom: 24px;
+                        h3 {
+                            margin-bottom: 8px;
+                        }
+                        .select-type-of-property {
+                            width: 100%;
+                            padding: 8px 16px;
+                            background-color: white;
                             border-radius: var(--radii);
                             border: none;
-                            input[type='radio'] {
-                                position: absolute;
-                                z-index: -1;
-                                opacity: 0; //скрыл галочку чекбокса
-                                width: 53px;
-                                height: 15px;
+                            position: relative;
+                        }
+                        .select-type-of-property-var {
+                            margin-top: 8px;
+                            position: absolute;
+                            width: 246px;
+                            padding: 16px;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 20px;
+                            border-radius: var(--radii);
+                            border: none;
+                            background-color: white;
+                            box-shadow: 0px 0px 20px 0px #00000012;
+                            label {
+                                height: 17px;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                input[type='radio']{
+                                    width: 10px;
+                                }
+                                // input {
+                                //     // z-index: -1;
+                                // }
+
+                                // label::before {
+                                //     content: '';
+                                //     display: inline-block;
+                                //     width: 14px;
+                                //     height: 14px;
+                                //     flex-shrink: 0;
+                                //     flex-grow: 0;
+                                //     border-radius: 4px;
+                                //     margin: 0 5px 0 0;
+                                //     background-repeat: no-repeat;
+                                //     background-position: center center;
+                                //     background-size: 50% 50%;
+                                //     background-color: var(--grey-1);
+                                // }
+                                // input:checked + label{
+                                //     color: var(--main-green);
+                                // }
+                                // input:checked + label::before {
+                                //     background: url('../../../shared/ui/icons/union.svg')
+                                //         no-repeat center center;
+                                //     background-size: 60%;
+                                //     box-shadow: none;
+                                // }
                             }
                         }
                     }
-                }
-                .checkboxes{
-                    .rooms-quantity {
-                        .setting-rooms-quantity {
-                            height: 17px;
+                    .setting-price {
+                        .setting-price-adverts {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 8px;
                             label {
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
+                                cursor: pointer;
+                                background-color: #e8f4ff;
+                                padding: 8px 10px;
                                 font-size: 12px;
-                                font-weight: 500;
+                                font-weight: 600;
+                                border-radius: var(--radii);
+                                border: none;
+                                input[type='radio'] {
+                                    position: absolute;
+                                    z-index: -1;
+                                    opacity: 0; //скрыл галочку чекбокса
+                                    width: 53px;
+                                    height: 15px;
+                                }
                             }
                         }
                     }
-                    .bathroom {
-                        .bathroom-setting {
+                    .checkboxes {
+                        .rooms-quantity {
+                            .setting-rooms-quantity {
+                                height: 17px;
+                                label {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    font-size: 12px;
+                                    font-weight: 500;
+                                }
+                            }
+                        }
+                        .bathroom {
+                            .bathroom-setting {
+                                height: 17px;
+                                label {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                }
+                            }
+                        }
+                        .balcony,
+                        .only-with-photo {
+                            margin-bottom: 24px;
                             height: 17px;
-                            label {
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                font-size: 14px;
-                                font-weight: 400;
+                            display: flex;
+                            align-items: center;
+                            font-size: 14px;
+                            font-weight: 600;
+                            input {
+                                margin-right: 8px;
                             }
                         }
                     }
-                    .balcony,
-                    .only-with-photo {
-                        margin-bottom: 24px;
-                        height: 17px;
+
+                    input[type='checkbox'] {
+                        width: 14px;
+                        height: 14px;
+                        margin-right: 4px;
+                    }
+
+                    input[type='submit'] {
+                        width: 100%;
+                        height: 43px;
+                        padding: 12px 20px;
+                        border-radius: var(--radii);
+                        border: none;
+                        color: white;
+                        background-color: var(--main-blue);
+                        font-family: var(--font-lato);
+                        font-weight: 600;
+                        margin-bottom: 16px;
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                    }
+
+                    .form-checkbox {
+                        cursor: pointer;
+                    }
+
+                    .form-checkbox > input {
+                        position: absolute;
+                        z-index: -1;
+                        opacity: 0;
+                    }
+
+                    .form-checkbox > span::before {
+                        content: '';
+                        display: inline-block;
+                        width: 14px;
+                        height: 14px;
+                        flex-shrink: 0;
+                        flex-grow: 0;
+                        border-radius: 4px;
+                        margin: 0 5px 0 0;
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 50% 50%;
+                        background-color: var(--grey-1);
+                    }
+
+                    .form-checkbox > input:checked + span::before {
+                        background: url('../../../shared/ui/icons/union.svg')
+                            no-repeat center center;
+                        background-size: 60%;
+                        background-color: var(--main-green);
+                        box-shadow: none;
+                    }
+
+                    .reset-setting-form {
+                        padding: 12px 20px;
+                        width: 100%;
+                        color: var(--main-blue);
+                        font-family: var(--font-lato);
+                        font-weight: 700;
+                        background-color: white;
+                        border-radius: var(--radii);
+                        border: 1px solid var(--main-blue);
                         display: flex;
                         align-items: center;
-                        font-size: 14px;
-                        font-weight: 600;
-                        input {
-                            margin-right: 8px;
+                        justify-content: center;
+                        svg {
+                            margin-right: 16px;
                         }
-                    }
-                }
-
-                input[type='checkbox'] {
-                    width: 14px;
-                    height: 14px;
-                    margin-right: 4px;
-                }
-
-                input[type='submit'] {
-                    width: 100%;
-                    height: 43px;
-                    padding: 12px 20px;
-                    border-radius: var(--radii);
-                    border: none;
-                    color: white;
-                    background-color: var(--main-blue);
-                    font-family: var(--font-lato);
-                    font-weight: 600;
-                    margin-bottom: 16px;
-                    word-wrap: break-word;
-                    overflow-wrap: break-word;
-                }
-
-                .form-checkbox {
-                    cursor: pointer;
-                }
-
-                .form-checkbox > input {
-                    position: absolute;
-                    z-index: -1;
-                    opacity: 0;
-                }
-
-                .form-checkbox > span::before {
-                    content: '';
-                    display: inline-block;
-                    width: 14px;
-                    height: 14px;
-                    flex-shrink: 0;
-                    flex-grow: 0;
-                    border-radius: 4px;
-                    margin: 0 5px 0 0;
-                    background-repeat: no-repeat;
-                    background-position: center center;
-                    background-size: 50% 50%;
-                    background-color: var(--grey-1);
-                }
-
-                .form-checkbox > input:checked + span::before {
-                    background: url('../../../shared/ui/icons/union.svg') no-repeat
-                        center center;
-                    background-size: 60%;
-                    background-color: var(--main-green);
-                    box-shadow: none;
-                }
-
-                .reset-setting-form {
-                    padding: 12px 20px;
-                    width: 100%;
-                    color: var(--main-blue);
-                    font-family: var(--font-lato);
-                    font-weight: 700;
-                    background-color: white;
-                    border-radius: var(--radii);
-                    border: 1px solid var(--main-blue);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    svg {
-                        margin-right: 16px;
                     }
                 }
             }

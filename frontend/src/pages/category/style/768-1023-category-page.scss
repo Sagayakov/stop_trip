@@ -111,3 +111,38 @@
         }
     }
 }
+
+@media (min-width: 768px) and (max-width: 900px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 39.5%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 901px) and (max-width: 1023px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 40%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

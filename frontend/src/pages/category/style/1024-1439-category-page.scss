@@ -1,128 +1,208 @@
-@media (min-width: 1024px) and (max-width: 1439px){
-    main{
+@media (min-width: 1024px) and (max-width: 1439px) {
+    main {
         width: 100%;
         margin: 0 auto;
 
-        .bread-crumbs{
+        .bread-crumbs {
             width: 85%;
             margin: 0 auto;
         }
 
-        h1{
+        h1 {
             width: 85%;
             margin: 15px auto 25px;
         }
 
-        .filters-adverts{
+        .filters-adverts {
             width: 85%;
             margin: 0 auto;
-            .filters{
+            .filter-form {
                 width: 30%;
-                padding: 16px 16px 24px 16px;
-
-                form{
-                    input[type='number'] {
-                        width: 42%;
-                        height: 34px;
-                        border-radius: var(--radii);
-                        padding: 10px;
-                        border: none;
-                    }
-                    input[type='submit']{
-                        white-space: normal;
-                        height: auto;
-                    }
-
-                    .setting-price {
-                        .setting-price-adverts {
-                            display: flex;
-                            justify-content: space-between;
-                            margin-bottom: 8px;
-                            label {
-                                padding: 8px 3.5%;
+                .filters {
+                    width: 100%;
+                    padding: 16px 16px 24px 16px;
+                    form {
+                        width: 100%;
+                        input[type='number'] {
+                            width: 42%;
+                            height: 34px;
+                            border-radius: var(--radii);
+                            padding: 10px;
+                            border: none;
+                        }
+                        input[type='submit'] {
+                            white-space: normal;
+                            height: auto;
+                        }
+                        .type-of-property {
+                            .select-type-of-property {
+                            }
+                            .select-type-of-property-var {
+                                width: 23%;
                             }
                         }
-                    }
-                    .checkboxes{
-                        .bathroom{
-                            .bathroom-setting{
-                                flex-direction: column;
-                                align-items: start;
-                                gap: 6px;
-                                height: auto;
+
+                        .setting-price {
+                            .setting-price-adverts {
+                                display: flex;
+                                justify-content: space-between;
+                                margin-bottom: 8px;
+                                label {
+                                    padding: 8px 3.5%;
+                                }
                             }
                         }
-                    }
-                     .form-checkbox > input {
-                        position: absolute;
-                        z-index: -1;
-                        opacity: 0;
-                    }
+                        .checkboxes {
+                            .bathroom {
+                                .bathroom-setting {
+                                    flex-direction: column;
+                                    align-items: start;
+                                    gap: 6px;
+                                    height: auto;
+                                }
+                            }
+                        }
+                        .form-checkbox > input {
+                            position: absolute;
+                            z-index: -1;
+                            opacity: 0;
+                        }
 
-                    .form-checkbox > span::before {
-                        content: '';
-                        display: inline-block;
-                        width: 14px;
-                        height: 14px;
-                        flex-shrink: 0;
-                        flex-grow: 0;
-                        border-radius: 4px;
-                        margin: 0 5px 0 0;
-                        background-repeat: no-repeat;
-                        background-position: center center;
-                        background-size: 50% 50%;
-                        background-color: var(--grey-1);
-                    }
+                        .form-checkbox > span::before {
+                            content: '';
+                            display: inline-block;
+                            width: 14px;
+                            height: 14px;
+                            flex-shrink: 0;
+                            flex-grow: 0;
+                            border-radius: 4px;
+                            margin: 0 5px 0 0;
+                            background-repeat: no-repeat;
+                            background-position: center center;
+                            background-size: 50% 50%;
+                            background-color: var(--grey-1);
+                        }
 
-                    .form-checkbox > input:checked + span::before {
-                        background: url('../../../shared/ui/icons/union.svg') no-repeat
-                            center center;
-                        background-size: 60%;
-                        background-color: var(--main-green);
-                        box-shadow: none;
+                        .form-checkbox > input:checked + span::before {
+                            background: url('../../../shared/ui/icons/union.svg')
+                                no-repeat center center;
+                            background-size: 60%;
+                            background-color: var(--main-green);
+                            box-shadow: none;
+                        }
                     }
                 }
             }
 
-            .adverts{
+            .adverts {
                 width: calc(70% - 16px);
-                .card{
+                .card {
                     width: 100%;
-                    .image{
-                        img{
+                    .image {
+                        img {
                             width: 240px;
                         }
                     }
-                    .description{
+                    .description {
                         padding: 12px 0;
-                        h2, h3{
+                        h2,
+                        h3 {
                             font-size: 22px;
                             margin-bottom: 12px;
                             width: 85%; //чтобы на лайк не заехало
                         }
                         .description-location,
                         .card-description,
-                        .time{
+                        .time {
                             margin-bottom: 12px;
                         }
                     }
                 }
             }
         }
-        .pagination{
+        .pagination {
             margin: 30px auto 50px;
         }
     }
 }
-@media (min-width: 1300px) and (max-width: 1439px){
-    main{
-        .filters-adverts{
-            .filters{
-                form{
+@media (min-width: 1300px) and (max-width: 1439px) {
+    main {
+        .filters-adverts {
+            .filters {
+                form {
                     .setting-price {
                         .setting-price-adverts {
                             label {
                                 padding: 8px 5.5%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1321px) and (max-width: 1439px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 23%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 1201px) and (max-width: 1320px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 23%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 1100px) and (max-width: 1200px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 22.75%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 1024px) and (max-width: 1099px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 22.5%;
                             }
                         }
                     }

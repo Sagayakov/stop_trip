@@ -12,6 +12,7 @@ export const AnyCategory = () => {
         };
        window.addEventListener('resize', handleResize);
     }, [window.innerWidth]);
+
     return (
         <section className="adverts">
             {data.map((el) => {
