@@ -1,0 +1,391 @@
+@media (max-width: 424px) {
+    main {
+        width: 100vw;
+        .controls{
+            width: 100%;
+            margin-bottom: 0px;
+            .controls-wrapper{
+                margin-bottom: 10px;
+                .select-wrapper{
+                    padding: 0px;
+                    select{
+                        width: 50%;
+                    }
+                }
+            }
+        }
+
+        .bread-crumbs {
+            width: 100%;
+            margin: 0 auto 16px;
+            padding: 0px 15px;
+            display: flex;
+            align-items: center;
+            svg {
+                display: flex;
+                align-items: center;
+            }
+            h1 {
+                font-size: 18px;
+                padding: 0;
+                margin: 0;
+                color: var(--main-black);
+            }
+            .filter-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--main-black);
+                border-radius: var(--radii);
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                font-family: var(--font-inter);
+                font-weight: 500;
+                padding: 10px 17px;
+                margin-left: auto;
+            }
+        }
+        .filters-adverts {
+            flex-direction: column;
+            .filter-form {
+                .filters {
+                    width: 100%;
+                    padding: 16px 40px 24px;
+                    border-radius: 0 0 8px 8px;
+                    background-color: var(--main-background);
+                    form {
+                        input[type='number'] {
+                            width: 47%;
+                            height: 34px;
+                            border-radius: var(--radii);
+                            padding: 10px;
+                            border: none;
+                        }
+                        input[type='submit'] {
+                            white-space: normal;
+                            height: auto;
+                        }
+
+                        .type-of-property,
+                        .setting-price,
+                        .total-area,
+                        .living-space,
+                        .rooms-quantity,
+                        .bathroom,
+                        .balcony,
+                        .only-with-photo {
+                            width: 100%;
+                        }
+                        .setting-price {
+                            .setting-price-adverts {
+                                width: 260px; //в процентах не красиво
+                                label {
+                                    padding: 10px 14px;
+                                }
+                            }
+                        }
+
+                        .checkboxes {
+                            .rooms-quantity {
+                                .setting-rooms-quantity {
+                                    width: 50%;
+                                }
+                            }
+                            .bathroom {
+                                .bathroom-setting {
+                                    width: 85%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .adverts {
+                width: calc(100% - 30px);
+                margin: 0px 15px;
+                .card {
+                    flex-direction: column;
+                    width: 100%;
+                    height: 218px;
+                    .image {
+                        display: flex;
+                        overflow-x: scroll;
+                        border-radius: 8px;
+                        gap: 8px;
+                        width: 100%;
+                        height: 100px;
+                        &::-webkit-scrollbar {
+                            overflow: -moz-scrollbars-none;
+                            scrollbar-width: none; // для firefox
+                            width: 0;
+                            height: 0;
+                        }
+                        img {
+                            max-width: 116px;
+                            min-width: 116px;
+                            height: 100px;
+                            border-radius: var(--radii);
+                            margin-right: 0;
+                        }
+                    }
+                    .add-to-favorite {
+                        top: 110px;
+                    }
+                    .description {
+                        margin: 8px 0px 0px;
+                        padding: 0px 8px;
+                        height: 94px;
+                        h2,
+                        h3 {
+                            font-size: 16px;
+                            margin-bottom: 8px;
+                        }
+                        .description-location {
+                            font-size: 12px;
+                            margin-bottom: 8px;
+                            font-weight: 400;
+                        }
+                        h3 {
+                            font-weight: 600;
+                        }
+                        .card-description {
+                            display: none;
+                            .author {
+                                gap: 10px;
+                            }
+                        }
+                        .time {
+                            position: relative;
+                            bottom: 23px;
+                            left: 185px;
+                            width: 45%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .pagination {
+            margin: 20px auto 30px;
+        }
+    }
+}
+
+@media (max-width: 375px) {
+    main {
+        .bread-crumbs {
+            h1 {
+                font-size: 14px;
+            }
+            .filter-btn {
+                padding: 6px 8px;
+            }
+        }
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .checkboxes {
+                            .rooms-quantity{
+                                .setting-rooms-quantity{
+                                    width: 60%;
+                                }
+                            }
+                            .bathroom{
+                                .bathroom-setting {
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .adverts {
+                .card {
+                    .description {
+                        h2,
+                        h3 {
+                            font-size: 14px;
+                        }
+                        .time {
+                            left: 170px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 410px) and (max-width: 424px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 81%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 390px) and (max-width: 409px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 80%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 370px) and (max-width: 389px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 78%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 350px) and (max-width: 369px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 77.6%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 345px) and (max-width: 349px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 77%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 330px) and (max-width: 344px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 76%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 320px) and (max-width: 329px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 75.6%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 310px) and (max-width: 319px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 75%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 300px) and (max-width: 309px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 74.5%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 299px) {
+    main {
+        .filters-adverts {
+            .filter-form {
+                .filters {
+                    form {
+                        .type-of-property {
+                            .select-type-of-property-var {
+                                width: 70%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

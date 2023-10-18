@@ -1,8 +1,18 @@
+import { useEffect, useState } from 'react';
 import data from '../../../db.json';
 import { Like } from '../../shared/ui/Like';
 import { Rating } from '../../shared/ui/Rating';
 
 export const AnyCategory = () => {
+    const [width, setWidth] = useState<number>(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWidth(window.innerWidth);
+        };
+       window.addEventListener('resize', handleResize);
+    }, [window.innerWidth]);
+
     return (
         <section className="adverts">
             {data.map((el) => {
@@ -10,7 +20,20 @@ export const AnyCategory = () => {
                     <div className="card" key={el.id}>
                         <Like />
                         <div className="image">
-                            <img src={el.image} />
+                            {width <= 767 ? (
+                                <>
+                                    <img src={el.image} />
+                                    <img src={el.image} />
+                                    <img src={el.image} />
+                                    <img src={el.image} />
+                                    <img src={el.image} />
+                                    <img src={el.image} />
+                                    <img src={el.image} />
+                                    <img src={el.image} />
+                                </>
+                            ) : (
+                                <img src={el.image} />
+                            )}
                         </div>
                         <div className="description">
                             <h2>{el.description}</h2>

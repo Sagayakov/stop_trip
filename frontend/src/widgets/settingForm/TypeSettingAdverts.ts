@@ -1,4 +1,5 @@
 export interface TypeSettingAdverts {
+    typeOfProperty: TypeOfProperty
     settingPrice: Price
     totalArea: TotalArea
     livingSpace: LivingSpace
@@ -7,6 +8,8 @@ export interface TypeSettingAdverts {
     balcony: boolean
     onlyWithPhotos: boolean
 }
+
+type TypeOfProperty = 'Не выбрано' | 'Квартира' | 'Комната' | 'Дом'
 
 interface Price {
     adverts: Adverts

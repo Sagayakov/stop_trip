@@ -16,6 +16,7 @@
         position: relative;
         top: 205px;
         left: calc(50% - 625px);
+        z-index: 1;
         .modal-category {
             display: flex;
             justify-content: space-between;
