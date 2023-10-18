@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { toggleModalSlice } from '../../features/header/model/modalAuth/reducers/toggleModal';
-import { setIsAuthSlice } from '../../features/header/model/modalAuth/reducers/setAuth';
+import { setIsAuthSlice } from '../../features/header/model/modalAuth/reducers/auth';
 
 const setupStore = () =>
     configureStore({
