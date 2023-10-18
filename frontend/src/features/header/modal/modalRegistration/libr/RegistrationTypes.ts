@@ -13,3 +13,5 @@ export type NewUser = {
     password: string;
     re_password: string;
 };
+
+export type UserEnter = Pick<NewUser, 'email' | 'password'>;

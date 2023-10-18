@@ -7,16 +7,32 @@ import { useState } from 'react';
 import { Google } from '../../../../shared/ui/icons/icons-tools/Google';
 import { Vk } from '../../../../shared/ui/icons/icons-tools/Vk';
 import { AuthData } from './libr/EnterType';
+import { signIn } from '../modalRegistration/api/signIn';
+import { useAppDispatch } from '../../../../app/store/hooks';
+import { setIsAuth } from '../../../../features/header/model/modalAuth/reducers/auth';
+import { toggleModalEnter } from '../../../../features/header/model/modalAuth/reducers/toggleModal';
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
     const { register, formState, handleSubmit, reset } = useForm<AuthData>({
         mode: 'onBlur',
     });
+    const dispatch = useAppDispatch();
 
-    const onsubmit: SubmitHandler<AuthData> = (data) => {
-        alert(JSON.stringify(data));
-        reset();
+    const onsubmit: SubmitHandler<AuthData> = async (submitData) => {
+        const authUser = async () =>
+            await signIn({
+                email: submitData.email,
+                password: submitData.password,
+            });
+
+        const result = await authUser();
+
+        if (result) {
+            dispatch(setIsAuth(true));
+            dispatch(toggleModalEnter(false));
+            reset();
+        }
     };
 
     return (
@@ -52,6 +68,3 @@ export const FormEnter = () => {
         </form>
     );
 };
-/* function useEffect(arg0: () => () => void, arg1: never[]) {
-  throw new Error("Function not implemented.");
-} */
