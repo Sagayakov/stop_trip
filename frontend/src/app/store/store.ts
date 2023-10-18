@@ -1,11 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { toggleModalSlice } from '../../features/header/model/modalAuth/reducers/toggleModal'
+import { configureStore } from '@reduxjs/toolkit';
+import { toggleModalSlice } from '../../features/header/model/modalAuth/reducers/toggleModal';
+import { setIsAuthSlice } from '../../features/header/model/modalAuth/reducers/setAuth';
 
-export const store = configureStore({
-    reducer: {
-        toggleModalEnter: toggleModalSlice.reducer,
-    },
-})
+const setupStore = () =>
+    configureStore({
+        reducer: {
+            toggleModalEnter: toggleModalSlice.reducer,
+            setIsAuth: setIsAuthSlice.reducer,
+        },
+    });
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export const store = setupStore();
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

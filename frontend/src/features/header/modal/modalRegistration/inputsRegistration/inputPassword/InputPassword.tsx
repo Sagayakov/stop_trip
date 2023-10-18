@@ -1,21 +1,20 @@
-import { FormState, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 
 interface Props {
-    formState: FormState<AuthRegistration>;
+    errors: FieldErrors<AuthRegistration>;
     register: UseFormRegister<AuthRegistration>;
     showPassword: boolean;
     setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const InputPassword = ({
-    formState,
+    errors,
     register,
     showPassword,
     setShowPassword,
 }: Props) => {
-    const { errors } = formState;
     const handleShowPass = () => {
         setShowPassword(!showPassword);
     };
