@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { InputChechbox } from './inputsRegistration/inputCheckbox/InputCheckbox';
 import { InputEmail } from './inputsRegistration/inputEmail/InputEmail';
@@ -21,7 +21,7 @@ export const FormRegistration = () => {
         register,
         handleSubmit,
         reset,
-        formState: { isSubmitSuccessful, errors, isValid },
+        formState: { errors, isValid },
         watch,
     } = useForm<AuthRegistration>({
         mode: 'all',
@@ -38,14 +38,14 @@ export const FormRegistration = () => {
                 re_password: submitData.repeatPassword,
             });
 
-        await authUser();
-        dispatch(setIsAuth(true));
-        dispatch(toggleModalEnter(false));
-    };
+        const result = await authUser();
 
-    useEffect(() => {
-        isSubmitSuccessful && reset();
-    }, [reset, isSubmitSuccessful]);
+        if (result) {
+            dispatch(setIsAuth(true));
+            dispatch(toggleModalEnter(false));
+            reset();
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit(onsubmit)} autoComplete="false">

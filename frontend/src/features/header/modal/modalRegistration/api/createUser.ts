@@ -13,7 +13,9 @@ export const createUser = async (body: NewUser) => {
 
         const data = await responce.json();
         console.log('data', data);
-        return data;
+        if ((await responce).ok) {
+            return data;
+        }
     } catch (e) {
         console.log(e);
     }

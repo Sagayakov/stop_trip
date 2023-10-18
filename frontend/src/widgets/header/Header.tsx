@@ -9,9 +9,10 @@ import { Person } from '../../shared/ui/icons/icons-tools/Person';
 import { Plus } from '../../shared/ui/icons/icons-tools/Plus';
 import './header.scss';
 import { ModalAddAdvert } from '../../features/header/modal/modalAddAdvert/ModalAddAdvert';
+import { Dispatch } from 'redux';
 
 export const Header = () => {
-    const dispatch = useAppDispatch();
+    const dispatch: Dispatch = useAppDispatch();
     const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
     const [width, setWidth] = useState<number>(window.innerWidth);
     const ref = useRef(null);
