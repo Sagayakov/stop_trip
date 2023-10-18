@@ -20,7 +20,7 @@ export const AnyCategory = () => {
                     <div className="card" key={el.id}>
                         <Like />
                         <div className="image">
-                            {width < 767 ? (
+                            {width <= 767 ? (
                                 <>
                                     <img src={el.image} />
                                     <img src={el.image} />

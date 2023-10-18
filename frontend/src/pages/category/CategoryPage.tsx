@@ -7,9 +7,9 @@ import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24
 import { HorizontalMixer } from '../../shared/ui/icons/icons-tools/HorizontalMixer';
 import { AnyCategory, SettingAdvertsForm } from '../../widgets/index';
 import './style/category-page.scss';
-import './style/1024-1439-category-page.scss'
-import './style/768-1023-category-page.scss'
-import './style/425-767-category-page.scss'
+import './style/1024-1439-category-page.scss';
+import './style/768-1023-category-page.scss';
+import './style/425-767-category-page.scss';
 import './style/min-424-category-page.scss';
 
 
@@ -19,12 +19,29 @@ export const CategoryPage = () => {
     const [width, setWidth] = useState<number>(window.innerWidth);
     const [showFilters, setShowFilters] = useState<boolean>(false);
 
+    const filterFormStyleMobile = {
+        display: `${showFilters ? 'block' : 'none'}`,
+        backgroundColor: 'rgb(0, 0, 0, 0.7)',
+        zIndex: 10,
+        height: '460vh',
+        width: '100vw',
+        position: 'absolute',
+    }
+    const filterFormStyleDesctop = {
+        display: 'block',
+    }
+    const filterBtnStyle = {
+        display: `${width > 767 ? 'none' : 'flex'}`,
+        backgroundColor: `${showFilters ? '#CDE1FF' : '#EBF3FF'}`,
+    };
 
     useEffect(() => {
         const handleResize = () => {
             setWidth(window.innerWidth);
             if(window.innerWidth >= 768) {
                 setShowFilters(true)
+            } else {
+                setShowFilters(false)
             }
         };
         window.addEventListener('resize', handleResize);
@@ -45,7 +62,6 @@ export const CategoryPage = () => {
                 <div className="bread-crumbs">
                     <NavLink to="/">
                         <ArrowLeft10x24
-                            // color="#1C1C1E"
                             style={{
                                 cursor: 'pointer',
                                 marginRight: '8px',
@@ -56,10 +72,7 @@ export const CategoryPage = () => {
                     <div
                         className="filter-btn"
                         onClick={() => setShowFilters(!showFilters)}
-                        style={{
-                            display: `${width > 767 ? 'none' : 'flex'}`,
-                            backgroundColor: `${ showFilters ? '#CDE1FF' : '#EBF3FF'}`,
-                        }}
+                        style={filterBtnStyle}
                     >
                         <HorizontalMixer />
                         Фильтры
@@ -70,20 +83,7 @@ export const CategoryPage = () => {
                 <div
                     className="filter-form"
                     onClick={() => setShowFilters(false)}
-                    style={
-                        width <= 767
-                            ? {
-                                  display: `${showFilters ? 'block' : 'none'}`,
-                                  backgroundColor: 'rgb(0, 0, 0, 0.7)',
-                                  zIndex: 10,
-                                  height: '460vh',
-                                  width: '100vw',
-                                  position: 'absolute',
-                              }
-                            : {
-                                  display: 'block',
-                              }
-                    }
+                    style={ width <= 767 ? filterFormStyleMobile : filterFormStyleDesctop }
                 >
                     <SettingAdvertsForm setShowFilters={setShowFilters} />
                 </div>

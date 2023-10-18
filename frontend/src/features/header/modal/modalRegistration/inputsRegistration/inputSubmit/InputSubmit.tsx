@@ -7,7 +7,7 @@ interface Props {
 
 export const InputSubmit = ({ formState }: Props) => {
     const { isValid } = formState;
-    console.log(isValid);
+    // console.log(isValid);
 
     return (
         <input

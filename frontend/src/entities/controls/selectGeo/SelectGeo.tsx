@@ -16,7 +16,7 @@ export const SelectGeo = () => {
 
     return (
         <div className="select-wrapper">
-            {width >= 767 ? <MapIcon color="#1F6FDE" /> : <p>В городе</p>}
+            {width >= 768 ? <MapIcon color="#1F6FDE" /> : <p>В городе</p>}
             <select ref={selectRef}>
                 <option value="Гоа">Тбилиси</option>
                 <option value="Гоа">Гоа</option>

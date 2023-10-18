@@ -21,8 +21,8 @@ export const ArrowLeft10x24 = ({ style }: Props) => {
                 <path
                     d="M8 17L3.72196 12.8931C3.32333 12.5104 3.31065 11.8769 3.69366 11.4786L8 7"
                     stroke="#1C1C1E"
-                    stroke-width="2"
-                    stroke-linecap="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
                 />
             </svg>
         </>

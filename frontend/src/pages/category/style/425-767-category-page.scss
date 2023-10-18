@@ -106,11 +106,14 @@
                         gap: 8px;
                         width: 100%;
                         height: 100px;
+                        scrollbar-width: none; /* Для Firefox */
+                        -ms-overflow-style: none;
                         &::-webkit-scrollbar {
                             overflow: -moz-scrollbars-none;
                             scrollbar-width: none; // для firefox
                             width: 0;
                             height: 0;
+                            display: none;
                         }
                         img {
                             max-width: 116px;

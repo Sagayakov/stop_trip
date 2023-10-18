@@ -26,7 +26,7 @@
                     form {
                         display: grid;
                         grid-template-columns: 1fr 1fr;
-                        grid-template-rows: 120px 80px 80px 60px;
+                        grid-template-rows: 120px 80px 80px 70px;
                         grid-template-areas:
                             'price type'
                             'area check'
@@ -74,11 +74,14 @@
                         input[type='submit'] {
                             grid-area: send;
                             width: 85%;
+                            margin-top: 10px;
                         }
                         .reset-setting-form {
                             grid-area: btn-reset;
                             width: 85%;
                             height: 45px;
+                            margin-top: 10px;
+                            width: 82%;
                         }
                         .type-of-property{
                             .select-type-of-property-var{
@@ -88,9 +91,6 @@
                         .checkboxes {
                             position: relative;
                             bottom: 43px;
-                        }
-                        .reset-setting-form{
-                            width: 82%;
                         }
                     }
                 }
