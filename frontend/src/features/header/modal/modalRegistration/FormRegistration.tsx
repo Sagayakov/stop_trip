@@ -22,6 +22,7 @@ export const FormRegistration = () => {
         handleSubmit,
         reset,
         formState: { errors, isValid },
+
         watch,
     } = useForm<AuthRegistration>({
         mode: 'all',
