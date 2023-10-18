@@ -2,6 +2,7 @@ import { ComponentType } from 'react';
 import { MainPage } from '../../pages/main/MainPage';
 import { categories } from '../../shared/const/categories';
 import { CategoryPage } from '../../pages/category/CategoryPage';
+import { AddAdvertPage } from '../../pages/add-advert/AddAdvertPage';
 
 interface Route {
     path: string;
@@ -18,4 +19,8 @@ export const publicRoutes: Route[] = [
     ...categoryRoutes,
 ];
 
-export const privateRoutes: Route[] = [];
+export const privateRoutes: Route[] = [
+    { path: '/', component: MainPage },
+    { path: '/add-advert', component: AddAdvertPage },
+    ...categoryRoutes,
+];
