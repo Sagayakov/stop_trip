@@ -1,36 +1,46 @@
-import { useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks'
-import { Close } from '../../../shared/ui/icons/icons-tools/Close'
-import { toggleModalEnter } from '../model/modalAuth/reducers/toggleModal'
-import { FormEnter, FormRegistration } from './index'
-import './modal.scss'
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { Close } from '../../../shared/ui/icons/icons-tools/Close';
+import { setIsEnter } from '../model/modalAuth/reducers/isEnter';
+import { toggleModalEnter } from '../model/modalAuth/reducers/toggleModal';
+import { FormEnter, FormRegistration } from './index';
+import './modal.scss';
 
 export const Modal = () => {
-    const [isRegister, setIsRegister] = useState(false)
-    const toggle = useAppSelector((state) => state.toggleModalEnter.toggle)
-    const dispatch = useAppDispatch()
-    const handleEnterText = () => setIsRegister(!isRegister)
+    const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
+    const dispatch = useAppDispatch();
+    const isEnter = useAppSelector((state) => state.setIsEnter.isEnter);
+
     return (
         <div
             className="modal"
             style={{ display: `${toggle ? 'block' : 'none'}` }}
-            onClick={() => dispatch(toggleModalEnter(!toggle))}>
-            <div className="modal-wrapper" onClick={(event) => event.stopPropagation()}>
+            onClick={() => dispatch(toggleModalEnter(!toggle))}
+        >
+            <div
+                className="modal-wrapper"
+                onClick={(event) => event.stopPropagation()}
+            >
                 <Close onclick={() => dispatch(toggleModalEnter(false))} />
                 <div className="modal-header">
                     <div
-                        onClick={handleEnterText}
-                        className={isRegister ? 'enter enter-active' : 'enter'}>
+                        className={isEnter ? 'enter enter-active' : 'enter'}
+                        onClick={() => dispatch(setIsEnter(true))}
+                    >
                         Вход
                     </div>
                     <div
-                        onClick={handleEnterText}
-                        className={isRegister ? 'registration' : 'registration enter-active'}>
+                        className={
+                            isEnter
+                                ? 'registration'
+                                : 'registration enter-active'
+                        }
+                        onClick={() => dispatch(setIsEnter(false))}
+                    >
                         Регистрация
                     </div>
                 </div>
-                {isRegister ? <FormEnter /> : <FormRegistration />}
+                {isEnter ? <FormEnter /> : <FormRegistration />}
             </div>
         </div>
-    )
-}
+    );
+};

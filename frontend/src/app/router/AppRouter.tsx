@@ -1,9 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from '../layout';
 import { privateRoutes, publicRoutes } from './routes';
+import { useAppSelector } from '../store/hooks';
 
 export const AppRouter = () => {
-    const isAuth = false; //change after synchronization with backend
+    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
 
     const routes = isAuth ? privateRoutes : publicRoutes;
 

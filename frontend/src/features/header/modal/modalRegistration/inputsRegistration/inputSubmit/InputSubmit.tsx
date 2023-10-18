@@ -1,14 +1,8 @@
-import { FormState } from 'react-hook-form';
-import { AuthRegistration } from '../../libr/RegistrationTypes';
-
 interface Props {
-    formState: FormState<AuthRegistration>;
+    isValid: boolean;
 }
 
-export const InputSubmit = ({ formState }: Props) => {
-    const { isValid } = formState;
-    // console.log(isValid);
-
+export const InputSubmit = ({ isValid }: Props) => {
     return (
         <input
             type="submit"
@@ -22,7 +16,7 @@ export const InputSubmit = ({ formState }: Props) => {
                 cursor: 'pointer',
             }}
             value="Войти"
-            //disabled={!isValid}
+            disabled={!isValid}
         />
     );
 };

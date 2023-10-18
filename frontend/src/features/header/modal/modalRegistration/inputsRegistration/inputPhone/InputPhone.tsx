@@ -1,14 +1,12 @@
-import { FormState, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 
 interface Props {
-    formState: FormState<AuthRegistration>;
+    errors: FieldErrors<AuthRegistration>;
     register: UseFormRegister<AuthRegistration>;
 }
 
-export const InputPhone = ({ formState, register }: Props) => {
-    const { errors } = formState;
-
+export const InputPhone = ({ errors, register }: Props) => {
     return (
         <>
             <input

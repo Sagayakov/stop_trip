@@ -1,14 +1,12 @@
-import { FormState, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 
 interface Props {
-    formState: FormState<AuthRegistration>;
+    errors: FieldErrors<AuthRegistration>;
     register: UseFormRegister<AuthRegistration>;
 }
 
 export const InputChechbox = ({ register }: Props) => {
-    //const { errors } = formState;
-
     return (
         <div className="user-agreement">
             <label htmlFor="userAgreement" className="form-checkbox">

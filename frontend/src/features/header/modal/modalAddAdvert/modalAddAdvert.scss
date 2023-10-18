@@ -1,0 +1,51 @@
+.modal-add {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.75);
+    .modal-add-content {
+        position: absolute;
+        top: 8rem;
+        left: 25%;
+        z-index: 10;
+        box-shadow: 0px 0px 20px 0px #00000012;
+        width: 50%;
+        padding: 60px 40px 40px;
+        border-radius: 8px;
+        background-color: white;
+        font-weight: 500;
+        font-family: var(--font-sf);
+        text-align: center;
+        svg {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+        }
+        .auth-link {
+            cursor: pointer;
+            color: var(--main-blue);
+        }
+    }
+}
+
+@media (max-width: 474px) {
+    .modal-add {
+        .modal-add-content {
+            width: 60%;
+            top: 4rem;
+            left: 20%;
+        }
+    }
+}
+
+@media (max-width: 425px) {
+    .modal-add {
+        .modal-add-content {
+            width: 80%;
+            left: 10%;
+        }
+    }
+}

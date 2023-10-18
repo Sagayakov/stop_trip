@@ -31,7 +31,7 @@ header {
             margin-left: 355px;
             border: none;
             border-radius: var(--radii);
-            background-color: var(--main-blue);
+            background-color: var(--grey-2);
             color: white;
             display: flex;
             align-items: center;
@@ -40,6 +40,9 @@ header {
             .svg {
                 margin-right: 0.5rem;
             }
+        }
+        .addAdvert.active {
+            background-color: var(--main-blue);
         }
         .addAdvert:active {
             opacity: 0.75;
@@ -92,6 +95,12 @@ header {
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
+            }
+            .person-auth {
+                margin-left: 1rem;
+                svg {
+                    height: 3rem;
+                }
             }
         }
     }
@@ -181,7 +190,7 @@ header {
     }
 }
 
-@media (min-width: 601px) and (max-width: 767px) {
+@media (min-width: 601px) and (max-width: 768px) {
     header.fixed-header {
         .header-wrapper {
             height: 40px;
@@ -208,7 +217,7 @@ header {
         }
     }
 }
-@media (min-width: 476px) and (max-width: 600px) {
+@media (max-width: 600px) {
     header.fixed-header {
         .header-wrapper {
             height: 40px;
@@ -249,7 +258,7 @@ header {
     }
 }
 
-@media (min-width: 425px) and (max-width: 475px) {
+@media (min-width: 425px) and (max-width: 476px) {
     header.fixed-header {
         height: 40px;
         margin: 0 auto;
