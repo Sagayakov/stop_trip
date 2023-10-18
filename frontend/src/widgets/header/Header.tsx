@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import { Modal } from '../../features/header/modal';
 import { ModalMobile } from '../../features/header/modal/modalMobile/ModalMobile';
@@ -8,6 +8,7 @@ import { LogoHeader } from '../../shared/ui/icons/icons-tools/LogoHeader';
 import { Person } from '../../shared/ui/icons/icons-tools/Person';
 import { Plus } from '../../shared/ui/icons/icons-tools/Plus';
 import './header.scss';
+import { ModalAddAdvert } from '../../features/header/modal/modalAddAdvert/ModalAddAdvert';
 
 export const Header = () => {
     const dispatch = useAppDispatch();
@@ -16,9 +17,12 @@ export const Header = () => {
     const ref = useRef(null);
 
     const [showUserMenu, setShowUserMenu] = useState(false); //потом переделать на редьюсер
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
     const handleToggleModal = () => dispatch(toggleModalEnter(!toggle));
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
@@ -49,13 +53,24 @@ export const Header = () => {
         };
     }, []);
 
+    const addAdvert = () => {
+        setIsAddModalOpen(true);
+    };
+
+    const closeAddModal = () => {
+        setIsAddModalOpen(false);
+    };
+
     return (
         <header ref={ref}>
             <div className="header-wrapper">
                 <NavLink to="/">
                     <LogoHeader />
                 </NavLink>
-                <button className={isAuth ? 'addAdvert active' : 'addAdvert'}>
+                <button
+                    className={isAuth ? 'addAdvert active' : 'addAdvert'}
+                    onClick={isAuth ? () => navigate('/add-advert') : addAdvert}
+                >
                     <Plus color="white" />
                     {width >= 425 ? 'Разместить объявление' : 'Опубликовать'}
                 </button>
@@ -96,6 +111,9 @@ export const Header = () => {
                     setShowUserMenu={setShowUserMenu}
                 />
                 <Modal />
+                {isAddModalOpen && (
+                    <ModalAddAdvert closeAddModal={closeAddModal} />
+                )}
             </div>
         </header>
     );

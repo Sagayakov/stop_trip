@@ -11,7 +11,7 @@ import { AuthRegistration } from './libr/RegistrationTypes';
 import './libr/formRegistration.scss';
 import { createUser } from './api/createUser';
 import { useAppDispatch } from '../../../../app/store/hooks';
-import { setIsAuth } from '../../../../features/header/model/modalAuth/reducers/setAuth';
+import { setIsAuth } from '../../model/modalAuth/reducers/auth';
 import { toggleModalEnter } from '../../../../features/header/model/modalAuth/reducers/toggleModal';
 // import './inputsRegistration/inputRegistration.scss'
 
