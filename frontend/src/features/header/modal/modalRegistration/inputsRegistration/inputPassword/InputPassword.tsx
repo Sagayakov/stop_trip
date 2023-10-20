@@ -28,6 +28,7 @@ export const InputPassword = ({
                         minLength: 5,
                     })}
                     placeholder="Пароль"
+                    autoComplete="new-password"
                     type={showPassword ? 'text' : 'password'}
                     style={{
                         border: `1px solid ${

@@ -14,7 +14,7 @@ import { toggleModalEnter } from '../../../../features/header/model/modalAuth/re
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
-    const { register, formState, handleSubmit, reset } = useForm<AuthData>({
+    const { register, formState, handleSubmit, reset, control } = useForm<AuthData>({
         mode: 'onBlur',
     });
     const dispatch = useAppDispatch();
@@ -44,9 +44,9 @@ export const FormEnter = () => {
             <InputEmail formState={formState} register={register} />
             <InputPassword
                 formState={formState}
-                register={register}
                 togglePass={togglePass}
                 setTogglePass={setTogglePass}
+                control={control}
             />
             <div className="forget-password">Забыли пароль?</div>
             <div className="remember-me">

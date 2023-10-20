@@ -17,6 +17,7 @@ export const InputEmail = ({ errors, register }: Props) => {
                     minLength: 10,
                 })}
                 placeholder="Email"
+                autoComplete="username"
                 style={{
                     border: `1px solid ${
                         errors?.email ? '#FF3F25' : '#DCDCDC'

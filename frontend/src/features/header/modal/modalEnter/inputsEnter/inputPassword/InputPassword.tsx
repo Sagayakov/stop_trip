@@ -1,4 +1,4 @@
-import { FormState, UseFormRegister } from 'react-hook-form';
+import { Control, Controller, FormState } from 'react-hook-form';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
 import { AuthData } from '../../libr/EnterType';
 import '../../libr/inputEmail.scss';
@@ -6,16 +6,16 @@ import { useRef } from 'react';
 
 interface Props {
     formState: FormState<AuthData>;
-    register: UseFormRegister<AuthData>;
     togglePass: boolean;
     setTogglePass: React.Dispatch<React.SetStateAction<boolean>>;
+    control: Control<AuthData, string>;
 }
 
 export const InputPassword = ({
     formState,
-    register,
     setTogglePass,
     togglePass,
+    control
 }: Props) => {
     const { errors } = formState;
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -26,22 +26,24 @@ export const InputPassword = ({
 
     return (
         <div className="password-div">
-            <input
-                {...register('password', {
-                    required: true,
-                    minLength: 5,
-                    pattern:
-                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/,
-                })}
-                placeholder="Пароль"
-                type={togglePass ? 'text' : 'password'}
-                style={{
-                    border: `1px solid ${
-                        errors?.password ? '#FF3F25' : '#DCDCDC'
-                    }`,
-                }}
-                ref={inputRef}
-                onBlur={() => setTogglePass(false)}
+            <Controller
+                name="password"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                    <input
+                        {...field}
+                        placeholder="Пароль"
+                        autoComplete="current-password"
+                        type={togglePass ? 'text' : 'password'}
+                        style={{
+                            border: `1px solid ${
+                                errors.password ? '#FF3F25' : '#DCDCDC'
+                            }`,
+                        }}
+                        onBlur={() => setTogglePass(false)}
+                    />
+                )}
             />
             <div id="eye" onClick={handleToggle}>
                 <Eye />
