@@ -1,8 +1,12 @@
+import { Dispatch } from '@reduxjs/toolkit';
+import { setIsAuth } from '../../../../features/header/model/modalAuth/reducers/auth';
+import { useAppDispatch } from '../../../../app/store/hooks';
 import { Docs } from '../../../../shared/ui/icons/category/Docs';
 import { Favorite } from '../../../../shared/ui/icons/icons-tools/Favorite';
 import { Message } from '../../../../shared/ui/icons/icons-tools/Message';
 import { Setting } from '../../../../shared/ui/icons/icons-tools/Setting';
 import './modalMobile.scss';
+import { clearTokensFromCookies } from '../../../../app/cookie/cookieAuth';
 
 interface Props {
     showUserMenu: boolean;
@@ -11,6 +15,13 @@ interface Props {
 
 export const ModalMobile = (props: Props) => {
     const { showUserMenu, setShowUserMenu } = props;
+    const dispatch: Dispatch = useAppDispatch();
+
+    const handleLogout = () => {
+        dispatch(setIsAuth(false))
+        setShowUserMenu(false)
+        clearTokensFromCookies()
+    }
 
     return (
         <div
@@ -46,7 +57,7 @@ export const ModalMobile = (props: Props) => {
                         </div>
                     </div>
                 </div>
-                <p>Выход</p>
+                <p onClick={handleLogout}>Выход</p>
             </div>
         </div>
     );

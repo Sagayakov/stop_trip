@@ -13,7 +13,7 @@ export const signIn = async (body: UserEnter) => {
         });
 
         const data = await responce.json();
-        console.log('data', data);
+
         if ((await responce).ok) {
             saveTokensAuthToCookie(data.access, data.refresh)
             return data;

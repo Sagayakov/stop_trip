@@ -28,54 +28,43 @@ export const Header = () => {
     const navigate = useNavigate();
 
 
+
     const {accessToken, refreshToken} = getTokensAuthFromCookies()
     const checkAuth = async() => {
         const url = import.meta.env.VITE_BASE_URL
-        if(accessToken){
-            const body = JSON.stringify({ token: accessToken })
+        const headersConfig ={
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        }
+
+        if (accessToken) { //если токена нет, вернется статус 401
             try {
                 const res = await fetch(`${url}/api/auth/jwt/verify/`, {
                     method: 'POST',
-                    headers:{
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                    body
+                    headers: headersConfig,
+                    body: JSON.stringify({ token: accessToken }),
                 });
-                if(res.status === 200) dispatch(setIsAuth(true))
-                if(res.status === 401){
-                    const response = await fetch(`${url}/api/auth/jwt/refresh/`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                        },
-                        body: JSON.stringify({refresh: refreshToken})
-                    });
-                    const data = await response.json()
-                    saveTokensAuthToCookie(data.access, refreshToken)
-
-                }
+                if (res.status === 200) dispatch(setIsAuth(true))
+                return res
             } catch (error) {
                 console.log(error)
             }
         } else {
             const response = await fetch(`${url}/api/auth/jwt/refresh/`,{
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-               },
-                body: JSON.stringify({refresh: refreshToken,}),
+                headers: headersConfig,
+                body: JSON.stringify({ refresh: refreshToken }),
             });
             const data = await response.json();
             saveTokensAuthToCookie(data.access, refreshToken);
         }
     }
 
+    if (!refreshToken) dispatch(setIsAuth(false))
 
     useEffect(() => {
         checkAuth()
+
         const handleResize = () => {
             setWidth(window.innerWidth);
         };
