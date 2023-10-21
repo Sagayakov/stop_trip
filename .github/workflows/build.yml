@@ -52,52 +52,52 @@ jobs:
       - name: Push backend
         run: docker compose -f docker-compose.yml push backend
 
-#  build-frontend:
-#    runs-on: ubuntu-latest
-#    environment: production
-#    needs: [ build-backend ]
-#
-#    steps:
-#      - name: Clone repo
-#      - uses: actions/checkout@v4
-#
-#      - name: Pull frontend
-#      - run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull frontend || true
-#
-#      - name: Build frontend
-#      - run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml build frontend
-#
-#      - name: Push frontend
-#      - run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml push frontend
-#
-#  build-nginx:
-#    runs-on: ubuntu-latest
-#    environment: production
-#    needs: [ build-backend ]
-#
-#    steps:
-#      - name: Clone repo
-#      - uses: actions/checkout@v4
-#
-#      - name: Pull nginx
-#      - run: docker compose -f docker-compose.yml pull nginx || true
-#
-#      - name: Build nginx
-#      - run: docker compose -f docker-compose.yml build nginx
-#
-#      - name: Push nginx
-#      - run: docker compose -f docker-compose.yml push nginx
-#
-#  test-backend:
-#    runs-on: ubuntu-latest
-#    environment: production
-#
-#    steps:
-#      - name: Clone repo
-#      - uses: actions/checkout@v4
-#
-#      - name: Pull backend
-#      - run: docker compose -f docker-compose.yml pull db || true
-#
-#      - name: Test backend
-#      - run: docker compose -f docker-compose.yml run --rm backend /bin/sh -c "pytest -p no:warnings --cov-report term:skip-covered --cov=."
+  build-frontend:
+    runs-on: ubuntu-latest
+    environment: production
+    needs: [ build-backend ]
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+
+      - name: Pull frontend
+        run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull frontend || true
+
+      - name: Build frontend
+        run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml build frontend
+
+      - name: Push frontend
+        run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml push frontend
+
+  build-nginx:
+    runs-on: ubuntu-latest
+    environment: production
+    needs: [ build-backend ]
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+
+      - name: Pull nginx
+        run: docker compose -f docker-compose.yml pull nginx || true
+
+      - name: Build nginx
+        run: docker compose -f docker-compose.yml build nginx
+
+      - name: Push nginx
+        run: docker compose -f docker-compose.yml push nginx
+
+  test-backend:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+
+      - name: Pull backend
+        run: docker compose -f docker-compose.yml pull db || true
+
+      - name: Test backend
+        run: docker compose -f docker-compose.yml run --rm backend /bin/sh -c "pytest -p no:warnings --cov-report term:skip-covered --cov=."
