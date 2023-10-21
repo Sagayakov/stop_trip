@@ -91,13 +91,14 @@ jobs:
   test-backend:
     runs-on: ubuntu-latest
     environment: production
+    needs: [ build-backend ]
 
     steps:
       - name: Clone repo
         uses: actions/checkout@v4
 
       - name: Pull backend
-        run: docker compose -f docker-compose.yml pull db || true
+        run: docker compose -f docker-compose.yml pull backend || true
 
       - name: Test backend
         run: docker compose -f docker-compose.yml run --rm backend /bin/sh -c "pytest -p no:warnings --cov-report term:skip-covered --cov=."
