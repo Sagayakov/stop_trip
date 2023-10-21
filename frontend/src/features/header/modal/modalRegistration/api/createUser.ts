@@ -10,7 +10,10 @@ export const createUser = async (body: NewUser) => {
             },
             body: JSON.stringify(body),
         });
-
+        if(responce.status === 500){
+            console.log(500)
+            await fetch(`${url}api/auth/users/resend_activation/`);
+        }
         const data = await responce.json();
         console.log('data', data);
         if ((await responce).ok) {
