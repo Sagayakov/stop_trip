@@ -11,49 +11,32 @@ jobs:
     environment: production
 
     steps:
-      # Cloning repository
       - name: Clone repo
         uses: actions/checkout@v4
 
-      # DB
-      - name: Pull db
-        run: docker compose -f docker-compose.yml pull db || true
+      - name: DB
+        run: |
+          docker compose -f docker-compose.yml pull db || true
+          docker compose -f docker-compose.yml build db
+          docker compose -f docker-compose.yml push db
 
-      - name: Build db
-        run: docker compose -f docker-compose.yml build db
+      - name: Backend
+        run: |
+          docker compose -f docker-compose.yml pull backend || true
+          docker compose -f docker-compose.yml build backend
+          docker compose -f docker-compose.yml push backend
 
-      - name: Push db
-        run: docker compose -f docker-compose.yml push db
+      - name: Frontend
+        run: |
+          docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull frontend || true
+          docker compose -f docker-compose.yml -f docker-compose.frontend.yml build frontend
+          docker compose -f docker-compose.yml -f docker-compose.frontend.yml push frontend
 
-      # Backend
-      - name: Pull backend
-        run: docker compose -f docker-compose.yml pull backend || true
-
-      - name: Build backend
-        run: docker compose -f docker-compose.yml build backend
-
-      - name: Push backend
-        run: docker compose -f docker-compose.yml push backend
-
-      # Frontend
-      - name: Pull frontend
-        run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull frontend || true
-
-      - name: Build frontend
-        run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml build frontend
-
-      - name: Push frontend
-        run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml push frontend
-
-      # Nginx
-      - name: Pull nginx
-        run: docker compose -f docker-compose.yml pull nginx || true
-
-      - name: Build nginx
-        run: docker compose -f docker-compose.yml build nginx
-
-      - name: Push nginx
-        run: docker compose -f docker-compose.yml push nginx
+      - name: Nginx
+        run: |
+          docker compose -f docker-compose.yml pull nginx || true
+          docker compose -f docker-compose.yml build nginx
+          docker compose -f docker-compose.yml push nginx
 
   tests:
     runs-on: ubuntu-latest
@@ -69,3 +52,31 @@ jobs:
 
       - name: Test backend
         run: docker compose -f docker-compose.yml run --rm backend /bin/sh -c "pytest -p no:warnings --cov-report term:skip-covered --cov=."
+
+#  deploy:
+#    runs-on: ubuntu-latest
+#    environment: production
+#
+#    steps:
+#      # Cloning repository
+#      - name: Clone repo
+#        uses: actions/checkout@v4
+#
+#      # Setup SSH
+#      - name: Setup SSH
+#        uses: webfactory/ssh-agent@v0.7.0
+#        with:
+#          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+#
+#      # Deploy
+#      - name: Deploy to server
+#        run: |
+#          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /path/to/project && git pull origin main"
+#          # replace /path/to/project with the path to the directory where your project is located on the server
+#
+#      # Run server
+#      - name: Run server
+#        run: |
+#          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /path/to/project"
+#          docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull
+#          docker compose -f docker-compose.yml -f docker-compose.frontend.yml up --remove-orphans -d
