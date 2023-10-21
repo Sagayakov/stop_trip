@@ -10,7 +10,7 @@ import { Plus } from '../../shared/ui/icons/icons-tools/Plus';
 import './header.scss';
 import { ModalAddAdvert } from '../../features/header/modal/modalAddAdvert/ModalAddAdvert';
 import { Dispatch } from 'redux';
-import { getTokensAuthFromCookies, saveTokensAuthToCookie } from '../../app/cookie/cookieAuth';
+import { clearTokensFromCookies, getTokensAuthFromCookies, saveTokensAuthToCookie } from '../../app/cookie/cookieAuth';
 import { setIsAuth } from '../../features/header/model/modalAuth/reducers/auth';
 
 export const Header = () => {
@@ -27,7 +27,7 @@ export const Header = () => {
 
     const navigate = useNavigate();
 
-
+    const rememberMe = 'true' === localStorage.getItem('rememberMe') ? true : false
 
     const {accessToken, refreshToken} = getTokensAuthFromCookies()
     const checkAuth = async() => {
@@ -60,10 +60,20 @@ export const Header = () => {
         }
     }
 
-    if (!refreshToken) dispatch(setIsAuth(false))
+    if (!refreshToken) dispatch(setIsAuth(false)) //если нет refresh токена, то нужно заново авторизоваться и получить новый
+
+    // function handleBeforeUnload(event: BeforeUnloadEvent){
+    //     if (event.target instanceof Window){
+    //         if (rememberMe === false){
+    //             localStorage.removeItem('rememberMe')
+    //             clearTokensFromCookies()
+    //         }
+    //     }
+    // }//удалить токены авторизации из cookie и состояние чекбокса "Запомнить меня", если не нужно запоминать пользователя
 
     useEffect(() => {
-        checkAuth()
+        checkAuth()//чтобы не вылетало из акка при перезагрузке страницы
+
 
         const handleResize = () => {
             setWidth(window.innerWidth);

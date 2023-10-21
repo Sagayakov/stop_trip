@@ -21,6 +21,7 @@ export const ModalMobile = (props: Props) => {
         dispatch(setIsAuth(false))
         setShowUserMenu(false)
         clearTokensFromCookies()
+        localStorage.removeItem('rememberMe')
     }
 
     return (

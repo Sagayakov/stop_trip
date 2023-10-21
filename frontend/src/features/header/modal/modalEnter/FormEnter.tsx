@@ -11,6 +11,7 @@ import { signIn } from '../modalRegistration/api/signIn';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import { setIsAuth } from '../../../../features/header/model/modalAuth/reducers/auth';
 import { toggleModalEnter } from '../../../../features/header/model/modalAuth/reducers/toggleModal';
+import { CheckboxRememberMe } from './inputsEnter/CheckboxRememberMe';
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
@@ -28,6 +29,8 @@ export const FormEnter = () => {
 
         const result = await authUser();
 
+        localStorage.setItem('rememberMe', submitData.rememberMe.toString())
+        
         if (result) {
             dispatch(setIsAuth(true));
             dispatch(toggleModalEnter(false));
@@ -49,12 +52,7 @@ export const FormEnter = () => {
                 control={control}
             />
             <div className="forget-password">Забыли пароль?</div>
-            <div className="remember-me">
-                <label className="form-checkbox">
-                    <input type="checkbox" name="" id="" />
-                    <span>Запомнить аккаунт</span>
-                </label>
-            </div>
+            <CheckboxRememberMe register={register} />
             <InputSubmit />
             <div className="enter-with">
                 Войти с помощью
