@@ -23,16 +23,16 @@ jobs:
 #        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
 
       - name: Clone repo
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Pull db
-      - run: docker compose -f docker-compose.yml pull db || true
+        run: docker compose -f docker-compose.yml pull db || true
 
       - name: Build db
-      - run: docker compose -f docker-compose.yml build db
+        run: docker compose -f docker-compose.yml build db
 
       - name: Push db
-      - run: docker compose -f docker-compose.yml push db
+        run: docker compose -f docker-compose.yml push db
 
   build-backend:
     runs-on: ubuntu-latest
@@ -41,16 +41,16 @@ jobs:
 
     steps:
       - name: Clone repo
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Pull backend
-      - run: docker compose -f docker-compose.yml pull backend || true
+        run: docker compose -f docker-compose.yml pull backend || true
 
       - name: Build backend
-      - run: docker compose -f docker-compose.yml build backend
+        run: docker compose -f docker-compose.yml build backend
 
       - name: Push backend
-      - run: docker compose -f docker-compose.yml push backend
+        run: docker compose -f docker-compose.yml push backend
 
 #  build-frontend:
 #    runs-on: ubuntu-latest
