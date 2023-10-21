@@ -2,6 +2,8 @@
 
 ***
 
+### CI/CD status: <br><img src="https://github.com/Sagayakov/stop_trip/workflows/CI-CD/badge.svg?branch=master"><br>
+
 ## Flow  ведения проекта:
 1. Ветки создаём от **master**. Название ветки должно состоять из нескольких частей:
  - слово fix или feat (фикс чего-либо или новая фича)
