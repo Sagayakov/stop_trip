@@ -9,18 +9,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
 #    environment: production
-    env:
-      SECRET_KEY: my_secret_key
-      POSTGRES_NAME: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
-      TLS_MODE: off
-      SITE_HOST: localhost
-      DEBUG: True
-      HTPASSWD_NODE: off
-      HTPASSWD: off
+#    env:
+#      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+#      POSTGRES_NAME: ${{ secrets.POSTGRES_NAME }}
+#      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+#      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+#      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+#      POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+#      TLS_MODE: ${{ secrets.TLS_MODE }}
+#      SITE_HOST: ${{ secrets.SITE_HOST }}
+#      DEBUG: ${{ secrets.DEBUG }}
+#      HTPASSWD_NODE: ${{ secrets.HTPASSWD_NODE }}
+#      HTPASSWD: ${{ secrets.HTPASSWD }}
 
     steps:
       - name: Clone repo
@@ -55,11 +55,11 @@ jobs:
 #    environment: production
     needs: [ build ]
     env:
-      SECRET_KEY: my_secret_key
-      POSTGRES_NAME: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_HOST: db
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      POSTGRES_NAME: ${{ secrets.POSTGRES_NAME }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
 
     steps:
