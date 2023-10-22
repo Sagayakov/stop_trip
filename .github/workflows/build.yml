@@ -47,6 +47,7 @@ jobs:
       POSTGRES_NAME: ${{ secrets.POSTGRES_NAME }}
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_HOST: db
       POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
 
     steps:
@@ -55,6 +56,9 @@ jobs:
 
       - name: Pull backend
         run: docker compose -f docker-compose.yml pull backend || true
+
+      - name: Pull db
+        run: docker compose -f docker-compose.yml pull db || true
 
       - name: Test backend
         run: docker compose -f docker-compose.yml run --rm backend /bin/sh -c "pytest -p no:warnings --cov-report term:skip-covered --cov=."
