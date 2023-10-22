@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: production
+#    environment: production
 
     steps:
       - name: Clone repo
@@ -40,8 +40,14 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
-    environment: production
+#    environment: production
     needs: [ build ]
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      POSTGRES_NAME: ${{ secrets.POSTGRES_NAME }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
 
     steps:
       - name: Clone repo
@@ -55,7 +61,7 @@ jobs:
 
 #  deploy:
 #    runs-on: ubuntu-latest
-#    environment: production
+##    environment: production
 #
 #    steps:
 #      # Cloning repository
