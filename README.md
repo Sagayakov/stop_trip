@@ -2,7 +2,7 @@
 
 ***
 
-### CI/CD status: <img src="https://github.com/Sagayakov/stop_trip/workflows/CI-CD/badge.svg?branch=master">
+### CI/CD status: <img src="https://github.com/Sagayakov/stop_trip//actions/workflows/build.yml/badge.svg?branch=master">
 
 ## Flow  ведения проекта:
 1. Ветки создаём от **master**. Название ветки должно состоять из нескольких частей:
