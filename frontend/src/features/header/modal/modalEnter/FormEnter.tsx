@@ -21,6 +21,8 @@ export const FormEnter = () => {
     const dispatch = useAppDispatch();
 
     const onsubmit: SubmitHandler<AuthData> = async (submitData) => {
+        await localStorage.setItem('rememberMe', submitData.rememberMe.toString())
+
         const authUser = async () =>
             await signIn({
                 email: submitData.email,
@@ -29,8 +31,7 @@ export const FormEnter = () => {
 
         const result = await authUser();
 
-        localStorage.setItem('rememberMe', submitData.rememberMe.toString())
-        
+
         if (result) {
             dispatch(setIsAuth(true));
             dispatch(toggleModalEnter(false));

@@ -10,7 +10,7 @@ import { Plus } from '../../shared/ui/icons/icons-tools/Plus';
 import './header.scss';
 import { ModalAddAdvert } from '../../features/header/modal/modalAddAdvert/ModalAddAdvert';
 import { Dispatch } from 'redux';
-import { clearTokensFromCookies, getTokensAuthFromCookies, saveTokensAuthToCookie } from '../../app/cookie/cookieAuth';
+import { getTokensAuthFromCookies, saveTokensAuthToCookie } from '../../app/cookie/cookieAuth';
 import { setIsAuth } from '../../features/header/model/modalAuth/reducers/auth';
 
 export const Header = () => {
@@ -28,52 +28,58 @@ export const Header = () => {
     const navigate = useNavigate();
 
     const rememberMe = 'true' === localStorage.getItem('rememberMe') ? true : false
+    const accessToken = rememberMe
+        ? getTokensAuthFromCookies().accessToken
+        : sessionStorage.getItem('accessToken')
+    const refreshToken = rememberMe
+        ? getTokensAuthFromCookies().refreshToken
+        : sessionStorage.getItem('resfreshToken');
 
-    const {accessToken, refreshToken} = getTokensAuthFromCookies()
     const checkAuth = async() => {
         const url = import.meta.env.VITE_BASE_URL
         const headersConfig ={
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         }
-
-        if (accessToken) { //если токена нет, вернется статус 401
-            try {
-                const res = await fetch(`${url}/api/auth/jwt/verify/`, {
-                    method: 'POST',
-                    headers: headersConfig,
-                    body: JSON.stringify({ token: accessToken }),
-                });
-                if (res.status === 200) dispatch(setIsAuth(true))
-                return res
-            } catch (error) {
-                console.log(error)
-            }
-        } else {
-            const response = await fetch(`${url}/api/auth/jwt/refresh/`,{
+        try { //если токена нет, вернет статус 401
+            const res = await fetch(`${url}/api/auth/jwt/verify/`, {
                 method: 'POST',
                 headers: headersConfig,
-                body: JSON.stringify({ refresh: refreshToken }),
+                body: JSON.stringify({ token: accessToken }),
             });
-            const data = await response.json();
-            saveTokensAuthToCookie(data.access, refreshToken);
+            if (res.status === 200){
+                dispatch(setIsAuth(true))
+            } else {
+                console.log('401, пошел за новым access')
+                try {
+                    const response = await fetch(`${url}/api/auth/jwt/refresh/`,{
+                        method: 'POST',
+                        headers: headersConfig,
+                        body: JSON.stringify({ refresh: refreshToken }),
+                    });
+                    const data = await response.json();
+                    dispatch(setIsAuth(true));
+                    if (localStorage.getItem('rememberMe')) {
+                        saveTokensAuthToCookie(data.access);
+                        console.log('сохранил токен в куки');
+                    } else {
+                        sessionStorage.setItem('accessToken', data.access);
+                        console.log('сохранил токен в сешн сторадж');
+                    }
+                } catch(error){
+                    console.log(error)
+                }
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
     if (!refreshToken) dispatch(setIsAuth(false)) //если нет refresh токена, то нужно заново авторизоваться и получить новый
 
-    // function handleBeforeUnload(event: BeforeUnloadEvent){
-    //     if (event.target instanceof Window){
-    //         if (rememberMe === false){
-    //             localStorage.removeItem('rememberMe')
-    //             clearTokensFromCookies()
-    //         }
-    //     }
-    // }//удалить токены авторизации из cookie и состояние чекбокса "Запомнить меня", если не нужно запоминать пользователя
 
     useEffect(() => {
-        checkAuth()//чтобы не вылетало из акка при перезагрузке страницы
-
+        checkAuth()
 
         const handleResize = () => {
             setWidth(window.innerWidth);

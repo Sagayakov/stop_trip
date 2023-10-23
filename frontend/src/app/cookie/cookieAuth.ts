@@ -1,9 +1,14 @@
 import Cookies from 'js-cookie'
 
-export const saveTokensAuthToCookie = ( accessToken: string, refreshToken: string ) => {
-    Cookies.set('access_token', accessToken, { expires: 1/100 }); //срок действия в днях
-    Cookies.set('refresh_token', refreshToken, { expires: 15 }); // хранить в httpOnly cookie
+export const saveTokensAuthToCookie = ( accessToken?: string, refreshToken?: string ) => {
+    if (accessToken) Cookies.set('access_token', accessToken, { expires: 1/1440 }); //срок действия в днях
+    if (refreshToken) Cookies.set('refresh_token', refreshToken, { expires: 15 }); //хранить в httpOnly cookie (хз как передать в тело запроса, чтобы получить новый access)
 };
+/*
+1/1440 - 1 минута
+1/100 - 14 минут 24 секунды
+1/950 - 1 минута 30 секунд
+*/
 
 export const getTokensAuthFromCookies = () => {
     const accessToken = Cookies.get('access_token') || '';

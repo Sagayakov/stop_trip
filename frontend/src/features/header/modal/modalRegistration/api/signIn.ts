@@ -15,7 +15,14 @@ export const signIn = async (body: UserEnter) => {
         const data = await responce.json();
 
         if ((await responce).ok) {
-            saveTokensAuthToCookie(data.access, data.refresh)
+            if(localStorage.getItem('rememberMe') == 'true'){
+                saveTokensAuthToCookie(data.access, data.refresh)
+                console.log('сохранил токен в куки')
+            } else {
+                sessionStorage.setItem('accessToken', data.access)
+                sessionStorage.setItem('refreshToken', data.refresh)
+                console.log('сохранил токен в сешн сторадж')
+            }
             return data;
         }
     } catch (e) {
