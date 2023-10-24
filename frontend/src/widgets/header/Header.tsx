@@ -1,17 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { Dispatch } from 'redux';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import { Modal } from '../../features/header/modal';
+import { ModalAddAdvert } from '../../features/header/modal/modalAddAdvert/ModalAddAdvert';
 import { ModalMobile } from '../../features/header/modal/modalMobile/ModalMobile';
 import { toggleModalEnter } from '../../features/header/model/modalAuth/reducers/toggleModal';
 import { LogoHeader } from '../../shared/ui/icons/icons-tools/LogoHeader';
 import { Person } from '../../shared/ui/icons/icons-tools/Person';
 import { Plus } from '../../shared/ui/icons/icons-tools/Plus';
 import './header.scss';
-import { ModalAddAdvert } from '../../features/header/modal/modalAddAdvert/ModalAddAdvert';
-import { Dispatch } from 'redux';
-import { getTokensAuthFromCookies, saveTokensAuthToCookie } from '../../app/cookie/cookieAuth';
 import { setIsAuth } from '../../features/header/model/modalAuth/reducers/auth';
+import { checkAuthentication } from './lib/authentication/checkAuthentication';
+import { getTokensFromStorage } from './lib/authentication/getTokensFromStorage';
+import { handleScroll } from './lib/eventListeners/handleScroll';
 
 export const Header = () => {
     const dispatch: Dispatch = useAppDispatch();
@@ -27,85 +29,25 @@ export const Header = () => {
 
     const navigate = useNavigate();
 
-    const rememberMe = 'true' === localStorage.getItem('rememberMe') ? true : false
-    const accessToken = rememberMe
-        ? getTokensAuthFromCookies().accessToken
-        : sessionStorage.getItem('accessToken')
-    const refreshToken = rememberMe
-        ? getTokensAuthFromCookies().refreshToken
-        : sessionStorage.getItem('resfreshToken');
+    const { accessToken, refreshToken } = getTokensFromStorage();
 
-    const checkAuth = async() => {
-        const url = import.meta.env.VITE_BASE_URL
-        const headersConfig ={
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        }
-        try { //если токена нет, вернет статус 401
-            const res = await fetch(`${url}/api/auth/jwt/verify/`, {
-                method: 'POST',
-                headers: headersConfig,
-                body: JSON.stringify({ token: accessToken }),
-            });
-            if (res.status === 200){
-                dispatch(setIsAuth(true))
-            } else {
-                console.log('401, пошел за новым access')
-                try {
-                    const response = await fetch(`${url}/api/auth/jwt/refresh/`,{
-                        method: 'POST',
-                        headers: headersConfig,
-                        body: JSON.stringify({ refresh: refreshToken }),
-                    });
-                    const data = await response.json();
-                    dispatch(setIsAuth(true));
-                    if (localStorage.getItem('rememberMe')) {
-                        saveTokensAuthToCookie(data.access);
-                        console.log('сохранил токен в куки');
-                    } else {
-                        sessionStorage.setItem('accessToken', data.access);
-                        console.log('сохранил токен в сешн сторадж');
-                    }
-                } catch(error){
-                    console.log(error)
-                }
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    if (!refreshToken) dispatch(setIsAuth(false)) //если нет refresh токена, то нужно заново авторизоваться и получить новый
-
+    if (!refreshToken) dispatch(setIsAuth(false)); //если нет refresh токена, то нужно заново авторизоваться и получить новый
 
     useEffect(() => {
-        checkAuth()
+        checkAuthentication(dispatch);
 
         const handleResize = () => {
             setWidth(window.innerWidth);
         };
         window.addEventListener('resize', handleResize);
 
-        const handleScroll = () => {
-            if (ref.current) {
-                if (
-                    document.body.scrollTop > 1 ||
-                    document.documentElement.scrollTop > 1
-                ) {
-                    (ref.current as HTMLElement).classList.add('fixed-header');
-                } else {
-                    (ref.current as HTMLElement).classList.remove(
-                        'fixed-header'
-                    );
-                }
-            }
-        };
+        handleScroll(ref)
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', () => handleScroll(ref));
 
         return () => {
             window.removeEventListener('resize', handleResize);
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', () => handleScroll(ref));
         };
     }, [accessToken]);
 

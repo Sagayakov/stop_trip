@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 
 export const saveTokensAuthToCookie = ( accessToken?: string, refreshToken?: string ) => {
-    if (accessToken) Cookies.set('access_token', accessToken, { expires: 1/1440 }); //срок действия в днях
+    if (accessToken) Cookies.set('access_token', accessToken, { expires: 1/100 }); //срок действия в днях
     if (refreshToken) Cookies.set('refresh_token', refreshToken, { expires: 15 }); //хранить в httpOnly cookie (хз как передать в тело запроса, чтобы получить новый access)
 };
 /*
