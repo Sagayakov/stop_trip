@@ -1,0 +1,19 @@
+input {
+    width: 100%;
+    height: 56px;
+    border-radius: 8px;
+    padding: 12px 24px;
+    outline: none;
+    // &:hover{
+    //     background-color: var(--grey-1);
+    // }
+    &:focus {
+        border: 1px solid var(--main-blue) !important;
+    }
+}
+
+@media (min-width: 425px) and (max-width: 767px) {
+    input {
+        height: 40px;
+    }
+}

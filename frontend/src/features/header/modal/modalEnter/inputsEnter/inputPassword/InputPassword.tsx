@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import { Control, Controller, FormState } from 'react-hook-form';
 import { useAppSelector } from '../../../../../../app/store/hooks';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
-import { AuthData } from '../../lib/EnterType';
-import '../../lib/inputEmail.scss';
+import '../../libr/inputEmail.scss';
+import { AuthData } from '../../libr/EnterType';
 
 interface Props {
     formState: FormState<AuthData>;

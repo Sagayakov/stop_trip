@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { AuthData } from '../lib/EnterType';
+import { AuthData } from '../libr/EnterType';
 
 interface Props {
     register: UseFormRegister<AuthData>;

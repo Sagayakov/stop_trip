@@ -1,5 +1,5 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { AuthRegistration } from '../../lib/RegistrationTypes';
+import { AuthRegistration } from '../../libr/RegistrationTypes';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;

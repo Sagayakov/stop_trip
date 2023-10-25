@@ -8,9 +8,9 @@ import { InputPassword } from './inputsRegistration/inputPassword/InputPassword'
 import { InputRepeatPassword } from './inputsRegistration/inputPassword/InputRepeatPassword';
 import { InputPhone } from './inputsRegistration/inputPhone/InputPhone';
 import { InputSubmit } from './inputsRegistration/inputSubmit/InputSubmit';
-import { AuthRegistration } from './lib/RegistrationTypes';
-import './lib/formRegistration.scss';
-import { submitRegForm } from './lib/onSubmitRegForm';
+import './libr/formRegistration.scss';
+import { AuthRegistration } from './libr/RegistrationTypes';
+import { submitRegForm } from './libr/onSubmitRegForm';
 // import './inputsRegistration/inputRegistration.scss'
 
 export const FormRegistration = () => {
@@ -29,7 +29,7 @@ export const FormRegistration = () => {
     const dispatch = useAppDispatch();
 
     const onsubmit: SubmitHandler<AuthRegistration> = async (submitData) => {
-        await submitRegForm(submitData, dispatch, reset)
+        await submitRegForm(submitData, dispatch, reset);
     };
 
     return (

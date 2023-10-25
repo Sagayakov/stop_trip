@@ -7,9 +7,9 @@ import { CheckboxRememberMe } from './inputsEnter/CheckboxRememberMe';
 import { InputSubmit } from './inputsEnter/InputSubmit';
 import { InputEmail } from './inputsEnter/inputEmail/InputEmail';
 import { InputPassword } from './inputsEnter/inputPassword/InputPassword';
-import { AuthData } from './lib/EnterType';
-import './lib/formEnter.scss';
-import { submitEntForm } from './lib/submitEntForm';
+import './libr/formEnter.scss';
+import { AuthData } from './libr/EnterType';
+import { submitEntForm } from './libr/submitEntForm';
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
@@ -20,7 +20,7 @@ export const FormEnter = () => {
     const dispatch = useAppDispatch();
 
     const onsubmit: SubmitHandler<AuthData> = async (submitData) => {
-        await submitEntForm(submitData, dispatch, reset)
+        await submitEntForm(submitData, dispatch, reset);
     };
 
     return (

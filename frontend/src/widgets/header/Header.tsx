@@ -11,9 +11,9 @@ import { Person } from '../../shared/ui/icons/icons-tools/Person';
 import { Plus } from '../../shared/ui/icons/icons-tools/Plus';
 import './header.scss';
 import { setIsAuth } from '../../features/header/model/modalAuth/reducers/auth';
-import { checkAuthentication } from './lib/authentication/checkAuthentication';
-import { getTokensFromStorage } from './lib/authentication/getTokensFromStorage';
-import { handleScroll } from './lib/eventListeners/handleScroll';
+import { checkAuthentication } from './libr/authentication/checkAuthentication';
+import { getTokensFromStorage } from './libr/authentication/getTokensFromStorage';
+import { handleScroll } from './libr/eventListeners/handleScroll';
 
 export const Header = () => {
     const dispatch: Dispatch = useAppDispatch();

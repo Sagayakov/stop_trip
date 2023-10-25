@@ -1,6 +1,6 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import { setErrorEmail } from '../../../../../features/header/model/modalAuth/reducers/auth';
-import { NewUser } from '../lib/RegistrationTypes';
+import { NewUser } from '../libr/RegistrationTypes';
 
 export const createUser = async (body: NewUser, dispatch: Dispatch) => {
     const url = import.meta.env.VITE_BASE_URL;

@@ -1,5 +1,5 @@
 import { saveTokensAuthToCookie } from '../../../../../app/cookie/cookieAuth';
-import { UserEnter } from '../lib/RegistrationTypes';
+import { UserEnter } from '../libr/RegistrationTypes';
 
 export const signIn = async (body: UserEnter) => {
     const url = import.meta.env.VITE_BASE_URL;
