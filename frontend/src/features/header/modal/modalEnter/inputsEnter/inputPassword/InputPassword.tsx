@@ -1,8 +1,9 @@
-import { Control, Controller, FormState } from 'react-hook-form';
-import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
-import { AuthData } from '../../libr/EnterType';
-import '../../libr/inputEmail.scss';
 import { useRef } from 'react';
+import { Control, Controller, FormState } from 'react-hook-form';
+import { useAppSelector } from '../../../../../../app/store/hooks';
+import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
+import { AuthData } from '../../lib/EnterType';
+import '../../lib/inputEmail.scss';
 
 interface Props {
     formState: FormState<AuthData>;
@@ -15,7 +16,7 @@ export const InputPassword = ({
     formState,
     setTogglePass,
     togglePass,
-    control
+    control,
 }: Props) => {
     const { errors } = formState;
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -23,6 +24,7 @@ export const InputPassword = ({
         setTogglePass(!togglePass);
         inputRef?.current?.focus();
     };
+    const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
 
     return (
         <div className="password-div">
@@ -38,7 +40,9 @@ export const InputPassword = ({
                         type={togglePass ? 'text' : 'password'}
                         style={{
                             border: `1px solid ${
-                                errors.password ? '#FF3F25' : '#DCDCDC'
+                                errors.password || errorEnter
+                                    ? '#FF3F25'
+                                    : '#DCDCDC'
                             }`,
                         }}
                         onBlur={() => setTogglePass(false)}
@@ -52,6 +56,11 @@ export const InputPassword = ({
                 {errors?.password && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                         Введите корректный пароль
+                    </p>
+                )}
+                {errorEnter && (
+                    <p style={{ color: '#FF3F25', fontSize: '13px' }}>
+                        {errorEnter}
                     </p>
                 )}
             </div>

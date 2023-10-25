@@ -1,5 +1,5 @@
 import { saveTokensAuthToCookie } from '../../../../../app/cookie/cookieAuth';
-import { UserEnter } from '../libr/RegistrationTypes';
+import { UserEnter } from '../lib/RegistrationTypes';
 
 export const signIn = async (body: UserEnter) => {
     const url = import.meta.env.VITE_BASE_URL;
@@ -12,16 +12,17 @@ export const signIn = async (body: UserEnter) => {
             body: JSON.stringify(body),
         });
 
-        const data = await responce.json();
+        if (responce.status === 401) return responce;
+        const data = await responce.json(); //для ошибки неверного логина или пароля
 
         if ((await responce).ok) {
-            if(localStorage.getItem('rememberMe') == 'true'){
-                saveTokensAuthToCookie(data.access, data.refresh)
-                console.log('сохранил токен в куки')
+            if (localStorage.getItem('rememberMe') == 'true') {
+                saveTokensAuthToCookie(data.access, data.refresh);
+                console.log('сохранил токен в куки');
             } else {
-                sessionStorage.setItem('accessToken', data.access)
-                sessionStorage.setItem('refreshToken', data.refresh)
-                console.log('сохранил токен в сешн сторадж')
+                sessionStorage.setItem('accessToken', data.access);
+                sessionStorage.setItem('refreshToken', data.refresh);
+                console.log('сохранил токен в сешн сторадж');
             }
             return data;
         }

@@ -1,12 +1,11 @@
 import { UseFormRegister } from 'react-hook-form';
-import { AuthData } from '../libr/EnterType';
+import { AuthData } from '../lib/EnterType';
 
 interface Props {
     register: UseFormRegister<AuthData>;
 }
 
 export const CheckboxRememberMe = ({ register }: Props) => {
-    
     return (
         <div className="remember-me">
             <label className="form-checkbox">

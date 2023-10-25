@@ -1,6 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
-import { AuthRegistration } from '../../libr/RegistrationTypes';
+import { AuthRegistration } from '../../lib/RegistrationTypes';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;

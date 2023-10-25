@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useAppDispatch } from '../../../../app/store/hooks';
 import { InputChechbox } from './inputsRegistration/inputCheckbox/InputCheckbox';
 import { InputEmail } from './inputsRegistration/inputEmail/InputEmail';
 import { InputName } from './inputsRegistration/inputName/InputName';
@@ -7,12 +8,9 @@ import { InputPassword } from './inputsRegistration/inputPassword/InputPassword'
 import { InputRepeatPassword } from './inputsRegistration/inputPassword/InputRepeatPassword';
 import { InputPhone } from './inputsRegistration/inputPhone/InputPhone';
 import { InputSubmit } from './inputsRegistration/inputSubmit/InputSubmit';
-import { AuthRegistration } from './libr/RegistrationTypes';
-import './libr/formRegistration.scss';
-import { createUser } from './api/createUser';
-import { useAppDispatch } from '../../../../app/store/hooks';
-import { setIsAuth } from '../../model/modalAuth/reducers/auth';
-import { toggleModalEnter } from '../../../../features/header/model/modalAuth/reducers/toggleModal';
+import { AuthRegistration } from './lib/RegistrationTypes';
+import './lib/formRegistration.scss';
+import { submitRegForm } from './lib/onSubmitRegForm';
 // import './inputsRegistration/inputRegistration.scss'
 
 export const FormRegistration = () => {
@@ -31,21 +29,7 @@ export const FormRegistration = () => {
     const dispatch = useAppDispatch();
 
     const onsubmit: SubmitHandler<AuthRegistration> = async (submitData) => {
-        const authUser = async () =>
-            await createUser({
-                full_name: submitData.userName,
-                email: submitData.email,
-                password: submitData.passWord,
-                re_password: submitData.repeatPassword,
-            });
-
-        const result = await authUser();
-
-        if (result) {
-            dispatch(setIsAuth(true));
-            dispatch(toggleModalEnter(false));
-            reset();
-        }
+        await submitRegForm(submitData, dispatch, reset)
     };
 
     return (
