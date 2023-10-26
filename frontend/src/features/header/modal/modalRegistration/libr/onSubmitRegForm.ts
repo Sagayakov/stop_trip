@@ -1,9 +1,10 @@
-import { setIsAuth } from "../../../model/modalAuth/reducers/auth";
-import { toggleModalEnter } from "../../../model/modalAuth/reducers/toggleModal";
-import { UseFormReset } from "react-hook-form";
-import { AuthRegistration } from "./RegistrationTypes";
-import { createUser } from "../api/createUser";
-import { Dispatch } from "@reduxjs/toolkit";
+import { setIsAuth } from '../../../model/modalAuth/reducers/auth';
+import { toggleModalEnter } from '../../../model/modalAuth/reducers/toggleModal';
+import { UseFormReset } from 'react-hook-form';
+import { AuthRegistration } from './RegistrationTypes';
+import { createUser } from '../api/createUser';
+import { Dispatch } from '@reduxjs/toolkit';
+import { setIsCheckMailModalOpen } from '../../../../../features/header/model/modalAuth/reducers/isCheckMailModalOpen';
 
 export const submitRegForm = async (
     submitData: AuthRegistration,
@@ -26,6 +27,7 @@ export const submitRegForm = async (
     if (result) {
         dispatch(setIsAuth(true));
         dispatch(toggleModalEnter(false));
+        dispatch(setIsCheckMailModalOpen(true));
         reset();
     }
 };

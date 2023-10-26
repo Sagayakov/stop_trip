@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { toggleModalSlice } from '../../features/header/model/modalAuth/reducers/toggleModal';
 import { setIsAuthSlice } from '../../features/header/model/modalAuth/reducers/auth';
 import { setIsEnterSlice } from '../../features/header/model/modalAuth/reducers/isEnter';
+import { setIsCheckMailModalOpenSlice } from '../../features/header/model/modalAuth/reducers/isCheckMailModalOpen';
 
 const setupStore = () =>
     configureStore({
@@ -9,6 +10,7 @@ const setupStore = () =>
             toggleModalEnter: toggleModalSlice.reducer,
             setIsAuth: setIsAuthSlice.reducer,
             setIsEnter: setIsEnterSlice.reducer,
+            setIsCheckMailModalOpen: setIsCheckMailModalOpenSlice.reducer,
         },
     });
 

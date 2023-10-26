@@ -14,6 +14,7 @@ import { setIsAuth } from '../../features/header/model/modalAuth/reducers/auth';
 import { checkAuthentication } from './libr/authentication/checkAuthentication';
 import { getTokensFromStorage } from './libr/authentication/getTokensFromStorage';
 import { handleScroll } from './libr/eventListeners/handleScroll';
+import { ModalCheckEmail } from '../../features/header/modal/modalCheckEmail/ModalCheckEmail';
 
 export const Header = () => {
     const dispatch: Dispatch = useAppDispatch();
@@ -26,6 +27,9 @@ export const Header = () => {
 
     const handleToggleModal = () => dispatch(toggleModalEnter(!toggle));
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const isCheckEmailModalOpen = useAppSelector(
+        (state) => state.setIsCheckMailModalOpen.isCheckMailModalOpen
+    );
 
     const navigate = useNavigate();
 
@@ -41,7 +45,7 @@ export const Header = () => {
         };
         window.addEventListener('resize', handleResize);
 
-        handleScroll(ref)
+        handleScroll(ref);
 
         window.addEventListener('scroll', () => handleScroll(ref));
 
@@ -112,6 +116,7 @@ export const Header = () => {
                 {isAddModalOpen && (
                     <ModalAddAdvert closeAddModal={closeAddModal} />
                 )}
+                {isCheckEmailModalOpen && <ModalCheckEmail />}
             </div>
         </header>
     );
