@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
+import './ActivateAccount.scss';
 
 export const ActivateAccount = () => {
     const url = import.meta.env.VITE_BASE_URL;
@@ -26,18 +27,16 @@ export const ActivateAccount = () => {
     }, []);
 
     return (
-        <div
-            className="activate-acc-page"
-            style={{
-                paddingTop: '150px',
-                width: '90%',
-                margin: 'o auto',
-                height: '82vh',
-                fontSize: '28px',
-            }}
-        >
-            прювет
-            <div>{success ? 'аккаунт активирован' : 'пока не активирован'}</div>
+        <div className="activate-acc-page">
+            <div className="activate-acc-header">
+                <h1>Активация аккаунта</h1>
+                {success
+                    ? 'Ваш аккаунт активирован, спасибо за регистрацию на нашем сайте!'
+                    : 'еще нет'}
+                <div className="redirect">
+                    <NavLink to={'/'}>Вернуться на главную</NavLink>
+                </div>
+            </div>
         </div>
     );
 };
