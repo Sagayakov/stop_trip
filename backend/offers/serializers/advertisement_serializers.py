@@ -11,6 +11,7 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
     category = serializers.ChoiceField(choices=CategoryChoices.choices, required=True)
     title = serializers.CharField(required=True, max_length=100)
+
     # price = serializers.IntegerField(required=True, allow_null=True)
 
     class Meta:
@@ -52,10 +53,11 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
     """Сериализатор деталки объявления."""
 
     images = AdvertisementImageSerializer(many=True)
+    # reviews = ReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = Advertisement
-        fields = "__all__"
+        exclude = ("wishlist",)
 
 
 class AdvertisementUpdateSerializer(serializers.ModelSerializer):
@@ -64,6 +66,7 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
     category = serializers.CharField(required=False)
     title = serializers.CharField(required=False)
+
     # price = serializers.IntegerField(required=False)
 
     class Meta:

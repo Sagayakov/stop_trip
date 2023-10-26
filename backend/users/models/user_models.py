@@ -18,13 +18,15 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from .managers import CustomUserManager
+from ..managers import CustomUserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=50, verbose_name="Имя пользователя")
     phone = PhoneNumberField("Телефон", blank=True, null=True)
     email = models.EmailField(_("email address"), unique=True)
+    average_rating = models.FloatField("Средний рейтинг", default=0)
+    number_rating = models.IntegerField("Количество рейтинга", default=0)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)

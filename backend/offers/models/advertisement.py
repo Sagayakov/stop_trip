@@ -32,6 +32,7 @@ class Advertisement(
     # location = models.CharField("Локация", max_length=128, null=True, blank=True)
     slug = models.SlugField("Слаг", blank=True, null=True, db_index=True, unique=True)
 
+
     class Meta:
         verbose_name = "Объявление"
         verbose_name_plural = "Объявления"

@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as Admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import User
+from ..models import User
 
 
 # @register(User)
@@ -30,7 +30,7 @@ from .models import User
 #     )
 class UserAdmin(Admin):
     model = User
-    list_display = ("full_name", "email", "phone", "is_staff", "is_active")
+    list_display = ("full_name", "email", "phone", "average_rating", "number_rating", "is_staff", "is_active")
     list_filter = ("email", "is_staff", "is_active",)
     fieldsets = (
         (None, {"fields": ("full_name", "email", "phone", "password")}),

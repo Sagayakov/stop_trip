@@ -3,11 +3,11 @@ from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
-
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+from rest_framework import views, generics
 from users.models import User
-from .constants import CategoryChoices
 from .models import Advertisement
+from .constants import CategoryChoices
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
     PropertyCreateSerializer,
@@ -20,6 +20,7 @@ from .serializers import (
     EventCreateSerializer,
     AdvertisementUpdateSerializer,
     ExchangeRateCreateSerializer,
+
 )
 
 
@@ -92,3 +93,7 @@ class AdvertisementModelViewSet(ModelViewSet):
         serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
         serializer.save()  # todo оптимизация создания M2M связей
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
+

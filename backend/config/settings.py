@@ -4,6 +4,7 @@ from os.path import join
 from pathlib import Path
 from sys import argv
 
+
 from django.utils.translation import gettext_lazy as _
 
 SITE_HOST = getenv("SITE_HOST")
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     # apps
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",
+
 ]
 
 MIDDLEWARE = [
