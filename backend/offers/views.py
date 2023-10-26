@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
@@ -7,6 +8,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from users.models import User
 from .constants import CategoryChoices
+from .filters.transportfilter import TransportFilter
 from .models import Advertisement
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
@@ -34,6 +36,9 @@ class AdvertisementModelViewSet(ModelViewSet):
         "list": [AllowAny],
         "retrieve": [AllowAny],
     }
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = TransportFilter
+
 
     def get_queryset(self):
         queryset = Advertisement.objects.all()
