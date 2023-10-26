@@ -4,6 +4,7 @@ import { categories } from '../../shared/const/categories';
 import { CategoryPage } from '../../pages/category/CategoryPage';
 import { AddAdvertPage } from '../../pages/add-advert/AddAdvertPage';
 import { ActivateAccount } from '../../pages/activateAccount/ActivateAccount';
+import { ResetPassword } from '../../pages/resetPassword/ResetPassword';
 
 interface Route {
     path: string;
@@ -18,6 +19,7 @@ const categoryRoutes = Object.keys(categories).map((el) => ({
 export const publicRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/activate/:uid/:token', component: ActivateAccount },
+    { path: '/email/reset/confirm/:uid/:token', component: ResetPassword },
     ...categoryRoutes,
 ];
 
