@@ -25,7 +25,7 @@ export const InputPassword = ({
                 <input
                     {...register('passWord', {
                         required: true,
-                        minLength: 5,
+                        minLength: 8,
                     })}
                     placeholder="Пароль"
                     autoComplete="new-password"
@@ -42,7 +42,10 @@ export const InputPassword = ({
                 </div>
             </div>
             <div className="input-error">
-                {errors?.passWord && (
+                {errors?.passWord?.type === 'minLength' && (
+                    <p style={{ color: '#FF3F25', fontSize: '13px' }}>
+                        Пароль слишком короткий. Минимальная длина: 8 символов.
+                    </p>) || errors?.passWord && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                         Ведите корректный пароль
                     </p>

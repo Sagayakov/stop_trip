@@ -18,7 +18,7 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
             headers: headersConfig,
             body: JSON.stringify({ token: accessToken }),
         });
-        console.log(res)
+        
         if (res.ok) {
             dispatch(setIsAuth(true));
         } else {
@@ -29,14 +29,16 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
                     headers: headersConfig,
                     body: JSON.stringify({ refresh: refreshToken }),
                 });
-                const data = await response.json();
-                dispatch(setIsAuth(true));
-                if (localStorage.getItem('rememberMe')) {
-                    saveTokensAuthToCookie(data.access);
-                    console.log('сохранил токен в куки');
-                } else {
-                    sessionStorage.setItem('accessToken', data.access);
-                    console.log('сохранил токен в сешн сторадж');
+                if(response.ok){
+                    const data = await response.json();
+                    await dispatch(setIsAuth(true))
+                    if (localStorage.getItem('rememberMe')) {
+                        saveTokensAuthToCookie(data.access);
+                        console.log('сохранил токен в куки');
+                    } else {
+                        sessionStorage.setItem('accessToken', data.access);
+                        console.log('сохранил токен в сешн сторадж');
+                    }
                 }
             } catch (error) {
                 console.log(error);

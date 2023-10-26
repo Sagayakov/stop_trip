@@ -49,7 +49,7 @@ export const Header = () => {
             window.removeEventListener('resize', handleResize);
             window.removeEventListener('scroll', () => handleScroll(ref));
         };
-    }, [accessToken]);
+    }, [accessToken, refreshToken, dispatch]);
 
     const addAdvert = () => {
         setIsAddModalOpen(true);

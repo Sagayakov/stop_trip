@@ -8,7 +8,7 @@ export const getTokensFromStorage = () => {
         : sessionStorage.getItem('accessToken');
     const refreshToken = rememberMe
         ? getTokensAuthFromCookies().refreshToken
-        : sessionStorage.getItem('resfreshToken');
+        : sessionStorage.getItem('refreshToken');
 
     return { accessToken, refreshToken };
 };
