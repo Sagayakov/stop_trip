@@ -34,7 +34,11 @@ export const FormResetPassword = () => {
     return (
         <div className="reset">
             {!success ? (
-                <form onSubmit={handleSubmit(onsubmit)} autoComplete="false">
+                <form
+                    className="form"
+                    onSubmit={handleSubmit(onsubmit)}
+                    autoComplete="false"
+                >
                     <InputPassword
                         errors={errors}
                         register={register}
@@ -51,10 +55,12 @@ export const FormResetPassword = () => {
                     <InputSubmit isValid={isValid} />
                 </form>
             ) : (
-                <>
+                <div className="reset-success">
                     Ваш пароль был успешно изменён!
-                    <NavLink to={'/'}>Вернуться на главную</NavLink>
-                </>
+                    <NavLink className="main-link" to={'/'}>
+                        Вернуться на главную
+                    </NavLink>
+                </div>
             )}
         </div>
     );

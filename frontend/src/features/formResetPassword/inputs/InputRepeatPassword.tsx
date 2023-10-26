@@ -28,6 +28,7 @@ export const InputRepeatPassword = ({
         <>
             <div className="password-div">
                 <input
+                    className="reset-input"
                     {...register('repeat_password', {
                         required: true,
                         minLength: 5,

@@ -23,6 +23,7 @@ export const InputPassword = ({
         <>
             <div className="password-div">
                 <input
+                    className="reset-input"
                     {...register('password', {
                         required: true,
                         minLength: 8,
