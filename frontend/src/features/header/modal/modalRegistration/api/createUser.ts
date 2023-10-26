@@ -21,9 +21,10 @@ export const createUser = async (body: NewUser, dispatch: Dispatch) => {
             const data = await responce.json();
             dispatch(setErrorEmail(data));
         }
-        const data = await responce.json();
-        console.log('data', data);
-        if ((await responce).ok) {
+
+        if (responce.ok) {
+            const data = await responce.json();
+            console.log('data', data);
             return data;
         }
     } catch (e) {
