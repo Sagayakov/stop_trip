@@ -3,6 +3,7 @@ import { toggleModalSlice } from '../../features/header/model/modalAuth/reducers
 import { setIsAuthSlice } from '../../features/header/model/modalAuth/reducers/auth';
 import { setIsEnterSlice } from '../../features/header/model/modalAuth/reducers/isEnter';
 import { setIsCheckMailModalOpenSlice } from '../../features/header/model/modalAuth/reducers/isCheckMailModalOpen';
+import { setIsResetPasswordModalOpenSlice } from '../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
 
 const setupStore = () =>
     configureStore({
@@ -11,6 +12,8 @@ const setupStore = () =>
             setIsAuth: setIsAuthSlice.reducer,
             setIsEnter: setIsEnterSlice.reducer,
             setIsCheckMailModalOpen: setIsCheckMailModalOpenSlice.reducer,
+            setIsResetPasswordModalOpen:
+                setIsResetPasswordModalOpenSlice.reducer,
         },
     });
 

@@ -10,6 +10,8 @@ import { InputPassword } from './inputsEnter/inputPassword/InputPassword';
 import './libr/formEnter.scss';
 import { AuthData } from './libr/EnterType';
 import { submitEntForm } from './libr/submitEntForm';
+import { setIsResetPasswordModalOpen } from '../../../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
+import { toggleModalEnter } from '../../../../features/header/model/modalAuth/reducers/toggleModal';
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
@@ -21,6 +23,11 @@ export const FormEnter = () => {
 
     const onsubmit: SubmitHandler<AuthData> = async (submitData) => {
         await submitEntForm(submitData, dispatch, reset);
+    };
+
+    const openResetPasswordModal = () => {
+        dispatch(toggleModalEnter(false));
+        dispatch(setIsResetPasswordModalOpen(true));
     };
 
     return (
@@ -36,7 +43,9 @@ export const FormEnter = () => {
                 setTogglePass={setTogglePass}
                 control={control}
             />
-            <div className="forget-password">Забыли пароль?</div>
+            <div className="forget-password" onClick={openResetPasswordModal}>
+                Забыли пароль?
+            </div>
             <CheckboxRememberMe register={register} />
             <InputSubmit />
             <div className="enter-with">

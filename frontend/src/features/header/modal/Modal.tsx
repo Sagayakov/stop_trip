@@ -1,15 +1,14 @@
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { Close } from '../../../shared/ui/icons/icons-tools/Close';
-// import { setIsEnter } from '../model/modalAuth/reducers/isEnter';
+import { setIsEnter } from '../model/modalAuth/reducers/isEnter';
 import { toggleModalEnter } from '../model/modalAuth/reducers/toggleModal';
-// import { FormEnter, FormRegistration } from './index';
+import { FormEnter, FormRegistration } from './index';
 import './modal.scss';
-import { ModalResetPassword } from './modalResetPassword/ModalResetPassword';
 
 export const Modal = () => {
     const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
     const dispatch = useAppDispatch();
-    // const isEnter = useAppSelector((state) => state.setIsEnter.isEnter);
+    const isEnter = useAppSelector((state) => state.setIsEnter.isEnter);
 
     return (
         <div
@@ -22,7 +21,7 @@ export const Modal = () => {
                 onClick={(event) => event.stopPropagation()}
             >
                 <Close onclick={() => dispatch(toggleModalEnter(false))} />
-                {/* <div className="modal-header">
+                <div className="modal-header">
                     <div
                         className={isEnter ? 'enter enter-active' : 'enter'}
                         onClick={() => dispatch(setIsEnter(true))}
@@ -40,8 +39,7 @@ export const Modal = () => {
                         Регистрация
                     </div>
                 </div>
-                {isEnter ? <FormEnter /> : <FormRegistration />} */}
-                <ModalResetPassword />
+                {isEnter ? <FormEnter /> : <FormRegistration />}
             </div>
         </div>
     );

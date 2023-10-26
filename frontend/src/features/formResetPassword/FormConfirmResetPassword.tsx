@@ -7,7 +7,7 @@ import { InputSubmit } from './inputs/InputSubmit';
 import { confimResetPassword } from './api/confirmResetPassword';
 import { NavLink, useParams } from 'react-router-dom';
 
-export const FormResetPassword = () => {
+export const FormConfirmResetPassword = () => {
     const [showPassword, setShowPassword] = useState(false);
     const {
         register,

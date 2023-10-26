@@ -1,6 +1,6 @@
-import { FormResetPassword } from '../../features/formResetPassword/FormResetPassword';
+import { FormConfirmResetPassword } from '../../features/formResetPassword/FormConfirmResetPassword';
 import './resetPassword.scss';
 
 export const ResetPassword = () => {
-    return <FormResetPassword />;
+    return <FormConfirmResetPassword />;
 };
