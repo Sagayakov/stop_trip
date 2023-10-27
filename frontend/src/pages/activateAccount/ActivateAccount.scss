@@ -15,6 +15,11 @@ main {
             border-radius: 16px;
             text-align: center;
 
+            .activate-acc-loading{
+                display: block;
+                margin: 0 auto;
+            }
+
             .redirect {
                 margin: 20% auto 0px;
                 width: 100%;

@@ -11,6 +11,7 @@ import { InputSubmit } from './inputsRegistration/inputSubmit/InputSubmit';
 import './libr/formRegistration.scss';
 import { AuthRegistration } from './libr/RegistrationTypes';
 import { submitRegForm } from './libr/onSubmitRegForm';
+import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
 // import './inputsRegistration/inputRegistration.scss'
 
 export const FormRegistration = () => {
@@ -29,7 +30,9 @@ export const FormRegistration = () => {
     const dispatch = useAppDispatch();
 
     const onsubmit: SubmitHandler<AuthRegistration> = async (submitData) => {
+        await dispatch(setLoading(true))
         await submitRegForm(submitData, dispatch, reset);
+        await dispatch(setLoading(false))
     };
 
     return (

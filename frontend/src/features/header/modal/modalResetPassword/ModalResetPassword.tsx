@@ -4,6 +4,7 @@ import './ModalResetPassword.scss';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { Close } from '../../../../shared/ui/icons/icons-tools/Close';
 import { setIsResetPasswordModalOpen } from '../../../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
+import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
 
 export const ModalResetPassword = () => {
     interface Email {
@@ -20,7 +21,7 @@ export const ModalResetPassword = () => {
 
     const onsubmit: SubmitHandler<Email> = async (data) => {
         const { email } = data;
-        console.log(email);
+        dispatch(setLoading(true))
         try {
             const response = await fetch(
                 `${url}/api/auth/users/reset_password/`,
@@ -33,7 +34,10 @@ export const ModalResetPassword = () => {
                 }
             );
             console.log(response);
-            if (response.ok) setSuccess(true);
+            if (response.ok){
+                setSuccess(true);
+                dispatch(setLoading(false))
+            }
         } catch (error) {
             console.log(error);
         }
