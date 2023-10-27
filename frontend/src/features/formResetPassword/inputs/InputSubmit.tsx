@@ -5,6 +5,7 @@ interface Props {
 export const InputSubmit = ({ isValid }: Props) => {
     return (
         <input
+            className="submit"
             type="submit"
             style={{
                 width: '100%',
@@ -15,7 +16,7 @@ export const InputSubmit = ({ isValid }: Props) => {
                 color: 'white',
                 cursor: 'pointer',
             }}
-            value="Зарегистрироваться"
+            value="Обновить пароль"
             disabled={!isValid}
         />
     );

@@ -1,4 +1,5 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { useAppSelector } from '../../../../../../app/store/hooks';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 
 interface Props {
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export const InputEmail = ({ errors, register }: Props) => {
+    const emailErrors = useAppSelector((state) => state.setIsAuth.errorEmail); //ошибка повторного использования email
+
     return (
         <>
             <input
@@ -20,7 +23,7 @@ export const InputEmail = ({ errors, register }: Props) => {
                 autoComplete="username"
                 style={{
                     border: `1px solid ${
-                        errors?.email ? '#FF3F25' : '#DCDCDC'
+                        errors?.email || emailErrors ? '#FF3F25' : '#DCDCDC'
                     }`,
                 }}
             />
@@ -28,6 +31,11 @@ export const InputEmail = ({ errors, register }: Props) => {
                 {errors?.email && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                         Введите корректный email
+                    </p>
+                )}
+                {emailErrors && (
+                    <p style={{ color: '#FF3F25', fontSize: '13px' }}>
+                        {emailErrors.email[0]}
                     </p>
                 )}
             </div>
