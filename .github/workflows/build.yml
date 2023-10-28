@@ -1,0 +1,113 @@
+name: CI-CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+#    environment: production
+#    env:
+#      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+#      POSTGRES_NAME: ${{ secrets.POSTGRES_NAME }}
+#      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+#      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+#      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+#      POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+#      TLS_MODE: ${{ secrets.TLS_MODE }}
+#      SITE_HOST: ${{ secrets.SITE_HOST }}
+#      DEBUG: ${{ secrets.DEBUG }}
+#      HTPASSWD_NODE: ${{ secrets.HTPASSWD_NODE }}
+#      HTPASSWD: ${{ secrets.HTPASSWD }}
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+
+      - name: DB
+        run: |
+          docker compose -f docker-compose.yml pull db || true
+          docker compose -f docker-compose.yml build db
+          docker compose -f docker-compose.yml push db
+
+      - name: Backend
+        run: |
+          docker compose -f docker-compose.yml pull backend || true
+          docker compose -f docker-compose.yml build backend
+          docker compose -f docker-compose.yml push backend
+
+      - name: Frontend
+        run: |
+          docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull frontend || true
+          docker compose -f docker-compose.yml -f docker-compose.frontend.yml build frontend
+          docker compose -f docker-compose.yml -f docker-compose.frontend.yml push frontend
+
+      - name: Nginx
+        run: |
+          docker compose -f docker-compose.yml pull nginx || true
+          docker compose -f docker-compose.yml build nginx
+          docker compose -f docker-compose.yml push nginx
+
+  tests:
+    runs-on: ubuntu-latest
+#    environment: production
+    needs: [ build ]
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      POSTGRES_NAME: ${{ secrets.POSTGRES_NAME }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+      POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+
+      - name: Pull backend
+        run: docker compose -f docker-compose.yml pull backend || true
+
+      - name: Pull db
+        run: docker compose -f docker-compose.yml pull db || true
+
+      - name: Test backend
+        run: docker compose -f docker-compose.yml run --rm backend /bin/sh -c "pytest -p no:warnings --cov-report term:skip-covered --cov=."
+
+#  deploy:
+#    runs-on: ubuntu-latest
+##    environment: production
+##    env:
+##      DOCKER_HOST: ssh://$DEPLOY_USER@$DEPLOY_HOST
+##      PROJECT_NAME: ${CI_PROJECT_NAME}
+##      SERVER_NAME: ${CI_PROJECT_NAME}
+##      CADVISOR_URL: ${CADVISOR_URL}
+##      IMGPROXY_URL: ${IMGPROXY_URL}
+##      AGENT_URL: ${AGENT_URL}
+##      BRANCH_NAME: ${CI_COMMIT_REF_SLUG}
+#
+#
+#    steps:
+#      # Cloning repository
+#      - name: Clone repo
+#        uses: actions/checkout@v4
+#
+#      # Setup SSH
+#      - name: Setup SSH
+#        uses: webfactory/ssh-agent@v0.7.0
+#        with:
+#          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+#
+#      # Deploy
+#      - name: Deploy to server
+#        run: |
+#          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /path/to/project && git pull origin main"
+#          # replace /path/to/project with the path to the directory where your project is located on the server
+#
+#      # Run server
+#      - name: Run server
+#        run: |
+#          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /path/to/project"
+#          docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull
+#          docker compose -f docker-compose.yml -f docker-compose.frontend.yml up --remove-orphans -d

@@ -29,6 +29,7 @@ export const FormConfirmResetPassword = () => {
     const onsubmit: SubmitHandler<ResetPasswordType> = async (submitData) => {
         if (uid && token) {
             await dispatch(setLoading(true))
+
             const response = await confimResetPassword({
                 new_password: submitData.password,
                 uid,

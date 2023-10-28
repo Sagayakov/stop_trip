@@ -46,7 +46,8 @@ server {
     error_page 497 https://$host:$server_port$request_uri;
 
     location /s/ {
-        alias /var/www/static/;
+        # alias /var/www/static/;
+        include backend;
         expires 365d;
     }
 
