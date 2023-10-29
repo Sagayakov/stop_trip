@@ -53,6 +53,10 @@ export const FormEnter = () => {
         flow: 'auth-code',
     });
 
+    const handleRedirect = () => {
+        window.location.href = `https://oauth.vk.com/authorize?client_id=51781064&display=popup&redirect_uri=http://localhost:3000&scope=email&response_type=code&v=5.120&state=4194308`;
+    };
+
     return (
         <form
             className="form-enter"
@@ -82,7 +86,7 @@ export const FormEnter = () => {
                 >
                     <Google />
                 </div>
-                <div className="vk">
+                <div className="vk" onClick={handleRedirect}>
                     <Vk />
                 </div>
             </div>
