@@ -1,15 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { Dispatch } from 'redux';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import { Modal } from '../../features/header/modal';
+import { ModalAddAdvert } from '../../features/header/modal/modalAddAdvert/ModalAddAdvert';
 import { ModalMobile } from '../../features/header/modal/modalMobile/ModalMobile';
 import { toggleModalEnter } from '../../features/header/model/modalAuth/reducers/toggleModal';
 import { LogoHeader } from '../../shared/ui/icons/icons-tools/LogoHeader';
 import { Person } from '../../shared/ui/icons/icons-tools/Person';
 import { Plus } from '../../shared/ui/icons/icons-tools/Plus';
 import './header.scss';
-import { ModalAddAdvert } from '../../features/header/modal/modalAddAdvert/ModalAddAdvert';
-import { Dispatch } from 'redux';
+import { setIsAuth } from '../../features/header/model/modalAuth/reducers/auth';
+import { checkAuthentication } from './libr/authentication/checkAuthentication';
+import { getTokensFromStorage } from './libr/authentication/getTokensFromStorage';
+import { handleScroll } from './libr/eventListeners/handleScroll';
+import { ModalCheckEmail } from '../../features/header/modal/modalCheckEmail/ModalCheckEmail';
+import { ModalResetPassword } from '../../features/header/modal/modalResetPassword/ModalResetPassword';
 
 export const Header = () => {
     const dispatch: Dispatch = useAppDispatch();
@@ -22,37 +28,36 @@ export const Header = () => {
 
     const handleToggleModal = () => dispatch(toggleModalEnter(!toggle));
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const isCheckEmailModalOpen = useAppSelector(
+        (state) => state.setIsCheckMailModalOpen.isCheckMailModalOpen
+    );
+    const isResetPasswordModalOpen = useAppSelector(
+        (state) => state.setIsResetPasswordModalOpen.isResetPasswordModalOpen
+    );
 
     const navigate = useNavigate();
 
+    const { accessToken, refreshToken } = getTokensFromStorage();
+
+    if (!refreshToken) dispatch(setIsAuth(false)); //если нет refresh токена, то нужно заново авторизоваться и получить новый
+
     useEffect(() => {
+        checkAuthentication(dispatch);
+
         const handleResize = () => {
             setWidth(window.innerWidth);
         };
         window.addEventListener('resize', handleResize);
 
-        const handleScroll = () => {
-            if (ref.current) {
-                if (
-                    document.body.scrollTop > 1 ||
-                    document.documentElement.scrollTop > 1
-                ) {
-                    (ref.current as HTMLElement).classList.add('fixed-header');
-                } else {
-                    (ref.current as HTMLElement).classList.remove(
-                        'fixed-header'
-                    );
-                }
-            }
-        };
+        handleScroll(ref);
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', () => handleScroll(ref));
 
         return () => {
             window.removeEventListener('resize', handleResize);
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', () => handleScroll(ref));
         };
-    }, []);
+    }, [accessToken, refreshToken, dispatch]);
 
     const addAdvert = () => {
         setIsAddModalOpen(true);
@@ -115,6 +120,8 @@ export const Header = () => {
                 {isAddModalOpen && (
                     <ModalAddAdvert closeAddModal={closeAddModal} />
                 )}
+                {isCheckEmailModalOpen && <ModalCheckEmail />}
+                {isResetPasswordModalOpen && <ModalResetPassword />}
             </div>
         </header>
     );

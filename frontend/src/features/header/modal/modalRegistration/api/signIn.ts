@@ -1,3 +1,4 @@
+import { saveTokensAuthToCookie } from '../../../../../app/cookie/cookieAuth';
 import { UserEnter } from '../libr/RegistrationTypes';
 
 export const signIn = async (body: UserEnter) => {
@@ -11,9 +12,18 @@ export const signIn = async (body: UserEnter) => {
             body: JSON.stringify(body),
         });
 
-        const data = await responce.json();
-        console.log('data', data);
+        if (responce.status === 401) return responce;
+        const data = await responce.json(); //для ошибки неверного логина или пароля
+
         if ((await responce).ok) {
+            if (localStorage.getItem('rememberMe') == 'true') {
+                saveTokensAuthToCookie(data.access, data.refresh);
+                console.log('сохранил токен в куки');
+            } else {
+                sessionStorage.setItem('accessToken', data.access);
+                sessionStorage.setItem('refreshToken', data.refresh);
+                console.log('сохранил токен в сешн сторадж');
+            }
             return data;
         }
     } catch (e) {

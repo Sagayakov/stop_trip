@@ -15,7 +15,7 @@ export const InputSubmit = ({ isValid }: Props) => {
                 color: 'white',
                 cursor: 'pointer',
             }}
-            value="Войти"
+            value="Зарегистрироваться"
             disabled={!isValid}
         />
     );

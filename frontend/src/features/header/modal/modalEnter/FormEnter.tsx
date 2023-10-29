@@ -1,38 +1,37 @@
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import './libr/formEnter.scss';
+import { useAppDispatch } from '../../../../app/store/hooks';
+import { Google } from '../../../../shared/ui/icons/icons-tools/Google';
+import { Vk } from '../../../../shared/ui/icons/icons-tools/Vk';
+import { CheckboxRememberMe } from './inputsEnter/CheckboxRememberMe';
 import { InputSubmit } from './inputsEnter/InputSubmit';
 import { InputEmail } from './inputsEnter/inputEmail/InputEmail';
 import { InputPassword } from './inputsEnter/inputPassword/InputPassword';
-import { useState } from 'react';
-import { Google } from '../../../../shared/ui/icons/icons-tools/Google';
-import { Vk } from '../../../../shared/ui/icons/icons-tools/Vk';
+import './libr/formEnter.scss';
 import { AuthData } from './libr/EnterType';
-import { signIn } from '../modalRegistration/api/signIn';
-import { useAppDispatch } from '../../../../app/store/hooks';
-import { setIsAuth } from '../../../../features/header/model/modalAuth/reducers/auth';
+import { submitEntForm } from './libr/submitEntForm';
+import { setIsResetPasswordModalOpen } from '../../../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
 import { toggleModalEnter } from '../../../../features/header/model/modalAuth/reducers/toggleModal';
+import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
-    const { register, formState, handleSubmit, reset, control } = useForm<AuthData>({
-        mode: 'onBlur',
-    });
+    const { register, formState, handleSubmit, reset, control } =
+        useForm<AuthData>({
+            mode: 'onBlur',
+        });
     const dispatch = useAppDispatch();
 
+
     const onsubmit: SubmitHandler<AuthData> = async (submitData) => {
-        const authUser = async () =>
-            await signIn({
-                email: submitData.email,
-                password: submitData.password,
-            });
+        await dispatch(setLoading(true))
+        await submitEntForm(submitData, dispatch, reset);
+        await dispatch(setLoading(false))
+    };
 
-        const result = await authUser();
-
-        if (result) {
-            dispatch(setIsAuth(true));
-            dispatch(toggleModalEnter(false));
-            reset();
-        }
+    const openResetPasswordModal = () => {
+        dispatch(toggleModalEnter(false));
+        dispatch(setIsResetPasswordModalOpen(true));
     };
 
     return (
@@ -48,13 +47,10 @@ export const FormEnter = () => {
                 setTogglePass={setTogglePass}
                 control={control}
             />
-            <div className="forget-password">Забыли пароль?</div>
-            <div className="remember-me">
-                <label className="form-checkbox">
-                    <input type="checkbox" name="" id="" />
-                    <span>Запомнить аккаунт</span>
-                </label>
+            <div className="forget-password" onClick={openResetPasswordModal}>
+                Забыли пароль?
             </div>
+            <CheckboxRememberMe register={register} />
             <InputSubmit />
             <div className="enter-with">
                 Войти с помощью

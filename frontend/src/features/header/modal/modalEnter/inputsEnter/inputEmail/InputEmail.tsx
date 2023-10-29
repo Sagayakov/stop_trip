@@ -1,6 +1,7 @@
 import { FormState, UseFormRegister } from 'react-hook-form';
-import { AuthData } from '../../libr/EnterType';
+import { useAppSelector } from '../../../../../../app/store/hooks';
 import '../../libr/inputEmail.scss';
+import { AuthData } from '../../libr/EnterType';
 
 interface Props {
     formState: FormState<AuthData>;
@@ -9,7 +10,7 @@ interface Props {
 
 export const InputEmail = ({ formState, register }: Props) => {
     const { errors } = formState;
-
+    const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
     return (
         <>
             <input
@@ -23,7 +24,7 @@ export const InputEmail = ({ formState, register }: Props) => {
                 autoComplete="username"
                 style={{
                     border: `1px solid ${
-                        errors?.email ? '#FF3F25' : '#DCDCDC'
+                        errors?.email || errorEnter ? '#FF3F25' : '#DCDCDC'
                     }`,
                 }}
             />
