@@ -8,7 +8,7 @@ export const FeedbackForm = () => {
                 <p>Пожелания по работе сайта</p>
             </div>
             <form>
-                <input type="text" placeholder="Введите текст" />
+                <textarea placeholder="Введите текст" />
                 <input type="submit" value="Отправить"/>
             </form>
         </div>

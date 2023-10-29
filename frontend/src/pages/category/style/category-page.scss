@@ -95,10 +95,10 @@ main {
                             margin-top: 8px;
                             position: absolute;
                             width: 246px;
-                            padding: 16px;
+                            // padding: 16px;
                             display: flex;
                             flex-direction: column;
-                            gap: 20px;
+                            // gap: 20px;
                             border-radius: var(--radii);
                             border: none;
                             background-color: white;
@@ -108,8 +108,13 @@ main {
                                 display: flex;
                                 justify-content: space-between;
                                 align-items: center;
+                                padding: 20px 16px;
                                 input[type='radio'] {
                                     display: none;
+                                }
+                                &:hover{
+                                    background-color: var(--grey-1);
+                                    border-radius: 4px;
                                 }
                             }
                         }
