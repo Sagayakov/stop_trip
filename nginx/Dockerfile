@@ -5,7 +5,6 @@ ENV ENVIRONMENT development
 ENV BASIC_AUTH override_if_needed
 ENV TLS_MODE off
 ENV SITE_HOST localhost
-ENV IMGPROXY_SITE_HOST imgproxy.localhost
 RUN apk upgrade
 RUN apk add --no-cache esh curl openssl
 RUN curl https://get.acme.sh | sh

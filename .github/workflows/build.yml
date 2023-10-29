@@ -78,15 +78,11 @@ jobs:
 #  deploy:
 #    runs-on: ubuntu-latest
 ##    environment: production
-##    env:
-##      DOCKER_HOST: ssh://$DEPLOY_USER@$DEPLOY_HOST
-##      PROJECT_NAME: ${CI_PROJECT_NAME}
-##      SERVER_NAME: ${CI_PROJECT_NAME}
-##      CADVISOR_URL: ${CADVISOR_URL}
-##      IMGPROXY_URL: ${IMGPROXY_URL}
-##      AGENT_URL: ${AGENT_URL}
-##      BRANCH_NAME: ${CI_COMMIT_REF_SLUG}
-#
+#    env:
+#      DOCKER_HOST: ssh://$DEPLOY_USER@$DEPLOY_HOST
+#      PROJECT_NAME: ${CI_PROJECT_NAME}
+#      SERVER_NAME: ${CI_PROJECT_NAME}
+#      BRANCH_NAME: ${CI_COMMIT_REF_SLUG}
 #
 #    steps:
 #      # Cloning repository
