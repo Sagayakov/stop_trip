@@ -1,4 +1,3 @@
-from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
@@ -36,9 +35,7 @@ class AdvertisementModelViewSet(ModelViewSet):
         "list": [AllowAny],
         "retrieve": [AllowAny],
     }
-    filter_backends = [DjangoFilterBackend]
     filterset_class = TransportFilter
-
 
     def get_queryset(self):
         queryset = Advertisement.objects.all()

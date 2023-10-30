@@ -739,3 +739,82 @@ class AdvertisementViewSetTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_filter_transport_type_of_service(self):
+        user = UserFactory()
+        transport_brands = [
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
+        ]
+        transport_models = [
+            TransportModelFactory(name=name, brand=brand)
+            for name in ["1a", "2a", "3a", "4a"]
+            for brand in transport_brands
+        ]
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                transport_type_of_service=[
+                    TransportTypeOfService.SALE,
+                    TransportTypeOfService.RENT,
+                ][_ % 2],
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.CAR,
+                transport_brand=brand,
+                transport_model=model,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=3.0,
+                transport_year_of_production=2015,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5 + 1 * _,
+            )
+            for model in transport_models
+            for brand in transport_brands
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_type_of_service": TransportTypeOfService.SALE.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(transport_set) // 2)
+
+    def test_filter_transport_engine_volume(self):
+        user = UserFactory()
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.CAR,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=_,
+                transport_year_of_production=2015,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5,
+            )
+            for _ in list([float(i / 10) for i in range(10, 100)])
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_engine_volume_min": 3.0, "transport_engine_volume_max": 4.0},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), 11)
