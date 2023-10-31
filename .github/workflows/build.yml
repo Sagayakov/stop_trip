@@ -99,7 +99,6 @@ jobs:
       # Deploy
       - name: Deploy to server
         run: |
-          which ssh-agent || ( apk --update add openssh-client )
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           ssh-keyscan "$DEPLOY_HOST" >> ~/.ssh/known_hosts
