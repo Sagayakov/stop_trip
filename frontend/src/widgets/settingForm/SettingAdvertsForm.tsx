@@ -40,7 +40,10 @@ export const SettingAdvertsForm = ({ setShowFilters }: Props) => {
             className="filters"
             onClick={handleClick}
         >
-            <form onSubmit={handleSubmit(onsubmit)}>
+            <form
+                onSubmit={handleSubmit(onsubmit)}
+                onClick={(event) => event.stopPropagation()}//попробовать, чтобы на мобильном не закрывались фильтры при скролле 24.10.2024
+            >
                 <TypeOfProperty
                     watch={watch}
                     register={register}

@@ -33,6 +33,7 @@ export const InputRepeatPassword = ({
                         minLength: 5,
                     })}
                     placeholder="Повторите пароль"
+                    autoComplete="new-password"
                     type={showPassword ? 'text' : 'password'}
                     style={{
                         border: `1px solid ${
