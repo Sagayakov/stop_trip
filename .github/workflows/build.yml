@@ -75,35 +75,35 @@ jobs:
       - name: Test backend
         run: docker compose -f docker-compose.yml run --rm backend /bin/sh -c "pytest -p no:warnings --cov-report term:skip-covered --cov=."
 
-#  deploy:
-#    runs-on: ubuntu-latest
-##    environment: production
-#    env:
-#      DOCKER_HOST: ssh://$DEPLOY_USER@$DEPLOY_HOST
-#      PROJECT_NAME: ${CI_PROJECT_NAME}
-#      SERVER_NAME: ${CI_PROJECT_NAME}
-#      BRANCH_NAME: ${CI_COMMIT_REF_SLUG}
-#
-#    steps:
-#      # Cloning repository
-#      - name: Clone repo
-#        uses: actions/checkout@v4
-#
-#      # Setup SSH
-#      - name: Setup SSH
-#        uses: webfactory/ssh-agent@v0.7.0
-#        with:
-#          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
-#
-#      # Deploy
-#      - name: Deploy to server
-#        run: |
-#          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /path/to/project && git pull origin main"
-#          # replace /path/to/project with the path to the directory where your project is located on the server
-#
-#      # Run server
-#      - name: Run server
-#        run: |
-#          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /path/to/project"
-#          docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull
-#          docker compose -f docker-compose.yml -f docker-compose.frontend.yml up --remove-orphans -d
+  deploy:
+    runs-on: ubuntu-latest
+#    environment: production
+    env:
+      DOCKER_HOST: ssh://$DEPLOY_USER@$DEPLOY_HOST
+      PROJECT_NAME: ${CI_PROJECT_NAME}
+      SERVER_NAME: ${CI_PROJECT_NAME}
+      BRANCH_NAME: ${CI_COMMIT_REF_SLUG}
+
+    steps:
+      # Cloning repository
+      - name: Clone repo
+        uses: actions/checkout@v4
+
+      # Setup SSH
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      # Deploy
+      - name: Deploy to server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /stop_trip && git pull origin main"
+          # replace /path/to/project with the path to the directory where your project is located on the server
+
+      # Run server
+      - name: Run server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /path/to/project"
+          docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull
+          docker compose -f docker-compose.yml -f docker-compose.frontend.yml up --remove-orphans -d
