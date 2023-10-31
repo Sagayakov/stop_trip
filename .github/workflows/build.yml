@@ -78,6 +78,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 #    environment: production
+    needs: [ tests ]
     env:
       DOCKER_HOST: ssh://$DEPLOY_USER@$DEPLOY_HOST
       PROJECT_NAME: ${CI_PROJECT_NAME}
