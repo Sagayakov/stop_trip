@@ -81,9 +81,9 @@ jobs:
     needs: [ tests ]
     env:
       DOCKER_HOST: ssh://$DEPLOY_USER@$DEPLOY_HOST
-      PROJECT_NAME: ${CI_PROJECT_NAME}
-      SERVER_NAME: ${CI_PROJECT_NAME}
-      BRANCH_NAME: ${CI_COMMIT_REF_SLUG}
+      PROJECT_NAME: ${{ CI_PROJECT_NAME }}
+      SERVER_NAME: ${{ CI_PROJECT_NAME }}
+      BRANCH_NAME: ${{ CI_COMMIT_REF_SLUG }}
 
     steps:
       # Cloning repository
@@ -99,6 +99,7 @@ jobs:
       # Deploy
       - name: Deploy to server
         run: |
+          which ssh-agent || ( apk --update add openssh-client )
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           ssh-keyscan "$DEPLOY_HOST" >> ~/.ssh/known_hosts
