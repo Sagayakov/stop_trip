@@ -1,24 +1,18 @@
+import { LastAdvertsTypes } from 'features/popularAdverts/libr/lastAdvertsTypes'
 import { Favorite } from '../../shared/ui/icons/icons-tools/Favorite'
 
-interface Props {
-    image: string
-    price: string
-    description: string
-    time: string
-    id?: number
-}
-
-export const Cart = ({ description, image, price, time }: Props) => {
+export const Cart = (props: LastAdvertsTypes) => {
+    const { images, price, title} = props
     return (
         <div className="adverts-cart">
-            <img src={image} alt="img" />
+            <img src={images[0].image} alt="img" />
             <div className="description">
                 <div className="price">
-                    {price}
+                    {price}$
                     <Favorite color="#FF3F25" strokeColor="#FF3F25" />
                 </div>
-                <p>{description}</p>
-                <span>{time}</span>
+                <p>{title}</p>
+                <span>пока нет времени публикации</span>
             </div>
         </div>
     )
