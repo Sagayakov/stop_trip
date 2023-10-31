@@ -82,6 +82,7 @@ export const Header = () => {
                 </button>
                 {width <= 767 ? (
                     <Person
+                        stroke={isAuth ? '#1f6fde' : '#1C1C1E'}
                         handleClick={
                             isAuth
                                 ? () => setShowUserMenu(!showUserMenu)
@@ -97,6 +98,7 @@ export const Header = () => {
                         {isAuth ? (
                             <div className="person-auth">
                                 <Person
+                                    stroke={isAuth ? '#1f6fde' : '#1C1C1E'}
                                     handleClick={() =>
                                         setShowUserMenu(!showUserMenu)
                                     }
