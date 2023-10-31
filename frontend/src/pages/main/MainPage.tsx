@@ -1,17 +1,17 @@
 import { useAppSelector } from '../../app/store/hooks';
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
 import { Controls } from '../../features/controls';
-import { PopularAdverts } from '../../features/popularAdverts/PopularAdverts';
+import { LastAdverts } from '../../features/LastAdverts/LastAdverts';
 import { PopularCategories } from '../../features/popularCategories';
 
 export const MainPage = () => {
-    const load = useAppSelector((state) => state.setLoading.loading)
+    const load = useAppSelector((state) => state.setLoading.loading);
 
     return (
         <>
             <Controls />
             <PopularCategories />
-            <PopularAdverts />
+            <LastAdverts />
             {load && <LoadingWithBackground />}
         </>
     );

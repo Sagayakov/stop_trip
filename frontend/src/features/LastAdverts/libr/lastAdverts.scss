@@ -1,7 +1,11 @@
-.popular-adverts {
+a{
+    text-decoration: none;
+    color: var(--main-black);
+}
+.last-adverts {
     width: 1440px;
     margin: 0px auto 50px;
-    .popular-adverts-wrapper {
+    .last-adverts-wrapper {
         width: 1240px;
         margin: 0 auto 40px;
         font-family: var(--font-inter);
@@ -59,10 +63,10 @@
 }
 
 @media (max-width: 1439px) {
-    .popular-adverts {
+    .last-adverts {
         width: 100%;
         margin: 0px auto 40px;
-        .popular-adverts-wrapper {
+        .last-adverts-wrapper {
             width: 85%;
             margin: 0 auto 40px;
             font-family: var(--font-inter);
@@ -82,10 +86,10 @@
 }
 
 @media (max-width: 1090px) {
-    .popular-adverts {
+    .last-adverts {
         width: 100%;
         margin: 0 auto 20px;
-        .popular-adverts-wrapper {
+        .last-adverts-wrapper {
             width: 85%;
             margin: 0 auto 20px;
             font-family: var(--font-inter);
@@ -147,8 +151,8 @@
 }
 
 @media (max-width: 767px) {
-    .popular-adverts {
-        .popular-adverts-wrapper {
+    .last-adverts {
+        .last-adverts-wrapper {
             width: 93.5%;
             .adverts-list {
                 grid-template-columns: repeat(3, 1fr);
@@ -158,8 +162,8 @@
 }
 
 @media (max-width: 480px) {
-    .popular-adverts {
-        .popular-adverts-wrapper {
+    .last-adverts {
+        .last-adverts-wrapper {
             .adverts-list {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -168,8 +172,8 @@
 }
 
 @media (min-width: 374px) and (max-width: 425px) {
-    .popular-adverts {
-        .popular-adverts-wrapper {
+    .last-adverts {
+        .last-adverts-wrapper {
             h3 {
                 font-size: 1.1rem;
             }
@@ -200,8 +204,8 @@
     }
 }
 @media (max-width: 374px) {
-    .popular-adverts {
-        .popular-adverts-wrapper {
+    .last-adverts {
+        .last-adverts-wrapper {
             h3 {
                 font-size: 1.1rem;
             }
