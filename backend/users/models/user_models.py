@@ -26,7 +26,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = PhoneNumberField("Телефон", blank=True, null=True)
     email = models.EmailField(_("email address"), unique=True)
     average_rating = models.FloatField("Средний рейтинг", default=0)
-    number_rating = models.IntegerField("Количество рейтинга", default=0)
+    rating = models.IntegerField("Оценка", default=0)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)

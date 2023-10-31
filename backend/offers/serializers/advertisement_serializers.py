@@ -57,7 +57,7 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Advertisement
-        exclude = ("wishlist",)
+        fields = "__all__"
 
 
 class AdvertisementUpdateSerializer(serializers.ModelSerializer):

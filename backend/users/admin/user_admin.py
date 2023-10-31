@@ -30,7 +30,7 @@ from ..models import User
 #     )
 class UserAdmin(Admin):
     model = User
-    list_display = ("full_name", "email", "phone", "average_rating", "number_rating", "is_staff", "is_active")
+    list_display = ("full_name", "email", "phone", "average_rating", "rating", "is_staff", "is_active")
     list_filter = ("email", "is_staff", "is_active",)
     fieldsets = (
         (None, {"fields": ("full_name", "email", "phone", "password")}),

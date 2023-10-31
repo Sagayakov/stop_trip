@@ -1,9 +1,7 @@
 from django.urls import path
-from .views import (
-    RateCreateAPIView,
-    RateListAPIView, RateDetailAPIView
+from .views import (CreateListRatesAPIView, RetrieveUpdateDestroyRateAPIView
+
 )
 
-urlpatterns = [path("<int:pk>/rate-create", RateCreateAPIView.as_view(), name="rate-create"),
-               path("<int:pk>/rate-list", RateListAPIView.as_view(), name="rate-list"),
-               path("rate-details/<int:pk>/", RateDetailAPIView.as_view(), name="rate-detail")]
+urlpatterns = [path("<int:pk>/list-create-rate", CreateListRatesAPIView.as_view(), name="list-create-rate"),
+               path("rate-details/<int:pk>/", RetrieveUpdateDestroyRateAPIView.as_view(), name="rate-detail")]

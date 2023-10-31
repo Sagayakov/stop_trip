@@ -5,14 +5,14 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Rate(models.Model):
     """Отзыв на объявлнеие"""
 
-    user_rated = models.ForeignKey("users.User",
+    from_user = models.ForeignKey("users.User",
                              on_delete=models.CASCADE,
                              verbose_name="Оценивающий пользователь",
-                             related_name="user_rates")
-    user_being_rated = models.ForeignKey("users.User",
+                             related_name="from_user_rates")
+    to_user = models.ForeignKey("users.User",
                                             on_delete=models.CASCADE,
                                             verbose_name="Оцененный",
-                                            related_name="rates")
+                                            related_name="to_user_rates")
 
     rating = models.PositiveIntegerField("Оценка", validators=[MinValueValidator(1), MaxValueValidator(5)])
     is_active = models.BooleanField("Активен", default=True)
