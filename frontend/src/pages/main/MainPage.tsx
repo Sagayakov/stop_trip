@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../app/store/hooks';
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
 import { Controls } from '../../features/controls';
-import { LastAdverts } from '../../features/LastAdverts/LastAdverts';
+import { LastAdverts } from '../../features/lastAdverts/LastAdverts';
 import { PopularCategories } from '../../features/popularCategories';
 
 export const MainPage = () => {

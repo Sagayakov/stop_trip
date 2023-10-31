@@ -1,10 +1,9 @@
 import { Pagination } from '../pagination';
-// import data from '../../../db.json';
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
-import { Cart } from '../../entities/LastAdverts';
 import { useGetLastAdvertsQuery } from './api/lastAdvertsQuery';
-import { LastAdvertsTypes } from './libr/lastAdvertsTypes';
 import './libr/lastAdverts.scss';
+import { LastAdvertsTypes } from './libr/lastAdvertsTypes';
+import { Cart } from '../../entities/lastAdverts';
 
 export const LastAdverts = () => {
     const { data = [], isLoading } = useGetLastAdvertsQuery('');

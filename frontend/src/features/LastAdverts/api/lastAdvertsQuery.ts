@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { url } from '../../../shared/const/url'
-import { LastAdvertsTypes } from '../libr/lastAdvertsTypes'
+import { LastAdvertsTypes } from '../libr/lastAdvertsTypes';
 
 export const lastAdvertsQuery = createApi({
     reducerPath: 'lastAdverts',
