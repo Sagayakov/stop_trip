@@ -9,7 +9,7 @@ import { toggleModalEnter } from '../../features/header/model/modalAuth/reducers
 import { LogoHeader } from '../../shared/ui/icons/icons-tools/LogoHeader';
 import { Person } from '../../shared/ui/icons/icons-tools/Person';
 import { Plus } from '../../shared/ui/icons/icons-tools/Plus';
-import './header.scss';
+import './libr/header.scss';
 import { setIsAuth } from '../../features/header/model/modalAuth/reducers/auth';
 import { checkAuthentication } from './libr/authentication/checkAuthentication';
 import { getTokensFromStorage } from './libr/authentication/getTokensFromStorage';

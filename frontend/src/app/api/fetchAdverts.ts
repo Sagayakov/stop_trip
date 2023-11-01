@@ -4,21 +4,21 @@ import { url } from '../../shared/const/url';
 
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
-    tagTypes: ['LastAdverts'],
+    tagTypes: ['Adverts'],
     baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
     endpoints: (build) => ({
-        getLastAdverts: build.query<LastAdvertsTypes[], string>({
+        getAdverts: build.query<LastAdvertsTypes[], string>({
             //дженериками передаем тип того что собираемся получить, а второй тип это то что передаем в качестве параметра при вызове хука, в данном случае пустая строка
             query: () => 'api/advertisements/',
             providesTags: (result) => result // понадобится когда можно будет добавлять объявления
                 ? [
                       ...result.map(({ id }) => ({
-                          type: 'LastAdverts' as const,
+                          type: 'Adverts' as const,
                           id,
                       })),
-                        { type: 'LastAdverts', id: 'LIST' },
+                        { type: 'Adverts', id: 'LIST' },
                   ]
-                : [{ type: 'LastAdverts', id: 'LIST' }],
+                : [{ type: 'Adverts', id: 'LIST' }],
         }),
         addAdvert: build.mutation<LastAdvertsTypes[], LastAdvertsTypes>({
             query: (body) => ({
@@ -26,9 +26,9 @@ export const fetchAdverts = createApi({
                 method: 'POST',
                 body,
             }),
-            invalidatesTags: ['LastAdverts'],
+            invalidatesTags: ['Adverts'],
         }),
     }),
 });
 
-export const { useGetLastAdvertsQuery } = fetchAdverts;
+export const { useGetAdvertsQuery } = fetchAdverts;
