@@ -1,12 +1,13 @@
-import { Pagination } from '../pagination';
-import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
-import { useGetLastAdvertsQuery } from './api/lastAdvertsQuery';
-import './libr/lastAdverts.scss';
-import { LastAdvertsTypes } from './libr/lastAdvertsTypes';
+import { useGetLastAdvertsQuery } from '../../app/api/fetchAdverts';
+import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { Cart } from '../../entities/lastAdverts';
+import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
+import { Pagination } from '../pagination';
+import './libr/lastAdverts.scss';
 
 export const LastAdverts = () => {
     const { data = [], isLoading } = useGetLastAdvertsQuery('');
+    const reverseData = JSON.parse(JSON.stringify(data));//наверное стоит делать reverse массива на бэке и сразу получать в обратном порядке
 
     return (
         <div className="last-adverts">
@@ -14,7 +15,7 @@ export const LastAdverts = () => {
                 <h3>Последние объявления</h3>
                 <div className="adverts-list">
                     {isLoading && <LoadingWithBackground />}
-                    {data.map((elem: LastAdvertsTypes) => (
+                    {reverseData.reverse().map((elem: LastAdvertsTypes) => (
                         <Cart
                             title={elem.title}
                             id={elem.id}

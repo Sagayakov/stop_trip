@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { LastAdvertsTypes } from '../../features/LastAdverts/libr/lastAdvertsTypes';
+import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { Favorite } from '../../shared/ui/icons/icons-tools/Favorite';
 
 export const Cart = (props: LastAdvertsTypes) => {
