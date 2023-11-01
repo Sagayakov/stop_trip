@@ -134,8 +134,8 @@ jobs:
       - name: docker_env
         run: echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
-      - name: docker_login
-        run: echo "${CI_REGISTRY_PASSWORD}" | docker login -username "${CI_REGISTRY_USER}" --password-stdin ${CI_REGISTRY}
+#      - name: docker_login
+#        run: echo "${CI_REGISTRY_PASSWORD}" | docker login -username "${CI_REGISTRY_USER}" --password-stdin ${CI_REGISTRY}
 
       - name: pulling
         run: ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /stop_trip/ && git pull origin master"
