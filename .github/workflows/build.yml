@@ -138,7 +138,7 @@ jobs:
 #        run: echo "${CI_REGISTRY_PASSWORD}" | docker login -username "${CI_REGISTRY_USER}" --password-stdin ${CI_REGISTRY}
 
       - name: pulling
-        run: ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /stop_trip/ && git pull origin master"
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd ~/stop_trip/ && git pull origin master"
 
       # Run server
       - name: Run server
