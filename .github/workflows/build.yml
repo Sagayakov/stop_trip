@@ -132,7 +132,7 @@ jobs:
         run: chmod 644 ~/.ssh/known_hosts
 
       - name: docker_env
-        run: [[ -f /.dockerenv ]] & echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+        run: echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
       - name: docker_login
         run: echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin ${CI_REGISTRY}
