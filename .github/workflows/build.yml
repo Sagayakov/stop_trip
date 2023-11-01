@@ -97,24 +97,48 @@ jobs:
           ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
 
       # Deploy
-      - name: Deploy to server
-        run: |
-          which ssh-agent || ( apk --update add openssh-client )
-          eval $(ssh-agent -s)
-          echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          ssh-keyscan "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
-          [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-          echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin ${CI_REGISTRY}
+#      - name: Deploy to server
+#        run: |
 #          which ssh-agent || ( apk --update add openssh-client )
+#          eval $(ssh-agent -s)
+#          echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
 #          mkdir -p ~/.ssh
 #          chmod 700 ~/.ssh
-#          ssh-keyscan "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+#          ssh-keyscan "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
 #          chmod 644 ~/.ssh/known_hosts
 #          [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+#          echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin ${CI_REGISTRY}
 #          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /stop_trip/ && git pull origin master"
+
+      - name: which ssh_agent
+        run: which ssh-agent || ( apk --update add openssh-client )
+
+      - name: eval ssh_agent
+        run: eval $(ssh-agent -s)
+
+      - name: echo_ssh
+        run: echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+
+      - name: mkdir_p
+        run: mkdir -p ~/.ssh
+
+      - name: chmod_700
+        run: chmod 700 ~/.ssh
+
+      - name: ssh_keyscan
+        run: ssh-keyscan "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
+
+      - name: chmod_644
+        run: chmod 644 ~/.ssh/known_hosts
+
+      - name: docker_env
+        run: [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+      - name: docker_login
+        run: echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin ${CI_REGISTRY}
+
+      - name: pulling
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /stop_trip/ && git pull origin master"
 
       # Run server
       - name: Run server
