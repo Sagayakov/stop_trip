@@ -104,10 +104,10 @@ jobs:
           echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          ssh-keyscan "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+          ssh-keyscan "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
           [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-          echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+          echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin ${CI_REGISTRY}
 #          which ssh-agent || ( apk --update add openssh-client )
 #          mkdir -p ~/.ssh
 #          chmod 700 ~/.ssh
