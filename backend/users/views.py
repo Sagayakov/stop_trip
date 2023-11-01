@@ -1,5 +1,4 @@
-from rest_framework import generics, mixins
-from rest_framework.generics import GenericAPIView
+from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -8,7 +7,7 @@ from .models import User, Rate
 from .permissions import OwnerOrAdminPermission
 
 
-class CreateListRatesAPIView(generics.ListCreateAPIView):
+class CreateListRatesAPIView(viewsets.ModelViewSet):
     serializer_class = RateSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -37,15 +36,18 @@ class CreateListRatesAPIView(generics.ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
-class RetrieveUpdateDestroyRateAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = RateDetailSerializer
-    queryset = Rate.objects.all()
-    permission_classes = (IsAuthenticated, OwnerOrAdminPermission)
 
-    def get_permissions(self):
-        if self.request.method == "GET":
-            return [OwnerOrAdminPermission()]
-        return [IsAuthenticated()]
+
+#
+# class RetrieveUpdateDestroyRateAPIView(generics.RetrieveUpdateDestroyAPIView):
+#     serializer_class = RateDetailSerializer
+#     queryset = Rate.objects.all()
+#     permission_classes = (IsAuthenticated, OwnerOrAdminPermission)
+#
+#     def get_permissions(self):
+#         if self.request.method == "GET":
+#             return [OwnerOrAdminPermission()]
+#         return [IsAuthenticated()]
 
 
 
