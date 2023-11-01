@@ -117,7 +117,7 @@ jobs:
         run: eval $(ssh-agent -s)
 
       - name: echo_ssh
-        run: echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+        run: echo "${{ secrets.DEPLOY_SSH_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
 
       - name: mkdir_p
         run: mkdir -p ~/.ssh
@@ -126,7 +126,7 @@ jobs:
         run: chmod 700 ~/.ssh
 
       - name: ssh_keyscan
-        run: ssh-keyscan "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
+        run: ssh-keyscan "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
 
       - name: chmod_644
         run: chmod 644 ~/.ssh/known_hosts
