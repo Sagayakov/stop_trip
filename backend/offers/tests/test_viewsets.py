@@ -787,6 +787,280 @@ class AdvertisementViewSetTest(APITestCase):
         res_json = res.json()
         self.assertEqual(len(res_json), len(transport_set) // 2)
 
+    def test_filter_transport_type(self):
+        user = UserFactory()
+        transport_brands = [
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
+        ]
+        transport_models = [
+            TransportModelFactory(name=name, brand=brand)
+            for name in ["1a", "2a", "3a", "4a"]
+            for brand in transport_brands
+        ]
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=[TransportType.GROUND,
+                                TransportType.WATER,
+                                ][_ % 2],
+                transport_category=TransportCategory.CAR,
+                transport_brand=brand,
+                transport_model=model,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=3.0,
+                transport_year_of_production=2015,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5 + 1 * _,
+            )
+            for model in transport_models
+            for brand in transport_brands
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_type": TransportType.GROUND.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(transport_set) // 2)
+
+    def test_filter_transport_category(self):
+        user = UserFactory()
+        transport_brands = [
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
+                            ]
+        transport_models = [
+            TransportModelFactory(name=name, brand=brand)
+            for name in ["1a", "2a", "3a", "4a"]
+            for brand in transport_brands
+        ]
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=[
+                    TransportCategory.MOTORCYCLE, TransportCategory.MOPED, TransportCategory.CAR,
+                    TransportCategory.TRUCK, TransportCategory.BUS, TransportCategory.TRICYCLE,
+                    TransportCategory.ROADHOUSE, TransportCategory.MOTORBOAT, TransportCategory.OAR_BOAT,
+                    TransportCategory.BOAT, TransportCategory.OTHER
+                    ][_ % 2],
+                transport_brand=brand,
+                transport_model=model,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=3.0,
+                transport_year_of_production=2015,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5 + 1 * _,
+            )
+            for model in transport_models
+            for brand in transport_brands
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_category": TransportCategory.MOTORCYCLE.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(transport_set) // 2)
+
+    def test_filter_transport_brand(self):
+        user = UserFactory()
+        transport_brands = [
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
+        ]
+        transport_models = [
+            TransportModelFactory(name=name, brand=brand)
+            for name in ["1a", "2a", "3a", "4a"]
+            for brand in transport_brands
+        ]
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.MOTORCYCLE,
+                transport_brand=brand,
+                transport_model=model,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=3.0,
+                transport_year_of_production=2015,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5 + 1 * _,
+            )
+            for model in transport_models
+            for brand in transport_brands
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_brand": transport_brands[0].pk},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(transport_set) // len(transport_brands))
+
+    def test_filter_transport_model(self):
+        user = UserFactory()
+        transport_brands = [
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
+        ]
+        transport_models = [
+            TransportModelFactory(name=name, brand=brand)
+            for name in ["1a", "2a", "3a", "4a"]
+            for brand in transport_brands
+        ]
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.MOTORCYCLE,
+                transport_brand=brand,
+                transport_model=model,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=3.0,
+                transport_year_of_production=2015,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5 + 1 * _,
+            )
+            for model in transport_models
+            for brand in transport_brands
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_model": transport_models[0].pk},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(transport_set) // len(transport_models))
+
+    def test_filter_transport_engine_type(self):
+        user = UserFactory()
+        transport_brands = [
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
+        ]
+        transport_models = [
+            TransportModelFactory(name=name, brand=brand)
+            for name in ["1a", "2a", "3a", "4a"]
+            for brand in transport_brands
+        ]
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.MOTORCYCLE,
+                transport_brand=brand,
+                transport_model=model,
+                transport_engine_type=[TransportEngineType.FUEL, TransportEngineType.DIESEL,
+                                       TransportEngineType.GAS, TransportEngineType.ELECTRIC,
+                                       TransportEngineType.HYBRID][_ % 2],
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=3.0,
+                transport_year_of_production=2015,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5 + 1 * _,
+            )
+            for model in transport_models
+            for brand in transport_brands
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_engine_type": TransportEngineType.FUEL.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(transport_set) // 2)
+
+    def test_filter_transport_drive_type(self):
+        user = UserFactory()
+        transport_brands = [
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
+        ]
+        transport_models = [
+            TransportModelFactory(name=name, brand=brand)
+            for name in ["1a", "2a", "3a", "4a"]
+            for brand in transport_brands
+        ]
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.MOTORCYCLE,
+                transport_brand=brand,
+                transport_model=model,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=[TransportDriveType.ALL_WHEEL, TransportDriveType.FRONT_WHEEL,
+                                      TransportDriveType.REAR_WHEEL, TransportDriveType.FOUR_WHEEL][_ % 2],
+                transport_engine_volume=3.0,
+                transport_year_of_production=2015,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5 + 1 * _,
+            )
+            for model in transport_models
+            for brand in transport_brands
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_drive_type": TransportDriveType.ALL_WHEEL.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(transport_set) // 2)
+
     def test_filter_transport_engine_volume(self):
         user = UserFactory()
         transport_set = [
@@ -818,3 +1092,177 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), 11)
+
+
+    def test_filter_transport_year_of_production(self):
+        user = UserFactory()
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.CAR,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=1.5,
+                transport_year_of_production=_,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5,
+            )
+            for _ in list(range(2020, 2022))
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_year_of_production_min": 2020, "transport_year_of_production_max": 2022},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), 2)
+
+    def test_filter_transport_transmission_type(self):
+        user = UserFactory()
+        transport_brands = [
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
+        ]
+        transport_models = [
+            TransportModelFactory(name=name, brand=brand)
+            for name in ["1a", "2a", "3a", "4a"]
+            for brand in transport_brands
+        ]
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.MOTORCYCLE,
+                transport_brand=brand,
+                transport_model=model,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=3.0,
+                transport_year_of_production=2015,
+                transport_transmission_type=[TransportTransmissionType.MECHANIC, TransportTransmissionType.AUTOMATIC,
+                                             TransportTransmissionType.ROBOT][_ % 2],
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5 + 1 * _,
+            )
+            for model in transport_models
+            for brand in transport_brands
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_transmission_type": TransportTransmissionType.MECHANIC.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(transport_set) // 2)
+
+    def test_filter_transport_body_type(self):
+        user = UserFactory()
+        transport_brands = [
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
+        ]
+        transport_models = [
+            TransportModelFactory(name=name, brand=brand)
+            for name in ["1a", "2a", "3a", "4a"]
+            for brand in transport_brands
+        ]
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.MOTORCYCLE,
+                transport_brand=brand,
+                transport_model=model,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=3.0,
+                transport_year_of_production=2015,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=[TransportBodyType.LIFTBACK, TransportBodyType.SEDAN,
+                                     TransportBodyType.COUPE, TransportBodyType.CONVERTIBLE,
+                                     TransportBodyType.HATCHBACK, TransportBodyType.SUV,
+                                     TransportBodyType.LIMOUSINE, TransportBodyType.PICKUP][_ % 2],
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5 + 1 * _,
+            )
+            for model in transport_models
+            for brand in transport_brands
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_body_type": TransportBodyType.LIFTBACK.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(transport_set) // 2)
+
+    def test_filter_transport_condition(self):
+        user = UserFactory()
+        transport_brands = [
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
+        ]
+        transport_models = [
+            TransportModelFactory(name=name, brand=brand)
+            for name in ["1a", "2a", "3a", "4a"]
+            for brand in transport_brands
+        ]
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.MOTORCYCLE,
+                transport_brand=brand,
+                transport_model=model,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=3.0,
+                transport_year_of_production=2015,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=[TransportCondition.USED, TransportCondition.NEW,
+                                     TransportCondition.SALVAGE, TransportCondition.SPARE][_ % 2],
+                transport_passengers_quality=5 + 1 * _,
+            )
+            for model in transport_models
+            for brand in transport_brands
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"transport_condition": TransportCondition.USED.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(transport_set) // 2)
+
+
+
+
