@@ -111,10 +111,9 @@ jobs:
 
       # Run server
       - name: Run server
-        run: ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd ~/stop_trip/"
-
-      - name: Pulling
-        run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd ~/stop_trip/"
+          docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull
 
       - name: Up
         run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml up --remove-orphans --build -d
