@@ -13,17 +13,23 @@
         z-index: 10;
         box-shadow: 0px 0px 20px 0px #00000012;
         width: 300px;
-        padding: 40px;
+        padding: 40px 0px;
         border-radius: 8px;
         background-color: var(--main-background);
         font-weight: 500;
         font-family: var(--font-sf);
         .menu {
             .user-option {
+                height: 40px;
+                padding-left: 40px;
                 display: flex;
                 align-items: center;
                 margin-bottom: 24px;
                 cursor: pointer;
+                &:hover{
+                    border-radius: 8px;
+                    background-color: var(--grey-1);
+                }
                 svg {
                     width: 24px;
                 }
@@ -31,16 +37,16 @@
                     color: var(--main-black);
                     margin: 4px 0px 4px 24px;
                 }
-                .language-auth {
-                    display: block;
-                }
+            }
+            .language-auth{
+                margin-left: 40px;
             }
             .user-option:active {
                 color: var(--grey-2);
             }
         }
         p {
-            margin: 48px 0px 0px;
+            margin: 48px 40px 0px;
             color: #ff3f25;
             cursor: pointer;
         }

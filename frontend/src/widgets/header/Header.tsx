@@ -9,7 +9,7 @@ import { toggleModalEnter } from '../../features/header/model/modalAuth/reducers
 import { LogoHeader } from '../../shared/ui/icons/icons-tools/LogoHeader';
 import { Person } from '../../shared/ui/icons/icons-tools/Person';
 import { Plus } from '../../shared/ui/icons/icons-tools/Plus';
-import './header.scss';
+import './libr/header.scss';
 import { setIsAuth } from '../../features/header/model/modalAuth/reducers/auth';
 import { checkAuthentication } from './libr/authentication/checkAuthentication';
 import { getTokensFromStorage } from './libr/authentication/getTokensFromStorage';
@@ -82,6 +82,7 @@ export const Header = () => {
                 </button>
                 {width <= 767 ? (
                     <Person
+                        stroke={isAuth ? '#1f6fde' : '#1C1C1E'}
                         handleClick={
                             isAuth
                                 ? () => setShowUserMenu(!showUserMenu)
@@ -97,6 +98,7 @@ export const Header = () => {
                         {isAuth ? (
                             <div className="person-auth">
                                 <Person
+                                    stroke={isAuth ? '#1f6fde' : '#1C1C1E'}
                                     handleClick={() =>
                                         setShowUserMenu(!showUserMenu)
                                     }
