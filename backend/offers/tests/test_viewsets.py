@@ -851,10 +851,8 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=[
-                    TransportCategory.MOTORCYCLE, TransportCategory.MOPED, TransportCategory.CAR,
-                    TransportCategory.TRUCK, TransportCategory.BUS, TransportCategory.TRICYCLE,
-                    TransportCategory.ROADHOUSE, TransportCategory.MOTORBOAT, TransportCategory.OAR_BOAT,
-                    TransportCategory.BOAT, TransportCategory.OTHER
+                    TransportCategory.MOTORCYCLE,
+                    TransportCategory.MOPED
                     ][_ % 2],
                 transport_brand=brand,
                 transport_model=model,
@@ -990,9 +988,9 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_category=TransportCategory.MOTORCYCLE,
                 transport_brand=brand,
                 transport_model=model,
-                transport_engine_type=[TransportEngineType.FUEL, TransportEngineType.DIESEL,
-                                       TransportEngineType.GAS, TransportEngineType.ELECTRIC,
-                                       TransportEngineType.HYBRID][_ % 2],
+                transport_engine_type=[TransportEngineType.FUEL,
+                                       TransportEngineType.DIESEL
+                                       ][_ % 2],
                 transport_drive_type=TransportDriveType.ALL_WHEEL,
                 transport_engine_volume=3.0,
                 transport_year_of_production=2015,
@@ -1037,8 +1035,9 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_brand=brand,
                 transport_model=model,
                 transport_engine_type=TransportEngineType.FUEL,
-                transport_drive_type=[TransportDriveType.ALL_WHEEL, TransportDriveType.FRONT_WHEEL,
-                                      TransportDriveType.REAR_WHEEL, TransportDriveType.FOUR_WHEEL][_ % 2],
+                transport_drive_type=[TransportDriveType.ALL_WHEEL,
+                                      TransportDriveType.FRONT_WHEEL,
+                                      ][_ % 2],
                 transport_engine_volume=3.0,
                 transport_year_of_production=2015,
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
@@ -1093,7 +1092,6 @@ class AdvertisementViewSetTest(APITestCase):
         res_json = res.json()
         self.assertEqual(len(res_json), 11)
 
-
     def test_filter_transport_year_of_production(self):
         user = UserFactory()
         transport_set = [
@@ -1113,7 +1111,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5,
             )
-            for _ in list(range(2020, 2022))
+            for _ in list(range(2000, 2022))
         ]
 
         with self.assertNumQueries(2):
@@ -1150,8 +1148,9 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_drive_type=TransportDriveType.ALL_WHEEL,
                 transport_engine_volume=3.0,
                 transport_year_of_production=2015,
-                transport_transmission_type=[TransportTransmissionType.MECHANIC, TransportTransmissionType.AUTOMATIC,
-                                             TransportTransmissionType.ROBOT][_ % 2],
+                transport_transmission_type=[TransportTransmissionType.MECHANIC,
+                                             TransportTransmissionType.AUTOMATIC
+                                             ][_ % 2],
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
@@ -1196,10 +1195,9 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_engine_volume=3.0,
                 transport_year_of_production=2015,
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
-                transport_body_type=[TransportBodyType.LIFTBACK, TransportBodyType.SEDAN,
-                                     TransportBodyType.COUPE, TransportBodyType.CONVERTIBLE,
-                                     TransportBodyType.HATCHBACK, TransportBodyType.SUV,
-                                     TransportBodyType.LIMOUSINE, TransportBodyType.PICKUP][_ % 2],
+                transport_body_type=[TransportBodyType.LIFTBACK,
+                                     TransportBodyType.SEDAN
+                                     ][_ % 2],
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
             )
@@ -1244,8 +1242,9 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_year_of_production=2015,
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
                 transport_body_type=TransportBodyType.LIFTBACK,
-                transport_condition=[TransportCondition.USED, TransportCondition.NEW,
-                                     TransportCondition.SALVAGE, TransportCondition.SPARE][_ % 2],
+                transport_condition=[TransportCondition.USED,
+                                     TransportCondition.NEW
+                                     ][_ % 2],
                 transport_passengers_quality=5 + 1 * _,
             )
             for model in transport_models
@@ -1262,7 +1261,3 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), len(transport_set) // 2)
-
-
-
-
