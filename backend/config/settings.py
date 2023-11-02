@@ -4,7 +4,6 @@ from os.path import join
 from pathlib import Path
 from sys import argv
 
-
 from django.utils.translation import gettext_lazy as _
 
 SITE_HOST = getenv("SITE_HOST")
@@ -49,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "social_django.middleware.SocialAuthExceptionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -63,8 +63,10 @@ if DEBUG:
     INSTALLED_APPS.append("debug_toolbar")
     MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
 
+
     def show_toolbar_callback(_):
         return DEBUG
+
 
     DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "config.settings.show_toolbar_callback"}
 
@@ -81,6 +83,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect"
             ],
         },
     },
@@ -227,6 +231,11 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    "django.contrib.auth.backends.ModelBackend"]
+
 DOMAIN = "localhost:3000"
 DJOSER = {
     "LOGIN_FIELD": "email",
@@ -238,9 +247,7 @@ DJOSER = {
     "ACTIVATION_URL": "activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
     "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
-    "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": [
-       "http://localhost:8000"
-    ],
+    "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": ["http://localhost:8000/google"],
     "SERIALIZERS": {
         "user_create": "accounts.serializers.UserCreateSerializer",  # custom serializer
         "user": "djoser.serializers.UserSerializer",
@@ -257,7 +264,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     "https://www.googleapis.com/auth/userinfo.profile",
     "openid",
 ]
-SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ["first_name"]
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ["full_name"]
 
 if not DEBUG:
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = ["rest_framework.renderers.JSONRenderer"]
@@ -265,7 +272,6 @@ if not DEBUG:
 SESSION_COOKIE_AGE = 31_536_000
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
-AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.ModelBackend"]
 
 # Кастомный пользователь
 AUTH_USER_MODEL = "users.User"

@@ -6,13 +6,13 @@ class Rate(models.Model):
     """Отзыв на объявлнеие"""
 
     from_user = models.ForeignKey("users.User",
-                             on_delete=models.CASCADE,
-                             verbose_name="Оценивающий пользователь",
-                             related_name="from_user_rates")
+                                  on_delete=models.CASCADE,
+                                  verbose_name="Оценивающий пользователь",
+                                  related_name="from_user_rates")
     to_user = models.ForeignKey("users.User",
-                                            on_delete=models.CASCADE,
-                                            verbose_name="Оцененный",
-                                            related_name="to_user_rates")
+                                on_delete=models.CASCADE,
+                                verbose_name="Оцененный",
+                                related_name="to_user_rates")
 
     rating = models.PositiveIntegerField("Оценка", validators=[MinValueValidator(1), MaxValueValidator(5)])
     is_active = models.BooleanField("Активен", default=True)
