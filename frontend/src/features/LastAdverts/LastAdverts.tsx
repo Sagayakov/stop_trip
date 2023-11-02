@@ -1,6 +1,6 @@
 import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
-import { Cart } from '../../entities/lastAdverts/Cart';
+import { Cart } from '../../entities/lastAdverts';
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
 import { Pagination } from '../pagination';
 import './libr/lastAdverts.scss';
