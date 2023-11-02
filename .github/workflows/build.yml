@@ -116,4 +116,4 @@ jobs:
           docker compose -f docker-compose.yml -f docker-compose.frontend.yml pull
 
       - name: Up
-        run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml up --remove-orphans --build -d
+        run: docker compose -f docker-compose.yml -f docker-compose.frontend.yml up --remove-orphans -d
