@@ -7,7 +7,7 @@ import './libr/lastAdverts.scss';
 
 export const LastAdverts = () => {
     const { data = [], isLoading } = useGetAdvertsQuery('');
-    const reverseData = JSON.parse(JSON.stringify(data));//наверное стоит делать reverse массива на бэке и сразу получать в обратном порядке
+    const reverseData = JSON.parse(JSON.stringify(data)); //наверное стоит делать reverse массива на бэке и сразу получать в обратном порядке
 
     return (
         <div className="last-adverts">

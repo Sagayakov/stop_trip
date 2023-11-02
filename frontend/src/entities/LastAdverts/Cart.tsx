@@ -4,7 +4,7 @@ import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { Favorite } from '../../shared/ui/icons/icons-tools/Favorite';
 
 export const Cart = (props: LastAdvertsTypes) => {
-    const { images, price, title, id } = props;
+    const { price, title, id } = props;
     const [addToFav, setAddToFav] = useState(false);
 
     const style = {
@@ -25,7 +25,15 @@ export const Cart = (props: LastAdvertsTypes) => {
             onClick={(event) => event.stopPropagation}
         >
             <NavLink to={`/api/advertisements/${id}/`}>
-                <img src={images[0].image} alt="img" />
+                <img
+                    src={
+                        '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
+                        /* images[0] === undefined
+                            ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
+                            : images[0].image */
+                    }
+                    alt="img"
+                />
                 <div className="description">
                     <div className="price">
                         {price}$
