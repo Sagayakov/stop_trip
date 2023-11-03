@@ -64,10 +64,8 @@ if DEBUG:
     INSTALLED_APPS.append("debug_toolbar")
     MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
 
-
     def show_toolbar_callback(_):
         return DEBUG
-
 
     DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "config.settings.show_toolbar_callback"}
 
@@ -85,7 +83,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "social_django.context_processors.backends",
-                "social_django.context_processors.login_redirect"
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -228,7 +226,7 @@ REST_FRAMEWORK = {
 }
 AUTHENTICATION_BACKENDS = (
     "social_core.backends.google.GoogleOAuth2",
-    "django.contrib.auth.backends.ModelBackend"
+    "django.contrib.auth.backends.ModelBackend",
 )
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
@@ -274,8 +272,6 @@ if not DEBUG:
 
 SESSION_COOKIE_AGE = 31_536_000
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-
-AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.ModelBackend"]
 
 # Кастомный пользователь
 AUTH_USER_MODEL = "users.User"
