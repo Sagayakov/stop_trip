@@ -803,9 +803,10 @@ class AdvertisementViewSetTest(APITestCase):
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
-                transport_type=[TransportType.GROUND,
-                                TransportType.WATER,
-                                ][_ % 2],
+                transport_type=[
+                    TransportType.GROUND,
+                    TransportType.WATER,
+                ][_ % 2],
                 transport_category=TransportCategory.CAR,
                 transport_brand=brand,
                 transport_model=model,
@@ -837,7 +838,7 @@ class AdvertisementViewSetTest(APITestCase):
         user = UserFactory()
         transport_brands = [
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
-                            ]
+        ]
         transport_models = [
             TransportModelFactory(name=name, brand=brand)
             for name in ["1a", "2a", "3a", "4a"]
@@ -850,10 +851,7 @@ class AdvertisementViewSetTest(APITestCase):
                 price=100_000 + _ * 50_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
-                transport_category=[
-                    TransportCategory.MOTORCYCLE,
-                    TransportCategory.MOPED
-                    ][_ % 2],
+                transport_category=[TransportCategory.MOTORCYCLE, TransportCategory.MOPED][_ % 2],
                 transport_brand=brand,
                 transport_model=model,
                 transport_engine_type=TransportEngineType.FUEL,
@@ -988,9 +986,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_category=TransportCategory.MOTORCYCLE,
                 transport_brand=brand,
                 transport_model=model,
-                transport_engine_type=[TransportEngineType.FUEL,
-                                       TransportEngineType.DIESEL
-                                       ][_ % 2],
+                transport_engine_type=[TransportEngineType.FUEL, TransportEngineType.DIESEL][_ % 2],
                 transport_drive_type=TransportDriveType.ALL_WHEEL,
                 transport_engine_volume=3.0,
                 transport_year_of_production=2015,
@@ -1035,9 +1031,10 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_brand=brand,
                 transport_model=model,
                 transport_engine_type=TransportEngineType.FUEL,
-                transport_drive_type=[TransportDriveType.ALL_WHEEL,
-                                      TransportDriveType.FRONT_WHEEL,
-                                      ][_ % 2],
+                transport_drive_type=[
+                    TransportDriveType.ALL_WHEEL,
+                    TransportDriveType.FRONT_WHEEL,
+                ][_ % 2],
                 transport_engine_volume=3.0,
                 transport_year_of_production=2015,
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
@@ -1117,7 +1114,10 @@ class AdvertisementViewSetTest(APITestCase):
         with self.assertNumQueries(2):
             res = self.client.get(
                 self.list_url,
-                {"transport_year_of_production_min": 2020, "transport_year_of_production_max": 2022},
+                {
+                    "transport_year_of_production_min": 2020,
+                    "transport_year_of_production_max": 2022,
+                },
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -1148,9 +1148,10 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_drive_type=TransportDriveType.ALL_WHEEL,
                 transport_engine_volume=3.0,
                 transport_year_of_production=2015,
-                transport_transmission_type=[TransportTransmissionType.MECHANIC,
-                                             TransportTransmissionType.AUTOMATIC
-                                             ][_ % 2],
+                transport_transmission_type=[
+                    TransportTransmissionType.MECHANIC,
+                    TransportTransmissionType.AUTOMATIC,
+                ][_ % 2],
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
@@ -1195,9 +1196,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_engine_volume=3.0,
                 transport_year_of_production=2015,
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
-                transport_body_type=[TransportBodyType.LIFTBACK,
-                                     TransportBodyType.SEDAN
-                                     ][_ % 2],
+                transport_body_type=[TransportBodyType.LIFTBACK, TransportBodyType.SEDAN][_ % 2],
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
             )
@@ -1242,9 +1241,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_year_of_production=2015,
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
                 transport_body_type=TransportBodyType.LIFTBACK,
-                transport_condition=[TransportCondition.USED,
-                                     TransportCondition.NEW
-                                     ][_ % 2],
+                transport_condition=[TransportCondition.USED, TransportCondition.NEW][_ % 2],
                 transport_passengers_quality=5 + 1 * _,
             )
             for model in transport_models
