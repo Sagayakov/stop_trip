@@ -141,6 +141,11 @@ USE_X_FORWARDED_HOST = True
 USE_X_FORWARDED_PORT = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+# Djoser
+
+
+
+
 # Static
 STATIC_URL = "/s/"
 STATIC_ROOT = join(BASE_DIR, "static")
@@ -237,8 +242,9 @@ SIMPLE_JWT = {
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }
 
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
-DOMAIN = f"{SITE_HOST}:3000"
+# DOMAIN = f"{SITE_HOST}:3000"
 DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
