@@ -1,19 +1,29 @@
+import datetime
 import factory
-from users.models import User
-
-# fake = Faker()
+from django.utils.timezone import now
+from users.models import User, Rate
 
 
 class UserFactory(factory.django.DjangoModelFactory):
     """Фабрика пользователей."""
 
-    full_name = factory.Faker("word")
-    phone = "+79997777777"
-    email = "test@mail.ru"
+    full_name = factory.Faker("name")
+    phone = factory.Faker("phone_number")
+    email = factory.Faker("email")
 
     class Meta:
         model = User
 
-    # full_name = fake.name()
-    # email = fake.email()
-    # password = fake.password()
+
+class RateFactory(factory.django.DjangoModelFactory):
+    """Фабрика рейтингов"""
+
+    from_user = factory.SubFactory(UserFactory)
+    to_user = factory.SubFactory(UserFactory)
+    comment = factory.Faker("sentence")
+    rating = factory.Faker("pyint", min_value=1, max_value=5)
+    date_created = now() - datetime.timedelta(days=1)
+    date_updated = now()
+
+    class Meta:
+        model = Rate
