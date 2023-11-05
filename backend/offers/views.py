@@ -38,7 +38,7 @@ class AdvertisementModelViewSet(ModelViewSet):
     filterset_class = TransportFilter
 
     def get_queryset(self):
-        queryset = Advertisement.objects.all()
+        queryset = Advertisement.objects.filter(is_published=True)
 
         if self.action in [self.list.__name__, self.retrieve.__name__]:
             queryset = queryset.prefetch_related("images")
