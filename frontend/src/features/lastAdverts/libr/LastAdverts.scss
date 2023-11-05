@@ -1,4 +1,4 @@
-a{
+a {
     text-decoration: none;
     color: var(--main-black);
 }
@@ -21,35 +21,62 @@ a{
         .adverts-list {
             width: 100%;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 1.25rem;
             margin-bottom: 40px;
             .adverts-cart {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 100%;
                 cursor: pointer;
                 font-size: 18px;
                 font-weight: 700;
-                width: 295px;
-                height: 380px;
                 background-color: var(--main-background);
                 border-radius: 1rem;
                 border: none;
                 img {
-                    width: 295px;
+                    width: 100%;
                     height: 239px;
+                    min-height: 150px;
                     border-radius: 16px 16px 0 0;
                     border: none;
                 }
                 .description {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    flex-grow: 1;
                     padding: 0.75rem 1rem 1.25rem;
+
                     .price {
+                        position: relative;
                         display: flex;
                         justify-content: space-between;
                         margin-bottom: 14px;
                         color: var(--main-blue);
                         letter-spacing: 1px;
+                        p {
+                            width: 87%;
+                        }
+                        span {
+                            position: absolute;
+                            right: 0;
+                        }
                     }
                     p {
                         margin-bottom: 0.75rem;
+                        -ms-text-overflow: ellipsis;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        -ms-line-clamp: 2;
+                        -webkit-line-clamp: 2;
+                        line-clamp: 2;
+                        display: -webkit-box;
+                        display: box;
+                        word-wrap: break-word;
+                        -webkit-box-orient: vertical;
+                        box-orient: vertical;
                     }
                     span {
                         color: var(--grey-3);
@@ -102,10 +129,7 @@ a{
                 margin-bottom: 18px;
             }
             .adverts-list {
-                width: 100%;
-                display: grid;
-                //grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 1rem;
                 margin: 20px auto;
                 justify-content: space-between;
@@ -115,11 +139,11 @@ a{
                     cursor: pointer;
                     font-size: 18px;
                     font-weight: 700;
-                    width: auto;
                     height: auto;
                     background-color: var(--main-background);
                     border-radius: 1rem;
                     border: none;
+
                     img {
                         width: 100%;
                         height: 140px;
@@ -137,6 +161,9 @@ a{
                         }
                         p {
                             margin-bottom: 12px;
+                            -ms-line-clamp: 3;
+                            -webkit-line-clamp: 3;
+                            line-clamp: 3;
                         }
                         span {
                             color: var(--grey-3);
@@ -154,14 +181,11 @@ a{
     .last-adverts {
         .last-adverts-wrapper {
             width: 93.5%;
-            .adverts-list {
-                grid-template-columns: repeat(3, 1fr);
-            }
         }
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 615px) {
     .last-adverts {
         .last-adverts-wrapper {
             .adverts-list {
@@ -203,6 +227,7 @@ a{
         }
     }
 }
+
 @media (max-width: 374px) {
     .last-adverts {
         .last-adverts-wrapper {
