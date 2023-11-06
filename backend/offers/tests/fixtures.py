@@ -17,3 +17,5 @@ def jwt_token(api_client, django_user_model):
     )
 
     return response.data["access"]
+
+
