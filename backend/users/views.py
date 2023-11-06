@@ -11,7 +11,7 @@ from .models import Rate, User
 from .serializers import RateSerializer, RateChangeSerializer
 
 
-class RateAPIView(mixins.ListModelMixin, GenericViewSet):
+class RateViewSet(mixins.ListModelMixin, GenericViewSet):
     queryset = Rate.objects.filter(is_active=True).select_related("from_user", "to_user")
     custom_permission_classes = {
         "change_rate": [IsAuthenticated],
