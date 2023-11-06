@@ -1,0 +1,21 @@
+form{
+    .typeOfService,
+    .typeOfTransport,
+    .transportationCategory,
+    .mark,
+    .model,
+    .engineType,
+    .engineСapacity,
+    .drive,
+    .yearOfProduction,
+    .transmissionType,
+    .bodyType,
+    .condition,
+    .passengerCapacity{
+        margin-bottom: 24px;
+    }
+    h3{
+        margin-bottom: 8px;
+    }
+    // .reset-setting-form{}
+}

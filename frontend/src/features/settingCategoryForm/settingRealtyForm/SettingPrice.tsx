@@ -1,9 +1,9 @@
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { TypeSettingAdverts } from '../../widgets/settingForm/TypeSettingAdverts';
+import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/TypeSettingRealty';
 
 interface Props {
-    watch: UseFormWatch<TypeSettingAdverts>;
-    register: UseFormRegister<TypeSettingAdverts>;
+    watch: UseFormWatch<TypeSettingRealty>;
+    register: UseFormRegister<TypeSettingRealty>;
 }
 
 export const SettingPrice = ({ register, watch }: Props) => {

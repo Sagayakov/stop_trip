@@ -1,4 +1,4 @@
-export interface TypeSettingAdverts {
+export interface TypeSettingRealty {
     typeOfProperty: TypeOfProperty
     settingPrice: Price
     totalArea: TotalArea
