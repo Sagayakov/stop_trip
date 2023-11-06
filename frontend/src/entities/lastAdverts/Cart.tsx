@@ -36,7 +36,7 @@ export const Cart = (props: LastAdvertsTypes) => {
             />
             <div className="description">
                 <div className="price">
-                    <p>{price ? `$${price}` : 'По согласованию'}</p>
+                    <p>{price ? `$${price}` : 'Договорная'}</p>
                     <span onClick={handleAddToFavourite}>
                         <Favorite
                             color={style.color}
