@@ -1,8 +1,8 @@
-from uuid import uuid4
-from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.utils import timezone
 from django.db import models
+from django.utils import timezone
+from phonenumber_field.modelfields import PhoneNumberField
+
 from ..managers import CustomUserManager
 
 

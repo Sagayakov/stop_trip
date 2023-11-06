@@ -1,7 +1,9 @@
 import datetime
+
 import factory
 from django.utils.timezone import now
-from users.models import User, Rate
+
+from ..models import User, Rate
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -16,7 +18,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class RateFactory(factory.django.DjangoModelFactory):
-    """Фабрика рейтингов"""
+    """Фабрика рейтингов."""
 
     from_user = factory.SubFactory(UserFactory)
     to_user = factory.SubFactory(UserFactory)
