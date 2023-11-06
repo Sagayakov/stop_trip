@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from ..models import Rate
 
 
@@ -22,6 +23,5 @@ class RateChangeSerializer(serializers.ModelSerializer):
         model = Rate
         fields = (
             "rating",
-            "comment", )
-
-
+            "comment",
+        )

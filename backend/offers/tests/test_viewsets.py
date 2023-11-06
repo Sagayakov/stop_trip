@@ -1,7 +1,8 @@
 import datetime
 from functools import partial
-from django.utils.timezone import now
+
 from django.urls import reverse
+from django.utils.timezone import now
 from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -29,6 +30,7 @@ from offers.constants import (
     JobDurationType,
 )
 from offers.models import Advertisement
+from users.tests.factories import UserFactory
 from .factories import (
     PropertyAdvertisementFactory,
     PropertyAmenityFactory,
@@ -43,7 +45,6 @@ from .factories import (
     ExchangeAdvertisementFactory,
     CurrencyFactory,
 )
-from users.tests.factories import UserFactory
 
 
 @mark.django_db
