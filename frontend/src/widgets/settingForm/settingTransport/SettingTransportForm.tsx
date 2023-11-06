@@ -51,11 +51,11 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
                 <ModelOfTransport register={register} />
                 <EngineType register={register} />
                 <EngineСapacity register={register} />
-                <DriveType register={register} />
+                <DriveType register={register} watch={watch}/>
                 <YearOfProduction register={register} />
-                <TransmissionType register={register} />
-                <BodyTypeOfTransport register={register} />
-                <ConditionOfTransport register={register} />
+                <TransmissionType register={register} watch={watch}/>
+                <BodyTypeOfTransport register={register} watch={watch}/>
+                <ConditionOfTransport register={register} watch={watch}/>
                 <PassengerCapacityOfTransport
                     register={register}
                     watch={watch}
