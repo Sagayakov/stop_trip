@@ -32,9 +32,7 @@ export const AnyCategory = () => {
                         <div
                             className="card"
                             key={el.id}
-                            onClick={() =>
-                                navigate(`/api/advertisements/${el.id}/`)
-                            }
+                            onClick={() => navigate(`/${category}/${el.id}/`)}
                         >
                             <span onClick={(event) => event.stopPropagation()}>
                                 <Like />

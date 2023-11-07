@@ -12,7 +12,6 @@ import './style/768-1023-category-page.scss';
 import './style/425-767-category-page.scss';
 import './style/min-424-category-page.scss';
 
-
 export const CategoryPage = () => {
     const category = location.pathname.slice(1);
     const description = categories[category].description;
@@ -26,10 +25,10 @@ export const CategoryPage = () => {
         height: '460vh',
         width: '100vw',
         position: 'absolute',
-    }
+    };
     const filterFormStyleDesctop = {
         display: 'block',
-    }
+    };
     const filterBtnStyle = {
         display: `${width > 767 ? 'none' : 'flex'}`,
         backgroundColor: `${showFilters ? '#CDE1FF' : '#EBF3FF'}`,
@@ -38,10 +37,10 @@ export const CategoryPage = () => {
     useEffect(() => {
         const handleResize = () => {
             setWidth(window.innerWidth);
-            if(window.innerWidth >= 768) {
-                setShowFilters(true)
+            if (window.innerWidth >= 768) {
+                setShowFilters(true);
             } else {
-                setShowFilters(false)
+                setShowFilters(false);
             }
         };
         window.addEventListener('resize', handleResize);
@@ -83,7 +82,11 @@ export const CategoryPage = () => {
                 <div
                     className="filter-form"
                     onClick={() => setShowFilters(false)}
-                    style={ width <= 767 ? filterFormStyleMobile : filterFormStyleDesctop }
+                    style={
+                        width <= 767
+                            ? filterFormStyleMobile
+                            : filterFormStyleDesctop
+                    }
                 >
                     <SettingAdvertsForm setShowFilters={setShowFilters} />
                 </div>
