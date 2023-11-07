@@ -15,15 +15,15 @@ type Category = {
 };
 
 export const categories: Record<string, Category> = {
-    realty: { description: 'Аренда недвижимости', icon: Realty },
+    property: { description: 'Аренда недвижимости', icon: Realty },
     transport: { description: 'Аренда транспорта', icon: Transport },
-    currency: { description: 'Валютные пары', icon: Currency },
+    exchange_rate: { description: 'Валютные пары', icon: Currency },
     docs: { description: 'Документы', icon: Docs },
     food: { description: 'Домашняя еда', icon: Food },
-    events: { description: 'Мероприятия', icon: Docs },
+    event: { description: 'Мероприятия', icon: Docs },
     market: { description: 'Покупка/продажа', icon: BuySell },
     job: { description: 'Работа', icon: Job },
     taxi: { description: 'Такси', icon: Taxi },
-    services: { description: 'Услуги', icon: Service },
+    service: { description: 'Услуги', icon: Service },
     tours: { description: 'Экскурсии', icon: Excursion },
 };
