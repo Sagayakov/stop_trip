@@ -1,23 +1,24 @@
-import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/TypeSettingTransport';
 import { useEffect, useState } from 'react';
+import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
+import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
 
 interface Props {
-    register: UseFormRegister<TypeSettingTransport>
-    watch: UseFormWatch<TypeSettingTransport>
+    register: UseFormRegister<TypeSettingTransport>;
+    watch: UseFormWatch<TypeSettingTransport>;
 }
 
-export const TransmissionType = ({ register, watch }:Props) => {
-    const transmissionType = watch('transmissionType')
+export const TransmissionType = ({ register, watch }: Props) => {
+    const transmissionType = watch('transmissionType');
     const [showDropDown, setShowDropDown] = useState(false);
+    const arrOfValues = valuesOfTransportForm.transmissionType
 
     useEffect(() => {
         setShowDropDown(false);
     }, [transmissionType]);
-
 
     return (
         <div className="transmissionType">
@@ -34,43 +35,19 @@ export const TransmissionType = ({ register, watch }:Props) => {
                 )}
             </div>
             {showDropDown && (
-                <div className="select-transportFilter-dropdown">
-                    <label>
-                        <input
-                            type="radio"
-                            value="Не выбрано"
-                            {...register('transmissionType')}
-                        />
-                        Не выбрано
-                        {transmissionType === 'Не выбрано' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="МКПП"
-                            {...register('transmissionType')}
-                        />
-                        МКПП
-                        {transmissionType === 'МКПП' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="АКПП"
-                            {...register('transmissionType')}
-                        />
-                        АКПП
-                        {transmissionType === 'АКПП' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Робот"
-                            {...register('transmissionType')}
-                        />
-                        Робот
-                        {transmissionType === 'Робот' && <Jackdaw />}
-                    </label>
+                // <div className="select-transportFilter-dropdown">
+                <div className="select-settingFormFilter-dropdown-height-limited">
+                    {arrOfValues.map((el) => (
+                        <label key={el}>
+                            <input
+                                type="radio"
+                                value={el}
+                                {...register('transmissionType')}
+                            />
+                            {el}
+                            {transmissionType === el && <Jackdaw />}
+                        </label>
+                    ))}
                 </div>
             )}
         </div>

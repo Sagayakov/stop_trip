@@ -1,22 +1,24 @@
+import { useEffect, useState } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/TypeSettingTransport';
-import { useState, useEffect } from 'react';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
+import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
     watch: UseFormWatch<TypeSettingTransport>;
 }
 
-export const BodyTypeOfTransport = ({ register, watch }:Props) => {
-    const bodyType = watch('bodyType')
+export const BodyTypeOfTransport = ({ register, watch }: Props) => {
+    const bodyType = watch('bodyType');
     const [showDropDown, setShowDropDown] = useState(false);
+    const arrOfValue = valuesOfTransportForm.bodyType
 
     useEffect(() => {
-        setShowDropDown(false)
-    }, [bodyType])
+        setShowDropDown(false);
+    }, [bodyType]);
 
     return (
         <div className="bodyType">
@@ -33,88 +35,18 @@ export const BodyTypeOfTransport = ({ register, watch }:Props) => {
                 )}
             </div>
             {showDropDown && (
-                <div className="select-transportFilter-dropdown">
-                    <label>
-                        <input
-                            type="radio"
-                            value="Не выбрано"
-                            {...register('bodyType')}
-                        />
-                        Не выбрано
-                        {bodyType === 'Не выбрано' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Седан"
-                            {...register('bodyType')}
-                        />
-                        Седан
-                        {bodyType === 'Седан' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Хэтчбэк"
-                            {...register('bodyType')}
-                        />
-                        Хэтчбэк
-                        {bodyType === 'Хэтчбэк' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Лифтбэк"
-                            {...register('bodyType')}
-                        />
-                        Лифтбэк
-                        {bodyType === 'Лифтбэк' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Купе"
-                            {...register('bodyType')}
-                        />
-                        Купе
-                        {bodyType === 'Купе' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Кабриолет"
-                            {...register('bodyType')}
-                        />
-                        Кабриолет
-                        {bodyType === 'Кабриолет' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Внедорожник"
-                            {...register('bodyType')}
-                        />
-                        Внедорожник
-                        {bodyType === 'Внедорожник' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Лимузин"
-                            {...register('bodyType')}
-                        />
-                        Лимузин
-                        {bodyType === 'Лимузин' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Пикап"
-                            {...register('bodyType')}
-                        />
-                        Пикап
-                        {bodyType === 'Пикап' && <Jackdaw />}
-                    </label>
+                <div className="select-settingFormFilter-dropdown-height-limited">
+                    {arrOfValue.map((el) => (
+                        <label key={el}>
+                            <input
+                                type="radio"
+                                value={el}
+                                {...register('bodyType')}
+                            />
+                            {el}
+                            {bodyType === el && <Jackdaw />}
+                        </label>
+                    ))}
                 </div>
             )}
         </div>

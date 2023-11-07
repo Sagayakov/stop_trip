@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
-import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/TypeSettingTransport';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
+import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -13,10 +14,10 @@ interface Props {
 export const ConditionOfTransport = ({ register, watch }: Props) => {
     const condition = watch('condition');
     const [showDropDown, setShowDropDown] = useState(false);
-
+    const arrOfValue = valuesOfTransportForm.condition
     useEffect(() => {
-        setShowDropDown(false)
-    }, [condition])
+        setShowDropDown(false);
+    }, [condition]);
 
     return (
         <div className="condition">
@@ -33,52 +34,19 @@ export const ConditionOfTransport = ({ register, watch }: Props) => {
                 )}
             </div>
             {showDropDown && (
-                <div className="select-transportFilter-dropdown">
-                    <label>
-                        <input
-                            type="radio"
-                            value="Не выбрано"
-                            {...register('condition')}
-                        />
-                        Не выбрано
-                        {condition === 'Не выбрано' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Новый"
-                            {...register('condition')}
-                        />
-                        Новый
-                        {condition === 'Новый' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Б/у"
-                            {...register('condition')}
-                        />
-                        Б/у
-                        {condition === 'Б/у' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="Аварийный"
-                            {...register('condition')}
-                        />
-                        Аварийный
-                        {condition === 'Аварийный' && <Jackdaw />}
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="На запчасти"
-                            {...register('condition')}
-                        />
-                        На запчасти
-                        {condition === 'На запчасти' && <Jackdaw />}
-                    </label>
+                // <div className="select-transportFilter-dropdown">
+                <div className="select-settingFormFilter-dropdown-height-limited">
+                    {arrOfValue.map((el) => (
+                        <label key={el}>
+                            <input
+                                type="radio"
+                                value={el}
+                                {...register('condition')}
+                            />
+                            {el}
+                            {condition === el && <Jackdaw />}
+                        </label>
+                    ))}
                 </div>
             )}
         </div>

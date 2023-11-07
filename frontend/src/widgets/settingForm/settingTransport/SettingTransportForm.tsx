@@ -15,8 +15,8 @@ import {
     YearOfProduction,
 } from '../../../features/settingCategoryForm/settingTransportForm/index';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
-import { TypeSettingTransport } from './TypeSettingTransport';
-import './settingTransportForm.scss';
+import { TypeSettingTransport } from './libr/TypeSettingTransport';
+import '././libr/settingTransportForm.scss';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -25,7 +25,6 @@ interface Props {
 export const SettingTransportForm = ({ setShowFilters }: Props) => {
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
-        // setShowDropDown(false);
     };
 
     const { register, handleSubmit, reset, watch } =
@@ -44,18 +43,18 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
     return (
         <section className="filters" onClick={handleClick}>
             <form onSubmit={handleSubmit(onsubmit)}>
-                <TypeOfService register={register} />
-                <TypeOfTransport register={register} />
-                <TransportationCategory register={register} />
-                <MarkOfTransport register={register} />
-                <ModelOfTransport register={register} />
-                <EngineType register={register} />
-                <EngineСapacity register={register} />
-                <DriveType register={register} watch={watch}/>
-                <YearOfProduction register={register} />
-                <TransmissionType register={register} watch={watch}/>
-                <BodyTypeOfTransport register={register} watch={watch}/>
-                <ConditionOfTransport register={register} watch={watch}/>
+                <TypeOfService register={register} watch={watch} />
+                <TypeOfTransport register={register} watch={watch} />
+                <TransportationCategory register={register} watch={watch} />
+                <MarkOfTransport register={register} watch={watch} />
+                <ModelOfTransport register={register} watch={watch} />
+                <EngineType register={register} watch={watch} />
+                <EngineСapacity register={register} watch={watch} />
+                <DriveType register={register} watch={watch} />
+                <YearOfProduction register={register} watch={watch} />
+                <TransmissionType register={register} watch={watch} />
+                <BodyTypeOfTransport register={register} watch={watch} />
+                <ConditionOfTransport register={register} watch={watch} />
                 <PassengerCapacityOfTransport
                     register={register}
                     watch={watch}
