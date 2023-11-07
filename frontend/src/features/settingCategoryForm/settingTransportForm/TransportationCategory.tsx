@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+import { useAppSelector, useAppDispatch } from '../../../app/store/hooks';
+import { closeDropdownTransportationCategory } from './reducer/closeTransportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -13,11 +15,15 @@ interface Props {
 
 export const TransportationCategory = ({ register, watch }: Props) => {
     const transportationCategory = watch('transportationCategory');
-    const [showDropDown, setShowDropDown] = useState(false);
     const arrOfValues = valuesOfTransportForm.transportationCategory
 
+    const showDropDown = useAppSelector(
+        (state) => state.closeTransportFormDropdown.transportationCategory
+    );
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
-        setShowDropDown(false);
+        dispatch(closeDropdownTransportationCategory(false));
     }, [transportationCategory]);
 
     return (
@@ -25,7 +31,7 @@ export const TransportationCategory = ({ register, watch }: Props) => {
             <h3>Категория транспорта</h3>
             <div
                 className="select-transportFilter"
-                onClick={() => setShowDropDown(!showDropDown)}
+                onClick={() => dispatch(closeDropdownTransportationCategory(!showDropDown))}
             >
                 {transportationCategory || 'Не выбрано'}
                 {showDropDown ? (

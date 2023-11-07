@@ -6,6 +6,8 @@ import { setIsEnterSlice } from '../../features/header/model/modalAuth/reducers/
 import { setIsResetPasswordModalOpenSlice } from '../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
 import { toggleModalSlice } from '../../features/header/model/modalAuth/reducers/toggleModal';
 import { fetchAdverts } from '../../app/api/fetchAdverts';
+import { closeTransportFormDropdownClice } from '../../features/settingCategoryForm/settingTransportForm/reducer/closeTransportFormDropdown';
+
 
 
 const setupStore = () =>
@@ -19,6 +21,7 @@ const setupStore = () =>
                 setIsResetPasswordModalOpenSlice.reducer,
             setLoading: setLoadingSlice,
             [fetchAdverts.reducerPath]: fetchAdverts.reducer,
+            closeTransportFormDropdown: closeTransportFormDropdownClice.reducer//не смотри, там жесть
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware().concat(fetchAdverts.middleware), //getDefaultMiddleWare это функция, которая вернет массив, и в этот массив мы добавляем еще миддлвееры которые лежат в goodsApi

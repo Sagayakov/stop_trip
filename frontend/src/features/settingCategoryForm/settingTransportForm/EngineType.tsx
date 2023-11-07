@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+import { useAppSelector, useAppDispatch } from '../../../app/store/hooks';
+import { closeDropdownEngineType } from './reducer/closeTransportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -13,11 +15,15 @@ interface Props {
 
 export const EngineType = ({ register, watch }: Props) => {
     const engineType = watch('engineType');
-    const [showDropDown, setShowDropDown] = useState(false);
     const arrOfValues = valuesOfTransportForm.engineType
 
+    const showDropDown = useAppSelector(
+        (state) => state.closeTransportFormDropdown.engineType
+    );
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
-        setShowDropDown(false);
+        dispatch(closeDropdownEngineType(false));
     }, [engineType]);
 
     return (
@@ -25,7 +31,7 @@ export const EngineType = ({ register, watch }: Props) => {
             <h3>Тип двигателя</h3>
             <div
                 className="select-transportFilter"
-                onClick={() => setShowDropDown(!showDropDown)}
+                onClick={() => dispatch(closeDropdownEngineType(!showDropDown))}
             >
                 {engineType || 'Не выбрано'}
                 {showDropDown ? (
@@ -40,7 +46,7 @@ export const EngineType = ({ register, watch }: Props) => {
                     {arrOfValues.map((el) => (
                         <label key={el}>
                             <input
-                                type="radio"
+                                type="checkbox"
                                 value={el}
                                 {...register('engineType')}
                             />

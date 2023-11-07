@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+import { useAppSelector, useAppDispatch } from '../../../app/store/hooks';
+import { closeDropdownModel } from './reducer/closeTransportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -16,20 +18,23 @@ export const ModelOfTransport = ({ register, watch }: Props) => {
     const markOfTrasport = watch('mark');
     const arrOfValues = valuesOfTransportForm.model
 
-    const disabled = markOfTrasport === 'Не выбрано' ? true : false;
+    const disabled = (markOfTrasport === 'Не выбрано' || !markOfTrasport) ? true : false;
 
-    const [showDropDown, setShowDropDown] = useState(false);
+    const showDropDown = useAppSelector(
+        (state) => state.closeTransportFormDropdown.model
+    );
+    const dispatch = useAppDispatch();
 
     const handleClick = () => {
         if (disabled) {
             return null;
         } else {
-            setShowDropDown(!showDropDown);
+            dispatch(closeDropdownModel((!showDropDown)));
         }
     };
 
     useEffect(() => {
-        setShowDropDown(false);
+        dispatch(closeDropdownModel((false)));
     }, [modelOfTransport]);
 
     return (
@@ -38,13 +43,7 @@ export const ModelOfTransport = ({ register, watch }: Props) => {
             <div
                 className="select-transportFilter"
                 onClick={handleClick}
-                style={
-                    disabled
-                        ? {
-                              color: '#8f8f8f',
-                          }
-                        : {}
-                }
+                style={disabled ? { color: '#8f8f8f' } : {}}
             >
                 {modelOfTransport || 'Не выбрано'}
                 {showDropDown ? (

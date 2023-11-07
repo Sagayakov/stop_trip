@@ -17,15 +17,15 @@ import {
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeSettingTransport } from './libr/TypeSettingTransport';
 import '././libr/settingTransportForm.scss';
+import { closeDropdown } from '../../../features/settingCategoryForm/settingTransportForm/reducer/closeTransportFormDropdown';
+import { useAppDispatch } from '../../../app/store/hooks';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 export const SettingTransportForm = ({ setShowFilters }: Props) => {
-    const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        event.stopPropagation();
-    };
+    const dispatch = useAppDispatch()
 
     const { register, handleSubmit, reset, watch } =
         useForm<TypeSettingTransport>();
@@ -41,8 +41,12 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
     };
 
     return (
-        <section className="filters" onClick={handleClick}>
+        <section className="filters">
             <form onSubmit={handleSubmit(onsubmit)}>
+                <div
+                    className="typeOfService-background"
+                    onClick={() => dispatch(closeDropdown())}
+                />
                 <TypeOfService register={register} watch={watch} />
                 <TypeOfTransport register={register} watch={watch} />
                 <TransportationCategory register={register} watch={watch} />

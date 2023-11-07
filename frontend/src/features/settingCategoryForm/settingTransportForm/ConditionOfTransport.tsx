@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+import { useAppSelector, useAppDispatch } from '../../../app/store/hooks';
+import { closeDropdownCondition } from './reducer/closeTransportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -13,10 +15,15 @@ interface Props {
 
 export const ConditionOfTransport = ({ register, watch }: Props) => {
     const condition = watch('condition');
-    const [showDropDown, setShowDropDown] = useState(false);
     const arrOfValue = valuesOfTransportForm.condition
+
+    const showDropDown = useAppSelector(
+        (state) => state.closeTransportFormDropdown.condition
+    );
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
-        setShowDropDown(false);
+        dispatch(closeDropdownCondition(false));
     }, [condition]);
 
     return (
@@ -24,7 +31,7 @@ export const ConditionOfTransport = ({ register, watch }: Props) => {
             <h3>Состояние</h3>
             <div
                 className="select-transportFilter"
-                onClick={() => setShowDropDown(!showDropDown)}
+                onClick={() => dispatch(closeDropdownCondition(!showDropDown))}
             >
                 {condition || 'Не выбрано'}
                 {showDropDown ? (

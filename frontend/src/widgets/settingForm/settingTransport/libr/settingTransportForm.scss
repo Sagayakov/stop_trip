@@ -5,6 +5,9 @@ form {
     input[type="radio"]{
         display: none;
     }
+    input[type="checkbox"]{
+        display: none;
+    }
     label{
         padding: 20px 16px;
         display: flex;
@@ -15,6 +18,14 @@ form {
     label:hover{
         background-color: var(--grey-1);
         border-radius: var(--radii);
+    }
+    .typeOfService-background{
+        width: 100vw;
+        height: 200vh;
+        z-index: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
     .typeOfService,
     .typeOfTransport,
