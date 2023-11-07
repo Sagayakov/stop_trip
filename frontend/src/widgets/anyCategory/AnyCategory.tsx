@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import data from '../../../db.json';
 import { Like } from '../../shared/ui/Like';
 import { Rating } from '../../shared/ui/Rating';
+import { useNavigate } from 'react-router-dom';
 // import { NavLink } from 'react-router-dom';
 // import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
 
 export const AnyCategory = () => {
     const [width, setWidth] = useState<number>(window.innerWidth);
+    const navigate = useNavigate();
     // const { data = [] } = useGetAdvertsQuery('')
 
     useEffect(() => {
@@ -20,7 +22,13 @@ export const AnyCategory = () => {
         <section className="adverts">
             {data.map((el) => {
                 return (
-                    <div className="card" key={el.id}>
+                    <div
+                        className="card"
+                        key={el.id}
+                        onClick={() =>
+                            navigate(`/api/advertisements/${el.id}/`)
+                        }
+                    >
                         <span onClick={(event) => event.preventDefault()}>
                             <Like />
                         </span>
