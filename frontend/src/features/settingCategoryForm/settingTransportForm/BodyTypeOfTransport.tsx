@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
-import { useAppSelector, useAppDispatch } from '../../../app/store/hooks';
-import { closeDropdownBodyType } from './reducer/closeTransportFormDropdown';
+import { toggleDropdown } from './reducer/transportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -15,23 +14,19 @@ interface Props {
 
 export const BodyTypeOfTransport = ({ register, watch }: Props) => {
     const bodyType = watch('bodyType');
-    const arrOfValue = valuesOfTransportForm.bodyType
+    const arrOfValue = valuesOfTransportForm.bodyType;
 
     const showDropDown = useAppSelector(
-        (state) => state.closeTransportFormDropdown.bodyType
+        (state) => state.transportFormDropdown.bodyType
     );
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(closeDropdownBodyType(false));
-    }, [bodyType]);
 
     return (
         <div className="bodyType">
             <h3>Тип кузова</h3>
             <div
                 className="select-transportFilter"
-                onClick={() => dispatch(closeDropdownBodyType(!showDropDown))}
+                onClick={() => dispatch(toggleDropdown('bodyType'))}
             >
                 {bodyType || 'Не выбрано'}
                 {showDropDown ? (

@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
-import { closeDropdownYearOfProduction } from './reducer/closeTransportFormDropdown';
+import { toggleDropdown } from './reducer/transportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -17,7 +16,7 @@ export const YearOfProduction = ({ register, watch }: Props) => {
     const arrOfValues: (string | number)[] = ['Не выбрано'];
 
     const showDropDown = useAppSelector(
-        (state) => state.closeTransportFormDropdown.yearOfProduction
+        (state) => state.transportFormDropdown.yearOfProduction
     );
     const dispatch = useAppDispatch();
 
@@ -26,18 +25,12 @@ export const YearOfProduction = ({ register, watch }: Props) => {
         arrOfValues.push(i);
     }
 
-    useEffect(() => {
-        dispatch(closeDropdownYearOfProduction(false))
-    }, [yearOfProduction]);
-
     return (
         <div className="yearOfProduction">
             <h3>Год производства</h3>
             <div
                 className="select-transportFilter"
-                onClick={() =>
-                    dispatch(closeDropdownYearOfProduction(!showDropDown))
-                }
+                onClick={() => dispatch(toggleDropdown('yearOfProduction'))}
             >
                 {yearOfProduction || 'Не выбрано'}
                 {showDropDown ? (

@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
-import { useAppSelector, useAppDispatch } from '../../../app/store/hooks';
-import { closeDropdownCondition } from './reducer/closeTransportFormDropdown';
+import { toggleDropdown } from './reducer/transportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -15,23 +14,19 @@ interface Props {
 
 export const ConditionOfTransport = ({ register, watch }: Props) => {
     const condition = watch('condition');
-    const arrOfValue = valuesOfTransportForm.condition
+    const arrOfValue = valuesOfTransportForm.condition;
 
     const showDropDown = useAppSelector(
-        (state) => state.closeTransportFormDropdown.condition
+        (state) => state.transportFormDropdown.condition
     );
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(closeDropdownCondition(false));
-    }, [condition]);
 
     return (
         <div className="condition">
             <h3>Состояние</h3>
             <div
                 className="select-transportFilter"
-                onClick={() => dispatch(closeDropdownCondition(!showDropDown))}
+                onClick={() => dispatch(toggleDropdown('condition'))}
             >
                 {condition || 'Не выбрано'}
                 {showDropDown ? (
@@ -41,7 +36,6 @@ export const ConditionOfTransport = ({ register, watch }: Props) => {
                 )}
             </div>
             {showDropDown && (
-                // <div className="select-transportFilter-dropdown">
                 <div className="select-settingFormFilter-dropdown-height-limited">
                     {arrOfValue.map((el) => (
                         <label key={el}>

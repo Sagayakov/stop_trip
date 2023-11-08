@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
-import { useAppSelector, useAppDispatch } from '../../../app/store/hooks';
-import { closeDropdownTypeOfTransport } from './reducer/closeTransportFormDropdown';
+import { toggleDropdown } from './reducer/transportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -14,24 +13,20 @@ interface Props {
 }
 
 export const TypeOfTransport = ({ register, watch }: Props) => {
-    const typeOfTransport = watch('typeOfTransport');
-    const arrOfValues = valuesOfTransportForm.typeOfTransport
+    const typeOfTransport = watch('typeOfTransport') || [];
+    const arrOfValues = valuesOfTransportForm.typeOfTransport;
 
     const showDropDown = useAppSelector(
-        (state) => state.closeTransportFormDropdown.typeOfTransport
+        (state) => state.transportFormDropdown.typeOfTransport
     );
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(closeDropdownTypeOfTransport(false));
-    }, [typeOfTransport]);
 
     return (
         <div className="typeOfTransport">
             <h3>Тип транспорта</h3>
             <div
                 className="select-transportFilter"
-                onClick={() => dispatch(closeDropdownTypeOfTransport(!showDropDown))}
+                onClick={() => dispatch(toggleDropdown('typeOfTransport'))}
             >
                 {typeOfTransport || 'Не выбрано'}
                 {showDropDown ? (
@@ -41,7 +36,6 @@ export const TypeOfTransport = ({ register, watch }: Props) => {
                 )}
             </div>
             {showDropDown && (
-                // <div className="select-transportFilter-dropdown">
                 <div className="select-settingFormFilter-dropdown-height-limited">
                     {arrOfValues.map((el) => (
                         <label key={el}>

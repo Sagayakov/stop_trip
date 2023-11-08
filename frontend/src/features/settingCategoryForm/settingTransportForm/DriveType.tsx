@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
-import { useAppSelector, useAppDispatch } from '../../../app/store/hooks';
-import { closeDropdownDrive } from './reducer/closeTransportFormDropdown';
+import { toggleDropdown } from './reducer/transportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -15,23 +14,19 @@ interface Props {
 
 export const DriveType = ({ register, watch }: Props) => {
     const driveType = watch('drive');
-    const arrOfValues = valuesOfTransportForm.drive
+    const arrOfValues = valuesOfTransportForm.drive;
 
     const showDropDown = useAppSelector(
-        (state) => state.closeTransportFormDropdown.drive
+        (state) => state.transportFormDropdown.drive
     );
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(closeDropdownDrive(false));
-    }, [driveType]);
 
     return (
         <div className="drive">
             <h3>Привод</h3>
             <div
                 className="select-transportFilter"
-                onClick={() => dispatch(closeDropdownDrive(!showDropDown))}
+                onClick={() => dispatch(toggleDropdown('drive'))}
             >
                 {driveType || 'Не выбрано'}
                 {showDropDown ? (
@@ -41,7 +36,6 @@ export const DriveType = ({ register, watch }: Props) => {
                 )}
             </div>
             {showDropDown && (
-                // <div className="select-transportFilter-dropdown">
                 <div className="select-settingFormFilter-dropdown-height-limited">
                     {arrOfValues.map((el) => (
                         <label key={el}>

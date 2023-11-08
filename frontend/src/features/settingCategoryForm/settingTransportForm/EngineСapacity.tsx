@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
-import { useAppSelector, useAppDispatch } from '../../../app/store/hooks';
-import { closeDropdownEngineСapacity } from './reducer/closeTransportFormDropdown';
+import { toggleDropdown } from './reducer/transportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -17,7 +16,7 @@ export const EngineСapacity = ({ register, watch }: Props) => {
     const arrOfValues: (string | number)[] = ['Не выбрано'];
 
     const showDropDown = useAppSelector(
-        (state) => state.closeTransportFormDropdown.engineСapacity
+        (state) => state.transportFormDropdown.engineCapacity
     );
     const dispatch = useAppDispatch();
 
@@ -25,16 +24,12 @@ export const EngineСapacity = ({ register, watch }: Props) => {
         arrOfValues.push(i.toFixed(1));
     }
 
-    useEffect(() => {
-        dispatch(closeDropdownEngineСapacity(false));
-    }, [engineCapacity]);
-
     return (
         <div className="engineСapacity">
             <h3>Объем двигателя</h3>
             <div
                 className="select-transportFilter"
-                onClick={() => dispatch(closeDropdownEngineСapacity(!showDropDown))}
+                onClick={() => dispatch(toggleDropdown('engineCapacity'))}
             >
                 {engineCapacity || 'Не выбрано'}
                 {showDropDown ? (

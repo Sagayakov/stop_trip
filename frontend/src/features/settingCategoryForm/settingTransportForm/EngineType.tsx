@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
-import { useAppSelector, useAppDispatch } from '../../../app/store/hooks';
-import { closeDropdownEngineType } from './reducer/closeTransportFormDropdown';
+import { toggleDropdown } from './reducer/transportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -15,23 +14,19 @@ interface Props {
 
 export const EngineType = ({ register, watch }: Props) => {
     const engineType = watch('engineType');
-    const arrOfValues = valuesOfTransportForm.engineType
+    const arrOfValues = valuesOfTransportForm.engineType;
 
     const showDropDown = useAppSelector(
-        (state) => state.closeTransportFormDropdown.engineType
+        (state) => state.transportFormDropdown.engineType
     );
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(closeDropdownEngineType(false));
-    }, [engineType]);
 
     return (
         <div className="engineType">
             <h3>Тип двигателя</h3>
             <div
                 className="select-transportFilter"
-                onClick={() => dispatch(closeDropdownEngineType(!showDropDown))}
+                onClick={() => dispatch(toggleDropdown('engineType'))}
             >
                 {engineType || 'Не выбрано'}
                 {showDropDown ? (

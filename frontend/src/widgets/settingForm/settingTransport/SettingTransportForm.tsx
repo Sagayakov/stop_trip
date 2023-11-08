@@ -1,4 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useAppDispatch } from '../../../app/store/hooks';
 import {
     BodyTypeOfTransport,
     ConditionOfTransport,
@@ -14,18 +15,17 @@ import {
     TypeOfTransport,
     YearOfProduction,
 } from '../../../features/settingCategoryForm/settingTransportForm/index';
+import { closeDropdown } from '../../../features/settingCategoryForm/settingTransportForm/reducer/transportFormDropdown';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
-import { TypeSettingTransport } from './libr/TypeSettingTransport';
 import '././libr/settingTransportForm.scss';
-import { closeDropdown } from '../../../features/settingCategoryForm/settingTransportForm/reducer/closeTransportFormDropdown';
-import { useAppDispatch } from '../../../app/store/hooks';
+import { TypeSettingTransport } from './libr/TypeSettingTransport';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 export const SettingTransportForm = ({ setShowFilters }: Props) => {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     const { register, handleSubmit, reset, watch } =
         useForm<TypeSettingTransport>();

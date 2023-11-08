@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
 import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
 import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
-import { useAppSelector, useAppDispatch } from '../../../app/store/hooks';
-import { closeDropdownModel } from './reducer/closeTransportFormDropdown';
+import { toggleDropdown } from './reducer/transportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -16,12 +15,13 @@ interface Props {
 export const ModelOfTransport = ({ register, watch }: Props) => {
     const modelOfTransport = watch('model');
     const markOfTrasport = watch('mark');
-    const arrOfValues = valuesOfTransportForm.model
+    const arrOfValues = valuesOfTransportForm.model;
 
-    const disabled = (markOfTrasport === 'Не выбрано' || !markOfTrasport) ? true : false;
+    const disabled =
+        markOfTrasport === 'Не выбрано' || !markOfTrasport ? true : false;
 
     const showDropDown = useAppSelector(
-        (state) => state.closeTransportFormDropdown.model
+        (state) => state.transportFormDropdown.model
     );
     const dispatch = useAppDispatch();
 
@@ -29,13 +29,9 @@ export const ModelOfTransport = ({ register, watch }: Props) => {
         if (disabled) {
             return null;
         } else {
-            dispatch(closeDropdownModel((!showDropDown)));
+            dispatch(toggleDropdown('model'));
         }
     };
-
-    useEffect(() => {
-        dispatch(closeDropdownModel((false)));
-    }, [modelOfTransport]);
 
     return (
         <div className="model">
