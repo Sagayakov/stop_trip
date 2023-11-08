@@ -13,7 +13,7 @@ interface Props {
 
 export const EngineСapacity = ({ register, watch }: Props) => {
     const engineCapacity = watch('engineСapacity');
-    const arrOfValues: (string | number)[] = ['Не выбрано'];
+    const arrOfValues: string[] = [];
 
     const showDropDown = useAppSelector(
         (state) => state.transportFormDropdown.engineCapacity
@@ -23,6 +23,7 @@ export const EngineСapacity = ({ register, watch }: Props) => {
     for (let i = 1; i <= 9.9; i += 0.1) {
         arrOfValues.push(i.toFixed(1));
     }
+    const arr = Array.isArray(engineCapacity) ? true : false
 
     return (
         <div className="engineСapacity">
@@ -31,7 +32,9 @@ export const EngineСapacity = ({ register, watch }: Props) => {
                 className="select-transportFilter"
                 onClick={() => dispatch(toggleDropdown('engineCapacity'))}
             >
-                {engineCapacity || 'Не выбрано'}
+                {arr && engineCapacity.length > 0
+                    ? engineCapacity
+                    : 'Не выбрано'}
                 {showDropDown ? (
                     <ArrowTop color="#1C1C1E" />
                 ) : (
@@ -43,12 +46,12 @@ export const EngineСapacity = ({ register, watch }: Props) => {
                     {arrOfValues.map((el) => (
                         <label key={el}>
                             <input
-                                type="radio"
+                                type="checkbox"
                                 value={el}
                                 {...register('engineСapacity')}
                             />
                             {el}
-                            {engineCapacity === String(el) && <Jackdaw />}
+                            {arr && engineCapacity.includes(el) && <Jackdaw />}
                         </label>
                     ))}
                 </div>

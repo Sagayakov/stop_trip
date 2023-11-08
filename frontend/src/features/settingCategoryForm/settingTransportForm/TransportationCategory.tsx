@@ -21,6 +21,8 @@ export const TransportationCategory = ({ register, watch }: Props) => {
     );
     const dispatch = useAppDispatch();
 
+    const arr = Array.isArray(transportationCategory)
+
     return (
         <div className="transportationCategory">
             <h3>Категория транспорта</h3>
@@ -30,7 +32,7 @@ export const TransportationCategory = ({ register, watch }: Props) => {
                     dispatch(toggleDropdown('transportationCategory'))
                 }
             >
-                {transportationCategory || 'Не выбрано'}
+                {(arr && transportationCategory.length > 0) ? transportationCategory : 'Не выбрано'}
                 {showDropDown ? (
                     <ArrowTop color="#1C1C1E" />
                 ) : (
@@ -42,12 +44,12 @@ export const TransportationCategory = ({ register, watch }: Props) => {
                     {arrOfValues.map((el) => (
                         <label key={el}>
                             <input
-                                type="radio"
+                                type="checkbox"
                                 value={el}
                                 {...register('transportationCategory')}
                             />
                             {el}
-                            {transportationCategory === el && <Jackdaw />}
+                            {arr && transportationCategory.includes(el) && <Jackdaw />}
                         </label>
                     ))}
                 </div>

@@ -5,9 +5,9 @@ export interface TypeSettingTransport {
     mark: Mark;
     model: Model;
     engineType: EngineType;
-    engineСapacity: (string | number);
+    engineСapacity: string[];
     drive: Drive;
-    yearOfProduction: string | number;
+    yearOfProduction: string[];
     transmissionType: TransmissoinType;
     bodyType: BodyType;
     condition: Condition;

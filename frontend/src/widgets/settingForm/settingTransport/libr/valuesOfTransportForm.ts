@@ -1,8 +1,7 @@
 export const valuesOfTransportForm = {
-    typeOfService: ['Не выбрано', 'Аренда', 'Продажа'],
-    typeOfTransport: ['Не выбрано', 'Наземный', 'Водный'],
+    typeOfService: ['Аренда', 'Продажа'],
+    typeOfTransport: ['Наземный', 'Водный'],
     transportationCategory: [
-        'Не выбрано',
         'Мотоцикл',
         'Мопед',
         'Легковой автомобиль',
@@ -16,10 +15,9 @@ export const valuesOfTransportForm = {
         'Катер',
         'Другое',
     ],
-    mark: ['Не выбрано', 'Fascino'],
-    model: ['Не выбрано', 'Fascino'],
+    mark: ['Fascino'],
+    model: ['Fascino'],
     engineType: [
-        'Не выбрано',
         'Бензиновый',
         'Дизельный',
         'Газовый',
@@ -27,15 +25,13 @@ export const valuesOfTransportForm = {
         'Гибрид',
     ],
     drive: [
-        'Не выбрано',
         'Передний',
         'Задний',
         'Постоянный полный',
         'Полный подключаемый',
     ],
-    transmissionType: ['Не выбрано', 'МКПП', 'АКПП', 'Робот'],
+    transmissionType: ['МКПП', 'АКПП', 'Робот'],
     bodyType: [
-        'Не выбрано',
         'Седан',
         'Хэтчбэк',
         'Лифтбэк',
@@ -45,5 +41,5 @@ export const valuesOfTransportForm = {
         'Лимузин',
         'Пикап',
     ],
-    condition: ['Не выбрано', 'Новый', 'Б/у', 'Аварийный', 'На запчасти'],
+    condition: ['Новый', 'Б/у', 'Аварийный', 'На запчасти'],
 };

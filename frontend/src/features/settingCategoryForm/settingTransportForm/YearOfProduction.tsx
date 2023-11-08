@@ -13,7 +13,7 @@ interface Props {
 
 export const YearOfProduction = ({ register, watch }: Props) => {
     const yearOfProduction = watch('yearOfProduction');
-    const arrOfValues: (string | number)[] = ['Не выбрано'];
+    const arrOfValues: string[] = [];
 
     const showDropDown = useAppSelector(
         (state) => state.transportFormDropdown.yearOfProduction
@@ -22,9 +22,9 @@ export const YearOfProduction = ({ register, watch }: Props) => {
 
     let i = new Date().getFullYear();
     for (i; i > 1970; i--) {
-        arrOfValues.push(i);
+        arrOfValues.push(String(i));
     }
-
+    const arr = Array.isArray(yearOfProduction) ? true : false
     return (
         <div className="yearOfProduction">
             <h3>Год производства</h3>
@@ -32,7 +32,10 @@ export const YearOfProduction = ({ register, watch }: Props) => {
                 className="select-transportFilter"
                 onClick={() => dispatch(toggleDropdown('yearOfProduction'))}
             >
-                {yearOfProduction || 'Не выбрано'}
+                {arr && yearOfProduction.length > 0
+                    ? yearOfProduction
+                    : 'Не выбрано'
+                }
                 {showDropDown ? (
                     <ArrowTop color="#1C1C1E" />
                 ) : (
@@ -44,12 +47,12 @@ export const YearOfProduction = ({ register, watch }: Props) => {
                     {arrOfValues.map((el) => (
                         <label key={el}>
                             <input
-                                type="radio"
+                                type="checkbox"
                                 value={el}
                                 {...register('yearOfProduction')}
                             />
                             {el}
-                            {yearOfProduction === String(el) && <Jackdaw />}
+                            {arr && yearOfProduction.includes(el) && <Jackdaw />}
                         </label>
                     ))}
                 </div>

@@ -15,18 +15,25 @@ interface Props {
 export const DriveType = ({ register, watch }: Props) => {
     const driveType = watch('drive');
     const arrOfValues = valuesOfTransportForm.drive;
-
+    const typeOfTransport = watch('typeOfTransport')
     const showDropDown = useAppSelector(
         (state) => state.transportFormDropdown.drive
     );
     const dispatch = useAppDispatch();
+    const disabled = typeOfTransport == "Водный" ? true : false
 
+    const handleClick = () => {
+        if(!disabled){
+            dispatch(toggleDropdown('drive'));
+        }
+    }
     return (
         <div className="drive">
             <h3>Привод</h3>
             <div
                 className="select-transportFilter"
-                onClick={() => dispatch(toggleDropdown('drive'))}
+                onClick={handleClick}
+                style={disabled ? {color: "gray"} : {}}
             >
                 {driveType || 'Не выбрано'}
                 {showDropDown ? (
@@ -40,7 +47,7 @@ export const DriveType = ({ register, watch }: Props) => {
                     {arrOfValues.map((el) => (
                         <label key={el}>
                             <input
-                                type="radio"
+                                type="checkbox"
                                 value={el}
                                 {...register('drive')}
                             />

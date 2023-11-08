@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const TypeOfTransport = ({ register, watch }: Props) => {
-    const typeOfTransport = watch('typeOfTransport') || [];
+    const typeOfTransport = watch('typeOfTransport');
     const arrOfValues = valuesOfTransportForm.typeOfTransport;
 
     const showDropDown = useAppSelector(
@@ -29,11 +29,10 @@ export const TypeOfTransport = ({ register, watch }: Props) => {
                 onClick={() => dispatch(toggleDropdown('typeOfTransport'))}
             >
                 {typeOfTransport || 'Не выбрано'}
-                {showDropDown ? (
-                    <ArrowTop color="#1C1C1E" />
-                ) : (
-                    <ArrowDown color="#1C1C1E" />
-                )}
+                {showDropDown
+                    ? <ArrowTop color="#1C1C1E" />
+                    : <ArrowDown color="#1C1C1E" />
+                }
             </div>
             {showDropDown && (
                 <div className="select-settingFormFilter-dropdown-height-limited">

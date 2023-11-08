@@ -29,6 +29,12 @@ export const transportFormDropdownClice = createSlice({
         },
         toggleDropdown: (state: InitState, action: PayloadAction<string>) => {
             const dropd = action.payload;
+            Object.keys(state).forEach((dropdown) => {
+                if (dropdown !== dropd) {
+                    state[dropdown] = false;
+                }
+            });
+
             state[dropd] = !state[dropd];
         },
     },
