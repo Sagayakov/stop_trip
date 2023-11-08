@@ -50,10 +50,13 @@ class AbsProperty(models.Model):
         "Предоплата", max_length=50, choices=PropertyPrepayment.choices, blank=True
     )
     property_sleeping_places = models.PositiveSmallIntegerField(
-        verbose_name="Количество спальных мест", null=True, blank=True
+        verbose_name="Количество спальных комнат", null=True, blank=True
     )
     property_rooms_count = models.PositiveSmallIntegerField(
          verbose_name="Количество комнат", null=True, blank=True
+    )
+    property_commission = models.PositiveSmallIntegerField(
+        verbose_name="Комиссия", null=True, blank=True
     )
 
     class Meta:

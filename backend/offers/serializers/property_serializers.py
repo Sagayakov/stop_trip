@@ -33,6 +33,7 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
     property_prepayment = serializers.CharField(required=True)
     property_sleeping_places = serializers.IntegerField(required=True)
     property_rooms_count = serializers.IntegerField(required=True)
+    property_commission = serializers.IntegerField(required=True)
 
     class Meta:
         model = Advertisement
@@ -56,4 +57,5 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
             "property_prepayment",
             "property_sleeping_places",
             "property_rooms_count",
+            "property_commission",
         )
