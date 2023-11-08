@@ -1,0 +1,41 @@
+.advert-wrapper {
+    width: 1240px;
+    margin: 0px auto 50px;
+    .advert-header {
+        font-size: 1.63rem;
+        margin: 1.5rem 0;
+    }
+    .advert-info {
+        display: flex;
+        gap: 1.4rem;
+        width: 100%;
+        margin-top: 16px;
+        .product-info {
+            width: 64%;
+            .image-wrapper {
+                .active-image {
+                    margin-bottom: 16px;
+                    img {
+                        width: 100%;
+                    }
+                }
+                .image-list {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 20px;
+                    width: 100%;
+                    .blurred-image {
+                        opacity: 0.5;
+                    }
+                    img {
+                        width: 9.65%;
+                        border-radius: 8px;
+                    }
+                }
+            }
+        }
+        .owner-info {
+            width: 32%;
+        }
+    }
+}

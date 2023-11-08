@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { Favorite } from '../../shared/ui/icons/icons-tools/Favorite';
 
-export const Cart = (props: LastAdvertsTypes) => {
-    const { price, title, id, images } = props;
+export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
+    const { price, title, id, images, category } = cart;
     const [addToFav, setAddToFav] = useState(false);
     const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ export const Cart = (props: LastAdvertsTypes) => {
     return (
         <div
             className="adverts-cart"
-            onClick={() => navigate(`/api/advertisements/${id}/`)}
+            onClick={() => navigate(`/${category}/${id}/`)}
         >
             <img
                 src={

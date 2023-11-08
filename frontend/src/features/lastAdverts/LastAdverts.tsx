@@ -16,14 +16,7 @@ export const LastAdverts = () => {
                 <div className="adverts-list">
                     {isLoading && <LoadingWithBackground />}
                     {reverseData.reverse().map((elem: LastAdvertsTypes) => (
-                        <Cart
-                            title={elem.title}
-                            id={elem.id}
-                            images={elem.images}
-                            price={elem.price}
-                            // time={elem.time}
-                            key={elem.id}
-                        />
+                        <Cart cart={elem} key={elem.id} />
                     ))}
                 </div>
                 <Pagination />

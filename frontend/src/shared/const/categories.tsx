@@ -14,6 +14,19 @@ type Category = {
     icon: () => JSX.Element;
 };
 
+export type Categories =
+    | 'property'
+    | 'transport'
+    | 'exchange_rate'
+    | 'docs'
+    | 'food'
+    | 'event'
+    | 'market'
+    | 'job'
+    | 'taxi'
+    | 'service'
+    | 'tours';
+
 export const categories: Record<string, Category> = {
     property: { description: 'Аренда недвижимости', icon: Realty },
     transport: { description: 'Аренда транспорта', icon: Transport },

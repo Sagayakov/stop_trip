@@ -7,8 +7,9 @@ export const BreadCrumbs = ({ title }: { title: string }) => {
     return (
         <div className="bread-crumbs">
             <NavLink to="/">Главная</NavLink>
-            {` >${categories[category!].description} `}
-            <NavLink to={`/${category}`} />
+            <NavLink to={`/${category}`}>{` > ${
+                categories[category!].description
+            } `}</NavLink>
             {`> ${title}`}
         </div>
     );

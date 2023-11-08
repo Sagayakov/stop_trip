@@ -1,18 +1,17 @@
-import { BreadCrumbs } from '../../widgets/breadCrumbs/BreadCrumbs';
 import { Controls } from '../../features/controls';
-import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
-import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes';
 import { useParams } from 'react-router-dom';
+import { useGetAdvertByIdQuery } from '../../app/api/fetchAdverts';
+import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
+import { Advert } from '../../features/advert/Advert';
 
 export const AdvertPage = () => {
     const { id } = useParams();
-    const { data = [] } = useGetAdvertsQuery('');
-    const advert = data.filter((el: LastAdvertsTypes) => el.id === Number(id));
+    const { data } = useGetAdvertByIdQuery(id!);
 
     return (
         <>
             <Controls />
-            <BreadCrumbs title={advert[0].title} />
+            {!data ? <LoadingWithBackground /> : <Advert data={data} />}
         </>
     );
 };
