@@ -48,7 +48,7 @@ class TransportTransmissionType(TextChoices):
     MECHANIC = "mechanic", "Механическая"
     AUTOMATIC = "automatic", "Автоматическая"
     ROBOT = "robot", "Робот"
-    CVT = "cvt", "Вариатор"
+    # CVT = "cvt", "Вариатор"
 
 
 class TransportBodyType(TextChoices):
