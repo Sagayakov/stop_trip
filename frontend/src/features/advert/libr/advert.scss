@@ -7,16 +7,33 @@
     }
     .advert-info {
         display: flex;
-        gap: 1.4rem;
+        justify-content: space-between;
+        gap: 1.3rem;
         width: 100%;
         margin-top: 16px;
         .product-info {
-            width: 64%;
+            width: 64.5%;
             .image-wrapper {
                 .active-image {
+                    position: relative;
                     margin-bottom: 16px;
                     img {
                         width: 100%;
+                        object-fit: cover;
+                    }
+                    svg {
+                        position: absolute;
+                        z-index: 2;
+                        top: 50%;
+                        width: 40px;
+                        height: 40px;
+                        cursor: pointer;
+                    }
+                    svg:first-child {
+                        left: 0;
+                    }
+                    svg:last-child {
+                        right: 0;
                     }
                 }
                 .image-list {
@@ -25,7 +42,8 @@
                     gap: 20px;
                     width: 100%;
                     .blurred-image {
-                        opacity: 0.5;
+                        opacity: 0.7;
+                        cursor: pointer;
                     }
                     img {
                         width: 9.65%;
@@ -35,7 +53,7 @@
             }
         }
         .owner-info {
-            width: 32%;
+            width: 32.4%;
         }
     }
 }
