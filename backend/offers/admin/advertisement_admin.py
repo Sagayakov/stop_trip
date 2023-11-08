@@ -73,7 +73,6 @@ class AdvertisementAdmin(ModelAdmin):
                     "property_rental_condition",
                     "property_prepayment",
                     "property_sleeping_places",
-                    "property_rooms_count",
                     "property_commission",
                 ),
             },
