@@ -1,0 +1,60 @@
+.image-wrapper {
+    .active-image {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 16px;
+        img {
+            width: 70%;
+            margin: 0 auto;
+            object-fit: cover;
+        }
+        svg {
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        svg:first-child {
+            left: 0;
+        }
+        .share-icon,
+        .add-to-favorite {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            right: 5px;
+            width: 35px;
+            height: 35px;
+            box-shadow: 0px 6px 8px 0px #00000024;
+            border-radius: 4px;
+            svg {
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                width: 24px;
+                height: 24px;
+            }
+        }
+        .share-icon {
+            right: 50px;
+        }
+    }
+    .image-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 100%;
+        .blurred-image {
+            opacity: 0.5;
+            cursor: pointer;
+        }
+        img {
+            width: 9.65%;
+            border-radius: 8px;
+        }
+    }
+}

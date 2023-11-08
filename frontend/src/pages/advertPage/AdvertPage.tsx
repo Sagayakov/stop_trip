@@ -11,7 +11,7 @@ export const AdvertPage = () => {
     return (
         <>
             <Controls />
-            {!data ? <LoadingWithBackground /> : <Advert data={data} />}
+            {!data ? <LoadingWithBackground /> : <Advert />}
         </>
     );
 };
