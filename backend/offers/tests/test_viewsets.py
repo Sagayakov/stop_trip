@@ -78,6 +78,7 @@ class AdvertisementViewSetTest(APITestCase):
             "property_prepayment": PropertyPrepayment.MONTH,
             "property_sleeping_places": 3,
             "property_rooms_count": 4,
+            "property_commission": 500,
         }
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
@@ -129,6 +130,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(
             new_advertisement.property_amenities.count(), len(payload["property_amenities"])
         )
+        self.assertEqual(new_advertisement.property_commission, payload["property_commission"])
 
     def test_update_property(self):
         user = UserFactory()
@@ -154,6 +156,7 @@ class AdvertisementViewSetTest(APITestCase):
             property_prepayment=PropertyPrepayment.TWO_MONTHS,
             property_sleeping_places=2,
             property_rooms_count=2,
+            property_commission=100,
         )
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
         advertisement.property_amenities.set(property_amenities)
@@ -180,6 +183,7 @@ class AdvertisementViewSetTest(APITestCase):
             "property_prepayment": PropertyPrepayment.MONTH,
             "property_sleeping_places": 3,
             "property_rooms_count": 4,
+            "property_commission": 100,
         }
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
@@ -223,6 +227,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(
             advertisement.property_amenities.count(), len(payload["property_amenities"])
         )
+        self.assertEqual(advertisement.property_commission, payload["property_commission"])
 
     def test_delete_property(self):
         user = UserFactory()
@@ -333,6 +338,7 @@ class AdvertisementViewSetTest(APITestCase):
             "transport_body_type": TransportBodyType.LIFTBACK,
             "transport_condition": TransportCondition.USED,
             "transport_passengers_quality": 5,
+            "transport_commission": 500,
         }
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
@@ -372,6 +378,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(
             new_advertisement.transport_passengers_quality, payload["transport_passengers_quality"]
         )
+        self.assertEqual(new_advertisement.transport_commission, payload["transport_commission"])
 
     def test_update_transport(self):
         user = UserFactory()
@@ -395,6 +402,7 @@ class AdvertisementViewSetTest(APITestCase):
             transport_body_type=TransportBodyType.LIFTBACK,
             transport_condition=TransportCondition.USED,
             transport_passengers_quality=5,
+            transport_commission=100,
         )
 
         new_transport_model = TransportModelFactory(name="RS7")
@@ -415,6 +423,7 @@ class AdvertisementViewSetTest(APITestCase):
             "transport_body_type": TransportBodyType.LIFTBACK,
             "transport_condition": TransportCondition.USED,
             "transport_passengers_quality": 4,
+            "transport_commission": 1_000,
         }
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
@@ -451,6 +460,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(
             advertisement.transport_passengers_quality, payload["transport_passengers_quality"]
         )
+        self.assertEqual(advertisement.transport_commission, payload["transport_commission"])
 
     def test_delete_transport(self):
         user = UserFactory()
@@ -772,6 +782,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -819,6 +830,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -863,6 +875,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -907,6 +920,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -951,6 +965,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -995,6 +1010,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -1042,6 +1058,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -1076,6 +1093,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5,
+                transport_commission=1000,
             )
             for _ in list([float(i / 10) for i in range(10, 100)])
         ]
@@ -1108,6 +1126,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5,
+                transport_commission=1000,
             )
             for _ in list(range(2000, 2022))
         ]
@@ -1156,6 +1175,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -1200,6 +1220,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=[TransportBodyType.LIFTBACK, TransportBodyType.SEDAN][_ % 2],
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -1244,6 +1265,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=[TransportCondition.USED, TransportCondition.NEW][_ % 2],
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -1259,3 +1281,39 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), len(transport_set) // 2)
+
+    def test_filter_transport_commission(self):
+        user = UserFactory()
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.CAR,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=1.5,
+                transport_year_of_production=2021,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5,
+                transport_commission=1000 + 100 * _,
+            )
+            for _ in range(5)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "transport_commission_min": 1200,
+                    "transport_commission_max": 1800,
+                },
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), 3)
