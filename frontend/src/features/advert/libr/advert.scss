@@ -14,6 +14,19 @@
         margin-top: 16px;
         .product-info {
             width: 64.5%;
+            .description {
+                margin-top: 0.8rem;
+                .description-header {
+                    margin-bottom: 1rem;
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: var(--main-black);
+                }
+                p {
+                    font-size: 20px;
+                    color: var(--main-black);
+                }
+            }
         }
     }
     .owner-info {

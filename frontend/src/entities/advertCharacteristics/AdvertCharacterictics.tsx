@@ -2,7 +2,7 @@ import './advertCharacteristics.scss';
 
 export const AdvertCharacteristics = () => {
     return (
-        <div className="description">
+        <div className="characteristics">
             <h2 className="characteristics-header">Характеристики</h2>
             <div className="characteristics-wrapper">
                 <span className="characteristics-key">
