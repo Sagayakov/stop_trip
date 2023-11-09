@@ -7,7 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from users.models import User
 from .constants import CategoryChoices
-from .filters.advertisementfilter import AdvertisementFilter
+from .filters.advertisement_filter import AdvertisementFilter
 from .models import Advertisement
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
