@@ -4,11 +4,11 @@ import { PhotoSlider } from '../../entities/photoSlider/PhotoSlider';
 import { useGetAdvertByIdQuery } from '../../app/api/fetchAdverts';
 import { useParams } from 'react-router-dom';
 import { AdvertCharacteristics } from '../../entities/advertCharacteristics/AdvertCharacterictics';
+import { AdvertLocation } from '../../entities/location/AdvertLocation';
 
 export const Advert = () => {
     const { id } = useParams();
     const { data } = useGetAdvertByIdQuery(id!);
-    console.log(data);
 
     return (
         <>
@@ -33,6 +33,7 @@ export const Advert = () => {
                                 </div>
                                 <p>{data.description}</p>
                             </div>
+                            <AdvertLocation data={data} />
                         </section>
                         <section className="owner-info"></section>
                     </div>

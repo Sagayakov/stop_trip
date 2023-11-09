@@ -1,9 +1,13 @@
 .advert-wrapper {
     width: 1240px;
-    margin: 0px auto 50px;
+    margin: 0px auto 80px;
     .advert-header {
         font-size: 1.63rem;
         margin: 1.5rem 0;
+        color: var(--main-black);
+    }
+    p {
+        font-size: 16px;
         color: var(--main-black);
     }
     .advert-info {
@@ -11,11 +15,12 @@
         justify-content: space-between;
         gap: 1.3rem;
         width: 100%;
-        margin-top: 16px;
         .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
             width: 64.5%;
             .description {
-                margin-top: 0.8rem;
                 .description-header {
                     margin-bottom: 1rem;
                     font-size: 20px;
