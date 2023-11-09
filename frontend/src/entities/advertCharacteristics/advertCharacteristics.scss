@@ -1,0 +1,38 @@
+.description {
+    .characteristics-header {
+        font-size: 20px;
+        color: var(--main-black);
+    }
+    .characteristics-wrapper {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        width: 100%;
+        margin-top: 0.8rem;
+        .characteristics-key {
+            flex: 1 1 auto;
+            p {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                font-size: 14px;
+                color: var(--grey-3);
+                line-height: 1.5rem;
+                .dashes {
+                    display: block;
+                    flex: 1 1 auto;
+                    height: 10px;
+                    border-bottom: 1px dashed var(--grey-1);
+                }
+            }
+        }
+        .characteristics-value {
+            width: auto;
+            p {
+                font-size: 14px;
+                color: var(--main-black);
+                line-height: 1.5rem;
+            }
+        }
+    }
+}
