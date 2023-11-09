@@ -23,7 +23,7 @@
                 .filters {
                     width: 100%;
                     padding: 24px 24px 12px;
-                    form {
+                    .filter-realty-form {
                         display: grid;
                         grid-template-columns: 1fr 1fr;
                         grid-template-rows: 120px 80px 80px 70px;
@@ -31,6 +31,7 @@
                             'price type'
                             'area check'
                             'liv-space check'
+                            'comission somission'
                             'send btn-reset';
 
                         input[type='number'] {
@@ -55,7 +56,9 @@
                         .only-with-photo {
                             width: 80%;
                         }
-
+                        .realtyComission{
+                            grid-area: comission;
+                        }
                         .type-of-property{
                             grid-area: type;
                         }
@@ -133,7 +136,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 31.5%;
@@ -150,7 +153,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 31.75%;
@@ -167,7 +170,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 32.3%;

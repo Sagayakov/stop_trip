@@ -1,21 +1,22 @@
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
     Bathroom,
     LivingSpace,
+    RealtyComission,
     RoomsQuantity,
     SettingPrice,
     TotalArea,
-} from '../../features/settingAdvertsForm';
-import { TypeOfProperty } from '../../features/settingAdvertsForm/TypeOfProperty';
-import { Reset } from '../../shared/ui/icons/icons-tools/Reset';
-import { TypeSettingAdverts } from './TypeSettingAdverts';
-import { useState } from 'react';
+} from '../../../features/settingCategoryForm/settingRealtyForm';
+import { TypeOfProperty } from '../../../features/settingCategoryForm/settingRealtyForm/TypeOfProperty';
+import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+import { TypeSettingRealty } from './TypeSettingRealty';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
-export const SettingAdvertsForm = ({ setShowFilters }: Props) => {
+export const SettingRealtyForm = ({ setShowFilters }: Props) => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false);
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
@@ -23,9 +24,9 @@ export const SettingAdvertsForm = ({ setShowFilters }: Props) => {
     };
 
     const { register, handleSubmit, reset, watch } =
-        useForm<TypeSettingAdverts>();
+        useForm<TypeSettingRealty>();
 
-    const onsubmit: SubmitHandler<TypeSettingAdverts> = (data) => {
+    const onsubmit: SubmitHandler<TypeSettingRealty> = (data) => {
         console.log(data);
         setShowFilters(false);
         reset();
@@ -36,13 +37,10 @@ export const SettingAdvertsForm = ({ setShowFilters }: Props) => {
     };
 
     return (
-        <section
-            className="filters"
-            onClick={handleClick}
-        >
+        <section className="filters" onClick={handleClick}>
             <form
+                className="filter-realty-form"
                 onSubmit={handleSubmit(onsubmit)}
-                onClick={(event) => event.stopPropagation()}//попробовать, чтобы на мобильном не закрывались фильтры при скролле 24.10.2024
             >
                 <TypeOfProperty
                     watch={watch}
@@ -68,6 +66,7 @@ export const SettingAdvertsForm = ({ setShowFilters }: Props) => {
                         <span>Только с фотографиями</span>
                     </label>
                 </div>
+                <RealtyComission register={register}/>
                 <input type="submit" value="Показать 100 объявлений" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />

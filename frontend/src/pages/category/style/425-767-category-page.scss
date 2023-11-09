@@ -45,7 +45,7 @@
                     padding: 16px 40px 24px;
                     border-radius: 0 0 8px 8px;
                     background-color: var(--main-background);
-                    form {
+                    .filter-realty-form {
                         input[type='number'] {
                             width: 47%;
                             height: 34px;
@@ -167,7 +167,7 @@
     main {
         .filters-adverts {
             .filters {
-                form {
+                .filter-realty-form {
                     .checkboxes {
                         .bathroom {
                             .bathroom-setting {
@@ -186,7 +186,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 89.5%;
@@ -203,7 +203,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 89%;
@@ -220,7 +220,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 88.5%;
@@ -237,7 +237,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 88%;
@@ -254,7 +254,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 87%;
@@ -271,7 +271,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 86.5%;
@@ -288,7 +288,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 85.5%;
@@ -305,7 +305,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 84.5%;
@@ -322,7 +322,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 83.5%;
@@ -339,7 +339,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 82.5%;
@@ -356,7 +356,7 @@
         .filters-adverts {
             .filter-form {
                 .filters {
-                    form {
+                    .filter-realty-form {
                         .type-of-property {
                             .select-type-of-property-var {
                                 width: 81.5%;
