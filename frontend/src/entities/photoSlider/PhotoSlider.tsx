@@ -28,8 +28,9 @@ export const PhotoSlider = () => {
                 <ArrowLeft10x24 handleClickPrev={handleClickPrev} />
                 <img
                     src={
-                        //data.images[activeImage].image ||
-                        '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
+                        !data || !data.images[activeImage]
+                            ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
+                            : data.images[activeImage].image
                     }
                     alt="Main image"
                 />
@@ -43,7 +44,8 @@ export const PhotoSlider = () => {
                         <img
                             className={activeImage !== i ? 'blurred-image' : ''}
                             src={
-                                /* el.image || */ '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
+                                el.image ??
+                                '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
                             }
                             onClick={() => setActiveImage(i)}
                             key={el.image}

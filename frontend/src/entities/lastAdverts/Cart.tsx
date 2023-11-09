@@ -13,11 +13,7 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
         strokeColor: addToFav ? '#FF3F25' : '#8F8F8F',
     };
 
-    const handleAddToFavourite = (
-        event: React.MouseEvent<HTMLDivElement, MouseEvent>
-    ) => {
-        event.preventDefault();
-        event.stopPropagation();
+    const handleAddToFavourite = () => {
         setAddToFav(!addToFav); //потом редьюсер
     };
 
@@ -37,10 +33,11 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
             <div className="description">
                 <div className="price">
                     <p>{price ? `$${price}` : 'Договорная'}</p>
-                    <span onClick={handleAddToFavourite}>
+                    <span>
                         <Favorite
                             color={style.color}
                             strokeColor={style.strokeColor}
+                            addToFavorite={handleAddToFavourite}
                             // color="#FF3F25"
                             // strokeColor="#FF3F25"
                         />

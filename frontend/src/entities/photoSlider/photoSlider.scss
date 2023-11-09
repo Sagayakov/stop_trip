@@ -5,7 +5,8 @@
         justify-content: center;
         margin-bottom: 16px;
         img {
-            width: 70%;
+            max-width: 75%;
+            height: 470px;
             margin: 0 auto;
             object-fit: cover;
         }
@@ -46,15 +47,17 @@
     .image-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 20.2px;
         width: 100%;
         .blurred-image {
             opacity: 0.5;
             cursor: pointer;
         }
         img {
-            width: 9.65%;
+            width: 5vw;
+            height: 5vw;
             border-radius: 8px;
+            object-fit: cover;
         }
     }
 }
