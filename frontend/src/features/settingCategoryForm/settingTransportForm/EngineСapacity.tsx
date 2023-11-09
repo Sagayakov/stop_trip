@@ -27,6 +27,12 @@ export const EngineСapacity = ({ register, watch }: Props) => {
 
     return (
         <div className="engineСapacity">
+            {showDropDown && (
+                <div
+                    className="typeOfService-background"
+                    onClick={() => dispatch(toggleDropdown('engineCapacity'))}
+                />
+            )}
             <h3>Объем двигателя</h3>
             <div
                 className="select-transportFilter"

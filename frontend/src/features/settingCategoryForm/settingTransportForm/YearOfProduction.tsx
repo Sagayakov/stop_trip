@@ -27,6 +27,12 @@ export const YearOfProduction = ({ register, watch }: Props) => {
     const arr = Array.isArray(yearOfProduction) ? true : false
     return (
         <div className="yearOfProduction">
+            {showDropDown && (
+                <div
+                    className="typeOfService-background"
+                    onClick={() => dispatch(toggleDropdown('yearOfProduction'))}
+                />
+            )}
             <h3>Год производства</h3>
             <div
                 className="select-transportFilter"
@@ -34,8 +40,7 @@ export const YearOfProduction = ({ register, watch }: Props) => {
             >
                 {arr && yearOfProduction.length > 0
                     ? yearOfProduction
-                    : 'Не выбрано'
-                }
+                    : 'Не выбрано'}
                 {showDropDown ? (
                     <ArrowTop color="#1C1C1E" />
                 ) : (
@@ -52,7 +57,9 @@ export const YearOfProduction = ({ register, watch }: Props) => {
                                 {...register('yearOfProduction')}
                             />
                             {el}
-                            {arr && yearOfProduction.includes(el) && <Jackdaw />}
+                            {arr && yearOfProduction.includes(el) && (
+                                <Jackdaw />
+                            )}
                         </label>
                     ))}
                 </div>

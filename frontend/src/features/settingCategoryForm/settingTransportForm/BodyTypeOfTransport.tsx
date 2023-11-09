@@ -23,6 +23,12 @@ export const BodyTypeOfTransport = ({ register, watch }: Props) => {
 
     return (
         <div className="bodyType">
+            {showDropDown && (
+                <div
+                    className="typeOfService-background"
+                    onClick={() => dispatch(toggleDropdown('bodyType'))}
+                />
+            )}
             <h3>Тип кузова</h3>
             <div
                 className="select-transportFilter"

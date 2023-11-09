@@ -25,6 +25,14 @@ export const TransportationCategory = ({ register, watch }: Props) => {
 
     return (
         <div className="transportationCategory">
+            {showDropDown && (
+                <div
+                    className="typeOfService-background"
+                    onClick={() =>
+                        dispatch(toggleDropdown('transportationCategory'))
+                    }
+                />
+            )}
             <h3>Категория транспорта</h3>
             <div
                 className="select-transportFilter"
@@ -32,7 +40,9 @@ export const TransportationCategory = ({ register, watch }: Props) => {
                     dispatch(toggleDropdown('transportationCategory'))
                 }
             >
-                {(arr && transportationCategory.length > 0) ? transportationCategory : 'Не выбрано'}
+                {arr && transportationCategory.length > 0
+                    ? transportationCategory
+                    : 'Не выбрано'}
                 {showDropDown ? (
                     <ArrowTop color="#1C1C1E" />
                 ) : (
@@ -44,12 +54,19 @@ export const TransportationCategory = ({ register, watch }: Props) => {
                     {arrOfValues.map((el) => (
                         <label key={el}>
                             <input
-                                type="checkbox"
+                                type="radio"
                                 value={el}
                                 {...register('transportationCategory')}
+                                onClick={() =>
+                                    dispatch(
+                                        toggleDropdown('transportationCategory')
+                                    )
+                                }
                             />
                             {el}
-                            {arr && transportationCategory.includes(el) && <Jackdaw />}
+                            {arr && transportationCategory.includes(el) && (
+                                <Jackdaw />
+                            )}
                         </label>
                     ))}
                 </div>

@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import {
     Bathroom,
     LivingSpace,
+    RealtyComission,
     RoomsQuantity,
     SettingPrice,
     TotalArea,
@@ -38,8 +39,8 @@ export const SettingRealtyForm = ({ setShowFilters }: Props) => {
     return (
         <section className="filters" onClick={handleClick}>
             <form
+                className="filter-realty-form"
                 onSubmit={handleSubmit(onsubmit)}
-                onClick={(event) => event.stopPropagation()} //попробовать, чтобы на мобильном не закрывались фильтры при скролле 24.10.2024
             >
                 <TypeOfProperty
                     watch={watch}
@@ -65,6 +66,7 @@ export const SettingRealtyForm = ({ setShowFilters }: Props) => {
                         <span>Только с фотографиями</span>
                     </label>
                 </div>
+                <RealtyComission register={register}/>
                 <input type="submit" value="Показать 100 объявлений" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />

@@ -35,6 +35,12 @@ export const ModelOfTransport = ({ register, watch }: Props) => {
 
     return (
         <div className="model">
+            {showDropDown && (
+                <div
+                    className="typeOfService-background"
+                    onClick={() => dispatch(toggleDropdown('model'))}
+                />
+            )}
             <h3>Модель</h3>
             <div
                 className="select-transportFilter"

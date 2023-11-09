@@ -23,6 +23,12 @@ export const TransmissionType = ({ register, watch }: Props) => {
 
     return (
         <div className="transmissionType">
+            {showDropDown && (
+                <div
+                    className="typeOfService-background"
+                    onClick={() => dispatch(toggleDropdown('transmissionType'))}
+                />
+            )}
             <h3>Тип коробки передач</h3>
             <div
                 className="select-transportFilter"

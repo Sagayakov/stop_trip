@@ -29,11 +29,17 @@ export const DriveType = ({ register, watch }: Props) => {
     }
     return (
         <div className="drive">
+            {showDropDown && (
+                <div
+                    className="typeOfService-background"
+                    onClick={() => dispatch(toggleDropdown('drive'))}
+                />
+            )}
             <h3>Привод</h3>
             <div
                 className="select-transportFilter"
                 onClick={handleClick}
-                style={disabled ? {color: "gray"} : {}}
+                style={disabled ? { color: 'gray' } : {}}
             >
                 {driveType || 'Не выбрано'}
                 {showDropDown ? (

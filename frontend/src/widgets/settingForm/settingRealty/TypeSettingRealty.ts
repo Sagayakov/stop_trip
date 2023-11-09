@@ -7,6 +7,7 @@ export interface TypeSettingRealty {
     bathRoom: BathRoom
     balcony: boolean
     onlyWithPhotos: boolean
+    comission: number
 }
 
 type TypeOfProperty = 'Не выбрано' | 'Квартира' | 'Комната' | 'Дом'

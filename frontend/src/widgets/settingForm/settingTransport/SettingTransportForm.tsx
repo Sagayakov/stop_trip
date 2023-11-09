@@ -1,5 +1,4 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../../app/store/hooks';
 import {
     BodyTypeOfTransport,
     ConditionOfTransport,
@@ -10,12 +9,12 @@ import {
     ModelOfTransport,
     PassengerCapacityOfTransport,
     TransmissionType,
+    TransportComission,
     TransportationCategory,
     TypeOfService,
     TypeOfTransport,
     YearOfProduction,
 } from '../../../features/settingCategoryForm/settingTransportForm/index';
-import { closeDropdown } from '../../../features/settingCategoryForm/settingTransportForm/reducer/transportFormDropdown';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import '././libr/settingTransportForm.scss';
 import { TypeSettingTransport } from './libr/TypeSettingTransport';
@@ -25,10 +24,11 @@ interface Props {
 }
 
 export const SettingTransportForm = ({ setShowFilters }: Props) => {
-    const dispatch = useAppDispatch();
-
     const { register, handleSubmit, reset, watch } =
         useForm<TypeSettingTransport>();
+    const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        event.stopPropagation();
+    }
 
     const onsubmit: SubmitHandler<TypeSettingTransport> = (data) => {
         console.log(data);
@@ -41,12 +41,11 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
     };
 
     return (
-        <section className="filters">
-            <form onSubmit={handleSubmit(onsubmit)}>
-                <div
-                    className="typeOfService-background"
-                    onClick={() => dispatch(closeDropdown())}
-                />
+        <section className="filters" onClick={handleClick}>
+            <form
+                className="filter-transport-form"
+                onSubmit={handleSubmit(onsubmit)}
+            >
                 <TypeOfService register={register} watch={watch} />
                 <TypeOfTransport register={register} watch={watch} />
                 <TransportationCategory register={register} watch={watch} />
@@ -63,6 +62,7 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
                     register={register}
                     watch={watch}
                 />
+                <TransportComission register={register} />
                 <input type="submit" value="Показать 100 объявлений" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />

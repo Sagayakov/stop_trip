@@ -11,12 +11,13 @@ export interface TypeSettingTransport {
     transmissionType: TransmissoinType;
     bodyType: BodyType;
     condition: Condition;
-    passengerCapacity: number
+    passengerCapacity: number;
+    commission: number
 }
 
-type TypeOfServise = 'Не выбрано' | 'Аренда' | 'Продажа'
+type TypeOfServise = 'Аренда' | 'Продажа'
 
-type TypeOfTransport = 'Не выбрано' | 'Наземный' | 'Водный'
+type TypeOfTransport = 'Наземный' | 'Водный'
 
 type TransportationCategory =
     'Не выбрано'
