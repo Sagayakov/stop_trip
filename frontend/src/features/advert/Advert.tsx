@@ -57,15 +57,15 @@ export const Advert = () => {
                                         : 'Договорная'}
                                 </span>
                             </div>
+                            <AdvertOwner />
+                            <button className="call-button">Позвонить</button>
+                            <button className="write-button">Написать</button>
                             {date && (
                                 <p className="public-date">
                                     Опубликовано:{' '}
                                     <span>{`${date.dayToDisplay}, ${date.hours}:${date.minutes}`}</span>
                                 </p>
                             )}
-                            <AdvertOwner />
-                            <button className="call-button">Позвонить</button>
-                            <button className="write-button">Написать</button>
                         </section>
                     </div>
                 </div>

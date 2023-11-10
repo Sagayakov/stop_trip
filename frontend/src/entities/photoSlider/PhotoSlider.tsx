@@ -22,21 +22,24 @@ export const PhotoSlider = () => {
             setActiveImage(activeImage + 1);
     };
 
+    const image =
+        !data || !data.images[activeImage]
+            ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
+            : data.images[activeImage].image;
+
     return (
         <div className="image-wrapper">
             <div className="active-image">
-                <ArrowLeft10x24 handleClickPrev={handleClickPrev} />
-                <img
-                    src={
-                        !data || !data.images[activeImage]
-                            ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
-                            : data.images[activeImage].image
-                    }
-                    alt="Main image"
+                <ArrowLeft10x24
+                    color="white"
+                    handleClickPrev={handleClickPrev}
                 />
-                <ArrowRight color="black" handleClickNext={handleClickNext} />
+                <img src={image} alt="Main image" />
+                <ArrowRight color="white" handleClickNext={handleClickNext} />
                 <ShareIcon />
                 <Like color="#ff3f25" strokeColor="#1C1C1E" />
+                <img className="blur-left" src={image} alt="Main image" />
+                <img className="blur-right" src={image} alt="Main image" />
             </div>
             <div className="image-list">
                 {data &&
