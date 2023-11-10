@@ -1,7 +1,7 @@
 interface Props {
     color?: string;
     style?: Style;
-    handleClickPrev: () => void;
+    handleClickPrev?: () => void;
 }
 interface Style {
     marginRight: string;

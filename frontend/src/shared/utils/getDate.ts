@@ -13,7 +13,7 @@ export const getDate = (publicDate: string) => {
         todayYear: today.getFullYear(),
     };
 
-    let dayToDisplay: string = `${day + 1}.${month + 1}.${year}`;
+    let dayToDisplay: string = `${day}.${month + 1}.${year}`;
 
     if (month === todayMonth && year === todayYear) {
         if (day === todayDay) {

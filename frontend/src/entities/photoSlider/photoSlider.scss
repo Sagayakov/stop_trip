@@ -33,6 +33,7 @@
             height: 35px;
             box-shadow: 0px 6px 8px 0px #00000024;
             border-radius: 4px;
+            background-color: white;
             svg {
                 position: absolute;
                 top: 6px;
@@ -48,14 +49,15 @@
     .image-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 20.2px;
+        column-gap: 2%;
+        row-gap: 1rem;
         width: 100%;
         .blurred-image {
             opacity: 0.5;
             cursor: pointer;
         }
         img {
-            width: 5vw;
+            width: 10.7%;
             height: 5vw;
             border-radius: 8px;
             object-fit: cover;

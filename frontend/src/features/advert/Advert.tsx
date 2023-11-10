@@ -8,7 +8,7 @@ import { AdvertLocation } from '../../entities/location/AdvertLocation';
 import { getDate } from '../../shared/utils/getDate';
 import { useEffect, useState } from 'react';
 import { Date } from './libr/types';
-import { Rating } from '../../shared/ui/Rating';
+import { AdvertOwner } from '../../entities/advertOwner/AdvertOwner';
 
 export const Advert = () => {
     const { id } = useParams();
@@ -62,18 +62,7 @@ export const Advert = () => {
                                     <span>{`${date.dayToDisplay}, ${date.hours}:${date.minutes}`}</span>
                                 </p>
                             )}
-                            <div className="owner">
-                                <img src="../../../src/shared/ui/images/owner.png" />
-                                <div>
-                                    <p>Вадим</p>
-                                    <Rating rating={5} />
-                                    <p>
-                                        Дата регистрации
-                                        <br />
-                                        10.02.2023
-                                    </p>
-                                </div>
-                            </div>
+                            <AdvertOwner />
                             <button className="call-button">Позвонить</button>
                             <button className="write-button">Написать</button>
                         </section>

@@ -1,5 +1,9 @@
+main {
+    max-width: 1440px;
+    margin: auto;
+}
 .advert-wrapper {
-    width: 1240px;
+    max-width: 1240px;
     margin: 0px auto 80px;
     .advert-header {
         font-size: 1.63rem;
@@ -64,28 +68,6 @@
                 font-weight: 600;
             }
         }
-        .owner {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            img {
-                width: 30%;
-            }
-            div {
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
-                font-size: 14px;
-                font-weight: 700;
-                color: #434343;
-                p:last-child {
-                    font-size: 12px;
-                    font-weight: 400;
-                    color: var(--grey-3);
-                }
-            }
-        }
         .call-button {
             display: flex;
             justify-content: center;
@@ -111,6 +93,20 @@
             font-family: var(--font-sf);
             font-weight: 700;
             cursor: pointer;
+        }
+    }
+}
+
+@media (max-width: 1440px) {
+    main {
+        width: 100%;
+        margin: 0 auto;
+        .advert-wrapper {
+            width: 85%;
+            .bread-crumbs {
+                width: 85%;
+                margin: 0;
+            }
         }
     }
 }
