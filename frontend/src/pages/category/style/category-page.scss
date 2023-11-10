@@ -299,9 +299,9 @@ main {
                         -ms-text-overflow: ellipsis;
                         text-overflow: ellipsis;
                         overflow: hidden;
-                        -ms-line-clamp: 2;
-                        -webkit-line-clamp: 2;
-                        line-clamp: 2;
+                        -ms-line-clamp: 1;
+                        -webkit-line-clamp: 1;
+                        line-clamp: 1;
                         display: -webkit-box;
                         display: box;
                         word-wrap: break-word;
