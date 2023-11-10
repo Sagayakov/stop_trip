@@ -17,10 +17,10 @@ export const getDate = (publicDate: string) => {
 
     if (month === todayMonth && year === todayYear) {
         if (day === todayDay) {
-            dayToDisplay = 'Today';
+            dayToDisplay = 'Сегодня';
         }
         if (todayDay - day === 1) {
-            dayToDisplay = 'Yesterday';
+            dayToDisplay = 'Вчера';
         }
     }
 

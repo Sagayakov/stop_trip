@@ -60,6 +60,57 @@
         .public-date {
             font-size: 14px;
             color: var(--grey-3);
+            span {
+                font-weight: 600;
+            }
+        }
+        .owner {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            img {
+                width: 30%;
+            }
+            div {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                font-size: 14px;
+                font-weight: 700;
+                color: #434343;
+                p:last-child {
+                    font-size: 12px;
+                    font-weight: 400;
+                    color: var(--grey-3);
+                }
+            }
+        }
+        .call-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 2.7rem;
+            border: none;
+            border-radius: var(--radii);
+            background-color: var(--main-blue);
+            color: white;
+            font-family: var(--font-sf);
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .write-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 2.7rem;
+            border: 1px solid var(--main-blue);
+            border-radius: var(--radii);
+            background-color: transparent;
+            color: var(--main-blue);
+            font-family: var(--font-sf);
+            font-weight: 700;
+            cursor: pointer;
         }
     }
 }

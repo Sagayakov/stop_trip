@@ -8,6 +8,7 @@ import { AdvertLocation } from '../../entities/location/AdvertLocation';
 import { getDate } from '../../shared/utils/getDate';
 import { useEffect, useState } from 'react';
 import { Date } from './libr/types';
+import { Rating } from '../../shared/ui/Rating';
 
 export const Advert = () => {
     const { id } = useParams();
@@ -49,11 +50,32 @@ export const Advert = () => {
                         <section className="owner-info">
                             <div className="price-block">
                                 Сутки{' '}
-                                <span className="price">{`$${data.price}`}</span>
+                                <span className="price">
+                                    {data.price
+                                        ? `$${data.price}`
+                                        : 'Договорная'}
+                                </span>
                             </div>
                             {date && (
-                                <p className="public-date">{`Опубликовано: ${date.dayToDisplay}, ${date.hours}:${date.minutes}`}</p>
+                                <p className="public-date">
+                                    Опубликовано:{' '}
+                                    <span>{`${date.dayToDisplay}, ${date.hours}:${date.minutes}`}</span>
+                                </p>
                             )}
+                            <div className="owner">
+                                <img src="../../../src/shared/ui/images/owner.png" />
+                                <div>
+                                    <p>Вадим</p>
+                                    <Rating rating={5} />
+                                    <p>
+                                        Дата регистрации
+                                        <br />
+                                        10.02.2023
+                                    </p>
+                                </div>
+                            </div>
+                            <button className="call-button">Позвонить</button>
+                            <button className="write-button">Написать</button>
                         </section>
                     </div>
                 </div>

@@ -12,7 +12,7 @@ export const Rating = ({ rating }: RatingProps) => {
     return (
         <p aria-label={`Rating is ${rating} out of ${starsAmount}`}>
             {starArray.map((item) => {
-                return rating <= item ? (
+                return rating < item ? (
                     <HalfStar key={item} />
                 ) : (
                     <Star key={item} />
