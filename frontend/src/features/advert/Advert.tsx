@@ -5,10 +5,21 @@ import { useGetAdvertByIdQuery } from '../../app/api/fetchAdverts';
 import { useParams } from 'react-router-dom';
 import { AdvertCharacteristics } from '../../entities/advertCharacteristics/AdvertCharacterictics';
 import { AdvertLocation } from '../../entities/location/AdvertLocation';
+import { getDate } from '../../shared/utils/getDate';
+import { useEffect, useState } from 'react';
+import { Date } from './libr/types';
 
 export const Advert = () => {
     const { id } = useParams();
     const { data } = useGetAdvertByIdQuery(id!);
+    const [date, setDate] = useState<Date | null>(null);
+
+    useEffect(() => {
+        if (data) {
+            const date = getDate(data.date_create);
+            setDate(date);
+        }
+    }, [data]);
 
     return (
         <>
@@ -35,7 +46,15 @@ export const Advert = () => {
                             </div>
                             <AdvertLocation data={data} />
                         </section>
-                        <section className="owner-info"></section>
+                        <section className="owner-info">
+                            <div className="price-block">
+                                Сутки{' '}
+                                <span className="price">{`$${data.price}`}</span>
+                            </div>
+                            {date && (
+                                <p className="public-date">{`Опубликовано: ${date.dayToDisplay}, ${date.hours}:${date.minutes}`}</p>
+                            )}
+                        </section>
                     </div>
                 </div>
             )}
