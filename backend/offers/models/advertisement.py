@@ -1,5 +1,5 @@
 from django.db import models
-
+from location_field.models.plain import PlainLocationField
 from .abs_event_model import AbsEvent
 from .abs_exchange_rate_model import AbsExchangeRate
 from .abs_job_model import AbsJob
@@ -29,6 +29,7 @@ class Advertisement(
     is_published = models.BooleanField("Опубликованно", default=True)
     date_create = models.DateTimeField("Дата создания", auto_now_add=True)
     date_update = models.DateTimeField("Дата редактирования", auto_now=True)
+    coordinate = PlainLocationField(verbose_name="Координаты", blank=True)
     # location = models.CharField("Локация", max_length=128, null=True, blank=True)
     slug = models.SlugField("Слаг", blank=True, null=True, db_index=True, unique=True)
 

@@ -1,5 +1,5 @@
 from django.db import models
-from location_field.models.plain import PlainLocationField
+
 
 from ..constants import (
     PropertyTypeOfService,
@@ -11,15 +11,67 @@ from ..constants import (
 )
 
 
+class PropertyCity(models.Model):
+    """Город для недвижимости"""
+
+    name = models.CharField("Название", db_index=True)
+    slug = models.SlugField("Слаг", unique=True, db_index=True)
+
+    class Meta:
+        verbose_name = "Город"
+        verbose_name_plural = "Недвижимость - Города"
+        ordering = ("name",)
+
+    def __str__(self):
+        return self.name
+
+
+class PropertyDistrict(models.Model):
+    """Районы"""
+
+    city = models.ForeignKey(
+        "offers.PropertyCity",
+        on_delete=models.CASCADE,
+        verbose_name="Город",
+        related_name="property_districts",
+    )
+
+    name = models.CharField("Название", db_index=True)
+    slug = models.SlugField("Слаг", unique=True, db_index=True)
+
+    class Meta:
+        verbose_name = "Район"
+        verbose_name_plural = "Недвижимость - Районы"
+        ordering = ("name",)
+
+    def __str__(self):
+        return self.name
+
+
 class AbsProperty(models.Model):
     """Абстрактная модель недвижимости."""
 
     property_type_of_service = models.CharField(
         "Тип услуги", max_length=25, choices=PropertyTypeOfService.choices, blank=True
     )
-    property_city = models.CharField("Город", max_length=100, blank=True)
-    property_district = models.CharField("Район", max_length=100, blank=True)
-    property_coords = PlainLocationField(verbose_name="Координаты", blank=True)
+    property_city = models.ForeignKey(
+        "offers.PropertyCity",
+        on_delete=models.CASCADE,
+        verbose_name="Город",
+        related_name="advertisements",
+        null=True,
+        blank=True,
+    )
+
+    property_district = models.ForeignKey(
+        "offers.PropertyDistrict",
+        on_delete=models.CASCADE,
+        verbose_name="Район",
+        related_name="advertisements",
+        null=True,
+        blank=True,
+    )
+
     property_building_max_floor = models.PositiveSmallIntegerField(
         verbose_name="Количество этажей в доме", null=True, blank=True
     )
@@ -53,7 +105,7 @@ class AbsProperty(models.Model):
         verbose_name="Количество спальных мест", null=True, blank=True
     )
     property_rooms_count = models.PositiveSmallIntegerField(
-         verbose_name="Количество комнат", null=True, blank=True
+        verbose_name="Количество комнат", null=True, blank=True
     )
 
     class Meta:

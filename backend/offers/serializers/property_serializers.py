@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .advertisement_serializers import AdvertisementCreateSerializer
-from ..models import Advertisement, PropertyAmenity
+from ..models import Advertisement, PropertyAmenity, PropertyCity, PropertyDistrict
 
 
 class PropertyAmenitySerializer(serializers.ModelSerializer):
@@ -17,8 +17,15 @@ class PropertyAmenitySerializer(serializers.ModelSerializer):
 
 class PropertyCreateSerializer(AdvertisementCreateSerializer):
     property_type_of_service = serializers.CharField(required=True)
-    property_city = serializers.CharField(required=True)
-    property_coords = serializers.CharField(required=True)
+    property_city = serializers.PrimaryKeyRelatedField(
+        queryset=PropertyCity.objects.all(),
+        required=True,
+    )
+    property_district = serializers.PrimaryKeyRelatedField(
+        queryset=PropertyDistrict.objects.all(),
+        required=True,
+    )
+
     property_building_max_floor = serializers.IntegerField(required=True)
     property_floor = serializers.IntegerField(required=True)
     property_bathroom_count = serializers.IntegerField(required=True)
@@ -40,7 +47,6 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
             "property_type_of_service",
             "property_city",
             "property_district",
-            "property_coords",
             "property_building_max_floor",
             "property_floor",
             "property_bathroom_count",

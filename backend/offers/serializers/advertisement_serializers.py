@@ -11,6 +11,7 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
     category = serializers.ChoiceField(choices=CategoryChoices.choices, required=True)
     title = serializers.CharField(required=True, max_length=100)
+    coordinate = serializers.CharField(required=True)
     # price = serializers.IntegerField(required=True, allow_null=True)
 
     class Meta:

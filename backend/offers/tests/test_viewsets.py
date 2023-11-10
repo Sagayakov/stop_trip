@@ -44,6 +44,8 @@ from .factories import (
     AdvertisementImageFactory,
     ExchangeAdvertisementFactory,
     CurrencyFactory,
+    PropertyCityFactory,
+    PropertyDistrictFactory,
 )
 
 
@@ -55,14 +57,15 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_create_property(self):
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
+        property_city = PropertyCityFactory(name="Rome")
+        property_district = PropertyDistrictFactory(city=property_city, name="Lazio")
         payload = {
             "category": CategoryChoices.PROPERTY.value,
             "title": "test",
             "price": 10_000,
-            "property_city": "tokyo",
+            "property_city": property_city.id,
             "property_type_of_service": PropertyTypeOfService.RENT,
-            "property_district": "new_district",
-            "property_coords": "38,38",
+            "property_district": property_district.id,
             "property_building_max_floor": 15,
             "property_floor": 5,
             "property_bathroom_count": 1,
@@ -83,7 +86,7 @@ class AdvertisementViewSetTest(APITestCase):
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(13):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -94,12 +97,12 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(new_advertisement.category, payload["category"])
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
-        self.assertEqual(new_advertisement.property_city, payload["property_city"])
+        self.assertEqual(new_advertisement.property_city, property_city)
         self.assertEqual(
             new_advertisement.property_type_of_service, payload["property_type_of_service"]
         )
-        self.assertEqual(new_advertisement.property_district, payload["property_district"])
-        self.assertEqual(new_advertisement.property_coords, payload["property_coords"])
+        self.assertEqual(new_advertisement.property_district, property_district)
+
         self.assertEqual(
             new_advertisement.property_building_max_floor, payload["property_building_max_floor"]
         )
@@ -132,14 +135,15 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_update_property(self):
         user = UserFactory()
+        property_city = PropertyCityFactory(name="Milano")
+        property_district = PropertyDistrictFactory(city=property_city, name="Milano Centrale")
         advertisement = PropertyAdvertisementFactory(
             owner=user,
             title="property",
             price=1500,
-            property_city="Moscow",
+            property_city=property_city,
             property_type_of_service=PropertyTypeOfService.SALE,
-            property_district="district",
-            property_coords="36,36",
+            property_district=property_district,
             property_building_max_floor=14,
             property_floor=4,
             property_bathroom_count=2,
@@ -161,10 +165,9 @@ class AdvertisementViewSetTest(APITestCase):
         payload = {
             "title": "test",
             "price": advertisement.price - 100,
-            "property_city": "tokyo",
+            "property_city": property_city.id,
             "property_type_of_service": PropertyTypeOfService.RENT,
-            "property_district": "new_district",
-            "property_coords": "38,38",
+            "property_district": property_district.id,
             "property_building_max_floor": 15,
             "property_floor": 5,
             "property_bathroom_count": 1,
@@ -184,7 +187,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(13):
+        with self.assertNumQueries(15):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -194,12 +197,12 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(advertisement.owner, user)
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
-        self.assertEqual(advertisement.property_city, payload["property_city"])
+        self.assertEqual(advertisement.property_city, property_city)
         self.assertEqual(
             advertisement.property_type_of_service, payload["property_type_of_service"]
         )
-        self.assertEqual(advertisement.property_district, payload["property_district"])
-        self.assertEqual(advertisement.property_coords, payload["property_coords"])
+        self.assertEqual(advertisement.property_district, property_district)
+
         self.assertEqual(
             advertisement.property_building_max_floor, payload["property_building_max_floor"]
         )
@@ -1259,3 +1262,342 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), len(transport_set) // 2)
+
+    def test_filter_property_type_of_service(self):
+        user = UserFactory()
+        property_cities = [
+            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
+        ]
+        property_districts = [
+            PropertyDistrictFactory(name=name, city=city)
+            for name in ["1d", "2d", "3d", "4d"]
+            for city in property_cities
+        ]
+        property_set = [
+            PropertyAdvertisementFactory(
+                owner=user,
+                price=100_000 + _ * 50_000,
+                category=CategoryChoices.PROPERTY.value,
+                coordinate="35,35",
+                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][_ % 2],
+                property_city=city,
+                property_district=district,
+                property_building_max_floor=5,
+                property_floor=4,
+                property_bathroom_count=2,
+                property_bathroom_type=PropertyBathroomType.SEPARATE,
+                property_area=35,
+                property_living_area=50,
+                property_balcony=PropertyBalcony.YES,
+                property_has_furniture=True,
+                property_house_type=PropertyHouseType.BLOCK,
+                property_has_parking=True,
+                property_rental_condition=PropertyRentalCondition.FAMILY,
+                property_prepayment=PropertyPrepayment.TWO_MONTHS,
+                property_sleeping_places=5,
+                property_rooms_count=3)
+            for city in property_cities
+            for district in property_districts
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"property_type_of_service": PropertyTypeOfService.SALE.value},
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(property_set) // 2)
+
+    def test_filter_property_city(self):
+        user = UserFactory()
+        property_cities = [
+            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
+        ]
+        property_districts = [
+            PropertyDistrictFactory(name=name, city=city)
+            for name in ["1d", "2d", "3d", "4d"]
+            for city in property_cities
+        ]
+        property_set = [
+            PropertyAdvertisementFactory(
+                owner=user,
+                price=100_000 + _ * 50_000,
+                category=CategoryChoices.PROPERTY.value,
+                coordinate="35,35",
+                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][_ % 2],
+                property_city=city,
+                property_district=district,
+                property_building_max_floor=5,
+                property_floor=4,
+                property_bathroom_count=2,
+                property_bathroom_type=PropertyBathroomType.SEPARATE,
+                property_area=35,
+                property_living_area=50,
+                property_balcony=PropertyBalcony.YES,
+                property_has_furniture=True,
+                property_house_type=PropertyHouseType.BLOCK,
+                property_has_parking=True,
+                property_rental_condition=PropertyRentalCondition.FAMILY,
+                property_prepayment=PropertyPrepayment.TWO_MONTHS,
+                property_sleeping_places=5,
+                property_rooms_count=3)
+            for city in property_cities
+            for district in property_districts
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"property_city": property_cities[0].slug},
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(property_set) // len(property_cities))
+
+    def test_filter_property_district(self):
+        user = UserFactory()
+        property_cities = [
+            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
+        ]
+        property_districts = [
+            PropertyDistrictFactory(name=name, city=city)
+            for name in ["1d", "2d", "3d", "4d"]
+            for city in property_cities
+        ]
+        property_set = [
+            PropertyAdvertisementFactory(
+                owner=user,
+                price=100_000 + _ * 50_000,
+                category=CategoryChoices.PROPERTY.value,
+                coordinate="35,35",
+                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][_ % 2],
+                property_city=city,
+                property_district=district,
+                property_building_max_floor=5,
+                property_floor=4,
+                property_bathroom_count=2,
+                property_bathroom_type=PropertyBathroomType.SEPARATE,
+                property_area=35,
+                property_living_area=50,
+                property_balcony=PropertyBalcony.YES,
+                property_has_furniture=True,
+                property_house_type=PropertyHouseType.BLOCK,
+                property_has_parking=True,
+                property_rental_condition=PropertyRentalCondition.FAMILY,
+                property_prepayment=PropertyPrepayment.TWO_MONTHS,
+                property_sleeping_places=5,
+                property_rooms_count=3)
+            for city in property_cities
+            for district in property_districts
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"property_district": property_districts[0].slug},
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(property_set) // len(property_districts))
+
+    def test_filter_property_bathroom_type(self):
+        user = UserFactory()
+        property_cities = [
+            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
+        ]
+        property_districts = [
+            PropertyDistrictFactory(name=name, city=city)
+            for name in ["1d", "2d", "3d", "4d"]
+            for city in property_cities
+        ]
+        property_set = [
+            PropertyAdvertisementFactory(
+                owner=user,
+                price=100_000 + _ * 50_000,
+                category=CategoryChoices.PROPERTY.value,
+                coordinate="35,35",
+                property_type_of_service=PropertyTypeOfService.SALE,
+                property_city=city,
+                property_district=district,
+                property_building_max_floor=5,
+                property_floor=4,
+                property_bathroom_count=2,
+                property_bathroom_type=[PropertyBathroomType.SEPARATE, PropertyBathroomType.COMBINED][_ % 2],
+                property_area=35,
+                property_living_area=50,
+                property_balcony=PropertyBalcony.YES,
+                property_has_furniture=True,
+                property_house_type=PropertyHouseType.BLOCK,
+                property_has_parking=True,
+                property_rental_condition=PropertyRentalCondition.FAMILY,
+                property_prepayment=PropertyPrepayment.TWO_MONTHS,
+                property_sleeping_places=5,
+                property_rooms_count=3)
+            for city in property_cities
+            for district in property_districts
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"property_bathroom_type": PropertyBathroomType.COMBINED.value},
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(property_set) // 2)
+
+    def test_filter_property_bathroom_count(self):
+        user = UserFactory()
+        property_cities = [
+            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
+        ]
+        property_districts = [
+            PropertyDistrictFactory(name=name, city=city)
+            for name in ["1d", "2d", "3d", "4d"]
+            for city in property_cities
+        ]
+        property_set = [
+            PropertyAdvertisementFactory(
+                owner=user,
+                price=100_000 + _ * 50_000,
+                category=CategoryChoices.PROPERTY.value,
+                coordinate="35,35",
+                property_type_of_service=PropertyTypeOfService.SALE,
+                property_city=city,
+                property_district=district,
+                property_building_max_floor=5,
+                property_floor=4,
+                property_bathroom_count=1 + _ * 1,
+                property_bathroom_type=PropertyBathroomType.SEPARATE,
+                property_area=35,
+                property_living_area=50,
+                property_balcony=PropertyBalcony.YES,
+                property_has_furniture=True,
+                property_house_type=PropertyHouseType.BLOCK,
+                property_has_parking=True,
+                property_rental_condition=PropertyRentalCondition.FAMILY,
+                property_prepayment=PropertyPrepayment.TWO_MONTHS,
+                property_sleeping_places=5,
+                property_rooms_count=3)
+            for city in property_cities
+            for district in property_districts
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"property_bathroom_count": 2}
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+
+        self.assertEqual(len(res_json), len(property_set) // 2)
+
+    def test_filter_property_house_type(self):
+        user = UserFactory()
+        property_cities = [
+            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
+        ]
+        property_districts = [
+            PropertyDistrictFactory(name=name, city=city)
+            for name in ["1d", "2d", "3d", "4d"]
+            for city in property_cities
+        ]
+        property_set = [
+            PropertyAdvertisementFactory(
+                owner=user,
+                price=100_000 + _ * 50_000,
+                category=CategoryChoices.PROPERTY.value,
+                coordinate="35,35",
+                property_type_of_service=PropertyTypeOfService.SALE,
+                property_city=city,
+                property_district=district,
+                property_building_max_floor=5,
+                property_floor=4,
+                property_bathroom_count=2,
+                property_bathroom_type=PropertyBathroomType.SEPARATE,
+                property_area=35,
+                property_living_area=50,
+                property_balcony=PropertyBalcony.YES,
+                property_has_furniture=True,
+                property_house_type=[PropertyHouseType.BLOCK, PropertyHouseType.BRICK][_ % 2],
+                property_has_parking=True,
+                property_rental_condition=PropertyRentalCondition.FAMILY,
+                property_prepayment=PropertyPrepayment.TWO_MONTHS,
+                property_sleeping_places=5,
+                property_rooms_count=3)
+            for city in property_cities
+            for district in property_districts
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"property_house_type": PropertyHouseType.BLOCK.value},
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(property_set) // 2)
+
+    def test_filter_property_sleeping_places(self):
+        user = UserFactory()
+        property_cities = [
+            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
+        ]
+        property_districts = [
+            PropertyDistrictFactory(name=name, city=city)
+            for name in ["1d", "2d", "3d", "4d"]
+            for city in property_cities
+        ]
+        property_set = [
+            PropertyAdvertisementFactory(
+                owner=user,
+                price=100_000 + _ * 50_000,
+                category=CategoryChoices.PROPERTY.value,
+                coordinate="35,35",
+                property_type_of_service=PropertyTypeOfService.SALE,
+                property_city=city,
+                property_district=district,
+                property_building_max_floor=5,
+                property_floor=4,
+                property_bathroom_count=2,
+                property_bathroom_type=PropertyBathroomType.SEPARATE,
+                property_area=35,
+                property_living_area=50,
+                property_balcony=PropertyBalcony.YES,
+                property_has_furniture=True,
+                property_house_type=PropertyHouseType.BLOCK,
+                property_has_parking=True,
+                property_rental_condition=PropertyRentalCondition.FAMILY,
+                property_prepayment=PropertyPrepayment.TWO_MONTHS,
+                property_sleeping_places=1 + _ * 1,
+                property_rooms_count=3)
+            for city in property_cities
+            for district in property_districts
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"property_sleeping_places": 2}
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+
+        self.assertEqual(len(res_json), len(property_set) // 2)
+

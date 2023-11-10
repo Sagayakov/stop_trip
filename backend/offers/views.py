@@ -7,7 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from users.models import User
 from .constants import CategoryChoices
-from .filters.transportfilter import TransportFilter
+from .filters import AdvertisementFilter
 from .models import Advertisement
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
@@ -35,7 +35,8 @@ class AdvertisementModelViewSet(ModelViewSet):
         "list": [AllowAny],
         "retrieve": [AllowAny],
     }
-    filterset_class = TransportFilter
+    filterset_class = AdvertisementFilter
+
 
     def get_queryset(self):
         queryset = Advertisement.objects.filter(is_published=True)
@@ -45,7 +46,8 @@ class AdvertisementModelViewSet(ModelViewSet):
 
         if self.action == self.retrieve.__name__:
             queryset = queryset.select_related(
-                "transport_brand", "transport_model", "proposed_currency", "exchange_for"
+                "transport_brand", "transport_model", "proposed_currency", "exchange_for",
+                "property_city", "property_district"
             ).prefetch_related("property_amenities")
 
         return queryset
