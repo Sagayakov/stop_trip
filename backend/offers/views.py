@@ -94,3 +94,4 @@ class AdvertisementModelViewSet(ModelViewSet):
         serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
         serializer.save()  # todo оптимизация создания M2M связей
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
