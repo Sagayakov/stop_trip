@@ -23,6 +23,12 @@ export const ConditionOfTransport = ({ register, watch }: Props) => {
 
     return (
         <div className="condition">
+            {showDropDown && (
+                <div
+                    className="typeOfService-background"
+                    onClick={() => dispatch(toggleDropdown('condition'))}
+                />
+            )}
             <h3>Состояние</h3>
             <div
                 className="select-transportFilter"
@@ -43,6 +49,9 @@ export const ConditionOfTransport = ({ register, watch }: Props) => {
                                 type="radio"
                                 value={el}
                                 {...register('condition')}
+                                onClick={() =>
+                                    dispatch(toggleDropdown('condition'))
+                                }
                             />
                             {el}
                             {condition === el && <Jackdaw />}

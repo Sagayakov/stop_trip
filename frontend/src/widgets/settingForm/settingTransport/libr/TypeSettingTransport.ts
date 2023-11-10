@@ -1,7 +1,7 @@
 export interface TypeSettingTransport {
     typeOfService: TypeOfServise;
     typeOfTransport: TypeOfTransport;
-    transportationCategory: TransportationCategory;
+    transportationCategory: TransportationCategory | SelectOption | string[];
     mark: Mark;
     model: Model;
     engineType: EngineType;
@@ -12,15 +12,17 @@ export interface TypeSettingTransport {
     bodyType: BodyType;
     condition: Condition;
     passengerCapacity: number;
-    commission: number
+    commission: number;
 }
-
+interface SelectOption {
+    value: string;
+    label: string;
+}
 type TypeOfServise = 'Аренда' | 'Продажа'
 
 type TypeOfTransport = 'Наземный' | 'Водный'
 
 type TransportationCategory =
-    'Не выбрано'
     | 'Мотоцикл'
     | 'Мопед'
     | 'Легковой автомобиль'
@@ -33,6 +35,7 @@ type TransportationCategory =
     | 'Вёсельная лодка'
     | 'Катер'
     | 'Другое'
+    | null
 
 type Mark = 'Не выбрано' |'Yamaha'
 

@@ -1,19 +1,19 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
-    BodyTypeOfTransport,
-    ConditionOfTransport,
-    DriveType,
-    EngineType,
-    EngineСapacity,
-    MarkOfTransport,
-    ModelOfTransport,
-    PassengerCapacityOfTransport,
-    TransmissionType,
-    TransportComission,
+    // BodyTypeOfTransport,
+    // ConditionOfTransport,
+    // DriveType,
+    // EngineType,
+    // EngineСapacity,
+    // MarkOfTransport,
+    // ModelOfTransport,
+    // PassengerCapacityOfTransport,
+    // TransmissionType,
+    // TransportComission,
     TransportationCategory,
     TypeOfService,
     TypeOfTransport,
-    YearOfProduction,
+    // YearOfProduction,
 } from '../../../features/settingCategoryForm/settingTransportForm/index';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import '././libr/settingTransportForm.scss';
@@ -24,7 +24,7 @@ interface Props {
 }
 
 export const SettingTransportForm = ({ setShowFilters }: Props) => {
-    const { register, handleSubmit, reset, watch } =
+    const { register, handleSubmit, reset, watch, setValue, control } =
         useForm<TypeSettingTransport>();
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
@@ -48,8 +48,8 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
             >
                 <TypeOfService register={register} watch={watch} />
                 <TypeOfTransport register={register} watch={watch} />
-                <TransportationCategory register={register} watch={watch} />
-                <MarkOfTransport register={register} watch={watch} />
+                <TransportationCategory setValue={setValue} control={control} />
+                {/* <MarkOfTransport register={register} watch={watch} />
                 <ModelOfTransport register={register} watch={watch} />
                 <EngineType register={register} watch={watch} />
                 <EngineСapacity register={register} watch={watch} />
@@ -62,7 +62,7 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
                     register={register}
                     watch={watch}
                 />
-                <TransportComission register={register} />
+                <TransportComission register={register} /> */}
                 <input type="submit" value="Показать 100 объявлений" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
