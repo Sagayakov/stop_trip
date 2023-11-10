@@ -1,0 +1,22 @@
+.owner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    img {
+        width: 30%;
+    }
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #434343;
+        p:last-child {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--grey-3);
+        }
+    }
+}

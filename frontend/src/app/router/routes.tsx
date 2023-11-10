@@ -21,13 +21,13 @@ export const publicRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/activate/:uid/:token', component: ActivateAccount },
     { path: '/email/reset/confirm/:uid/:token', component: ResetPassword },
-    { path: '/api/advertisements/:id', component: AdvertPage },
+    { path: '/:category/:id', component: AdvertPage },
     ...categoryRoutes,
 ];
 
 export const privateRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/add-advert', component: AddAdvertPage },
-    { path: '/api/advertisements/:id', component: AdvertPage },
+    { path: '/:category/:id', component: AdvertPage },
     ...categoryRoutes,
 ];

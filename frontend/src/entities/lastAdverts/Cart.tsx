@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { Favorite } from '../../shared/ui/icons/icons-tools/Favorite';
 
-export const Cart = (props: LastAdvertsTypes) => {
-    const { price, title, id, images } = props;
+export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
+    const { price, title, id, images, category } = cart;
     const [addToFav, setAddToFav] = useState(false);
     const navigate = useNavigate();
 
@@ -13,18 +13,14 @@ export const Cart = (props: LastAdvertsTypes) => {
         strokeColor: addToFav ? '#FF3F25' : '#8F8F8F',
     };
 
-    const handleAddToFavourite = (
-        event: React.MouseEvent<HTMLDivElement, MouseEvent>
-    ) => {
-        event.preventDefault();
-        event.stopPropagation();
+    const handleAddToFavourite = () => {
         setAddToFav(!addToFav); //потом редьюсер
     };
 
     return (
         <div
             className="adverts-cart"
-            onClick={() => navigate(`/api/advertisements/${id}/`)}
+            onClick={() => navigate(`/${category}/${id}/`)}
         >
             <img
                 src={
@@ -37,10 +33,11 @@ export const Cart = (props: LastAdvertsTypes) => {
             <div className="description">
                 <div className="price">
                     <p>{price ? `$${price}` : 'Договорная'}</p>
-                    <span onClick={handleAddToFavourite}>
+                    <span>
                         <Favorite
                             color={style.color}
                             strokeColor={style.strokeColor}
+                            addToFavorite={handleAddToFavourite}
                             // color="#FF3F25"
                             // strokeColor="#FF3F25"
                         />

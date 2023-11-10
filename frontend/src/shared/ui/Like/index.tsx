@@ -1,7 +1,15 @@
 import { useState } from 'react';
 import { Favorite } from '../icons/icons-tools/Favorite';
 
-export const Like = () => {
+type LikeProps = {
+    color?: string;
+    strokeColor?: string;
+};
+
+export const Like = ({
+    color = '#ff3f25',
+    strokeColor = '#8F8F8F',
+}: LikeProps) => {
     const [isLike, setIsLike] = useState(false);
 
     const addToFavorite = () => {
@@ -9,10 +17,11 @@ export const Like = () => {
     };
 
     return (
-        <div className="add-to-favorite" onClick={addToFavorite}>
+        <div className="add-to-favorite">
             <Favorite
-                color={isLike ? '#ff3f25' : 'transparent'}
-                strokeColor={isLike ? 'transparent' : '#8F8F8F'}
+                color={isLike ? color : 'transparent'}
+                strokeColor={isLike ? 'transparent' : strokeColor}
+                addToFavorite={addToFavorite}
             />
         </div>
     );
