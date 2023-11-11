@@ -1,4 +1,4 @@
-import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import {
@@ -9,13 +9,13 @@ import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTrans
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
-    control: Control<TypeSettingTransport, string[]>;
     register: UseFormRegister<TypeSettingTransport>;
 }
 
 export const TransportationCategory = ({ setValue, register }: Props) => {
     const transportationCategory = valuesOfTransportForm.transportationCategory;
     const animated = makeAnimated();
+
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
     ) => {
@@ -37,12 +37,11 @@ export const TransportationCategory = ({ setValue, register }: Props) => {
             <h3>Категория транспорта</h3>
             <Select
                 {...register('transportationCategory')}
-                defaultInputValue=""
                 classNamePrefix="filterTransporForm"
-                id="transportationCategory"
+                id="mark"
                 components={animated}
-                closeMenuOnSelect={false}
                 placeholder="Выберите категорию"
+                closeMenuOnSelect={false}
                 isMulti={true}
                 options={transportationCategory}
                 onChange={(selectedOptions) => {

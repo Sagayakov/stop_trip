@@ -1,61 +1,57 @@
-import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
-import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
-import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
-import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import {
+    Control,
+    Controller,
+    UseFormRegister,
+    UseFormSetValue,
+} from 'react-hook-form';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+import {
+    SelectOption,
+    TypeSettingTransport,
+} from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
-import { toggleDropdown } from './reducer/transportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
-    watch: UseFormWatch<TypeSettingTransport>;
+    setValue: UseFormSetValue<TypeSettingTransport>;
+    control: Control<TypeSettingTransport, string>;
 }
 
-export const MarkOfTransport = ({ register, watch }: Props) => {
-    const markOfTrasport = watch('mark');
+export const MarkOfTransport = ({ setValue, control }: Props) => {
     const arrOfValues = valuesOfTransportForm.mark;
+    const animated = makeAnimated();
 
-    const showDropDown = useAppSelector(
-        (state) => state.transportFormDropdown.mark
-    );
-    const dispatch = useAppDispatch();
+    const handleChange = ( selectedOptions: SelectOption | null) => {
+        selectedOptions && setValue('mark', selectedOptions.value)
+    };
 
     return (
         <div className="mark">
-            {showDropDown && (
-                <div
-                    className="typeOfService-background"
-                    onClick={() => dispatch(toggleDropdown('mark'))}
-                />
-            )}
             <h3>Марка</h3>
-            <div
-                className="select-transportFilter"
-                onClick={() => dispatch(toggleDropdown('mark'))}
-            >
-                {markOfTrasport || 'Не выбрано'}
-                {showDropDown ? (
-                    <ArrowTop color="#1C1C1E" />
-                ) : (
-                    <ArrowDown color="#1C1C1E" />
+            <Controller
+                name="mark"
+                defaultValue=''
+                control={control}
+                render={({ field }) => (
+                    <Select
+                        {...field}
+                        classNamePrefix="filterTransporForm"
+                        id="mark"
+                        components={animated}
+                        placeholder="Выберите марку"
+                        isMulti={false}
+                        options={arrOfValues}
+                        onChange={(selectedOptions) => {
+                            handleChange(
+                                selectedOptions as
+                                    SelectOption
+                                    | null
+                            );
+                        }}
+                    />
                 )}
-            </div>
-            {showDropDown && (
-                <div className="select-settingFormFilter-dropdown-height-limited">
-                    {arrOfValues.map((el) => (
-                        <label key={el}>
-                            <input
-                                type="radio"
-                                value={el}
-                                {...register('mark')}
-                            />
-                            {el}
-                            {markOfTrasport === el && <Jackdaw />}
-                        </label>
-                    ))}
-                </div>
-            )}
+            />
         </div>
     );
 };

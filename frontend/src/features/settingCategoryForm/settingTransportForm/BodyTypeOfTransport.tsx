@@ -1,61 +1,56 @@
-import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
-import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
-import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
-import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+import {
+    SelectOption,
+    TypeSettingTransport,
+} from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
-import { toggleDropdown } from './reducer/transportFormDropdown';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
-    watch: UseFormWatch<TypeSettingTransport>;
+    setValue: UseFormSetValue<TypeSettingTransport>;
 }
 
-export const BodyTypeOfTransport = ({ register, watch }: Props) => {
-    const bodyType = watch('bodyType');
-    const arrOfValue = valuesOfTransportForm.bodyType;
+export const BodyTypeOfTransport = ({ register, setValue }: Props) => {
+    const boduTypeValue = valuesOfTransportForm.bodyType;
+    const animated = makeAnimated();
 
-    const showDropDown = useAppSelector(
-        (state) => state.transportFormDropdown.bodyType
-    );
-    const dispatch = useAppDispatch();
+    const handleChange = (
+        selectedOptions: SelectOption | SelectOption[] | null
+    ) => {
+        if (selectedOptions) {
+            const optionsArray = Array.isArray(selectedOptions)
+                ? selectedOptions
+                : [selectedOptions];
+            const selectedValues = optionsArray
+                .map((option) => option?.value)
+                .filter(Boolean);
+            setValue('bodyType', selectedValues);
+        } else {
+            setValue('bodyType', []);
+        }
+    };
 
     return (
         <div className="bodyType">
-            {showDropDown && (
-                <div
-                    className="typeOfService-background"
-                    onClick={() => dispatch(toggleDropdown('bodyType'))}
-                />
-            )}
             <h3>Тип кузова</h3>
-            <div
-                className="select-transportFilter"
-                onClick={() => dispatch(toggleDropdown('bodyType'))}
-            >
-                {bodyType || 'Не выбрано'}
-                {showDropDown ? (
-                    <ArrowTop color="#1C1C1E" />
-                ) : (
-                    <ArrowDown color="#1C1C1E" />
-                )}
-            </div>
-            {showDropDown && (
-                <div className="select-settingFormFilter-dropdown-height-limited">
-                    {arrOfValue.map((el) => (
-                        <label key={el}>
-                            <input
-                                type="radio"
-                                value={el}
-                                {...register('bodyType')}
-                            />
-                            {el}
-                            {bodyType === el && <Jackdaw />}
-                        </label>
-                    ))}
-                </div>
-            )}
+            <Select
+                {...register('bodyType')}
+                defaultInputValue=""
+                classNamePrefix="filterTransporForm"
+                id="bodyType"
+                components={animated}
+                closeMenuOnSelect={false}
+                placeholder="Выберите категорию"
+                isMulti={true}
+                options={boduTypeValue}
+                onChange={(selectedOptions) => {
+                    handleChange(
+                        selectedOptions as SelectOption | SelectOption[] | null
+                    );
+                }}
+            />
         </div>
     );
 };

@@ -1,19 +1,18 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
-    // BodyTypeOfTransport,
-    // ConditionOfTransport,
-    // DriveType,
-    // EngineType,
-    // EngineСapacity,
-    // MarkOfTransport,
-    // ModelOfTransport,
-    // PassengerCapacityOfTransport,
-    // TransmissionType,
-    // TransportComission,
+    BodyTypeOfTransport,
+    ConditionOfTransport,
+    DriveType,
+    EngineType,
+    EngineСapacity,
+    MarkOfTransport,
+    ModelOfTransport,
+    TransmissionType,
+    TransportComission,
     TransportationCategory,
     TypeOfService,
     TypeOfTransport,
-    // YearOfProduction,
+    YearOfProduction,
 } from '../../../features/settingCategoryForm/settingTransportForm/index';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import '././libr/settingTransportForm.scss';
@@ -28,7 +27,7 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
         useForm<TypeSettingTransport>();
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
-    }
+    };
 
     const onsubmit: SubmitHandler<TypeSettingTransport> = (data) => {
         console.log(data);
@@ -45,24 +44,27 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
             <form
                 className="filter-transport-form"
                 onSubmit={handleSubmit(onsubmit)}
+                autoComplete='off'
             >
                 <TypeOfService register={register} watch={watch} />
                 <TypeOfTransport register={register} watch={watch} />
-                <TransportationCategory setValue={setValue} control={control} register={register}/>
-                {/* <MarkOfTransport register={register} watch={watch} />
-                <ModelOfTransport register={register} watch={watch} />
-                <EngineType register={register} watch={watch} />
-                <EngineСapacity register={register} watch={watch} />
-                <DriveType register={register} watch={watch} />
-                <YearOfProduction register={register} watch={watch} />
-                <TransmissionType register={register} watch={watch} />
-                <BodyTypeOfTransport register={register} watch={watch} />
-                <ConditionOfTransport register={register} watch={watch} />
-                <PassengerCapacityOfTransport
+                <TransportationCategory setValue={setValue} register={register} />
+                <MarkOfTransport register={register} setValue={setValue} control={control} />
+                <ModelOfTransport
                     register={register}
                     watch={watch}
+                    setValue={setValue}
+                    control={control}
                 />
-                <TransportComission register={register} /> */}
+                <EngineType register={register} setValue={setValue} />
+                <EngineСapacity register={register} />
+                <DriveType register={register} setValue={setValue} />
+                <YearOfProduction register={register} />
+                <TransmissionType register={register} />
+                <BodyTypeOfTransport register={register} setValue={setValue} />
+                <ConditionOfTransport register={register} setValue={setValue} />
+                <TransportComission register={register} />
+                <div></div>
                 <input type="submit" value="Показать 100 объявлений" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
