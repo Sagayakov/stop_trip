@@ -41,7 +41,7 @@ export const PopularCategories = () => {
 
                 <div className="categories-list">
                     {Object.entries(categories)
-                        .filter((el) => el[0] !== 'events')
+                        .filter((el) => el[0] !== 'event')
                         .map((el) => {
                             const { icon: Icon } = el[1];
                             return (

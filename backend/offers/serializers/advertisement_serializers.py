@@ -45,6 +45,7 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
             "price",
             "description",
             "images",
+            "date_create",
         )
 
 

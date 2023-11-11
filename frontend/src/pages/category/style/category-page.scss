@@ -115,7 +115,7 @@ main {
                                 input[type="radio"] {
                                     display: none;
                                 }
-                                &:hover{
+                                &:hover {
                                     background-color: var(--grey-1);
                                     border-radius: 4px;
                                 }
@@ -275,6 +275,7 @@ main {
                 color: var(--main-black);
                 width: 909px;
                 height: 280px; //иначе картинка поплывет
+                cursor: pointer;
                 .add-to-favorite {
                     position: absolute;
                     top: 16px;
@@ -289,6 +290,7 @@ main {
                         margin-right: 16px;
                         width: 319px;
                         height: 280px;
+                        object-fit: cover;
                     }
                 }
                 .description {
@@ -299,6 +301,17 @@ main {
                         font-size: 26px;
                         font-weight: 700;
                         margin-bottom: 16px;
+                        -ms-text-overflow: ellipsis;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        -ms-line-clamp: 2;
+                        -webkit-line-clamp: 2;
+                        line-clamp: 2;
+                        display: -webkit-box;
+                        display: box;
+                        word-wrap: break-word;
+                        -webkit-box-orient: vertical;
+                        box-orient: vertical;
                     }
                     .description-location {
                         font-weight: 600;
@@ -343,6 +356,11 @@ main {
                         color: var(--grey-3);
                     }
                 }
+            }
+            .adverts-not-found {
+                text-align: center;
+                font-size: 1.8rem;
+                font-weight: 700;
             }
         }
     }

@@ -45,8 +45,6 @@ class BaseAdvertisementFactory(factory.django.DjangoModelFactory):
     price = factory.Faker("pyint", min_value=1000, max_value=10_000)
     description = factory.Faker("sentence")
     is_published = True
-    date_create = now() - datetime.timedelta(days=1)
-    date_update = now()
     slug = factory.Sequence(lambda x: f"slug_{x}")
 
     class Meta:
@@ -193,4 +191,6 @@ class ExchangeAdvertisementFactory(BaseAdvertisementFactory):
     proposed_currency = factory.SubFactory(CurrencyFactory)
     exchange_for = factory.SubFactory(CurrencyFactory)
     exchange_rate = factory.Faker("pyfloat")
+
+
 #

@@ -7,6 +7,6 @@ export interface LastAdvertsTypes {
     images: LastAdvertsImages[];
 }
 
-interface LastAdvertsImages {
+export interface LastAdvertsImages {
     image: string;
 }

@@ -59,4 +59,6 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
             "property_rooms_count",
             "property_commission",
         )
+
+
 #

@@ -142,8 +142,6 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # Djoser
 
 
-
-
 # Static
 STATIC_URL = "/s/"
 STATIC_ROOT = join(BASE_DIR, "static")

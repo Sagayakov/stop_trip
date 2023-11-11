@@ -4,19 +4,22 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0002_alter_user_email_rate'),
+        ("users", "0002_alter_user_email_rate"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='rate',
-            options={'ordering': ('-date_updated',), 'verbose_name': 'Отзыв', 'verbose_name_plural': 'отзывы'},
+            name="rate",
+            options={
+                "ordering": ("-date_updated",),
+                "verbose_name": "Отзыв",
+                "verbose_name_plural": "отзывы",
+            },
         ),
         migrations.AlterField(
-            model_name='rate',
-            name='comment',
-            field=models.CharField(blank=True, max_length=200, null=True, verbose_name='Отзыв'),
+            model_name="rate",
+            name="comment",
+            field=models.CharField(blank=True, max_length=200, null=True, verbose_name="Отзыв"),
         ),
     ]

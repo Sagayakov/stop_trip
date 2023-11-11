@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { LastAdvertsTypes } from './types/lastAdvertsTypes';
 import { url } from '../../shared/const/url';
+import { ProductType } from '../../pages/advertPage/libr/types';
 
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
@@ -29,7 +30,10 @@ export const fetchAdverts = createApi({
             }),
             invalidatesTags: ['Adverts'],
         }),
+        getAdvertById: build.query<ProductType, string>({
+            query: (id) => `api/advertisements/${id}`,
+        }),
     }),
 });
 
-export const { useGetAdvertsQuery } = fetchAdverts;
+export const { useGetAdvertsQuery, useGetAdvertByIdQuery } = fetchAdverts;

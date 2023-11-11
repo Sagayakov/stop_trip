@@ -1,0 +1,112 @@
+main {
+    max-width: 1440px;
+    margin: auto;
+}
+.advert-wrapper {
+    max-width: 1240px;
+    margin: 0px auto 80px;
+    .advert-header {
+        font-size: 1.63rem;
+        margin: 1.5rem 0;
+        color: var(--main-black);
+    }
+    p {
+        font-size: 16px;
+        color: var(--main-black);
+    }
+    .advert-info {
+        display: flex;
+        justify-content: space-between;
+        gap: 1.3rem;
+        width: 100%;
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+            width: 64.5%;
+            .description {
+                .description-header {
+                    margin-bottom: 1rem;
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: var(--main-black);
+                }
+                p {
+                    font-size: 20px;
+                    color: var(--main-black);
+                }
+            }
+        }
+    }
+    .owner-info {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 32.4%;
+        .price-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            height: 60px;
+            background-color: var(--main-background);
+            border-radius: 16px;
+            text-align: center;
+            font-size: 16px;
+            color: var(--grey-3);
+            .price {
+                font-size: 30px;
+                font-weight: 700;
+                color: var(--main-blue);
+            }
+        }
+        .public-date {
+            font-size: 14px;
+            color: var(--grey-3);
+            span {
+                font-weight: 600;
+            }
+        }
+        .call-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 2.7rem;
+            border: none;
+            border-radius: var(--radii);
+            background-color: var(--main-blue);
+            color: white;
+            font-family: var(--font-sf);
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .write-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 2.7rem;
+            border: 1px solid var(--main-blue);
+            border-radius: var(--radii);
+            background-color: transparent;
+            color: var(--main-blue);
+            font-family: var(--font-sf);
+            font-weight: 700;
+            cursor: pointer;
+        }
+    }
+}
+
+@media (max-width: 1440px) {
+    main {
+        width: 100%;
+        margin: 0 auto;
+        .advert-wrapper {
+            width: 85%;
+            .bread-crumbs {
+                width: 85%;
+                margin: 0;
+            }
+        }
+    }
+}

@@ -57,7 +57,7 @@ class TransportBodyType(TextChoices):
     COUPE = "coupe", "Купе"
     CONVERTIBLE = "convertible", "Кабриолет"
     HATCHBACK = "hatchback", "Хэтчбэк"
-    SUV = "SUV", "Внедорожник"
+    SUV = "suv", "Внедорожник"
     LIMOUSINE = "limousine", "Лимузин"
     PICKUP = "pickup", "Пикап"
 
