@@ -1,4 +1,9 @@
-export const categoryCharacteristicsKeys = {
+import { Categories } from './categories';
+
+export const categoryCharacteristicsKeys: Record<
+    Categories,
+    Record<string, string>
+> = {
     transport: {
         transport_engine_type: 'Тип двигателя',
         transport_drive_type: 'Привод',
@@ -46,9 +51,16 @@ export const categoryCharacteristicsKeys = {
         exchange_for: 'Обмен на',
         exchange_rate: 'Курс',
     },
+    docs: {},
+    food: {},
+    market: {},
+    tours: {},
 };
 
-export const categoryCharacteristicsValues = {
+export const categoryCharacteristicsValues: Record<
+    Categories,
+    Record<string, Record<string, string>>
+> = {
     transport: {
         transport_engine_type: {
             fuel: 'Бензин',
@@ -89,6 +101,9 @@ export const categoryCharacteristicsValues = {
         property_bathroom_type: {
             combined: 'Совмещённый',
             separate: 'Раздельный',
+        },
+        property_balcony: {
+            yes: 'Да',
         },
         property_house_type: {
             panel: 'Панельный',
@@ -134,4 +149,11 @@ export const categoryCharacteristicsValues = {
             other: 'Другое',
         },
     },
+    event: {},
+    service: {},
+    exchange_rate: {},
+    docs: {},
+    food: {},
+    market: {},
+    tours: {},
 };

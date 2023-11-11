@@ -39,7 +39,7 @@ export const Advert = () => {
                     <div className="advert-info">
                         <section className="product-info">
                             <PhotoSlider />
-                            <AdvertCharacteristics />
+                            <AdvertCharacteristics data={data} />
                             <div className="description">
                                 <div className="description-header">
                                     Описание
