@@ -46,6 +46,3 @@ class TransportFilter(FilterSet):
         label="Состояние транспорта", choices=TransportCondition.choices
     )
     transport_commission = filters.RangeFilter(label="Комиссия")
-
-
-#

@@ -16,6 +16,8 @@ class PropertyAmenitySerializer(serializers.ModelSerializer):
 
 
 class PropertyCreateSerializer(AdvertisementCreateSerializer):
+    """Сериализатор создания объекта недвижимости."""
+
     property_type_of_service = serializers.CharField(required=True)
     property_city = serializers.CharField(required=True)
     property_coords = serializers.CharField(required=True)
@@ -59,6 +61,3 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
             "property_rooms_count",
             "property_commission",
         )
-
-
-#

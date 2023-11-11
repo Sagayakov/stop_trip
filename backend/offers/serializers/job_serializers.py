@@ -6,6 +6,8 @@ from ..constants import JobType, JobDurationType, JobPaymentType
 
 
 class JobCreateSerializer(AdvertisementCreateSerializer):
+    """Сериализатор создания работы."""
+
     job_type = serializers.ChoiceField(choices=JobType.choices, required=True)
     job_duration = serializers.ChoiceField(choices=JobDurationType.choices, required=True)
     job_payment_type = serializers.ChoiceField(choices=JobPaymentType.choices, required=True)

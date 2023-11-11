@@ -5,6 +5,8 @@ from ..models import Advertisement
 
 
 class EventCreateSerializer(AdvertisementCreateSerializer):
+    """Сериализатор создания события."""
+
     start_date = serializers.DateTimeField(required=True)
     end_date = serializers.DateTimeField(required=True)
     is_online = serializers.BooleanField(required=True)
@@ -16,5 +18,3 @@ class EventCreateSerializer(AdvertisementCreateSerializer):
             "end_date",
             "is_online",
         )
-
-
