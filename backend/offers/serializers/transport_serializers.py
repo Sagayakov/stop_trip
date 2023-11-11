@@ -64,4 +64,6 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
             "transport_vin",
             "transport_commission",
         )
+
+
 #

@@ -193,4 +193,6 @@ class ExchangeAdvertisementFactory(BaseAdvertisementFactory):
     proposed_currency = factory.SubFactory(CurrencyFactory)
     exchange_for = factory.SubFactory(CurrencyFactory)
     exchange_rate = factory.Faker("pyfloat")
+
+
 #

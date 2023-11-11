@@ -4,30 +4,42 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('offers', '0002_alter_advertisement_property_rental_condition_and_more'),
+        ("offers", "0002_alter_advertisement_property_rental_condition_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='advertisement',
-            name='property_commission',
-            field=models.PositiveSmallIntegerField(blank=True, null=True, verbose_name='Комиссия'),
+            model_name="advertisement",
+            name="property_commission",
+            field=models.PositiveSmallIntegerField(blank=True, null=True, verbose_name="Комиссия"),
         ),
         migrations.AddField(
-            model_name='advertisement',
-            name='transport_commission',
-            field=models.PositiveSmallIntegerField(blank=True, null=True, verbose_name='Комиссия'),
+            model_name="advertisement",
+            name="transport_commission",
+            field=models.PositiveSmallIntegerField(blank=True, null=True, verbose_name="Комиссия"),
         ),
         migrations.AlterField(
-            model_name='advertisement',
-            name='property_sleeping_places',
-            field=models.PositiveSmallIntegerField(blank=True, null=True, verbose_name='Количество спальных комнат'),
+            model_name="advertisement",
+            name="property_sleeping_places",
+            field=models.PositiveSmallIntegerField(
+                blank=True, null=True, verbose_name="Количество спальных комнат"
+            ),
         ),
         migrations.AlterField(
-            model_name='advertisement',
-            name='transport_transmission_type',
-            field=models.CharField(blank=True, choices=[('mechanic', 'Механическая'), ('automatic', 'Автоматическая'), ('robot', 'Робот'), ('cvt', 'Вариатор')], max_length=50, null=True, verbose_name='Тип коробки передач'),
+            model_name="advertisement",
+            name="transport_transmission_type",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("mechanic", "Механическая"),
+                    ("automatic", "Автоматическая"),
+                    ("robot", "Робот"),
+                    ("cvt", "Вариатор"),
+                ],
+                max_length=50,
+                null=True,
+                verbose_name="Тип коробки передач",
+            ),
         ),
     ]
