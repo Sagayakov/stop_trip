@@ -48,7 +48,7 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
             >
                 <TypeOfService register={register} watch={watch} />
                 <TypeOfTransport register={register} watch={watch} />
-                <TransportationCategory setValue={setValue} control={control} />
+                <TransportationCategory setValue={setValue} control={control} register={register}/>
                 {/* <MarkOfTransport register={register} watch={watch} />
                 <ModelOfTransport register={register} watch={watch} />
                 <EngineType register={register} watch={watch} />
