@@ -1317,4 +1317,6 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), 3)
+
+
 #
