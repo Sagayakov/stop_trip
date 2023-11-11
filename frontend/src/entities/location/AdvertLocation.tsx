@@ -1,44 +1,17 @@
 import { ProductType } from '../../pages/advertPage/libr/types';
 import './advertLocation.scss';
-import GoogleMapReact from 'google-map-react';
-import { Map } from './Map';
-import { useEffect, useState } from 'react';
+import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 type AdvertLocationProps = {
     data: ProductType;
 };
 
 export const AdvertLocation = ({ data }: AdvertLocationProps) => {
-    const [userLocation, setUserLocation] =
-        useState<GoogleMapReact.Coords | null>(null);
-
-    const getUserLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude: lat, longitude: lng } = position.coords;
-                    setUserLocation({ lat, lng });
-                },
-                (error) => {
-                    console.error('Error getting user location:', error);
-                }
-            );
-        } else {
-            console.error('Geolocation is not supported by this browser.');
-        }
-    };
-
-    useEffect(() => {
-        getUserLocation();
-    }, []);
-
-    const defaultProps = {
-        center: {
-            lat: 15.49835602,
-            lng: 73.85502627,
-        },
-        zoom: 10,
-    };
+    const propertyLocation = [
+        Number(data.property_coords.split(',')[0]),
+        Number(data.property_coords.split(',')[1]),
+    ];
 
     return (
         <div className="location">
@@ -49,19 +22,27 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
                     : 'Адрес не указан'}
             </p>
             <div className="map-wrapper">
-                <GoogleMapReact
-                    bootstrapURLKeys={{ key: '' }}
-                    defaultCenter={defaultProps.center}
-                    defaultZoom={defaultProps.zoom}
-                >
-                    {userLocation && (
-                        <Map
-                            lat={userLocation.lat}
-                            lng={userLocation.lng}
-                            text="My Marker"
+                {propertyLocation && (
+                    <MapContainer
+                        center={[
+                            propertyLocation[0] || 15.49835602,
+                            propertyLocation[1] || 73.85502627,
+                        ]}
+                        zoom={11}
+                        scrollWheelZoom={false}
+                    >
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                    )}
-                </GoogleMapReact>
+                        <Marker
+                            position={[
+                                propertyLocation[0] || 15.49835602,
+                                propertyLocation[1] || 73.85502627,
+                            ]}
+                        />
+                    </MapContainer>
+                )}
             </div>
         </div>
     );

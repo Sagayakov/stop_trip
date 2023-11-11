@@ -2,17 +2,39 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    gap: 15px;
     width: 100%;
     img {
-        width: 30%;
+        width: 25%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 8px;
     }
     div {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        justify-content: space-between;
         font-size: 14px;
         font-weight: 700;
         color: #434343;
+        .rating-block {
+            display: flex;
+            flex-direction: row;
+            .rating-number {
+                width: 30px;
+                height: 26px;
+                padding: 4px 5px;
+                background-color: #ffd87366;
+                border-radius: 50%;
+                font-size: 16px;
+                font-weight: 700;
+                color: #434343;
+            }
+            svg {
+                width: 22px;
+                height: 22px;
+            }
+        }
         p:last-child {
             font-size: 12px;
             font-weight: 400;

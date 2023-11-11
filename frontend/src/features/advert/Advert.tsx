@@ -26,7 +26,7 @@ export const Advert = () => {
         <>
             {data && (
                 <div className="advert-wrapper">
-                    <BreadCrumbs title={data.title} />
+                    <BreadCrumbs data={data} />
                     <h1 className="advert-header">{data.title}</h1>
                     <p>
                         {data.property_city
@@ -38,7 +38,7 @@ export const Advert = () => {
                     <div className="advert-info">
                         <section className="product-info">
                             <PhotoSlider />
-                            <AdvertCharacteristics />
+                            <AdvertCharacteristics data={data} />
                             <div className="description">
                                 <div className="description-header">
                                     Описание
@@ -56,15 +56,15 @@ export const Advert = () => {
                                         : 'Договорная'}
                                 </span>
                             </div>
+                            <AdvertOwner />
+                            <button className="call-button">Позвонить</button>
+                            <button className="write-button">Написать</button>
                             {date && (
                                 <p className="public-date">
                                     Опубликовано:{' '}
                                     <span>{`${date.dayToDisplay}, ${date.hours}:${date.minutes}`}</span>
                                 </p>
                             )}
-                            <AdvertOwner />
-                            <button className="call-button">Позвонить</button>
-                            <button className="write-button">Написать</button>
                         </section>
                     </div>
                 </div>

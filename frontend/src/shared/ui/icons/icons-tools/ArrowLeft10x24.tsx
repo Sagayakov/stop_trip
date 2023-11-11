@@ -8,7 +8,11 @@ interface Style {
     cursor: string;
 }
 
-export const ArrowLeft10x24 = ({ style, handleClickPrev }: Props) => {
+export const ArrowLeft10x24 = ({
+    color = '#1C1C1E',
+    style,
+    handleClickPrev,
+}: Props) => {
     return (
         <>
             <svg
@@ -22,7 +26,7 @@ export const ArrowLeft10x24 = ({ style, handleClickPrev }: Props) => {
             >
                 <path
                     d="M8 17L3.72196 12.8931C3.32333 12.5104 3.31065 11.8769 3.69366 11.4786L8 7"
-                    stroke="#1C1C1E"
+                    stroke={color}
                     strokeWidth="2"
                     strokeLinecap="round"
                 />

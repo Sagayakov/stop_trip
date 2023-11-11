@@ -6,13 +6,12 @@ export const AdvertOwner = () => {
         <div className="owner">
             <img src="../../../src/shared/ui/images/owner.png" />
             <div>
-                <p>Вадим</p>
-                <Rating rating={5} />
-                <p>
-                    Дата регистрации
-                    <br />
-                    10.02.2023
-                </p>
+                <p>Константин</p>
+                <div className="rating-block">
+                    <div className="rating-number">4.5</div>
+                    <Rating rating={4.5} />
+                </div>
+                <p>Дата регистрации: 10.02.2023</p>
             </div>
         </div>
     );
