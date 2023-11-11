@@ -1,13 +1,13 @@
-import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { ArrowDown } from '../../shared/ui/icons/icons-tools/ArrowDown';
-import { ArrowTop } from '../../shared/ui/icons/icons-tools/ArrowTop';
-import { Jackdaw } from '../../shared/ui/icons/icons-tools/Jackdaw';
-import { TypeSettingAdverts } from '../../widgets/settingForm/TypeSettingAdverts';
 import { useEffect } from 'react';
+import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
+import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
+import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
+import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/TypeSettingRealty';
 
 interface Props {
-    register: UseFormRegister<TypeSettingAdverts>;
-    watch: UseFormWatch<TypeSettingAdverts>;
+    register: UseFormRegister<TypeSettingRealty>;
+    watch: UseFormWatch<TypeSettingRealty>;
     showDropDown: boolean;
     setShowDropDown: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -21,8 +21,8 @@ export const TypeOfProperty = ({
     const type = watch('typeOfProperty');
 
     useEffect(() => {
-        setShowDropDown(false)
-    }, [type])
+        setShowDropDown(false);
+    }, [type]);
 
     return (
         <>

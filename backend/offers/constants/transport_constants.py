@@ -48,6 +48,7 @@ class TransportTransmissionType(TextChoices):
     MECHANIC = "mechanic", "Механическая"
     AUTOMATIC = "automatic", "Автоматическая"
     ROBOT = "robot", "Робот"
+    CVT = "cvt", "Вариатор"
 
 
 class TransportBodyType(TextChoices):
@@ -56,7 +57,7 @@ class TransportBodyType(TextChoices):
     COUPE = "coupe", "Купе"
     CONVERTIBLE = "convertible", "Кабриолет"
     HATCHBACK = "hatchback", "Хэтчбэк"
-    SUV = "SUV", "Внедорожник"
+    SUV = "suv", "Внедорожник"
     LIMOUSINE = "limousine", "Лимузин"
     PICKUP = "pickup", "Пикап"
 

@@ -13,6 +13,8 @@ from ..constants import (
 
 
 class TransportFilter(FilterSet):
+    """Фильтры транспорта."""
+
     transport_type_of_service = filters.ChoiceFilter(
         label="Тип услуги", choices=TransportTypeOfService.choices
     )
@@ -43,3 +45,4 @@ class TransportFilter(FilterSet):
     transport_condition = filters.ChoiceFilter(
         label="Состояние транспорта", choices=TransportCondition.choices
     )
+    transport_commission = filters.RangeFilter(label="Комиссия")

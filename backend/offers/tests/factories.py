@@ -45,8 +45,6 @@ class BaseAdvertisementFactory(factory.django.DjangoModelFactory):
     price = factory.Faker("pyint", min_value=1000, max_value=10_000)
     description = factory.Faker("sentence")
     is_published = True
-    date_create = now() - datetime.timedelta(days=1)
-    date_update = now()
     slug = factory.Sequence(lambda x: f"slug_{x}")
 
     class Meta:
@@ -84,6 +82,7 @@ class PropertyAdvertisementFactory(BaseAdvertisementFactory):
     property_prepayment = fuzzy.FuzzyChoice(choices=PropertyPrepayment.values)
     property_sleeping_places = factory.Faker("pyint", min_value=1, max_value=8)
     property_rooms_count = factory.Faker("pyint", min_value=1, max_value=5)
+    property_commission = factory.Faker("pyint", min_value=100, max_value=5_000)
 
 
 class PropertyAmenityFactory(factory.django.DjangoModelFactory):
@@ -141,6 +140,7 @@ class TransportAdvertisementFactory(BaseAdvertisementFactory):
     transport_body_type = fuzzy.FuzzyChoice(choices=TransportBodyType.values)
     transport_condition = fuzzy.FuzzyChoice(choices=TransportCondition.values)
     transport_passengers_quality = factory.Faker(provider="pyint", min_value=0, max_value=100)
+    transport_commission = factory.Faker(provider="pyint", min_value=100, max_value=5_000)
 
 
 class ServiceAdvertisementFactory(BaseAdvertisementFactory):

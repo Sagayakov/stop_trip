@@ -44,6 +44,7 @@ from .factories import (
     AdvertisementImageFactory,
     ExchangeAdvertisementFactory,
     CurrencyFactory,
+    BaseAdvertisementFactory,
 )
 
 
@@ -78,6 +79,7 @@ class AdvertisementViewSetTest(APITestCase):
             "property_prepayment": PropertyPrepayment.MONTH,
             "property_sleeping_places": 3,
             "property_rooms_count": 4,
+            "property_commission": 500,
         }
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
@@ -129,6 +131,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(
             new_advertisement.property_amenities.count(), len(payload["property_amenities"])
         )
+        self.assertEqual(new_advertisement.property_commission, payload["property_commission"])
 
     def test_update_property(self):
         user = UserFactory()
@@ -154,6 +157,7 @@ class AdvertisementViewSetTest(APITestCase):
             property_prepayment=PropertyPrepayment.TWO_MONTHS,
             property_sleeping_places=2,
             property_rooms_count=2,
+            property_commission=100,
         )
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
         advertisement.property_amenities.set(property_amenities)
@@ -180,6 +184,7 @@ class AdvertisementViewSetTest(APITestCase):
             "property_prepayment": PropertyPrepayment.MONTH,
             "property_sleeping_places": 3,
             "property_rooms_count": 4,
+            "property_commission": 100,
         }
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
@@ -223,6 +228,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(
             advertisement.property_amenities.count(), len(payload["property_amenities"])
         )
+        self.assertEqual(advertisement.property_commission, payload["property_commission"])
 
     def test_delete_property(self):
         user = UserFactory()
@@ -333,6 +339,7 @@ class AdvertisementViewSetTest(APITestCase):
             "transport_body_type": TransportBodyType.LIFTBACK,
             "transport_condition": TransportCondition.USED,
             "transport_passengers_quality": 5,
+            "transport_commission": 500,
         }
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
@@ -372,6 +379,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(
             new_advertisement.transport_passengers_quality, payload["transport_passengers_quality"]
         )
+        self.assertEqual(new_advertisement.transport_commission, payload["transport_commission"])
 
     def test_update_transport(self):
         user = UserFactory()
@@ -395,6 +403,7 @@ class AdvertisementViewSetTest(APITestCase):
             transport_body_type=TransportBodyType.LIFTBACK,
             transport_condition=TransportCondition.USED,
             transport_passengers_quality=5,
+            transport_commission=100,
         )
 
         new_transport_model = TransportModelFactory(name="RS7")
@@ -415,6 +424,7 @@ class AdvertisementViewSetTest(APITestCase):
             "transport_body_type": TransportBodyType.LIFTBACK,
             "transport_condition": TransportCondition.USED,
             "transport_passengers_quality": 4,
+            "transport_commission": 1_000,
         }
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
@@ -451,6 +461,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(
             advertisement.transport_passengers_quality, payload["transport_passengers_quality"]
         )
+        self.assertEqual(advertisement.transport_commission, payload["transport_commission"])
 
     def test_delete_transport(self):
         user = UserFactory()
@@ -558,6 +569,7 @@ class AdvertisementViewSetTest(APITestCase):
 
         with self.assertNumQueries(3):
             res = self.client.post(self.list_url, data=payload)
+
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
 
@@ -624,6 +636,7 @@ class AdvertisementViewSetTest(APITestCase):
 
         with self.assertNumQueries(3):
             res = self.client.post(self.list_url, data=payload)
+
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
 
@@ -693,6 +706,7 @@ class AdvertisementViewSetTest(APITestCase):
 
         with self.assertNumQueries(3):
             res = self.client.post(self.list_url, data=payload)
+
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
 
@@ -772,6 +786,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -819,6 +834,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -863,6 +879,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -907,6 +924,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -951,6 +969,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -995,6 +1014,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -1042,6 +1062,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -1076,6 +1097,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5,
+                transport_commission=1000,
             )
             for _ in list([float(i / 10) for i in range(10, 100)])
         ]
@@ -1108,6 +1130,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5,
+                transport_commission=1000,
             )
             for _ in list(range(2000, 2022))
         ]
@@ -1156,6 +1179,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -1200,6 +1224,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=[TransportBodyType.LIFTBACK, TransportBodyType.SEDAN][_ % 2],
                 transport_condition=TransportCondition.USED,
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -1244,6 +1269,7 @@ class AdvertisementViewSetTest(APITestCase):
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=[TransportCondition.USED, TransportCondition.NEW][_ % 2],
                 transport_passengers_quality=5 + 1 * _,
+                transport_commission=1000,
             )
             for model in transport_models
             for brand in transport_brands
@@ -1259,3 +1285,330 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), len(transport_set) // 2)
+
+    def test_filter_transport_commission(self):
+        user = UserFactory()
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.CAR,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=1.5,
+                transport_year_of_production=2021,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5,
+                transport_commission=1000 + 100 * _,
+            )
+            for _ in range(5)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "transport_commission_min": 1200,
+                    "transport_commission_max": 1800,
+                },
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), 3)
+
+    def test_filter_job_type(self):
+        user = UserFactory()
+        job_set = [
+            JobAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                job_type=[JobType.FULL_TIME, JobType.PART_TIME][_ % 2],
+                job_duration=JobDurationType.ONE_TIME_TASK,
+                job_payment_type=JobPaymentType.HOURLY_PAYMENT,
+                job_experience=True,
+            )
+            for _ in range(2)
+        ]
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"job_type": JobType.FULL_TIME.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(job_set) // 2)
+
+    def test_filter_job_duration(self):
+        user = UserFactory()
+        job_set = [
+            JobAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                job_type=JobType.FULL_TIME,
+                job_duration=[JobDurationType.ONE_TIME_TASK, JobDurationType.TEMPORARY][_ % 2],
+                job_payment_type=JobPaymentType.HOURLY_PAYMENT,
+                job_experience=True,
+            )
+            for _ in range(2)
+        ]
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"job_duration": JobDurationType.TEMPORARY.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(job_set) // 2)
+
+    def test_filer_job_payment_type(self):
+        user = UserFactory()
+        job_set = [
+            JobAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                job_type=JobType.FULL_TIME,
+                job_duration=JobDurationType.ONE_TIME_TASK,
+                job_payment_type=[JobPaymentType.HOURLY_PAYMENT, JobPaymentType.WEEKLY_PAYMENT][
+                    _ % 2
+                ],
+                job_experience=True,
+            )
+            for _ in range(2)
+        ]
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"job_payment_type": JobPaymentType.WEEKLY_PAYMENT.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(job_set) // 2)
+
+    def test_filter_job_(self):
+        user = UserFactory()
+        job_set = [
+            JobAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                job_type=JobType.FULL_TIME,
+                job_duration=JobDurationType.ONE_TIME_TASK,
+                job_payment_type=JobPaymentType.HOURLY_PAYMENT,
+                job_experience=[True, False][_ % 2],
+            )
+            for _ in range(2)
+        ]
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"job_experience": True},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(job_set) // 2)
+
+    def test_filter_home_visit(self):
+        user = UserFactory()
+        event_set = [
+            EventAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                home_visit=[True, False][_ % 2],
+            )
+            for _ in range(2)
+        ]
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"home_visit": True},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(event_set) // 2)
+
+    def test_filter_taxi_unit(self):
+        user = UserFactory()
+        taxi_set = [
+            TaxiAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                taxi_unit=[TaxiUnit.KM, TaxiUnit.ROUTE][_ % 2],
+                taxi_type=TaxiType.ECONOMY,
+            )
+            for _ in range(2)
+        ]
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"taxi_unit": TaxiUnit.KM.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(taxi_set) // 2)
+
+    def test_filter_taxi_type(self):
+        user = UserFactory()
+        taxi_set = [
+            TaxiAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                taxi_unit=TaxiUnit.KM,
+                taxi_type=[TaxiType.ECONOMY, TaxiType.BUSINESS][_ % 2],
+            )
+            for _ in range(2)
+        ]
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"taxi_type": TaxiType.ECONOMY.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(taxi_set) // 2)
+
+    def test_filter_event_start_date(self):
+        user = UserFactory()
+        start_date = "2023-11-06 00:00:00"
+        end_date = "2023-11-07 00:00:00"
+        events_set = [
+            EventAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.EVENT.value,
+                price=100_000 + _ * 50_000,
+                start_date=start_date,
+                end_date=end_date,
+                is_online=True,
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"start_date": str(start_date)},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(events_set))
+
+    def test_filter_event_end_date(self):
+        user = UserFactory()
+        start_date = "2023-11-06 00:00:00"
+        end_date = "2023-11-07 00:00:00"
+        events_set = [
+            EventAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.EVENT.value,
+                price=100_000 + _ * 50_000,
+                start_date=start_date,
+                end_date=end_date,
+                is_online=True,
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"end_date": str(end_date)},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(events_set))
+
+    def test_filter_event_is_online(self):
+        user = UserFactory()
+        # start_date = "2023-11-06 00:00:00"
+        # end_date = "2023-11-07 00:00:00"
+        events_set = [
+            EventAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.EVENT.value,
+                price=100_000 + _ * 50_000,
+                # start_date=start_date,
+                # end_date=end_date,
+                is_online=[True, False][_ % 2],
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"is_online": True},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(events_set) // 2)
+
+    def test_filter_category(self):
+        user = UserFactory()
+        advertisements = [
+            BaseAdvertisementFactory(owner=user, category=category)
+            for category in CategoryChoices.values
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"category": CategoryChoices.TRANSPORT},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(advertisements) // len(CategoryChoices.values))
+
+    def test_filter_price(self):
+        user = UserFactory()
+        advertisements = [
+            BaseAdvertisementFactory(owner=user, price=_)
+            for _ in [i * 100_000 for i in range(1, 10)]
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"price_min": advertisements[1].price, "price_max": advertisements[-2].price},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(advertisements) - 2)
+
+    def test_filter_order_date_create(self):
+        user = UserFactory()
+        advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(3)]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"order": "-date_create"},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(advertisements))
+        self.assertEqual(res_json[0]["id"], advertisements[-1].id)
+        self.assertEqual(res_json[-1]["id"], advertisements[0].id)

@@ -35,8 +35,10 @@ main {
                 height: fit-content;
                 background-color: var(--grey-4);
                 padding: 24px 24px 32px;
-                form {
-                    // чтобы стрелочек не было в инпутах
+                position: relative; //попробовать чтобы не закрывалось
+                z-index: 11; //модальное окно при скролле на телефоне
+                // чтобы стрелочек не было в инпутах
+                .filter-realty-form {
                     input[type='number']::-webkit-outer-spin-button,
                     input[type='number']::-webkit-inner-spin-button {
                         -webkit-appearance: none;
@@ -61,7 +63,8 @@ main {
                     .total-area,
                     .living-space,
                     .rooms-quantity,
-                    .bathroom {
+                    .bathroom,
+                    .realtyComission {
                         margin-bottom: 24px;
                         h3 {
                             margin-bottom: 8px;
@@ -109,7 +112,7 @@ main {
                                 justify-content: space-between;
                                 align-items: center;
                                 padding: 20px 16px;
-                                input[type='radio'] {
+                                input[type="radio"] {
                                     display: none;
                                 }
                                 &:hover {
@@ -200,6 +203,7 @@ main {
                         margin-bottom: 16px;
                         word-wrap: break-word;
                         overflow-wrap: break-word;
+                        cursor: pointer;
                     }
 
                     .form-checkbox {
@@ -247,6 +251,7 @@ main {
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        cursor: pointer;
                         svg {
                             margin-right: 16px;
                         }

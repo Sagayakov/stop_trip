@@ -16,6 +16,8 @@ class PropertyAmenitySerializer(serializers.ModelSerializer):
 
 
 class PropertyCreateSerializer(AdvertisementCreateSerializer):
+    """Сериализатор создания объекта недвижимости."""
+
     property_type_of_service = serializers.CharField(required=True)
     property_city = serializers.CharField(required=True)
     property_coords = serializers.CharField(required=True)
@@ -33,6 +35,7 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
     property_prepayment = serializers.CharField(required=True)
     property_sleeping_places = serializers.IntegerField(required=True)
     property_rooms_count = serializers.IntegerField(required=True)
+    property_commission = serializers.IntegerField(required=True)
 
     class Meta:
         model = Advertisement
@@ -56,4 +59,5 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
             "property_prepayment",
             "property_sleeping_places",
             "property_rooms_count",
+            "property_commission",
         )

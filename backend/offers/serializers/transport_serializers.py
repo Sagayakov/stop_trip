@@ -15,6 +15,8 @@ from ..models import TransportBrand, TransportModel, Advertisement
 
 
 class TransportCreateSerializer(AdvertisementCreateSerializer):
+    """Сериализатор создания транспорта."""
+
     transport_type_of_service = serializers.ChoiceField(
         choices=TransportTypeOfService.choices, required=True
     )
@@ -43,6 +45,7 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
     transport_body_type = serializers.ChoiceField(choices=TransportBodyType.choices, required=True)
     transport_condition = serializers.ChoiceField(choices=TransportCondition.choices, required=True)
     transport_passengers_quality = serializers.IntegerField(required=True, allow_null=False)
+    transport_commission = serializers.IntegerField(required=True, allow_null=False)
 
     class Meta:
         model = Advertisement
@@ -61,4 +64,5 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
             "transport_condition",
             "transport_passengers_quality",
             "transport_vin",
+            "transport_commission",
         )

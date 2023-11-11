@@ -5,7 +5,7 @@ import { Pagination } from '../../features/pagination';
 import { categories } from '../../shared/const/categories';
 import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
 import { HorizontalMixer } from '../../shared/ui/icons/icons-tools/HorizontalMixer';
-import { AnyCategory, SettingAdvertsForm } from '../../widgets/index';
+import { AnyCategory, SettingRealtyForm, SettingTransportForm } from '../../widgets/index';
 import './style/category-page.scss';
 import './style/1024-1439-category-page.scss';
 import './style/768-1023-category-page.scss';
@@ -88,7 +88,8 @@ export const CategoryPage = () => {
                             : filterFormStyleDesctop
                     }
                 >
-                    <SettingAdvertsForm setShowFilters={setShowFilters} />
+                    {category === 'realty' && <SettingRealtyForm setShowFilters={setShowFilters} />}
+                    {category === 'transport' && <SettingTransportForm setShowFilters={setShowFilters} />}
                 </div>
                 <AnyCategory />
             </div>

@@ -1,8 +1,8 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeSettingAdverts } from '../../widgets/settingForm/TypeSettingAdverts';
+import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/TypeSettingRealty';
 
 interface Props {
-    register: UseFormRegister<TypeSettingAdverts>;
+    register: UseFormRegister<TypeSettingRealty>;
 }
 
 export const Bathroom = ({ register }: Props) => {

@@ -2,7 +2,7 @@ from django.db.models import TextChoices
 
 
 class JobDurationType(TextChoices):
-    ONE_TIME_TASK = "OneTimeTask", "Разовое задание"
+    ONE_TIME_TASK = "one_time_task", "Разовое задание"
     TEMPORARY = "temporary", "Временная работа"
     PERMANENT = "permanent", "Постоянная работа"
     OTHER = "other", "Другое"

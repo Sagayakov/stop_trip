@@ -7,7 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from users.models import User
 from .constants import CategoryChoices
-from .filters.transportfilter import TransportFilter
+from .filters import AdvertisementFilter
 from .models import Advertisement
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
@@ -35,7 +35,7 @@ class AdvertisementModelViewSet(ModelViewSet):
         "list": [AllowAny],
         "retrieve": [AllowAny],
     }
-    filterset_class = TransportFilter
+    filterset_class = AdvertisementFilter
 
     def get_queryset(self):
         queryset = Advertisement.objects.filter(is_published=True)

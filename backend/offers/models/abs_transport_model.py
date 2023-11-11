@@ -119,6 +119,7 @@ class AbsTransport(models.Model):
         "Кол-во пассажиров", null=True, blank=True
     )
     transport_vin = models.CharField("VIN-номер", max_length=17, null=True, blank=True)
+    transport_commission = models.PositiveSmallIntegerField("Комиссия", null=True, blank=True)
 
     class Meta:
         abstract = True
