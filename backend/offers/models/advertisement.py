@@ -35,6 +35,7 @@ class Advertisement(
     class Meta:
         verbose_name = "Объявление"
         verbose_name_plural = "Объявления"
+        ordering = ("-date_create",)
         # constraints = [
         #     # у пользователя не может быть несколько объявлений на одну и ту же валютную пару
         #     models.UniqueConstraint(
