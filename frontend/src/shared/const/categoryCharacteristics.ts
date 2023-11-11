@@ -1,0 +1,137 @@
+export const categoryCharacteristicsKeys = {
+    transport: {
+        transport_engine_type: 'Тип двигателя',
+        transport_drive_type: 'Привод',
+        transport_engine_volume: 'Объём',
+        transport_year_of_production: 'Год производства',
+        transport_transmission_type: 'Тип коробки передач',
+        transport_body_type: 'Тип кузова',
+        transport_condition: 'Состояние',
+        transport_passengers_quality: 'Количество пассажиров',
+    },
+    property: {
+        property_building_max_floor: 'Количество этажей в доме',
+        property_floor: 'Номер этажа',
+        property_bathroom_count: 'Количество санузлов',
+        property_bathroom_type: 'Тип санузла',
+        property_area: 'Общая площадь',
+        property_living_area: 'Жилая площадь',
+        property_balcony: 'Балкон',
+        property_has_furniture: 'Мебель',
+        property_amenities: 'Удобства',
+        property_house_type: 'Тип дома',
+        property_has_parking: 'Есть парковка',
+        property_rental_condition: 'Условия аренды',
+        property_prepayment: 'Предоплата',
+        property_sleeping_places: 'Количество спальных мест',
+    },
+    taxi: {
+        taxi_unit: 'Единица измерения',
+    },
+    job: {
+        job_duration: 'Продолжительность работы',
+        job_payment_type: 'Тип оплаты',
+        job_experience: 'С опытом',
+    },
+    event: {
+        start_date: 'Дата начала',
+        end_date: 'Дата окончания',
+        is_online: 'Онлайн',
+    },
+    service: {
+        home_visit: 'Выезд на дом',
+    },
+    exchange_rate: {
+        proposed_currency: 'Предлагаемая валюта',
+        exchange_for: 'Обмен на',
+        exchange_rate: 'Курс',
+    },
+};
+
+export const categoryCharacteristicsValues = {
+    transport: {
+        transport_engine_type: {
+            fuel: 'Бензин',
+            diesel: 'Дизель',
+            gas: 'Газ',
+            electric: 'Электричество',
+            hybrid: 'Гибрид',
+        },
+        transport_drive_type: {
+            front_wheel: 'Передний',
+            rear_wheel: 'Задний',
+            all_wheel: 'Постоянный полный',
+            four_wheel: 'Подключаемый полный',
+        },
+        transport_transmission_type: {
+            mechanic: 'Механическая',
+            automatic: 'Автоматическая',
+            robot: 'Робот',
+        },
+        transport_body_type: {
+            sedan: 'Седан',
+            liftback: 'Лифтбэк',
+            coupe: 'Купе',
+            convertible: 'Кабриолет',
+            hatchback: 'Хэтчбэк',
+            SUV: 'Внедорожник',
+            limousine: 'Лимузин',
+            pickup: 'Пикап',
+        },
+        transport_condition: {
+            new: 'Новый',
+            used: 'Б/у',
+            salvage: 'Аварийный',
+            spare: 'На запчасти',
+        },
+    },
+    property: {
+        property_bathroom_type: {
+            combined: 'Совмещённый',
+            separate: 'Раздельный',
+        },
+        property_house_type: {
+            panel: 'Панельный',
+            brick: 'Кирпичный',
+            wooden: 'Деревянный',
+            block: 'Блочный',
+        },
+        property_rental_condition: {
+            family: 'Семье',
+            alone: 'Для одного',
+            girls: 'Девушке',
+            office: 'Под офис',
+            students: 'Студентам',
+            not_companies: 'Не компаниям',
+        },
+        property_prepayment: {
+            without: 'Без предоплаты',
+            month: 'Месяц',
+            two_months: 'Два месяца',
+            three_months: 'Три месяца',
+            half_a_year: 'Полгода',
+        },
+    },
+    taxi: {
+        taxi_unit: {
+            km: 'км',
+            hour: 'час',
+            route: 'маршрут',
+        },
+    },
+    job: {
+        job_duration: {
+            OneTimeTask: 'Разовое задание',
+            temporary: 'Временная работа',
+            permanent: 'Постоянная работа',
+            other: 'Другое',
+        },
+        job_payment_type: {
+            hourly_payment: 'Почасовая оплата',
+            daily_payment: 'Ежедневная оплата',
+            weekly_payment: 'Еженедельная оплата',
+            monthky_payment: 'Ежемесячная оплата',
+            other: 'Другое',
+        },
+    },
+};
