@@ -23,15 +23,21 @@ class AbsProperty(models.Model):
     property_building_max_floor = models.PositiveSmallIntegerField(
         verbose_name="Количество этажей в доме", null=True, blank=True
     )
-    property_floor = models.PositiveSmallIntegerField(verbose_name="Номер этажа", null=True, blank=True)
+    property_floor = models.PositiveSmallIntegerField(
+        verbose_name="Номер этажа", null=True, blank=True
+    )
     property_bathroom_count = models.PositiveSmallIntegerField(
         verbose_name="Количество санузлов", null=True, blank=True
     )
     property_bathroom_type = models.CharField(
         "Тип санузла", max_length=100, choices=PropertyBathroomType.choices, blank=True
     )
-    property_area = models.PositiveSmallIntegerField(verbose_name="Общая площадь", null=True, blank=True)
-    property_living_area = models.PositiveSmallIntegerField(verbose_name="Жилая площадь", null=True, blank=True)
+    property_area = models.PositiveSmallIntegerField(
+        verbose_name="Общая площадь", null=True, blank=True
+    )
+    property_living_area = models.PositiveSmallIntegerField(
+        verbose_name="Жилая площадь", null=True, blank=True
+    )
     property_balcony = models.CharField(
         "Балкон", max_length=50, choices=PropertyBalcony.choices, blank=True
     )
@@ -53,7 +59,7 @@ class AbsProperty(models.Model):
         verbose_name="Количество спальных мест", null=True, blank=True
     )
     property_rooms_count = models.PositiveSmallIntegerField(
-         verbose_name="Количество комнат", null=True, blank=True
+        verbose_name="Количество комнат", null=True, blank=True
     )
 
     class Meta:

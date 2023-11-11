@@ -1,7 +1,8 @@
 import datetime
 from functools import partial
-from django.utils.timezone import now
+
 from django.urls import reverse
+from django.utils.timezone import now
 from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -29,6 +30,7 @@ from offers.constants import (
     JobDurationType,
 )
 from offers.models import Advertisement
+from users.tests.factories import UserFactory
 from .factories import (
     PropertyAdvertisementFactory,
     PropertyAmenityFactory,
@@ -43,7 +45,6 @@ from .factories import (
     ExchangeAdvertisementFactory,
     CurrencyFactory,
 )
-from users.tests.factories import UserFactory
 
 
 @mark.django_db
@@ -1316,7 +1317,9 @@ class AdvertisementViewSetTest(APITestCase):
                 price=100_000 + _ * 50_000,
                 job_type=JobType.FULL_TIME,
                 job_duration=JobDurationType.ONE_TIME_TASK,
-                job_payment_type=[JobPaymentType.HOURLY_PAYMENT, JobPaymentType.WEEKLY_PAYMENT][_ % 2],
+                job_payment_type=[JobPaymentType.HOURLY_PAYMENT, JobPaymentType.WEEKLY_PAYMENT][
+                    _ % 2
+                ],
                 job_experience=True,
             )
             for _ in range(2)
@@ -1341,7 +1344,7 @@ class AdvertisementViewSetTest(APITestCase):
                 job_type=JobType.FULL_TIME,
                 job_duration=JobDurationType.ONE_TIME_TASK,
                 job_payment_type=JobPaymentType.HOURLY_PAYMENT,
-                job_experience=[True, False][_ % 2]
+                job_experience=[True, False][_ % 2],
             )
             for _ in range(2)
         ]
@@ -1422,15 +1425,16 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_filter_event_start_date(self):
         user = UserFactory()
+        start_date = datetime.datetime.strptime("2023-11-06 00:00:00", "%Y-%m-%d %H:%M:%S")
+        end_date = datetime.datetime.strptime("2023-11-07 00:00:00", "%Y-%m-%d %H:%M:%S")
         events_set = [
             EventAdvertisementFactory(
                 owner=user,
                 category=CategoryChoices.EVENT.value,
                 price=100_000 + _ * 50_000,
-                start_date="2023-11-6 00:00:00",
-                end_date="2023-11-7 00:00:00",
-                is_online=True
-
+                start_date=start_date,
+                end_date=end_date,
+                is_online=True,
             )
             for _ in range(2)
         ]
@@ -1438,7 +1442,7 @@ class AdvertisementViewSetTest(APITestCase):
         with self.assertNumQueries(2):
             res = self.client.get(
                 self.list_url,
-                {"start_date": "2023-11-6 00:00:00"},
+                {"start_date": str(start_date)},
             )
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -1447,15 +1451,16 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_filter_event_end_date(self):
         user = UserFactory()
+        start_date = datetime.datetime.strptime("2023-11-06 00:00:00", "%Y-%m-%d %H:%M:%S")
+        end_date = datetime.datetime.strptime("2023-11-07 00:00:00", "%Y-%m-%d %H:%M:%S")
         events_set = [
             EventAdvertisementFactory(
                 owner=user,
                 category=CategoryChoices.EVENT.value,
                 price=100_000 + _ * 50_000,
-                start_date="2023-12-6 00:00:00",
-                end_date="2023-12-7 00:00:00",
-                is_online=True
-
+                start_date=start_date,
+                end_date=end_date,
+                is_online=True,
             )
             for _ in range(2)
         ]
@@ -1463,7 +1468,7 @@ class AdvertisementViewSetTest(APITestCase):
         with self.assertNumQueries(2):
             res = self.client.get(
                 self.list_url,
-                {"end_date": "2023-12-7 00:00:00"},
+                {"end_date": str(end_date)},
             )
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -1472,15 +1477,16 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_filter_event_is_online(self):
         user = UserFactory()
+        start_date = datetime.datetime.strptime("2023-11-06 00:00:00", "%Y-%m-%d %H:%M:%S")
+        end_date = datetime.datetime.strptime("2023-11-07 00:00:00", "%Y-%m-%d %H:%M:%S")
         events_set = [
             EventAdvertisementFactory(
                 owner=user,
                 category=CategoryChoices.EVENT.value,
                 price=100_000 + _ * 50_000,
-                start_date="2023-12-5 00:00:00",
-                end_date="2023-12-5 00:00:00",
-                is_online=[True, False][_ % 2]
-
+                start_date=start_date,
+                end_date=end_date,
+                is_online=[True, False][_ % 2],
             )
             for _ in range(2)
         ]

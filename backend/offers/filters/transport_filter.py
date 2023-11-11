@@ -13,6 +13,8 @@ from ..constants import (
 
 
 class TransportFilter(FilterSet):
+    """Фильтры транспорта."""
+
     transport_type_of_service = filters.ChoiceFilter(
         label="Тип услуги", choices=TransportTypeOfService.choices
     )

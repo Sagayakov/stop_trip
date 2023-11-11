@@ -5,9 +5,7 @@ from offers.constants import TaxiUnit
 
 
 class TaxiFilter(FilterSet):
-    taxi_unit = filters.ChoiceFilter(
-        label="Единица измерения", choices=TaxiUnit.choices
-    )
-    taxi_type = filters.ChoiceFilter(
-        label="Вид такси", choices=TaxiType.choices
-    )
+    """Фильтры такси."""
+
+    taxi_unit = filters.ChoiceFilter(label="Единица измерения", choices=TaxiUnit.choices)
+    taxi_type = filters.ChoiceFilter(label="Вид такси", choices=TaxiType.choices)

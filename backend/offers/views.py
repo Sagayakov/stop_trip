@@ -7,7 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from users.models import User
 from .constants import CategoryChoices
-from .filters.advertisement_filter import AdvertisementFilter
+from .filters import AdvertisementFilter
 from .models import Advertisement
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
@@ -94,4 +94,3 @@ class AdvertisementModelViewSet(ModelViewSet):
         serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
         serializer.save()  # todo оптимизация создания M2M связей
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-

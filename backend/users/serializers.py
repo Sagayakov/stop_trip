@@ -10,9 +10,10 @@ class UserSerializer(UserCreateSerializer):
 
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ("id",
-                  "phone",
-                  "email",
-                  "password",
-                  "full_name",
-                  )
+        fields = (
+            "id",
+            "phone",
+            "email",
+            "password",
+            "full_name",
+        )
