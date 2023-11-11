@@ -63,3 +63,5 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
             "property_sleeping_places",
             "property_rooms_count",
         )
+
+

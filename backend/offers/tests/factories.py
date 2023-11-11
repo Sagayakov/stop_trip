@@ -87,6 +87,15 @@ class PropertyDistrictFactory(factory.django.DjangoModelFactory):
         model = PropertyDistrict
 
 
+class PropertyAmenityFactory(factory.django.DjangoModelFactory):
+    """Фабрика удобств."""
+
+    name = factory.Faker("word")
+
+    class Meta:
+        model = PropertyAmenity
+
+
 class PropertyAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по недвижимости."""
 
@@ -108,15 +117,6 @@ class PropertyAdvertisementFactory(BaseAdvertisementFactory):
     property_prepayment = fuzzy.FuzzyChoice(choices=PropertyPrepayment.values)
     property_sleeping_places = factory.Faker("pyint", min_value=1, max_value=8)
     property_rooms_count = factory.Faker("pyint", min_value=1, max_value=5)
-
-
-class PropertyAmenityFactory(factory.django.DjangoModelFactory):
-    """Фабрика удобств."""
-
-    name = factory.Faker("word")
-
-    class Meta:
-        model = PropertyAmenity
 
 
 class TaxiAdvertisementFactory(BaseAdvertisementFactory):
