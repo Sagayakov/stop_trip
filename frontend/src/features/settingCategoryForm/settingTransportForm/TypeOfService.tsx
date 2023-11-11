@@ -25,7 +25,7 @@ export const TypeOfService = ({ register /*watch*/ }: Props) => {
             <div className="setting-typeOfService">
                 <label className="form-checkbox">
                     <input
-                        type="radio"
+                        type="checkbox"
                         {...register('typeOfService')}
                         value="Аренда"
                     />
@@ -33,7 +33,7 @@ export const TypeOfService = ({ register /*watch*/ }: Props) => {
                 </label>
                 <label className="form-checkbox">
                     <input
-                        type="radio"
+                        type="checkbox"
                         {...register('typeOfService')}
                         value="Продажа"
                     />

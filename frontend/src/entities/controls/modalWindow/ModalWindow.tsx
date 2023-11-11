@@ -10,6 +10,10 @@ interface Props {
 
 export const ModalWindow = ({ showModal, setShowModal }: Props) => {
     const navigate = useNavigate();
+    const navigateAndClose = (el) => {
+        setShowModal(false);
+        navigate(`/${el[0]}`);
+    };
 
     return (
         <div
@@ -26,7 +30,10 @@ export const ModalWindow = ({ showModal, setShowModal }: Props) => {
                         <div
                             key={el[0]}
                             className="modal-category"
-                            onClick={() => navigate(`/${el[0]}`)}
+                            onClick={() =>
+                                navigateAndClose(el)
+                            }
+                            // onClick={() => navigate(`/${el[0]}`)}
                         >
                             <span>{el[1].description}</span>
                             <ArrowRight color="#1C1C1E" />

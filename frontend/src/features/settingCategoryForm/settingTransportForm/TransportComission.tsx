@@ -13,8 +13,8 @@ export const TransportComission = ({ register }: Props) => {
             <h3>Комиссия</h3>
             <div className="select-transportComission">
                 <input
-                    id="input-select-transportComission"
-                    placeholder='1-100?'
+                    // id="input-select-transportComission"
+                    placeholder='Желаемая комиссия'
                     type="number"
                     {...register('commission')}
                 />

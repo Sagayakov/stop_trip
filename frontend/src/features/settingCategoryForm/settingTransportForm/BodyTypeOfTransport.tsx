@@ -1,61 +1,65 @@
-import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
-import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
-import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
-import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import { Control, Controller, UseFormSetValue } from 'react-hook-form';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+import {
+    SelectOption,
+    TypeSettingTransport,
+} from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
-import { toggleDropdown } from './reducer/transportFormDropdown';
 
 interface Props {
-    register: UseFormRegister<TypeSettingTransport>;
-    watch: UseFormWatch<TypeSettingTransport>;
+    control: Control<TypeSettingTransport, string[]>;
+    setValue: UseFormSetValue<TypeSettingTransport>;
 }
 
-export const BodyTypeOfTransport = ({ register, watch }: Props) => {
-    const bodyType = watch('bodyType');
-    const arrOfValue = valuesOfTransportForm.bodyType;
+export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
+    const bodyTypeValue = valuesOfTransportForm.bodyType;
+    const animated = makeAnimated();
 
-    const showDropDown = useAppSelector(
-        (state) => state.transportFormDropdown.bodyType
-    );
-    const dispatch = useAppDispatch();
+    const handleChange = (
+        selectedOptions: SelectOption | SelectOption[] | null
+    ) => {
+        if (selectedOptions) {
+            const optionsArray = Array.isArray(selectedOptions)
+                ? selectedOptions
+                : [selectedOptions];
+            const selectedValues = optionsArray
+                .map((option) => option?.value)
+                .filter(Boolean);
+            setValue('bodyType', selectedValues);
+        }
+    };
 
     return (
         <div className="bodyType">
-            {showDropDown && (
-                <div
-                    className="typeOfService-background"
-                    onClick={() => dispatch(toggleDropdown('bodyType'))}
-                />
-            )}
             <h3>Тип кузова</h3>
-            <div
-                className="select-transportFilter"
-                onClick={() => dispatch(toggleDropdown('bodyType'))}
-            >
-                {bodyType || 'Не выбрано'}
-                {showDropDown ? (
-                    <ArrowTop color="#1C1C1E" />
-                ) : (
-                    <ArrowDown color="#1C1C1E" />
+            <Controller
+                name="bodyType"
+                control={control}
+                render={({ field }) => (
+                    <Select
+                        {...field}
+                        classNamePrefix="filterTransporForm"
+                        id="bodyType"
+                        components={animated}
+                        placeholder="Тип кузова"
+                        closeMenuOnSelect={false}
+                        isMulti={true}
+                        options={bodyTypeValue}
+                        onChange={(selectedOptions) => {
+                            handleChange(
+                                selectedOptions as
+                                    | SelectOption
+                                    | SelectOption[]
+                                    | null
+                            );
+                        }}
+                        value={bodyTypeValue.filter((option) =>
+                            field.value?.includes(option.value)
+                        )}
+                    />
                 )}
-            </div>
-            {showDropDown && (
-                <div className="select-settingFormFilter-dropdown-height-limited">
-                    {arrOfValue.map((el) => (
-                        <label key={el}>
-                            <input
-                                type="radio"
-                                value={el}
-                                {...register('bodyType')}
-                            />
-                            {el}
-                            {bodyType === el && <Jackdaw />}
-                        </label>
-                    ))}
-                </div>
-            )}
+            />
         </div>
     );
 };

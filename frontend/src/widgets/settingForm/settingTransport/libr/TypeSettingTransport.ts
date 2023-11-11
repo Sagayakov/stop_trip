@@ -1,49 +1,34 @@
 export interface TypeSettingTransport {
     typeOfService: TypeOfServise;
     typeOfTransport: TypeOfTransport;
-    transportationCategory: TransportationCategory;
-    mark: Mark;
-    model: Model;
-    engineType: EngineType;
-    engineСapacity: string[];
+    transportationCategory: string[];
+    mark: string[];
+    model: string[];
+    engineType: string[];
+    engineСapacity: EngineCapacity;
     drive: Drive;
-    yearOfProduction: string[];
-    transmissionType: TransmissoinType;
-    bodyType: BodyType;
+    yearOfProduction: YearOfProduction;
+    transmissionType: TransmissionType;
+    bodyType: string[];
     condition: Condition;
-    passengerCapacity: number;
-    commission: number
+    commission: number;
 }
-
+export interface SelectOption {
+    value: string;
+    label: string;
+}
 type TypeOfServise = 'Аренда' | 'Продажа'
 
 type TypeOfTransport = 'Наземный' | 'Водный'
+type Drive = 'Передний' | 'Задний' | 'Постоянный полный' | 'Полный подключаемый'
+interface EngineCapacity{
+    min: number
+    max: number
+}
+type TransmissionType = 'МКПП' | 'АКПП' | 'Робот'
+interface YearOfProduction{
+    min: number
+    max: number
+}
 
-type TransportationCategory =
-    'Не выбрано'
-    | 'Мотоцикл'
-    | 'Мопед'
-    | 'Легковой автомобиль'
-    | 'Грузовой автомобиль'
-    | 'Автобус'
-    | 'Трицикл'
-    | 'Трэйлер'
-    | 'Дом на колесах'
-    | 'Моторная лодка'
-    | 'Вёсельная лодка'
-    | 'Катер'
-    | 'Другое'
-
-type Mark = 'Не выбрано' |'Yamaha'
-
-type Model = 'Не выбрано' | 'Fascino'
-
-type EngineType = 'Не выбрано' | 'Бензиновый' | 'Дизельный' | 'Газовый' | 'Электрический' | 'Гибрид'
-
-type Drive = 'Не выбрано' | 'Передний' | 'Задний' | 'Постоянный полный' | 'Полный подключаемый'
-
-type TransmissoinType = 'Не выбрано' | 'МКПП' | 'АКПП' | 'Робот'
-
-type BodyType = 'Не выбрано' | 'Седан' | 'Хэтчбэк' | 'Лифтбэк' | 'Купе' | 'Кабриолет' | 'Внедорожник' | 'Лимузин' | 'Пикап'
-
-type Condition = 'Не выбрано' | 'Новый' | 'Б/у' | 'Аварийный' | 'На запчасти'
+type Condition = 'Новый' | 'Б/у' | 'Аварийный' | 'На запчасти'

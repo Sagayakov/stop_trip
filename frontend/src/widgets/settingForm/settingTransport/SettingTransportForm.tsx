@@ -7,7 +7,6 @@ import {
     EngineСapacity,
     MarkOfTransport,
     ModelOfTransport,
-    PassengerCapacityOfTransport,
     TransmissionType,
     TransportComission,
     TransportationCategory,
@@ -24,11 +23,11 @@ interface Props {
 }
 
 export const SettingTransportForm = ({ setShowFilters }: Props) => {
-    const { register, handleSubmit, reset, watch } =
+    const { register, handleSubmit, reset, watch, setValue, control } =
         useForm<TypeSettingTransport>();
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
-    }
+    };
 
     const onsubmit: SubmitHandler<TypeSettingTransport> = (data) => {
         console.log(data);
@@ -45,24 +44,27 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
             <form
                 className="filter-transport-form"
                 onSubmit={handleSubmit(onsubmit)}
+                autoComplete='off'
             >
                 <TypeOfService register={register} watch={watch} />
                 <TypeOfTransport register={register} watch={watch} />
-                <TransportationCategory register={register} watch={watch} />
-                <MarkOfTransport register={register} watch={watch} />
-                <ModelOfTransport register={register} watch={watch} />
-                <EngineType register={register} watch={watch} />
-                <EngineСapacity register={register} watch={watch} />
-                <DriveType register={register} watch={watch} />
-                <YearOfProduction register={register} watch={watch} />
-                <TransmissionType register={register} watch={watch} />
-                <BodyTypeOfTransport register={register} watch={watch} />
-                <ConditionOfTransport register={register} watch={watch} />
-                <PassengerCapacityOfTransport
+                <TransportationCategory setValue={setValue} control={control}/>
+                <MarkOfTransport setValue={setValue} control={control} />
+                <ModelOfTransport
                     register={register}
                     watch={watch}
+                    setValue={setValue}
+                    control={control}
                 />
+                <EngineType setValue={setValue} control={control} />
+                <EngineСapacity register={register} />
+                <DriveType register={register} setValue={setValue} />
+                <YearOfProduction register={register} />
+                <TransmissionType register={register} />
+                <BodyTypeOfTransport setValue={setValue} control={control} />
+                <ConditionOfTransport register={register} setValue={setValue} />
                 <TransportComission register={register} />
+                <div></div>
                 <input type="submit" value="Показать 100 объявлений" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
