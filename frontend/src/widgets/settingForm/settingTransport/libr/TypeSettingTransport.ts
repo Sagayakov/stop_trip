@@ -2,8 +2,8 @@ export interface TypeSettingTransport {
     typeOfService: TypeOfServise;
     typeOfTransport: TypeOfTransport;
     transportationCategory: string[];
-    mark: string | SelectOption;
-    model: string | SelectOption;
+    mark: string[];
+    model: string[];
     engineType: string[];
     engineСapacity: EngineCapacity;
     drive: Drive;

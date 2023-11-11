@@ -1,9 +1,4 @@
-import {
-    Control,
-    Controller,
-    UseFormRegister,
-    UseFormSetValue,
-} from 'react-hook-form';
+import { Control, Controller, UseFormSetValue } from 'react-hook-form';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import {
@@ -13,17 +8,26 @@ import {
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
 
 interface Props {
-    register: UseFormRegister<TypeSettingTransport>;
     setValue: UseFormSetValue<TypeSettingTransport>;
     control: Control<TypeSettingTransport, string>;
 }
 
 export const MarkOfTransport = ({ setValue, control }: Props) => {
-    const arrOfValues = valuesOfTransportForm.mark;
+    const markOfTrasportValues = valuesOfTransportForm.mark;
     const animated = makeAnimated();
 
-    const handleChange = ( selectedOptions: SelectOption | null) => {
-        selectedOptions && setValue('mark', selectedOptions.value)
+    const handleChange = (
+        selectedOptions: SelectOption | SelectOption[] | null
+    ) => {
+        if (selectedOptions) {
+            const optionsArray = Array.isArray(selectedOptions)
+                ? selectedOptions
+                : [selectedOptions];
+            const selectedValues = optionsArray
+                .map((option) => option?.value)
+                .filter(Boolean);
+            setValue('mark', selectedValues);
+        }
     };
 
     return (
@@ -31,7 +35,6 @@ export const MarkOfTransport = ({ setValue, control }: Props) => {
             <h3>Марка</h3>
             <Controller
                 name="mark"
-                defaultValue=''
                 control={control}
                 render={({ field }) => (
                     <Select
@@ -41,14 +44,13 @@ export const MarkOfTransport = ({ setValue, control }: Props) => {
                         components={animated}
                         placeholder="Выберите марку"
                         isMulti={false}
-                        options={arrOfValues}
-                        onChange={(selectedOptions) => {
-                            handleChange(
-                                selectedOptions as
-                                    SelectOption
-                                    | null
-                            );
+                        options={markOfTrasportValues}
+                        onChange={(selectedOption) => {
+                            handleChange(selectedOption as SelectOption | null);
                         }}
+                        value={markOfTrasportValues.filter((option) =>
+                            field.value?.includes(option.value)
+                        )}
                     />
                 )}
             />

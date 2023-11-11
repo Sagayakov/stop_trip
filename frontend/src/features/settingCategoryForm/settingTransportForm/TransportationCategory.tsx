@@ -1,24 +1,20 @@
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { Control, Controller, UseFormSetValue } from 'react-hook-form';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import {
-    SelectOption,
-    TypeSettingTransport,
-} from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import { SelectOption, TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
-    register: UseFormRegister<TypeSettingTransport>;
+    control: Control<TypeSettingTransport, string[]>;
 }
 
-export const TransportationCategory = ({ setValue, register }: Props) => {
+export const TransportationCategory = ({ setValue, control }: Props) => {
     const transportationCategory = valuesOfTransportForm.transportationCategory;
     const animated = makeAnimated();
 
-    const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
-    ) => {
+    const handleChange = (selectedOptions: SelectOption | SelectOption[] | null) => {
         if (selectedOptions) {
             const optionsArray = Array.isArray(selectedOptions)
                 ? selectedOptions
@@ -27,28 +23,38 @@ export const TransportationCategory = ({ setValue, register }: Props) => {
                 .map((option) => option?.value)
                 .filter(Boolean);
             setValue('transportationCategory', selectedValues);
-        } else {
-            setValue('transportationCategory', []);
         }
     };
 
     return (
         <div className="transportationCategory">
             <h3>Категория транспорта</h3>
-            <Select
-                {...register('transportationCategory')}
-                classNamePrefix="filterTransporForm"
-                id="mark"
-                components={animated}
-                placeholder="Выберите категорию"
-                closeMenuOnSelect={false}
-                isMulti={true}
-                options={transportationCategory}
-                onChange={(selectedOptions) => {
-                    handleChange(
-                        selectedOptions as SelectOption | SelectOption[] | null
-                    );
-                }}
+            <Controller
+                name="transportationCategory"
+                control={control}
+                render={({ field }) => (
+                    <Select
+                        {...field}
+                        classNamePrefix="filterTransporForm"
+                        id="transportationCategory"
+                        components={animated}
+                        placeholder="Выберите категорию"
+                        closeMenuOnSelect={false}
+                        isMulti={true}
+                        options={transportationCategory}
+                        onChange={(selectedOptions) => {
+                            handleChange(
+                                selectedOptions as
+                                    | SelectOption
+                                    | SelectOption[]
+                                    | null
+                            );
+                        }}
+                        value={transportationCategory.filter((option) =>
+                            field.value?.includes(option.value)
+                        )}
+                    />
+                )}
             />
         </div>
     );

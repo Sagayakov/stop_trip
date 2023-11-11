@@ -114,20 +114,19 @@
         }
     }
     .drive,
-    .condition{
+    .condition {
         .select-drive,
-        .select-condition{
+        .select-condition {
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
             gap: 8px 0px;
-
         }
     }
-    .drive{
-        .select-drive{
-            .form-checkbox{
-                span::before{
+    .drive {
+        .select-drive {
+            .form-checkbox {
+                span::before {
                     width: 20px;
                     height: 20px;
                 }
@@ -316,6 +315,15 @@
                     width: 47%;
                 }
             }
+        }
+    }
+}
+@media (min-width: 425px) and (max-width: 767px) {
+    .filter-transport-form {
+        .typeOfService,
+        .typeOfTransport {
+            display: inline-block;
+            width: 50%;
         }
     }
 }

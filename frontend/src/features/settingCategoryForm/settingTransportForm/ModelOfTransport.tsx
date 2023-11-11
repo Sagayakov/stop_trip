@@ -22,13 +22,23 @@ interface Props {
 
 export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
     const markOfTrasport = watch('mark');
-    console.log(markOfTrasport);
+
     const animated = makeAnimated();
-    const arrOfValues = valuesOfTransportForm.model;
+    const modelOfTransportValues = valuesOfTransportForm.model;
     const disabled = markOfTrasport ? false : true;
 
-    const handleChange = (selectedOptions: SelectOption | null) => {
-        selectedOptions && setValue('model', selectedOptions.value)
+    const handleChange = (
+        selectedOptions: SelectOption | SelectOption[] | null
+    ) => {
+        if (selectedOptions) {
+            const optionsArray = Array.isArray(selectedOptions)
+                ? selectedOptions
+                : [selectedOptions];
+            const selectedValues = optionsArray
+                .map((option) => option?.value)
+                .filter(Boolean);
+            setValue('model', selectedValues);
+        }
     };
 
     return (
@@ -37,24 +47,22 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
             <Controller
                 name="model"
                 control={control}
-                defaultValue=''
                 render={({ field }) => (
                     <Select
                         {...field}
                         classNamePrefix="filterTransporForm"
                         id="model"
-                        isDisabled={disabled}
                         components={animated}
                         placeholder="Выберите модель"
+                        isDisabled={disabled}
                         isMulti={false}
-                        options={arrOfValues}
-                        onChange={(selectedOptions) => {
-                            handleChange(
-                                selectedOptions as
-                                    SelectOption
-                                    | null
-                            );
+                        options={modelOfTransportValues}
+                        onChange={(selectedOption) => {
+                            handleChange(selectedOption as SelectOption | null);
                         }}
+                        value={modelOfTransportValues.filter((option) =>
+                            field.value?.includes(option.value)
+                        )}
                     />
                 )}
             />
