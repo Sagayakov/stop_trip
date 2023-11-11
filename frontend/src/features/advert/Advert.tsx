@@ -27,7 +27,7 @@ export const Advert = () => {
         <>
             {data && (
                 <div className="advert-wrapper">
-                    <BreadCrumbs title={data.title} />
+                    <BreadCrumbs data={data} />
                     <h1 className="advert-header">{data.title}</h1>
                     <p>
                         {data.property_city
