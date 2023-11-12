@@ -1,6 +1,6 @@
 import { ProductType } from '../../pages/advertPage/libr/types';
 import './advertLocation.scss';
-import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 type AdvertLocationProps = {
@@ -12,6 +12,9 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
         Number(data.property_coords.split(',')[0]),
         Number(data.property_coords.split(',')[1]),
     ];
+
+    const goaLat = 15.49835602;
+    const goaLng = 73.85502627;
 
     return (
         <div className="location">
@@ -25,11 +28,12 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
                 {propertyLocation && (
                     <MapContainer
                         center={[
-                            propertyLocation[0] || 15.49835602,
-                            propertyLocation[1] || 73.85502627,
+                            propertyLocation[0] || goaLat,
+                            propertyLocation[1] || goaLng,
                         ]}
                         zoom={11}
-                        scrollWheelZoom={false}
+                        scrollWheelZoom={true}
+                        zoomControl
                     >
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -37,10 +41,19 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
                         />
                         <Marker
                             position={[
-                                propertyLocation[0] || 15.49835602,
-                                propertyLocation[1] || 73.85502627,
+                                propertyLocation[0] || goaLat,
+                                propertyLocation[1] || goaLng,
                             ]}
-                        />
+                        >
+                            <Popup>
+                                {data.property_city
+                                    ? `${data.property_city}, ${
+                                          data.property_district ?? ''
+                                      }`
+                                    : `${propertyLocation[0] || goaLat},
+                                    ${propertyLocation[1] || goaLng}`}
+                            </Popup>
+                        </Marker>
                     </MapContainer>
                 )}
             </div>

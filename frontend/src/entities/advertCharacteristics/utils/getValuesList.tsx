@@ -1,5 +1,5 @@
 import { ProductType } from '../../../pages/advertPage/libr/types';
-import { Categories } from 'shared/const/categories';
+import { Categories } from '../../../shared/const/categories';
 import {
     categoryCharacteristicsKeys,
     categoryCharacteristicsValues,

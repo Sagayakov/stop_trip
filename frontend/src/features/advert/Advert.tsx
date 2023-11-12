@@ -14,6 +14,7 @@ export const Advert = () => {
     const { id } = useParams();
     const { data } = useGetAdvertByIdQuery(id!);
     const [date, setDate] = useState<Date | null>(null);
+    console.log(data);
 
     useEffect(() => {
         if (data) {

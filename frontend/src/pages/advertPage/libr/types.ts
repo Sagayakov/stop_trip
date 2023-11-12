@@ -60,4 +60,5 @@ export type ProductType = {
     transport_type_of_service: null | string;
     transport_vin: null | number;
     transport_year_of_production: null | number;
+    transport_comission: null | number;
 };

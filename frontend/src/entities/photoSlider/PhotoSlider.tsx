@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
 import { ArrowRight } from '../../shared/ui/icons/icons-tools/ArrowRight';
 import './photoSlider.scss';
@@ -11,6 +11,9 @@ export const PhotoSlider = () => {
     const { id } = useParams();
     const { data } = useGetAdvertByIdQuery(id!);
     const [activeImage, setActiveImage] = useState(0);
+    const [imageWidth, setImageWidth] = useState<number>(0);
+    const [imageHeight, setImageHeight] = useState<number>(0);
+    const ref = useRef<null | HTMLImageElement>(null);
 
     const handleClickPrev = () => {
         activeImage > 0 && setActiveImage(activeImage - 1);
@@ -27,6 +30,11 @@ export const PhotoSlider = () => {
             ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
             : data.images[activeImage].image;
 
+    const handleOnLoad = () => {
+        setImageWidth(ref.current!.naturalWidth);
+        setImageHeight(ref.current!.naturalHeight);
+    };
+
     return (
         <div className="image-wrapper">
             <div className="active-image">
@@ -34,12 +42,21 @@ export const PhotoSlider = () => {
                     color="white"
                     handleClickPrev={handleClickPrev}
                 />
-                <img src={image} alt="Main image" />
+                <img
+                    src={image}
+                    alt="Main image"
+                    ref={ref}
+                    onLoad={handleOnLoad}
+                />
                 <ArrowRight color="white" handleClickNext={handleClickNext} />
                 <ShareIcon />
                 <Like color="#ff3f25" strokeColor="#1C1C1E" />
-                <img className="blur-left" src={image} alt="Main image" />
-                <img className="blur-right" src={image} alt="Main image" />
+                {imageHeight > imageWidth && (
+                    <img className="blur-left" src={image} alt="Main image" />
+                )}
+                {imageHeight > imageWidth && (
+                    <img className="blur-right" src={image} alt="Main image" />
+                )}
             </div>
             <div className="image-list">
                 {data &&
