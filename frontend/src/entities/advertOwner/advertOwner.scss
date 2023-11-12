@@ -33,6 +33,13 @@
             svg {
                 width: 22px;
                 height: 22px;
+                cursor: pointer;
+            }
+            svg:hover {
+                transform: scale(1.2);
+            }
+            .active-star {
+                transform: scale(1.2);
             }
         }
         p:last-child {
