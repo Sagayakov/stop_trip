@@ -50,7 +50,8 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
                                     ? `${data.property_city}, ${
                                           data.property_district ?? ''
                                       }`
-                                    : 'Индия, Гоа'}
+                                    : `${propertyLocation[0] || goaLat},
+                                    ${propertyLocation[1] || goaLng}`}
                             </Popup>
                         </Marker>
                     </MapContainer>
