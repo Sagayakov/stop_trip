@@ -13,6 +13,7 @@ export const categoryCharacteristicsKeys: Record<
         transport_body_type: 'Тип кузова',
         transport_condition: 'Состояние',
         transport_passengers_quality: 'Количество пассажиров',
+        transport_commission: 'Комиссия',
     },
     property: {
         property_building_max_floor: 'Количество этажей в доме',
