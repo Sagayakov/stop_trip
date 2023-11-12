@@ -79,6 +79,7 @@ export const categoryCharacteristicsValues: Record<
             mechanic: 'Механическая',
             automatic: 'Автоматическая',
             robot: 'Робот',
+            cvt: 'Вариатор',
         },
         transport_body_type: {
             sedan: 'Седан',
