@@ -25,7 +25,7 @@ export const valuesOfTransportForm = {
         { label: 'Гибрид', value: 'Гибрид' },
     ],
     drive: ['Передний', 'Задний', 'Постоянный полный', 'Полный подключаемый'],
-    transmissionType: ['МКПП', 'АКПП', 'Робот'],
+    transmissionType: ['МКПП', 'АКПП', 'Робот', 'Вариатор'],
     bodyType: [
         { label: 'Седан', value: 'Седан' },
         { label: 'Хэтчбэк', value: 'Хэтчбэк' },

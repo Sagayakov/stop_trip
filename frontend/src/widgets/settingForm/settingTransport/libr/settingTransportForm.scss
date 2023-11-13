@@ -93,8 +93,8 @@
                 span::before {
                     content: '';
                     display: inline-block;
-                    width: 14px;
-                    height: 14px;
+                    width: 20px; //14px
+                    height: 20px; //14px
                     flex-shrink: 0;
                     flex-grow: 0;
                     border-radius: 4px;
@@ -115,25 +115,27 @@
         }
     }
     .drive,
-    .condition {
+    .condition,
+    .transmissionType {
         .select-drive,
-        .select-condition {
+        .select-condition,
+        .select-transmissionType {
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
             gap: 8px 0px;
         }
     }
-    .drive {
-        .select-drive {
-            .form-checkbox {
-                span::before {
-                    width: 20px;
-                    height: 20px;
-                }
-            }
-        }
-    }
+    // .drive {
+    //     .select-drive {
+    //         .form-checkbox {
+    //             span::before {
+    //                 width: 20px;
+    //                 height: 20px;
+    //             }
+    //         }
+    //     }
+    // }
 
     .typeOfService,
     .typeOfTransport,

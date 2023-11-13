@@ -34,13 +34,6 @@
                             white-space: normal;
                             height: auto;
                         }
-                        .type-of-property {
-                            .select-type-of-property {
-                            }
-                            .select-type-of-property-var {
-                                width: 23%;
-                            }
-                        }
 
                         .setting-price {
                             .setting-price-adverts {
@@ -134,75 +127,6 @@
                         .setting-price-adverts {
                             label {
                                 padding: 8px 5.5%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media (min-width: 1321px) and (max-width: 1439px) {
-    main {
-        .filters-adverts {
-            .filter-form {
-                .filters {
-                    .filter-realty-form {
-                        .type-of-property {
-                            .select-type-of-property-var {
-                                width: 23%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-@media (min-width: 1201px) and (max-width: 1320px) {
-    main {
-        .filters-adverts {
-            .filter-form {
-                .filters {
-                    .filter-realty-form {
-                        .type-of-property {
-                            .select-type-of-property-var {
-                                width: 23%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-@media (min-width: 1100px) and (max-width: 1200px) {
-    main {
-        .filters-adverts {
-            .filter-form {
-                .filters {
-                    .filter-realty-form {
-                        .type-of-property {
-                            .select-type-of-property-var {
-                                width: 22.75%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-@media (min-width: 1024px) and (max-width: 1099px) {
-    main {
-        .filters-adverts {
-            .filter-form {
-                .filters {
-                    .filter-realty-form {
-                        .type-of-property {
-                            .select-type-of-property-var {
-                                width: 22.5%;
                             }
                         }
                     }

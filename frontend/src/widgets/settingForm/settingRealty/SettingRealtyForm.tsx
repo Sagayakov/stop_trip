@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
     Bathroom,
@@ -17,13 +16,12 @@ interface Props {
 }
 
 export const SettingRealtyForm = ({ setShowFilters }: Props) => {
-    const [showDropDown, setShowDropDown] = useState<boolean>(false);
+
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
-        setShowDropDown(false);
     };
 
-    const { register, handleSubmit, reset, watch } =
+    const { register, handleSubmit, reset, watch, setValue, control } =
         useForm<TypeSettingRealty>();
 
     const onsubmit: SubmitHandler<TypeSettingRealty> = (data) => {
@@ -43,10 +41,8 @@ export const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
             >
                 <TypeOfProperty
-                    watch={watch}
-                    register={register}
-                    showDropDown={showDropDown}
-                    setShowDropDown={setShowDropDown}
+                    control={control}
+                    setValue={setValue}
                 />
                 <SettingPrice register={register} watch={watch} />
                 <TotalArea register={register} />
