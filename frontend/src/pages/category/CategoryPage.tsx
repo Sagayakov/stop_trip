@@ -88,7 +88,7 @@ export const CategoryPage = () => {
                             : filterFormStyleDesctop
                     }
                 >
-                    {category === 'realty' && <SettingRealtyForm setShowFilters={setShowFilters} />}
+                    {category === 'property' && <SettingRealtyForm setShowFilters={setShowFilters} />}
                     {category === 'transport' && <SettingTransportForm setShowFilters={setShowFilters} />}
                 </div>
                 <AnyCategory />
