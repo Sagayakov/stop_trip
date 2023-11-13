@@ -3,7 +3,8 @@
         width: 100%;
         .filterTransporForm__value-container {
             height: 40px;
-            overflow: scroll;
+            overflow-y: scroll;
+            // overflow-x: hidden;
             // white-space: nowrap;
             // flex-direction: column;
             // .filterTransporForm__input-container{
@@ -146,14 +147,15 @@
     .transmissionType,
     .bodyType,
     .condition,
-    .passengerCapacity,
     .transportComission {
         margin-bottom: 24px;
     }
     .engineСapacity,
-    .yearOfProduction {
+    .yearOfProduction,
+    .transportComission {
         .setting-engineCapacity,
-        .setting-yearOfProduction {
+        .setting-yearOfProduction,
+        .setting-transportComission {
             display: flex;
             justify-content: space-between;
             input[type='text'],
@@ -163,25 +165,6 @@
                 border-radius: var(--radii);
                 padding: 10px;
                 border: none;
-            }
-        }
-    }
-    .passengerCapacity,
-    .transportComission {
-        margin-bottom: 9.5px;
-        .select-passengerCapacity,
-        .select-transportComission {
-            width: 100%;
-            #input-select-passengerCapacity,
-            #input-select-transportComission {
-                width: 51%;
-                border: none;
-                height: none;
-            }
-            p {
-                color: var(--error);
-                font-size: 12px;
-                height: 14.5px;
             }
         }
     }
@@ -230,9 +213,11 @@
 @media (min-width: 1024px) and (max-width: 1439px) {
     .filter-transport-form {
         .engineСapacity,
-        .yearOfProduction {
+        .yearOfProduction,
+        .transportComission {
             .setting-engineCapacity,
-            .setting-yearOfProduction {
+            .setting-yearOfProduction,
+            .setting-transportComission {
                 input[type='text'],
                 input[type='number'] {
                     width: 42%;
@@ -259,7 +244,6 @@
         .transmissionType,
         .bodyType,
         .condition,
-        .passengerCapacity,
         .transportComission,
         .reset-setting-form,
         input[type='submit'] {
@@ -267,23 +251,14 @@
             justify-self: center;
         }
         .engineСapacity,
-        .yearOfProduction {
+        .yearOfProduction,
+        .transportComission {
             .setting-engineCapacity,
-            .setting-yearOfProduction {
+            .setting-yearOfProduction,
+            .setting-transportComission {
                 input[type='text'],
                 input[type='number'] {
                     width: 119.5px;
-                }
-            }
-        }
-        .passengerCapacity,
-        .transportComission {
-            .select-passengerCapacity,
-            .select-transportComission {
-                width: 85%;
-                #input-select-passengerCapacity,
-                #input-select-transportComission {
-                    width: 60%;
                 }
             }
         }
@@ -295,7 +270,8 @@
         .engineСapacity,
         .yearOfProduction {
             .setting-engineCapacity,
-            .setting-yearOfProduction {
+            .setting-yearOfProductionб
+            .setting-transportComission {
                 input[type='text'],
                 input[type='number'] {
                     width: 44%;
@@ -307,9 +283,11 @@
 @media (max-width: 767px) {
     .filter-transport-form {
         .engineСapacity,
-        .yearOfProduction {
+        .yearOfProduction,
+        .transportComission {
             .setting-engineCapacity,
-            .setting-yearOfProduction {
+            .setting-yearOfProduction,
+            .setting-transportComission {
                 input[type='text'],
                 input[type='number'] {
                     width: 47%;
