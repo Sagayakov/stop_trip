@@ -29,6 +29,7 @@ main {
         margin: auto;
         gap: 16px;
         .filter-form {
+            width: calc(25% - 16px);
             .filters {
                 width: 100%;
                 border-radius: 16px;

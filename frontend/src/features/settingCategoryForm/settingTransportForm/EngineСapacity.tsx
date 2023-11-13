@@ -15,18 +15,16 @@ export const EngineСapacity = ({ register }: Props) => {
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
                     {...register('engineСapacity.min')}
-                    min={1}
-                    max={10}
-                    placeholder="От 1"
+                    min="0"
+                    placeholder="От"
                 />
                 <input
                     type="text"
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
                     {...register('engineСapacity.max')}
-                    min={1}
-                    max={10}
-                    placeholder="До 10"
+                    min="0.5"
+                    placeholder="До"
                 />
             </div>
         </div>
