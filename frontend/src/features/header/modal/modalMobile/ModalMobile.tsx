@@ -7,6 +7,7 @@ import { Message } from '../../../../shared/ui/icons/icons-tools/Message';
 import { Setting } from '../../../../shared/ui/icons/icons-tools/Setting';
 import './modalMobile.scss';
 import { clearTokensFromCookies } from '../../../../app/cookie/cookieAuth';
+import { useEffect, useState } from 'react';
 
 interface Props {
     showUserMenu: boolean;
@@ -16,14 +17,24 @@ interface Props {
 export const ModalMobile = (props: Props) => {
     const { showUserMenu, setShowUserMenu } = props;
     const dispatch: Dispatch = useAppDispatch();
+    const [width, setWidth] = useState<number>(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const handleLogout = () => {
-        dispatch(setIsAuth(false))
-        setShowUserMenu(false)
-        clearTokensFromCookies()
-        sessionStorage.clear()
-        localStorage.removeItem('rememberMe')
-    }
+        dispatch(setIsAuth(false));
+        setShowUserMenu(false);
+        clearTokensFromCookies();
+        sessionStorage.clear();
+        localStorage.removeItem('rememberMe');
+    };
 
     return (
         <div
@@ -52,12 +63,14 @@ export const ModalMobile = (props: Props) => {
                         <Setting color="#1C1C1E" stroke="#1C1C1E" />
                         <p className="user-option-text">Настройки</p>
                     </div>
-                    <div className="language-auth">
-                        <div className="language">
-                            <div className="language-ru">RU</div>
-                            <div className="language-eng">ENG</div>
+                    {width < 767 && (
+                        <div className="language-auth">
+                            <div className="language">
+                                <div className="language-ru">RU</div>
+                                <div className="language-eng">ENG</div>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
                 <p onClick={handleLogout}>Выход</p>
             </div>

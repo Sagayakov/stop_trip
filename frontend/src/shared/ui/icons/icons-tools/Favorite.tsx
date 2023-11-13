@@ -1,5 +1,5 @@
 interface Props {
-    addToFavorite: () => void;
+    addToFavorite?: () => void;
     color?: string;
     strokeColor?: string;
 }
