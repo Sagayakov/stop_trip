@@ -44,11 +44,11 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
             <form
                 className="filter-transport-form"
                 onSubmit={handleSubmit(onsubmit)}
-                autoComplete='off'
+                autoComplete="off"
             >
                 <TypeOfService register={register} watch={watch} />
                 <TypeOfTransport register={register} watch={watch} />
-                <TransportationCategory setValue={setValue} control={control}/>
+                <TransportationCategory setValue={setValue} control={control} />
                 <MarkOfTransport setValue={setValue} control={control} />
                 <ModelOfTransport
                     register={register}
@@ -64,7 +64,6 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
                 <BodyTypeOfTransport setValue={setValue} control={control} />
                 <ConditionOfTransport register={register} setValue={setValue} />
                 <TransportComission register={register} />
-                <div></div>
                 <input type="submit" value="Показать 100 объявлений" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
