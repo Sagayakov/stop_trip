@@ -5,12 +5,30 @@
 
         .bread-crumbs {
             width: 85%;
-            margin: 0 auto;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            a{
+                display: flex;
+            }
+            .filter-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--main-black);
+                border-radius: var(--radii);
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                font-family: var(--font-inter);
+                font-weight: 500;
+                padding: 10px 17px;
+            }
         }
 
         h1 {
             width: 85%;
-            margin: 15px auto 25px;
+            margin: 0;
             font-size: 26px;
         }
 
@@ -57,10 +75,10 @@
                         .only-with-photo {
                             width: 80%;
                         }
-                        .realtyComission{
+                        .realtyComission {
                             grid-area: comission;
                         }
-                        .type-of-property{
+                        .type-of-property {
                             grid-area: type;
                         }
                         .setting-price {

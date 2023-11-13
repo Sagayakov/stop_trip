@@ -17,27 +17,36 @@ export const CategoryPage = () => {
     const category = location.pathname.slice(1);
     const description = categories[category].description;
     const [showFilters, setShowFilters] = useState<boolean>(false);
-    const { isMobile, isTablet } = useMatchMedia()
+
+    const { isDesktop } = useMatchMedia()
+
     const filterFormStyleMobile = {
         display: `${showFilters ? 'block' : 'none'}`,
-        backgroundColor: 'rgb(0, 0, 0, 0.7)',
-        zIndex: 10,
-        height: '460vh',
-        width: '100vw',
-        position: 'absolute',
+        height: '115%',//когда добавится пагинация или что-то ниже объявлений, мб немного увеличить
     };
-    const filterFormStyleDesctop = {
-        display: 'block',
-    };
+
     const filterBtnStyle = {
-        display: `${isMobile || isTablet ? 'flex' : 'none'}`,
+        display: `${isDesktop ? 'none' : 'flex'}`,
         backgroundColor: `${showFilters ? '#CDE1FF' : '#EBF3FF'}`,
     };
+
+    const handleClickFilterForm = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.stopPropagation()
+        setShowFilters(false);
+    }
 
     return (
         <>
             <Controls />
-            {isMobile || isTablet ? (
+            {isDesktop ? (
+                <>
+                    <div className="bread-crumbs">
+                        <NavLink to="/">Главная</NavLink>
+                        {` > ${description}`}
+                    </div>
+                    <h1>{description}</h1>
+                </>
+            ) : (
                 <div className="bread-crumbs">
                     <NavLink to="/">
                         <ArrowLeft10x24
@@ -57,23 +66,16 @@ export const CategoryPage = () => {
                         Фильтры
                     </div>
                 </div>
-            ) : (
-                <>
-                    <div className="bread-crumbs">
-                        <NavLink to="/">Главная</NavLink>
-                        {` > ${description}`}
-                    </div>
-                    <h1>{description}</h1>
-                </>
             )}
             <div className="filters-adverts">
                 <div
                     className="filter-form"
-                    onClick={() => setShowFilters(false)} //мб из-за этого пропадает на телефоне фильтр
+                    onClick={handleClickFilterForm} // убрать, если не поможет
+                    // onClick={() => setShowFilters(false)} //мб из-за этого пропадает на телефоне фильтр
                     style={
-                        isMobile
-                        ? filterFormStyleDesctop
-                        : filterFormStyleMobile
+                        isDesktop
+                            ? {display: "block"}
+                            : filterFormStyleMobile
                     }
                 >
                     {category === 'property' && (

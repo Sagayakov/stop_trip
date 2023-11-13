@@ -28,6 +28,7 @@ main {
         width: 100%;
         margin: auto;
         gap: 16px;
+        position: relative; //чтобы темный фон открытых фильтров был на всю высоту родителя
         .filter-form {
             width: calc(25% - 16px);
             .filters {
