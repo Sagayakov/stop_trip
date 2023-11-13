@@ -25,7 +25,7 @@ interface EngineCapacity{
     min: number
     max: number
 }
-type TransmissionType = 'МКПП' | 'АКПП' | 'Робот'
+type TransmissionType = 'МКПП' | 'АКПП' | 'Робот' | 'Вариатор'
 interface YearOfProduction{
     min: number
     max: number
