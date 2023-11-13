@@ -4,7 +4,7 @@ main {
 }
 .advert-wrapper {
     max-width: 1240px;
-    margin: 0px auto 80px;
+    margin: 0 auto 50px;
     .advert-header {
         font-size: 1.63rem;
         margin: 1.5rem 0;
@@ -17,13 +17,14 @@ main {
     .advert-info {
         display: flex;
         justify-content: space-between;
-        gap: 1.3rem;
+        gap: 1rem;
         width: 100%;
+        margin-top: 2rem;
         .product-info {
             display: flex;
             flex-direction: column;
             gap: 1.6rem;
-            width: 64.5%;
+            width: 72%;
             .description {
                 .description-header {
                     margin-bottom: 1rem;
@@ -37,62 +38,62 @@ main {
                 }
             }
         }
-    }
-    .owner-info {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        width: 32.4%;
-        .price-block {
+        .owner-info {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            width: 100%;
-            height: 60px;
-            background-color: var(--main-background);
-            border-radius: 16px;
-            text-align: center;
-            font-size: 16px;
-            color: var(--grey-3);
-            .price {
-                font-size: 30px;
+            flex-direction: column;
+            gap: 12px;
+            width: 28%;
+            .price-block {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+                width: 100%;
+                height: 60px;
+                background-color: var(--main-background);
+                border-radius: 16px;
+                text-align: center;
+                font-size: 16px;
+                color: var(--grey-3);
+                .price {
+                    font-size: 30px;
+                    font-weight: 700;
+                    color: var(--main-blue);
+                }
+            }
+            .public-date {
+                font-size: 14px;
+                color: var(--grey-3);
+                span {
+                    font-weight: 600;
+                }
+            }
+            .call-button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 2.7rem;
+                border: none;
+                border-radius: var(--radii);
+                background-color: var(--main-blue);
+                color: white;
+                font-family: var(--font-sf);
                 font-weight: 700;
+                cursor: pointer;
+            }
+            .write-button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 2.7rem;
+                border: 1px solid var(--main-blue);
+                border-radius: var(--radii);
+                background-color: transparent;
                 color: var(--main-blue);
+                font-family: var(--font-sf);
+                font-weight: 700;
+                cursor: pointer;
             }
-        }
-        .public-date {
-            font-size: 14px;
-            color: var(--grey-3);
-            span {
-                font-weight: 600;
-            }
-        }
-        .call-button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 2.7rem;
-            border: none;
-            border-radius: var(--radii);
-            background-color: var(--main-blue);
-            color: white;
-            font-family: var(--font-sf);
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .write-button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 2.7rem;
-            border: 1px solid var(--main-blue);
-            border-radius: var(--radii);
-            background-color: transparent;
-            color: var(--main-blue);
-            font-family: var(--font-sf);
-            font-weight: 700;
-            cursor: pointer;
         }
     }
 }

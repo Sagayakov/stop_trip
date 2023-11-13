@@ -1,3 +1,4 @@
+import { categorySubTypesDictionary } from '../../../shared/const/categorySubTypesDictionary';
 import { LastAdvertsImages } from '../../../app/api/types/lastAdvertsTypes';
 import { Categories } from '../../../shared/const/categories';
 
@@ -17,7 +18,7 @@ export type ProductType = {
     job_duration: null | string;
     job_experience: boolean;
     job_payment_type: null | string;
-    job_type: null | string;
+    job_type: null | keyof typeof categorySubTypesDictionary;
     owner: number;
     price: null | number;
     property_amenities: string[];
@@ -32,7 +33,7 @@ export type ProductType = {
     property_floor: null | number;
     property_has_furniture: boolean;
     property_has_parking: boolean;
-    property_house_type: string;
+    property_house_type: keyof typeof categorySubTypesDictionary;
     property_living_area: null | string;
     property_prepayment: string;
     property_rental_condition: string;
@@ -42,12 +43,12 @@ export type ProductType = {
     proposed_currency: null | string;
     slug: string;
     start_date: null | string;
-    taxi_type: null | string;
+    taxi_type: null | keyof typeof categorySubTypesDictionary;
     taxi_unit: null | string;
     title: string;
     transport_body_type: null | string;
     transport_brand: null | string;
-    transport_category: null | string;
+    transport_category: null | keyof typeof categorySubTypesDictionary;
     transport_condition: null | string;
     transport_drive_type: null | string;
     transport_engine_type: null | string;
@@ -59,4 +60,5 @@ export type ProductType = {
     transport_type_of_service: null | string;
     transport_vin: null | number;
     transport_year_of_production: null | number;
+    transport_comission: null | number;
 };

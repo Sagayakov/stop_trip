@@ -28,7 +28,9 @@ main {
         width: 100%;
         margin: auto;
         gap: 16px;
+        position: relative; //чтобы темный фон открытых фильтров был на всю высоту родителя
         .filter-form {
+            width: calc(25% - 16px);
             .filters {
                 width: 100%;
                 border-radius: 16px;
@@ -72,7 +74,6 @@ main {
                             font-weight: 700;
                         }
                     }
-                    .select-type-of-property,
                     .setting-price-inputs,
                     .total-area-inputs,
                     .living-space-inputs,
@@ -86,39 +87,42 @@ main {
                         h3 {
                             margin-bottom: 8px;
                         }
-                        .select-type-of-property {
+                        .filterPropertyForm__control {
                             width: 100%;
-                            padding: 8px 16px;
-                            background-color: white;
-                            border-radius: var(--radii);
-                            border: none;
-                            position: relative;
+                            .filterPropertyForm__value-container {
+                                height: 40px;
+                                overflow-y: scroll;
+                            }
                         }
-                        .select-type-of-property-var {
-                            margin-top: 8px;
-                            position: absolute;
-                            width: 246px;
-                            // padding: 16px;
-                            display: flex;
-                            flex-direction: column;
-                            // gap: 20px;
-                            border-radius: var(--radii);
-                            border: none;
-                            background-color: white;
-                            box-shadow: 0px 0px 20px 0px #00000012;
-                            label {
-                                height: 17px;
-                                display: flex;
-                                justify-content: space-between;
-                                align-items: center;
-                                padding: 20px 16px;
-                                input[type="radio"] {
-                                    display: none;
-                                }
-                                &:hover {
-                                    background-color: var(--grey-1);
-                                    border-radius: 4px;
-                                }
+                        .filterPropertyForm__control {
+                            &::-webkit-scrollbar {
+                                width: 2px !important;
+                            }
+                            &::-webkit-scrollbar-thumb {
+                                width: 2px;
+                                background-color: gray !important;
+                            }
+                        }
+                        .filterPropertyForm__input {
+                            height: 25px;
+                            border: none !important;
+                        }
+                        .filterPropertyForm__menu-list {
+                            max-height: 200px;
+                            scrollbar-width: thin !important;
+                            &::-webkit-scrollbar {
+                                width: 4px !important;
+                            }
+                            &::-webkit-scrollbar-thumb {
+                                background-color: gray !important;
+                            }
+                            .filterPropertyForm__option {
+                                cursor: pointer;
+                                color: black;
+                                background: none !important;
+                            }
+                            .filterPropertyForm__option:hover {
+                                background: #deebff !important;
                             }
                         }
                     }
@@ -304,9 +308,9 @@ main {
                         -ms-text-overflow: ellipsis;
                         text-overflow: ellipsis;
                         overflow: hidden;
-                        -ms-line-clamp: 2;
-                        -webkit-line-clamp: 2;
-                        line-clamp: 2;
+                        -ms-line-clamp: 1;
+                        -webkit-line-clamp: 1;
+                        line-clamp: 1;
                         display: -webkit-box;
                         display: box;
                         word-wrap: break-word;

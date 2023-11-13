@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { HalfStar } from '../icons/icons-tools/HalfStar';
 import { Star } from '../icons/icons-tools/Star';
 
@@ -6,16 +7,28 @@ type RatingProps = {
 };
 
 export const Rating = ({ rating }: RatingProps) => {
+    const [activeStar, setActiveStar] = useState(0);
+
     const starsAmount = 5;
     const starArray = new Array(starsAmount).fill(1).map((el, i) => el + i);
 
     return (
         <p aria-label={`Rating is ${rating} out of ${starsAmount}`}>
-            {starArray.map((item) => {
+            {starArray.map((item, i) => {
                 return rating < item ? (
-                    <HalfStar key={item} />
+                    <HalfStar
+                        key={item}
+                        id={i + 1}
+                        activeStar={activeStar}
+                        setActiveStar={setActiveStar}
+                    />
                 ) : (
-                    <Star key={item} />
+                    <Star
+                        key={item}
+                        id={i + 1}
+                        activeStar={activeStar}
+                        setActiveStar={setActiveStar}
+                    />
                 );
             })}
         </p>

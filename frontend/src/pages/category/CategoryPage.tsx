@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 import { Controls } from '../../features/controls';
 import { Pagination } from '../../features/pagination';
 import { categories } from '../../shared/const/categories';
@@ -15,41 +16,29 @@ import './style/min-424-category-page.scss';
 export const CategoryPage = () => {
     const category = location.pathname.slice(1);
     const description = categories[category].description;
-    const [width, setWidth] = useState<number>(window.innerWidth);
     const [showFilters, setShowFilters] = useState<boolean>(false);
+
+    const { isDesktop } = useMatchMedia()
 
     const filterFormStyleMobile = {
         display: `${showFilters ? 'block' : 'none'}`,
-        backgroundColor: 'rgb(0, 0, 0, 0.7)',
-        zIndex: 10,
-        height: '460vh',
-        width: '100vw',
-        position: 'absolute',
+        height: '115%',//когда добавится пагинация или что-то ниже объявлений, мб немного увеличить
     };
-    const filterFormStyleDesctop = {
-        display: 'block',
-    };
+
     const filterBtnStyle = {
-        display: `${width > 767 ? 'none' : 'flex'}`,
+        display: `${isDesktop ? 'none' : 'flex'}`,
         backgroundColor: `${showFilters ? '#CDE1FF' : '#EBF3FF'}`,
     };
 
-    useEffect(() => {
-        const handleResize = () => {
-            setWidth(window.innerWidth);
-            if (window.innerWidth >= 768) {
-                setShowFilters(true);
-            } else {
-                setShowFilters(false);
-            }
-        };
-        window.addEventListener('resize', handleResize);
-    }, [window.innerWidth]);
+    const handleClickFilterForm = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.stopPropagation()
+        setShowFilters(false);
+    }
 
     return (
         <>
             <Controls />
-            {width > 767 ? (
+            {isDesktop ? (
                 <>
                     <div className="bread-crumbs">
                         <NavLink to="/">Главная</NavLink>
@@ -81,15 +70,20 @@ export const CategoryPage = () => {
             <div className="filters-adverts">
                 <div
                     className="filter-form"
-                    onClick={() => setShowFilters(false)}
+                    onClick={handleClickFilterForm} // убрать, если не поможет
+                    // onClick={() => setShowFilters(false)} //мб из-за этого пропадает на телефоне фильтр
                     style={
-                        width <= 767
-                            ? filterFormStyleMobile
-                            : filterFormStyleDesctop
+                        isDesktop
+                            ? {display: "block"}
+                            : filterFormStyleMobile
                     }
                 >
-                    {category === 'realty' && <SettingRealtyForm setShowFilters={setShowFilters} />}
-                    {category === 'transport' && <SettingTransportForm setShowFilters={setShowFilters} />}
+                    {category === 'property' && (
+                        <SettingRealtyForm setShowFilters={setShowFilters} />
+                    )}
+                    {category === 'transport' && (
+                        <SettingTransportForm setShowFilters={setShowFilters} />
+                    )}
                 </div>
                 <AnyCategory />
             </div>

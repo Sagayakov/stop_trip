@@ -11,7 +11,7 @@ export interface TypeSettingTransport {
     transmissionType: TransmissionType;
     bodyType: string[];
     condition: Condition;
-    commission: number;
+    commission: Comission;
 }
 export interface SelectOption {
     value: string;
@@ -25,10 +25,15 @@ interface EngineCapacity{
     min: number
     max: number
 }
-type TransmissionType = 'МКПП' | 'АКПП' | 'Робот'
+type TransmissionType = 'МКПП' | 'АКПП' | 'Робот' | 'Вариатор'
 interface YearOfProduction{
     min: number
     max: number
 }
 
 type Condition = 'Новый' | 'Б/у' | 'Аварийный' | 'На запчасти'
+
+interface Comission {
+    min: number
+    max: number
+}

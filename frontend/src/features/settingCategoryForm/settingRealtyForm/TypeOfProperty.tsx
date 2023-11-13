@@ -1,111 +1,66 @@
-import { useEffect } from 'react';
-import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { ArrowDown } from '../../../shared/ui/icons/icons-tools/ArrowDown';
-import { ArrowTop } from '../../../shared/ui/icons/icons-tools/ArrowTop';
-import { Jackdaw } from '../../../shared/ui/icons/icons-tools/Jackdaw';
-import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/TypeSettingRealty';
+import { Control, Controller, UseFormSetValue } from 'react-hook-form';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+import { valuesOfPropertyForm } from '../../../widgets/settingForm/settingRealty/valuesOfPropertyForm';
+import {
+    SelectOption,
+    TypeSettingRealty,
+} from '../../../widgets/settingForm/settingRealty/TypeSettingRealty';
 
 interface Props {
-    register: UseFormRegister<TypeSettingRealty>;
-    watch: UseFormWatch<TypeSettingRealty>;
-    showDropDown: boolean;
-    setShowDropDown: React.Dispatch<React.SetStateAction<boolean>>;
+    setValue: UseFormSetValue<TypeSettingRealty>;
+    control: Control<TypeSettingRealty, string[]>;
 }
 
-export const TypeOfProperty = ({
-    register,
-    watch,
-    showDropDown,
-    setShowDropDown,
-}: Props) => {
-    const type = watch('typeOfProperty');
+export const TypeOfProperty = ({ control, setValue }: Props) => {
+    const animated = makeAnimated();
+    const valuesTypeOfProperty = valuesOfPropertyForm.typeOfProperty;
 
-    useEffect(() => {
-        setShowDropDown(false);
-    }, [type]);
+    const handleChange = (
+        selectedOptions: SelectOption | SelectOption[] | null
+    ) => {
+        if (selectedOptions) {
+            const optionsArray = Array.isArray(selectedOptions)
+                ? selectedOptions
+                : [selectedOptions];
+            const selectedValues = optionsArray
+                .map((option) => option?.value)
+                .filter(Boolean);
+            setValue('typeOfProperty', selectedValues);
+        }
+    };
 
     return (
         <>
-            <div
-                className="type-of-property"
-                onClick={(event) => event.stopPropagation()}
-            >
+            <div className="type-of-property">
                 <h3>Тип недвижимости</h3>
-                <div
-                    className="select-type-of-property"
-                    onClick={() => setShowDropDown(!showDropDown)}
-                >
-                    {type ? type : 'Не выбрано'}
-                    {showDropDown ? (
-                        <ArrowTop color="#1C1C1E" />
-                    ) : (
-                        <ArrowDown color="#1C1C1E" />
+                <Controller
+                    name="typeOfProperty"
+                    control={control}
+                    render={({ field }) => (
+                        <Select
+                            {...field}
+                            classNamePrefix="filterPropertyForm"
+                            id="typeOfProperty"
+                            components={animated}
+                            placeholder="Тип недвижимости"
+                            closeMenuOnSelect={true}
+                            isMulti={false}
+                            options={valuesTypeOfProperty}
+                            onChange={(selectedOptions) => {
+                                handleChange(
+                                    selectedOptions as
+                                        | SelectOption
+                                        | SelectOption[]
+                                        | null
+                                );
+                            }}
+                            value={valuesTypeOfProperty.filter((option) =>
+                                field.value?.includes(option.value)
+                            )}
+                        />
                     )}
-                </div>
-                {showDropDown && (
-                    <div className="select-type-of-property-var">
-                        <label
-                            style={
-                                type === 'Не выбрано'
-                                    ? { color: '#02C66E' }
-                                    : {}
-                            }
-                        >
-                            Не выбрано
-                            <>
-                                {type === 'Не выбрано' && <Jackdaw />}
-                                <input
-                                    type="radio"
-                                    value="Не выбрано"
-                                    {...register('typeOfProperty')}
-                                />
-                            </>
-                        </label>
-                        <label
-                            style={
-                                type === 'Квартира' ? { color: '#02C66E' } : {}
-                            }
-                        >
-                            Квартира
-                            <>
-                                {type === 'Квартира' && <Jackdaw />}
-                                <input
-                                    type="radio"
-                                    value="Квартира"
-                                    {...register('typeOfProperty')}
-                                />
-                            </>
-                        </label>
-                        <label
-                            style={
-                                type === 'Комната' ? { color: '#02C66E' } : {}
-                            }
-                        >
-                            Комната
-                            <>
-                                {type === 'Комната' && <Jackdaw />}
-                                <input
-                                    type="radio"
-                                    value="Комната"
-                                    {...register('typeOfProperty')}
-                                />
-                            </>
-                        </label>
-                        <label
-                            style={type === 'Дом' ? { color: '#02C66E' } : {}}
-                        >
-                            Дом
-                            <>
-                                {type === 'Дом' && <Jackdaw />}
-                                <input
-                                    type="radio"
-                                    value="Дом"
-                                    {...register('typeOfProperty')}
-                                />
-                            </>
-                        </label>
-                    </div>
-                )}
+                />
             </div>
         </>
     );

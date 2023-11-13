@@ -5,12 +5,30 @@
 
         .bread-crumbs {
             width: 85%;
-            margin: 0 auto;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            a{
+                display: flex;
+            }
+            .filter-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--main-black);
+                border-radius: var(--radii);
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                font-family: var(--font-inter);
+                font-weight: 500;
+                padding: 10px 17px;
+            }
         }
 
         h1 {
             width: 85%;
-            margin: 15px auto 25px;
+            margin: 0;
             font-size: 26px;
         }
 
@@ -20,6 +38,7 @@
             flex-direction: column;
             gap: 20px;
             .filter-form {
+                width: 100%;
                 .filters {
                     width: 100%;
                     padding: 24px 24px 12px;
@@ -56,10 +75,10 @@
                         .only-with-photo {
                             width: 80%;
                         }
-                        .realtyComission{
+                        .realtyComission {
                             grid-area: comission;
                         }
-                        .type-of-property{
+                        .type-of-property {
                             grid-area: type;
                         }
                         .setting-price {
@@ -85,11 +104,6 @@
                             height: 45px;
                             margin-top: 10px;
                             width: 82%;
-                        }
-                        .type-of-property{
-                            .select-type-of-property-var{
-                                z-index: 1;
-                            }
                         }
                         .checkboxes {
                             position: relative;
@@ -127,58 +141,6 @@
         }
         .pagination {
             margin: 30px auto 40px;
-        }
-    }
-}
-
-@media (min-width: 768px) and (max-width: 800px) {
-    main {
-        .filters-adverts {
-            .filter-form {
-                .filters {
-                    .filter-realty-form {
-                        .type-of-property {
-                            .select-type-of-property-var {
-                                width: 31.5%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-@media (min-width: 800px) and (max-width: 900px) {
-    main {
-        .filters-adverts {
-            .filter-form {
-                .filters {
-                    .filter-realty-form {
-                        .type-of-property {
-                            .select-type-of-property-var {
-                                width: 31.75%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-@media (min-width: 901px) and (max-width: 1023px) {
-    main {
-        .filters-adverts {
-            .filter-form {
-                .filters {
-                    .filter-realty-form {
-                        .type-of-property {
-                            .select-type-of-property-var {
-                                width: 32.3%;
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 }

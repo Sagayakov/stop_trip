@@ -1,5 +1,5 @@
 export interface TypeSettingRealty {
-    typeOfProperty: TypeOfProperty
+    typeOfProperty: string[]
     settingPrice: Price
     totalArea: TotalArea
     livingSpace: LivingSpace
@@ -10,7 +10,11 @@ export interface TypeSettingRealty {
     comission: number
 }
 
-type TypeOfProperty = 'Не выбрано' | 'Квартира' | 'Комната' | 'Дом'
+// type TypeOfProperty = 'Квартира' | 'Комната' | 'Дом'
+export interface SelectOption {
+    value: string;
+    label: string;
+}
 
 interface Price {
     adverts: Adverts
