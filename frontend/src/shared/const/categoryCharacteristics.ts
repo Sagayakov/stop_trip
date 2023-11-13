@@ -13,6 +13,7 @@ export const categoryCharacteristicsKeys: Record<
         transport_body_type: 'Тип кузова',
         transport_condition: 'Состояние',
         transport_passengers_quality: 'Количество пассажиров',
+        transport_commission: 'Комиссия',
     },
     property: {
         property_building_max_floor: 'Количество этажей в доме',
@@ -79,6 +80,7 @@ export const categoryCharacteristicsValues: Record<
             mechanic: 'Механическая',
             automatic: 'Автоматическая',
             robot: 'Робот',
+            cvt: 'Вариатор',
         },
         transport_body_type: {
             sedan: 'Седан',
@@ -103,7 +105,9 @@ export const categoryCharacteristicsValues: Record<
             separate: 'Раздельный',
         },
         property_balcony: {
-            yes: 'Да',
+            yes: 'Есть',
+            no: 'Нет',
+            loggia: 'Лоджия',
         },
         property_house_type: {
             panel: 'Панельный',

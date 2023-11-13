@@ -5,8 +5,12 @@ import 'react-toastify/dist/ReactToastify.css';
 export const ShareIcon = () => {
     const handleClick = () => {
         const path = document.location.href;
-        console.log(path);
-        toast.info('Скопировано!');
+
+        navigator.clipboard.writeText(path).then(
+            () => toast.info('Скопировано!'),
+            (err) =>
+                console.error('Произошла ошибка при копировании текста: ', err)
+        );
     };
 
     return (
