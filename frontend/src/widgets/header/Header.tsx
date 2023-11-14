@@ -16,14 +16,16 @@ import { getTokensFromStorage } from './libr/authentication/getTokensFromStorage
 import { handleScroll } from './libr/eventListeners/handleScroll';
 import { ModalCheckEmail } from '../../features/header/modal/modalCheckEmail/ModalCheckEmail';
 import { ModalResetPassword } from '../../features/header/modal/modalResetPassword/ModalResetPassword';
+import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 
 export const Header = () => {
     const dispatch: Dispatch = useAppDispatch();
     const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
-    const [width, setWidth] = useState<number>(window.innerWidth);
     const ref = useRef(null);
 
-    const [showUserMenu, setShowUserMenu] = useState(false); //потом переделать на редьюсер
+    const { isMobile } = useMatchMedia()
+
+    const [showUserMenu, setShowUserMenu] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
     const handleToggleModal = () => dispatch(toggleModalEnter(!toggle));
@@ -44,17 +46,11 @@ export const Header = () => {
     useEffect(() => {
         checkAuthentication(dispatch);
 
-        const handleResize = () => {
-            setWidth(window.innerWidth);
-        };
-        window.addEventListener('resize', handleResize);
-
         handleScroll(ref);
 
         window.addEventListener('scroll', () => handleScroll(ref));
 
         return () => {
-            window.removeEventListener('resize', handleResize);
             window.removeEventListener('scroll', () => handleScroll(ref));
         };
     }, [accessToken, refreshToken, dispatch]);
@@ -78,9 +74,9 @@ export const Header = () => {
                     onClick={isAuth ? () => navigate('/add-advert') : addAdvert}
                 >
                     <Plus color="white" />
-                    {width >= 425 ? 'Разместить объявление' : 'Опубликовать'}
+                    {window.innerWidth >= 425 ? 'Разместить объявление' : 'Опубликовать'}
                 </button>
-                {width <= 767 ? (
+                {isMobile ? (
                     <Person
                         stroke={isAuth ? '#1f6fde' : '#1C1C1E'}
                         handleClick={
@@ -88,7 +84,7 @@ export const Header = () => {
                                 ? () => setShowUserMenu(!showUserMenu)
                                 : () => handleToggleModal()
                         }
-                    /> //когда будет регистрация, переделать на редьюсер
+                    />
                 ) : (
                     <div className="language-auth">
                         <div className="language">

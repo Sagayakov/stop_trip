@@ -1,31 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ArrowRight } from '../../shared/ui/icons/icons-tools/ArrowRight';
 import './popularCategories.scss';
 import { AllCategories, ModalWindow } from '../../entities/controls';
 import { categories } from '../../shared/const/categories';
 import { useNavigate } from 'react-router-dom';
+import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 
 export const PopularCategories = () => {
     const [showModal, setShowModal] = useState(false);
-    const [width, setWidth] = useState<number>(window.innerWidth);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const handleResize = () => {
-            setWidth(window.innerWidth);
-        };
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    const { isMobile } = useMatchMedia()
 
     return (
         <div className="popular-categories">
             <div className="popular-categories-wrapper">
                 <div className="categories-titles">
                     <h3>Популярные категории</h3>
-                    {width < 767 && (
+                    {isMobile && (
                         <>
                             <AllCategories
                                 showModal={showModal}

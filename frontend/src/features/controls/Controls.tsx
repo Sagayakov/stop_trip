@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
     AllCategories,
     Input,
@@ -6,25 +6,16 @@ import {
     SelectGeo,
 } from '../../entities/controls';
 import './controls.scss';
+import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 
 export const Controls = () => {
     const [showModal, setShowModal] = useState(false);
-    const [width, setWidth] = useState<number>(window.innerWidth);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setWidth(window.innerWidth);
-        };
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    const { isMobile } = useMatchMedia()
 
     return (
         <div className="controls">
             <div className="controls-wrapper">
-                {width > 767 && (
+                {!isMobile && (
                     <AllCategories
                         showModal={showModal}
                         setShowModal={setShowModal}

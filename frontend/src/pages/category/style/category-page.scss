@@ -89,8 +89,19 @@ main {
                         }
                         .filterPropertyForm__control {
                             width: 100%;
+                            .filterPropertyForm__indicators {
+                                .filterPropertyForm__clear-indicator {
+                                    padding: 0;
+                                }
+                                .filterPropertyForm__dropdown-indicator {
+                                    padding: 8px 8px 8px 0px;
+                                }
+                                span {
+                                    display: none;
+                                }
+                            }
                             .filterPropertyForm__value-container {
-                                height: 40px;
+                                // height: 40px;
                                 overflow-y: scroll;
                             }
                         }
@@ -110,20 +121,6 @@ main {
                         .filterPropertyForm__menu-list {
                             max-height: 200px;
                             scrollbar-width: thin !important;
-                            &::-webkit-scrollbar {
-                                width: 4px !important;
-                            }
-                            &::-webkit-scrollbar-thumb {
-                                background-color: gray !important;
-                            }
-                            .filterPropertyForm__option {
-                                cursor: pointer;
-                                color: black;
-                                background: none !important;
-                            }
-                            .filterPropertyForm__option:hover {
-                                background: #deebff !important;
-                            }
                         }
                     }
                     .setting-price {
