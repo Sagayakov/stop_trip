@@ -52,10 +52,18 @@ export const PhotoSlider = () => {
                 <ShareIcon />
                 <Like color="#ff3f25" strokeColor="#1C1C1E" />
                 {imageHeight > imageWidth && (
-                    <img className="blur-left" src={image} alt="Main image" />
-                )}
-                {imageHeight > imageWidth && (
-                    <img className="blur-right" src={image} alt="Main image" />
+                    <>
+                        <img
+                            className="blur-left"
+                            src={image}
+                            alt="Main image"
+                        />
+                        <img
+                            className="blur-right"
+                            src={image}
+                            alt="Main image"
+                        />
+                    </>
                 )}
             </div>
             <div className="image-list">

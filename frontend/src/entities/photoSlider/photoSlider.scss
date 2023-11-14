@@ -64,33 +64,6 @@
         .share-icon {
             right: 50px;
         }
-        .share-block {
-            div:last-child {
-                div {
-                    div {
-                        button {
-                            svg {
-                                left: unset;
-                                right: 2%;
-                                top: 0;
-                                width: 20px;
-                            }
-                        }
-                        div {
-                            align-items: unset;
-                            div {
-                                svg {
-                                    top: unset;
-                                    bottom: 0;
-                                    width: 20px;
-                                    height: 20px;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
     .image-list {
         display: flex;
