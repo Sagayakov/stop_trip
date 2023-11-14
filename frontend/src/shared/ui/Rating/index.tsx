@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Star } from '../icons/icons-tools/Star';
-import { toast } from 'react-toastify';
 
 type RatingProps = {
     rating: number;
@@ -15,16 +14,8 @@ export const Rating = ({ rating, grades, setGrades }: RatingProps) => {
     const starsAmount = 5;
     const starArray = new Array(starsAmount).fill(1).map((el, i) => el + i);
 
-    const handleClick = () => {
-        setGrades(grades + 1);
-        toast.success('Спасибо! Ваша оценка добавлена!');
-    };
-
     return (
-        <p
-            aria-label={`Rating is ${rating} out of ${starsAmount}`}
-            onClick={handleClick}
-        >
+        <p aria-label={`Rating is ${rating} out of ${starsAmount}`}>
             {starArray.map((item, i) => {
                 return (
                     <Star
@@ -34,6 +25,8 @@ export const Rating = ({ rating, grades, setGrades }: RatingProps) => {
                         setPrepareStar={setPrepareStar}
                         activeStar={activeStar}
                         setActiveStar={setActiveStar}
+                        grades={grades}
+                        setGrades={setGrades}
                     />
                 );
             })}
