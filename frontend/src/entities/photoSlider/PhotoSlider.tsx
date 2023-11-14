@@ -16,13 +16,19 @@ export const PhotoSlider = () => {
     const ref = useRef<null | HTMLImageElement>(null);
 
     const handleClickPrev = () => {
-        activeImage > 0 && setActiveImage(activeImage - 1);
+        if (data) {
+            activeImage > 0
+                ? setActiveImage(activeImage - 1)
+                : setActiveImage(data.images.length - 1);
+        }
     };
 
     const handleClickNext = () => {
-        data &&
-            activeImage < data.images.length - 1 &&
-            setActiveImage(activeImage + 1);
+        if (data) {
+            activeImage < data.images.length - 1
+                ? setActiveImage(activeImage + 1)
+                : setActiveImage(0);
+        }
     };
 
     const image =
@@ -52,10 +58,18 @@ export const PhotoSlider = () => {
                 <ShareIcon />
                 <Like color="#ff3f25" strokeColor="#1C1C1E" />
                 {imageHeight > imageWidth && (
-                    <img className="blur-left" src={image} alt="Main image" />
-                )}
-                {imageHeight > imageWidth && (
-                    <img className="blur-right" src={image} alt="Main image" />
+                    <>
+                        <img
+                            className="blur-left"
+                            src={image}
+                            alt="Main image"
+                        />
+                        <img
+                            className="blur-right"
+                            src={image}
+                            alt="Main image"
+                        />
+                    </>
                 )}
             </div>
             <div className="image-list">
