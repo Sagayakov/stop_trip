@@ -1,22 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { MapIcon } from '../../../shared/ui/icons/icons-tools/MapIcon';
+import { useMatchMedia } from '../../../app/hooks/useMatchMedia';
 
 export const SelectGeo = () => {
-    const [width, setWidth] = useState<number>(window.innerWidth);
     const selectRef = useRef<null | HTMLSelectElement>(null);
-
-    useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    const { isMobile } = useMatchMedia()
 
     return (
         <div className="select-wrapper">
-            {width >= 768 ? <MapIcon color="#1F6FDE" /> : <p>В городе</p>}
+            {!isMobile ? <MapIcon color="#1F6FDE" /> : <p>В городе</p>}
             <select ref={selectRef}>
                 <option value="Гоа">Тбилиси</option>
                 <option value="Гоа">Гоа</option>
