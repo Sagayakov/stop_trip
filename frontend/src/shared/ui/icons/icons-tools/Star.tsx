@@ -1,5 +1,5 @@
-import { useAppSelector } from '../../../../app/store/hooks';
 import { toast } from 'react-toastify';
+import { useAppSelector } from '../../../../app/store/hooks';
 import 'react-toastify/dist/ReactToastify.css';
 
 type StarProps = {
@@ -8,6 +8,8 @@ type StarProps = {
     setPrepareStar: React.Dispatch<React.SetStateAction<number>>;
     activeStar: number;
     setActiveStar: React.Dispatch<React.SetStateAction<number>>;
+    grades: number;
+    setGrades: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const Star = ({
@@ -16,6 +18,8 @@ export const Star = ({
     setPrepareStar,
     activeStar,
     setActiveStar,
+    grades,
+    setGrades,
 }: StarProps) => {
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
 
@@ -33,15 +37,15 @@ export const Star = ({
     };
 
     const handleClick = () => {
-        //if (isAuth) {
-        setActiveStar(id);
-        /* (prev: number) => setGrades(++prev);
-        toast.success('Спасибо! Ваша оценка добавлена!'); */
-        /* } else {
+        if (isAuth) {
+            setActiveStar(id);
+            setGrades(grades + 1);
+            toast.success('Спасибо! Ваша оценка добавлена!');
+        } else {
             toast.error(
                 'Пожалуйста, авторизуйтесь для возможности выставления рейтинга'
             );
-        } */
+        }
     };
 
     return (
