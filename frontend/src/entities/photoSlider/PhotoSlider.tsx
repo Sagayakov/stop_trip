@@ -16,13 +16,19 @@ export const PhotoSlider = () => {
     const ref = useRef<null | HTMLImageElement>(null);
 
     const handleClickPrev = () => {
-        activeImage > 0 && setActiveImage(activeImage - 1);
+        if (data) {
+            activeImage > 0
+                ? setActiveImage(activeImage - 1)
+                : setActiveImage(data.images.length - 1);
+        }
     };
 
     const handleClickNext = () => {
-        data &&
-            activeImage < data.images.length - 1 &&
-            setActiveImage(activeImage + 1);
+        if (data) {
+            activeImage < data.images.length - 1
+                ? setActiveImage(activeImage + 1)
+                : setActiveImage(0);
+        }
     };
 
     const image =
