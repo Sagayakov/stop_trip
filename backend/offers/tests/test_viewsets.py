@@ -947,9 +947,10 @@ class AdvertisementViewSetTest(APITestCase):
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
         transport_models = [
-            TransportModelFactory(name=name, brand=brand)
-            for name in ["1a", "2a", "3a", "4a"]
-            for brand in transport_brands
+            TransportModelFactory(
+                name=["1a", "2a", "3a", "4a"][_ % len(transport_brands)], brand=brand
+            )
+            for _, brand in enumerate(transport_brands)
         ]
         transport_set = [
             TransportAdvertisementFactory(
@@ -978,19 +979,12 @@ class AdvertisementViewSetTest(APITestCase):
 
         with self.assertNumQueries(2):
             res = self.client.get(
-                self.list_url,
-                {
-                    "transport_model": [
-                        transport_models[0].slug,
-                        transport_models[1].slug,
-                        transport_models[2].slug,
-                    ]
-                },
+                f"{self.list_url}?transport_model={transport_models[0].slug},{transport_models[1].slug}"
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(transport_set) // len(transport_models))
+        self.assertEqual(len(res_json), len(transport_set) // 2)
 
     def test_filter_transport_engine_type(self):
         user = UserFactory()
@@ -1555,6 +1549,8 @@ class AdvertisementViewSetTest(APITestCase):
                 # start_date=start_date,
                 # end_date=end_date,
                 is_online=[True, False][_ % 2],
+                start_date="2023-12-5 00:00:00",
+                end_date="2023-12-5 00:00:00",
             )
             for _ in range(2)
         ]
