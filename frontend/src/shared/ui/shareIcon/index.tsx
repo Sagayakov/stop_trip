@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const ShareIcon = () => {
     const handleClick = () => {
-        const path = document.location.href;
+        const path = window.location.href;
 
         navigator.clipboard.writeText(path).then(
             () => toast.info('Скопировано!'),
