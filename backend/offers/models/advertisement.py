@@ -7,11 +7,25 @@ from .abs_property_model import AbsProperty
 from .abs_service_model import AbsService
 from .abs_taxi_model import AbsTaxi
 from .abs_transport_model import AbsTransport
+from .abs_document_model import AbsDocument
+from .abs_market_model import AbsMarket
+from .abs_excursion_model import AbsExcursion
+from .abs_food_model import AbsFood
 from ..constants import CategoryChoices
 
 
 class Advertisement(
-    AbsTransport, AbsProperty, AbsJob, AbsEvent, AbsTaxi, AbsService, AbsExchangeRate
+    AbsTransport,
+    AbsProperty,
+    AbsJob,
+    AbsEvent,
+    AbsTaxi,
+    AbsService,
+    AbsExchangeRate,
+    AbsDocument,
+    AbsMarket,
+    AbsExcursion,
+    AbsFood,
 ):
     """Объявления."""
 

@@ -9,3 +9,7 @@ class CategoryChoices(TextChoices):
     TAXI = "taxi", "Такси"
     EVENT = "event", "События"
     EXCHANGE_RATE = "exchange_rate", "Обмен валюты"
+    MARKET = "market", "Купить-продать"
+    DOCUMENT = "document", "Документы"
+    FOOD = "food", "Еда"
+    EXCURSION = "excursion", "Экскурсии"

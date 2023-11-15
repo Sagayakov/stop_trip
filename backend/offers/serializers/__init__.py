@@ -11,3 +11,7 @@ from .property_serializers import PropertyCreateSerializer, PropertyAmenitySeria
 from .service_serializers import ServiceCreateSerializer
 from .taxi_serializers import TaxiCreateSerializer
 from .transport_serializers import TransportCreateSerializer
+from .market_serializers import MarketCreateSerializer
+from .document_serializers import DocumentCreateSerializers
+from .food_serializers import FoodCreateSerializer
+from .excursion_serializers import ExcursionCreateSerializer
