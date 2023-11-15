@@ -1,4 +1,5 @@
 from django_filters.rest_framework import filters, FilterSet
+from common.filters import CharInFilter
 
 from ..constants import (
     TransportTypeOfService,
@@ -25,9 +26,7 @@ class TransportFilter(FilterSet):
     transport_brand = filters.CharFilter(
         label="Марка транспорта", field_name="transport_brand__slug"
     )
-    transport_model = filters.CharFilter(
-        label="Модель транспорта", field_name="transport_model__slug"
-    )
+    transport_model = CharInFilter(label="Модель транспорта", field_name="transport_model__slug")
     transport_engine_type = filters.ChoiceFilter(
         label="Тип двигателя", choices=TransportEngineType.choices
     )

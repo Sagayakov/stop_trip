@@ -979,7 +979,13 @@ class AdvertisementViewSetTest(APITestCase):
         with self.assertNumQueries(2):
             res = self.client.get(
                 self.list_url,
-                {"transport_model": transport_models[0].slug},
+                {
+                    "transport_model": [
+                        transport_models[0].slug,
+                        transport_models[1].slug,
+                        transport_models[2].slug,
+                    ]
+                },
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
