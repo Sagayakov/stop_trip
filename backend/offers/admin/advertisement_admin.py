@@ -12,7 +12,9 @@ class AdvertisementImageInline(StackedInline):
 @register(Advertisement)
 class AdvertisementAdmin(ModelAdmin):
     inlines = (AdvertisementImageInline,)
-    prepopulated_fields = {"slug": ("title", "price", "owner"), }
+    prepopulated_fields = {
+        "slug": ("title", "price", "owner"),
+    }
     fieldsets = (
         (
             None,

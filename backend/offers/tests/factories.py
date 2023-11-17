@@ -35,7 +35,7 @@ from offers.models import (
     AdvertisementImage,
     Currency,
     PropertyCity,
-    PropertyDistrict
+    PropertyDistrict,
 )
 
 

@@ -1279,7 +1279,9 @@ class AdvertisementViewSetTest(APITestCase):
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinate="35,35",
-                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][_ % 2],
+                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][
+                    _ % 2
+                ],
                 property_city=city,
                 property_district=district,
                 property_building_max_floor=5,
@@ -1295,7 +1297,8 @@ class AdvertisementViewSetTest(APITestCase):
                 property_rental_condition=PropertyRentalCondition.FAMILY,
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=5,
-                property_rooms_count=3)
+                property_rooms_count=3,
+            )
             for city in property_cities
             for district in property_districts
             for _ in range(2)
@@ -1327,7 +1330,9 @@ class AdvertisementViewSetTest(APITestCase):
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinate="35,35",
-                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][_ % 2],
+                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][
+                    _ % 2
+                ],
                 property_city=city,
                 property_district=district,
                 property_building_max_floor=5,
@@ -1343,7 +1348,8 @@ class AdvertisementViewSetTest(APITestCase):
                 property_rental_condition=PropertyRentalCondition.FAMILY,
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=5,
-                property_rooms_count=3)
+                property_rooms_count=3,
+            )
             for city in property_cities
             for district in property_districts
             for _ in range(2)
@@ -1375,7 +1381,9 @@ class AdvertisementViewSetTest(APITestCase):
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinate="35,35",
-                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][_ % 2],
+                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][
+                    _ % 2
+                ],
                 property_city=city,
                 property_district=district,
                 property_building_max_floor=5,
@@ -1391,7 +1399,8 @@ class AdvertisementViewSetTest(APITestCase):
                 property_rental_condition=PropertyRentalCondition.FAMILY,
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=5,
-                property_rooms_count=3)
+                property_rooms_count=3,
+            )
             for city in property_cities
             for district in property_districts
             for _ in range(2)
@@ -1429,7 +1438,10 @@ class AdvertisementViewSetTest(APITestCase):
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=2,
-                property_bathroom_type=[PropertyBathroomType.SEPARATE, PropertyBathroomType.COMBINED][_ % 2],
+                property_bathroom_type=[
+                    PropertyBathroomType.SEPARATE,
+                    PropertyBathroomType.COMBINED,
+                ][_ % 2],
                 property_area=35,
                 property_living_area=50,
                 property_balcony=PropertyBalcony.YES,
@@ -1439,7 +1451,8 @@ class AdvertisementViewSetTest(APITestCase):
                 property_rental_condition=PropertyRentalCondition.FAMILY,
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=5,
-                property_rooms_count=3)
+                property_rooms_count=3,
+            )
             for city in property_cities
             for district in property_districts
             for _ in range(2)
@@ -1487,17 +1500,15 @@ class AdvertisementViewSetTest(APITestCase):
                 property_rental_condition=PropertyRentalCondition.FAMILY,
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=5,
-                property_rooms_count=3)
+                property_rooms_count=3,
+            )
             for city in property_cities
             for district in property_districts
             for _ in range(2)
         ]
 
         with self.assertNumQueries(2):
-            res = self.client.get(
-                self.list_url,
-                {"property_bathroom_count": 2}
-            )
+            res = self.client.get(self.list_url, {"property_bathroom_count": 2})
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
@@ -1536,7 +1547,8 @@ class AdvertisementViewSetTest(APITestCase):
                 property_rental_condition=PropertyRentalCondition.FAMILY,
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=5,
-                property_rooms_count=3)
+                property_rooms_count=3,
+            )
             for city in property_cities
             for district in property_districts
             for _ in range(2)
@@ -1584,17 +1596,15 @@ class AdvertisementViewSetTest(APITestCase):
                 property_rental_condition=PropertyRentalCondition.FAMILY,
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=1 + _ * 1,
-                property_rooms_count=3)
+                property_rooms_count=3,
+            )
             for city in property_cities
             for district in property_districts
             for _ in range(2)
         ]
 
         with self.assertNumQueries(2):
-            res = self.client.get(
-                self.list_url,
-                {"property_sleeping_places": 2}
-            )
+            res = self.client.get(self.list_url, {"property_sleeping_places": 2})
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
@@ -1633,17 +1643,15 @@ class AdvertisementViewSetTest(APITestCase):
                 property_rental_condition=PropertyRentalCondition.FAMILY,
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=2,
-                property_rooms_count=2 + _ * 1)
+                property_rooms_count=2 + _ * 1,
+            )
             for city in property_cities
             for district in property_districts
             for _ in range(2)
         ]
 
         with self.assertNumQueries(2):
-            res = self.client.get(
-                self.list_url,
-                {"property_rooms_count": 2}
-            )
+            res = self.client.get(self.list_url, {"property_rooms_count": 2})
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
@@ -1679,10 +1687,14 @@ class AdvertisementViewSetTest(APITestCase):
                 property_has_furniture=True,
                 property_house_type=PropertyHouseType.BLOCK,
                 property_has_parking=True,
-                property_rental_condition=[PropertyRentalCondition.FAMILY, PropertyRentalCondition.OFFICE][_ % 2],
+                property_rental_condition=[
+                    PropertyRentalCondition.FAMILY,
+                    PropertyRentalCondition.OFFICE,
+                ][_ % 2],
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=5,
-                property_rooms_count=3)
+                property_rooms_count=3,
+            )
             for city in property_cities
             for district in property_districts
             for _ in range(2)
@@ -1727,10 +1739,14 @@ class AdvertisementViewSetTest(APITestCase):
                 property_has_furniture=True,
                 property_house_type=PropertyHouseType.BLOCK,
                 property_has_parking=True,
-                property_rental_condition=[PropertyRentalCondition.FAMILY, PropertyRentalCondition.OFFICE][_ % 2],
+                property_rental_condition=[
+                    PropertyRentalCondition.FAMILY,
+                    PropertyRentalCondition.OFFICE,
+                ][_ % 2],
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=5,
-                property_rooms_count=3)
+                property_rooms_count=3,
+            )
             for city in property_cities
             for district in property_districts
             for _ in range(58, 60)
@@ -1739,8 +1755,7 @@ class AdvertisementViewSetTest(APITestCase):
         with self.assertNumQueries(2):
             res = self.client.get(
                 self.list_url,
-                {"property_area_min": 59,
-                 "property_area_max": 60},
+                {"property_area_min": 59, "property_area_max": 60},
             )
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -1758,12 +1773,10 @@ class AdvertisementViewSetTest(APITestCase):
             for city in property_cities
         ]
 
-        property_amenities = [PropertyAmenityFactory(name=name) for name in ["Heating",
-                                                                             "Air Conditioning",
-                                                                             "Kitchen",
-                                                                             "TV"]
-
-                              ]
+        property_amenities = [
+            PropertyAmenityFactory(name=name)
+            for name in ["Heating", "Air Conditioning", "Kitchen", "TV"]
+        ]
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
@@ -1786,19 +1799,15 @@ class AdvertisementViewSetTest(APITestCase):
                 property_rental_condition=PropertyRentalCondition.FAMILY,
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=5,
-                property_rooms_count=3).property_amenities.set(property_amenities)
-
+                property_rooms_count=3,
+            ).property_amenities.set(property_amenities)
             for city in property_cities
             for district in property_districts
             for _ in range(2)
         ]
 
         with self.assertNumQueries(2):
-            res = self.client.get(
-                self.list_url,
-                {"property_amenities": "Heating"}
-
-            )
+            res = self.client.get(self.list_url, {"property_amenities": "Heating"})
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()

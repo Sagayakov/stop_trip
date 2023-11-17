@@ -7,33 +7,68 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='email',
-            field=models.EmailField(max_length=254, unique=True, verbose_name='Почта'),
+            model_name="user",
+            name="email",
+            field=models.EmailField(max_length=254, unique=True, verbose_name="Почта"),
         ),
         migrations.CreateModel(
-            name='Rate',
+            name="Rate",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('rating', models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(5)], verbose_name='Оценка')),
-                ('is_active', models.BooleanField(default=True, verbose_name='Активен')),
-                ('comment', models.CharField(max_length=200, null=True, verbose_name='Отзыв')),
-                ('date_created', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
-                ('date_updated', models.DateTimeField(auto_now=True, verbose_name='Дата обновления')),
-                ('from_user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='from_user', to=settings.AUTH_USER_MODEL, verbose_name='От пользователя')),
-                ('to_user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='to_user', to=settings.AUTH_USER_MODEL, verbose_name='Пользователю')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                (
+                    "rating",
+                    models.PositiveIntegerField(
+                        validators=[
+                            django.core.validators.MinValueValidator(1),
+                            django.core.validators.MaxValueValidator(5),
+                        ],
+                        verbose_name="Оценка",
+                    ),
+                ),
+                ("is_active", models.BooleanField(default=True, verbose_name="Активен")),
+                ("comment", models.CharField(max_length=200, null=True, verbose_name="Отзыв")),
+                (
+                    "date_created",
+                    models.DateTimeField(auto_now_add=True, verbose_name="Дата создания"),
+                ),
+                (
+                    "date_updated",
+                    models.DateTimeField(auto_now=True, verbose_name="Дата обновления"),
+                ),
+                (
+                    "from_user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="from_user",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="От пользователя",
+                    ),
+                ),
+                (
+                    "to_user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="to_user",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Пользователю",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Отзыв',
-                'verbose_name_plural': 'отзывы',
-                'ordering': ['-date_created'],
+                "verbose_name": "Отзыв",
+                "verbose_name_plural": "отзывы",
+                "ordering": ["-date_created"],
             },
         ),
     ]

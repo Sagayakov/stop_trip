@@ -16,5 +16,3 @@ class EventCreateSerializer(AdvertisementCreateSerializer):
             "end_date",
             "is_online",
         )
-
-

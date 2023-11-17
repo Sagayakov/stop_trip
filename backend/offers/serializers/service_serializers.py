@@ -9,6 +9,4 @@ class ServiceCreateSerializer(AdvertisementCreateSerializer):
 
     class Meta:
         model = Advertisement
-        fields = AdvertisementCreateSerializer.Meta.fields + (
-            "home_visit",
-        )
+        fields = AdvertisementCreateSerializer.Meta.fields + ("home_visit",)

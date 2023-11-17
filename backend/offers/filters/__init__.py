@@ -1,2 +1,1 @@
-
 from .advertisementfilter import AdvertisementFilter
