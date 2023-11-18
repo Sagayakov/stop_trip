@@ -5,10 +5,11 @@ from .job_filter import JobFilter
 from .service_filter import ServiceFilter
 from .taxi_filter import TaxiFilter
 from .transport_filter import TransportFilter
+from .property_filter import PropertyFilter
 from ..constants import CategoryChoices
 
 
-class AdvertisementFilter(TransportFilter, EventFilter, JobFilter, ServiceFilter, TaxiFilter):
+class AdvertisementFilter(TransportFilter, PropertyFilter, EventFilter, JobFilter, ServiceFilter, TaxiFilter):
     """Фильтры для объявлений."""
 
     category = filters.ChoiceFilter(label="Категория", choices=CategoryChoices.choices)

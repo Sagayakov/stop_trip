@@ -34,6 +34,9 @@ from offers.models import (
     TransportModel,
     AdvertisementImage,
     Currency,
+    PropertyCity,
+    PropertyDistrict
+
 )
 
 
@@ -43,6 +46,7 @@ class BaseAdvertisementFactory(factory.django.DjangoModelFactory):
     category = fuzzy.FuzzyChoice(choices=CategoryChoices.values)
     title = factory.Faker("word")
     price = factory.Faker("pyint", min_value=1000, max_value=10_000)
+    coordinates = "35,35"
     description = factory.Faker("sentence")
     is_published = True
     slug = factory.Sequence(lambda x: f"slug_{x}")
@@ -60,14 +64,34 @@ class AdvertisementImageFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = AdvertisementImage
 
+class PropertyCityFactory(factory.django.DjangoModelFactory):
+    """Фабрика города недвижимости"""
+
+    name = factory.Faker("word")
+    slug = factory.Sequence(lambda x: f"slug_{x}")
+
+    class Meta:
+        model = PropertyCity
+
+
+class PropertyDistrictFactory(factory.django.DjangoModelFactory):
+    """Фабрика района недвижимости."""
+
+    name = factory.Faker("word")
+    slug = factory.Sequence(lambda x: f"slug_{x}")
+    city = factory.SubFactory(PropertyCityFactory)
+
+    class Meta:
+        model = PropertyDistrict
+
+
 
 class PropertyAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по недвижимости."""
 
     property_type_of_service = fuzzy.FuzzyChoice(choices=PropertyTypeOfService.values)
-    property_city = factory.Faker("word")
-    property_district = factory.Faker("word")
-    property_coords = "35,35"
+    property_city = factory.SubFactory(PropertyCityFactory)
+    property_district = factory.SubFactory(PropertyDistrictFactory)
     property_building_max_floor = factory.Faker("pyint", min_value=1, max_value=15)
     property_floor = factory.Faker("pyint", min_value=1, max_value=15)
     property_bathroom_count = factory.Faker("pyint", min_value=1, max_value=3)

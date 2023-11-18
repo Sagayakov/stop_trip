@@ -25,6 +25,7 @@ class AdvertisementAdmin(ModelAdmin):
                     "title",
                     "slug",
                     "price",
+                    "coordinates",
                     "description",
                     "is_published",
                 )
@@ -60,7 +61,6 @@ class AdvertisementAdmin(ModelAdmin):
                     "property_type_of_service",
                     "property_city",
                     "property_district",
-                    "property_coords",
                     "property_building_max_floor",
                     "property_floor",
                     "property_bathroom_count",
