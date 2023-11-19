@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('offers', '0007_advertisement_coordinates'),
+        ("offers", "0007_advertisement_coordinates"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='propertyamenity',
-            name='slug',
-            field=models.SlugField(blank=True, verbose_name='Слаг'),
+            model_name="propertyamenity",
+            name="slug",
+            field=models.SlugField(blank=True, verbose_name="Слаг"),
         ),
     ]

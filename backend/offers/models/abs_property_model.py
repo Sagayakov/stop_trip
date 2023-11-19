@@ -59,7 +59,6 @@ class AbsProperty(models.Model):
         null=True,
         blank=True,
     )
-
     property_district = models.ForeignKey(
         "offers.PropertyDistrict",
         on_delete=models.CASCADE,
@@ -72,8 +71,6 @@ class AbsProperty(models.Model):
     property_type_of_service = models.CharField(
         "Тип услуги", max_length=25, choices=PropertyTypeOfService.choices, blank=True
     )
-
-    property_coords = PlainLocationField(verbose_name="Координаты", blank=True)
     property_building_max_floor = models.PositiveSmallIntegerField(
         verbose_name="Количество этажей в доме", null=True, blank=True
     )
