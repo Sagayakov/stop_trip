@@ -8,6 +8,7 @@ import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24
 import { HorizontalMixer } from '../../shared/ui/icons/icons-tools/HorizontalMixer';
 import {
     AnyCategory,
+    SettingEventForm,
     SettingJobForm,
     SettingRealtyForm,
     SettingServicesForm,
@@ -98,6 +99,9 @@ export const CategoryPage = () => {
                     )}
                     {category === 'job' && (
                         <SettingJobForm setShowFilters={setShowFilters} />
+                    )}
+                    {category === 'event' && (
+                        <SettingEventForm setShowFilters={setShowFilters}/>
                     )}
                 </div>
                 <AnyCategory />

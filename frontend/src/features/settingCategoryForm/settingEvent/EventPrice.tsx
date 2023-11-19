@@ -1,13 +1,14 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypesOfJobs } from '../../../widgets/settingForm/settingJob/libr/TypesOfJobs';
+import { TypeOfEventFilter } from '../../../widgets/settingForm/settingEvent/libr/TypeOfEventFilter';
+
 interface Props {
-    register: UseFormRegister<TypesOfJobs>;
+    register: UseFormRegister<TypeOfEventFilter>;
 }
-export const PriceOfJob = ({ register }: Props) => {
+export const EventPrice = ({ register }: Props) => {
     return (
-        <div className="jobPrice">
+        <div className="eventPrice">
             <h3>Цена</h3>
-            <div className="setting-jobPrice">
+            <div className="setting-eventPrice">
                 <input
                     type="number"
                     min="0"

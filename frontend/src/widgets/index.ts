@@ -6,3 +6,4 @@ export { SettingTransportForm } from './settingForm/settingTransport/SettingTran
 export { SettingTaxiForm } from './settingForm/settingTaxi/SettingTaxiForm'
 export { SettingServicesForm } from './settingForm/settingServices/SettingServicesForm'
 export { SettingJobForm } from './settingForm/settingJob/SettingJobFilter'
+export { SettingEventForm } from './settingForm/settingEvent/SettingEventForm'
