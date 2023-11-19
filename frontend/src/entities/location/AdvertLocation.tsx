@@ -9,8 +9,8 @@ type AdvertLocationProps = {
 
 export const AdvertLocation = ({ data }: AdvertLocationProps) => {
     const propertyLocation = [
-        Number(data.property_coords.split(',')[0]),
-        Number(data.property_coords.split(',')[1]),
+        Number(data.coordinates.split(',')[0]),
+        Number(data.coordinates.split(',')[1]),
     ];
 
     const goaLat = 15.49835602;
