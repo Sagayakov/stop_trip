@@ -45,7 +45,12 @@ class AdvertisementModelViewSet(ModelViewSet):
 
         if self.action == self.retrieve.__name__:
             queryset = queryset.select_related(
-                "transport_brand", "transport_model", "proposed_currency", "exchange_for"
+                "transport_brand",
+                "transport_model",
+                "proposed_currency",
+                "exchange_for",
+                "property_city",
+                "property_district",
             ).prefetch_related("property_amenities")
 
         return queryset
