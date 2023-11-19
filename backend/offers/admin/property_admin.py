@@ -15,4 +15,4 @@ class PropertyDistrictAdmin(ModelAdmin):
 
 @register(PropertyAmenity)
 class PropertyAmenityAdmin(ModelAdmin):
-    pass
+    prepopulated_fields = {"slug": ("name",)}

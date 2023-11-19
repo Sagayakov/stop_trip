@@ -10,8 +10,8 @@ class PropertyAmenitySerializer(serializers.ModelSerializer):
     class Meta:
         model = PropertyAmenity
         fields = (
-            "id",
             "name",
+            "slug",
         )
 
 
@@ -42,6 +42,7 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
     property_sleeping_places = serializers.IntegerField(required=True)
     property_rooms_count = serializers.IntegerField(required=True)
     property_commission = serializers.IntegerField(required=True)
+    # todo дописать для создания с удобствами
 
     class Meta:
         model = Advertisement

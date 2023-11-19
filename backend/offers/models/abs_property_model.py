@@ -127,6 +127,7 @@ class PropertyAmenity(models.Model):
     """Удобства недвижимости."""
 
     name = models.CharField("Название", max_length=50)
+    slug = models.SlugField("Слаг", blank=True)
 
     class Meta:
         verbose_name = "Удобство"

@@ -1,5 +1,6 @@
 from django_filters.rest_framework import filters, FilterSet
 
+from common.filters import CharInFilter
 from ..constants import (
     PropertyTypeOfService,
     PropertyBathroomType,
@@ -26,4 +27,11 @@ class PropertyFilter(FilterSet):
     )
     property_area = filters.RangeFilter(label="Общая площадь")
     property_has_furniture = filters.BooleanFilter(label="Мебель")
-    property_amenities = filters.CharFilter(label="Удобства", field_name="property_amenities__name")
+    property_amenities = CharInFilter(label="Удобства", method="filter_property_amenities")
+
+    @staticmethod
+    def filter_property_amenities(queryset, name, value):
+        if value:
+            for v in value:
+                queryset = queryset.filter(property_amenities__slug=v)
+        return queryset

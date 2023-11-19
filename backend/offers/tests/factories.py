@@ -112,6 +112,7 @@ class PropertyAmenityFactory(factory.django.DjangoModelFactory):
     """Фабрика удобств."""
 
     name = factory.Faker("word")
+    slug = factory.Sequence(lambda x: f"slug_{x}")
 
     class Meta:
         model = PropertyAmenity

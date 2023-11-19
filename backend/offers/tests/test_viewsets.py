@@ -2124,7 +2124,58 @@ class AdvertisementViewSetTest(APITestCase):
         res_json = res.json()
         self.assertEqual(len(res_json), len(property_set) // 2)
 
-    def test_property_has_furniture(self):
+    # def test_property_has_furniture(self):
+    #     user = UserFactory()
+    #     property_cities = [
+    #         PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
+    #     ]
+    #     property_districts = [
+    #         PropertyDistrictFactory(name=name, city=city)
+    #         for name in ["1d", "2d", "3d", "4d"]
+    #         for city in property_cities
+    #     ]
+    #
+    #     property_amenities = [
+    #         PropertyAmenityFactory(name=name)
+    #         for name in ["Heating", "Air Conditioning", "Kitchen", "TV"]
+    #     ]
+    #     property_set = [
+    #         PropertyAdvertisementFactory(
+    #             owner=user,
+    #             price=100_000 + _ * 50_000,
+    #             category=CategoryChoices.PROPERTY.value,
+    #             coordinates="35,35",
+    #             property_type_of_service=PropertyTypeOfService.SALE,
+    #             property_city=city,
+    #             property_district=district,
+    #             property_building_max_floor=5,
+    #             property_floor=4,
+    #             property_bathroom_count=2,
+    #             property_bathroom_type=PropertyBathroomType.SEPARATE,
+    #             property_area=_,
+    #             property_living_area=50,
+    #             property_balcony=PropertyBalcony.YES,
+    #             property_has_furniture=[True, False][_ % 2],
+    #             property_house_type=PropertyHouseType.BLOCK,
+    #             property_has_parking=True,
+    #             property_rental_condition=PropertyRentalCondition.FAMILY,
+    #             property_prepayment=PropertyPrepayment.TWO_MONTHS,
+    #             property_sleeping_places=5,
+    #             property_rooms_count=3,
+    #         ).property_amenities.set(property_amenities)
+    #         for city in property_cities
+    #         for district in property_districts
+    #         for _ in range(2)
+    #     ]
+    #
+    #     with self.assertNumQueries(2):
+    #         res = self.client.get(self.list_url, {"property_amenities": "Heating"})
+    #
+    #         self.assertEqual(res.status_code, status.HTTP_200_OK)
+    #     res_json = res.json()
+    #     self.assertEqual(len(res_json), len(property_set))
+
+    def test_property_property_amenities(self):
         user = UserFactory()
         property_cities = [
             PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
@@ -2146,7 +2197,7 @@ class AdvertisementViewSetTest(APITestCase):
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
                 property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=city,
+                property_city=district.city,
                 property_district=district,
                 property_building_max_floor=5,
                 property_floor=4,
@@ -2162,15 +2213,20 @@ class AdvertisementViewSetTest(APITestCase):
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,
                 property_sleeping_places=5,
                 property_rooms_count=3,
-            ).property_amenities.set(property_amenities)
-            for city in property_cities
+            )
             for district in property_districts
             for _ in range(2)
         ]
+        for property in property_set[:-1]:
+            property.property_amenities.set(property_amenities[:-1])
+        property_set[-1].property_amenities.set(property_amenities)
 
         with self.assertNumQueries(2):
-            res = self.client.get(self.list_url, {"property_amenities": "Heating"})
+            res = self.client.get(
+                f"{self.list_url}?property_amenities={property_amenities[-2].slug},{property_amenities[-1].slug}"
+            )
 
-            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(property_set))
+        self.assertEqual(len(res_json), 1)
+        self.assertEqual(res_json[0]["id"], property_set[-1].id)
