@@ -46,6 +46,7 @@ export const SettingPrice = ({ register, watch }: Props) => {
                 <input
                     id="setting-price-input-min"
                     type="number"
+                    min="0"
                     placeholder="От"
                     {...register('settingPrice.min')}
                 />

@@ -14,6 +14,7 @@ export const SettingTransportPrice = ({ register }: Props) => {
                 <input
                     type="number"
                     placeholder="От"
+                    min="0"
                     {...register('price.min')}
                 />
                 <input

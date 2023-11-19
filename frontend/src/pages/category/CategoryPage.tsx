@@ -6,7 +6,14 @@ import { Pagination } from '../../features/pagination';
 import { categories } from '../../shared/const/categories';
 import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
 import { HorizontalMixer } from '../../shared/ui/icons/icons-tools/HorizontalMixer';
-import { AnyCategory, SettingRealtyForm, SettingServicesForm, SettingTaxiForm, SettingTransportForm } from '../../widgets/index';
+import {
+    AnyCategory,
+    SettingJobForm,
+    SettingRealtyForm,
+    SettingServicesForm,
+    SettingTaxiForm,
+    SettingTransportForm,
+} from '../../widgets/index';
 import './style/category-page.scss';
 import './style/1024-1439-category-page.scss';
 import './style/768-1023-category-page.scss';
@@ -18,11 +25,11 @@ export const CategoryPage = () => {
     const description = categories[category].description;
     const [showFilters, setShowFilters] = useState<boolean>(false);
 
-    const { isDesktop } = useMatchMedia()
+    const { isDesktop } = useMatchMedia();
 
     const filterFormStyleMobile = {
         display: `${showFilters ? 'block' : 'none'}`,
-        height: '115%',//когда добавится пагинация или что-то ниже объявлений, мб немного увеличить
+        height: '115%', //когда добавится пагинация или что-то ниже объявлений, мб немного увеличить
     };
 
     const filterBtnStyle = {
@@ -30,10 +37,12 @@ export const CategoryPage = () => {
         backgroundColor: `${showFilters ? '#CDE1FF' : '#EBF3FF'}`,
     };
 
-    const handleClickFilterForm = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        event.stopPropagation()
+    const handleClickFilterForm = (
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ) => {
+        event.stopPropagation();
         setShowFilters(false);
-    }
+    };
 
     return (
         <>
@@ -70,12 +79,9 @@ export const CategoryPage = () => {
             <div className="filters-adverts">
                 <div
                     className="filter-form"
-                    onClick={handleClickFilterForm} // убрать, если не поможет
-                    // onClick={() => setShowFilters(false)} //мб из-за этого пропадает на телефоне фильтр
+                    onClick={handleClickFilterForm}
                     style={
-                        isDesktop
-                            ? {display: "block"}
-                            : filterFormStyleMobile
+                        isDesktop ? { display: 'block' } : filterFormStyleMobile
                     }
                 >
                     {category === 'property' && (
@@ -88,7 +94,10 @@ export const CategoryPage = () => {
                         <SettingTaxiForm setShowFilters={setShowFilters} />
                     )}
                     {category === 'service' && (
-                        <SettingServicesForm setShowFilters={setShowFilters}/>
+                        <SettingServicesForm setShowFilters={setShowFilters} />
+                    )}
+                    {category === 'job' && (
+                        <SettingJobForm setShowFilters={setShowFilters} />
                     )}
                 </div>
                 <AnyCategory />

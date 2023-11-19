@@ -1,24 +1,22 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeSettingTaxi } from '../../../widgets/settingForm/settingTaxi/libr/TypeSettingTaxi';
+import { TypeOfServicesForm } from '../../../widgets/settingForm/settingServices/libr/TypeOfServicesForm';
 
 interface Props {
-    register: UseFormRegister<TypeSettingTaxi>;
+    register: UseFormRegister<TypeOfServicesForm>;
 }
 
-export const SettingTaxiPrice = ({ register }: Props) => {
+export const SettingServicePrice = ({ register }: Props) => {
     return (
-        <div className="taxiPrice">
+        <div className="servicePrice">
             <h3>Цена</h3>
-            <div className="setting-taxiPrice">
+            <div className="setting-servicePrice">
                 <input
-                    // id="setting-price-input-min"
                     type="number"
                     min="0"
                     placeholder="От"
                     {...register('price.min')}
                 />
                 <input
-                    // id="setting-price-input-max"
                     type="number"
                     placeholder="До"
                     {...register('price.max')}

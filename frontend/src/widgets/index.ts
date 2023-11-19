@@ -5,3 +5,4 @@ export { SettingRealtyForm } from './settingForm/settingRealty/SettingRealtyForm
 export { SettingTransportForm } from './settingForm/settingTransport/SettingTransportForm'
 export { SettingTaxiForm } from './settingForm/settingTaxi/SettingTaxiForm'
 export { SettingServicesForm } from './settingForm/settingServices/SettingServicesForm'
+export { SettingJobForm } from './settingForm/settingJob/SettingJobFilter'
