@@ -57,8 +57,8 @@
     .settingTaxiPrice {
         margin-bottom: 24px;
     }
-    .settingTaxiPrice {
-        .setting-TaxiPrice-inputs {
+    .taxiPrice {
+        .setting-taxiPrice{
             display: flex;
             justify-content: space-between;
             input[type='number'] {
@@ -109,7 +109,7 @@
 @media (max-width: 1439px) {
     .filterTaxiForm {
         .settingTaxiPrice {
-            .setting-TaxiPrice-inputs {
+            .setting-taxiPrice {
                 input[type='number'] {
                     width: 42%;
                 }
