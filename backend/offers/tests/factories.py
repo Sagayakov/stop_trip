@@ -35,8 +35,7 @@ from offers.models import (
     AdvertisementImage,
     Currency,
     PropertyCity,
-    PropertyDistrict
-
+    PropertyDistrict,
 )
 
 
@@ -64,6 +63,7 @@ class AdvertisementImageFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = AdvertisementImage
 
+
 class PropertyCityFactory(factory.django.DjangoModelFactory):
     """Фабрика города недвижимости"""
 
@@ -83,7 +83,6 @@ class PropertyDistrictFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = PropertyDistrict
-
 
 
 class PropertyAdvertisementFactory(BaseAdvertisementFactory):

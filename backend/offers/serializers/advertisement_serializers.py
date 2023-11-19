@@ -22,7 +22,6 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
             "price",
             "description",
             "coordinates",
-
         )
 
 

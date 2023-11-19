@@ -9,7 +9,9 @@ from .property_filter import PropertyFilter
 from ..constants import CategoryChoices
 
 
-class AdvertisementFilter(TransportFilter, PropertyFilter, EventFilter, JobFilter, ServiceFilter, TaxiFilter):
+class AdvertisementFilter(
+    TransportFilter, PropertyFilter, EventFilter, JobFilter, ServiceFilter, TaxiFilter
+):
     """Фильтры для объявлений."""
 
     category = filters.ChoiceFilter(label="Категория", choices=CategoryChoices.choices)

@@ -46,7 +46,7 @@ from .factories import (
     CurrencyFactory,
     BaseAdvertisementFactory,
     PropertyCityFactory,
-    PropertyDistrictFactory
+    PropertyDistrictFactory,
 )
 
 
@@ -1391,7 +1391,7 @@ class AdvertisementViewSetTest(APITestCase):
                 job_duration=JobDurationType.ONE_TIME_TASK,
                 job_payment_type=[JobPaymentType.HOURLY_PAYMENT, JobPaymentType.WEEKLY_PAYMENT][
                     _ % 2
-                    ],
+                ],
                 job_experience=True,
             )
             for _ in range(2)
@@ -1643,7 +1643,7 @@ class AdvertisementViewSetTest(APITestCase):
                 coordinates="35,35",
                 property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][
                     _ % 2
-                    ],
+                ],
                 property_city=city,
                 property_district=district,
                 property_building_max_floor=5,
@@ -1694,7 +1694,7 @@ class AdvertisementViewSetTest(APITestCase):
                 coordinates="35,35",
                 property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][
                     _ % 2
-                    ],
+                ],
                 property_city=city,
                 property_district=district,
                 property_building_max_floor=5,
@@ -1745,7 +1745,7 @@ class AdvertisementViewSetTest(APITestCase):
                 coordinates="35,35",
                 property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][
                     _ % 2
-                    ],
+                ],
                 property_city=city,
                 property_district=district,
                 property_building_max_floor=5,

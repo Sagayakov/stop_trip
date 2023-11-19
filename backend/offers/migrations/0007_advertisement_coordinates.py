@@ -5,15 +5,16 @@ import location_field.models.plain
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('offers', '0006_propertycity_propertydistrict_and_more'),
+        ("offers", "0006_propertycity_propertydistrict_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='advertisement',
-            name='coordinates',
-            field=location_field.models.plain.PlainLocationField(blank=True, max_length=63, verbose_name='Координаты'),
+            model_name="advertisement",
+            name="coordinates",
+            field=location_field.models.plain.PlainLocationField(
+                blank=True, max_length=63, verbose_name="Координаты"
+            ),
         ),
     ]
