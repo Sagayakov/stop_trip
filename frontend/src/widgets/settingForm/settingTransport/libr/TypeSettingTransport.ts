@@ -12,6 +12,7 @@ export interface TypeSettingTransport {
     bodyType: string[];
     condition: Condition;
     commission: Comission;
+    price: Price
 }
 export interface SelectOption {
     value: string;
@@ -34,6 +35,10 @@ interface YearOfProduction{
 type Condition = 'Новый' | 'Б/у' | 'Аварийный' | 'На запчасти'
 
 interface Comission {
+    min: number
+    max: number
+}
+interface Price {
     min: number
     max: number
 }

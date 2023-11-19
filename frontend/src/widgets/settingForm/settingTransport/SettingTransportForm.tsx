@@ -7,6 +7,7 @@ import {
     EngineСapacity,
     MarkOfTransport,
     ModelOfTransport,
+    SettingTransportPrice,
     TransmissionType,
     TransportComission,
     TransportationCategory,
@@ -64,6 +65,7 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
                 <BodyTypeOfTransport setValue={setValue} control={control} />
                 <ConditionOfTransport register={register} setValue={setValue} />
                 <TransportComission register={register} />
+                <SettingTransportPrice register={register}/>
                 <input type="submit" value="Показать 100 объявлений" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
