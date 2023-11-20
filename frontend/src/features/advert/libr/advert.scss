@@ -111,3 +111,93 @@ main {
         }
     }
 }
+@media (max-width: 767px) {
+    main {
+        .advert-wrapper {
+            .bread-crumbs {
+                padding-top: 110px;
+            }
+            .advert-info {
+                margin-top: 0;
+                flex-direction: column;
+                .owner-info {
+                    width: 100%;
+                    margin-top: 22px;
+                    display: grid;
+                    grid-template-areas:
+                        'info info'
+                        'date date'
+                        'owner owner'
+                        'write call';
+                    .price-block {
+                        grid-area: info;
+                    }
+                    .owner {
+                        grid-area: owner;
+                    }
+                    .call-button {
+                        grid-area: call;
+                    }
+                    .write-button {
+                        grid-area: write;
+                    }
+                    .public-date {
+                        grid-area: date;
+                    }
+                }
+            }
+            .image-wrapper {
+                .active-image {
+                    margin-top: 1rem;
+                    .add-to-favorite {
+                        right: 22px;
+                        top: 22px;
+                    }
+                    .share-icon {
+                        right: 22px;
+                        top: 72px;
+                    }
+                    & > img {
+                        width: 100%;
+                        // height: auto;
+                    }
+                }
+            }
+            .advert-info {
+                .product-info {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 475px) {
+    main {
+        .advert-wrapper {
+            .image-wrapper {
+                .active-image {
+                    .add-to-favorite {
+                        width: 25px;
+                        height: 25px;
+                        & > svg{
+                            width: 15px;
+                            height: 15px;
+                        }
+                        right: 10px;
+                        top: 10px;
+                    }
+                    .share-icon {
+                        width: 25px;
+                        height: 25px;
+                        & > svg{
+                            width: 15px;
+                            height: 15px;
+                        }
+                        right: 10px;
+                        top: 40px;
+                    }
+                }
+            }
+        }
+    }
+}
