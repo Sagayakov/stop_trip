@@ -39,7 +39,7 @@ export const Advert = () => {
                             : 'Адрес не указан'}
                     </p>
                     <div className="advert-info">
-                        <section className="product-info">
+                        {/*<section className="product-info">
                             <PhotoSlider />
                             <AdvertCharacteristics data={data} />
                             <div className="description">
@@ -48,8 +48,8 @@ export const Advert = () => {
                                 </div>
                                 <p>{data.description}</p>
                             </div>
-                            {/*<AdvertLocation data={data} />*/}
-                        </section>
+                            <AdvertLocation data={data} />
+                        </section>*/}
                         <section className="owner-info">
                             <div className="price-block">
                                 Сутки{' '}
@@ -103,7 +103,7 @@ export const Advert = () => {
                                 </p>
                             )}
                         </section>
-                        <section className="product-info">
+                        {/*<section className="product-info">
                             <AdvertCharacteristics data={data} />
                             <div className="description">
                                 <div className="description-header">
@@ -111,8 +111,8 @@ export const Advert = () => {
                                 </div>
                                 <p>{data.description}</p>
                             </div>
-                            {/*<AdvertLocation data={data} />*/}
-                        </section>
+                            <AdvertLocation data={data} />
+                        </section>*/}
                     </div>
                 </div>
             )}
