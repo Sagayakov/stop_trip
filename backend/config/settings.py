@@ -15,7 +15,14 @@ TESTING = "test" in argv or len(argv) >= 1 and "pytest" in argv[0]
 DEBUG = getenv("DEBUG", "True") == "True" and not TESTING
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://localhost:3000"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://stoptrip",
+    "http://stoptrip:3000",
+    "http://stoptrip.com",
+    "http://stoptrip.com:3000",
+    "http://localhost",
+    "http://localhost:3000",
+]
 
 # Application definition
 
