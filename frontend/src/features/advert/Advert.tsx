@@ -3,7 +3,7 @@ import './libr/advert.scss';
 import { PhotoSlider } from '../../entities/photoSlider/PhotoSlider';
 import { useGetAdvertByIdQuery } from '../../app/api/fetchAdverts';
 import { useParams } from 'react-router-dom';
-import { AdvertCharacteristics } from '../../entities/advertCharacteristics/AdvertCharacterictics';
+//import { AdvertCharacteristics } from '../../entities/advertCharacteristics/AdvertCharacterictics';
 //import { AdvertLocation } from '../../entities/location/AdvertLocation';
 import { getDate } from '../../shared/utils/getDate';
 import { useEffect, useState } from 'react';
