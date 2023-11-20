@@ -115,7 +115,7 @@ main {
     main {
         .advert-wrapper {
             .bread-crumbs {
-                padding-top: 110px;
+                padding: 90px 0px 0px;
             }
             .advert-info {
                 margin-top: 0;
@@ -174,6 +174,9 @@ main {
 @media (max-width: 475px) {
     main {
         .advert-wrapper {
+            .bread-crumbs {
+                padding: 70px 0px 0px;
+            }
             .image-wrapper {
                 .active-image {
                     .add-to-favorite {
