@@ -31,7 +31,7 @@ export const fetchAdverts = createApi({
             invalidatesTags: ['Adverts'],
         }),
         getAdvertById: build.query<ProductType, string>({
-            query: (id) => `api/advertisements/${id}`,
+            query: (id) => `api/advertisements/${id}/`,
         }),
     }),
 });
