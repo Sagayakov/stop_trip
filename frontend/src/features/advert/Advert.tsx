@@ -3,8 +3,8 @@ import './libr/advert.scss';
 import { PhotoSlider } from '../../entities/photoSlider/PhotoSlider';
 import { useGetAdvertByIdQuery } from '../../app/api/fetchAdverts';
 import { useParams } from 'react-router-dom';
-//import { AdvertCharacteristics } from '../../entities/advertCharacteristics/AdvertCharacterictics';
-//import { AdvertLocation } from '../../entities/location/AdvertLocation';
+import { AdvertCharacteristics } from '../../entities/advertCharacteristics/AdvertCharacterictics';
+import { AdvertLocation } from '../../entities/location/AdvertLocation';
 import { getDate } from '../../shared/utils/getDate';
 import { useEffect, useState } from 'react';
 import { Date } from './libr/types';
@@ -39,7 +39,7 @@ export const Advert = () => {
                             : 'Адрес не указан'}
                     </p>
                     <div className="advert-info">
-                        {/*<section className="product-info">
+                        <section className="product-info">
                             <PhotoSlider />
                             <AdvertCharacteristics data={data} />
                             <div className="description">
@@ -49,7 +49,7 @@ export const Advert = () => {
                                 <p>{data.description}</p>
                             </div>
                             <AdvertLocation data={data} />
-                        </section>*/}
+                        </section>
                         <section className="owner-info">
                             <div className="price-block">
                                 Сутки{' '}
@@ -103,7 +103,7 @@ export const Advert = () => {
                                 </p>
                             )}
                         </section>
-                        {/*<section className="product-info">
+                        <section className="product-info">
                             <AdvertCharacteristics data={data} />
                             <div className="description">
                                 <div className="description-header">
@@ -112,7 +112,7 @@ export const Advert = () => {
                                 <p>{data.description}</p>
                             </div>
                             <AdvertLocation data={data} />
-                        </section>*/}
+                        </section>
                     </div>
                 </div>
             )}

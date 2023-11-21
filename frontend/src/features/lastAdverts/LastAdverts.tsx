@@ -7,7 +7,6 @@ import './libr/LastAdverts.scss';
 
 export const LastAdverts = () => {
     const { data = [], isLoading } = useGetAdvertsQuery('');
-    const reverseData = JSON.parse(JSON.stringify(data)); //наверное стоит делать reverse массива на бэке и сразу получать в обратном порядке
 
     return (
         <div className="last-adverts">
@@ -15,7 +14,7 @@ export const LastAdverts = () => {
                 <h3>Последние объявления</h3>
                 <div className="adverts-list">
                     {isLoading && <LoadingWithBackground />}
-                    {reverseData.reverse().map((elem: LastAdvertsTypes) => (
+                    {data.map((elem: LastAdvertsTypes) => (
                         <Cart cart={elem} key={elem.id} />
                     ))}
                 </div>
