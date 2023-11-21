@@ -247,8 +247,8 @@ SIMPLE_JWT = {
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
-DOMAIN = getenv("DOMAIN", "stoptrip.com")
-SITE_NAME = getenv("SITE_NAME", "stoptrip.com")
+DOMAIN = getenv("SITE_NAME")
+SITE_NAME = getenv("SITE_NAME")
 DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
