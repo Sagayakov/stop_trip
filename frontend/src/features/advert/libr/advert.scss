@@ -2,10 +2,10 @@ main {
     max-width: 1440px;
     margin: auto;
 }
-.advert-wrapper {
+.announcement-wrapper {
     max-width: 1240px;
     margin: 0 auto 50px;
-    .advert-header {
+    .announcement-header {
         font-size: 1.63rem;
         margin: 1.5rem 0;
         color: var(--main-black);
@@ -14,7 +14,7 @@ main {
         font-size: 16px;
         color: var(--main-black);
     }
-    .advert-info {
+    .announcement-info {
         display: flex;
         justify-content: space-between;
         gap: 1rem;
@@ -102,7 +102,7 @@ main {
     main {
         width: 100%;
         margin: 0 auto;
-        .advert-wrapper {
+        .announcement-wrapper {
             width: 85%;
             .bread-crumbs {
                 width: 85%;
@@ -113,11 +113,11 @@ main {
 }
 @media (max-width: 767px) {
     main {
-        .advert-wrapper {
+        .announcement-wrapper {
             .bread-crumbs {
                 padding: 90px 0px 0px;
             }
-            .advert-info {
+            .announcement-info {
                 margin-top: 0;
                 flex-direction: column;
                 .owner-info {
@@ -163,7 +163,7 @@ main {
                     }
                 }
             }
-            .advert-info {
+            .announcement-info {
                 .product-info {
                     width: 100%;
                 }
@@ -173,7 +173,7 @@ main {
 }
 @media (max-width: 475px) {
     main {
-        .advert-wrapper {
+        .announcement-wrapper {
             .bread-crumbs {
                 padding: 70px 0px 0px;
             }
