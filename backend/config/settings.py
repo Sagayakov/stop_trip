@@ -240,7 +240,8 @@ SIMPLE_JWT = {
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
-# DOMAIN = f"{SITE_HOST}:3000"
+DOMAIN = getenv("DOMAIN", "stoptrip.com")
+SITE_NAME = getenv("SITE_NAME", "stoptrip.com")
 DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
