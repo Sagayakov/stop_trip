@@ -127,6 +127,44 @@ class AdvertisementAdmin(ModelAdmin):
                 ),
             },
         ),
+        (
+            _("Еда"),
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "food_delivery",
+                    "food_establishment",
+                    "food_type",
+                ),
+            },
+        ),
+        (
+            _("Купить-продать"),
+            {
+                "classes": ("collapse",),
+                "fields": ("market_condition",),
+            },
+        ),
+        (
+            _("Документы"),
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "document_type",
+                    "document_duration",
+                ),
+            },
+        ),
+        (
+            _("Экскурсии"),
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "excursion_food",
+                    "excursion_transfer",
+                ),
+            },
+        ),
     )
 
     add_fieldsets = (
@@ -185,6 +223,14 @@ class AdvertisementAdmin(ModelAdmin):
                     "proposed_currency",
                     "exchange_for",
                     "exchange_rate",
+                    "food_delivery",
+                    "food_establishment",
+                    "food_type",
+                    "excursion_food",
+                    "excursion_transfer",
+                    "document_type",
+                    "document_duration",
+                    "market_condition",
                 ),
             },
         ),

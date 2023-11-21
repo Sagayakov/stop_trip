@@ -21,6 +21,10 @@ from .serializers import (
     EventCreateSerializer,
     AdvertisementUpdateSerializer,
     ExchangeRateCreateSerializer,
+    MarketCreateSerializer,
+    DocumentCreateSerializers,
+    FoodCreateSerializer,
+    ExcursionCreateSerializer,
 )
 
 
@@ -65,6 +69,10 @@ class AdvertisementModelViewSet(ModelViewSet):
                 CategoryChoices.EVENT: EventCreateSerializer,
                 CategoryChoices.TAXI: TaxiCreateSerializer,
                 CategoryChoices.EXCHANGE_RATE: ExchangeRateCreateSerializer,
+                CategoryChoices.MARKET: MarketCreateSerializer,
+                CategoryChoices.DOCUMENT: DocumentCreateSerializers,
+                CategoryChoices.FOOD: FoodCreateSerializer,
+                CategoryChoices.EXCURSION: ExcursionCreateSerializer,
             }
 
             if category := self.request.data.get("category"):

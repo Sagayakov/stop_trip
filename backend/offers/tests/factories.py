@@ -26,6 +26,10 @@ from offers.constants import (
     JobPaymentType,
     JobType,
     JobDurationType,
+    MarketCondition,
+    FoodType,
+    DocumentDuration,
+    DocumentType,
 )
 from offers.models import (
     Advertisement,
@@ -215,3 +219,31 @@ class ExchangeAdvertisementFactory(BaseAdvertisementFactory):
     proposed_currency = factory.SubFactory(CurrencyFactory)
     exchange_for = factory.SubFactory(CurrencyFactory)
     exchange_rate = factory.Faker("pyfloat")
+
+
+class MarketAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по купли-продаже"""
+
+    market_condition = fuzzy.FuzzyChoice(choices=MarketCondition.values)
+
+
+class DocumentAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по документам"""
+
+    document_type = fuzzy.FuzzyChoice(choices=DocumentType)
+    document_duration = fuzzy.FuzzyChoice(choices=DocumentDuration)
+
+
+class FoodAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по еде"""
+
+    food_delivery = True
+    food_establishment = False
+    food_type = fuzzy.FuzzyChoice(choices=FoodType)
+
+
+class ExcursionAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по экскурсиям"""
+
+    excursion_food = True
+    excursion_transfer = False

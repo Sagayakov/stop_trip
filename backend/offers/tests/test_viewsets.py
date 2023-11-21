@@ -28,6 +28,10 @@ from offers.constants import (
     JobType,
     JobPaymentType,
     JobDurationType,
+    DocumentType,
+    DocumentDuration,
+    FoodType,
+    MarketCondition,
 )
 from offers.models import Advertisement
 from users.tests.factories import UserFactory
@@ -47,6 +51,10 @@ from .factories import (
     BaseAdvertisementFactory,
     PropertyCityFactory,
     PropertyDistrictFactory,
+    MarketAdvertisementFactory,
+    DocumentAdvertisementFactory,
+    FoodAdvertisementFactory,
+    ExcursionAdvertisementFactory,
 )
 
 
@@ -755,6 +763,286 @@ class AdvertisementViewSetTest(APITestCase):
     def test_delete_event(self):
         user = UserFactory()
         advertisement = EventAdvertisementFactory(owner=user)
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(6):
+            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_create_market(self):
+        payload = {
+            "category": CategoryChoices.MARKET.value,
+            "title": "market",
+            "price": 1_000,
+            "market_condition": MarketCondition.NEW,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 0)
+        user = UserFactory()
+        self.client.force_login(user)
+
+        with self.assertNumQueries(3):
+            res = self.client.post(self.list_url, data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+
+        new_advertisement = Advertisement.objects.first()
+
+        self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.category, payload["category"])
+        self.assertEqual(new_advertisement.title, payload["title"])
+        self.assertEqual(new_advertisement.price, payload["price"])
+        self.assertEqual(new_advertisement.market_condition, payload["market_condition"])
+
+    def test_update_market(self):
+        user = UserFactory()
+        advertisement = MarketAdvertisementFactory(owner=user)
+        payload = {
+            "category": CategoryChoices.MARKET.value,
+            "title": "market_new",
+            "price": 10_000,
+            "market_condition": MarketCondition.USED,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(7):
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+        advertisement.refresh_from_db()
+
+        self.assertEqual(advertisement.owner, user)
+        self.assertEqual(advertisement.category, payload["category"])
+        self.assertEqual(advertisement.title, payload["title"])
+        self.assertEqual(advertisement.price, payload["price"])
+        self.assertEqual(advertisement.market_condition, payload["market_condition"])
+
+    def test_delete_market(self):
+        user = UserFactory()
+
+        advertisement = MarketAdvertisementFactory(owner=user)
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(6):
+            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_create_document(self):
+        payload = {
+            "category": CategoryChoices.DOCUMENT.value,
+            "title": "document",
+            "price": 1_000,
+            "document_type": DocumentType.C_FORM,
+            "document_duration": DocumentDuration.QUARTER,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 0)
+        user = UserFactory()
+        self.client.force_login(user)
+
+        with self.assertNumQueries(3):
+            res = self.client.post(self.list_url, data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+
+        new_advertisement = Advertisement.objects.first()
+
+        self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.category, payload["category"])
+        self.assertEqual(new_advertisement.title, payload["title"])
+        self.assertEqual(new_advertisement.price, payload["price"])
+        self.assertEqual(new_advertisement.document_type, payload["document_type"])
+        self.assertEqual(new_advertisement.document_duration, payload["document_duration"])
+
+    def test_update_document(self):
+        user = UserFactory()
+        advertisement = DocumentAdvertisementFactory(owner=user)
+        payload = {
+            "category": CategoryChoices.DOCUMENT.value,
+            "title": "document_new",
+            "price": 10_000,
+            "document_type": DocumentType.C_FORM,
+            "document_duration": DocumentDuration.QUARTER,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(7):
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+        advertisement.refresh_from_db()
+
+        self.assertEqual(advertisement.owner, user)
+        self.assertEqual(advertisement.category, payload["category"])
+        self.assertEqual(advertisement.title, payload["title"])
+        self.assertEqual(advertisement.price, payload["price"])
+        self.assertEqual(advertisement.document_type, payload["document_type"])
+        self.assertEqual(advertisement.document_duration, payload["document_duration"])
+
+    def test_delete_document(self):
+        user = UserFactory()
+
+        advertisement = DocumentAdvertisementFactory(owner=user)
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(6):
+            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_create_food(self):
+        payload = {
+            "category": CategoryChoices.FOOD.value,
+            "title": "food",
+            "price": 1_000,
+            "food_delivery": True,
+            "food_establishment": True,
+            "food_type": FoodType.READY_FOOD,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 0)
+        user = UserFactory()
+        self.client.force_login(user)
+
+        with self.assertNumQueries(3):
+            res = self.client.post(self.list_url, data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+
+        new_advertisement = Advertisement.objects.first()
+
+        self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.category, payload["category"])
+        self.assertEqual(new_advertisement.title, payload["title"])
+        self.assertEqual(new_advertisement.price, payload["price"])
+        self.assertEqual(new_advertisement.food_delivery, payload["food_delivery"])
+        self.assertEqual(new_advertisement.food_establishment, payload["food_establishment"])
+        self.assertEqual(new_advertisement.food_type, payload["food_type"])
+
+    def test_update_food(self):
+        user = UserFactory()
+        advertisement = DocumentAdvertisementFactory(owner=user)
+        payload = {
+            "category": CategoryChoices.FOOD.value,
+            "title": "food",
+            "price": 1_000,
+            "food_delivery": True,
+            "food_establishment": True,
+            "food_type": FoodType.READY_FOOD,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(7):
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+        advertisement.refresh_from_db()
+
+        self.assertEqual(advertisement.owner, user)
+        self.assertEqual(advertisement.category, payload["category"])
+        self.assertEqual(advertisement.title, payload["title"])
+        self.assertEqual(advertisement.price, payload["price"])
+        self.assertEqual(advertisement.food_delivery, payload["food_delivery"])
+        self.assertEqual(advertisement.food_establishment, payload["food_establishment"])
+        self.assertEqual(advertisement.food_type, payload["food_type"])
+
+    def test_delete_food(self):
+        user = UserFactory()
+
+        advertisement = FoodAdvertisementFactory(owner=user)
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(6):
+            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_create_excursion(self):
+        payload = {
+            "category": CategoryChoices.EXCURSION.value,
+            "title": "excursion",
+            "price": 1_000,
+            "excursion_food": True,
+            "excursion_transfer": False,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 0)
+        user = UserFactory()
+        self.client.force_login(user)
+
+        with self.assertNumQueries(3):
+            res = self.client.post(self.list_url, data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+
+        new_advertisement = Advertisement.objects.first()
+
+        self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.category, payload["category"])
+        self.assertEqual(new_advertisement.title, payload["title"])
+        self.assertEqual(new_advertisement.price, payload["price"])
+        self.assertEqual(new_advertisement.excursion_food, payload["excursion_food"])
+        self.assertEqual(new_advertisement.excursion_transfer, payload["excursion_transfer"])
+
+    def test_update_excursion(self):
+        user = UserFactory()
+        advertisement = ExcursionAdvertisementFactory(owner=user)
+        payload = {
+            "category": CategoryChoices.DOCUMENT.value,
+            "title": "excursion_new",
+            "price": 10_000,
+            "excursion_food": True,
+            "excursion_transfer": False,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(7):
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+        advertisement.refresh_from_db()
+
+        self.assertEqual(advertisement.owner, user)
+        self.assertEqual(advertisement.category, payload["category"])
+        self.assertEqual(advertisement.title, payload["title"])
+        self.assertEqual(advertisement.price, payload["price"])
+        self.assertEqual(advertisement.excursion_food, payload["excursion_food"])
+        self.assertEqual(advertisement.excursion_transfer, payload["excursion_transfer"])
+
+    def test_delete_excursion(self):
+        user = UserFactory()
+
+        advertisement = ExcursionAdvertisementFactory(owner=user)
 
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
