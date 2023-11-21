@@ -149,7 +149,7 @@ export const categoryCharacteristicsValues: Record<
             hourly_payment: 'Почасовая оплата',
             daily_payment: 'Ежедневная оплата',
             weekly_payment: 'Еженедельная оплата',
-            monthky_payment: 'Ежемесячная оплата',
+            monthly_payment: 'Ежемесячная оплата',
             other: 'Другое',
         },
     },
