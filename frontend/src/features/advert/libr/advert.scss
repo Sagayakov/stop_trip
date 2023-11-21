@@ -115,7 +115,23 @@ main {
     main {
         .announcement-wrapper {
             .bread-crumbs {
+                display: flex;
                 padding: 90px 0px 0px;
+                width: 100%;
+                h1 {
+                    font-size: 20px;
+                    -ms-text-overflow: ellipsis;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    -ms-line-clamp: 2;
+                    -webkit-line-clamp: 2;
+                    line-clamp: 2;
+                    display: -webkit-box;
+                    display: box;
+                    word-wrap: break-word;
+                    -webkit-box-orient: vertical;
+                    box-orient: vertical;
+                }
             }
             .announcement-info {
                 margin-top: 0;
@@ -159,7 +175,7 @@ main {
                     }
                     & > img {
                         width: 100%;
-                        // height: auto;
+                        height: 40vh;
                     }
                 }
             }
@@ -176,13 +192,16 @@ main {
         .announcement-wrapper {
             .bread-crumbs {
                 padding: 70px 0px 0px;
+                svg {
+                    width: 20px;
+                }
             }
             .image-wrapper {
                 .active-image {
                     .add-to-favorite {
                         width: 25px;
                         height: 25px;
-                        & > svg{
+                        & > svg {
                             width: 15px;
                             height: 15px;
                         }
@@ -192,7 +211,7 @@ main {
                     .share-icon {
                         width: 25px;
                         height: 25px;
-                        & > svg{
+                        & > svg {
                             width: 15px;
                             height: 15px;
                         }
