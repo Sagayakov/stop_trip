@@ -1,11 +1,11 @@
 import { Control, Controller, UseFormSetValue } from 'react-hook-form';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { valuesOfPropertyForm } from '../../../widgets/settingForm/settingRealty/valuesOfPropertyForm';
 import {
     SelectOption,
     TypeSettingRealty,
-} from '../../../widgets/settingForm/settingRealty/TypeSettingRealty';
+} from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
+import { valuesOfPropertyForm } from '../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
