@@ -21,7 +21,7 @@ export const BreadCrumbs = ({ data }: { data: ProductType }) => {
                         style={{ cursor: 'pointer', marginRight: '16px' }}
                         handleClickPrev={() => navigate(-1)}
                     />
-                    {`${data.title}`}
+                    {<h1>{data.title}</h1>}
                 </>
             ) : (
                 <>
