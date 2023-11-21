@@ -7,7 +7,7 @@ export interface TypeSettingRealty {
     bathRoom: BathRoom
     balcony: boolean
     onlyWithPhotos: boolean
-    comission: number
+    comission: Comission
 }
 
 // type TypeOfProperty = 'Квартира' | 'Комната' | 'Дом'
@@ -35,3 +35,8 @@ interface LivingSpace {
 
 type RoomsQuantity = 1 | 2 | 3 | 4
 type BathRoom = 'separate' | 'combined'
+
+interface Comission{
+    min: number
+    max: number
+}

@@ -6,7 +6,7 @@ interface Props {
 export const PriceOfJob = ({ register }: Props) => {
     return (
         <div className="jobPrice">
-            <h3>Цена</h3>
+            <h3>Зарплата</h3>
             <div className="setting-jobPrice">
                 <input
                     type="number"

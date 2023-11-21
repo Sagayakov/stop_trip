@@ -39,6 +39,12 @@ export const getValuesList = ({ data, category }: GetListProps) => {
                     <p>{data[key] === true && 'Да'}</p>
                 </div>
             );
+        } else if (key === 'start_date' || key === 'end_date') {
+            list.push(
+                <div key={key}>
+                    <p>{data[key]}</p>
+                </div>
+            );
         } else {
             list.push(
                 <div key={key}>

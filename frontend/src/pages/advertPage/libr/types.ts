@@ -28,7 +28,7 @@ export type ProductType = {
     property_bathroom_type: string;
     property_building_max_floor: null | number;
     property_city: string;
-    property_coords: string;
+    coordinates: string;
     property_district: string;
     property_floor: null | number;
     property_has_furniture: boolean;

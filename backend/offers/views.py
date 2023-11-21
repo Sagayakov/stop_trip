@@ -21,6 +21,10 @@ from .serializers import (
     EventCreateSerializer,
     AdvertisementUpdateSerializer,
     ExchangeRateCreateSerializer,
+    MarketCreateSerializer,
+    DocumentCreateSerializers,
+    FoodCreateSerializer,
+    ExcursionCreateSerializer,
 )
 
 
@@ -45,7 +49,12 @@ class AdvertisementModelViewSet(ModelViewSet):
 
         if self.action == self.retrieve.__name__:
             queryset = queryset.select_related(
-                "transport_brand", "transport_model", "proposed_currency", "exchange_for"
+                "transport_brand",
+                "transport_model",
+                "proposed_currency",
+                "exchange_for",
+                "property_city",
+                "property_district",
             ).prefetch_related("property_amenities")
 
         return queryset
@@ -60,6 +69,10 @@ class AdvertisementModelViewSet(ModelViewSet):
                 CategoryChoices.EVENT: EventCreateSerializer,
                 CategoryChoices.TAXI: TaxiCreateSerializer,
                 CategoryChoices.EXCHANGE_RATE: ExchangeRateCreateSerializer,
+                CategoryChoices.MARKET: MarketCreateSerializer,
+                CategoryChoices.DOCUMENT: DocumentCreateSerializers,
+                CategoryChoices.FOOD: FoodCreateSerializer,
+                CategoryChoices.EXCURSION: ExcursionCreateSerializer,
             }
 
             if category := self.request.data.get("category"):

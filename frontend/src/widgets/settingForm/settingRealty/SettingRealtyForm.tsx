@@ -9,14 +9,13 @@ import {
 } from '../../../features/settingCategoryForm/settingRealtyForm';
 import { TypeOfProperty } from '../../../features/settingCategoryForm/settingRealtyForm/TypeOfProperty';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
-import { TypeSettingRealty } from './TypeSettingRealty';
-
+import { TypeSettingRealty } from './libr/TypeSettingRealty';
+import './libr/settingRealty.scss'
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 export const SettingRealtyForm = ({ setShowFilters }: Props) => {
-
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -40,10 +39,7 @@ export const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 className="filter-realty-form"
                 onSubmit={handleSubmit(onsubmit)}
             >
-                <TypeOfProperty
-                    control={control}
-                    setValue={setValue}
-                />
+                <TypeOfProperty control={control} setValue={setValue} />
                 <SettingPrice register={register} watch={watch} />
                 <TotalArea register={register} />
                 <LivingSpace register={register} />
@@ -62,7 +58,7 @@ export const SettingRealtyForm = ({ setShowFilters }: Props) => {
                         <span>Только с фотографиями</span>
                     </label>
                 </div>
-                <RealtyComission register={register}/>
+                <RealtyComission register={register} />
                 <input type="submit" value="Показать 100 объявлений" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />

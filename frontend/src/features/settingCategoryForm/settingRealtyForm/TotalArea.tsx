@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/TypeSettingRealty';
+import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty';
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;

@@ -14,7 +14,7 @@ interface Props {
 
 export const TypeOfTaxi = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const valuesTypeOfTaxi = valuesOfTaxiForm.unitOfMeasurement;
+    const valuesTypeOfTaxi = valuesOfTaxiForm.typeOfTaxi;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null

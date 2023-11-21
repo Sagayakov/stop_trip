@@ -1,5 +1,5 @@
 from django.db import models
-
+from location_field.models.plain import PlainLocationField
 from .abs_event_model import AbsEvent
 from .abs_exchange_rate_model import AbsExchangeRate
 from .abs_job_model import AbsJob
@@ -7,11 +7,25 @@ from .abs_property_model import AbsProperty
 from .abs_service_model import AbsService
 from .abs_taxi_model import AbsTaxi
 from .abs_transport_model import AbsTransport
+from .abs_document_model import AbsDocument
+from .abs_market_model import AbsMarket
+from .abs_excursion_model import AbsExcursion
+from .abs_food_model import AbsFood
 from ..constants import CategoryChoices
 
 
 class Advertisement(
-    AbsTransport, AbsProperty, AbsJob, AbsEvent, AbsTaxi, AbsService, AbsExchangeRate
+    AbsTransport,
+    AbsProperty,
+    AbsJob,
+    AbsEvent,
+    AbsTaxi,
+    AbsService,
+    AbsExchangeRate,
+    AbsDocument,
+    AbsMarket,
+    AbsExcursion,
+    AbsFood,
 ):
     """Объявления."""
 
@@ -25,6 +39,7 @@ class Advertisement(
     category = models.CharField("Категории", max_length=100, choices=CategoryChoices.choices)
     title = models.CharField("Название", max_length=100)
     price = models.PositiveIntegerField("Цена", null=True, blank=True)
+    coordinates = PlainLocationField(verbose_name="Координаты", blank=True)
     description = models.TextField("Описание", max_length=1000, null=True, blank=True)
     is_published = models.BooleanField("Опубликованно", default=True)
     date_create = models.DateTimeField("Дата создания", auto_now_add=True)

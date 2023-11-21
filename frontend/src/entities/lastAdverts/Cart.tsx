@@ -2,9 +2,17 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { Favorite } from '../../shared/ui/icons/icons-tools/Favorite';
+import { getDateOfCreating } from './libr/getDateOfCreating';
 
 export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
-    const { price, title, id, images, category } = cart;
+    const {
+        price,
+        title,
+        id,
+        images,
+        category,
+        date_create: dateCreate,
+    } = cart;
     const [addToFav, setAddToFav] = useState(false);
     const navigate = useNavigate();
 
@@ -44,7 +52,7 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
                     </span>
                 </div>
                 <p>{title}</p>
-                <span>пока нет времени публикации</span>
+                <span>{getDateOfCreating(dateCreate)}</span>
             </div>
         </div>
     );
