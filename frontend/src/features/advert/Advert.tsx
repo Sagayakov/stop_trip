@@ -28,9 +28,9 @@ export const Advert = () => {
     return (
         <>
             {data && !isMobile && (
-                <div className="advert-wrapper">
+                <div className="announcement-wrapper">
                     <BreadCrumbs data={data} />
-                    <h1 className="advert-header">{data.title}</h1>
+                    <h1 className="announcement-header">{data.title}</h1>
                     <p>
                         {data.property_city
                             ? `${data.property_city}, ${
@@ -38,7 +38,7 @@ export const Advert = () => {
                               }`
                             : 'Адрес не указан'}
                     </p>
-                    <div className="advert-info">
+                    <div className="announcement-info">
                         <section className="product-info">
                             <PhotoSlider />
                             <AdvertCharacteristics data={data} />
@@ -73,7 +73,7 @@ export const Advert = () => {
                 </div>
             )}
             {data && isMobile && (
-                <div className="advert-wrapper">
+                <div className="announcement-wrapper">
                     <BreadCrumbs data={data} />
                     <PhotoSlider />
                     <p>
@@ -83,7 +83,7 @@ export const Advert = () => {
                               }`
                             : 'Адрес не указан'}
                     </p>
-                    <div className="advert-info">
+                    <div className="announcement-info">
                         <section className="owner-info">
                             <div className="price-block">
                                 Сутки{' '}
