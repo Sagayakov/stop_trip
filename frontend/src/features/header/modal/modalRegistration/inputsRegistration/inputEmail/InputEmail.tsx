@@ -19,6 +19,7 @@ export const InputEmail = ({ errors, register }: Props) => {
                         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                     minLength: 10,
                 })}
+                type='email'
                 placeholder="Email"
                 autoComplete="username"
                 style={{
@@ -35,7 +36,8 @@ export const InputEmail = ({ errors, register }: Props) => {
                 )}
                 {emailErrors && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        {emailErrors.email[0]}
+                        {/* {emailErrors.email[0]} */}
+                        Пользователь с такой почтой уже существует
                     </p>
                 )}
             </div>
