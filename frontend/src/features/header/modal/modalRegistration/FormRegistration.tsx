@@ -21,10 +21,9 @@ export const FormRegistration = () => {
         handleSubmit,
         reset,
         formState: { errors, isValid },
-
-        watch,
+        getValues,
     } = useForm<AuthRegistration>({
-        mode: 'all',
+        mode: 'onBlur',
     });
 
     const dispatch = useAppDispatch();
@@ -51,7 +50,7 @@ export const FormRegistration = () => {
                 register={register}
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
-                watch={watch}
+                getValues={getValues}
             />
             <InputChechbox register={register} errors={errors} />
             <InputSubmit isValid={isValid} />

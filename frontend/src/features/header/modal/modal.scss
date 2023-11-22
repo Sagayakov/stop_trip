@@ -44,7 +44,7 @@
         }
         form {
             .input-error {
-                height: 1.5rem;
+                min-height: 1.5rem;
             }
         }
     }
@@ -96,7 +96,7 @@
             top: 10px;
             form {
                 .input-error {
-                    height: 1rem;
+                    min-height: 1rem;
                 }
             }
         }
