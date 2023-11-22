@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const InputEmail = ({ errors, register }: Props) => {
-    const emailErrors = useAppSelector((state) => state.setIsAuth.errorEmail); //ошибка повторного использования email
+    const emailErrors = useAppSelector((state) => state.setIsAuth.errorEmail?.email); //ошибка повторного использования email
 
     return (
         <>
@@ -32,9 +32,9 @@ export const InputEmail = ({ errors, register }: Props) => {
                 {errors?.email && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                         Введите корректный email
-                    </p>
-                )}
-                {emailErrors && (
+                    </p>)
+                ||
+                emailErrors && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                         {/* {emailErrors.email[0]} */}
                         Пользователь с такой почтой уже существует

@@ -20,8 +20,8 @@ export const InputPassword = ({
         setShowPassword(!showPassword);
     };
 
-    const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
-    console.log(errorEnter)
+    const errorEnter = useAppSelector((state) => state.setIsAuth.errorEmail?.password);
+
     return (
         <>
             <div className="password-div">

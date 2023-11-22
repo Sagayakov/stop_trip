@@ -13,6 +13,7 @@ import { submitEntForm } from './libr/submitEntForm';
 import { setIsResetPasswordModalOpen } from '../../../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
 import { toggleModalEnter } from '../../../../features/header/model/modalAuth/reducers/toggleModal';
 import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
+import { resetErrors } from '../../../../features/header/model/modalAuth/reducers/auth';
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
@@ -26,6 +27,7 @@ export const FormEnter = () => {
     const onsubmit: SubmitHandler<AuthData> = async (submitData) => {
         await dispatch(setLoading(true))
         await submitEntForm(submitData, dispatch, reset);
+        await dispatch(resetErrors())
         await dispatch(setLoading(false))
     };
 

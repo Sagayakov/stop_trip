@@ -23,13 +23,18 @@ export const setIsAuthSlice = createSlice({
             state.isAuth = action.payload;
         },
         setErrorEmail: (state, action: PayloadAction<ErrorEmail>) => {
-            state.errorEmail = action.payload
+            state.errorEmail = action.payload;
         },
         setErrorEnter: (state) => {
-            state.errorEnter = 'Неверный логин или пароль'
-        }
+            state.errorEnter = 'Неверный логин или пароль';
+        },
+        resetErrors: (state) => {
+            state.errorEmail = null;
+            state.errorEnter = null;
+            state.errorEnter = null
+        },
     },
 });
 
 export default setIsAuthSlice.reducer;
-export const { setIsAuth, setErrorEmail, setErrorEnter } = setIsAuthSlice.actions;
+export const { setIsAuth, setErrorEmail, setErrorEnter, resetErrors } = setIsAuthSlice.actions;

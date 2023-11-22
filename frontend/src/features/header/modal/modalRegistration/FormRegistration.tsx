@@ -12,6 +12,7 @@ import './libr/formRegistration.scss';
 import { AuthRegistration } from './libr/RegistrationTypes';
 import { submitRegForm } from './libr/onSubmitRegForm';
 import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
+import { resetErrors } from '../../../../features/header/model/modalAuth/reducers/auth';
 // import './inputsRegistration/inputRegistration.scss'
 
 export const FormRegistration = () => {
@@ -31,6 +32,7 @@ export const FormRegistration = () => {
     const onsubmit: SubmitHandler<AuthRegistration> = async (submitData) => {
         await dispatch(setLoading(true))
         await submitRegForm(submitData, dispatch, reset);
+        await dispatch(resetErrors())
         await dispatch(setLoading(false))
     };
 
