@@ -9,7 +9,7 @@ import { Service } from '../ui/icons/category/Service';
 import { Taxi } from '../ui/icons/category/Taxi';
 import { Transport } from '../ui/icons/category/Transport';
 
-type Category = {
+export type Category = {
     description: string;
     icon: () => JSX.Element;
 };

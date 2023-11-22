@@ -8,8 +8,8 @@ type StarProps = {
     setPrepareStar: React.Dispatch<React.SetStateAction<number>>;
     activeStar: number;
     setActiveStar: React.Dispatch<React.SetStateAction<number>>;
-    grades: number;
-    setGrades: React.Dispatch<React.SetStateAction<number>>;
+    grades?: number;
+    setGrades?: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const Star = ({
@@ -39,7 +39,7 @@ export const Star = ({
     const handleClick = () => {
         if (isAuth) {
             setActiveStar(id);
-            setGrades(grades + 1);
+            grades && setGrades && setGrades(grades + 1);
             toast.success('Спасибо! Ваша оценка добавлена!');
         } else {
             toast.error(

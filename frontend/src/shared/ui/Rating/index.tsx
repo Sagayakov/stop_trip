@@ -3,8 +3,8 @@ import { Star } from '../icons/icons-tools/Star';
 
 type RatingProps = {
     rating: number;
-    grades: number;
-    setGrades: React.Dispatch<React.SetStateAction<number>>;
+    grades?: number;
+    setGrades?: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const Rating = ({ rating, grades, setGrades }: RatingProps) => {

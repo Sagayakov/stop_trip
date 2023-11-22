@@ -46,17 +46,19 @@ export const PhotoSlider = () => {
     return (
         <div className="image-wrapper">
             <div className="active-image">
-                {!isMobile && <ArrowLeft10x24
+                {!isMobile && <div className='arrow-container'><ArrowLeft10x24
                     color="white"
                     handleClickPrev={handleClickPrev}
-                />}
+                /></div>}
                 <img
                     src={image}
                     alt="Main image"
                     ref={ref}
                     onLoad={handleOnLoad}
                 />
-                {!isMobile && <ArrowRight color="white" handleClickNext={handleClickNext} />}
+                {!isMobile && <div className='arrow-container'>
+                    <ArrowRight color="white" handleClickNext={handleClickNext} />
+                    </div>}
                 <ShareIcon />
                 <Like color="#ff3f25" strokeColor="#1C1C1E" />
                 {imageHeight > imageWidth && (
