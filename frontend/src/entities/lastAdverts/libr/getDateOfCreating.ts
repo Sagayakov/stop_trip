@@ -18,6 +18,6 @@ export const getDateOfCreating = (str: string) => {
         case 1:
             return `Вчера, ${hours}:${mitutes}`;
         default:
-            return `${day}.${month}.${year}`;
+            return `${day}.${Number(month) + 1}.${year}`;
     }
 };

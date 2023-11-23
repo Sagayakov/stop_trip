@@ -20,6 +20,7 @@ export const InputEmail = ({ formState, register }: Props) => {
                         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                     minLength: 10,
                 })}
+                type='email'
                 placeholder="Email"
                 autoComplete="username"
                 style={{

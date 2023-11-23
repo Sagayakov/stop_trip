@@ -12,6 +12,7 @@ import './libr/formRegistration.scss';
 import { AuthRegistration } from './libr/RegistrationTypes';
 import { submitRegForm } from './libr/onSubmitRegForm';
 import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
+import { resetErrors } from '../../../../features/header/model/modalAuth/reducers/auth';
 // import './inputsRegistration/inputRegistration.scss'
 
 export const FormRegistration = () => {
@@ -21,10 +22,9 @@ export const FormRegistration = () => {
         handleSubmit,
         reset,
         formState: { errors, isValid },
-
-        watch,
+        getValues,
     } = useForm<AuthRegistration>({
-        mode: 'all',
+        mode: 'onBlur',
     });
 
     const dispatch = useAppDispatch();
@@ -32,6 +32,7 @@ export const FormRegistration = () => {
     const onsubmit: SubmitHandler<AuthRegistration> = async (submitData) => {
         await dispatch(setLoading(true))
         await submitRegForm(submitData, dispatch, reset);
+        await dispatch(resetErrors())
         await dispatch(setLoading(false))
     };
 
@@ -51,7 +52,7 @@ export const FormRegistration = () => {
                 register={register}
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
-                watch={watch}
+                getValues={getValues}
             />
             <InputChechbox register={register} errors={errors} />
             <InputSubmit isValid={isValid} />

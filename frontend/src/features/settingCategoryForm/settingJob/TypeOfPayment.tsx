@@ -3,7 +3,7 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { TypesOfJobs } from '../../../widgets/settingForm/settingJob/libr/TypesOfJobs';
 import { valuesOfJob } from '../../../widgets/settingForm/settingJob/libr/valuesOfJob';
-import { SelectOption } from '../../../widgets/settingForm/settingRealty/TypeSettingRealty';
+import { SelectOption } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
 
 interface Props {
     setValue: UseFormSetValue<TypesOfJobs>;

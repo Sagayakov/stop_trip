@@ -59,51 +59,6 @@
                     padding: 16px 40px 24px;
                     border-radius: 0 0 8px 8px;
                     background-color: var(--main-background);
-                    .filter-realty-form {
-                        input[type='number'] {
-                            width: 47%;
-                            height: 34px;
-                            border-radius: var(--radii);
-                            padding: 10px;
-                            border: none;
-                        }
-                        input[type='submit'] {
-                            white-space: normal;
-                            height: auto;
-                        }
-
-                        .type-of-property,
-                        .setting-price,
-                        .total-area,
-                        .living-space,
-                        .rooms-quantity,
-                        .bathroom,
-                        .balcony,
-                        .only-with-photo {
-                            width: 100%;
-                        }
-                        .setting-price {
-                            .setting-price-adverts {
-                                width: 260px; //в процентах не красиво
-                                label {
-                                    padding: 10px 14px;
-                                }
-                            }
-                        }
-
-                        .checkboxes {
-                            .rooms-quantity {
-                                .setting-rooms-quantity {
-                                    width: 50%;
-                                }
-                            }
-                            .bathroom {
-                                .bathroom-setting {
-                                    width: 85%;
-                                }
-                            }
-                        }
-                    }
                 }
             }
             .adverts {

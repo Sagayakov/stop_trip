@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useGetAdvertByIdQuery } from '../../app/api/fetchAdverts';
 import { Like } from '../../shared/ui/Like';
 import { ShareIcon } from '../../shared/ui/shareIcon';
+import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 
 export const PhotoSlider = () => {
     const { id } = useParams();
@@ -14,6 +15,7 @@ export const PhotoSlider = () => {
     const [imageWidth, setImageWidth] = useState<number>(0);
     const [imageHeight, setImageHeight] = useState<number>(0);
     const ref = useRef<null | HTMLImageElement>(null);
+    const { isMobile } = useMatchMedia()
 
     const handleClickPrev = () => {
         if (data) {
@@ -44,17 +46,17 @@ export const PhotoSlider = () => {
     return (
         <div className="image-wrapper">
             <div className="active-image">
-                <ArrowLeft10x24
+                {!isMobile && <ArrowLeft10x24
                     color="white"
                     handleClickPrev={handleClickPrev}
-                />
+                />}
                 <img
                     src={image}
                     alt="Main image"
                     ref={ref}
                     onLoad={handleOnLoad}
                 />
-                <ArrowRight color="white" handleClickNext={handleClickNext} />
+                {!isMobile && <ArrowRight color="white" handleClickNext={handleClickNext} />}
                 <ShareIcon />
                 <Like color="#ff3f25" strokeColor="#1C1C1E" />
                 {imageHeight > imageWidth && (

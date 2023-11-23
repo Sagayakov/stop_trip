@@ -75,22 +75,23 @@ export const Advert = () => {
             {data && isMobile && (
                 <div className="announcement-wrapper">
                     <BreadCrumbs data={data} />
+                    {/* <h1 className="announcement-header">{data.title}</h1> */}
                     <PhotoSlider />
-                    <p>
+                    {/* <p>
                         {data.property_city
                             ? `${data.property_city}, ${
                                   data.property_district ?? ''
                               }`
                             : 'Адрес не указан'}
-                    </p>
+                    </p> */}
                     <div className="announcement-info">
                         <section className="owner-info">
                             <div className="price-block">
-                                Сутки{' '}
+                                {data.price ? 'Сутки' : ''}
                                 <span className="price">
                                     {data.price
                                         ? `$${data.price}`
-                                        : 'Договорная'}
+                                        : 'Цена договорная'}
                                 </span>
                             </div>
                             <AdvertOwner />
