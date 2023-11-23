@@ -12,16 +12,16 @@ export const Like = ({
 }: LikeProps) => {
     const [isLike, setIsLike] = useState(false);
 
-    const addToFavorite = () => {
+    const addToFavorite = (event:  React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.stopPropagation();
         setIsLike(!isLike);
     };
 
     return (
-        <div className="add-to-favorite">
+        <div className="add-to-favorite" onClick={addToFavorite}>
             <Favorite
                 color={isLike ? color : 'transparent'}
                 strokeColor={isLike ? 'transparent' : strokeColor}
-                addToFavorite={addToFavorite}
             />
         </div>
     );
