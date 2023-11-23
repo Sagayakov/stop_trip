@@ -11,6 +11,7 @@
             height: 65vh;
             margin: 0 auto;
             object-fit: cover;
+            cursor: pointer;
         }
         .blur-left,
         .blur-right {
@@ -45,6 +46,10 @@
             svg {
                 width: 40px;
                 height: 40px;
+                transition: all 0.5s ease;
+            }
+            svg:hover {
+                transform: scale(1.2);
             }
         }
         .arrow-container:first-child {
