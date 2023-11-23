@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django_filters",
     "rest_framework_simplejwt.token_blacklist",
     "location_field.apps.DefaultConfig",
+    "storages",
     # apps
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",
@@ -152,13 +153,18 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # Static
 STATIC_URL = "/s/"
 STATIC_ROOT = join(BASE_DIR, "static")
+STATICFILES_STORAGE = "common.storages.CustomS3Boto3Storage"
 
 # Media
 MEDIA_URL = "/m/"
 MEDIA_ROOT = join(BASE_DIR, "media")
 
-DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
-BASE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+if TESTING:
+    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+    BASE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+else:
+    DEFAULT_FILE_STORAGE = "common.storages.HashedFilenameS3Boto3Storage"
+    BASE_FILE_STORAGE = "common.storages.CustomS3Boto3Storage"
 
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
 FILE_UPLOAD_PERMISSIONS = 0o644
@@ -325,3 +331,13 @@ LOCATION_FIELD = {
         "js": (LOCATION_FIELD_PATH + "/js/form.js",),
     },
 }
+
+# S3
+AWS_ACCESS_KEY_ID = getenv("YND_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = getenv("YND_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = getenv("YND_STORAGE_BUCKET_NAME")
+AWS_S3_ENDPOINT_URL = "https://storage.yandexcloud.net"
+AWS_DEFAULT_ACL = None
+AWS_LOCATION = getenv("YND_LOCATION", "media")
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False

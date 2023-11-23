@@ -10,6 +10,9 @@ x-app_environment: &app_environment
     - POSTGRES_NAME
     - POSTGRES_USER
     - SITE_HOST
+    - YND_ACCESS_KEY_ID
+    - YND_SECRET_ACCESS_KEY
+    - YND_STORAGE_BUCKET_NAME
 
 services:
   backend:
