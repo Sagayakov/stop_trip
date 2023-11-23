@@ -122,7 +122,14 @@ export const PhotoSlider = () => {
             {isPortalOpen && data && data.images &&
                 createPortal(
                     <>
-                        <Portal image={data.images[activePortalImage - 1].image} />
+                        <Portal
+                            image={data.images[activePortalImage - 1].image}
+                            setIsPortalOpen={setIsPortalOpen}
+                            images={data.images}
+                            active={activePortalImage}
+                            handleClickPortalPrev={handleClickPortalPrev}
+                            handleClickPortalNext={handleClickPortalNext}
+                        />
                         <Shadow
                             setIsPortalOpen={setIsPortalOpen}
                             images={data.images}
