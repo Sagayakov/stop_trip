@@ -13,9 +13,6 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
         Number(data.coordinates.split(',')[1]),
     ];
 
-    const goaLat = 15.49835602;
-    const goaLng = 73.85502627;
-
     return (
         <div className="location">
             <div className="location-header">Расположение</div>
@@ -28,8 +25,8 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
                 {propertyLocation && (
                     <MapContainer
                         center={[
-                            propertyLocation[0] || goaLat,
-                            propertyLocation[1] || goaLng,
+                            propertyLocation[0],
+                            propertyLocation[1],
                         ]}
                         zoom={11}
                         scrollWheelZoom={true}
@@ -41,8 +38,8 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
                         />
                         <Marker
                             position={[
-                                propertyLocation[0] || goaLat,
-                                propertyLocation[1] || goaLng,
+                                propertyLocation[0],
+                                propertyLocation[1],
                             ]}
                         >
                             <Popup>
@@ -50,8 +47,8 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
                                     ? `${data.property_city}, ${
                                           data.property_district ?? ''
                                       }`
-                                    : `${propertyLocation[0] || goaLat},
-                                    ${propertyLocation[1] || goaLng}`}
+                                    : `${propertyLocation[0]},
+                                    ${propertyLocation[1]}`}
                             </Popup>
                         </Marker>
                     </MapContainer>
