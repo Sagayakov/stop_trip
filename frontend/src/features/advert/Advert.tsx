@@ -48,7 +48,7 @@ export const Advert = () => {
                                 </div>
                                 <p>{data.description}</p>
                             </div>
-                            <AdvertLocation data={data} />
+                            {data.coordinates && <AdvertLocation data={data} />}
                         </section>
                         <section className="owner-info">
                             <div className="price-block">
@@ -112,7 +112,7 @@ export const Advert = () => {
                                 </div>
                                 <p>{data.description}</p>
                             </div>
-                            <AdvertLocation data={data} />
+                            {data.coordinates && <AdvertLocation data={data} />}
                         </section>
                     </div>
                 </div>

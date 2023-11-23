@@ -1,12 +1,15 @@
 import { useRef, useState } from 'react';
 import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
 import { ArrowRight } from '../../shared/ui/icons/icons-tools/ArrowRight';
-import './photoSlider.scss';
+import './libr/photoSlider.scss';
 import { useParams } from 'react-router-dom';
 import { useGetAdvertByIdQuery } from '../../app/api/fetchAdverts';
 import { Like } from '../../shared/ui/Like';
 import { ShareIcon } from '../../shared/ui/shareIcon';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { createPortal } from 'react-dom';
+import { Portal } from '../../entities/portal/Portal';
+import { Shadow } from '../../entities/portal/Shadow';
 
 export const PhotoSlider = () => {
     const { id } = useParams();
@@ -15,7 +18,9 @@ export const PhotoSlider = () => {
     const [imageWidth, setImageWidth] = useState<number>(0);
     const [imageHeight, setImageHeight] = useState<number>(0);
     const ref = useRef<null | HTMLImageElement>(null);
-    const { isMobile } = useMatchMedia()
+    const { isMobile } = useMatchMedia();
+    const [isPortalOpen, setIsPortalOpen] = useState(false);
+    const [activePortalImage, setActivePortalImage] = useState(activeImage + 1);
 
     const handleClickPrev = () => {
         if (data) {
@@ -43,52 +48,99 @@ export const PhotoSlider = () => {
         setImageHeight(ref.current!.naturalHeight);
     };
 
+    const openPhoto = () => {
+        setIsPortalOpen(true);
+    };
+
+    const handleClickPortalPrev = () => {
+        if (data) {
+            activePortalImage > 1
+                ? setActivePortalImage(activePortalImage - 1)
+                : setActivePortalImage(data.images.length);
+        }
+    };
+
+    const handleClickPortalNext = () => {
+        if (data) {
+            activePortalImage < data.images.length
+                ? setActivePortalImage(activePortalImage + 1)
+                : setActivePortalImage(1);
+        }
+        
+    };
+
     return (
-        <div className="image-wrapper">
-            <div className="active-image">
-                {!isMobile && <ArrowLeft10x24
-                    color="white"
-                    handleClickPrev={handleClickPrev}
-                />}
-                <img
-                    src={image}
-                    alt="Main image"
-                    ref={ref}
-                    onLoad={handleOnLoad}
-                />
-                {!isMobile && <ArrowRight color="white" handleClickNext={handleClickNext} />}
-                <ShareIcon />
-                <Like color="#ff3f25" strokeColor="#1C1C1E" />
-                {imageHeight > imageWidth && (
+        <>
+            <div className="image-wrapper">
+                <div className="active-image" onClick={openPhoto}>
+                    {!isMobile && <div className='arrow-container'><ArrowLeft10x24
+                        color="white"
+                        handleClickPrev={handleClickPrev}
+                    /></div>}
+                    <img
+                        src={image}
+                        alt="Main image"
+                        ref={ref}
+                        onLoad={handleOnLoad}
+                    />
+                    {!isMobile && <div className='arrow-container'>
+                        <ArrowRight color="white" handleClickNext={handleClickNext} />
+                        </div>}
+                    <ShareIcon />
+                    <Like color="#ff3f25" strokeColor="#1C1C1E" />
+                    {imageHeight > imageWidth && (
+                        <>
+                            <img
+                                className="blur-left"
+                                src={image}
+                                alt="Main image"
+                            />
+                            <img
+                                className="blur-right"
+                                src={image}
+                                alt="Main image"
+                            />
+                        </>
+                    )}
+                </div>
+                <div className="image-list">
+                    {data &&
+                        data.images.map((el, i) => (
+                            <img
+                                className={activeImage !== i ? 'blurred-image' : ''}
+                                src={
+                                    el.image ??
+                                    '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
+                                }
+                                onClick={() => setActiveImage(i)}
+                                key={el.image}
+                                alt={`image #${i + 1}`}
+                            />
+                        ))}
+                </div>
+            </div>
+            {isPortalOpen && data && data.images &&
+                createPortal(
                     <>
-                        <img
-                            className="blur-left"
-                            src={image}
-                            alt="Main image"
+                        <Portal
+                            image={data.images[activePortalImage - 1].image}
+                            setIsPortalOpen={setIsPortalOpen}
+                            images={data.images}
+                            active={activePortalImage}
+                            handleClickPortalPrev={handleClickPortalPrev}
+                            handleClickPortalNext={handleClickPortalNext}
                         />
-                        <img
-                            className="blur-right"
-                            src={image}
-                            alt="Main image"
+                        <Shadow
+                            setIsPortalOpen={setIsPortalOpen}
+                            images={data.images}
+                            active={activePortalImage}
+                            handleClickPortalPrev={handleClickPortalPrev}
+                            handleClickPortalNext={handleClickPortalNext}
                         />
-                    </>
-                )}
-            </div>
-            <div className="image-list">
-                {data &&
-                    data.images.map((el, i) => (
-                        <img
-                            className={activeImage !== i ? 'blurred-image' : ''}
-                            src={
-                                el.image ??
-                                '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
-                            }
-                            onClick={() => setActiveImage(i)}
-                            key={el.image}
-                            alt={`image #${i + 1}`}
-                        />
-                    ))}
-            </div>
-        </div>
+                    </>,
+                    document.body
+                )
+            }
+        </>
     );
 };
