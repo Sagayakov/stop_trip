@@ -29,12 +29,12 @@
         .blur-left {
             z-index: 2;
             left: 0;
-            clip-path: inset(0 50% 0 0);
+            clip-path: inset(0 0 0 0);
         }
         .blur-right {
             z-index: 3;
             right: 0;
-            clip-path: inset(0 0 0 50%);
+            clip-path: inset(0 0 0 0);
         }
         .arrow-container {
             position: absolute;

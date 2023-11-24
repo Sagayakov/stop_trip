@@ -20,7 +20,7 @@ export const Shadow = ({
         handleClickPortalPrev,
         handleClickPortalNext,
     }: ShadowProps) => {
-    const { isTablet } = useMatchMedia();
+    const { isTablet, isMobile } = useMatchMedia();
 
     const handleClick = () => {
         setIsPortalOpen(false);
@@ -28,8 +28,8 @@ export const Shadow = ({
 
     return (
             <div className="shadow" onClick={handleClick}>
-                {!isTablet && (
-                    <div className="shadow" onClick={handleClick}>
+                {!isTablet && !isMobile && (
+                    <>
                         <div className="close-portal" onClick={handleClick}>
                             <Close color='white' />
                         </div>
@@ -43,7 +43,7 @@ export const Shadow = ({
                             <span>{`${active}/`}</span>
                             <span>{`${images.length}`}</span>
                         </div>
-                    </div>
+                    </>
                 )}
             </div>   
         );

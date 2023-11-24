@@ -198,11 +198,11 @@ main {
                     }
                     .blur-left {
                         height: 40vh;
-                        clip-path: inset(0 10% 0 0);
+                        clip-path: inset(0 0 0 0);
                     }
                     .blur-right {
                         height: 40vh;
-                        clip-path: inset(0 0 0 10%);
+                        clip-path: inset(0 0 0 0);
                     }
                 }
             }
