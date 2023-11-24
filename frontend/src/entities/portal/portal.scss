@@ -86,7 +86,7 @@
     position: fixed;
     top: 40%;
     left: 50%;
-    z-index: 1001;
+    z-index: 1002;
     width: 70%;
     text-align: center;
     transform: translate(-50%, -50%);
@@ -115,6 +115,12 @@
             margin: 10px auto 0;
             max-height: 90vh;
         }
+    }
+}
+
+@media (max-width: 767px) {
+    .pages {
+        left: 44%;
     }
 }
   
