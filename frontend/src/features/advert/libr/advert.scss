@@ -110,17 +110,9 @@ main {
             }
             .image-wrapper{
                 .active-image{
-                    height: 40vw;
-                     & > img {
-                        height: 40vw;
-                    }
-                    .blur-left {
-                        height: 40vw;
-                        clip-path: inset(0 10% 0 0);
-                    }
+                    .blur-left,
                     .blur-right {
-                        height: 40vw;
-                        clip-path: inset(0 0 0 10%);
+                        clip-path: inset(0 0 0 0);
                     }
                 }
             }
@@ -196,13 +188,9 @@ main {
                     & > img {
                         height: 60vw;
                     }
-                    .blur-left {
-                        height: 60vw;
-                        clip-path: inset(0 0 0 0);
-                    }
+                    .blur-left,
                     .blur-right {
                         height: 60vw;
-                        clip-path: inset(0 0 0 0);
                     }
                 }
             }
