@@ -6,14 +6,14 @@
         margin-bottom: 1rem;
         overflow: hidden;
         width: 100%;
-        height: 55vh;
+        height: 40vw;
         border-radius: 1rem;
         img {
             position: absolute;
             top: 0;
             z-index: 4;
             max-width: 100%;
-            height: 55vh;
+            height: 40vw;
             margin: 0 auto;
             object-fit: cover;
             cursor: pointer;
@@ -23,7 +23,7 @@
             position: absolute;
             top: 0;
             max-width: 100%;
-            height: 55vh;
+            height: 40vw;
             filter: blur(8px);
         }
         .blur-left {
