@@ -110,16 +110,16 @@ main {
             }
             .image-wrapper{
                 .active-image{
-                    height: 50vh;
+                    height: 40vw;
                      & > img {
-                        height: 50vh;
+                        height: 40vw;
                     }
                     .blur-left {
-                        height: 50vh;
+                        height: 40vw;
                         clip-path: inset(0 10% 0 0);
                     }
                     .blur-right {
-                        height: 50vh;
+                        height: 40vw;
                         clip-path: inset(0 0 0 10%);
                     }
                 }
@@ -183,7 +183,7 @@ main {
             }
             .image-wrapper {
                 .active-image {
-                    height: 40vh;
+                    height: 60vw;
                     margin-top: 1rem;
                     .add-to-favorite {
                         right: 22px;
@@ -194,14 +194,14 @@ main {
                         top: 72px;
                     }
                     & > img {
-                        height: 40vh;
+                        height: 60vw;
                     }
                     .blur-left {
-                        height: 40vh;
+                        height: 60vw;
                         clip-path: inset(0 0 0 0);
                     }
                     .blur-right {
-                        height: 40vh;
+                        height: 60vw;
                         clip-path: inset(0 0 0 0);
                     }
                 }
