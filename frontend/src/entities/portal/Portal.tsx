@@ -22,7 +22,7 @@ export const Portal = ({
     handleClickPortalPrev,
     handleClickPortalNext,
 }: PortalProps) => {
-    const { isTablet } = useMatchMedia();
+    const { isTablet, isMobile } = useMatchMedia();
 
     const handleClick = () => {
         setIsPortalOpen(false);
@@ -30,7 +30,7 @@ export const Portal = ({
     
     return (
         <div className="portal">
-            {isTablet ? (
+            {isTablet || isMobile ? (
                 <>
                     <img src={image} alt="Photo" />
                     <div className="close-portal" onClick={handleClick}>
