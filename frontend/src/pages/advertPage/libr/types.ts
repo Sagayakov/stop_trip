@@ -41,6 +41,7 @@ export type ProductType = {
     property_sleeping_places: null | number;
     property_type_of_service: string;
     proposed_currency: null | string;
+    service_home_visit: boolean;
     slug: string;
     start_date: null | string;
     taxi_type: null | keyof typeof categorySubTypesDictionary;
