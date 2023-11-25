@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom"
 export const LogoHeader = () => {
     const navigate = useNavigate();
 
+    const handleClick = () => {
+        navigate('/');
+        window.scrollTo(0, 0);
+    }
+
     return (
         <svg
             style={{cursor: 'pointer'}}
@@ -12,7 +17,7 @@ export const LogoHeader = () => {
             viewBox="0 0 134 40"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            onClick={() => navigate('/')}>
+            onClick={handleClick}>
             <path
                 d="M16.6667 30V25C16.6667 24.116 17.0179 23.2681 17.643 22.643C18.2681 22.0179 19.116 21.6667 20 21.6667C20.8841 21.6667 21.7319 22.0179 22.3571 22.643C22.9822 23.2681 23.3334 24.116 23.3334 25V30M3.33337 13.3333L19.5534 5.22334C19.6921 5.15409 19.845 5.11804 20 5.11804C20.1551 5.11804 20.308 5.15409 20.4467 5.22334L36.6667 13.3333"
                 stroke="#1C1C1E"
