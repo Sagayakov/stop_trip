@@ -120,9 +120,23 @@
 }
 
 @media (max-width: 767px) {
+    .close-portal {
+        width: 26px;
+        height: 26px;
+        padding: 6px;
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
     .pages {
         z-index: 1100;
-        left: 44%;
+        left: 47%;
+        height: 27px;
+        padding: 4px 12px;
+        span {
+            font-size: 1rem;
+        }
     }
 }
   
