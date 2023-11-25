@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { getDate } from '../../shared/utils/getDate';
 
 export const AnyCategory = () => {
     const category = location.pathname.slice(1);
@@ -11,8 +12,8 @@ export const AnyCategory = () => {
     const { data = [] } = useGetAdvertsQuery('');
     const { isMobile } = useMatchMedia();
     const reverseData = JSON.parse(JSON.stringify(data))
-        .reverse()
         .filter((el: LastAdvertsTypes) => el.category === category);
+        console.log(reverseData);
 
     return (
         <section className="adverts">
@@ -32,7 +33,7 @@ export const AnyCategory = () => {
                                     <>
                                         {!el.images[0]
                                             ? <img src='../../../src/entities/lastAdverts/ui/image-not-found.jpg' />
-                                            : el.images.map((item) => <img src={item.image} />)
+                                            : el.images.map((item) => <img src={item.image} key={item.image} />)
                                         }
                                     </>
                                 ) : (
@@ -60,7 +61,13 @@ export const AnyCategory = () => {
                                     Константин
                                     <Rating rating={4.5} />
                                 </span>
-                                <p className="time">Сегодня, 22:30</p>
+                                <p
+                                    className="time">
+                                    {`
+                                        ${getDate(el.date_create).dayToDisplay},
+                                        ${getDate(el.date_create).hours}:${getDate(el.date_create).minutes}
+                                    `}
+                                </p>
                             </div>
                         </div>
                     );

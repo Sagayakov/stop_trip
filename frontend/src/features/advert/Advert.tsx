@@ -20,8 +20,8 @@ export const Advert = () => {
 
     useEffect(() => {
         if (data) {
-            const date = getDate(data.date_create);
-            setDate(date);
+            const dateCreate = getDate(data.date_create);
+            setDate(dateCreate);
         }
     }, [data]);
 
