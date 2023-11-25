@@ -42,6 +42,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         "get_filter_params": [AllowAny],
     }
     filterset_class = AdvertisementFilter
+    # TODO добавить пагинацию
 
     def get_queryset(self):
         queryset = Advertisement.objects.filter(is_published=True)
