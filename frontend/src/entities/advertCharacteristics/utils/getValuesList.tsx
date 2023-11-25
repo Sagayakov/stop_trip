@@ -32,7 +32,8 @@ export const getValuesList = ({ data, category }: GetListProps) => {
             key === 'is_online' ||
             key === 'job_experience' ||
             key === 'property_has_furniture' ||
-            key === 'property_has_parking'
+            key === 'property_has_parking' ||
+            key === 'service_home_visit'
         ) {
             list.push(
                 <div key={key}>

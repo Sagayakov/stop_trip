@@ -45,7 +45,7 @@ export const categoryCharacteristicsKeys: Record<
         is_online: 'Онлайн',
     },
     service: {
-        home_visit: 'Выезд на дом',
+        service_home_visit: 'Выезд на дом',
     },
     exchange_rate: {
         proposed_currency: 'Предлагаемая валюта',
