@@ -23,7 +23,6 @@ export const PhotoSlider = () => {
     const [isPortalOpen, setIsPortalOpen] = useState(false);
     const [activePortalImage, setActivePortalImage] = useState(activeImage + 1);
     const [touchStart, setTouchStart] = useState<{identifier: number, screenX: number} | null>(null);
-    //const [touchEnd, setTouchEnd] = useState<{identifier: number, screenX: number} | null>(null);
 
     const handleClickPrev = () => {
         if (data) {
