@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Layout } from '../layout';
 import { privateRoutes, publicRoutes } from './routes';
 import { useAppSelector } from '../store/hooks';
+import { ActivateAccount } from '../../pages/activateAccount/ActivateAccount';
 
 export const AppRouter = () => {
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
@@ -11,7 +12,22 @@ export const AppRouter = () => {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
-                {routes.map(({ path, component: Component }) => {
+                {routes
+                    .filter((el) => el.component !== ActivateAccount)
+                    .map(({ path, component: Component }) => {
+                    return (
+                        <Route
+                            path={`/${path}`}
+                            element={<Component />}
+                            key={path}
+                        />
+                    );
+                })}
+            </Route>
+            <Route path="/">
+                {routes
+                    .filter((el) => el.component === ActivateAccount)
+                    .map(({ path, component: Component }) => {
                     return (
                         <Route
                             path={`/${path}`}

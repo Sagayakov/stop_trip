@@ -27,21 +27,23 @@ export const ActivateAccount = () => {
     }, []);
 
     return (
-        <div className="activate-acc-page">
-            <div className="activate-acc-header">
-                <h1>Активация аккаунта</h1>
-                {success
-                    ? 'Ваш аккаунт активирован, спасибо за регистрацию на нашем сайте!'
-                    : 'Ваш аккаунт еще не активирован'}
-                {load &&
-                    <div className="activate-acc-loading">
-                        <LoaidngWithoutBackground />
+        <main>
+            <div className="activate-acc-page">
+                <div className="activate-acc-header">
+                    <h1>Активация аккаунта</h1>
+                    {success
+                        ? 'Ваш аккаунт активирован, спасибо за регистрацию на нашем сайте!'
+                        : 'Ваш аккаунт еще не активирован'}
+                    {load &&
+                        <div className="activate-acc-loading">
+                            <LoaidngWithoutBackground />
+                        </div>
+                    }
+                    <div className="redirect">
+                        <NavLink to={'/'}>Вернуться на главную</NavLink>
                     </div>
-                }
-                <div className="redirect">
-                    <NavLink to={'/'}>Вернуться на главную</NavLink>
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
