@@ -13,7 +13,6 @@ export const AnyCategory = () => {
     const { isMobile } = useMatchMedia();
     const reverseData = JSON.parse(JSON.stringify(data))
         .filter((el: LastAdvertsTypes) => el.category === category);
-        console.log(reverseData);
 
     return (
         <section className="adverts">
