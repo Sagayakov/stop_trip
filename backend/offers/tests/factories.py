@@ -174,7 +174,7 @@ class TransportAdvertisementFactory(BaseAdvertisementFactory):
 class ServiceAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по услугам."""
 
-    home_visit = True
+    service_home_visit = True
 
 
 class EventAdvertisementFactory(BaseAdvertisementFactory):
@@ -192,7 +192,6 @@ class JobAdvertisementFactory(BaseAdvertisementFactory):
     job_duration = fuzzy.FuzzyChoice(choices=JobDurationType.values)
     job_payment_type = fuzzy.FuzzyChoice(choices=JobPaymentType.values)
     job_experience = False
-    transport_passengers_quality = factory.Faker("pyint", min_value=0, max_value=100)
 
 
 def eng_alphabet() -> list[str]:
