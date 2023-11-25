@@ -151,7 +151,8 @@ header {
         .header-wrapper {
             padding: 5px 0px;
             #logo {
-                height: 30px;
+                transform: scale(0.9);
+                margin: 0 0 0 -7px;
             }
             .addAdvert {
                 height: 35px;
@@ -196,6 +197,10 @@ header {
     header.fixed-header {
         .header-wrapper {
             height: 40px;
+            #logo {
+                transform: scale(0.9);
+                margin: 0 0 0 -10px;
+            }
             .addAdvert {
                 height: 40px;
                 transition: all 0.6s ease;
@@ -205,7 +210,7 @@ header {
     header {
         .header-wrapper {
             height: 70px;
-            width: 90%;
+            width: 93%;
             justify-content: space-between;
             .addAdvert {
                 justify-content: center;
@@ -225,7 +230,8 @@ header {
         .header-wrapper {
             height: 40px;
             #logo {
-                height: 30px;
+                transform: scale(0.9);
+                margin: 0 0 0 -10px;
                 transition: all 0.6s ease;
             }
             .addAdvert {
@@ -241,7 +247,7 @@ header {
     header {
         .header-wrapper {
             height: 60px;
-            width: 90%;
+            width: 93%;
             justify-content: space-between;
             #logo {
                 transition: all 0.6s ease;
@@ -270,7 +276,8 @@ header {
             margin: 0 auto;
             padding: 20px 0;
             #logo {
-                height: 30px;
+                transform: scale(0.9);
+                margin: 0 0 0 -8px;
                 transition: all 0.6s ease;
             }
             .addAdvert {
@@ -287,7 +294,7 @@ header {
         height: 50px;
         .header-wrapper {
             margin-bottom: 1.5rem;
-            width: 400px; //410
+            width: 93%; //410
             height: 33px;
             justify-content: space-between;
             #logo {
@@ -321,6 +328,7 @@ header {
             padding: 20px 0;
             #logo {
                 height: 30px;
+                margin: 0 0 0 -3px;
                 transition: all 0.6s ease;
             }
             .addAdvert {
@@ -335,7 +343,7 @@ header {
     }
     header {
         .header-wrapper {
-            width: 93.5%;
+            width: 92%;
             height: 33px;
             justify-content: space-between;
             #logo {

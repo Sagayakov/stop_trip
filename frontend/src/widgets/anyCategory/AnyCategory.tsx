@@ -1,28 +1,18 @@
-//import { useEffect } from 'react';
-//import data from '../../../db.json';
 import { Like } from '../../shared/ui/Like';
 import { Rating } from '../../shared/ui/Rating';
 import { useNavigate } from 'react-router-dom';
 import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
-// import { NavLink } from 'react-router-dom';
-// import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
+import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { getDate } from '../../shared/utils/getDate';
 
 export const AnyCategory = () => {
     const category = location.pathname.slice(1);
-    //const [width, setWidth] = useState<number>(window.innerWidth);
     const navigate = useNavigate();
     const { data = [] } = useGetAdvertsQuery('');
+    const { isMobile } = useMatchMedia();
     const reverseData = JSON.parse(JSON.stringify(data))
-        .reverse()
         .filter((el: LastAdvertsTypes) => el.category === category);
-
-    /*  useEffect(() => {
-        const handleResize = () => {
-            setWidth(window.innerWidth);
-        };
-        window.addEventListener('resize', handleResize);
-    }, [window.innerWidth]); */
 
     return (
         <section className="adverts">
@@ -38,31 +28,22 @@ export const AnyCategory = () => {
                                 <Like />
                             </span>
                             <div className="image">
-                                {
+                                {isMobile ? (
+                                    <>
+                                        {!el.images[0]
+                                            ? <img src='../../../src/entities/lastAdverts/ui/image-not-found.jpg' />
+                                            : el.images.map((item) => <img src={item.image} key={item.image} />)
+                                        }
+                                    </>
+                                ) : (
                                     <img
                                         src={
-                                            el.images[0] === undefined
+                                            !el.images[0]
                                                 ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
                                                 : el.images[0].image
                                         }
                                     />
-                                }
-                                {/*width <= 767 ? (
-                                <>
-                                    
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                </>
-                            ) : (
-                                <img src={el.image} />
-                                // <img src={el.images[0].image} />
-                            )*/}
+                                )}
                             </div>
                             <div className="description">
                                 <h2>{el.title}</h2>
@@ -79,7 +60,13 @@ export const AnyCategory = () => {
                                     Константин
                                     <Rating rating={4.5} />
                                 </span>
-                                <p className="time">Сегодня, 22:30</p>
+                                <p
+                                    className="time">
+                                    {`
+                                        ${getDate(el.date_create).dayToDisplay},
+                                        ${getDate(el.date_create).hours}:${getDate(el.date_create).minutes}
+                                    `}
+                                </p>
                             </div>
                         </div>
                     );

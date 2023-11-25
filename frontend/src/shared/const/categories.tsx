@@ -18,25 +18,25 @@ export type Categories =
     | 'property'
     | 'transport'
     | 'exchange_rate'
-    | 'docs'
+    | 'document'
     | 'food'
     | 'event'
     | 'market'
     | 'job'
     | 'taxi'
     | 'service'
-    | 'tours';
+    | 'excursion';
 
 export const categories: Record<string, Category> = {
     property: { description: 'Аренда недвижимости', icon: Realty },
     transport: { description: 'Аренда транспорта', icon: Transport },
     exchange_rate: { description: 'Валютные пары', icon: Currency },
-    docs: { description: 'Документы', icon: Docs },
+    document: { description: 'Документы', icon: Docs },
     food: { description: 'Домашняя еда', icon: Food },
     event: { description: 'Мероприятия', icon: Docs },
     market: { description: 'Покупка/продажа', icon: BuySell },
     job: { description: 'Работа', icon: Job },
     taxi: { description: 'Такси', icon: Taxi },
     service: { description: 'Услуги', icon: Service },
-    tours: { description: 'Экскурсии', icon: Excursion },
+    excursion: { description: 'Экскурсии', icon: Excursion },
 };

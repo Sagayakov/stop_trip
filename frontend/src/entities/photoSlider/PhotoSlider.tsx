@@ -17,10 +17,12 @@ export const PhotoSlider = () => {
     const [activeImage, setActiveImage] = useState(0);
     const [imageWidth, setImageWidth] = useState<number>(0);
     const [imageHeight, setImageHeight] = useState<number>(0);
-    const ref = useRef<null | HTMLImageElement>(null);
+    const imageRef = useRef<null | HTMLImageElement>(null);
+    const imageContainerRef = useRef<null | HTMLDivElement>(null);
     const { isMobile } = useMatchMedia();
     const [isPortalOpen, setIsPortalOpen] = useState(false);
     const [activePortalImage, setActivePortalImage] = useState(activeImage + 1);
+    const [touchStart, setTouchStart] = useState<{identifier: number, screenX: number} | null>(null);
 
     const handleClickPrev = () => {
         if (data) {
@@ -44,8 +46,8 @@ export const PhotoSlider = () => {
             : data.images[activeImage].image;
 
     const handleOnLoad = () => {
-        setImageWidth(ref.current!.naturalWidth);
-        setImageHeight(ref.current!.naturalHeight);
+        setImageWidth(imageRef.current!.naturalWidth);
+        setImageHeight(imageRef.current!.naturalHeight);
     };
 
     const openPhoto = () => {
@@ -69,20 +71,66 @@ export const PhotoSlider = () => {
         
     };
 
+    const handleTouchStart = (event: React.TouchEvent<HTMLImageElement>) => {
+        if (isMobile) {
+            setTouchStart({
+                identifier: event.changedTouches[0].identifier,
+                screenX: event.changedTouches[0].screenX,
+            });
+        } else {
+            return;
+        }
+    };
+
+    const handleTouchEnd = (event: React.TouchEvent<HTMLImageElement>) => {
+        if (isMobile) {
+            if ( data && touchStart?.identifier === event.changedTouches[0].identifier) {
+                if (event.changedTouches[0].screenX < touchStart.screenX) {
+                    activeImage < data.images.length - 1
+                        ? setActiveImage(activeImage + 1)
+                        : setActiveImage(0);
+                }
+                if (event.changedTouches[0].screenX > touchStart.screenX) {
+                    activeImage > 0
+                    ? setActiveImage(activeImage - 1)
+                    : setActiveImage(data.images.length - 1);
+                }
+                return;
+            }
+        } else {
+            return;
+        }
+    }
+
     return (
         <>
             <div className="image-wrapper">
-                <div className="active-image" onClick={openPhoto}>
+                <div
+                    className="active-image"
+                    ref={imageContainerRef}
+                    onClick={openPhoto}
+                    onTouchStart={handleTouchStart}
+                    onTouchEnd={handleTouchEnd}
+                >
                     {!isMobile && <div className='arrow-container'><ArrowLeft10x24
                         color="white"
                         handleClickPrev={handleClickPrev}
                     /></div>}
-                    <img
+                    {!isMobile ? (
+                        <img
                         src={image}
                         alt="Main image"
-                        ref={ref}
+                        ref={imageRef}
                         onLoad={handleOnLoad}
-                    />
+                        />
+                    ) : (
+                        <img
+                        src={image}
+                        alt="Main image"
+                        ref={imageRef}
+                        onLoad={handleOnLoad}
+                        />
+                    )}
                     {!isMobile && <div className='arrow-container'>
                         <ArrowRight color="white" handleClickNext={handleClickNext} />
                         </div>}

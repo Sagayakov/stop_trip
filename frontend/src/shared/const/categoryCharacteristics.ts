@@ -52,10 +52,10 @@ export const categoryCharacteristicsKeys: Record<
         exchange_for: 'Обмен на',
         exchange_rate: 'Курс',
     },
-    docs: {},
+    document: {},
     food: {},
     market: {},
-    tours: {},
+    excursion: {},
 };
 
 export const categoryCharacteristicsValues: Record<
@@ -156,8 +156,8 @@ export const categoryCharacteristicsValues: Record<
     event: {},
     service: {},
     exchange_rate: {},
-    docs: {},
+    document: {},
     food: {},
     market: {},
-    tours: {},
+    excursion: {},
 };
