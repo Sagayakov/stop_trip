@@ -55,7 +55,7 @@ export const categoryCharacteristicsKeys: Record<
     document: {},
     food: {},
     market: {},
-    tours: {},
+    excursion: {},
 };
 
 export const categoryCharacteristicsValues: Record<
@@ -159,5 +159,5 @@ export const categoryCharacteristicsValues: Record<
     document: {},
     food: {},
     market: {},
-    tours: {},
+    excursion: {},
 };

@@ -25,7 +25,7 @@ export type Categories =
     | 'job'
     | 'taxi'
     | 'service'
-    | 'tours';
+    | 'excursion';
 
 export const categories: Record<string, Category> = {
     property: { description: 'Аренда недвижимости', icon: Realty },
@@ -38,5 +38,5 @@ export const categories: Record<string, Category> = {
     job: { description: 'Работа', icon: Job },
     taxi: { description: 'Такси', icon: Taxi },
     service: { description: 'Услуги', icon: Service },
-    tours: { description: 'Экскурсии', icon: Excursion },
+    excursion: { description: 'Экскурсии', icon: Excursion },
 };
