@@ -1,13 +1,22 @@
 export interface TypeSettingRealty {
-    typeOfProperty: string[]
-    settingPrice: Price
-    totalArea: TotalArea
-    livingSpace: LivingSpace
-    roomsQuantity: RoomsQuantity
-    bathRoom: BathRoom
-    balcony: boolean
-    onlyWithPhotos: boolean
-    comission: Comission
+    typeOfService: string[];
+    propertyCity: string[];
+    propertyDistrict: string[];
+    houseType: string[];
+    typeOfProperty: string[];
+    rentalCondition: string[];
+    settingPrice: Price;
+    totalArea: TotalArea;
+    livingSpace: LivingSpace;
+    sleepingPlaces: number;
+    hasFurniture: boolean;
+    amenities: string,
+    roomsQuantity: RoomsQuantity;
+    bathRoom: BathRoom;
+    bathroomQuantity: number;
+    balcony: boolean;
+    onlyWithPhotos: boolean;
+    comission: Comission;
 }
 
 // type TypeOfProperty = 'Квартира' | 'Комната' | 'Дом'

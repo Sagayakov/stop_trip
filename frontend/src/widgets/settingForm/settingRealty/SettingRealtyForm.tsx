@@ -1,13 +1,20 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
+    Amenities,
     Bathroom,
-    LivingSpace,
+    BathroomQuantity,
+    City,
+    District,
+    HasFurniture,
+    HouseType,
     RealtyComission,
+    RentalCondition,
     RoomsQuantity,
     SettingPrice,
+    SleepingPlaces,
     TotalArea,
+    TypeOfService,
 } from '../../../features/settingCategoryForm/settingRealtyForm';
-import { TypeOfProperty } from '../../../features/settingCategoryForm/settingRealtyForm/TypeOfProperty';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeSettingRealty } from './libr/TypeSettingRealty';
 import './libr/settingRealty.scss'
@@ -39,25 +46,22 @@ export const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 className="filter-realty-form"
                 onSubmit={handleSubmit(onsubmit)}
             >
-                <TypeOfProperty control={control} setValue={setValue} />
+                <TypeOfService control={control} setValue={setValue}/>
+                <City control={control} setValue={setValue}/>
+                <District control={control} setValue={setValue}/>
+                {/* <TypeOfProperty control={control} setValue={setValue} /> не нужно*/}
+                <HouseType control={control} setValue={setValue}/>
                 <SettingPrice register={register} watch={watch} />
+                <RentalCondition control={control} setValue={setValue}/>
                 <TotalArea register={register} />
-                <LivingSpace register={register} />
-                <div className="checkboxes">
+                <SleepingPlaces register={register}/>
+                <HasFurniture register={register}/>
+                <Amenities register={register}/>
+                {/* <div className="checkboxes"> */}
                     <RoomsQuantity register={register} />
                     <Bathroom register={register} />
-                    <label className="form-checkbox balcony">
-                        <input type="checkbox" {...register('balcony')} />
-                        <span>Балкон</span>
-                    </label>
-                    <label className="form-checkbox only-with-photo">
-                        <input
-                            type="checkbox"
-                            {...register('onlyWithPhotos')}
-                        />
-                        <span>Только с фотографиями</span>
-                    </label>
-                </div>
+                    <BathroomQuantity register={register}/>
+                {/* </div> */}
                 <RealtyComission register={register} />
                 <input type="submit" value="Показать 100 объявлений" />
                 <button className="reset-setting-form" onClick={onReset}>
