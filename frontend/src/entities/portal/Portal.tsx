@@ -3,6 +3,8 @@ import './portal.scss';
 import { LastAdvertsImages } from '../../app/api/types/lastAdvertsTypes';
 import { Close } from '../../shared/ui/icons/icons-tools/Close';
 import { useState } from 'react';
+import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
+import { ArrowRight } from '../../shared/ui/icons/icons-tools/ArrowRight';
 
 type PortalProps = {
     image: string;
@@ -67,6 +69,12 @@ export const Portal = ({
                     />
                     <div className="close-portal" onClick={handleClick}>
                         <Close color='white' />
+                    </div>
+                    <div className="prev">
+                        <ArrowLeft10x24 color='white' handleClickPrev={handleClickPortalPrev} />
+                    </div>
+                    <div className="next">
+                        <ArrowRight color='white' handleClickNext={handleClickPortalNext} />
                     </div>
                     <div className="pages" onClick={handleClick}>
                         <span>{`${active}/`}</span>
