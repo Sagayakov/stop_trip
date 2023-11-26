@@ -143,18 +143,42 @@
         width: 26px;
         height: 26px;
         padding: 6px;
+        background-color: #5c5c5c80;
         svg {
             width: 14px;
             height: 14px;
         }
     }
+
+    .next,
+    .prev {
+        width: 26px;
+        height: 26px;
+        background-color: #5c5c5c80;
+        svg {
+            position: absolute;
+            left: -5px;
+            top: -4px;
+        }
+    }
+    .next {
+        svg {
+            left: -3px;
+            transform: scale(0.9);
+        }
+    }
+    
     .pages {
         z-index: 1100;
         left: 47%;
         height: 27px;
         padding: 4px 12px;
+        background-color: #5c5c5c80;
         span {
             font-size: 1rem;
+        }
+        span:last-child {
+            color: #ebeaea;
         }
     }
 }

@@ -112,28 +112,21 @@ export const PhotoSlider = () => {
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
                 >
-                    {!isMobile && <div className='arrow-container'><ArrowLeft10x24
-                        color="white"
-                        handleClickPrev={handleClickPrev}
-                    /></div>}
-                    {!isMobile ? (
-                        <img
+                    <div className='arrow-container'>
+                        <ArrowLeft10x24
+                            color="white"
+                            handleClickPrev={handleClickPrev}
+                        />
+                    </div>
+                    <img
                         src={image}
                         alt="Main image"
                         ref={imageRef}
                         onLoad={handleOnLoad}
-                        />
-                    ) : (
-                        <img
-                        src={image}
-                        alt="Main image"
-                        ref={imageRef}
-                        onLoad={handleOnLoad}
-                        />
-                    )}
-                    {!isMobile && <div className='arrow-container'>
+                    />
+                    <div className='arrow-container'>
                         <ArrowRight color="white" handleClickNext={handleClickNext} />
-                        </div>}
+                    </div>
                     <ShareIcon />
                     <Like color="#ff3f25" strokeColor="#1C1C1E" />
                     {imageHeight > imageWidth && (
