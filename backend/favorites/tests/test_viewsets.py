@@ -18,6 +18,7 @@ class FavoriteAPIViewTest(APITestCase):
 
     def test_create_favorites(self):
         user = UserFactory()
+        favorite = Favorite(self.client.session)
         advertisement = BaseAdvertisementFactory(
             owner=user,
             category=CategoryChoices.TAXI,
@@ -26,7 +27,7 @@ class FavoriteAPIViewTest(APITestCase):
         )
         self.client.force_login(user)
         with self.assertNumQueries(1):
-            res = self.client.post(self.url, data=advertisement)
+            res = self.client.post(self.url, data=favorite.add(advertisement.id))
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        self.assertIn(advertisement.id, Favorite(self.client.session).keys())
+        self.assertIn(advertisement.id, favorite.keys())

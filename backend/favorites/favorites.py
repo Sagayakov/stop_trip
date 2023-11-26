@@ -11,7 +11,7 @@ class Favorite:
         if pk in self.keys:
             raise ValueError("Объект уже существует.")
         else:
-            self.keys.append(int(pk))
+            self.keys.append(pk)
         self.update_session()
 
     def remove(self, pk):
