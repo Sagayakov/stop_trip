@@ -17,7 +17,7 @@ import { resetErrors } from '../../../../features/header/model/modalAuth/reducer
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
-    const { register, formState, handleSubmit, reset, control } =
+    const { register, formState: { errors, isValid }, handleSubmit, reset, control } =
         useForm<AuthData>({
             mode: 'onBlur',
         });
@@ -42,9 +42,9 @@ export const FormEnter = () => {
             onSubmit={handleSubmit(onsubmit)}
             autoComplete="false"
         >
-            <InputEmail formState={formState} register={register} />
+            <InputEmail errors={errors} register={register} />
             <InputPassword
-                formState={formState}
+                errors={errors}
                 togglePass={togglePass}
                 setTogglePass={setTogglePass}
                 control={control}
@@ -53,7 +53,7 @@ export const FormEnter = () => {
                 Забыли пароль?
             </div>
             <CheckboxRememberMe register={register} />
-            <InputSubmit />
+            <InputSubmit isValid={isValid} />
             <div className="enter-with">
                 Войти с помощью
                 <div className="google">

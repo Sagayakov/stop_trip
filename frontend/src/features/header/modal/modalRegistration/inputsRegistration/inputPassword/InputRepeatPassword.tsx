@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
     FieldErrors,
     UseFormGetValues,
@@ -25,19 +24,8 @@ export const InputRepeatPassword = ({
     const handleShowPass = () => {
         setShowPassword(!showPassword);
     };
-    const [notEqual, setNotEqual] = useState(false);
 
-    const onBlurRepeatPassword = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        setShowPassword(false);
-        const passwordValue = getValues('passWord');
-        const repeatPasswordValue = event.target.value;
-
-        passwordValue !== repeatPasswordValue
-            ? setNotEqual(true)
-            : setNotEqual(false);
-    };
+    const onBlurRepeatPassword = () => setShowPassword(false);
 
     return (
         <>
@@ -45,7 +33,8 @@ export const InputRepeatPassword = ({
                 <input
                     {...register('repeatPassword', {
                         required: true,
-                        minLength: 5,
+                        minLength: 8,
+                        validate: (value) => value === getValues('passWord'),
                     })}
                     placeholder="Повторите пароль"
                     autoComplete="new-password"
@@ -53,7 +42,7 @@ export const InputRepeatPassword = ({
                     onBlur={onBlurRepeatPassword}
                     style={{
                         border: `1px solid ${
-                            errors?.repeatPassword || notEqual
+                            errors?.repeatPassword
                                 ? '#FF3F25'
                                 : '#DCDCDC'
                         }`,
@@ -63,7 +52,7 @@ export const InputRepeatPassword = ({
                     <Eye />
                 </div>
                 <div className="input-error">
-                    {(errors?.repeatPassword || notEqual) && (
+                    {(errors?.repeatPassword) && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                             Пароли не совпадают
                         </p>

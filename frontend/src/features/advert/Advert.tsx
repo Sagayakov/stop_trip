@@ -15,8 +15,8 @@ export const Advert = () => {
     const { id } = useParams();
     const { data } = useGetAdvertByIdQuery(id!);
     const [date, setDate] = useState<Date | null>(null);
-    // console.log(data);
-    const { isMobile } = useMatchMedia()
+    console.log(data);
+    const { isMobile } = useMatchMedia();
 
     useEffect(() => {
         if (data) {
@@ -55,7 +55,7 @@ export const Advert = () => {
                                 Сутки{' '}
                                 <span className="price">
                                     {data.price
-                                        ? `$${data.price}`
+                                        ? `₹${data.price}`
                                         : 'Договорная'}
                                 </span>
                             </div>
@@ -90,10 +90,11 @@ export const Advert = () => {
                                 {data.price ? 'Сутки' : ''}
                                 <span className="price">
                                     {data.price
-                                        ? `$${data.price}`
+                                        ? `₹${data.price}`
                                         : 'Цена договорная'}
                                 </span>
                             </div>
+                            <h1 className='full-title'>{data.title}</h1>
                             <AdvertOwner />
                             <button className="call-button">Позвонить</button>
                             <button className="write-button">Написать</button>

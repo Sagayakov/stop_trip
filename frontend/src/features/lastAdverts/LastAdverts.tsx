@@ -7,6 +7,7 @@ import './libr/LastAdverts.scss';
 
 export const LastAdverts = () => {
     const { data = [], isLoading } = useGetAdvertsQuery('');
+    console.log(data);
 
     return (
         <div className="last-adverts">
