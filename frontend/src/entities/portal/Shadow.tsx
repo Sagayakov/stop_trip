@@ -1,34 +1,17 @@
-import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
-import { Close } from '../../shared/ui/icons/icons-tools/Close';
 import './portal.scss';
-import { ArrowRight } from '../../shared/ui/icons/icons-tools/ArrowRight';
-import { LastAdvertsImages } from '../../app/api/types/lastAdvertsTypes';
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 
 type ShadowProps = {
     setIsPortalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    images: LastAdvertsImages[];
-    active: number;
-    handleClickPortalPrev: () => void;
-    handleClickPortalNext: () => void;
 };
 
-export const Shadow = ({
-        setIsPortalOpen,
-        images,
-        active,
-        handleClickPortalPrev,
-        handleClickPortalNext,
-    }: ShadowProps) => {
-    const { isTablet, isMobile } = useMatchMedia();
-
+export const Shadow = ({ setIsPortalOpen }: ShadowProps) => {
     const handleClick = () => {
         setIsPortalOpen(false);
     };
 
     return (
             <div className="shadow" onClick={handleClick}>
-                {!isTablet && !isMobile && (
+                {/* {!isTablet && !isMobile && (
                     <>
                         <div className="close-portal" onClick={handleClick}>
                             <Close color='white' />
@@ -44,7 +27,7 @@ export const Shadow = ({
                             <span>{`${images.length}`}</span>
                         </div>
                     </>
-                )}
+                )} */}
             </div>   
         );
 };
