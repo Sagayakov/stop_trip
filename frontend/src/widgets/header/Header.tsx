@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
-import { Modal } from '../../features/header/modal';
+import { CategoryChoice, Modal } from '../../features/header/modal';
 import { ModalAddAdvert } from '../../features/header/modal/modalAddAdvert/ModalAddAdvert';
 import { ModalMobile } from '../../features/header/modal/modalMobile/ModalMobile';
 import { toggleModalEnter } from '../../features/header/model/modalAuth/reducers/toggleModal';
@@ -27,6 +27,7 @@ export const Header = () => {
 
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [showAddAdvertisementModal, setShowAddAdvertisementModal] = useState(false);
 
     const handleToggleModal = () => dispatch(toggleModalEnter(!toggle));
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
@@ -37,7 +38,6 @@ export const Header = () => {
         (state) => state.setIsResetPasswordModalOpen.isResetPasswordModalOpen
     );
 
-    const navigate = useNavigate();
 
     const { accessToken, refreshToken } = getTokensFromStorage();
 
@@ -56,7 +56,9 @@ export const Header = () => {
     }, [accessToken, refreshToken, dispatch]);
 
     const addAdvert = () => {
-        setIsAddModalOpen(true);
+        isAuth
+            ? setShowAddAdvertisementModal(true)
+            : setIsAddModalOpen(true)
     };
 
     const closeAddModal = () => {
@@ -71,10 +73,12 @@ export const Header = () => {
                 </NavLink>
                 <button
                     className={isAuth ? 'addAdvert active' : 'addAdvert'}
-                    onClick={isAuth ? () => navigate('/add-advert') : addAdvert}
+                    onClick={addAdvert}
                 >
                     <Plus color="white" />
-                    {window.innerWidth >= 425 ? 'Разместить объявление' : 'Опубликовать'}
+                    {window.innerWidth >= 425
+                        ? 'Разместить объявление'
+                        : 'Опубликовать'}
                 </button>
                 {isMobile ? (
                     <Person
@@ -110,6 +114,10 @@ export const Header = () => {
                         )}
                     </div>
                 )}
+                <CategoryChoice
+                    showAddAdvertisementModal={showAddAdvertisementModal}
+                    setShowAddAdvertisementModal={setShowAddAdvertisementModal}
+                />
                 <ModalMobile
                     showUserMenu={showUserMenu}
                     setShowUserMenu={setShowUserMenu}
