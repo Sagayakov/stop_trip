@@ -1,4 +1,130 @@
 main {
     max-width: 1440px;
-    margin: auto;
+    margin: 0 auto;
+    .add-ann {
+        width: 1240px;
+        padding-top: 110px;
+        margin: 0 auto 80px;
+        .add-ann-form {
+            h1 {
+                font-size: 34px;
+                margin-bottom: 16px;
+            }
+            h2 {
+                font-size: 30px;
+                margin-bottom: 27px;
+            }
+            .ann-field {
+                margin-bottom: 9px;
+                h3 {
+                    margin-bottom: 16px;
+                    span {
+                        color: red;
+                    }
+                }
+                .ann-field-err {
+                    height: 18px;
+                    color: red;
+                    font-size: 14px;
+                }
+                #ann-field-price {
+                    width: 25%;
+                }
+                input[type='text'],
+                textarea {
+                    width: 50%;
+                    height: 36px;
+                    border-radius: var(--radii);
+                    border: 1px solid var(--grey-1);
+                }
+                textarea {
+                    min-height: 120px;
+                    padding: 12px;
+                }
+                .loadphoto {
+                    width: 100%;
+                    padding: 24px;
+                    display: flex;
+                    border-radius: var(--radii);
+                    border: none;
+                    background-color: var(--main-background);
+                    input[type='file'] {
+                        display: none;
+                    }
+                    .loadphoto-btn {
+                        width: 194px;
+                        height: 38px;
+                        padding: 12px;
+                        border-radius: var(--radii);
+                        border: none;
+                        color: white;
+                        background-color: var(--main-blue);
+                        font-family: var(--font-lato);
+                        font-size: 12px;
+                        font-weight: 300;
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-around;
+                    }
+                    .loadphoto-icons {
+                        display: inline;
+                        & svg {
+                            margin-left: 34px;
+                        }
+                    }
+                    .loadphoto-counter {
+                        display: flex;
+                        margin-left: auto;
+                        align-items: flex-end;
+                        color: var(--grey-3);
+                        .loadphoto-counter-wrapper {
+                            & svg {
+                                margin-right: 6px;
+                            }
+                            display: flex;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+            .add-ann-form-button {
+                width: 50%;
+                display: flex;
+                justify-content: space-between;
+                margin-top: 65px;
+                input[type='submit'] {
+                    width: 60%;
+                    height: 48px;
+                    padding: 12px 20px;
+                    border-radius: var(--radii);
+                    border: none;
+                    color: white;
+                    background-color: var(--main-blue);
+                    font-family: var(--font-lato);
+                    font-weight: 600;
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
+                    cursor: pointer;
+                }
+                .goBack {
+                    width: 30%;
+                    padding: 12px 20px;
+                    color: var(--main-blue);
+                    font-family: var(--font-lato);
+                    font-weight: 700;
+                    background-color: white;
+                    border-radius: var(--radii);
+                    border: 1px solid var(--main-blue);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    height: 48px;
+                }
+            }
+        }
+    }
 }
