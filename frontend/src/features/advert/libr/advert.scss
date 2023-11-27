@@ -126,6 +126,7 @@ main {
         }
     }
 }
+
 @media (max-width: 767px) {
     main {
         .announcement-wrapper {
@@ -157,11 +158,16 @@ main {
                     display: grid;
                     grid-template-areas:
                         'info info'
+                        'title title'
                         'date date'
                         'owner owner'
                         'write call';
                     .price-block {
                         grid-area: info;
+                    }
+                    .full-title {
+                        grid-area: title;
+                        padding: 0;
                     }
                     .owner {
                         grid-area: owner;

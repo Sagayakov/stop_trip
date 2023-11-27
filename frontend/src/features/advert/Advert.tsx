@@ -94,6 +94,7 @@ export const Advert = () => {
                                         : 'Цена договорная'}
                                 </span>
                             </div>
+                            <h1 className='full-title'>{data.title}</h1>
                             <AdvertOwner />
                             <button className="call-button">Позвонить</button>
                             <button className="write-button">Написать</button>
