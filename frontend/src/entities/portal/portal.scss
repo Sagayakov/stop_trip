@@ -24,7 +24,6 @@
         border-radius: 16px;
     }
     .horizontal {
-        //min-height: 85vh;
         height: 90vh;
     }
     .vertical {
@@ -33,8 +32,8 @@
     }
     .close-portal {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 5px;
+        right: 5px;
         width: 44px;
         height: 44px;
         background-color: #5c5c5c80;
@@ -54,7 +53,7 @@
     .next {
         position: absolute;
         top: 50%;
-        left: 0;
+        left: 5px;
         width: 42px;
         height: 42px;
         background-color: #5c5c5c80;
@@ -69,7 +68,7 @@
     }
     .next {
         left: unset;
-        right: 0;
+        right: 5px;
         padding: 3px 5px;
     }
     .prev svg:hover,
@@ -111,7 +110,9 @@
 @media (max-width: 1240px) {
     .portal {
         .horizontal {
-            height: 70vh;
+            height: unset;
+            max-height: 90vh;
+            min-height: 70vh;
         }
     }
 }
@@ -123,7 +124,8 @@
             margin: 0 auto;
         }
         .horizontal {
-            height: 62vh;
+            max-height: 85vh;
+            min-height: 63vh;
         }
     }
 
@@ -146,7 +148,8 @@
     .portal {
         top: 50%;
         .horizontal {
-            height: 45vh;
+            max-height: 60vh;
+            min-height: 45vh;
         }
         .close-portal {
             width: 26px;
@@ -195,17 +198,23 @@
 @media (max-width: 600px) {
     .portal {
         top: 45%;
-        img {
-            min-height: 40vh;
+        .horizontal {
+            min-height: 35vh;
+        }
+        .vertical {
+            min-height: 70vh;
         }
     }
 }
 
 @media (max-width: 500px) {
     .portal {
-        top: 35%;
-        img {
-            min-height: 27vh;
+        top: 40%;
+        .horizontal {
+            min-height: 25vh;
+        }
+        .vertical {
+            min-height: 51vh;
         }
         .pages {
             left: 45%;
@@ -216,8 +225,8 @@
 @media (max-width: 360px) {
     .portal {
         top: 30%;
-        img {
-            min-height: 22vh;
+        .vertical {
+            min-height: 45vh;
         }
         .pages {
             left: 44%;
