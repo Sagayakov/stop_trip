@@ -51,7 +51,7 @@ export const AnyCategory = () => {
                                     г. Тбилиси, ул. Зеленая, 10
                                 </p>
                                 <h3>
-                                    {el.price ? `$${el.price}` : 'Договорная'}
+                                    {el.price ? `₹${el.price}` : 'Договорная'}
                                 </h3>
                                 <p className="card-description">
                                     {el.description}

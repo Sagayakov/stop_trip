@@ -55,7 +55,7 @@ export const Advert = () => {
                                 Сутки{' '}
                                 <span className="price">
                                     {data.price
-                                        ? `$${data.price}`
+                                        ? `₹${data.price}`
                                         : 'Договорная'}
                                 </span>
                             </div>
@@ -90,7 +90,7 @@ export const Advert = () => {
                                 {data.price ? 'Сутки' : ''}
                                 <span className="price">
                                     {data.price
-                                        ? `$${data.price}`
+                                        ? `₹${data.price}`
                                         : 'Цена договорная'}
                                 </span>
                             </div>

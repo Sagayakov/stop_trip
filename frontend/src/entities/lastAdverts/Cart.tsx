@@ -40,7 +40,7 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
             />
             <div className="description">
                 <div className="price">
-                    <p>{price ? `$${price}` : 'Договорная'}</p>
+                    <p>{price ? `₹${price}` : 'Договорная'}</p>
                     <span>
                         <Favorite
                             color={style.color}
