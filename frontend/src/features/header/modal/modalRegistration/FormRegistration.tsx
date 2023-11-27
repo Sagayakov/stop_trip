@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../../../app/store/hooks';
-import { InputChechbox } from './inputsRegistration/inputCheckbox/InputCheckbox';
+import { InputCheckbox } from './inputsRegistration/inputCheckbox/InputCheckbox';
 import { InputEmail } from './inputsRegistration/inputEmail/InputEmail';
 import { InputName } from './inputsRegistration/inputName/InputName';
 import { InputPassword } from './inputsRegistration/inputPassword/InputPassword';
@@ -13,7 +13,6 @@ import { AuthRegistration } from './libr/RegistrationTypes';
 import { submitRegForm } from './libr/onSubmitRegForm';
 import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
 import { resetErrors } from '../../../../features/header/model/modalAuth/reducers/auth';
-// import './inputsRegistration/inputRegistration.scss'
 
 export const FormRegistration = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -24,7 +23,7 @@ export const FormRegistration = () => {
         formState: { errors, isValid },
         getValues,
     } = useForm<AuthRegistration>({
-        mode: 'onBlur',
+        mode: 'onChange',
     });
 
     const dispatch = useAppDispatch();
@@ -37,7 +36,11 @@ export const FormRegistration = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onsubmit)} autoComplete="false">
+        <form
+            className="form-registration"
+            onSubmit={handleSubmit(onsubmit)}
+            autoComplete="false"
+        >
             <InputName errors={errors} register={register} />
             <InputPhone errors={errors} register={register} />
             <InputEmail errors={errors} register={register} />
@@ -54,7 +57,7 @@ export const FormRegistration = () => {
                 setShowPassword={setShowPassword}
                 getValues={getValues}
             />
-            <InputChechbox register={register} errors={errors} />
+            <InputCheckbox register={register} errors={errors} />
             <InputSubmit isValid={isValid} />
         </form>
     );
