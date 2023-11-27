@@ -112,8 +112,13 @@ main {
             }
             .image-wrapper{
                 .active-image{
+                    height: 40vw;
+                    img {
+                        height: 40vw;
+                    }
                     .blur-left,
                     .blur-right {
+                        height: 40vw;
                         clip-path: inset(0 0 0 0);
                     }
                 }
