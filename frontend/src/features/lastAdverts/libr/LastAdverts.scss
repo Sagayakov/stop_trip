@@ -54,11 +54,11 @@ a {
                         position: relative;
                         display: flex;
                         justify-content: space-between;
-                        margin-bottom: 14px;
                         color: var(--main-blue);
                         letter-spacing: 1px;
                         p {
                             width: 87%;
+                            margin-bottom: 10px;
                         }
                         span {
                             position: absolute;
@@ -79,6 +79,25 @@ a {
                         -webkit-box-orient: vertical;
                         box-orient: vertical;
                     }
+                    .user-main {
+                        display: flex;
+                        align-items: center;
+                        height: 30px;
+                        font-weight: 400;
+                        color: var(--grey-3);
+                        .rating-number {
+                            width: 37px;
+                            height: 26px;
+                            padding: 4px 5px;
+                            background-color: #ffd87366;
+                            border-radius: 50%;
+                            margin-left: 0.5rem;
+                            font-size: 16px;
+                            font-weight: 700;
+                            color: #434343;
+                        }
+                    }
+                    
                     span {
                         color: var(--grey-3);
                         font-weight: 400;

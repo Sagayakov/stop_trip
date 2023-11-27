@@ -52,6 +52,10 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
                     </span>
                 </div>
                 <p>{title}</p>
+                <div className='user-main'>
+                    Константин
+                    <span className="rating-number">4.5</span>
+                </div>
                 <span>{getDateOfCreating(dateCreate)}</span>
             </div>
         </div>
