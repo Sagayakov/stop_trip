@@ -3,9 +3,9 @@ export const getDateOfCreating = (str: string) => {
     let month: string | number = new Date(str).getMonth();
     const year = new Date(str).getFullYear();
     // eslint-disable-next-line prefer-const
-    let hours = new Date(str).getHours();
+    let hours: string | number = new Date(str).getHours();
     // eslint-disable-next-line prefer-const
-    let minutes = new Date(str).getMinutes();
+    let minutes: string | number = new Date(str).getMinutes();
     const dateCreate = new Date(year, month, day);
     const currentDate = new Date();
     const diffTime = Math.abs(Number(currentDate) - Number(dateCreate));
@@ -13,8 +13,8 @@ export const getDateOfCreating = (str: string) => {
 
     if (day < 10) day = '0' + day;
     if (month < 10) month = '0' + month;
-    if (hours < 10) month = '0' + hours;
-    if (minutes < 10) month = '0' + minutes;
+    if (hours < 10) hours = '0' + hours;
+    if (minutes < 10) minutes = '0' + minutes;
 
     switch (diffDays) {
         case 0:
