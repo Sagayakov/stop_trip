@@ -19,7 +19,7 @@ class Favorite:
             raise ValueError("Такого объекта нет.")
         else:
             self.keys.remove(pk)
-            self.update_session()
+        self.update_session()
 
     def clear(self):
         self.keys = []
