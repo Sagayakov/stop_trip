@@ -36,7 +36,8 @@ export const Star = ({
         return starClass;
     };
 
-    const handleClick = () => {
+    const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
+        event.stopPropagation();
         if (isAuth) {
             setActiveStar(id);
             grades && setGrades && setGrades(grades + 1);

@@ -56,10 +56,11 @@ export const AnyCategory = () => {
                                 <p className="card-description">
                                     {el.description}
                                 </p>
-                                <span className="author">
+                                <div className="author">
                                     Константин
+                                    <span className="rating-number">4.5</span>
                                     <Rating rating={4.5} />
-                                </span>
+                                </div>
                                 <p
                                     className="time">
                                     {`
