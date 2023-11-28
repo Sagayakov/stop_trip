@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 import { MainPage } from '../../pages/main/MainPage';
 import { categories } from '../../shared/const/categories';
 import { CategoryPage } from '../../pages/category/CategoryPage';
-import { AddAdvertPage } from '../../pages/add-advert/AddAdvertPage';
+import { AddAnnouncementPage } from '../../pages/addAnnouncement/AddAnnouncementPage';
 import { ActivateAccount } from '../../pages/activateAccount/ActivateAccount';
 import { ResetPassword } from '../../pages/resetPassword/ResetPassword';
 import { AdvertPage } from '../../pages/advertPage/AdvertPage';
@@ -27,7 +27,7 @@ export const publicRoutes: Route[] = [
 
 export const privateRoutes: Route[] = [
     { path: '/', component: MainPage },
-    { path: '/add-advert/:category', component: AddAdvertPage },
+    { path: '/add_announcement', component: AddAnnouncementPage },
     { path: '/:category/:id', component: AdvertPage },
     ...categoryRoutes,
 ];
