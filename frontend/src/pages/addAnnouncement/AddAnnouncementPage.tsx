@@ -1,3 +1,4 @@
+import { LatLng } from 'leaflet';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AnnouncementSubmitButton } from '../../entities/addAnnouncementForm/universalFields';
@@ -13,22 +14,28 @@ import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import './libr/addAnnouncement.scss';
 
 export const AddAnnouncementPage = () => {
-    const { register, handleSubmit, reset, control, setValue } = useForm<FormAddAnn>();
+    const { register, handleSubmit, reset, control, setValue } =
+        useForm<FormAddAnn>();
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
+    const [markerPosition, setMarkerPosition] = useState<LatLng | undefined>();
+
     const onsubmit = async (data: FormAddAnn) => {
-        try {
-            const url = import.meta.env.VITE_BASE_URL
-            const response = await fetch(`${url}/api/advertisements/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-            console.log(response)
-        } catch (error) {
-            console.log(error)
-        }
+        // try {
+        //     const url = import.meta.env.VITE_BASE_URL;
+        //     const response = await fetch(`${url}/api/advertisements/`, {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(data),
+        //     });
+        //     console.log(response);
+        // } catch (error) {
+        //     console.log(error);
+        // }
+        console.log(data);
+        setSelectedImages(undefined);
+        setMarkerPosition(undefined);
         reset();
     };
 
@@ -52,7 +59,11 @@ export const AddAnnouncementPage = () => {
                         setSelectedImages={setSelectedImages}
                         setValue={setValue}
                     />
-                    <AnnouncementLocationField register={register} />
+                    <AnnouncementLocationField
+                        setValue={setValue}
+                        markerPosition={markerPosition}
+                        setMarkerPosition={setMarkerPosition}
+                    />
                     <AnnouncementSubmitButton />
                 </form>
             </section>

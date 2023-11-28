@@ -71,7 +71,9 @@ export const Header = () => {
                 </NavLink>
                 <button
                     className={isAuth ? 'addAdvert active' : 'addAdvert'}
-                    onClick={isAuth ? () => navigate('/add-announcement') : addAdvert}
+                    onClick={
+                        isAuth ? () => navigate('/add-announcement') : addAdvert
+                    }
                 >
                     <Plus color="white" />
                     {window.innerWidth >= 425

@@ -78,7 +78,7 @@ main {
                     padding: 12px;
                 }
                 .loadphoto {
-                    width: 100%;
+                    width: 950px;
                     padding: 24px;
                     display: flex;
                     border-radius: var(--radii);
@@ -113,12 +113,18 @@ main {
                             align-items: center;
                             justify-content: space-around;
                         }
-                        .loadphoto-btn-view-delete{
-                            display: flex;
-                            margin-bottom: 8px;
-                            cursor: pointer;
-                            & span{
-                                margin-left: 6px;
+                        .loadphoto-btn-view-list{
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            width: 193px;
+                            .loadphoto-btn-view-delete{
+                                display: flex;
+                                margin-bottom: 8px;
+                                justify-self: center;
+                                cursor: pointer;
+                                & span{
+                                    margin-left: 6px;
+                                }
                             }
                         }
                     }

@@ -3,11 +3,14 @@ export interface FormAddAnn {
     announcementName: string;
     announcementPrice: string;
     announcementDescription: string;
-    // announcementPhoto: FormData;
     announcementPhoto: File[];
-    announcementLocation: string[];
+    announcementLocation: AnnouncementLocation;
 }
 export interface SelectOption {
     value: string;
     label: string;
+}
+interface AnnouncementLocation {
+    latitude: number;
+    longitude: number;
 }

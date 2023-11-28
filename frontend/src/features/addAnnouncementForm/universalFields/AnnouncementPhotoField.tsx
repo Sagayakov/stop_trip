@@ -37,6 +37,11 @@ export const AnnouncementPhotoField = ({
         }
     };
 
+    const getFillColor = (num: number) => {
+        if (selectedImages && selectedImages.length >= num) return '#1f6fde';
+        return '#8F8F8F';
+    };
+
     useEffect(() => {
         if (selectedImages) {
             setValue('announcementPhoto', selectedImages);
@@ -67,7 +72,7 @@ export const AnnouncementPhotoField = ({
                         />
                     </div>
                     {selectedImages && selectedImages.length > 0 && (
-                        <>
+                        <div className="loadphoto-btn-view-list">
                             {selectedImages &&
                                 selectedImages.map((image, index) => (
                                     <div
@@ -79,16 +84,20 @@ export const AnnouncementPhotoField = ({
                                         <span>&#x2716;</span>
                                     </div>
                                 ))}
-                        </>
+                        </div>
                     )}
                 </div>
                 <div className="loadphoto-icons">
-                    <LoadPhotoAlternative />
-                    <LoadPhotoAlternative />
-                    <LoadPhotoAlternative />
-                    <LoadPhotoAlternative />
-                    <LoadPhotoAlternative />
-                    <LoadPhotoAlternative />
+                    <LoadPhotoAlternative color={getFillColor(1)} />
+                    <LoadPhotoAlternative color={getFillColor(2)} />
+                    <LoadPhotoAlternative color={getFillColor(3)} />
+                    <LoadPhotoAlternative color={getFillColor(4)} />
+                    <LoadPhotoAlternative color={getFillColor(5)} />
+                    <LoadPhotoAlternative color={getFillColor(6)} />
+                    <LoadPhotoAlternative color={getFillColor(7)} />
+                    <LoadPhotoAlternative color={getFillColor(8)} />
+                    <LoadPhotoAlternative color={getFillColor(9)} />
+                    <LoadPhotoAlternative color={getFillColor(10)} />
                 </div>
                 <div className="loadphoto-counter">
                     <div className="loadphoto-counter-wrapper">
