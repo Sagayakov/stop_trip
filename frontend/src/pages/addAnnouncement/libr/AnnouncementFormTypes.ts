@@ -3,7 +3,8 @@ export interface FormAddAnn {
     announcementName: string;
     announcementPrice: string;
     announcementDescription: string;
-    announcementPhoto: FileList[];
+    // announcementPhoto: FormData;
+    announcementPhoto: File[];
     announcementLocation: string[];
 }
 export interface SelectOption {

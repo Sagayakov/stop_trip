@@ -26,7 +26,7 @@
         height: 25px;
         border: none !important;
     }
-    .filterAnnouncementCategory__menu{
+    .filterAnnouncementCategory__menu {
         width: 30%;
     }
     .filterAnnouncementCategory__menu-list {
@@ -84,36 +84,45 @@ main {
                     border-radius: var(--radii);
                     border: none;
                     background-color: var(--main-background);
-                    input[type='file'] {
-                        // display: none;
+                    .loadphoto-btn-view {
+                        .loadphoto-btn-hidden {
+                            opacity: 0;
+                            width: 0;
+                            height: 0;
+                            line-height: 0;
+                            overflow: hidden;
+                            padding: 0;
+                            margin: 0;
+                        }
+                        .loadphoto-btn {
+                            width: 194px;
+                            height: 38px;
+                            padding: 12px;
+                            margin-bottom: 14px;
+                            border-radius: var(--radii);
+                            border: none;
+                            color: white;
+                            background-color: var(--main-blue);
+                            font-family: var(--font-lato);
+                            font-size: 12px;
+                            font-weight: 300;
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-around;
+                        }
+                        .loadphoto-btn-view-delete{
+                            display: flex;
+                            margin-bottom: 8px;
+                            cursor: pointer;
+                            & span{
+                                margin-left: 6px;
+                            }
+                        }
                     }
-                    .loadphoto-btn-hidden {
-                        opacity: 0;
-                        width: 0;
-                        height: 0;
-                        line-height: 0;
-                        overflow: hidden;
-                        padding: 0;
-                        margin: 0;
-                    }
-                    .loadphoto-btn {
-                        width: 194px;
-                        height: 38px;
-                        padding: 12px;
-                        border-radius: var(--radii);
-                        border: none;
-                        color: white;
-                        background-color: var(--main-blue);
-                        font-family: var(--font-lato);
-                        font-size: 12px;
-                        font-weight: 300;
-                        word-wrap: break-word;
-                        overflow-wrap: break-word;
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-around;
-                    }
+
                     .loadphoto-icons {
                         display: inline;
                         & svg {

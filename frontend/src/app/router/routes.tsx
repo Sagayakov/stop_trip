@@ -27,7 +27,7 @@ export const publicRoutes: Route[] = [
 
 export const privateRoutes: Route[] = [
     { path: '/', component: MainPage },
-    { path: '/add_announcement', component: AddAnnouncementPage },
+    { path: '/add-announcement', component: AddAnnouncementPage },
     { path: '/:category/:id', component: AdvertPage },
     ...categoryRoutes,
 ];
