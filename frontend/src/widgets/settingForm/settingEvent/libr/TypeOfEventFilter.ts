@@ -1,7 +1,7 @@
 export interface TypeOfEventFilter {
-    start: TypeDate;
-    end: TypeDate;
-    isOnline: boolean
+    start_date: TypeDate;
+    end_date: TypeDate;
+    is_online: boolean
     price: Price
 }
 

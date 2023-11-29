@@ -7,9 +7,10 @@ import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 import { getDate } from '../../shared/utils/getDate';
 
 export const AnyCategory = () => {
-    const category = location.pathname.slice(1);
+    const category = location.pathname.split('/')[1];
+    const filterQuery = location.search;
     const navigate = useNavigate();
-    const { data = [] } = useGetAdvertsQuery('');
+    const { data = [] } = useGetAdvertsQuery(filterQuery);
     const { isMobile } = useMatchMedia();
     const filteredData = JSON.parse(JSON.stringify(data))
         .filter((el: LastAdvertsTypes) => el.category === category);

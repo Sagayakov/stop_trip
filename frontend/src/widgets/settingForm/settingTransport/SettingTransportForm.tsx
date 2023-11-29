@@ -66,7 +66,7 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
                 <ConditionOfTransport register={register} setValue={setValue} />
                 <TransportComission register={register} />
                 <SettingTransportPrice register={register}/>
-                <input type="submit" value="Показать 100 объявлений" />
+                <input type="submit" value="Применить" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
                     Сбросить фильтры

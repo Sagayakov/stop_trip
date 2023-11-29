@@ -17,7 +17,7 @@ export const AppRouter = () => {
                     .map(({ path, component: Component }) => {
                     return (
                         <Route
-                            path={`/${path}`}
+                            path={`/${path}/`}
                             element={<Component />}
                             key={path}
                         />
