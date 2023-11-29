@@ -49,7 +49,7 @@ export const AnnouncementPhotoField = ({
     }, [selectedImages]);
 
     return (
-        <div className="ann-field">
+        <div className="ann-field mobile-add-photo">
             <h3>
                 Фото<span>*</span>:
             </h3>
@@ -67,7 +67,7 @@ export const AnnouncementPhotoField = ({
                             ref={inputRef}
                             accept="image/*,.img,.png,.jpeg,.jpg"
                             multiple={true}
-                            max={10}
+                            max={11}
                             onChange={handleImageChange}
                         />
                     </div>
@@ -107,7 +107,9 @@ export const AnnouncementPhotoField = ({
                     </div>
                 </div>
             </div>
-            <div className="ann-field-err"></div>
+            <div className="ann-field-err">
+                {(selectedImages && selectedImages.length > 10) && "Пожалуйста, выберите не более 10 фотографий"}
+            </div>
         </div>
     );
 };

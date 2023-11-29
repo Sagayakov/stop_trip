@@ -113,16 +113,16 @@ main {
                             align-items: center;
                             justify-content: space-around;
                         }
-                        .loadphoto-btn-view-list{
+                        .loadphoto-btn-view-list {
                             display: grid;
                             grid-template-columns: 1fr 1fr;
                             width: 193px;
-                            .loadphoto-btn-view-delete{
+                            .loadphoto-btn-view-delete {
                                 display: flex;
                                 margin-bottom: 8px;
                                 justify-self: center;
                                 cursor: pointer;
-                                & span{
+                                & span {
                                     margin-left: 6px;
                                 }
                             }
@@ -148,6 +148,11 @@ main {
                             align-items: center;
                         }
                     }
+                }
+                .leaflet-container {
+                    width: 100%;
+                    height: 600px;
+                    border-radius: 1rem;
                 }
             }
             .add-ann-form-button {
@@ -187,4 +192,308 @@ main {
             }
         }
     }
+}
+
+@media (max-width: 1439px) {
+    main {
+        width: 85%;
+        .add-ann {
+            width: 100%;
+            padding-top: 110px;
+            margin: 0 auto 80px;
+            .add-ann-form {
+                width: 100%;
+            }
+        }
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    main {
+        .add-ann {
+            padding-top: 90px;
+            .add-ann-form {
+                .ann-field {
+                    .loadphoto {
+                        width: 100%;
+                    }
+                }
+                .add-ann-form-button {
+                    width: 100%;
+                    input[type='submit'],
+                    .goBack {
+                        width: 50%;
+                    }
+
+                    .goBack {
+                        width: 35%;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 511px) and (max-width: 767px) {
+    .add-ann-form {
+        .filterAnnouncementCategory__control {
+            width: 70%;
+        }
+        .filterAnnouncementCategory__menu {
+            width: 70%;
+        }
+    }
+    main {
+        .add-ann {
+            padding-top: 70px;
+            margin: 0 auto 40px;
+            .add-ann-form {
+                .ann-field {
+                    #ann-field-price {
+                        width: 50%;
+                    }
+                    input[type='text'],
+                    textarea {
+                        width: 70%;
+                    }
+                    .loadphoto {
+                        display: grid;
+                        grid-template-areas:
+                            'btn photoCounter'
+                            'btn icons';
+                        width: 100%;
+                        .loadphoto-btn-view {
+                            grid-area: btn;
+                            .loadphoto-btn-view-list {
+                                display: block;
+                            }
+                        }
+                        .loadphoto-icons {
+                            grid-area: icons;
+                        }
+                        .loadphoto-counter {
+                            grid-area: photoCounter;
+                            align-items: center;
+                            margin-right: 30%;
+                        }
+                    }
+                    .leaflet-container {
+                        width: 100%;
+                        height: 60vh;
+                    }
+                }
+                .mobile-add-photo {
+                    .loadphoto {
+                        order: 3;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 16px;
+                        width: 100%;
+                        padding: 16px;
+                        .loadphoto-btn-view {
+                            order: 1;
+                            .loadphoto-btn {
+                                margin: 0 auto 16px;
+                            }
+                            .loadphoto-btn-view-list {
+                                display: grid;
+                                grid-template-columns: repeat(
+                                    auto-fit,
+                                    minmax(90px, 1fr)
+                                );
+                                width: 100%;
+                            }
+                        }
+                        .loadphoto-counter {
+                            order: 2;
+                            margin: 0 auto;
+                        }
+                        .loadphoto-icons {
+                            order: 3;
+                            text-align: center;
+                            & svg {
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+                .add-ann-form-button {
+                    width: 100%;
+                    margin-top: 30px;
+                    input[type='submit'],
+                    .goBack {
+                        width: 50%;
+                    }
+
+                    .goBack {
+                        width: 35%;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 510px) {
+    .add-ann-form {
+        .filterAnnouncementCategory__control {
+            width: 100%;
+            height: 20px;
+            align-items: center;
+            .filterAnnouncementCategory__value-container {
+                height: 100%;
+                .filterAnnouncementCategory__input-container {
+                    height: 100%;
+                    padding: 0px 6px;
+                    margin: 0;
+                }
+            }
+        }
+        .filterAnnouncementCategory__menu {
+            width: 100%;
+        }
+    }
+    main {
+        .add-ann {
+            padding-top: 70px;
+            margin: 0 auto 40px;
+            .add-ann-form {
+                h1 {
+                    font-size: 26px;
+                    margin: 0;
+                    padding: 0px 0px 16px;
+                }
+                .mobile-add-photo {
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 27px;
+                    h3 {
+                        order: 1;
+                        margin: 0;
+                    }
+                    .ann-field-err {
+                        order: 2;
+                    }
+                    #ann-field-price {
+                        width: 50%;
+                    }
+                    input[type='text'],
+                    textarea {
+                        width: 100%;
+                        padding: 12px 12px 12px 10px;
+                    }
+                    .loadphoto {
+                        order: 3;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 16px;
+                        width: 100%;
+                        padding: 16px;
+                        .loadphoto-btn-view {
+                            order: 1;
+                            .loadphoto-btn {
+                                margin: 0 auto 16px;
+                            }
+                            .loadphoto-btn-view-list {
+                                display: grid;
+                                grid-template-columns: repeat(
+                                    auto-fit,
+                                    minmax(90px, 1fr)
+                                );
+                                width: 100%;
+                            }
+                        }
+                        .loadphoto-counter {
+                            order: 2;
+                            margin: 0 auto;
+                        }
+                        .loadphoto-icons {
+                            order: 3;
+                            text-align: center;
+                            & svg {
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+                .ann-field {
+                    #ann-field-price {
+                        width: 40%;
+                        padding: 8px 12px;
+                    }
+                    input[type='text'],
+                    textarea {
+                        width: 100%;
+                        padding: 8px 12px;
+                    }
+                    .leaflet-container {
+                        width: 100%;
+                        height: 50vh;
+                    }
+                }
+                .add-ann-form-button {
+                    width: 100%;
+                    margin-top: 30px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 475px) {
+    main {
+        .add-ann {
+            .add-ann-form {
+                .ann-field {
+                    .leaflet-container {
+                        width: 100%;
+                        height: 35vh;
+                    }
+                }
+                .add-ann-form-button {
+                    width: 100%;
+                    margin-top: 20px;
+                    input[type='submit'],
+                    .goBack {
+                        width: 55%;
+                        font-size: 13px;
+                        padding: 12px;
+                    }
+
+                    .goBack {
+                        width: 30%;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 400px) {
+    main {
+        .add-ann {
+            .add-ann-form {
+                .ann-field {
+                    #ann-field-price {
+                        width: 40%;
+                    }
+                    #ann-field-price,
+                    input[type='text'],
+                    textarea {
+                        padding: 8px;
+                    }
+                }
+                .add-ann-form-button {
+                    width: 100%;
+                    input[type='submit'],
+                    .goBack {
+                        width: auto;
+                        font-size: 13px;
+                        padding: 8px;
+                    }
+
+                    .goBack {
+                        min-width: 25%;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
 }
