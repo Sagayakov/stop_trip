@@ -11,7 +11,7 @@ export const WithExperience = ({ register }: Props) => {
             <h3>С опытом</h3>
             <div className="setting-withExperience">
                 <label className="form-checkbox">
-                    <input type="checkbox" {...register('withExperience')} />
+                    <input type="checkbox" {...register('job_experience')} />
                     <span>С опытом</span>
                 </label>
             </div>
