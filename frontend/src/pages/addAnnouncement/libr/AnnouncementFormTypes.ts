@@ -5,6 +5,7 @@ export interface FormAddAnn {
     announcementDescription: string;
     announcementPhoto: File[];
     announcementLocation: AnnouncementLocation;
+    announcementDoc: Doc;
 }
 export interface SelectOption {
     value: string;
@@ -13,4 +14,8 @@ export interface SelectOption {
 interface AnnouncementLocation {
     latitude: number;
     longitude: number;
+}
+interface Doc {
+    docType: string
+    validityPeriod: string
 }

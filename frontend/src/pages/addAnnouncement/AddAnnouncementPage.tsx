@@ -2,6 +2,7 @@ import { LatLng } from 'leaflet';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AnnouncementSubmitButton } from '../../entities/addAnnouncementForm/universalFields';
+import { AnnouncementDoc } from '../../features/addAnnouncementForm/documentAnnouncementForm';
 import {
     AnnouncementCategoryField,
     AnnouncementDescriptionField,
@@ -14,16 +15,30 @@ import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import './libr/addAnnouncement.scss';
 
 export const AddAnnouncementPage = () => {
-    const { register, handleSubmit, reset, control, setValue, formState } =
-        useForm<FormAddAnn>({
-            reValidateMode: 'onBlur'
-        });
+    const {
+        register,
+        handleSubmit,
+        reset,
+        control,
+        setValue,
+        formState,
+        watch
+    } = useForm<FormAddAnn>({
+        reValidateMode: 'onBlur',
+    });
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<LatLng | undefined>();
-    const [descript, setDescript] = useState<string | undefined>()
+    const [descript, setDescript] = useState<string | undefined>();
+
+    const category = watch('announcementCategory');
+    const getCategoryValue = (cat: string) => {
+        if(category){
+            return category[0] === cat
+        }
+    }
 
     const onsubmit = async (data: FormAddAnn) => {
-        descript && setValue('announcementDescription', descript)
+        descript && setValue('announcementDescription', descript);
         // try {
         //     const url = import.meta.env.VITE_BASE_URL;
         //     const response = await fetch(`${url}/api/advertisements/`, {
@@ -40,7 +55,7 @@ export const AddAnnouncementPage = () => {
         console.log(data);
         setSelectedImages(undefined);
         setMarkerPosition(undefined);
-        setDescript(undefined)
+        setDescript(undefined);
         reset();
     };
 
@@ -57,9 +72,19 @@ export const AddAnnouncementPage = () => {
                         setValue={setValue}
                         formState={formState}
                     />
-                    <AnnouncementNameField register={register} formState={formState} />
-                    <AnnouncementPriceField register={register} formState={formState} />
-                    <AnnouncementDescriptionField descript={descript} setDescript={setDescript} />
+                    <AnnouncementNameField
+                        register={register}
+                        formState={formState}
+                    />
+                    <AnnouncementPriceField
+                        register={register}
+                        formState={formState}
+                    />
+                    <AnnouncementDescriptionField
+                        descript={descript}
+                        setDescript={setDescript}
+                    />
+                    {getCategoryValue('Документы') && <AnnouncementDoc register={register} />}
                     <AnnouncementPhotoField
                         selectedImages={selectedImages}
                         setSelectedImages={setSelectedImages}
