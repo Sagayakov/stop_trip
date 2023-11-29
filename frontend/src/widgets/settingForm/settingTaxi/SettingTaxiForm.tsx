@@ -7,12 +7,15 @@ import {
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeSettingTaxi } from './libr/TypeSettingTaxi';
 import './libr/settingTaxiForm.scss'
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 export const SettingTaxiForm = ({ setShowFilters }: Props) => {
+    const [, setSearchParams] = useSearchParams();
+    
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -21,9 +24,17 @@ export const SettingTaxiForm = ({ setShowFilters }: Props) => {
         useForm<TypeSettingTaxi>();
 
     const onsubmit: SubmitHandler<TypeSettingTaxi> = (data) => {
-        console.log(data);
+        const { taxi_unit, taxi_type, price } = data;
+
+        const priceMaxQuery = price.max ? `&price_max=${price.max}` : '';
+        const priceMinQuery = price.min ? `&price_min=${price.min}` : '';
+        const taxiUnitQuery = taxi_unit ? `&taxi_unit=${taxi_unit.map((el) => `${el}`).join(',')}` : '';
+        const taxiTypeQuery = taxi_type ? `&taxi_type=${taxi_type.map((el) => `${el}`).join(',')}` : '';
+
+        const filters = `${taxiUnitQuery}${taxiTypeQuery}${priceMinQuery}${priceMaxQuery}`;
+        setSearchParams(`category=taxi${filters}`);
+
         setShowFilters(false);
-        reset();
     };
 
     const onReset = () => {
