@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AnnouncementSubmitButton } from '../../entities/addAnnouncementForm/universalFields';
 import { AnnouncementDoc } from '../../features/addAnnouncementForm/documentAnnouncementForm';
+import { AnnouncementEvent } from '../../features/addAnnouncementForm/eventAnnouncementForm';
+import { AnnouncementFood } from '../../features/addAnnouncementForm/foodAnnouncementForm';
+import { AnnouncementTaxi } from '../../features/addAnnouncementForm/taxiAnnouncementForm';
 import {
     AnnouncementCategoryField,
     AnnouncementDescriptionField,
@@ -13,7 +16,6 @@ import {
 } from '../../features/addAnnouncementForm/universalFields';
 import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import './libr/addAnnouncement.scss';
-import { AnnouncementEvent } from '../../features/addAnnouncementForm/eventAnnouncementForm';
 
 export const AddAnnouncementPage = () => {
     const {
@@ -23,7 +25,7 @@ export const AddAnnouncementPage = () => {
         control,
         setValue,
         formState,
-        watch
+        watch,
     } = useForm<FormAddAnn>({
         reValidateMode: 'onBlur',
     });
@@ -33,10 +35,10 @@ export const AddAnnouncementPage = () => {
 
     const category = watch('announcementCategory');
     const getCategoryValue = (cat: string) => {
-        if(category){
-            return category[0] === cat
+        if (category) {
+            return category[0] === cat;
         }
-    }
+    };
 
     const onsubmit = async (data: FormAddAnn) => {
         descript && setValue('announcementDescription', descript);
@@ -85,8 +87,25 @@ export const AddAnnouncementPage = () => {
                         descript={descript}
                         setDescript={setDescript}
                     />
-                    {getCategoryValue('Документы') && <AnnouncementDoc register={register} />}
-                    {getCategoryValue('Мероприятия') && <AnnouncementEvent register={register}/>}
+                    {getCategoryValue('Документы') && (
+                        <AnnouncementDoc register={register} />
+                    )}
+                    {getCategoryValue('Мероприятия') && (
+                        <AnnouncementEvent register={register} />
+                    )}
+                    {getCategoryValue('Домашняя еда') && (
+                        <AnnouncementFood
+                            register={register}
+                            control={control}
+                            setValue={setValue}
+                        />
+                    )}
+                    {getCategoryValue('Такси') && (
+                        <AnnouncementTaxi
+                            control={control}
+                            setValue={setValue}
+                        />
+                    )}
                     <AnnouncementPhotoField
                         selectedImages={selectedImages}
                         setSelectedImages={setSelectedImages}

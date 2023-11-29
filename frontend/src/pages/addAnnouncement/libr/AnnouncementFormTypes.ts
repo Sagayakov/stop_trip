@@ -6,7 +6,9 @@ export interface FormAddAnn {
     announcementPhoto: File[];
     announcementLocation: AnnouncementLocation;
     announcementDoc: Doc;
-    announcementEvent: AnnEvent
+    announcementEvent: AnnEvent;
+    announcementFood: Food;
+    annoucementTaxi: Taxi;
 }
 export interface SelectOption {
     value: string;
@@ -24,4 +26,13 @@ interface AnnEvent{
     start: string
     end: string
     isOnline: boolean
+}
+interface Food{
+    delivery: boolean
+    establishment: boolean
+    foodType: string[]
+}
+interface Taxi {
+    unit: string[]
+    taxiType: string[]
 }
