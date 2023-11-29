@@ -6,6 +6,7 @@ export interface FormAddAnn {
     announcementPhoto: File[];
     announcementLocation: AnnouncementLocation;
     announcementDoc: Doc;
+    announcementEvent: AnnEvent
 }
 export interface SelectOption {
     value: string;
@@ -18,4 +19,9 @@ interface AnnouncementLocation {
 interface Doc {
     docType: string
     validityPeriod: string
+}
+interface AnnEvent{
+    start: string
+    end: string
+    isOnline: boolean
 }

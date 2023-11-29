@@ -1,0 +1,99 @@
+label > span::before {
+    content: '';
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border-radius: 4px;
+    margin: 0 1rem 0 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+    background-color: var(--grey-1);
+}
+
+label > input:checked + span::before {
+    background: url('../../../shared/ui/icons/union.svg') no-repeat center
+        center;
+    background-size: 60%;
+    background-color: var(--main-green);
+    box-shadow: none;
+}
+
+label > span {
+    align-items: center;
+    user-select: none;
+}
+
+label > span {
+    display: flex;
+    font-size: 13px;
+}
+.ann-event {
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    .ann-field {
+        input[type='date'] {
+            width: 80%;
+        }
+        label {
+            width: 30%;
+            display: flex;
+            align-items: center;
+            input[type='checkbox'] {
+                margin-right: 8px;
+                display: none;
+            }
+        }
+    }
+}
+.label > input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+@media (max-width: 1100px) {
+    .ann-event {
+        width: 70%;
+    }
+}
+@media (max-width: 800px) {
+    .ann-event {
+        width: 80%;
+    }
+}
+@media (max-width: 700px) {
+    .ann-event {
+        width: 100%;
+        .ann-field {
+            input[type='date'] {
+                padding: 8px 12px;
+            }
+        }
+    }
+}
+@media (max-width: 500px) {
+    .ann-event {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .ann-field {
+            input[type='date'] {
+                width: 50%;
+            }
+        }
+    }
+}
+@media (max-width: 400px) {
+    .ann-event {
+        .ann-field {
+            input[type='date'] {
+                width: 70%;
+            }
+        }
+    }
+}

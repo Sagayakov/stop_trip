@@ -8,7 +8,7 @@ interface Props {
 
 export const AnnouncementNameField = ({ register, formState }: Props) => {
     const { errors } = formState
-    console.log(errors)
+
     return (
         <div className="ann-field">
             <h3>

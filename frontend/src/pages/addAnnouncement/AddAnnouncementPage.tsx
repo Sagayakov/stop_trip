@@ -13,6 +13,7 @@ import {
 } from '../../features/addAnnouncementForm/universalFields';
 import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import './libr/addAnnouncement.scss';
+import { AnnouncementEvent } from '../../features/addAnnouncementForm/eventAnnouncementForm';
 
 export const AddAnnouncementPage = () => {
     const {
@@ -85,6 +86,7 @@ export const AddAnnouncementPage = () => {
                         setDescript={setDescript}
                     />
                     {getCategoryValue('Документы') && <AnnouncementDoc register={register} />}
+                    {getCategoryValue('Мероприятия') && <AnnouncementEvent register={register}/>}
                     <AnnouncementPhotoField
                         selectedImages={selectedImages}
                         setSelectedImages={setSelectedImages}
