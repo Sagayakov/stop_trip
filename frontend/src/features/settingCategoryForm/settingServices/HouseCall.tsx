@@ -14,7 +14,7 @@ export const HouseCall = ({ register }: Props) => {
                     <input
                         type="checkbox"
                         // value=""
-                        {...register('houseCall')}
+                        {...register('service_home_visit')}
                     />
                     <span>Выезд на дом</span>
                 </label>

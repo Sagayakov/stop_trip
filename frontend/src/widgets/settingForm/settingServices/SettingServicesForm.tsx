@@ -3,12 +3,15 @@ import { HouseCall, SettingServicePrice } from '../../../features/settingCategor
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeOfServicesForm } from './libr/TypeOfServicesForm';
 import './libr/settingServicesForm.scss';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 export const SettingServicesForm = ({ setShowFilters }: Props) => {
+    const [, setSearchParams] = useSearchParams();
+    
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -16,14 +19,22 @@ export const SettingServicesForm = ({ setShowFilters }: Props) => {
     const { register, handleSubmit, reset } = useForm<TypeOfServicesForm>();
 
     const onsubmit: SubmitHandler<TypeOfServicesForm> = (data) => {
-        console.log(data);
+        const { service_home_visit, price } = data;
+        
+        const homeVisitQuery = service_home_visit ? `&service_home_visit=true` : '';
+        const priceMaxQuery = price.max ? `&price_max=${price.max}` : '';
+        const priceMinQuery = price.min ? `&price_min=${price.min}` : '';
+
+        const filters = `${homeVisitQuery}${priceMinQuery}${priceMaxQuery}`;
+        setSearchParams(`category=service${filters}`);
+
         setShowFilters(false);
-        reset();
     };
 
     const onReset = () => {
         reset();
     };
+
     return (
         <section className="filters" onClick={handleClick}>
             <form
