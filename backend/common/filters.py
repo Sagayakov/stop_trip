@@ -1,4 +1,4 @@
-from django_filters import BaseInFilter, NumberFilter, CharFilter
+from django_filters import BaseInFilter, NumberFilter, CharFilter, ChoiceFilter
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -9,6 +9,10 @@ class NumberInFilter(BaseInFilter, NumberFilter):
 
 
 class CharInFilter(BaseInFilter, CharFilter):
+    pass
+
+
+class ChoiceInFilter(BaseInFilter, ChoiceFilter):
     pass
 
 
