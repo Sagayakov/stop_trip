@@ -10,7 +10,7 @@ export const fetchAdverts = createApi({
     endpoints: (build) => ({
         getAdverts: build.query<LastAdvertsTypes[], string>({
             //дженериками передаем тип того что собираемся получить, а второй тип это то что передаем в качестве параметра при вызове хука, в данном случае пустая строка
-            query: () => 'api/advertisements/',
+            query: (filterQuery = '') => `api/advertisements/${filterQuery}`,
             providesTags: (result) =>
                 result // понадобится когда можно будет добавлять объявления
                     ? [

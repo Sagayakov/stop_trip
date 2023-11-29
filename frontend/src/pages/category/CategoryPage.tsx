@@ -24,7 +24,7 @@ import './style/min-424-category-page.scss';
 import { ToastContainer } from 'react-toastify';
 
 export const CategoryPage = () => {
-    const category = location.pathname.slice(1);
+    const category = location.pathname.split('/')[1];
     const description = categories[category].description;
     const [showFilters, setShowFilters] = useState<boolean>(false);
 

@@ -40,7 +40,7 @@ export const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 <UnitOfMeasurement control={control} setValue={setValue} />
                 <TypeOfTaxi control={control} setValue={setValue} />
                 <SettingTaxiPrice register={register} />
-                <input type="submit" value="Показать 100 объявлений" />
+                <input type="submit" value="Применить" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
                     Сбросить фильтры

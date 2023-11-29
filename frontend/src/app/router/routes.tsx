@@ -13,7 +13,7 @@ interface Route {
 }
 
 const categoryRoutes = Object.keys(categories).map((el) => ({
-    path: `/${el}`,
+    path: `/${el}/`,
     component: CategoryPage,
 }));
 
