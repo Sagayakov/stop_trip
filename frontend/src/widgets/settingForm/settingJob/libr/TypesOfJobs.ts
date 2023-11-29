@@ -1,8 +1,8 @@
 export interface TypesOfJobs {
-    typeOfJob: string[];
-    durationOfWork: string[];
-    typeOfPayment: string[];
-    withExperience: boolean;
+    job_type: string[];
+    job_duration: string[];
+    job_payment_type: string[];
+    job_experience: boolean;
     price: Price;
 }
 
