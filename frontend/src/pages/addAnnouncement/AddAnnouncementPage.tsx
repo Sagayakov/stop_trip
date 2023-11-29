@@ -4,7 +4,10 @@ import { useForm } from 'react-hook-form';
 import { AnnouncementSubmitButton } from '../../entities/addAnnouncementForm/universalFields';
 import { AnnouncementDoc } from '../../features/addAnnouncementForm/documentAnnouncementForm';
 import { AnnouncementEvent } from '../../features/addAnnouncementForm/eventAnnouncementForm';
+import { AnnouncementExchange } from '../../features/addAnnouncementForm/exchangeAnnouncementForm';
 import { AnnouncementFood } from '../../features/addAnnouncementForm/foodAnnouncementForm';
+import { AnnouncementMarket } from '../../features/addAnnouncementForm/marketAnnouncementForm';
+import { AnnouncementService } from '../../features/addAnnouncementForm/serviceAnnouncementForm';
 import { AnnouncementTaxi } from '../../features/addAnnouncementForm/taxiAnnouncementForm';
 import {
     AnnouncementCategoryField,
@@ -99,6 +102,22 @@ export const AddAnnouncementPage = () => {
                             control={control}
                             setValue={setValue}
                         />
+                    )}
+                    {getCategoryValue('Покупка/продажа') && (
+                        <AnnouncementMarket
+                            control={control}
+                            setValue={setValue}
+                        />
+                    )}
+                    {getCategoryValue('Валютные пары') && (
+                        <AnnouncementExchange
+                            control={control}
+                            register={register}
+                            setValue={setValue}
+                        />
+                    )}
+                    {getCategoryValue('Услуги') && (
+                        <AnnouncementService register={register} />
                     )}
                     {getCategoryValue('Такси') && (
                         <AnnouncementTaxi

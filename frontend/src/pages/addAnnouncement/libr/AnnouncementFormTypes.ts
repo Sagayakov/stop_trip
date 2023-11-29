@@ -9,6 +9,9 @@ export interface FormAddAnn {
     announcementEvent: AnnEvent;
     announcementFood: Food;
     annoucementTaxi: Taxi;
+    announcementService: boolean;
+    annoucementMarket: string[];
+    announcementExchange: Exchange;
 }
 export interface SelectOption {
     value: string;
@@ -36,3 +39,9 @@ interface Taxi {
     unit: string[]
     taxiType: string[]
 }
+interface Exchange {
+    name: string[];
+    exchangeFor: string[]
+    rate: string;
+}
+
