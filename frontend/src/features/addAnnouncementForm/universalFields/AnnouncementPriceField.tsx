@@ -1,11 +1,14 @@
-import { UseFormRegister } from 'react-hook-form';
+import { FormState, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    formState: FormState<FormAddAnn>;
 }
 
-export const AnnouncementPriceField = ({ register }: Props) => {
+export const AnnouncementPriceField = ({ register, formState }: Props) => {
+    const { errors } = formState
+
     return (
         <div className="ann-field">
             <h3>
@@ -15,9 +18,16 @@ export const AnnouncementPriceField = ({ register }: Props) => {
                 type="text"
                 id="ann-field-price"
                 placeholder="Цена"
-                {...register('announcementPrice')}
+                style={
+                    errors?.announcementPrice
+                        ? {
+                              border: '1px solid red',
+                          }
+                        : {}
+                }
+                {...register('announcementPrice', { required: true })}
             />
-            <div className="ann-field-err"></div>
+            <div className="ann-field-err">{errors?.announcementPrice && "Пожалуйста, установите цену"}</div>
         </div>
     );
 };

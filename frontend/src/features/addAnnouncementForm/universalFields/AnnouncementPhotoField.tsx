@@ -51,7 +51,7 @@ export const AnnouncementPhotoField = ({
     return (
         <div className="ann-field mobile-add-photo">
             <h3>
-                Фото<span>*</span>:
+                Фото:
             </h3>
             <div className="loadphoto">
                 <div className="loadphoto-btn-view">

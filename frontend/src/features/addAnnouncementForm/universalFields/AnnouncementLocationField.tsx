@@ -46,7 +46,8 @@ export const AnnouncementLocationField = ({
     return (
         <div className="ann-field">
             <h3>
-                Локация<span>*</span>:
+                Локация:
+                {/* Локация<span>*</span>: */}
             </h3>
             <MapContainer
                 center={initialPosition}

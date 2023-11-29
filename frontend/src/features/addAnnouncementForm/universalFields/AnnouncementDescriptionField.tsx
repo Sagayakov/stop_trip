@@ -1,15 +1,18 @@
-import { UseFormRegister } from 'react-hook-form';
-import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-
 interface Props {
-    register: UseFormRegister<FormAddAnn>;
+    descript: string | undefined;
+    setDescript: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-export const AnnouncementDescriptionField = ({ register }: Props) => {
+export const AnnouncementDescriptionField = ({ descript, setDescript }: Props) => {
     return (
         <div className="ann-field">
             <h3>Описание:</h3>
-            <textarea placeholder="Описание" maxLength={1000} />
+            <textarea
+                placeholder="Описание"
+                maxLength={1000}
+                value={descript}
+                onChange={(event) => setDescript(event.target.value)}
+            />
             <div className="ann-field-err"></div>
         </div>
     );

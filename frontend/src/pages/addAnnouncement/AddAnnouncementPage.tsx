@@ -14,12 +14,16 @@ import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import './libr/addAnnouncement.scss';
 
 export const AddAnnouncementPage = () => {
-    const { register, handleSubmit, reset, control, setValue } =
-        useForm<FormAddAnn>();
+    const { register, handleSubmit, reset, control, setValue, formState } =
+        useForm<FormAddAnn>({
+            reValidateMode: 'onBlur'
+        });
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<LatLng | undefined>();
+    const [descript, setDescript] = useState<string | undefined>()
 
     const onsubmit = async (data: FormAddAnn) => {
+        descript && setValue('announcementDescription', descript)
         // try {
         //     const url = import.meta.env.VITE_BASE_URL;
         //     const response = await fetch(`${url}/api/advertisements/`, {
@@ -36,6 +40,7 @@ export const AddAnnouncementPage = () => {
         console.log(data);
         setSelectedImages(undefined);
         setMarkerPosition(undefined);
+        setDescript(undefined)
         reset();
     };
 
@@ -50,10 +55,11 @@ export const AddAnnouncementPage = () => {
                     <AnnouncementCategoryField
                         control={control}
                         setValue={setValue}
+                        formState={formState}
                     />
-                    <AnnouncementNameField register={register} />
-                    <AnnouncementPriceField register={register} />
-                    <AnnouncementDescriptionField register={register} />
+                    <AnnouncementNameField register={register} formState={formState} />
+                    <AnnouncementPriceField register={register} formState={formState} />
+                    <AnnouncementDescriptionField descript={descript} setDescript={setDescript} />
                     <AnnouncementPhotoField
                         selectedImages={selectedImages}
                         setSelectedImages={setSelectedImages}

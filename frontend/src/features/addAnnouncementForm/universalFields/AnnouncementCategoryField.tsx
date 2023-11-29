@@ -1,16 +1,18 @@
-import { valuesOfCategory } from '../../../pages/addAnnouncement/libr/valuesOfCategory';
-import { FormAddAnn, SelectOption } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-import { Control, Controller, UseFormSetValue } from 'react-hook-form';
+import { Control, Controller, FormState, UseFormSetValue } from 'react-hook-form';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import { FormAddAnn, SelectOption } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { valuesOfCategory } from '../../../pages/addAnnouncement/libr/valuesOfCategory';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    formState: FormState<FormAddAnn>;
 }
 
-export const AnnouncementCategoryField = ({ control, setValue }: Props) => {
+export const AnnouncementCategoryField = ({ control, setValue, formState }: Props) => {
     const animated = makeAnimated();
+    const { errors } = formState
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -41,6 +43,7 @@ export const AnnouncementCategoryField = ({ control, setValue }: Props) => {
                             components={animated}
                             placeholder="Выберите категорию"
                             closeMenuOnSelect={true}
+                            required={true}
                             isMulti={false}
                             options={valuesOfCategory}
                             onChange={(selectedOptions) => {
@@ -57,7 +60,7 @@ export const AnnouncementCategoryField = ({ control, setValue }: Props) => {
                         />
                     )}
                 />
-                <div className="ann-field-err"></div>
+                <div className="ann-field-err">{errors?.announcementCategory && "Пожалуйста, выберите категорию"}</div>
             </div>
         </>
     );
