@@ -14,7 +14,7 @@ interface Props {
 
 export const UnitOfMeasurement = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const valuesUnitOfMeasurement = valuesOfTaxiForm.unitOfMeasurement;
+    const valuesUnitOfMeasurement = valuesOfTaxiForm.taxi_unit;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -26,7 +26,7 @@ export const UnitOfMeasurement = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('unitOfMeasurement', selectedValues);
+            setValue('taxi_unit', selectedValues);
         }
     };
 
@@ -35,7 +35,7 @@ export const UnitOfMeasurement = ({ control, setValue }: Props) => {
             <div className="unitOfMeasurement">
                 <h3>Единица измерения</h3>
                 <Controller
-                    name="unitOfMeasurement"
+                    name="taxi_unit"
                     control={control}
                     render={({ field }) => (
                         <Select
