@@ -5,7 +5,9 @@ import { AnnouncementSubmitButton } from '../../entities/addAnnouncementForm/uni
 import { AnnouncementDoc } from '../../features/addAnnouncementForm/documentAnnouncementForm';
 import { AnnouncementEvent } from '../../features/addAnnouncementForm/eventAnnouncementForm';
 import { AnnouncementExchange } from '../../features/addAnnouncementForm/exchangeAnnouncementForm';
+import { AnnouncementExcursion } from '../../features/addAnnouncementForm/excursionAnnouncementForm';
 import { AnnouncementFood } from '../../features/addAnnouncementForm/foodAnnouncementForm';
+import { AnnouncementJob } from '../../features/addAnnouncementForm/jobAnnounmentForm';
 import { AnnouncementMarket } from '../../features/addAnnouncementForm/marketAnnouncementForm';
 import { AnnouncementService } from '../../features/addAnnouncementForm/serviceAnnouncementForm';
 import { AnnouncementTaxi } from '../../features/addAnnouncementForm/taxiAnnouncementForm';
@@ -102,6 +104,16 @@ export const AddAnnouncementPage = () => {
                             control={control}
                             setValue={setValue}
                         />
+                    )}
+                    {getCategoryValue('Работа') && (
+                        <AnnouncementJob
+                            control={control}
+                            register={register}
+                            setValue={setValue}
+                        />
+                    )}
+                    {getCategoryValue('Экскурсии') && (
+                        <AnnouncementExcursion register={register} />
                     )}
                     {getCategoryValue('Покупка/продажа') && (
                         <AnnouncementMarket

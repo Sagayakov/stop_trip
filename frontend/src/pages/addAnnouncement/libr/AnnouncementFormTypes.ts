@@ -12,6 +12,8 @@ export interface FormAddAnn {
     announcementService: boolean;
     annoucementMarket: string[];
     announcementExchange: Exchange;
+    announcementJob: Job;
+    announcementExcursion: Excursion;
 }
 export interface SelectOption {
     value: string;
@@ -22,26 +24,37 @@ interface AnnouncementLocation {
     longitude: number;
 }
 interface Doc {
-    docType: string
-    validityPeriod: string
+    docType: string;
+    validityPeriod: string;
 }
-interface AnnEvent{
-    start: string
-    end: string
-    isOnline: boolean
+interface AnnEvent {
+    start: string;
+    end: string;
+    isOnline: boolean;
 }
-interface Food{
-    delivery: boolean
-    establishment: boolean
-    foodType: string[]
+interface Food {
+    delivery: boolean;
+    establishment: boolean;
+    foodType: string[];
 }
 interface Taxi {
-    unit: string[]
-    taxiType: string[]
+    unit: string[];
+    taxiType: string[];
 }
 interface Exchange {
     name: string[];
-    exchangeFor: string[]
+    exchangeFor: string[];
     rate: string;
 }
 
+interface Job {
+    jobType: string[];
+    duration: string[];
+    payment: string[];
+    withExp: boolean;
+}
+
+interface Excursion{
+    food: boolean
+    transfer: boolean
+}
