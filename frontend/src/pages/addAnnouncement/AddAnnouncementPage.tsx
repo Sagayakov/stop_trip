@@ -1,17 +1,8 @@
 import { LatLng } from 'leaflet';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { OptionalFields } from '../../widgets';
 import { AnnouncementSubmitButton } from '../../entities/addAnnouncementForm/universalFields';
-import { AnnouncementDoc } from '../../features/addAnnouncementForm/documentAnnouncementForm';
-import { AnnouncementEvent } from '../../features/addAnnouncementForm/eventAnnouncementForm';
-import { AnnouncementExchange } from '../../features/addAnnouncementForm/exchangeAnnouncementForm';
-import { AnnouncementExcursion } from '../../features/addAnnouncementForm/excursionAnnouncementForm';
-import { AnnouncementFood } from '../../features/addAnnouncementForm/foodAnnouncementForm';
-import { AnnouncementJob } from '../../features/addAnnouncementForm/jobAnnounmentForm';
-import { AnnouncementMarket } from '../../features/addAnnouncementForm/marketAnnouncementForm';
-import { AnnouncementService } from '../../features/addAnnouncementForm/serviceAnnouncementForm';
-import { AnnouncementTaxi } from '../../features/addAnnouncementForm/taxiAnnouncementForm';
-import { AnnouncementTransport } from '../../features/addAnnouncementForm/transportAnnouncementForm';
 import {
     AnnouncementCategoryField,
     AnnouncementDescriptionField,
@@ -25,26 +16,14 @@ import './libr/addAnnouncement.scss';
 
 export const AddAnnouncementPage = () => {
     const {
-        register,
-        handleSubmit,
-        reset,
-        control,
-        setValue,
-        formState,
-        watch,
+        register, handleSubmit, reset, control, setValue, formState, watch,
     } = useForm<FormAddAnn>({
         reValidateMode: 'onBlur',
     });
+
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<LatLng | undefined>();
     const [descript, setDescript] = useState<string | undefined>();
-
-    const category = watch('announcementCategory');
-    const getCategoryValue = (cat: string) => {
-        if (category) {
-            return category[0] === cat;
-        }
-    };
 
     const onsubmit = async (data: FormAddAnn) => {
         descript && setValue('announcementDescription', descript);
@@ -93,58 +72,12 @@ export const AddAnnouncementPage = () => {
                         descript={descript}
                         setDescript={setDescript}
                     />
-                    {getCategoryValue('Транспорт') && (
-                        <AnnouncementTransport
-                            control={control}
-                            register={register}
-                            setValue={setValue}
-                        />
-                    )}
-                    {getCategoryValue('Документы') && (
-                        <AnnouncementDoc register={register} />
-                    )}
-                    {getCategoryValue('Мероприятия') && (
-                        <AnnouncementEvent register={register} />
-                    )}
-                    {getCategoryValue('Домашняя еда') && (
-                        <AnnouncementFood
-                            register={register}
-                            control={control}
-                            setValue={setValue}
-                        />
-                    )}
-                    {getCategoryValue('Работа') && (
-                        <AnnouncementJob
-                            control={control}
-                            register={register}
-                            setValue={setValue}
-                        />
-                    )}
-                    {getCategoryValue('Экскурсии') && (
-                        <AnnouncementExcursion register={register} />
-                    )}
-                    {getCategoryValue('Покупка/продажа') && (
-                        <AnnouncementMarket
-                            control={control}
-                            setValue={setValue}
-                        />
-                    )}
-                    {getCategoryValue('Валютные пары') && (
-                        <AnnouncementExchange
-                            control={control}
-                            register={register}
-                            setValue={setValue}
-                        />
-                    )}
-                    {getCategoryValue('Услуги') && (
-                        <AnnouncementService register={register} />
-                    )}
-                    {getCategoryValue('Такси') && (
-                        <AnnouncementTaxi
-                            control={control}
-                            setValue={setValue}
-                        />
-                    )}
+                    <OptionalFields
+                        control={control}
+                        register={register}
+                        setValue={setValue}
+                        watch={watch}
+                    />
                     <AnnouncementPhotoField
                         selectedImages={selectedImages}
                         setSelectedImages={setSelectedImages}

@@ -1,4 +1,4 @@
-export interface FormAddAnn extends TypeForTransport, TypeForRealty{
+export interface FormAddAnn extends TypeForTransport, TypeForRealty {
     announcementCategory: string[];
     announcementName: string;
     announcementPrice: number;
@@ -54,9 +54,9 @@ interface Job {
     withExp: boolean;
 }
 
-interface Excursion{
-    food: boolean
-    transfer: boolean
+interface Excursion {
+    food: boolean;
+    transfer: boolean;
 }
 
 interface TypeForTransport {
@@ -78,18 +78,22 @@ interface TypeForRealty {
     TypeOfService: TypeOfServise;
     PropertyCity: string[] | string;
     PropertyDistrict: string[] | string;
+    FloorsQuantity: number;
+    FloorNumber: number;
+    Prepayment: string[] | string;
     HouseType: string[] | string;
     TypeOfProperty: string[] | string;
     RentalCondition: string[] | string;
     TotalArea: TotalArea;
     LivingSpace: LivingSpace;
+    Parking: boolean;
     SleepingPlaces: number;
     HasFurniture: boolean;
     Amenities: string;
     RoomsQuantity: RoomsQuantity;
     BathRoom: BathRoom;
     BathroomQuantity: number;
-    Balcony: boolean;
+    Balcony: boolean | string;
     Comission: Comission;
 }
 
