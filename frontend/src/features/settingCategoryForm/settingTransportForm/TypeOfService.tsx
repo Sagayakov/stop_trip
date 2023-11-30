@@ -26,16 +26,16 @@ export const TypeOfService = ({ register /*watch*/ }: Props) => {
                 <label className="form-checkbox">
                     <input
                         type="checkbox"
-                        {...register('typeOfService')}
-                        value="Аренда"
+                        {...register('transport_type_of_service')}
+                        value="rent"
                     />
                     <span>Аренда</span>
                 </label>
                 <label className="form-checkbox">
                     <input
                         type="checkbox"
-                        {...register('typeOfService')}
-                        value="Продажа"
+                        {...register('transport_type_of_service')}
+                        value="sale"
                     />
                     <span>Продажа</span>
                 </label>

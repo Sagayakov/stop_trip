@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
-    const bodyTypeValue = valuesOfTransportForm.bodyType;
+    const bodyTypeValue = valuesOfTransportForm.transport_body_type;
     const animated = makeAnimated();
 
     const handleChange = (
@@ -26,7 +26,7 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('bodyType', selectedValues);
+            setValue('transport_body_type', selectedValues);
         }
     };
 
@@ -34,7 +34,7 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
         <div className="bodyType">
             <h3>Тип кузова</h3>
             <Controller
-                name="bodyType"
+                name="transport_body_type"
                 control={control}
                 render={({ field }) => (
                     <Select

@@ -1,44 +1,44 @@
 export interface TypeSettingTransport {
-    typeOfService: TypeOfServise;
-    typeOfTransport: TypeOfTransport;
-    transportationCategory: string[];
-    mark: string[];
-    model: string[];
-    engineType: string[];
-    engineСapacity: EngineCapacity;
-    drive: Drive;
-    yearOfProduction: YearOfProduction;
-    transmissionType: TransmissionType;
-    bodyType: string[];
-    condition: Condition;
-    commission: Comission;
-    price: Price
+    transport_type_of_service: string[];
+    transport_type: string[];
+    transport_category: string[];
+    transport_brand: number;
+    transport_model: number;
+    transport_engine_type: string[];
+    transport_engine_volume: EngineCapacity;
+    transport_drive_type: string[];
+    transport_year_of_production: YearOfProduction;
+    transport_transmission_type: string[];
+    transport_body_type: string[];
+    transport_condition: string[];
+    transport_commission: Commission;
+    price: Price;
 }
 export interface SelectOption {
     value: string;
     label: string;
 }
-type TypeOfServise = 'Аренда' | 'Продажа'
+//type TypeOfService = 'Аренда' | 'Продажа';
 
-type TypeOfTransport = 'Наземный' | 'Водный'
-type Drive = 'Передний' | 'Задний' | 'Постоянный полный' | 'Полный подключаемый'
-interface EngineCapacity{
-    min: number
-    max: number
+//type TypeOfTransport = 'Наземный' | 'Водный';
+//type Drive = 'Передний' | 'Задний' | 'Постоянный полный' | 'Полный подключаемый';
+export interface EngineCapacity{
+    min: number;
+    max: number;
 }
-type TransmissionType = 'МКПП' | 'АКПП' | 'Робот' | 'Вариатор'
-interface YearOfProduction{
-    min: number
-    max: number
+//type TransmissionType = 'МКПП' | 'АКПП' | 'Робот' | 'Вариатор';
+export interface YearOfProduction{
+    min: number;
+    max: number;
 }
 
-type Condition = 'Новый' | 'Б/у' | 'Аварийный' | 'На запчасти'
+//type Condition = 'Новый' | 'Б/у' | 'Аварийный' | 'На запчасти';
 
-interface Comission {
-    min: number
-    max: number
+export interface Commission {
+    min: number;
+    max: number;
 }
-interface Price {
-    min: number
-    max: number
+export interface Price {
+    min: number;
+    max: number;
 }

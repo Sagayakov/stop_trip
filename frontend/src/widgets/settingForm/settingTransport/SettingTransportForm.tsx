@@ -4,12 +4,12 @@ import {
     ConditionOfTransport,
     DriveType,
     EngineType,
-    EngineСapacity,
+    EngineCapacity,
     MarkOfTransport,
     ModelOfTransport,
     SettingTransportPrice,
     TransmissionType,
-    TransportComission,
+    TransportCommission,
     TransportationCategory,
     TypeOfService,
     TypeOfTransport,
@@ -18,12 +18,16 @@ import {
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import '././libr/settingTransportForm.scss';
 import { TypeSettingTransport } from './libr/TypeSettingTransport';
+import { useSearchParams } from 'react-router-dom';
+import { getTransportQuery } from '../../../shared/utils/getTransportQuery';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 export const SettingTransportForm = ({ setShowFilters }: Props) => {
+    const [, setSearchParams] = useSearchParams();
+    
     const { register, handleSubmit, reset, watch, setValue, control } =
         useForm<TypeSettingTransport>();
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -31,9 +35,9 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
     };
 
     const onsubmit: SubmitHandler<TypeSettingTransport> = (data) => {
-        console.log(data);
+        const filters = getTransportQuery(data);
+        setSearchParams(`category=transport${filters}`);
         setShowFilters(false);
-        reset();
     };
 
     const onReset = () => {
@@ -58,13 +62,13 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
                     control={control}
                 />
                 <EngineType setValue={setValue} control={control} />
-                <EngineСapacity register={register} />
+                <EngineCapacity register={register} />
                 <DriveType register={register} setValue={setValue} />
                 <YearOfProduction register={register} />
                 <TransmissionType register={register} />
                 <BodyTypeOfTransport setValue={setValue} control={control} />
                 <ConditionOfTransport register={register} setValue={setValue} />
-                <TransportComission register={register} />
+                <TransportCommission register={register} />
                 <SettingTransportPrice register={register}/>
                 <input type="submit" value="Применить" />
                 <button className="reset-setting-form" onClick={onReset}>
