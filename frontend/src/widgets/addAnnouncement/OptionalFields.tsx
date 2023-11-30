@@ -30,7 +30,7 @@ export const OptionalFields = ({ register, setValue, control, watch }: Props) =>
     const category = watch('announcementCategory');
     const getCategoryValue = (cat: string) => {
         if (category) {
-            return category[0] === cat;
+            return category === cat;
         }
     };
 

@@ -1,5 +1,5 @@
 export interface FormAddAnn extends TypeForTransport, TypeForRealty {
-    announcementCategory: string[];
+    announcementCategory: string;
     announcementName: string;
     announcementPrice: number;
     announcementDescription: string;
