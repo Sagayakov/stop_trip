@@ -1,4 +1,6 @@
-export interface FormAddAnn {
+import { TypeSettingTransport } from "../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport";
+
+export interface FormAddAnn extends TypeSettingTransport{
     announcementCategory: string[];
     announcementName: string;
     announcementPrice: string;

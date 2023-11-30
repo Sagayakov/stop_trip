@@ -1,16 +1,16 @@
 export interface TypeSettingRealty {
-    typeOfService: string[];
-    propertyCity: string[];
-    propertyDistrict: string[];
-    houseType: string[];
-    typeOfProperty: string[];
-    rentalCondition: string[];
+    typeOfService: string[] | string;
+    propertyCity: string[] | string;
+    propertyDistrict: string[] | string;
+    houseType: string[] | string;
+    typeOfProperty: string[] | string;
+    rentalCondition: string[] | string;
     settingPrice: Price;
     totalArea: TotalArea;
     livingSpace: LivingSpace;
     sleepingPlaces: number;
     hasFurniture: boolean;
-    amenities: string,
+    amenities: string;
     roomsQuantity: RoomsQuantity;
     bathRoom: BathRoom;
     bathroomQuantity: number;

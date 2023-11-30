@@ -1,15 +1,15 @@
 export interface TypeSettingTransport {
     typeOfService: TypeOfServise;
     typeOfTransport: TypeOfTransport;
-    transportationCategory: string[];
-    mark: string[];
-    model: string[];
-    engineType: string[];
+    transportationCategory: string[] | string;
+    mark: string[] | string;
+    model: string[] | string;
+    engineType: string[] | string;
     engineСapacity: EngineCapacity;
     drive: Drive;
     yearOfProduction: YearOfProduction;
     transmissionType: TransmissionType;
-    bodyType: string[];
+    bodyType: string[] | string;
     condition: Condition;
     commission: Comission;
     price: Price
