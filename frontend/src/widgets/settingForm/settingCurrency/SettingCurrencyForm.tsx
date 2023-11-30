@@ -12,7 +12,7 @@ export const SettingCurrencyForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { register, handleSubmit, reset } =
+    const { handleSubmit, reset } =
         useForm<TypeOfCurrencyFilter>();
 
     const onSubmit: SubmitHandler<TypeOfCurrencyFilter> = (data) => {
