@@ -1,4 +1,10 @@
-import { Commission, LivingSpace, Price, TotalArea, TypeSettingRealty } from "../../widgets/settingForm/settingRealty/libr/TypeSettingRealty";
+import { 
+    Commission,
+    LivingSpace,
+    Price,
+    TotalArea,
+    TypeSettingRealty
+} from "../../widgets/settingForm/settingRealty/libr/TypeSettingRealty";
 import { getMultiQuery } from "./getMultiQuery";
 
 export const getRealtyQuery = (data: TypeSettingRealty) => {
