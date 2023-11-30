@@ -16,12 +16,14 @@ export const valuesOfTransportForm = {
         { value: 'other', label: 'Другое' },
     ],
     transport_brand: [
+        { value: '', label: 'Отменить выбор' },
         { value: 'yamaha', label: 'Yamaha' },
         { value: 'bmw', label: 'BMW' },
         { value: 'mazda', label: 'Mazda' },
         { value: 'toyota', label: 'Toyota' },
     ],
     transport_model: [
+        { value: '', label: 'Отменить выбор' },
         { value: 'camry', label: 'Camry' },
         { value: '1', label: '1' },
         { value: '2', label: '2' },

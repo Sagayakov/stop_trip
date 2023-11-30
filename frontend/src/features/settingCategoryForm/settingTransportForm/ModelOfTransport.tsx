@@ -25,7 +25,7 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
 
     const animated = makeAnimated();
     const modelOfTransportValues = valuesOfTransportForm.transport_model;
-    const disabled = markOfTrasport ? false : true;
+    const disabled = markOfTrasport && markOfTrasport.length ? false : true;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null

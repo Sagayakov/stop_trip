@@ -35,7 +35,6 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
     };
 
     const onsubmit: SubmitHandler<TypeSettingTransport> = (data) => {
-        console.log(data)
         const filters = getTransportQuery(data);
         setSearchParams(`category=transport${filters}`);
         setShowFilters(false);
