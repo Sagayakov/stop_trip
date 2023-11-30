@@ -21,7 +21,6 @@ import './style/1024-1439-category-page.scss';
 import './style/768-1023-category-page.scss';
 import './style/425-767-category-page.scss';
 import './style/min-424-category-page.scss';
-import { ToastContainer } from 'react-toastify';
 
 export const CategoryPage = () => {
     const category = location.pathname.split('/')[1];
@@ -112,7 +111,6 @@ export const CategoryPage = () => {
                 <AnyCategory />
             </div>
             <Pagination />
-            <ToastContainer />
         </>
     );
 };

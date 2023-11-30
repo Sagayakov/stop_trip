@@ -12,9 +12,7 @@ export const getTransportQuery = (data: TypeSettingTransport) => {
 
     for (const key in data) {
         if (data[key as keyof TypeSettingTransport]) {
-            if (Number(data[key as keyof TypeSettingTransport])) {
-                query += `&${key}=${data[key as keyof TypeSettingTransport]}`;
-            } else if (typeof data[key as keyof TypeSettingTransport] === "boolean") {
+            if (typeof data[key as keyof TypeSettingTransport] === "boolean") {
                 query += `&${key}=true`;
             } else if (Array.isArray(data[key as keyof TypeSettingTransport])) {
                 query += getMultiQuery(key, data[key as keyof TypeSettingTransport] as string[]);

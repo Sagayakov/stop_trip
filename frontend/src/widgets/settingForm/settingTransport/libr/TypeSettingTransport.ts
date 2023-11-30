@@ -2,8 +2,8 @@ export interface TypeSettingTransport {
     transport_type_of_service: string[];
     transport_type: string[];
     transport_category: string[];
-    transport_brand: number;
-    transport_model: number;
+    transport_brand: string[];
+    transport_model: string[];
     transport_engine_type: string[];
     transport_engine_volume: EngineCapacity;
     transport_drive_type: string[];

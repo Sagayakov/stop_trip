@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Footer, Header } from '../../widgets';
+import { ToastContainer } from 'react-toastify';
 
 export const Layout = () => {
     return (
@@ -9,6 +10,7 @@ export const Layout = () => {
                 <Outlet />
             </main>
             <Footer />
+            <ToastContainer />
         </>
     );
 };

@@ -6,6 +6,7 @@ import { ActivateAccount } from '../../pages/activateAccount/ActivateAccount';
 import { ResetPassword } from '../../pages/resetPassword/ResetPassword';
 import { AdvertPage } from '../../pages/advertPage/AdvertPage';
 import { AddAnnouncementPage } from '../../pages/addAnnouncement/AddAnnouncementPage'
+import { PageNotFound } from '../../pages/notFound/PageNotFound';
 
 interface Route {
     path: string;
@@ -21,8 +22,8 @@ export const publicRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/activate/:uid/:token', component: ActivateAccount },
     { path: '/email/reset/confirm/:uid/:token', component: ResetPassword },
-    { path: '/add-announcement', component: AddAnnouncementPage }, //убрать
     { path: '/:category/:id', component: AdvertPage },
+    { path: '/404', component: PageNotFound },
     ...categoryRoutes,
 ];
 
@@ -30,5 +31,6 @@ export const privateRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/add-announcement', component: AddAnnouncementPage },
     { path: '/:category/:id', component: AdvertPage },
+    { path: '/404', component: PageNotFound },
     ...categoryRoutes,
 ];
