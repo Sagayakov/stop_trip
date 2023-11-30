@@ -5,17 +5,17 @@ interface Props {
     register: UseFormRegister<TypeSettingRealty>;
 }
 
-export const HasFurniture = ({ register }: Props) => {
+export const HasParking = ({ register }: Props) => {
     return (
-        <div className="hasFurniture">
-            <h3>Мебель</h3>
-            <div className="setting-hasFurniture">
+        <div className="hasParking">
+            <h3>Парковка</h3>
+            <div className="setting-hasParking">
                 <label className="form-checkbox">
                     <input
                         type="checkbox"
-                        {...register('property_has_furniture')}
+                        {...register('property_has_parking')}
                     />
-                    <span>С мебелью</span>
+                    <span>С парковкой</span>
                 </label>
             </div>
         </div>

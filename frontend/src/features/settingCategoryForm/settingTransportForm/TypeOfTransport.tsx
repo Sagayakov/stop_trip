@@ -14,16 +14,16 @@ export const TypeOfTransport = ({ register }: Props) => {
                 <label className="form-checkbox">
                     <input
                         type="checkbox"
-                        {...register('typeOfTransport')}
-                        value="Наземный"
+                        {...register('transport_type')}
+                        value="ground"
                     />
                     <span>Наземный</span>
                 </label>
                 <label className="form-checkbox">
                     <input
                         type="checkbox"
-                        {...register('typeOfTransport')}
-                        value="Водный"
+                        {...register('transport_type')}
+                        value="water"
                     />
                     <span>Водный</span>
                 </label>

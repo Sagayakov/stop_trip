@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const MarkOfTransport = ({ setValue, control }: Props) => {
-    const markOfTrasportValues = valuesOfTransportForm.mark;
+    const markOfTrasportValues = valuesOfTransportForm.transport_brand;
     const animated = makeAnimated();
 
     const handleChange = (
@@ -26,7 +26,7 @@ export const MarkOfTransport = ({ setValue, control }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('mark', selectedValues);
+            setValue('transport_brand', selectedValues);
         }
     };
 
@@ -34,7 +34,7 @@ export const MarkOfTransport = ({ setValue, control }: Props) => {
         <div className="mark">
             <h3>Марка</h3>
             <Controller
-                name="mark"
+                name="transport_brand"
                 control={control}
                 render={({ field }) => (
                     <Select

@@ -1,52 +1,49 @@
 export const valuesOfPropertyForm = {
-    typeOfService: [
-        { label: 'Аренда', value: 'Аренда' },
-        { label: 'Продажа', value: 'Продажа' },
+    property_type_of_service: [
+        {label: 'Аренда', value: 'rent'},
+        {label: 'Продажа', value: 'sale'},
     ],
-    propertyCity: [
-        { label: 'Арамболь', value: 'Арамболь' },
-        { label: 'Гоа', value: 'Гоа' },
-        { label: 'Делли', value: 'Делли' },
-        { label: 'Керим', value: 'Керим' },
-        { label: 'Мандрем', value: 'Мандрем' },
-        { label: 'Морджим', value: 'Морджим' },
-        { label: 'Мумбай', value: 'Мумбай' },
-        { label: 'Панаджи', value: 'Панаджи' },
+    property_city: [
+        {label: 'Арамболь', value: '1'},
+        {label: 'Гоа', value: '8'},
+        {label: 'Делли', value: '7'},
+        {label: 'Керим', value: '4'},
+        {label: 'Мандрем', value: '3'},
+        {label: 'Морджим', value: '5'},
+        {label: 'Мумбай', value: '6'},
+        {label: 'Панаджи', value: '2'},
     ],
-    balcony: ['Есть', 'Нет', 'Лоджия'],
-    roomsQuantity: [1,2,3,4],
-    propertyDistrict: [
-        { label: 'Верхний', value: 'Верхний' },
-        { label: 'Нижний', value: 'Нижний' },
-        { label: 'Левый', value: 'Левый' },
-        { label: 'Правый', value: 'Правый' },
+    property_district: [
+        {label: 'Верхний', value: '1'},
+        {label: 'Нижний', value: '2'},
+        {label: 'Левый', value: '3'},
+        {label: 'Правый', value: '4'},
     ],
-    bathroomType: ["Совмещенный", "Раздельный"],
-    houseType: [
-        { label: 'Панельный', value: 'Панельный' },
-        { label: 'Кирпичный', value: 'Кирпичный' },
-        { label: 'Деревянный', value: 'Деревянный' },
-        { label: 'Блочный', value: 'Блочный' },
+    property_house_type: [
+        {label: 'Панельный', value: 'panel'},
+        {label: 'Кирпичный', value: 'brick'},
+        {label: 'Деревянный', value: 'wooden'},
+        {label: 'Блочный', value: 'block'},
     ],
-    prepayment: [
-        { value: 'Без предоплаты', label: 'Без предоплаты' },
-        { value: 'Месяц', label: 'Месяц' },
-        { value: 'Два месяца', label: 'Два месяца' },
-        { value: 'Три месяца', label: 'Три месяца' },
-        { value: 'Пол года', label: 'Пол года' },
+    property_rental_condition: [
+        {label: 'Семье', value: 'family'},
+        {label: 'Для одного', value: 'alone'},
+        {label: 'Девушке', value: 'girls'},
+        {label: 'Под офис', value: 'office'},
+        {label: 'Студентам', value: 'students'},
+        {label: 'Не компаниям', value: 'not_companies'},
     ],
-    rentalCondition: [
-        { label: 'Семье', value: 'Семье' },
-        { label: 'Для одного', value: 'Для одного' },
-        { label: 'Девушке', value: 'Девушке' },
-        { label: 'Под офис', value: 'Под офис' },
-        { label: 'Студентам', value: 'Студентам' },
-        { label: 'Не компаниям', value: 'Не компаниям' },
-    ],
-    typeOfProperty: [
+    /* typeOfProperty: [
         { label: 'Квартира', value: 'Квартира' },
         { label: 'Комната', value: 'Комната' },
         { label: 'Дом', value: 'Дом' },
-    ],
+    ], */
+    property_prepayment: [
+        { label: 'Без предоплаты', value: 'without' },
+        { label: 'Месяц', value: 'month' },
+        { label: 'Два месяца', value: 'two_months' },
+        { label: 'Три месяца', value: 'three_months' },
+        { label: 'Полгода', value: 'half_a_year' },
+    ]
 };
 // {label: '', value: ''},

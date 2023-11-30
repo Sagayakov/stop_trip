@@ -11,7 +11,7 @@ export const Amenities = ({ register }: Props) => {
             <h3>Удобства</h3>
             <div className="amenities-setting">
                 <textarea
-                    {...register('amenities')}
+                    {...register('property_amenities')}
                     placeholder="Пожалуйста, через запятую перечислите желаемые удобства"
                 ></textarea>
             </div>

@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const EngineType = ({ control, setValue }: Props) => {
-    const engineTypeValues = valuesOfTransportForm.engineType;
+    const engineTypeValues = valuesOfTransportForm.transport_engine_type;
     const animated = makeAnimated();
 
     const handleChange = (
@@ -26,7 +26,7 @@ export const EngineType = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('engineType', selectedValues);
+            setValue('transport_engine_type', selectedValues);
         }
     };
 
@@ -34,7 +34,7 @@ export const EngineType = ({ control, setValue }: Props) => {
         <div className="engineType">
             <h3>Тип двигателя</h3>
             <Controller
-                name="engineType"
+                name="transport_engine_type"
                 control={control}
                 render={({ field }) => (
                     <Select

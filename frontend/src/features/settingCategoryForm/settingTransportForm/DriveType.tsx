@@ -8,20 +8,20 @@ interface Props {
 }
 
 export const DriveType = ({ register }: Props) => {
-    const driveValue = valuesOfTransportForm.drive;
+    const driveValue = valuesOfTransportForm.transport_drive_type;
 
     return (
         <div className="drive">
             <h3>Привод</h3>
             <div className='select-drive'>
                 {driveValue.map((el) => (
-                    <label className='form-checkbox' key={el}>
+                    <label className='form-checkbox' key={el.label}>
                         <input
                             type="checkbox"
-                            value={el}
-                            {...register('drive')}
+                            value={el.value}
+                            {...register('transport_drive_type')}
                         />
-                        <span>{el}</span>
+                        <span>{el.label}</span>
                     </label>
                 ))}
             </div>

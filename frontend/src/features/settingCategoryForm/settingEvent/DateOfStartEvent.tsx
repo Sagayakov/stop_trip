@@ -13,13 +13,13 @@ export const DateOfStartEvent = ({ register }: Props) => {
                 <input
                     type="date"
                     placeholder="Дата начала"
-                    {...register('start.date')}
+                    {...register('start_date.date')}
                 />
                 <span>Время:</span>
                 <input
                     type="time"
                     placeholder="Время начала"
-                    {...register('start.time')}
+                    {...register('start_date.time')}
                 />
             </div>
         </div>

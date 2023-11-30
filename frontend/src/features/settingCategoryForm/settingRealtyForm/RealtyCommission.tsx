@@ -4,7 +4,7 @@ import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/li
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
 }
-export const RealtyComission = ({ register }: Props) => {
+export const RealtyCommission = ({ register }: Props) => {
     return (
         <div className="realtyComission">
             <h3>Комиссия</h3>
@@ -13,14 +13,14 @@ export const RealtyComission = ({ register }: Props) => {
                     type="number"
                     min="0"
                     placeholder="От"
-                    {...register('comission.min')}
+                    {...register('property_commission.min')}
                 />
                 <input
                     id="setting-price-input-max"
                     min="0"
                     type="number"
                     placeholder="До"
-                    {...register('comission.max')}
+                    {...register('property_commission.max')}
                 />
             </div>
         </div>

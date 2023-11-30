@@ -33,6 +33,7 @@ export const categoryCharacteristicsKeys: Record<
     },
     taxi: {
         taxi_unit: 'Единица измерения',
+        taxi_type: 'Вид такси',
     },
     job: {
         job_duration: 'Продолжительность работы',
@@ -137,6 +138,13 @@ export const categoryCharacteristicsValues: Record<
             hour: 'час',
             route: 'маршрут',
         },
+        taxi_type: {
+            economy: 'Эконом',
+            comfort: 'Комфорт',
+            business: 'Бизнес',
+            station_wagon: 'Универсал',
+            minivan: 'Минивэн',
+        }
     },
     job: {
         job_duration: {

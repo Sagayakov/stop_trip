@@ -8,20 +8,20 @@ interface Props {
 }
 
 export const ConditionOfTransport = ({ register }: Props) => {
-    const conditionOfTransportValue = valuesOfTransportForm.condition;
+    const conditionOfTransportValue = valuesOfTransportForm.transport_condition;
 
     return (
         <div className="condition">
             <h3>Состояние</h3>
             <div className="select-condition">
                 {conditionOfTransportValue.map((el) => (
-                    <label className="form-checkbox" key={el}>
+                    <label className="form-checkbox" key={el.label}>
                         <input
                             type="checkbox"
-                            value={el}
-                            {...register('condition')}
+                            value={el.value}
+                            {...register('transport_condition')}
                         />
-                        <span>{el}</span>
+                        <span>{el.label}</span>
                     </label>
                 ))}
             </div>

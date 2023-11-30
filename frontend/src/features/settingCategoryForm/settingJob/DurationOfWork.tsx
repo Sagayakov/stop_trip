@@ -24,7 +24,7 @@ export const DurationOfWork = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('durationOfWork', selectedValues);
+            setValue('job_duration', selectedValues);
         }
     };
     return (
@@ -32,7 +32,7 @@ export const DurationOfWork = ({ control, setValue }: Props) => {
             <div className="durationOfWork">
                 <h3>Продолжительность работы</h3>
                 <Controller
-                    name="durationOfWork"
+                    name="job_duration"
                     control={control}
                     render={({ field }) => (
                         <Select

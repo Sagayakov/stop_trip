@@ -24,7 +24,7 @@ export const TypeOfJob = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('typeOfJob', selectedValues);
+            setValue('job_type', selectedValues);
         }
     };
     return (
@@ -32,7 +32,7 @@ export const TypeOfJob = ({ control, setValue }: Props) => {
             <div className="typeOfJob">
                 <h3>Тип работы</h3>
                 <Controller
-                    name="typeOfJob"
+                    name="job_type"
                     control={control}
                     render={({ field }) => (
                         <Select
