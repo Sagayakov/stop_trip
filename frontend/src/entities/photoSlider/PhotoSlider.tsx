@@ -112,6 +112,7 @@ export const PhotoSlider = () => {
                         alt="Main image"
                         ref={imageRef}
                         onLoad={handleOnLoad}
+                        className={imageWidth > imageHeight ? 'horizontal' : 'vertical'}
                     />
                     <div className='arrow-container'>
                         <ArrowRight color="white" handleClickNext={handleClickNext} />
