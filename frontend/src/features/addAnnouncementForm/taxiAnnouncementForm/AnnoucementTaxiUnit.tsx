@@ -1,66 +1,29 @@
-import { Control, Controller, UseFormSetValue } from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import {
-    FormAddAnn,
-    SelectOption,
-} from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { UseFormRegister } from 'react-hook-form';
+import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { taxiValues } from './taxiValues';
 
 interface Props {
-    setValue: UseFormSetValue<FormAddAnn>;
-    control: Control<FormAddAnn, string[]>;
+    register: UseFormRegister<FormAddAnn>;
 }
 
-export const AnnouncementTaxiUnit = ({ setValue, control }: Props) => {
-    const animated = makeAnimated();
-    const valuesOfTaxiUnit = taxiValues.valuesOfTaxiUnit
-
-    const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
-    ) => {
-        if (selectedOptions) {
-            const optionsArray = Array.isArray(selectedOptions)
-                ? selectedOptions
-                : [selectedOptions];
-            const selectedValues = optionsArray
-                .map((option) => option?.value)
-                .filter(Boolean);
-            setValue('annoucementTaxi.unit', selectedValues);
-        }
-    };
+export const AnnouncementTaxiUnit = ({ register }: Props) => {
+    const valuesOfTaxiUnit = taxiValues.valuesOfTaxiUnit;
 
     return (
         <div className="ann-field">
             <h3>Единица измерения:</h3>
-            <Controller
-                name="annoucementTaxi.unit"
-                control={control}
-                render={({ field }) => (
-                    <Select
-                        {...field}
-                        classNamePrefix="filterAnnouncementCategory"
-                        id="annoucementTaxi.unit"
-                        components={animated}
-                        placeholder="Единица измерения"
-                        closeMenuOnSelect={true}
-                        required={true}
-                        isMulti={false}
-                        options={valuesOfTaxiUnit}
-                        onChange={(selectedOptions) => {
-                            handleChange(
-                                selectedOptions as
-                                    | SelectOption
-                                    | SelectOption[]
-                                    | null
-                            );
-                        }}
-                        value={valuesOfTaxiUnit.filter((option) =>
-                            field.value?.includes(option.value)
-                        )}
-                    />
-                )}
-            />
+            <div className="radio-group">
+                {valuesOfTaxiUnit.map((el) => (
+                    <label className="form-checkbox" key={el}>
+                        <input
+                            type="radio"
+                            value={el}
+                            {...register('annoucementTaxi.unit')}
+                        />
+                        <span>{el}</span>
+                    </label>
+                ))}
+            </div>
             <div className="ann-field-err"></div>
         </div>
     );

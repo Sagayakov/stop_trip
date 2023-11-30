@@ -1,19 +1,15 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { AnnouncementMarketCondition } from './AnnouncementMarketCondition';
 
 interface Props {
-    setValue: UseFormSetValue<FormAddAnn>;
-    control: Control<FormAddAnn, string[]>;
+    register: UseFormRegister<FormAddAnn>;
 }
 
-export const AnnouncementMarket = ({ setValue, control }: Props) => {
+export const AnnouncementMarket = ({ register }: Props) => {
     return (
         <>
-            <AnnouncementMarketCondition
-                control={control}
-                setValue={setValue}
-            />
+            <AnnouncementMarketCondition register={register} />
         </>
     );
 };

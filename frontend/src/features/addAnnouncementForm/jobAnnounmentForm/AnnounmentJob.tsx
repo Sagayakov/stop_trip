@@ -18,8 +18,8 @@ export const AnnouncementJob = ({
 }: Props) => {
     return (
         <>
-            <AnnouncementJobType control={control} setValue={setValue} />
-            <AnnouncementJobDuration control={control} setValue={setValue} />
+            <AnnouncementJobType register={register} />
+            <AnnouncementJobDuration register={register} />
             <AnnouncementJobPayment control={control} setValue={setValue} />
             <AnnouncementJobWithExp register={register} />
         </>

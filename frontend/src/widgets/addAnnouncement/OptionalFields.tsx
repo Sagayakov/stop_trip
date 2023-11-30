@@ -74,7 +74,7 @@ export const OptionalFields = ({ register, setValue, control, watch }: Props) =>
                 <AnnouncementExcursion register={register} />
             )}
             {getCategoryValue('Покупка/продажа') && (
-                <AnnouncementMarket control={control} setValue={setValue} />
+                <AnnouncementMarket register={register} />
             )}
             {getCategoryValue('Валютные пары') && (
                 <AnnouncementExchange
@@ -87,7 +87,7 @@ export const OptionalFields = ({ register, setValue, control, watch }: Props) =>
                 <AnnouncementService register={register} />
             )}
             {getCategoryValue('Такси') && (
-                <AnnouncementTaxi control={control} setValue={setValue} />
+                <AnnouncementTaxi control={control} setValue={setValue} register={register} />
             )}
         </>
     );

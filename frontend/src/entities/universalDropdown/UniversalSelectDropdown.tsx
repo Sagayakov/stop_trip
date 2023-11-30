@@ -2,15 +2,16 @@ import { Control, Controller, FieldValues, Path, PathValue, UseFormSetValue } fr
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 
-interface Props<T extends FieldValues>{
+interface Props<T extends FieldValues> {
     setValue: UseFormSetValue<T>;
     control: Control<T, string[]>;
-    name: Path<T>
+    name: Path<T>;
     prefix: string;
     placeholder: string;
-    closeMenuOnSelect: boolean
-    isMulti: boolean
-    options: SelectOption[]
+    closeMenuOnSelect: boolean;
+    isMulti: boolean;
+    options: SelectOption[];
+    required?: boolean;
 }
 interface SelectOption{
     value: string

@@ -1,66 +1,25 @@
-import { Control, Controller, UseFormSetValue } from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import {
-    FormAddAnn,
-    SelectOption,
-} from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { UseFormRegister } from 'react-hook-form';
+import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { jobValues } from './libr/jobValues';
 
 interface Props {
-    setValue: UseFormSetValue<FormAddAnn>;
-    control: Control<FormAddAnn, string[]>;
+    register: UseFormRegister<FormAddAnn>;
 }
 
-export const AnnouncementJobType = ({ setValue, control }: Props) => {
-    const animated = makeAnimated();
+export const AnnouncementJobType = ({ register }: Props) => {
     const jobTypeValues = jobValues.jobType;
-
-    const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
-    ) => {
-        if (selectedOptions) {
-            const optionsArray = Array.isArray(selectedOptions)
-                ? selectedOptions
-                : [selectedOptions];
-            const selectedValues = optionsArray
-                .map((option) => option?.value)
-                .filter(Boolean);
-            setValue('announcementJob.jobType', selectedValues);
-        }
-    };
 
     return (
         <div className="ann-field">
             <h3>Тип работы:</h3>
-            <Controller
-                name="announcementJob.jobType"
-                control={control}
-                render={({ field }) => (
-                    <Select
-                        {...field}
-                        classNamePrefix="filterAnnouncementCategory"
-                        id="announcementJob.jobType"
-                        components={animated}
-                        placeholder="Тип работы"
-                        closeMenuOnSelect={true}
-                        required={true}
-                        isMulti={false}
-                        options={jobTypeValues}
-                        onChange={(selectedOptions) => {
-                            handleChange(
-                                selectedOptions as
-                                    | SelectOption
-                                    | SelectOption[]
-                                    | null
-                            );
-                        }}
-                        value={jobTypeValues.filter((option) =>
-                            field.value?.includes(option.value)
-                        )}
-                    />
-                )}
-            />
+            <div className="radio-group">
+                {jobTypeValues.map((el) => (
+                    <label className="form-checkbox" key={el}>
+                        <input type="radio" value={el} {...register('announcementJob.jobType')} />
+                        <span>{el}</span>
+                    </label>
+                ))}
+            </div>
             <div className="ann-field-err"></div>
         </div>
     );

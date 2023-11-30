@@ -1,10 +1,6 @@
-import { Control, Controller, UseFormSetValue } from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import {
-    FormAddAnn,
-    SelectOption,
-} from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
+import { Control, UseFormSetValue } from 'react-hook-form';
+import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { exchangeValues } from './libr/exchangeValues';
 
 interface Props {
@@ -13,53 +9,20 @@ interface Props {
 }
 
 export const AnnouncementExchangeName = ({ setValue, control }: Props) => {
-    const animated = makeAnimated();
-    const exchangeNameValues =  exchangeValues.name
-
-    const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
-    ) => {
-        if (selectedOptions) {
-            const optionsArray = Array.isArray(selectedOptions)
-                ? selectedOptions
-                : [selectedOptions];
-            const selectedValues = optionsArray
-                .map((option) => option?.value)
-                .filter(Boolean);
-            setValue('announcementExchange.name', selectedValues);
-        }
-    };
+    const exchangeNameValues = exchangeValues.name;
 
     return (
         <div className="ann-field">
             <h3>Предлагаемая валюта:</h3>
-            <Controller
-                name="announcementExchange.name"
+            <UniversalSelectDropdown
+                closeMenuOnSelect={true}
                 control={control}
-                render={({ field }) => (
-                    <Select
-                        {...field}
-                        classNamePrefix="filterAnnouncementCategory"
-                        id="announcementExchange.name"
-                        components={animated}
-                        placeholder="Предлагаемая валюта"
-                        closeMenuOnSelect={true}
-                        required={true}
-                        isMulti={false}
-                        options={exchangeNameValues}
-                        onChange={(selectedOptions) => {
-                            handleChange(
-                                selectedOptions as
-                                    | SelectOption
-                                    | SelectOption[]
-                                    | null
-                            );
-                        }}
-                        value={exchangeNameValues.filter((option) =>
-                            field.value?.includes(option.value)
-                        )}
-                    />
-                )}
+                isMulti={false}
+                name="announcementExchange.name"
+                options={exchangeNameValues}
+                placeholder="Предлагаемая валюта"
+                prefix="filterAnnouncementCategory"
+                setValue={setValue}
             />
             <div className="ann-field-err"></div>
         </div>
