@@ -1,11 +1,19 @@
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import {
+    AnnoucementTransportCondition,
+    AnnoucementTransportDriveType,
+    AnnouncementTransportBodyType,
+    AnnouncementTransportComission,
+    AnnouncementTransportEngineCapacity,
+    AnnouncementTransportEngineType,
     AnnouncementTransportMark,
     AnnouncementTransportModelOfTransport,
+    AnnouncementTransportTransmission,
     AnnouncementTransportTranspCategory,
     AnnouncementTransportTypeOfService,
     AnnouncementTransportTypeOfTransport,
+    AnnouncementTransportYear,
 } from './transportFields';
 
 interface Props {
@@ -32,6 +40,20 @@ export const AnnouncementTransport = ({
                 control={control}
                 setValue={setValue}
             />
+            <AnnouncementTransportEngineType
+                control={control}
+                setValue={setValue}
+            />
+            <AnnouncementTransportEngineCapacity register={register} />
+            <AnnoucementTransportDriveType register={register} />
+            <AnnouncementTransportYear register={register} />
+            <AnnouncementTransportTransmission register={register} />
+            <AnnouncementTransportBodyType
+                control={control}
+                setValue={setValue}
+            />
+            <AnnoucementTransportCondition register={register} />
+            <AnnouncementTransportComission register={register} />
         </>
     );
 };

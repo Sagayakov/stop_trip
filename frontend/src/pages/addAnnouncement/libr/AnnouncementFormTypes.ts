@@ -1,7 +1,7 @@
 export interface FormAddAnn extends TypeForTransport, TypeForRealty{
     announcementCategory: string[];
     announcementName: string;
-    announcementPrice: string;
+    announcementPrice: number;
     announcementDescription: string;
     announcementPhoto: File[];
     announcementLocation: AnnouncementLocation;
@@ -73,7 +73,6 @@ interface TypeForTransport {
     transportBodyType: string[] | string;
     transportCondition: Condition;
     transportCommission: Comission;
-    transportPrice: Price;
 }
 interface TypeForRealty {
     TypeOfService: TypeOfServise;
@@ -82,7 +81,6 @@ interface TypeForRealty {
     HouseType: string[] | string;
     TypeOfProperty: string[] | string;
     RentalCondition: string[] | string;
-    SettingPrice: Price;
     TotalArea: TotalArea;
     LivingSpace: LivingSpace;
     SleepingPlaces: number;
@@ -114,12 +112,6 @@ interface YearOfProduction {
 }
 
 type Condition = 'Новый' | 'Б/у' | 'Аварийный' | 'На запчасти';
-
-interface Price {
-    min: number;
-    max: number;
-}
-
 interface TotalArea {
     min: number;
     max: number;

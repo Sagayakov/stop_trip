@@ -58,6 +58,18 @@ main {
                         color: red;
                     }
                 }
+                .radio-group {
+                    display: flex;
+                    gap: 24px;
+                }
+                .inputNumber-group {
+                    width: 40%;
+                    display: flex;
+                    justify-content: space-between;
+                    input {
+                        width: 40% !important;
+                    }
+                }
                 .ann-field-err {
                     height: 18px;
                     color: red;
@@ -228,6 +240,33 @@ main {
                     .goBack {
                         width: 35%;
                     }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 600px) {
+    .add-ann {
+        .add-ann-form {
+            .ann-field {
+                .inputNumber-group {
+                    width: 70% !important;
+                }
+                .radio-group {
+                    width: 100%;
+                    display: grid !important;
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 511px) {
+    .add-ann {
+        .add-ann-form {
+            .ann-field {
+                .inputNumber-group {
+                    width: 100% !important;
                 }
             }
         }
