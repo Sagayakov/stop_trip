@@ -27,6 +27,7 @@
     .propertyDistrict,
     .propertyCity,
     .houseType,
+    .floor,
     .type-of-property,
     .rentalCondition,
     .setting-price,
@@ -34,10 +35,13 @@
     .total-area,
     .living-space,
     .sleepingPlaces,
+    .balcony,
     .hasFurniture,
     .rooms-quantity,
     .bathroom-quantity,
     .bathroom,
+    .hasParking,
+    .prepayment,
     .realtyComission {
         margin-bottom: 24px;
         h3 {
@@ -50,8 +54,11 @@
     .total-area-inputs,
     .living-space-inputs,
     .setting-rooms-quantity,
+    .balcony-setting,
     .select-sleepingPlaces,
+    .setting-floor,
     .setting-hasFurniture,
+    .setting-hasParking,
     .amenities-setting,
     .bathroom-setting,
     .select-realtyComission {
@@ -62,6 +69,7 @@
     .propertyСity,
     .typeOfService,
     .houseType,
+    .prepayment,
     .propertyCity,
     .propertyDistrict,
     .rentalCondition,
@@ -309,11 +317,14 @@
         grid-template-areas:
             'service condition'
             'city district'
-            'houseType area'
+            'houseType floor'
+            'area living-space'
             'room sleep'
             'bath bathqty'
+            'balcony parking'
             'comission furniture'
             'price amenities'
+            'prepayment prepayment'
             'send btn-reset';
 
         input[type='number'] {
@@ -336,11 +347,13 @@
         .rentalCondition,
         .amenities,
         .sleepingPlaces,
+        .balcony,
         .hasFurniture,
         .bathroom-quantity,
         .realtyComission,
         .setting-price,
         .total-area,
+        .living-space,
         .rooms-quantity,
         .bathroom{
             width: 80%;
@@ -354,6 +367,9 @@
         .total-area {
             grid-area: area;
         }
+        .living-space {
+            grid-area: living-space;
+        }
         .typeOfService{
             grid-area: service;
         }
@@ -365,6 +381,9 @@
         }
         .houseType{
             grid-area: houseType;
+        }
+        .floor {
+            grid-area: floor;
         }
         .rentalCondition{
             grid-area: condition;
@@ -387,6 +406,16 @@
         }
         .bathroom-quantity{
             grid-area: bathqty;
+        }
+        .balcony {
+            grid-area: balcony;
+        }
+        .hasParking {
+            grid-area: parking;
+        }
+        .prepayment {
+            grid-area: prepayment;
+            width: 91.5%;
         }
         input[type='submit'] {
             grid-area: send;

@@ -14,7 +14,7 @@ interface Props {
 
 export const HouseType = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const houseTypeValues = valuesOfPropertyForm.houseType;
+    const houseTypeValues = valuesOfPropertyForm.property_house_type;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -26,7 +26,7 @@ export const HouseType = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('houseType', selectedValues);
+            setValue('property_house_type', selectedValues);
         }
     };
 
@@ -35,7 +35,7 @@ export const HouseType = ({ control, setValue }: Props) => {
             <div className="houseType">
                 <h3>Тип дома</h3>
                 <Controller
-                    name="houseType"
+                    name="property_house_type"
                     control={control}
                     render={({ field }) => (
                         <Select

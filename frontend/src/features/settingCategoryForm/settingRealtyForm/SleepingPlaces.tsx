@@ -14,7 +14,7 @@ export const SleepingPlaces = ({ register }: Props) => {
                     type="number"
                     placeholder="Количество"
                     min={0}
-                    {...register('sleepingPlaces')}
+                    {...register('property_sleeping_places')}
                 />
             </div>
         </div>
