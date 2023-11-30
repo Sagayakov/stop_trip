@@ -37,18 +37,20 @@ class FavoriteViewSet(GenericViewSet, ListModelMixin):
     @extend_schema(responses=None)
     @action(detail=False, methods=["POST"])
     def delete_favorite(self, request, *args, **kwargs):
-        """Эндпоинт удаления ОН из сравнения."""
+        """Эндпоинт удаления ОН из избранного."""
 
         serializer = self.get_serializer(data=self.request.data)
         serializer.is_valid(raise_exception=True)
-
-        Favorite(self.request.session).remove(serializer.data["id"])
+        try:
+            Favorite(self.request.session).remove(serializer.data["id"])
+        except ValueError:
+            pass
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     @extend_schema(request=None, responses=None)
     @action(detail=False, methods=["POST"])
-    def clear_compare(self, request, *args, **kwargs):
-        """Эндпоинт очистки сравнения."""
+    def clear_favorite(self, request, *args, **kwargs):
+        """Эндпоинт очистки избранного."""
 
         Favorite(self.request.session).clear()
         return Response(status=status.HTTP_204_NO_CONTENT)
