@@ -11,6 +11,7 @@ import { AnnouncementJob } from '../../features/addAnnouncementForm/jobAnnounmen
 import { AnnouncementMarket } from '../../features/addAnnouncementForm/marketAnnouncementForm';
 import { AnnouncementService } from '../../features/addAnnouncementForm/serviceAnnouncementForm';
 import { AnnouncementTaxi } from '../../features/addAnnouncementForm/taxiAnnouncementForm';
+import { AnnouncementTransport } from '../../features/addAnnouncementForm/transportAnnouncementForm';
 import {
     AnnouncementCategoryField,
     AnnouncementDescriptionField,
@@ -92,6 +93,13 @@ export const AddAnnouncementPage = () => {
                         descript={descript}
                         setDescript={setDescript}
                     />
+                    {getCategoryValue('Транспорт') && (
+                        <AnnouncementTransport
+                            control={control}
+                            register={register}
+                            setValue={setValue}
+                        />
+                    )}
                     {getCategoryValue('Документы') && (
                         <AnnouncementDoc register={register} />
                     )}

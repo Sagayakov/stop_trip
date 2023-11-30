@@ -1,6 +1,4 @@
-import { TypeSettingTransport } from "../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport";
-
-export interface FormAddAnn extends TypeSettingTransport{
+export interface FormAddAnn extends TypeForTransport, TypeForRealty{
     announcementCategory: string[];
     announcementName: string;
     announcementPrice: string;
@@ -59,4 +57,83 @@ interface Job {
 interface Excursion{
     food: boolean
     transfer: boolean
+}
+
+interface TypeForTransport {
+    transportTypeOfService: TypeOfServise;
+    transportTypeOfTransport: TypeOfTransport;
+    transportTransportationCategory: string[] | string;
+    transportMark: string[] | string;
+    transportModel: string[] | string;
+    transportEngineType: string[] | string;
+    transportEngineСapacity: EngineCapacity;
+    transportDrive: Drive;
+    transportYearOfProduction: YearOfProduction;
+    transportTransmissionType: TransmissionType;
+    transportBodyType: string[] | string;
+    transportCondition: Condition;
+    transportCommission: Comission;
+    transportPrice: Price;
+}
+interface TypeForRealty {
+    TypeOfService: TypeOfServise;
+    PropertyCity: string[] | string;
+    PropertyDistrict: string[] | string;
+    HouseType: string[] | string;
+    TypeOfProperty: string[] | string;
+    RentalCondition: string[] | string;
+    SettingPrice: Price;
+    TotalArea: TotalArea;
+    LivingSpace: LivingSpace;
+    SleepingPlaces: number;
+    HasFurniture: boolean;
+    Amenities: string;
+    RoomsQuantity: RoomsQuantity;
+    BathRoom: BathRoom;
+    BathroomQuantity: number;
+    Balcony: boolean;
+    Comission: Comission;
+}
+
+type TypeOfServise = 'Аренда' | 'Продажа';
+
+type TypeOfTransport = 'Наземный' | 'Водный';
+type Drive =
+    | 'Передний'
+    | 'Задний'
+    | 'Постоянный полный'
+    | 'Полный подключаемый';
+interface EngineCapacity {
+    min: number;
+    max: number;
+}
+type TransmissionType = 'МКПП' | 'АКПП' | 'Робот' | 'Вариатор';
+interface YearOfProduction {
+    min: number;
+    max: number;
+}
+
+type Condition = 'Новый' | 'Б/у' | 'Аварийный' | 'На запчасти';
+
+interface Price {
+    min: number;
+    max: number;
+}
+
+interface TotalArea {
+    min: number;
+    max: number;
+}
+
+interface LivingSpace {
+    min: number;
+    max: number;
+}
+
+type RoomsQuantity = 1 | 2 | 3 | 4;
+type BathRoom = 'separate' | 'combined';
+
+interface Comission {
+    min: number;
+    max: number;
 }

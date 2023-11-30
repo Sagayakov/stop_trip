@@ -15,7 +15,12 @@ export const valuesOfTransportForm = {
         { value: 'Катер', label: 'Катер' },
         { value: 'Другое', label: 'Другое' },
     ],
-    mark: [{ value: 'Yamaha', label: 'Yamaha' }],
+    mark: [
+        { value: 'BMW', label: 'BMW' },
+        { value: 'Mazda', label: 'Mazda' },
+        { value: 'Toyota', label: 'Toyota' },
+        { value: 'Yamaha', label: 'Yamaha' },
+    ],
     model: [{ value: 'Fascino', label: 'Fascino' }],
     engineType: [
         { label: 'Бензиновый', value: 'Бензиновый' },
