@@ -1,0 +1,1 @@
+export { AnnouncementRealty } from './AnnouncementRealty'

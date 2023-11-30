@@ -1,0 +1,1 @@
+export { AnnouncementDoc } from './AnnouncementDoc'
