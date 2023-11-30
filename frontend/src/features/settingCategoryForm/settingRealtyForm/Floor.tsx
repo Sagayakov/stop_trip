@@ -5,16 +5,16 @@ interface Props {
     register: UseFormRegister<TypeSettingRealty>;
 }
 
-export const BathroomQuantity = ({ register }: Props) => {
+export const Floor = ({ register }: Props) => {
     return (
-        <div className="bathroom-quantity">
-            <h3>Количество санузлов</h3>
-            <div className="setting-rooms-quantity">
+        <div className="floor">
+            <h3>Этаж</h3>
+            <div className="setting-floor">
                     <input
                         type="number"
-                        placeholder='Количество'
+                        placeholder='Этаж'
                         min={0}
-                        {...register('property_bathroom_count')}
+                        {...register('property_floor')}
                     />
             </div>
         </div>

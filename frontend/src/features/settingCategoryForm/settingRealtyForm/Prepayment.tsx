@@ -12,9 +12,9 @@ interface Props {
     control: Control<TypeSettingRealty, string[]>;
 }
 
-export const District = ({ control, setValue }: Props) => {
+export const Prepayment = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const districtValues = valuesOfPropertyForm.property_district;
+    const houseTypeValues = valuesOfPropertyForm.property_prepayment;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -26,27 +26,27 @@ export const District = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('property_district', selectedValues);
+            setValue('property_prepayment', selectedValues);
         }
     };
 
     return (
         <>
-            <div className="propertyDistrict">
-                <h3>Район</h3>
+            <div className="prepayment">
+                <h3>Предоплата</h3>
                 <Controller
-                    name="property_district"
+                    name="property_prepayment"
                     control={control}
                     render={({ field }) => (
                         <Select
                             {...field}
                             classNamePrefix="filterPropertyForm"
-                            id="propertyDistrict"
+                            id="prepayment"
                             components={animated}
-                            placeholder="Район"
-                            closeMenuOnSelect={true}
-                            isMulti={false}
-                            options={districtValues}
+                            placeholder="Предоплата"
+                            closeMenuOnSelect={false}
+                            isMulti={true}
+                            options={houseTypeValues}
                             onChange={(selectedOptions) => {
                                 handleChange(
                                     selectedOptions as
@@ -55,7 +55,7 @@ export const District = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={districtValues.filter((option) =>
+                            value={houseTypeValues.filter((option) =>
                                 field.value?.includes(option.value)
                             )}
                         />

@@ -14,7 +14,7 @@ interface Props {
 
 export const TypeOfService = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const valuesTypeOfService = valuesOfPropertyForm.typeOfService;
+    const valuesTypeOfService = valuesOfPropertyForm.property_type_of_service;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -26,7 +26,7 @@ export const TypeOfService = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('typeOfService', selectedValues);
+            setValue('property_type_of_service', selectedValues);
         }
     };
 
@@ -35,7 +35,7 @@ export const TypeOfService = ({ control, setValue }: Props) => {
             <div className="typeOfService">
                 <h3>Тип услуги</h3>
                 <Controller
-                    name="typeOfService"
+                    name="property_type_of_service"
                     control={control}
                     render={({ field }) => (
                         <Select

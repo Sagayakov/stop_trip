@@ -14,7 +14,7 @@ interface Props {
 
 export const City = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const cityValues = valuesOfPropertyForm.propertyCity;
+    const cityValues = valuesOfPropertyForm.property_city;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -26,7 +26,7 @@ export const City = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('propertyCity', selectedValues);
+            setValue('property_city', selectedValues);
         }
     };
 
@@ -35,7 +35,7 @@ export const City = ({ control, setValue }: Props) => {
             <div className="propertyCity">
                 <h3>Город</h3>
                 <Controller
-                    name="propertyCity"
+                    name="property_city"
                     control={control}
                     render={({ field }) => (
                         <Select
