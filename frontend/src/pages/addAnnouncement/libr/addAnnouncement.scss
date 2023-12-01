@@ -58,9 +58,16 @@ main {
                         color: red;
                     }
                 }
-                .radio-group {
+                .radio-group,
+                .checkbox-group {
                     display: flex;
                     gap: 24px;
+                    width: 100%;
+                    .form-checkbox{
+                        input{
+                            width: 15px;
+                        }
+                    }
                 }
                 .inputNumber-group {
                     width: 40%;
@@ -252,7 +259,8 @@ main {
                 .inputNumber-group {
                     width: 70% !important;
                 }
-                .radio-group {
+                .radio-group,
+                .checkbox-group {
                     width: 100%;
                     display: grid !important;
                     grid-template-columns: 1fr 1fr;

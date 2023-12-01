@@ -52,7 +52,6 @@ export const AnnouncementLocationField = ({
             <MapContainer
                 center={initialPosition}
                 zoom={zoom}
-                // style={{ height: '600px', width: '100%' }}
             >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <MapClickHandler />

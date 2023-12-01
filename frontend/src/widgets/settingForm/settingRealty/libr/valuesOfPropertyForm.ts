@@ -14,14 +14,14 @@ export const valuesOfPropertyForm = {
         { label: 'Панаджи', value: 'Панаджи' },
     ],
     balcony: ['Есть', 'Нет', 'Лоджия'],
-    roomsQuantity: [1,2,3,4],
+    roomsQuantity: [1, 2, 3, 4],
     propertyDistrict: [
         { label: 'Верхний', value: 'Верхний' },
         { label: 'Нижний', value: 'Нижний' },
         { label: 'Левый', value: 'Левый' },
         { label: 'Правый', value: 'Правый' },
     ],
-    bathroomType: ["Совмещенный", "Раздельный"],
+    bathroomType: ['Совмещенный', 'Раздельный'],
     houseType: [
         { label: 'Панельный', value: 'Панельный' },
         { label: 'Кирпичный', value: 'Кирпичный' },
@@ -43,6 +43,7 @@ export const valuesOfPropertyForm = {
         { label: 'Студентам', value: 'Студентам' },
         { label: 'Не компаниям', value: 'Не компаниям' },
     ],
+    amenities: ['Wi-fi', 'Кондиционер', 'Увлажнитель', 'Сейф', 'Телевизор'],
     typeOfProperty: [
         { label: 'Квартира', value: 'Квартира' },
         { label: 'Комната', value: 'Комната' },

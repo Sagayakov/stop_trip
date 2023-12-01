@@ -1,4 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
+import { UniversalRadioGroup } from '../../../../entities/universalDropdown/UniversalRadioGroup';
 import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { valuesOfTransportForm } from '../../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
 
@@ -11,18 +12,11 @@ export const AnnoucementTransportCondition = ({ register }: Props) => {
     return (
         <div className="ann-field">
             <h3>Состояние</h3>
-            <div className="radio-group">
-                {conditionValue.map((el) => (
-                    <label className="form-checkbox" key={el}>
-                        <input
-                            type="radio"
-                            value={el}
-                            {...register('transportCondition')}
-                        />
-                        <span>{el}</span>
-                    </label>
-                ))}
-            </div>
+            <UniversalRadioGroup
+                register={register}
+                name="transportCondition"
+                radioValues={conditionValue}
+            />
             <div className="ann-field-err"></div>
         </div>
     );

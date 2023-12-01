@@ -1,5 +1,5 @@
-import { FormAddAnn } from "../../../pages/addAnnouncement/libr/AnnouncementFormTypes";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister } from 'react-hook-form';
+import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -14,19 +14,9 @@ export const AnnouncementDocType = ({ register }: Props) => {
                 minLength={1}
                 maxLength={50}
                 placeholder="Тип документа"
-                // style={
-                //     errors?.announcementDoc.docType
-                //         ? {
-                //               border: '1px solid red',
-                //           }
-                //         : {}
-                // }
                 {...register('announcementDoc.docType', { required: true })}
             />
-            <div className="ann-field-err">
-                {/* {errors?.announcementDoc.docType &&
-                    'Пожалуйста, введите тип документа'} */}
-            </div>
+            <div className="ann-field-err"></div>
         </div>
     );
 };

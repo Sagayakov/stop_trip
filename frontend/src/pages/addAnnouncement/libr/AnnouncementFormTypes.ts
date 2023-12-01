@@ -89,7 +89,7 @@ interface TypeForRealty {
     Parking: boolean;
     SleepingPlaces: number;
     HasFurniture: boolean;
-    Amenities: string;
+    Amenities: string[] | string;
     RoomsQuantity: RoomsQuantity;
     BathRoom: BathRoom;
     BathroomQuantity: number;
