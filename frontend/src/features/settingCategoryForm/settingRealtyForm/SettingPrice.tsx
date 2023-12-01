@@ -1,5 +1,5 @@
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/TypeSettingRealty';
+import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
 
 interface Props {
     watch: UseFormWatch<TypeSettingRealty>;
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const SettingPrice = ({ register, watch }: Props) => {
-    const radio = watch('settingPrice.adverts');
+    const radio = watch('price.adverts');
     const checkedStyle = {
         color: 'white',
         backgroundColor: '#1F6FDE',
@@ -21,7 +21,7 @@ export const SettingPrice = ({ register, watch }: Props) => {
                     <input
                         type="radio"
                         value="100"
-                        {...register('settingPrice.adverts')}
+                        {...register('price.adverts')}
                     />
                     До 100$
                 </label>
@@ -29,7 +29,7 @@ export const SettingPrice = ({ register, watch }: Props) => {
                     <input
                         type="radio"
                         value="500"
-                        {...register('settingPrice.adverts')}
+                        {...register('price.adverts')}
                     />
                     До 500$
                 </label>
@@ -37,23 +37,24 @@ export const SettingPrice = ({ register, watch }: Props) => {
                     <input
                         type="radio"
                         value="1000"
-                        {...register('settingPrice.adverts')}
+                        {...register('price.adverts')}
                     />
                     До 1000$
                 </label>
             </div>
             <div className="setting-price-inputs">
                 <input
-                    id="setting-price-input-min"
+                    id="price-input-min"
                     type="number"
+                    min="0"
                     placeholder="От"
-                    {...register('settingPrice.min')}
+                    {...register('price.min')}
                 />
                 <input
-                    id="setting-price-input-max"
+                    id="price-input-max"
                     type="number"
                     placeholder="До"
-                    {...register('settingPrice.max')}
+                    {...register('price.max')}
                 />
             </div>
         </div>

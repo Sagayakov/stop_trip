@@ -13,10 +13,11 @@ import { submitEntForm } from './libr/submitEntForm';
 import { setIsResetPasswordModalOpen } from '../../../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
 import { toggleModalEnter } from '../../../../features/header/model/modalAuth/reducers/toggleModal';
 import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
+import { resetErrors } from '../../../../features/header/model/modalAuth/reducers/auth';
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
-    const { register, formState, handleSubmit, reset, control } =
+    const { register, formState: { errors, isValid }, handleSubmit, reset, control } =
         useForm<AuthData>({
             mode: 'onBlur',
         });
@@ -26,6 +27,7 @@ export const FormEnter = () => {
     const onsubmit: SubmitHandler<AuthData> = async (submitData) => {
         await dispatch(setLoading(true))
         await submitEntForm(submitData, dispatch, reset);
+        await dispatch(resetErrors())
         await dispatch(setLoading(false))
     };
 
@@ -40,9 +42,9 @@ export const FormEnter = () => {
             onSubmit={handleSubmit(onsubmit)}
             autoComplete="false"
         >
-            <InputEmail formState={formState} register={register} />
+            <InputEmail errors={errors} register={register} />
             <InputPassword
-                formState={formState}
+                errors={errors}
                 togglePass={togglePass}
                 setTogglePass={setTogglePass}
                 control={control}
@@ -51,7 +53,7 @@ export const FormEnter = () => {
                 Забыли пароль?
             </div>
             <CheckboxRememberMe register={register} />
-            <InputSubmit />
+            <InputSubmit isValid={isValid} />
             <div className="enter-with">
                 Войти с помощью
                 <div className="google">

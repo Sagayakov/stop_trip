@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/TypeSettingRealty';
+import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
@@ -15,7 +15,7 @@ export const RoomsQuantity = ({ register }: Props) => {
                         type="checkbox"
                         id="setting-rooms-quantity-1"
                         value="1"
-                        {...register('roomsQuantity')}
+                        {...register('property_rooms_count')}
                     />
                     <span>1</span>
                 </label>
@@ -24,7 +24,7 @@ export const RoomsQuantity = ({ register }: Props) => {
                         type="checkbox"
                         id="setting-rooms-quantity-2"
                         value="2"
-                        {...register('roomsQuantity')}
+                        {...register('property_rooms_count')}
                     />
                     <span>2</span>
                 </label>
@@ -33,7 +33,7 @@ export const RoomsQuantity = ({ register }: Props) => {
                         type="checkbox"
                         id="setting-rooms-quantity-3"
                         value="3"
-                        {...register('roomsQuantity')}
+                        {...register('property_rooms_count')}
                     />
                     <span>3</span>
                 </label>
@@ -42,7 +42,7 @@ export const RoomsQuantity = ({ register }: Props) => {
                         type="checkbox"
                         id="setting-rooms-quantity-4"
                         value="4"
-                        {...register('roomsQuantity')}
+                        {...register('property_rooms_count')}
                     />
                     <span>4</span>
                 </label>

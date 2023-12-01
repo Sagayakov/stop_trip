@@ -33,6 +33,7 @@ export const categoryCharacteristicsKeys: Record<
     },
     taxi: {
         taxi_unit: 'Единица измерения',
+        taxi_type: 'Вид такси',
     },
     job: {
         job_duration: 'Продолжительность работы',
@@ -45,17 +46,17 @@ export const categoryCharacteristicsKeys: Record<
         is_online: 'Онлайн',
     },
     service: {
-        home_visit: 'Выезд на дом',
+        service_home_visit: 'Выезд на дом',
     },
     exchange_rate: {
         proposed_currency: 'Предлагаемая валюта',
         exchange_for: 'Обмен на',
         exchange_rate: 'Курс',
     },
-    docs: {},
+    document: {},
     food: {},
     market: {},
-    tours: {},
+    excursion: {},
 };
 
 export const categoryCharacteristicsValues: Record<
@@ -137,6 +138,13 @@ export const categoryCharacteristicsValues: Record<
             hour: 'час',
             route: 'маршрут',
         },
+        taxi_type: {
+            economy: 'Эконом',
+            comfort: 'Комфорт',
+            business: 'Бизнес',
+            station_wagon: 'Универсал',
+            minivan: 'Минивэн',
+        }
     },
     job: {
         job_duration: {
@@ -149,15 +157,15 @@ export const categoryCharacteristicsValues: Record<
             hourly_payment: 'Почасовая оплата',
             daily_payment: 'Ежедневная оплата',
             weekly_payment: 'Еженедельная оплата',
-            monthky_payment: 'Ежемесячная оплата',
+            monthly_payment: 'Ежемесячная оплата',
             other: 'Другое',
         },
     },
     event: {},
     service: {},
     exchange_rate: {},
-    docs: {},
+    document: {},
     food: {},
     market: {},
-    tours: {},
+    excursion: {},
 };

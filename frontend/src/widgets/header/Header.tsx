@@ -23,7 +23,7 @@ export const Header = () => {
     const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
     const ref = useRef(null);
 
-    const { isMobile } = useMatchMedia()
+    const { isMobile } = useMatchMedia();
 
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -71,10 +71,14 @@ export const Header = () => {
                 </NavLink>
                 <button
                     className={isAuth ? 'addAdvert active' : 'addAdvert'}
-                    onClick={isAuth ? () => navigate('/add-advert') : addAdvert}
+                    onClick={
+                        isAuth ? () => navigate('/add-announcement') : addAdvert
+                    }
                 >
                     <Plus color="white" />
-                    {window.innerWidth >= 425 ? 'Разместить объявление' : 'Опубликовать'}
+                    {window.innerWidth >= 425
+                        ? 'Разместить объявление'
+                        : 'Опубликовать'}
                 </button>
                 {isMobile ? (
                     <Person

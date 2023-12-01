@@ -21,11 +21,11 @@ interface Props {
 }
 
 export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
-    const markOfTrasport = watch('mark');
+    const markOfTrasport = watch('transport_brand');
 
     const animated = makeAnimated();
-    const modelOfTransportValues = valuesOfTransportForm.model;
-    const disabled = markOfTrasport ? false : true;
+    const modelOfTransportValues = valuesOfTransportForm.transport_model;
+    const disabled = markOfTrasport && markOfTrasport.length ? false : true;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -37,7 +37,7 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('model', selectedValues);
+            setValue('transport_model', selectedValues);
         }
     };
 
@@ -45,7 +45,7 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
         <div className="model">
             <h3>Модель</h3>
             <Controller
-                name="model"
+                name="transport_model"
                 control={control}
                 render={({ field }) => (
                     <Select

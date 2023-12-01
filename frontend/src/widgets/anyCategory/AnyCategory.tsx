@@ -1,33 +1,24 @@
-//import { useEffect } from 'react';
-//import data from '../../../db.json';
 import { Like } from '../../shared/ui/Like';
 import { Rating } from '../../shared/ui/Rating';
 import { useNavigate } from 'react-router-dom';
 import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
-// import { NavLink } from 'react-router-dom';
-// import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
+import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { getDate } from '../../shared/utils/getDate';
 
 export const AnyCategory = () => {
-    const category = location.pathname.slice(1);
-    //const [width, setWidth] = useState<number>(window.innerWidth);
+    const category = location.pathname.split('/')[1];
+    const filterQuery = location.search;
     const navigate = useNavigate();
-    const { data = [] } = useGetAdvertsQuery('');
-    const reverseData = JSON.parse(JSON.stringify(data))
-        .reverse()
+    const { data = [] } = useGetAdvertsQuery(filterQuery);
+    const { isMobile } = useMatchMedia();
+    const filteredData = JSON.parse(JSON.stringify(data))
         .filter((el: LastAdvertsTypes) => el.category === category);
-
-    /*  useEffect(() => {
-        const handleResize = () => {
-            setWidth(window.innerWidth);
-        };
-        window.addEventListener('resize', handleResize);
-    }, [window.innerWidth]); */
 
     return (
         <section className="adverts">
-            {reverseData.length ? (
-                reverseData.map((el: LastAdvertsTypes) => {
+            {filteredData.length ? (
+                filteredData.map((el: LastAdvertsTypes) => {
                     return (
                         <div
                             className="card"
@@ -38,31 +29,22 @@ export const AnyCategory = () => {
                                 <Like />
                             </span>
                             <div className="image">
-                                {
+                                {isMobile ? (
+                                    <>
+                                        {!el.images[0]
+                                            ? <img src='../../../src/entities/lastAdverts/ui/image-not-found.jpg' />
+                                            : el.images.map((item) => <img src={item.image} key={item.image} />)
+                                        }
+                                    </>
+                                ) : (
                                     <img
                                         src={
-                                            el.images[0] === undefined
+                                            !el.images[0]
                                                 ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
                                                 : el.images[0].image
                                         }
                                     />
-                                }
-                                {/*width <= 767 ? (
-                                <>
-                                    
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                    <img src={el.image} />
-                                </>
-                            ) : (
-                                <img src={el.image} />
-                                // <img src={el.images[0].image} />
-                            )*/}
+                                )}
                             </div>
                             <div className="description">
                                 <h2>{el.title}</h2>
@@ -70,16 +52,23 @@ export const AnyCategory = () => {
                                     г. Тбилиси, ул. Зеленая, 10
                                 </p>
                                 <h3>
-                                    {el.price ? `$${el.price}` : 'Договорная'}
+                                    {el.price ? `₹${el.price}` : 'Договорная'}
                                 </h3>
                                 <p className="card-description">
                                     {el.description}
                                 </p>
-                                <span className="author">
+                                <div className="author">
                                     Константин
+                                    <span className="rating-number">4.5</span>
                                     <Rating rating={4.5} />
-                                </span>
-                                <p className="time">Сегодня, 22:30</p>
+                                </div>
+                                <p
+                                    className="time">
+                                    {`
+                                        ${getDate(el.date_create).dayToDisplay},
+                                        ${getDate(el.date_create).hours}:${getDate(el.date_create).minutes}
+                                    `}
+                                </p>
                             </div>
                         </div>
                     );

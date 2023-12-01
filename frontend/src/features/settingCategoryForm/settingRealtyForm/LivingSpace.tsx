@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/TypeSettingRealty';
+import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
@@ -14,13 +14,13 @@ export const LivingSpace = ({ register }: Props) => {
                     id="living-space-input-min"
                     type="number"
                     placeholder="От"
-                    {...register('livingSpace.min')}
+                    {...register('property_living_area.min')}
                 />
                 <input
                     id="living-space-input-max"
                     type="number"
                     placeholder="До"
-                    {...register('livingSpace.max')}
+                    {...register('property_living_area.max')}
                 />
             </div>
         </div>

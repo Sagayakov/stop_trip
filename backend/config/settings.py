@@ -15,7 +15,14 @@ TESTING = "test" in argv or len(argv) >= 1 and "pytest" in argv[0]
 DEBUG = getenv("DEBUG", "True") == "True" and not TESTING
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://localhost:3000"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://stoptrip",
+    "http://stoptrip:3000",
+    "http://stoptrip.com",
+    "http://stoptrip.com:3000",
+    "http://localhost",
+    "http://localhost:3000",
+]
 
 # Application definition
 
@@ -42,6 +49,7 @@ INSTALLED_APPS = [
     "django_filters",
     "rest_framework_simplejwt.token_blacklist",
     "location_field.apps.DefaultConfig",
+    "storages",
     # apps
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",
@@ -145,13 +153,18 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # Static
 STATIC_URL = "/s/"
 STATIC_ROOT = join(BASE_DIR, "static")
+STATICFILES_STORAGE = "common.storages.CustomS3Boto3Storage"
 
 # Media
 MEDIA_URL = "/m/"
 MEDIA_ROOT = join(BASE_DIR, "media")
 
-DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
-BASE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+if TESTING:
+    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+    BASE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+else:
+    DEFAULT_FILE_STORAGE = "common.storages.HashedFilenameS3Boto3Storage"
+    BASE_FILE_STORAGE = "common.storages.CustomS3Boto3Storage"
 
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
 FILE_UPLOAD_PERMISSIONS = 0o644
@@ -240,7 +253,8 @@ SIMPLE_JWT = {
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
-# DOMAIN = f"{SITE_HOST}:3000"
+DOMAIN = getenv("SITE_HOST")
+SITE_NAME = getenv("SITE_HOST")
 DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
@@ -318,3 +332,13 @@ LOCATION_FIELD = {
         "js": (LOCATION_FIELD_PATH + "/js/form.js",),
     },
 }
+
+# S3
+AWS_ACCESS_KEY_ID = getenv("YND_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = getenv("YND_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = getenv("YND_STORAGE_BUCKET_NAME")
+AWS_S3_ENDPOINT_URL = "https://storage.yandexcloud.net"
+AWS_DEFAULT_ACL = None
+AWS_LOCATION = getenv("YND_LOCATION", "media")
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False

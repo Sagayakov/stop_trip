@@ -25,6 +25,8 @@ footer {
                     }
                 }
                 form {
+                    display: flex;
+                    align-items: center;
                     textarea {
                         width: 495px;
                         height: 49px;

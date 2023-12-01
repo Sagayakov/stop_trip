@@ -7,8 +7,8 @@ from ..models import Advertisement
 class ServiceCreateSerializer(AdvertisementCreateSerializer):
     """Сериализатор создания сервиса."""
 
-    home_visit = serializers.BooleanField(required=True)
+    service_home_visit = serializers.BooleanField(required=True)
 
     class Meta:
         model = Advertisement
-        fields = AdvertisementCreateSerializer.Meta.fields + ("home_visit",)
+        fields = AdvertisementCreateSerializer.Meta.fields + ("service_home_visit",)

@@ -44,7 +44,7 @@
         }
         form {
             .input-error {
-                height: 1.5rem;
+                min-height: 1.5rem;
             }
         }
     }
@@ -53,8 +53,8 @@
 @media (max-width: 1439px) {
     .modal {
         .modal-wrapper {
-            left: 53%;
-            width: 40%;
+            left: 54.8%;
+            width: 38%;
         }
     }
 }
@@ -62,8 +62,8 @@
 @media (max-width: 1200px) {
     .modal {
         .modal-wrapper {
-            left: 43%;
-            width: 50%;
+            left: 53%;
+            width: 40%;
         }
     }
 }
@@ -71,8 +71,8 @@
 @media (max-width: 1000px) {
     .modal {
         .modal-wrapper {
-            left: 33%;
-            width: 60%;
+            left: 38%;
+            width: 55%;
         }
     }
 }
@@ -96,7 +96,7 @@
             top: 10px;
             form {
                 .input-error {
-                    height: 1rem;
+                    min-height: 1rem;
                 }
             }
         }

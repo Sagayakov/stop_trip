@@ -1,7 +1,10 @@
 import { Control, Controller, UseFormSetValue } from 'react-hook-form';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { SelectOption, TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import {
+    SelectOption,
+    TypeSettingTransport
+} from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
 
 
@@ -11,7 +14,7 @@ interface Props {
 }
 
 export const TransportationCategory = ({ setValue, control }: Props) => {
-    const transportationCategory = valuesOfTransportForm.transportationCategory;
+    const transportationCategory = valuesOfTransportForm.transport_category;
     const animated = makeAnimated();
 
     const handleChange = (selectedOptions: SelectOption | SelectOption[] | null) => {
@@ -22,7 +25,7 @@ export const TransportationCategory = ({ setValue, control }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('transportationCategory', selectedValues);
+            setValue('transport_category', selectedValues);
         }
     };
 
@@ -30,7 +33,7 @@ export const TransportationCategory = ({ setValue, control }: Props) => {
         <div className="transportationCategory">
             <h3>Категория транспорта</h3>
             <Controller
-                name="transportationCategory"
+                name="transport_category"
                 control={control}
                 render={({ field }) => (
                     <Select

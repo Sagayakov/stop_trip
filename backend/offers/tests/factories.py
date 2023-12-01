@@ -26,6 +26,10 @@ from offers.constants import (
     JobPaymentType,
     JobType,
     JobDurationType,
+    MarketCondition,
+    FoodType,
+    DocumentDuration,
+    DocumentType,
 )
 from offers.models import (
     Advertisement,
@@ -34,6 +38,8 @@ from offers.models import (
     TransportModel,
     AdvertisementImage,
     Currency,
+    PropertyCity,
+    PropertyDistrict,
 )
 
 
@@ -43,6 +49,7 @@ class BaseAdvertisementFactory(factory.django.DjangoModelFactory):
     category = fuzzy.FuzzyChoice(choices=CategoryChoices.values)
     title = factory.Faker("word")
     price = factory.Faker("pyint", min_value=1000, max_value=10_000)
+    coordinates = "35,35"
     description = factory.Faker("sentence")
     is_published = True
     slug = factory.Sequence(lambda x: f"slug_{x}")
@@ -61,13 +68,33 @@ class AdvertisementImageFactory(factory.django.DjangoModelFactory):
         model = AdvertisementImage
 
 
+class PropertyCityFactory(factory.django.DjangoModelFactory):
+    """Фабрика города недвижимости"""
+
+    name = factory.Faker("word")
+    slug = factory.Sequence(lambda x: f"slug_{x}")
+
+    class Meta:
+        model = PropertyCity
+
+
+class PropertyDistrictFactory(factory.django.DjangoModelFactory):
+    """Фабрика района недвижимости."""
+
+    name = factory.Faker("word")
+    slug = factory.Sequence(lambda x: f"slug_{x}")
+    city = factory.SubFactory(PropertyCityFactory)
+
+    class Meta:
+        model = PropertyDistrict
+
+
 class PropertyAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по недвижимости."""
 
     property_type_of_service = fuzzy.FuzzyChoice(choices=PropertyTypeOfService.values)
-    property_city = factory.Faker("word")
-    property_district = factory.Faker("word")
-    property_coords = "35,35"
+    property_city = factory.SubFactory(PropertyCityFactory)
+    property_district = factory.SubFactory(PropertyDistrictFactory)
     property_building_max_floor = factory.Faker("pyint", min_value=1, max_value=15)
     property_floor = factory.Faker("pyint", min_value=1, max_value=15)
     property_bathroom_count = factory.Faker("pyint", min_value=1, max_value=3)
@@ -89,6 +116,7 @@ class PropertyAmenityFactory(factory.django.DjangoModelFactory):
     """Фабрика удобств."""
 
     name = factory.Faker("word")
+    slug = factory.Sequence(lambda x: f"slug_{x}")
 
     class Meta:
         model = PropertyAmenity
@@ -146,7 +174,7 @@ class TransportAdvertisementFactory(BaseAdvertisementFactory):
 class ServiceAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по услугам."""
 
-    home_visit = True
+    service_home_visit = True
 
 
 class EventAdvertisementFactory(BaseAdvertisementFactory):
@@ -164,7 +192,6 @@ class JobAdvertisementFactory(BaseAdvertisementFactory):
     job_duration = fuzzy.FuzzyChoice(choices=JobDurationType.values)
     job_payment_type = fuzzy.FuzzyChoice(choices=JobPaymentType.values)
     job_experience = False
-    transport_passengers_quality = factory.Faker("pyint", min_value=0, max_value=100)
 
 
 def eng_alphabet() -> list[str]:
@@ -191,3 +218,31 @@ class ExchangeAdvertisementFactory(BaseAdvertisementFactory):
     proposed_currency = factory.SubFactory(CurrencyFactory)
     exchange_for = factory.SubFactory(CurrencyFactory)
     exchange_rate = factory.Faker("pyfloat")
+
+
+class MarketAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по купли-продаже"""
+
+    market_condition = fuzzy.FuzzyChoice(choices=MarketCondition.values)
+
+
+class DocumentAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по документам"""
+
+    document_type = fuzzy.FuzzyChoice(choices=DocumentType)
+    document_duration = fuzzy.FuzzyChoice(choices=DocumentDuration)
+
+
+class FoodAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по еде"""
+
+    food_delivery = True
+    food_establishment = False
+    food_type = fuzzy.FuzzyChoice(choices=FoodType)
+
+
+class ExcursionAdvertisementFactory(BaseAdvertisementFactory):
+    """Фабрика объявлений по экскурсиям"""
+
+    excursion_food = True
+    excursion_transfer = False

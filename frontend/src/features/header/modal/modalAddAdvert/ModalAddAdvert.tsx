@@ -1,7 +1,7 @@
 import { Close } from '../../../../shared/ui/icons/icons-tools/Close';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { toggleModalEnter } from '../../model/modalAuth/reducers/toggleModal';
-import './modalAddAdvert.scss';
+import './libr/modalAddAdvert.scss';
 import { setIsEnter } from '../../model/modalAuth/reducers/isEnter';
 
 type Props = {

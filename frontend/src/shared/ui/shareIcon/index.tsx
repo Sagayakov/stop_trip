@@ -3,7 +3,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const ShareIcon = () => {
-    const handleClick = () => {
+    const handleClick = (event:  React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.stopPropagation();
         const path = window.location.href;
 
         navigator.clipboard.writeText(path).then(

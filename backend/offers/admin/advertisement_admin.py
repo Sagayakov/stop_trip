@@ -25,6 +25,7 @@ class AdvertisementAdmin(ModelAdmin):
                     "title",
                     "slug",
                     "price",
+                    "coordinates",
                     "description",
                     "is_published",
                 )
@@ -60,7 +61,6 @@ class AdvertisementAdmin(ModelAdmin):
                     "property_type_of_service",
                     "property_city",
                     "property_district",
-                    "property_coords",
                     "property_building_max_floor",
                     "property_floor",
                     "property_bathroom_count",
@@ -114,7 +114,7 @@ class AdvertisementAdmin(ModelAdmin):
         ),
         (
             _("Услуги"),
-            {"classes": ("collapse",), "fields": ("home_visit",)},
+            {"classes": ("collapse",), "fields": ("service_home_visit",)},
         ),
         (
             _("Валютные пары"),
@@ -124,6 +124,44 @@ class AdvertisementAdmin(ModelAdmin):
                     "proposed_currency",
                     "exchange_for",
                     "exchange_rate",
+                ),
+            },
+        ),
+        (
+            _("Еда"),
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "food_delivery",
+                    "food_establishment",
+                    "food_type",
+                ),
+            },
+        ),
+        (
+            _("Купить-продать"),
+            {
+                "classes": ("collapse",),
+                "fields": ("market_condition",),
+            },
+        ),
+        (
+            _("Документы"),
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "document_type",
+                    "document_duration",
+                ),
+            },
+        ),
+        (
+            _("Экскурсии"),
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "excursion_food",
+                    "excursion_transfer",
                 ),
             },
         ),
@@ -181,10 +219,18 @@ class AdvertisementAdmin(ModelAdmin):
                     "start_date",
                     "end_date",
                     "is_online",
-                    "home_visit",
+                    "service_home_visit",
                     "proposed_currency",
                     "exchange_for",
                     "exchange_rate",
+                    "food_delivery",
+                    "food_establishment",
+                    "food_type",
+                    "excursion_food",
+                    "excursion_transfer",
+                    "document_type",
+                    "document_duration",
+                    "market_condition",
                 ),
             },
         ),

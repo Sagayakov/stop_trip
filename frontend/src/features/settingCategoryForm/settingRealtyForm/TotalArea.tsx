@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/TypeSettingRealty';
+import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty';
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
@@ -14,13 +14,13 @@ export const TotalArea = ({ register }: Props) => {
                     id="total-area-input-min"
                     type="number"
                     placeholder="От"
-                    {...register('totalArea.min')}
+                    {...register('property_area.min')}
                 />
                 <input
                     id="total-area-input-max"
                     type="number"
                     placeholder="До"
-                    {...register('totalArea.max')}
+                    {...register('property_area.max')}
                 />
             </div>
         </div>

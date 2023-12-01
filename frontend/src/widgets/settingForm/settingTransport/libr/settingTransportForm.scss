@@ -128,15 +128,18 @@
     .transmissionType,
     .bodyType,
     .condition,
-    .transportComission {
+    .transportComission,
+    .transportPrice {
         margin-bottom: 24px;
     }
     .engineСapacity,
     .yearOfProduction,
-    .transportComission {
+    .transportComission,
+    .transportPrice {
         .setting-engineCapacity,
         .setting-yearOfProduction,
-        .setting-transportComission {
+        .setting-transportComission,
+        .setting-transportPrice {
             display: flex;
             justify-content: space-between;
             input[type='text'],
@@ -195,10 +198,12 @@
     .filter-transport-form {
         .engineСapacity,
         .yearOfProduction,
-        .transportComission {
+        .transportComission,
+        .transportPrice {
             .setting-engineCapacity,
             .setting-yearOfProduction,
-            .setting-transportComission {
+            .setting-transportComission,
+            .setting-transportPrice {
                 input[type='text'],
                 input[type='number'] {
                     width: 42%;
@@ -218,7 +223,7 @@
             'modelTr year'
             'transmission condition'
             'drive capacity'
-            'drive comission'
+            'price comission'
             'btnReset btnSubmit';
         .typeOfService,
         .typeOfTransport,
@@ -233,6 +238,7 @@
         .bodyType,
         .condition,
         .transportComission,
+        .transportPrice,
         .reset-setting-form,
         input[type='submit'] {
             width: 90%;
@@ -276,6 +282,9 @@
         }
         .transportComission {
             grid-area: comission;
+        }
+        .transportPrice{
+            grid-area: price;
         }
         .reset-setting-form {
             grid-area: btnReset;

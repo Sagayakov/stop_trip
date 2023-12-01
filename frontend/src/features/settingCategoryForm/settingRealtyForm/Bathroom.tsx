@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/TypeSettingRealty';
+import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
@@ -14,8 +14,8 @@ export const Bathroom = ({ register }: Props) => {
                     <input
                         type="checkbox"
                         id="bathroom-setting-1"
-                        value="Разделный"
-                        {...register('bathRoom')}
+                        value="separate"
+                        {...register('property_bathroom_type')}
                     />
                     <span>Раздельный</span>
                 </label>
@@ -23,8 +23,8 @@ export const Bathroom = ({ register }: Props) => {
                     <input
                         type="checkbox"
                         id="bathroom-setting-2"
-                        value="Совмещенный"
-                        {...register('bathRoom')}
+                        value="combined"
+                        {...register('property_bathroom_type')}
                     />
                     <span>Совмещенный</span>
                 </label>

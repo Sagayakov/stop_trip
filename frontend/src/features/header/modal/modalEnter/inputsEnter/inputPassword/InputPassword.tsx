@@ -1,24 +1,23 @@
 import { useRef } from 'react';
-import { Control, Controller, FormState } from 'react-hook-form';
+import { Control, Controller, FieldErrors } from 'react-hook-form';
 import { useAppSelector } from '../../../../../../app/store/hooks';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
 import '../../libr/inputEmail.scss';
 import { AuthData } from '../../libr/EnterType';
 
 interface Props {
-    formState: FormState<AuthData>;
+    errors: FieldErrors<AuthData>;
     togglePass: boolean;
     setTogglePass: React.Dispatch<React.SetStateAction<boolean>>;
     control: Control<AuthData, string>;
 }
 
 export const InputPassword = ({
-    formState,
+    errors,
     setTogglePass,
     togglePass,
     control,
 }: Props) => {
-    const { errors } = formState;
     const inputRef = useRef<HTMLInputElement | null>(null);
     const handleToggle = () => {
         setTogglePass(!togglePass);

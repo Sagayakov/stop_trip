@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from common.filters import GetFilterParams
 from users.models import User
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
@@ -21,11 +22,15 @@ from .serializers import (
     EventCreateSerializer,
     AdvertisementUpdateSerializer,
     ExchangeRateCreateSerializer,
+    MarketCreateSerializer,
+    DocumentCreateSerializers,
+    FoodCreateSerializer,
+    ExcursionCreateSerializer,
 )
 
 
 @extend_schema(tags=["Advertisement"])
-class AdvertisementModelViewSet(ModelViewSet):
+class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     """Объявления."""
 
     custom_permission_classes = {
@@ -34,8 +39,10 @@ class AdvertisementModelViewSet(ModelViewSet):
         "destroy": [OwnerOrAdminPermission],
         "list": [AllowAny],
         "retrieve": [AllowAny],
+        "get_filter_params": [AllowAny],
     }
     filterset_class = AdvertisementFilter
+    # TODO добавить пагинацию
 
     def get_queryset(self):
         queryset = Advertisement.objects.filter(is_published=True)
@@ -45,7 +52,12 @@ class AdvertisementModelViewSet(ModelViewSet):
 
         if self.action == self.retrieve.__name__:
             queryset = queryset.select_related(
-                "transport_brand", "transport_model", "proposed_currency", "exchange_for"
+                "transport_brand",
+                "transport_model",
+                "proposed_currency",
+                "exchange_for",
+                "property_city",
+                "property_district",
             ).prefetch_related("property_amenities")
 
         return queryset
@@ -60,6 +72,10 @@ class AdvertisementModelViewSet(ModelViewSet):
                 CategoryChoices.EVENT: EventCreateSerializer,
                 CategoryChoices.TAXI: TaxiCreateSerializer,
                 CategoryChoices.EXCHANGE_RATE: ExchangeRateCreateSerializer,
+                CategoryChoices.MARKET: MarketCreateSerializer,
+                CategoryChoices.DOCUMENT: DocumentCreateSerializers,
+                CategoryChoices.FOOD: FoodCreateSerializer,
+                CategoryChoices.EXCURSION: ExcursionCreateSerializer,
             }
 
             if category := self.request.data.get("category"):
