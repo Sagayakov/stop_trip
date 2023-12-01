@@ -59,11 +59,15 @@
     .setting-floor,
     .setting-hasFurniture,
     .setting-hasParking,
-    .amenities-setting,
     .bathroom-setting,
     .select-realtyComission {
         display: flex;
         justify-content: space-between;
+    }
+    .amenities-setting {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
     }
     .type-of-property,
     .propertyСity,
