@@ -14,9 +14,6 @@ export const getRealtyQuery = (data: TypeSettingRealty) => {
         if (data[key as keyof TypeSettingRealty]) {
             if (Number(data[key as keyof TypeSettingRealty])) {
                 query += `&${key}=${data[key as keyof TypeSettingRealty]}`;
-            } else if (data[key as keyof TypeSettingRealty] === "property_amenities") {
-                query +=`&property_amenities=${(data[key as keyof TypeSettingRealty] as string)
-                    .split(',').map((el) => `${el.trim()}`).join(',')}`;
             } else if (data[key as keyof TypeSettingRealty] === "property_balcony") {
                 query +=`&property_balcony=${data[key as keyof TypeSettingRealty]}`;
             } else if (typeof data[key as keyof TypeSettingRealty] === "boolean") {
