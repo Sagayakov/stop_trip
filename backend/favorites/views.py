@@ -4,14 +4,16 @@ from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-from favorites.favorites import Favorite
-from favorites.serializers import FavoriteAdvertisementCreateSerializer
+from .favorites import Favorite
+from .serializers import FavoriteAdvertisementCreateSerializer
 from offers.models import Advertisement
 from offers.serializers import AdvertisementListSerializer
 
 
 @extend_schema(tags=["Favorites"])
 class FavoriteViewSet(GenericViewSet, ListModelMixin):
+    """Избранное."""
+
     def get_serializer_class(self):
         if self.action in ["create", "delete_favorite"]:
             return FavoriteAdvertisementCreateSerializer

@@ -14,7 +14,9 @@ from users.tests.factories import UserFactory
 @mark.django_db
 class FavoriteAPIViewTest(APITestCase):
     def setUp(self):
-        self.url = reverse("favorites-list")
+        self.list_url = reverse("favorites-list")
+        self.clear_url = reverse("favorites-clear-favorite")
+        self.delete_url = reverse("favorites-delete-favorite")
 
     def test_create_favorites(self):
         user = UserFactory()
@@ -27,7 +29,7 @@ class FavoriteAPIViewTest(APITestCase):
 
         self.client.force_login(user)
         with self.assertNumQueries(2):
-            res = self.client.post(self.url, data={"id": advertisement.id})
+            res = self.client.post(self.list_url, data={"id": advertisement.id})
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
 
@@ -45,29 +47,31 @@ class FavoriteAPIViewTest(APITestCase):
 
         self.client.force_login(user)
         with self.assertNumQueries(2):
-            res = self.client.post(
-                reverse("favorites-delete-favorite"), data={"id": advertisement.id}
-            )
+            res = self.client.post(self.delete_url, data={"id": advertisement.id})
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_clear_favorite(self):
         user = UserFactory()
-        advertisement = BaseAdvertisementFactory(
-            owner=user,
-            category=CategoryChoices.TAXI,
-            title="TAXI",
-            price=10_000,
-        )
-
+        advertisement = [
+            BaseAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TAXI,
+                title="TAXI",
+                price=10_000,
+            )
+            for _ in range(3)
+        ]
         favorites = Favorite(self.client.session)
-        favorites.add(advertisement.id)
+        for advert in advertisement:
+            favorites.add(advert.id)
 
         self.client.force_login(user)
         with self.assertNumQueries(1):
-            res = self.client.post(reverse("favorites-clear-favorite"))
+            res = self.client.post(self.clear_url, favorites.clear())
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertCountEqual(favorites.keys, [])
 
     def test_list_favorites(self):
         user = UserFactory()
@@ -82,7 +86,7 @@ class FavoriteAPIViewTest(APITestCase):
         favorites.add(advertisement.id)
 
         with self.assertNumQueries(1):
-            res = self.client.get(self.url)
+            res = self.client.get(self.list_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertIn(advertisement.id, favorites.keys)
