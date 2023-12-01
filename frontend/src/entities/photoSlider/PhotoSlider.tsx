@@ -18,7 +18,6 @@ export const PhotoSlider = () => {
     const [imageWidth, setImageWidth] = useState<number>(0);
     const [imageHeight, setImageHeight] = useState<number>(0);
     const imageRef = useRef<null | HTMLImageElement>(null);
-    const imageContainerRef = useRef<null | HTMLDivElement>(null);
     const { isMobile } = useMatchMedia();
     const [isPortalOpen, setIsPortalOpen] = useState(false);
     const [activePortalImage, setActivePortalImage] = useState(activeImage + 1);
@@ -50,9 +49,7 @@ export const PhotoSlider = () => {
         setImageHeight(imageRef.current!.naturalHeight);
     };
 
-    const openPhoto = () => {
-        setIsPortalOpen(true);
-    };
+    const openPhoto = () => setIsPortalOpen(true);
 
     const handleClickPortalPrev = () => {
         if (data) {
@@ -77,29 +74,22 @@ export const PhotoSlider = () => {
                 identifier: event.changedTouches[0].identifier,
                 screenX: event.changedTouches[0].screenX,
             });
-        } else {
-            return;
         }
+        return;
     };
 
     const handleTouchEnd = (event: React.TouchEvent<HTMLImageElement>) => {
         if (isMobile) {
             if ( data && touchStart?.identifier === event.changedTouches[0].identifier) {
                 if (event.changedTouches[0].screenX < touchStart.screenX) {
-                    activeImage < data.images.length - 1
-                        ? setActiveImage(activeImage + 1)
-                        : setActiveImage(0);
+                    handleClickNext();
                 }
                 if (event.changedTouches[0].screenX > touchStart.screenX) {
-                    activeImage > 0
-                    ? setActiveImage(activeImage - 1)
-                    : setActiveImage(data.images.length - 1);
+                    handleClickPrev();
                 }
-                return;
             }
-        } else {
-            return;
         }
+        return;
     }
 
     return (
@@ -107,7 +97,6 @@ export const PhotoSlider = () => {
             <div className="image-wrapper">
                 <div
                     className="active-image"
-                    ref={imageContainerRef}
                     onClick={openPhoto}
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
@@ -123,6 +112,7 @@ export const PhotoSlider = () => {
                         alt="Main image"
                         ref={imageRef}
                         onLoad={handleOnLoad}
+                        className={imageWidth > imageHeight ? 'horizontal' : 'vertical'}
                     />
                     <div className='arrow-container'>
                         <ArrowRight color="white" handleClickNext={handleClickNext} />
@@ -171,13 +161,7 @@ export const PhotoSlider = () => {
                             handleClickPortalPrev={handleClickPortalPrev}
                             handleClickPortalNext={handleClickPortalNext}
                         />
-                        <Shadow
-                            setIsPortalOpen={setIsPortalOpen}
-                            images={data.images}
-                            active={activePortalImage}
-                            handleClickPortalPrev={handleClickPortalPrev}
-                            handleClickPortalNext={handleClickPortalNext}
-                        />
+                        <Shadow setIsPortalOpen={setIsPortalOpen} />
                     </>,
                     document.body
                 )

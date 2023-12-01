@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from '../layout';
 import { privateRoutes, publicRoutes } from './routes';
 import { useAppSelector } from '../store/hooks';
@@ -17,7 +17,7 @@ export const AppRouter = () => {
                     .map(({ path, component: Component }) => {
                     return (
                         <Route
-                            path={`/${path}`}
+                            path={`/${path}/`}
                             element={<Component />}
                             key={path}
                         />
@@ -37,6 +37,7 @@ export const AppRouter = () => {
                     );
                 })}
             </Route>
+            <Route path="*" element={<Navigate to="/404" replace />} />
         </Routes>
     );
 };

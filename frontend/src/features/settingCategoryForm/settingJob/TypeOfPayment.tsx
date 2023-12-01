@@ -24,7 +24,7 @@ export const TypeOfPayment = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('typeOfPayment', selectedValues);
+            setValue('job_payment_type', selectedValues);
         }
     };
     return (
@@ -32,7 +32,7 @@ export const TypeOfPayment = ({ control, setValue }: Props) => {
             <div className="typeOfPayment">
                 <h3>Тип оплаты</h3>
                 <Controller
-                    name="typeOfPayment"
+                    name="job_payment_type"
                     control={control}
                     render={({ field }) => (
                         <Select

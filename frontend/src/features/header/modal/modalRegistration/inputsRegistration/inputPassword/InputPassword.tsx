@@ -20,7 +20,7 @@ export const InputPassword = ({
         setShowPassword(!showPassword);
     };
 
-    const errorEnter = useAppSelector((state) => state.setIsAuth.errorEmail?.password);
+    const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
 
     return (
         <>
@@ -29,6 +29,7 @@ export const InputPassword = ({
                     {...register('passWord', {
                         required: true,
                         minLength: 8,
+                        pattern: /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,}/
                     })}
                     placeholder="Пароль"
                     autoComplete="new-password"
@@ -52,7 +53,7 @@ export const InputPassword = ({
                 )) ||
                     (errors?.passWord && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                            Ведите корректный пароль
+                            Введите корректный пароль
                         </p>
                     ))}
                 {errorEnter && (

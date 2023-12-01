@@ -5,7 +5,7 @@ interface Props {
     register: UseFormRegister<TypeSettingTransport>;
 }
 
-export const EngineСapacity = ({ register }: Props) => {
+export const EngineCapacity = ({ register }: Props) => {
     return (
         <div className="engineСapacity">
             <h3>Объем двигателя</h3>
@@ -14,7 +14,7 @@ export const EngineСapacity = ({ register }: Props) => {
                     type="text"
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
-                    {...register('engineСapacity.min')}
+                    {...register('transport_engine_volume.min')}
                     min="0"
                     placeholder="От"
                 />
@@ -22,7 +22,7 @@ export const EngineСapacity = ({ register }: Props) => {
                     type="text"
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
-                    {...register('engineСapacity.max')}
+                    {...register('transport_engine_volume.max')}
                     min="0.5"
                     placeholder="До"
                 />

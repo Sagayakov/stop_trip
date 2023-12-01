@@ -14,7 +14,7 @@ interface Props {
 
 export const RentalCondition = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const rentalConditionValues = valuesOfPropertyForm.rentalCondition;
+    const rentalConditionValues = valuesOfPropertyForm.property_rental_condition;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -26,7 +26,7 @@ export const RentalCondition = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('rentalCondition', selectedValues);
+            setValue('property_rental_condition', selectedValues);
         }
     };
 
@@ -35,7 +35,7 @@ export const RentalCondition = ({ control, setValue }: Props) => {
             <div className="rentalCondition">
                 <h3>Условия аренды</h3>
                 <Controller
-                    name="rentalCondition"
+                    name="property_rental_condition"
                     control={control}
                     render={({ field }) => (
                         <Select

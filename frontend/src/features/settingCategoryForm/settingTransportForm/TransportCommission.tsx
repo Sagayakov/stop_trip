@@ -4,7 +4,7 @@ import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransp
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
 }
-export const TransportComission = ({ register }: Props) => {
+export const TransportCommission = ({ register }: Props) => {
 
     return (
         <div className="transportComission">
@@ -14,7 +14,7 @@ export const TransportComission = ({ register }: Props) => {
                     type="text"
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
-                    {...register('commission.min')}
+                    {...register('transport_commission.min')}
                     min={1}
                     placeholder="От"
                 />
@@ -22,7 +22,7 @@ export const TransportComission = ({ register }: Props) => {
                     type="text"
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
-                    {...register('commission.max')}
+                    {...register('transport_commission.max')}
                     min={1}
                     placeholder="До"
                 />

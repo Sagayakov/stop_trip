@@ -14,7 +14,7 @@ interface Props {
 
 export const District = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const districtValues = valuesOfPropertyForm.propertyDistrict;
+    const districtValues = valuesOfPropertyForm.property_district;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -26,7 +26,7 @@ export const District = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('propertyDistrict', selectedValues);
+            setValue('property_district', selectedValues);
         }
     };
 
@@ -35,7 +35,7 @@ export const District = ({ control, setValue }: Props) => {
             <div className="propertyDistrict">
                 <h3>Район</h3>
                 <Controller
-                    name="propertyDistrict"
+                    name="property_district"
                     control={control}
                     render={({ field }) => (
                         <Select

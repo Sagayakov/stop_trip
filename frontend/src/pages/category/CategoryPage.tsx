@@ -8,6 +8,7 @@ import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24
 import { HorizontalMixer } from '../../shared/ui/icons/icons-tools/HorizontalMixer';
 import {
     AnyCategory,
+    SettingCurrencyForm,
     SettingEventForm,
     SettingJobForm,
     SettingRealtyForm,
@@ -22,7 +23,7 @@ import './style/425-767-category-page.scss';
 import './style/min-424-category-page.scss';
 
 export const CategoryPage = () => {
-    const category = location.pathname.slice(1);
+    const category = location.pathname.split('/')[1];
     const description = categories[category].description;
     const [showFilters, setShowFilters] = useState<boolean>(false);
 
@@ -102,6 +103,9 @@ export const CategoryPage = () => {
                     )}
                     {category === 'event' && (
                         <SettingEventForm setShowFilters={setShowFilters}/>
+                    )}
+                    {category === 'exchange_rate' && (
+                        <SettingCurrencyForm setShowFilters={setShowFilters}/>
                     )}
                 </div>
                 <AnyCategory />

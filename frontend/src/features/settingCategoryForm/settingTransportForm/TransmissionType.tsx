@@ -7,20 +7,20 @@ interface Props {
 }
 
 export const TransmissionType = ({ register }: Props) => {
-    const transmissionTypeValues = valuesOfTransportForm.transmissionType;
+    const transmissionTypeValues = valuesOfTransportForm.transport_transmission_type;
 
     return (
         <div className="transmissionType">
             <h3>Тип коробки передач</h3>
             <div className="select-transmissionType">
                 {transmissionTypeValues.map((el) => (
-                    <label className="form-checkbox" key={el}>
+                    <label className="form-checkbox" key={el.label}>
                         <input
                             type="checkbox"
-                            value={el}
-                            {...register('transmissionType')}
+                            value={el.value}
+                            {...register('transport_transmission_type')}
                         />
-                        <span>{el}</span>
+                        <span>{el.label}</span>
                     </label>
                 ))}
             </div>

@@ -14,7 +14,7 @@ interface Props {
 
 export const TypeOfTaxi = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const valuesTypeOfTaxi = valuesOfTaxiForm.typeOfTaxi;
+    const valuesTypeOfTaxi = valuesOfTaxiForm.taxi_type;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -26,7 +26,7 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('typeOfTaxi', selectedValues);
+            setValue('taxi_type', selectedValues);
         }
     };
 
@@ -35,7 +35,7 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
             <div className="typeOfTaxi">
                 <h3>Тип такси</h3>
                 <Controller
-                    name="typeOfTaxi"
+                    name="taxi_type"
                     control={control}
                     render={({ field }) => (
                         <Select

@@ -13,8 +13,7 @@ export const HasFurniture = ({ register }: Props) => {
                 <label className="form-checkbox">
                     <input
                         type="checkbox"
-                        value="Да"
-                        {...register('hasFurniture')}
+                        {...register('property_has_furniture')}
                     />
                     <span>С мебелью</span>
                 </label>

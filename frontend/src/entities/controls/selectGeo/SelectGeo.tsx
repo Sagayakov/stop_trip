@@ -9,7 +9,7 @@ export const SelectGeo = () => {
     return (
         <div className="select-wrapper">
             {!isMobile ? <MapIcon color="#1F6FDE" /> : <p>В городе</p>}
-            <select ref={selectRef}>
+            <select ref={selectRef} disabled>
                 <option value="Гоа">Гоа</option>
                 <option value="Гоа">Гоа</option>
                 <option value="Гоа">Гоа</option>

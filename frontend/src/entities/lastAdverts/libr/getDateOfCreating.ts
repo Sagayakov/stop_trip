@@ -2,9 +2,7 @@ export const getDateOfCreating = (str: string) => {
     let day: string | number = new Date(str).getDate();
     let month: string | number = new Date(str).getMonth();
     const year = new Date(str).getFullYear();
-    // eslint-disable-next-line prefer-const
     let hours: string | number = new Date(str).getHours();
-    // eslint-disable-next-line prefer-const
     let minutes: string | number = new Date(str).getMinutes();
     const dateCreate = new Date(year, month, day);
     const currentDate = new Date();

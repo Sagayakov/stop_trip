@@ -10,175 +10,226 @@
     text-align: center;
 }
 
-.close-portal {
-    position: absolute;
-    top: 20px;
-    right: 90px;
-    width: 44px;
-    height: 44px;
-    background-color: #323232;
-    border-radius: 8px;
-    padding: 12px;
-    svg {
-        width: 20px;
-        height: 20px;
-        transition: all 0.5s ease;
-        cursor: pointer;
-    }
-}
-
-.close-portal svg:hover {
-    transform: scale(1.2);
-}
-
-.prev,
-.next {
-    position: absolute;
-    top: 45%;
-    left: 90px;
-    width: 42px;
-    height: 42px;
-    background-color: #323232;
-    border-radius: 8px;
-    padding: 2px;
-    svg {
-        width: 35px;
-        height: 35px;
-        transition: all 0.5s ease;
-        cursor: pointer;
-    }
-}
-
-.next {
-    left: unset;
-    right: 90px;
-    padding: 3px 5px;
-}
-
-.prev svg:hover,
-.next svg:hover {
-    transform: scale(1.3);
-}
-
-.pages {
-    position: absolute;
-    bottom: 20px;
-    left: 46%;
-    display: flex;
-    width: auto;
-    height: 55px;
-    background-color: #323232;
-    border-radius: 8px;
-    padding: 6px 12px;
-
-    span {
-        font-size: 2rem;
-    }
-    span:first-child {
-        color: white;
-    }
-    span:last-child {
-        color: var(--grey-3);
-    }
-}
-
 .portal {
     position: fixed;
-    top: 40%;
+    top: 50%;
     left: 50%;
     z-index: 1002;
-    width: 70%;
+    width: 80%;
     text-align: center;
     transform: translate(-50%, -50%);
-
     img {
         max-width: 100%;
-        min-height: 50vh;
-        max-height: 70vh;
-        margin: 100px auto 0;
+        margin: 50px auto 0;
         border-radius: 16px;
     }
-}
-@media (min-width: 1440px) {
-    .portal {
-        position: fixed;
-        z-index: 1002;
-        transform: none;
-        top: 5%;
-        left: 10%;
-        width: 80%;
-        height: 90%;
+    .horizontal {
+        height: 90vh;
+    }
+    .vertical {
+        min-height: 80vh;
+        max-height: 90vh;
+    }
+    .close-portal {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 44px;
+        height: 44px;
+        background-color: #5c5c5c80;
+        border-radius: 8px;
+        padding: 12px;
+        svg {
+            width: 20px;
+            height: 20px;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+    }
+    .close-portal svg:hover {
+        transform: scale(1.2);
+    }
+    .prev,
+    .next {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        width: 42px;
+        height: 42px;
+        background-color: #5c5c5c80;
+        border-radius: 8px;
+        padding: 2px;
+        svg {
+            width: 35px;
+            height: 35px;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+    }
+    .next {
+        left: unset;
+        right: 5px;
+        padding: 3px 5px;
+    }
+    .prev svg:hover,
+    .next svg:hover {
+        transform: scale(1.3);
+    }
+    .pages {
+        position: absolute;
+        bottom: 20px;
+        left: 48%;
         display: flex;
-        align-items: center;
-        img {
-            width: 80vw;
-            height: auto;
+        width: auto;
+        height: 55px;
+        background-color: #5c5c5c80;
+        border-radius: 8px;
+        padding: 6px 12px;
+    
+        span {
+            font-size: 2rem;
+        }
+        span:first-child {
+            color: white;
+        }
+        span:last-child {
+            color: #ebeaea;
+        }
+    }
+    
+}
+
+@media (max-width: 1440px) {
+    .portal {
+        .horizontal {
+            height: 85vh;
+        }
+    }
+}
+
+@media (max-width: 1240px) {
+    .portal {
+        .horizontal {
+            height: unset;
             max-height: 90vh;
-            margin: 0;
+            min-height: 70vh;
         }
     }
 }
 
 @media (max-width: 1023px) {
-    .close-portal,
-    .next {
-        right: 20px;
-    }
-    .prev {
-        left: 20px;
-    }
-
     .portal {
-        top: 50%;
         width: 95%;
         img {
-            margin: 10px auto 0;
-            max-height: 90vh;
+            margin: 0 auto;
         }
+        .horizontal {
+            max-height: 85vh;
+            min-height: 63vh;
+        }
+    }
+
+    .close-portal {
+        right: 10px;
+        top: 20px;
+    }
+    .next {
+        right: 10px;
+    }
+    .prev {
+        left: 10px;
+    }
+    .pages {
+        left: 46%;
     }
 }
 
 @media (max-width: 767px) {
-    .close-portal {
-        width: 26px;
-        height: 26px;
-        padding: 6px;
-        background-color: #5c5c5c80;
-        svg {
-            width: 14px;
-            height: 14px;
+    .portal {
+        top: 50%;
+        .horizontal {
+            max-height: 60vh;
+            min-height: 45vh;
         }
-    }
-
-    .next,
-    .prev {
-        width: 26px;
-        height: 26px;
-        background-color: #5c5c5c80;
-        svg {
-            position: absolute;
-            left: -5px;
-            top: -4px;
+        .close-portal {
+            width: 26px;
+            height: 26px;
+            padding: 6px;
+            background-color: #5c5c5c80;
+            svg {
+                width: 14px;
+                height: 14px;
+            }
         }
-    }
-    .next {
-        svg {
-            left: -3px;
-            transform: scale(0.9);
+        .next,
+        .prev {
+            width: 26px;
+            height: 26px;
+            background-color: #5c5c5c80;
+            svg {
+                position: absolute;
+                left: -5px;
+                top: -4px;
+            }
+        }
+        .next {
+            svg {
+                left: -3px;
+                transform: scale(0.9);
+            }
+        }
+        .pages {
+            z-index: 1100;
+            left: 47%;
+            height: 27px;
+            padding: 4px 12px;
+            background-color: #5c5c5c80;
+            span {
+                font-size: 1rem;
+            }
+            span:last-child {
+                color: #ebeaea;
+            }
         }
     }
     
-    .pages {
-        z-index: 1100;
-        left: 47%;
-        height: 27px;
-        padding: 4px 12px;
-        background-color: #5c5c5c80;
-        span {
-            font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+    .portal {
+        top: 45%;
+        .horizontal {
+            min-height: 35vh;
         }
-        span:last-child {
-            color: #ebeaea;
+        .vertical {
+            min-height: 70vh;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .portal {
+        top: 40%;
+        .horizontal {
+            min-height: 25vh;
+        }
+        .vertical {
+            min-height: 51vh;
+        }
+        .pages {
+            left: 45%;
+        }
+    }
+}
+
+@media (max-width: 360px) {
+    .portal {
+        top: 30%;
+        .vertical {
+            min-height: 45vh;
+        }
+        .pages {
+            left: 44%;
         }
     }
 }

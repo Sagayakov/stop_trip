@@ -7,17 +7,18 @@ import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 import { getDate } from '../../shared/utils/getDate';
 
 export const AnyCategory = () => {
-    const category = location.pathname.slice(1);
+    const category = location.pathname.split('/')[1];
+    const filterQuery = location.search;
     const navigate = useNavigate();
-    const { data = [] } = useGetAdvertsQuery('');
+    const { data = [] } = useGetAdvertsQuery(filterQuery);
     const { isMobile } = useMatchMedia();
-    const reverseData = JSON.parse(JSON.stringify(data))
+    const filteredData = JSON.parse(JSON.stringify(data))
         .filter((el: LastAdvertsTypes) => el.category === category);
 
     return (
         <section className="adverts">
-            {reverseData.length ? (
-                reverseData.map((el: LastAdvertsTypes) => {
+            {filteredData.length ? (
+                filteredData.map((el: LastAdvertsTypes) => {
                     return (
                         <div
                             className="card"
@@ -51,15 +52,16 @@ export const AnyCategory = () => {
                                     г. Тбилиси, ул. Зеленая, 10
                                 </p>
                                 <h3>
-                                    {el.price ? `$${el.price}` : 'Договорная'}
+                                    {el.price ? `₹${el.price}` : 'Договорная'}
                                 </h3>
                                 <p className="card-description">
                                     {el.description}
                                 </p>
-                                <span className="author">
+                                <div className="author">
                                     Константин
+                                    <span className="rating-number">4.5</span>
                                     <Rating rating={4.5} />
-                                </span>
+                                </div>
                                 <p
                                     className="time">
                                     {`

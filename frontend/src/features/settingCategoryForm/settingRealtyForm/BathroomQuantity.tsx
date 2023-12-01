@@ -14,7 +14,7 @@ export const BathroomQuantity = ({ register }: Props) => {
                         type="number"
                         placeholder='Количество'
                         min={0}
-                        {...register('bathroomQuantity')}
+                        {...register('property_bathroom_count')}
                     />
             </div>
         </div>

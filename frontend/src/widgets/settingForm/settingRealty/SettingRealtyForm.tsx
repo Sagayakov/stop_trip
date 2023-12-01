@@ -5,24 +5,34 @@ import {
     BathroomQuantity,
     City,
     District,
+    Balcony,
     HasFurniture,
     HouseType,
-    RealtyComission,
+    RealtyCommission,
     RentalCondition,
     RoomsQuantity,
     SettingPrice,
     SleepingPlaces,
     TotalArea,
     TypeOfService,
+    Prepayment,
+    LivingSpace,
+    HasParking,
+    Floor,
 } from '../../../features/settingCategoryForm/settingRealtyForm';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeSettingRealty } from './libr/TypeSettingRealty';
-import './libr/settingRealty.scss'
+import './libr/settingRealty.scss';
+import { useSearchParams } from 'react-router-dom';
+import { getRealtyQuery } from '../../../shared/utils/getRealtyQuery';
+
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 export const SettingRealtyForm = ({ setShowFilters }: Props) => {
+    const [, setSearchParams] = useSearchParams();
+    
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -31,9 +41,9 @@ export const SettingRealtyForm = ({ setShowFilters }: Props) => {
         useForm<TypeSettingRealty>();
 
     const onsubmit: SubmitHandler<TypeSettingRealty> = (data) => {
-        console.log(data);
+        const filters = getRealtyQuery(data);
+        setSearchParams(`category=property${filters}`);
         setShowFilters(false);
-        reset();
     };
 
     const onReset = () => {
@@ -54,7 +64,10 @@ export const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 <SettingPrice register={register} watch={watch} />
                 <RentalCondition control={control} setValue={setValue}/>
                 <TotalArea register={register} />
+                <LivingSpace register={register} />
+                <Floor register={register} />
                 <SleepingPlaces register={register}/>
+                <Balcony register={register} />
                 <HasFurniture register={register}/>
                 <Amenities register={register}/>
                 {/* <div className="checkboxes"> */}
@@ -62,8 +75,10 @@ export const SettingRealtyForm = ({ setShowFilters }: Props) => {
                     <Bathroom register={register} />
                     <BathroomQuantity register={register}/>
                 {/* </div> */}
-                <RealtyComission register={register} />
-                <input type="submit" value="Показать 100 объявлений" />
+                <HasParking register={register} />
+                <Prepayment control={control} setValue={setValue}/>
+                <RealtyCommission register={register} />
+                <input type="submit" value="Применить" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
                     Сбросить фильтры
