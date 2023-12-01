@@ -1,33 +1,20 @@
 import { UseFormRegister } from 'react-hook-form';
+import { UniversalRadioGroup } from '../../../../entities/universalDropdown/UniversalRadioGroup';
 import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
 }
 export const AnnouncementRealtyServise = ({ register }: Props) => {
+    const radioValues = ['Аренда', 'Продажа'];
     return (
         <div className="ann-field">
             <h3>Тип услуги</h3>
-            <div className="radio-group">
-                <label>
-                    <input
-                        type="radio"
-                        {...register('transportTypeOfService')}
-                        value="Аренда"
-                        style={{ display: 'none' }}
-                    />
-                    <span>Аренда</span>
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        {...register('transportTypeOfService')}
-                        value="Продажа"
-                        style={{ display: 'none' }}
-                    />
-                    <span>Продажа</span>
-                </label>
-            </div>
+            <UniversalRadioGroup
+                name="transportTypeOfService"
+                radioValues={radioValues}
+                register={register}
+            />
             <div className="ann-field-err"></div>
         </div>
     );

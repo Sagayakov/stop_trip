@@ -13,6 +13,8 @@ export const valuesOfPropertyForm = {
         {label: 'Мумбай', value: '6'},
         {label: 'Панаджи', value: '2'},
     ],
+    balcony: ['Есть', 'Нет', 'Лоджия'],
+    roomsQuantity: [1, 2, 3, 4],
     property_district: [
         {label: 'Верхний', value: '1'},
         {label: 'Нижний', value: '2'},
@@ -33,6 +35,7 @@ export const valuesOfPropertyForm = {
         {label: 'Студентам', value: 'students'},
         {label: 'Не компаниям', value: 'not_companies'},
     ],
+    amenities: ['Wi-fi', 'Кондиционер', 'Увлажнитель', 'Сейф', 'Телевизор'],
     /* typeOfProperty: [
         { label: 'Квартира', value: 'Квартира' },
         { label: 'Комната', value: 'Комната' },

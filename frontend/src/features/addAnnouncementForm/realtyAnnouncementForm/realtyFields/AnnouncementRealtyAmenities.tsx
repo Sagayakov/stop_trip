@@ -1,17 +1,21 @@
+import { UniversalCheckboxGroup } from '../../../../entities/universalDropdown';
+import { UseFormRegister } from 'react-hook-form';
+import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { valuesOfPropertyForm } from '../../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
+
 interface Props {
-    descript: string | undefined;
-    setDescript: React.Dispatch<React.SetStateAction<string | undefined>>;
+    register: UseFormRegister<FormAddAnn>;
 }
 
-export const AnnouncementRealtyAmenities = ({ descript, setDescript }: Props) => {
+export const AnnouncementRealtyAmenities = ({ register }: Props) => {
+    const optionValues = valuesOfPropertyForm.amenities;
     return (
         <div className="ann-field">
             <h3>Удобства</h3>
-            <textarea
-                placeholder="Пожалуйста, через запятую перечислите желаемые удобства"
-                maxLength={1000}
-                value={descript}
-                onChange={(event) => setDescript(event.target.value)}
+            <UniversalCheckboxGroup
+                checkboxValues={optionValues}
+                name="transportCondition"
+                register={register}
             />
             <div className="ann-field-err"></div>
         </div>

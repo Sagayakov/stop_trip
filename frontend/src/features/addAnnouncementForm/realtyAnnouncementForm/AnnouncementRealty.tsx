@@ -1,7 +1,7 @@
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import {
-    // AnnouncementRealtyAmenities,
+    AnnouncementRealtyAmenities,
     AnnouncementRealtyBalcony,
     AnnouncementRealtyBathroomQuantity,
     AnnouncementRealtyBathroomType,
@@ -34,14 +34,8 @@ export const AnnouncementRealty = ({ register, control, setValue }: Props) => {
             <AnnouncementRealtyServise register={register} />
             <AnnouncementRealtyCity control={control} setValue={setValue} />
             <AnnouncementRealtyDistrict control={control} setValue={setValue} />
-            <AnnouncementRealtyHouseType
-                control={control}
-                setValue={setValue}
-            />
-            <AnnouncementRealtyPrepayment
-                control={control}
-                setValue={setValue}
-            />
+            <AnnouncementRealtyHouseType control={control} setValue={setValue} />
+            <AnnouncementRealtyPrepayment control={control} setValue={setValue} />
             <AnnouncementRealtyRentalCondition control={control} setValue={setValue} />
             <AnnouncementRealtyFloorsQuantity register={register} />
             <AnnouncementRealtyFloorNumber register={register} />
@@ -54,7 +48,7 @@ export const AnnouncementRealty = ({ register, control, setValue }: Props) => {
             <AnnouncementRealtyBalcony register={register} />
             <AnnouncementRealtyBathroomQuantity register={register} />
             <AnnouncementRealtyBathroomType register={register} />
-            {/* <AnnouncementRealtyAmenities /> */}
+            <AnnouncementRealtyAmenities register={register}/>
             <AnnouncementRealtyComission register={register} />
         </>
     );

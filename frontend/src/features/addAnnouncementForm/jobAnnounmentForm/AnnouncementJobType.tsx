@@ -1,4 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
+import { UniversalRadioGroup } from '../../../entities/universalDropdown/UniversalRadioGroup';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { jobValues } from './libr/jobValues';
 
@@ -12,14 +13,11 @@ export const AnnouncementJobType = ({ register }: Props) => {
     return (
         <div className="ann-field">
             <h3>Тип работы:</h3>
-            <div className="radio-group">
-                {jobTypeValues.map((el) => (
-                    <label className="form-checkbox" key={el}>
-                        <input type="radio" value={el} {...register('announcementJob.jobType')} />
-                        <span>{el}</span>
-                    </label>
-                ))}
-            </div>
+            <UniversalRadioGroup
+                name="announcementJob.jobType"
+                radioValues={jobTypeValues}
+                register={register}
+            />
             <div className="ann-field-err"></div>
         </div>
     );

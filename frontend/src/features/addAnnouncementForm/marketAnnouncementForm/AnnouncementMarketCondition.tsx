@@ -1,4 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
+import { UniversalRadioGroup } from '../../../entities/universalDropdown/UniversalRadioGroup';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { conditionValues } from './libr/conditionValues';
 
@@ -10,18 +11,11 @@ export const AnnouncementMarketCondition = ({ register }: Props) => {
     return (
         <div className="ann-field">
             <h3>Состояние:</h3>
-            <div className="radio-group">
-                {conditionValues.map((el) => (
-                    <label className="form-checkbox" key={el}>
-                        <input
-                            type="radio"
-                            value={el}
-                            {...register('announcementJob.duration')}
-                        />
-                        <span>{el}</span>
-                    </label>
-                ))}
-            </div>
+            <UniversalRadioGroup
+                register={register}
+                name="annoucementMarket"
+                radioValues={conditionValues}
+            />
             <div className="ann-field-err"></div>
         </div>
     );
