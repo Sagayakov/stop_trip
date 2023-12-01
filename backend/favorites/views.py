@@ -4,10 +4,11 @@ from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-from .favorites import Favorite
-from .serializers import FavoriteAdvertisementCreateSerializer
+
 from offers.models import Advertisement
 from offers.serializers import AdvertisementListSerializer
+from .favorites import Favorite
+from .serializers import FavoriteAdvertisementCreateSerializer
 
 
 @extend_schema(tags=["Favorites"])
