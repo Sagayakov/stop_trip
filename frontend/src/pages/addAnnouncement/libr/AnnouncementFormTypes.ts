@@ -1,135 +1,81 @@
-export interface FormAddAnn extends TypeForTransport, TypeForRealty {
-    announcementCategory: string;
-    announcementName: string;
-    announcementPrice: number;
-    announcementDescription: string;
-    announcementPhoto: File[];
-    announcementLocation: AnnouncementLocation;
-    announcementDoc: Doc;
-    announcementEvent: AnnEvent;
-    announcementFood: Food;
-    annoucementTaxi: Taxi;
-    announcementService: boolean;
-    annoucementMarket: string[];
-    announcementExchange: Exchange;
-    announcementJob: Job;
-    announcementExcursion: Excursion;
+export interface FormAddAnn {
+    category: string;
+    title: string;
+    price: number;
+    description: string;
+    images: Image[];
+    coordinates: string;
+    //документы
+    document_type: string;
+    document_duration: string;
+    //мероприятия
+    start_date: string;
+    end_date: string;
+    is_online: boolean;
+    //валюта
+    proposed_currency: string;
+    exchange_for: string;
+    exchange_rate: number;
+    //экскурсии
+    excursion_food: boolean;
+    excursion_transfer: boolean;
+    //еда
+    food_delivery: boolean;
+    food_establishment: boolean;
+    food_type: string;
+    //работа
+    job_type: string;
+    job_duration: string;
+    job_payment_type: string;
+    job_experience: boolean;
+    //купля/продажа
+    market_condition: string;
+    //услуги
+    service_home_visit: boolean;
+    //такси
+    taxi_unit: string;
+    taxi_type: string;
+    //недвижимость
+    property_city: string;
+    property_district: string;
+    property_type_of_service: string;
+    property_building_max_floor: number;
+    property_floor: number;
+    property_bathroom_count: number;
+    property_bathroom_type: string;
+    property_area: number;
+    property_living_area: number;
+    property_balcony: string;
+    property_has_furniture: boolean;
+    property_amenities: string[];
+    property_house_type: string;
+    property_has_parking: boolean;
+    property_rental_condition: string;
+    property_prepayment: string;
+    property_sleeping_places: number;
+    property_rooms_count: number;
+    property_commission: number;
+    //транспорт
+    transport_type_of_service: string;
+    transport_type: string;
+    transport_category: string;
+    transport_brand: string;
+    transport_model: string;
+    transport_engine_type: string;
+    transport_drive_type: string;
+    transport_engine_volume: number;
+    transport_year_of_production: number;
+    transport_transmission_type: string;
+    transport_body_type: string;
+    transport_condition: string;
+    transport_passengers_quality: number;
+    transport_vin: string;
+    transport_commission: number
+}
+interface Image {
+    image: string;
 }
 export interface SelectOption {
-    value: string;
-    label: string;
-}
-interface AnnouncementLocation {
-    latitude: number;
-    longitude: number;
-}
-interface Doc {
-    docType: string;
-    validityPeriod: string;
-}
-interface AnnEvent {
-    start: string;
-    end: string;
-    isOnline: boolean;
-}
-interface Food {
-    delivery: boolean;
-    establishment: boolean;
-    foodType: string[];
-}
-interface Taxi {
-    unit: string[];
-    taxiType: string[];
-}
-interface Exchange {
-    name: string[];
-    exchangeFor: string[];
-    rate: string;
-}
-
-interface Job {
-    jobType: string[];
-    duration: string[];
-    payment: string[];
-    withExp: boolean;
-}
-
-interface Excursion {
-    food: boolean;
-    transfer: boolean;
-}
-
-interface TypeForTransport {
-    transportTypeOfService: TypeOfServise;
-    transportTypeOfTransport: TypeOfTransport;
-    transportTransportationCategory: string[] | string;
-    transportMark: string[] | string;
-    transportModel: string[] | string;
-    transportEngineType: string[] | string;
-    transportEngineСapacity: EngineCapacity;
-    transportDrive: Drive;
-    transportYearOfProduction: YearOfProduction;
-    transportTransmissionType: TransmissionType;
-    transportBodyType: string[] | string;
-    transportCondition: Condition;
-    transportCommission: Comission;
-}
-interface TypeForRealty {
-    TypeOfService: TypeOfServise;
-    PropertyCity: string[] | string;
-    PropertyDistrict: string[] | string;
-    FloorsQuantity: number;
-    FloorNumber: number;
-    Prepayment: string[] | string;
-    HouseType: string[] | string;
-    TypeOfProperty: string[] | string;
-    RentalCondition: string[] | string;
-    TotalArea: TotalArea;
-    LivingSpace: LivingSpace;
-    Parking: boolean;
-    SleepingPlaces: number;
-    HasFurniture: boolean;
-    Amenities: string[] | string;
-    RoomsQuantity: RoomsQuantity;
-    BathRoom: BathRoom;
-    BathroomQuantity: number;
-    Balcony: boolean | string;
-    Comission: Comission;
-}
-
-type TypeOfServise = 'Аренда' | 'Продажа';
-
-type TypeOfTransport = 'Наземный' | 'Водный';
-type Drive =
-    | 'Передний'
-    | 'Задний'
-    | 'Постоянный полный'
-    | 'Полный подключаемый';
-interface EngineCapacity {
-    min: number;
-    max: number;
-}
-type TransmissionType = 'МКПП' | 'АКПП' | 'Робот' | 'Вариатор';
-interface YearOfProduction {
-    min: number;
-    max: number;
-}
-
-type Condition = 'Новый' | 'Б/у' | 'Аварийный' | 'На запчасти';
-interface TotalArea {
-    min: number;
-    max: number;
-}
-
-interface LivingSpace {
-    min: number;
-    max: number;
-}
-
-type RoomsQuantity = 1 | 2 | 3 | 4;
-type BathRoom = 'separate' | 'combined';
-
-interface Comission {
-    min: number;
-    max: number;
+    value: string| number | null;
+    label: string| number | null;
 }

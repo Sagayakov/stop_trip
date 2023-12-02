@@ -27,7 +27,7 @@ export const Amenities = ({ register }: Props) => {
                                 />
                                 <span>{(el as SelectType).label}</span>
                             </label>
-                        )    
+                        )
                     )}
             </div>
         </div>

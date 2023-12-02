@@ -10,12 +10,13 @@ interface Props<T extends FieldValues> {
     placeholder: string;
     closeMenuOnSelect: boolean;
     isMulti: boolean;
-    options: SelectOption[];
+    options: SelectOption[] | undefined;
     required?: boolean;
+    isSearchable?: boolean;
 }
 interface SelectOption{
-    value: string
-    label: string
+    value: string | number | null
+    label: string | number | null
 }
 
 export const UniversalSelectDropdown = <T extends FieldValues>({
@@ -27,6 +28,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
     closeMenuOnSelect,
     isMulti,
     options,
+    isSearchable
 }: Props<T>) => {
     const animated = makeAnimated();
 
@@ -40,10 +42,10 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean) as PathValue<T, Path<T>>;
-            if(isMulti){
+            if (isMulti) {
                 setValue(name, selectedValues);
-            }else {
-                setValue(name, selectedValues[0])
+            } else {
+                setValue(name, selectedValues[0]);
             }
         }
     };
@@ -62,6 +64,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                     closeMenuOnSelect={closeMenuOnSelect}
                     isMulti={isMulti}
                     options={options}
+                    isSearchable={isSearchable}
                     onChange={(selectedOptions) => {
                         handleChange(
                             selectedOptions as
@@ -70,7 +73,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                                 | null
                         );
                     }}
-                    value={options.filter((option) =>
+                    value={options?.filter((option) =>
                         field.value?.includes(option.value)
                     )}
                 />

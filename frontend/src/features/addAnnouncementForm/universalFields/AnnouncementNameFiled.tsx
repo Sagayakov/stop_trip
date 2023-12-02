@@ -19,13 +19,13 @@ export const AnnouncementNameField = ({ register, formState }: Props) => {
                 minLength={1}
                 maxLength={100}
                 placeholder="Название"
-                style={errors?.announcementName ? {
+                style={errors?.title ? {
                     border: "1px solid red"
                 } : {}}
-                {...register('announcementName', {required: true})}
+                {...register('title', {required: true})}
             />
             <div className="ann-field-err">
-                {errors?.announcementName &&
+                {errors?.title &&
                     'Пожалуйста, введите название объявления'}
             </div>
         </div>

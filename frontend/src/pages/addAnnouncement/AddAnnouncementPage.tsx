@@ -1,4 +1,3 @@
-import { LatLng } from 'leaflet';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { OptionalFields } from '../../widgets';
@@ -13,6 +12,10 @@ import {
 } from '../../features/addAnnouncementForm/universalFields';
 import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import './libr/addAnnouncement.scss';
+import { useGetFieldsData } from './libr/getFieldsData';
+interface Image {
+    image: string;
+}
 
 export const AddAnnouncementPage = () => {
     const {
@@ -20,26 +23,15 @@ export const AddAnnouncementPage = () => {
     } = useForm<FormAddAnn>({
         reValidateMode: 'onBlur',
     });
+    const { categoryList } = useGetFieldsData()
 
-    const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
-    const [markerPosition, setMarkerPosition] = useState<LatLng | undefined>();
+    const [selectedImages, setSelectedImages] = useState<Image[] |undefined>();
+    const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [descript, setDescript] = useState<string | undefined>();
 
     const onsubmit = async (data: FormAddAnn) => {
-        descript && setValue('announcementDescription', descript);
-        // try {
-        //     const url = import.meta.env.VITE_BASE_URL;
-        //     const response = await fetch(`${url}/api/advertisements/`, {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(data),
-        //     });
-        //     console.log(response);
-        // } catch (error) {
-        //     console.log(error);
-        // }
+        descript && setValue('description', descript);
+
         console.log(data);
         setSelectedImages(undefined);
         setMarkerPosition(undefined);
@@ -59,6 +51,7 @@ export const AddAnnouncementPage = () => {
                         control={control}
                         setValue={setValue}
                         formState={formState}
+                        categoryList={categoryList}
                     />
                     <AnnouncementNameField
                         register={register}
