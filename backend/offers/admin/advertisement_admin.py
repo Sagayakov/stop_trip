@@ -1,7 +1,22 @@
 from django.contrib.admin import register, ModelAdmin, StackedInline
 from django.utils.translation import gettext_lazy as _
 
-from ..models import Advertisement, AdvertisementImage
+from ..models import Advertisement, AdvertisementImage, Country, Region, City
+
+
+@register(Country)
+class CountryAdmin(ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+
+@register(Region)
+class RegionAdmin(ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+
+@register(City)
+class CityAdmin(ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+
+
 
 
 class AdvertisementImageInline(StackedInline):
@@ -20,6 +35,9 @@ class AdvertisementAdmin(ModelAdmin):
             None,
             {
                 "fields": (
+                    "country",
+                    "region",
+                    "city",
                     "owner",
                     "category",
                     "title",
@@ -59,8 +77,6 @@ class AdvertisementAdmin(ModelAdmin):
                 "classes": ("collapse",),
                 "fields": (
                     "property_type_of_service",
-                    "property_city",
-                    "property_district",
                     "property_building_max_floor",
                     "property_floor",
                     "property_bathroom_count",

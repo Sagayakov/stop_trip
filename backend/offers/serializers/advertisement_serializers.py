@@ -2,11 +2,26 @@ from rest_framework import serializers
 
 from users.models import User
 from ..constants import CategoryChoices
-from ..models import Advertisement, AdvertisementImage
+from ..models import Advertisement, AdvertisementImage, Country, City, Region
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
     """Сериализатор создания объявления."""
+
+    country = serializers.PrimaryKeyRelatedField(
+        queryset=Country.objects.all(),
+        required=True,
+    )
+
+    region = serializers.PrimaryKeyRelatedField(
+        queryset=Region.objects.all(),
+        required=True,
+    )
+
+    city = serializers.PrimaryKeyRelatedField(
+        queryset=City.objects.all(),
+        required=True,
+    )
 
     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
     category = serializers.ChoiceField(choices=CategoryChoices.choices, required=True)
@@ -22,6 +37,9 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
             "price",
             "description",
             "coordinates",
+            "country",
+            "region",
+            "city",
         )
 
 
@@ -63,6 +81,21 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
 
 class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     """Сериализатор обновления объявления."""
+
+    country = serializers.PrimaryKeyRelatedField(
+        queryset=Country.objects.all(),
+        required=False,
+    )
+
+    region = serializers.PrimaryKeyRelatedField(
+        queryset=Region.objects.all(),
+        required=False,
+    )
+
+    city = serializers.PrimaryKeyRelatedField(
+        queryset=City.objects.all(),
+        required=False,
+    )
 
     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
     category = serializers.CharField(required=False)

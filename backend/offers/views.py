@@ -9,7 +9,7 @@ from common.filters import GetFilterParams
 from users.models import User
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
-from .models import Advertisement
+from .models import Advertisement, Country, Region, City
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
     PropertyCreateSerializer,
@@ -56,8 +56,10 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 "transport_model",
                 "proposed_currency",
                 "exchange_for",
-                "property_city",
-                "property_district",
+                "country",
+                "region",
+                "city",
+
             ).prefetch_related("property_amenities")
 
         return queryset

@@ -38,8 +38,10 @@ from offers.models import (
     TransportModel,
     AdvertisementImage,
     Currency,
-    PropertyCity,
-    PropertyDistrict,
+    Country,
+    Region,
+    City
+
 )
 
 
@@ -68,33 +70,40 @@ class AdvertisementImageFactory(factory.django.DjangoModelFactory):
         model = AdvertisementImage
 
 
-class PropertyCityFactory(factory.django.DjangoModelFactory):
-    """Фабрика города недвижимости"""
+class CountryFactory(factory.django.DjangoModelFactory):
+    """Фабрика страны"""
 
     name = factory.Faker("word")
     slug = factory.Sequence(lambda x: f"slug_{x}")
 
     class Meta:
-        model = PropertyCity
+        model = Country
 
 
-class PropertyDistrictFactory(factory.django.DjangoModelFactory):
-    """Фабрика района недвижимости."""
+class RegionFactory(factory.django.DjangoModelFactory):
+    """Фабрика региона."""
 
     name = factory.Faker("word")
     slug = factory.Sequence(lambda x: f"slug_{x}")
-    city = factory.SubFactory(PropertyCityFactory)
+    country = factory.SubFactory(CountryFactory)
 
     class Meta:
-        model = PropertyDistrict
+        model = Region
 
+class CityFactory(factory.django.DjangoModelFactory):
+    """Фабрика города."""
+
+    name = factory.Faker("word")
+    slug = factory.Sequence(lambda x: f"slug_{x}")
+    region = factory.SubFactory(RegionFactory)
+
+    class Meta:
+        model = City
 
 class PropertyAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по недвижимости."""
 
     property_type_of_service = fuzzy.FuzzyChoice(choices=PropertyTypeOfService.values)
-    property_city = factory.SubFactory(PropertyCityFactory)
-    property_district = factory.SubFactory(PropertyDistrictFactory)
     property_building_max_floor = factory.Faker("pyint", min_value=1, max_value=15)
     property_floor = factory.Faker("pyint", min_value=1, max_value=15)
     property_bathroom_count = factory.Faker("pyint", min_value=1, max_value=3)

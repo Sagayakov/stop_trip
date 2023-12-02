@@ -14,6 +14,65 @@ from .abs_food_model import AbsFood
 from ..constants import CategoryChoices
 
 
+class Country(models.Model):
+    """Страна"""
+
+    name = models.CharField("Название", db_index=True)
+    slug = models.SlugField("Слаг", unique=True, db_index=True)
+
+    class Meta:
+        verbose_name = "Страна"
+        verbose_name_plural = "Страны"
+        ordering = ("name",)
+
+    def __str__(self):
+        return self.name
+class Region(models.Model):
+    """Регион"""
+
+    country = models.ForeignKey(
+        "offers.Country",
+        on_delete=models.CASCADE,
+        verbose_name="Страна",
+        related_name="regions",
+    )
+
+    name = models.CharField("Название", db_index=True)
+    slug = models.SlugField("Слаг", unique=True, db_index=True)
+
+    class Meta:
+        verbose_name = "Регион"
+        verbose_name_plural = "Регионы"
+        ordering = ("name",)
+
+    def __str__(self):
+        return self.name
+
+class City(models.Model):
+    """Город"""
+
+    region = models.ForeignKey(
+        "offers.Region",
+        on_delete=models.CASCADE,
+        verbose_name="Регион",
+        related_name="cities",
+    )
+    name = models.CharField("Название", db_index=True)
+    slug = models.SlugField("Слаг", unique=True, db_index=True)
+
+    class Meta:
+        verbose_name = "Город"
+        verbose_name_plural = "Города"
+        ordering = ("name",)
+
+    def __str__(self):
+        return self.name
+
+
+
+
+
+
 class Advertisement(
     AbsTransport,
     AbsProperty,
@@ -28,6 +87,31 @@ class Advertisement(
     AbsFood,
 ):
     """Объявления."""
+
+    country = models.ForeignKey(
+        "offers.Country",
+        on_delete=models.CASCADE,
+        verbose_name="Страна",
+        related_name="country_advertisements",
+
+    )
+
+    region = models.ForeignKey(
+        "offers.Region",
+        on_delete=models.CASCADE,
+        verbose_name="Район",
+        related_name="region_advertisements",
+        null=True,
+        blank=True,
+    )
+
+    city = models.ForeignKey(
+        "offers.City",
+        on_delete=models.CASCADE,
+        verbose_name="Город",
+        related_name="city_advertisements",
+
+    )
 
     owner = models.ForeignKey(
         "users.User",
@@ -86,3 +170,4 @@ class AdvertisementImage(models.Model):
 
     def __str__(self):
         return f"Объявление - {self.advertisement.title}, #{self.pk}"
+

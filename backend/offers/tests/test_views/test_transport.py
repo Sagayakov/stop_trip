@@ -20,6 +20,9 @@ from offers.models import Advertisement
 from users.tests.factories import UserFactory
 from ..factories import (
     AdvertisementImageFactory,
+    CountryFactory,
+    RegionFactory,
+    CityFactory,
     TransportBrandFactory,
     TransportModelFactory,
     TransportAdvertisementFactory,
@@ -33,6 +36,9 @@ class TransportTest(APITestCase):
         self.detail_url = partial(reverse, "advertisements-detail")
 
     def test_create_transport(self):
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brand = TransportBrandFactory(name="Audi")
         transport_model = TransportModelFactory(name="A7", brand=transport_brand)
         payload = {
@@ -59,7 +65,7 @@ class TransportTest(APITestCase):
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(9):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -98,10 +104,16 @@ class TransportTest(APITestCase):
 
     def test_update_transport(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brand = TransportBrandFactory(name="Audi")
         transport_model = TransportModelFactory(name="A7", brand=transport_brand)
         advertisement = TransportAdvertisementFactory(
             owner=user,
+            country=country,
+            region = region,
+            city = city,
             category=CategoryChoices.TRANSPORT.value,
             title="test_transport",
             price=100_000,
@@ -122,10 +134,16 @@ class TransportTest(APITestCase):
         )
 
         new_transport_model = TransportModelFactory(name="RS7")
+        new_country = CountryFactory(name="Vietnam")
+        new_region = RegionFactory(country=country, name="V1")
+        new_city = CityFactory(region=region, name="Hue")
         payload = {
             "category": CategoryChoices.TRANSPORT.value,
             "title": "test_transport_new",
             "price": 120_000,
+            "country":new_country.id,
+            "region":new_region.id,
+            "city":new_city.id,
             "transport_type_of_service": TransportTypeOfService.SALE,
             "transport_type": TransportType.GROUND,
             "transport_category": TransportCategory.CAR,
@@ -144,7 +162,7 @@ class TransportTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(9):
+        with self.assertNumQueries(12):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -152,6 +170,9 @@ class TransportTest(APITestCase):
         advertisement.refresh_from_db()
 
         self.assertEqual(advertisement.owner, user)
+        self.assertEqual(advertisement.country, new_country)
+        self.assertEqual(advertisement.region, new_region)
+        self.assertEqual(advertisement.city, new_city)
         self.assertEqual(advertisement.category, payload["category"])
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
