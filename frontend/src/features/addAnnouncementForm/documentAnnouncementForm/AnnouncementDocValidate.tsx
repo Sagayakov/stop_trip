@@ -14,9 +14,7 @@ export const AnnouncementDocValidityPeriod = ({ register }: Props) => {
                 minLength={1}
                 maxLength={50}
                 placeholder="Срок"
-                {...register('announcementDoc.validityPeriod', {
-                    required: true,
-                })}
+                {...register('document_duration')}
             />
             <div className="ann-field-err"></div>
         </div>

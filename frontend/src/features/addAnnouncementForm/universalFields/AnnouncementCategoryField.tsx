@@ -1,6 +1,6 @@
 import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
-import { FormAddAnn, SelectOption } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { FormAddAnn, SelectOption,  } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { useMatchMedia } from '../../../app/hooks/useMatchMedia';
 
 interface Props {

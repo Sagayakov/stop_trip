@@ -13,7 +13,7 @@ export const AnnouncementExchangeRate = ({ register }: Props) => {
                 type="text"
                 id="ann-field-price"
                 placeholder="Курс"
-                {...register('announcementExchange.rate', { required: true })}
+                {...register('exchange_rate', { required: true })}
             />
             <div className="ann-field-err"></div>
         </div>

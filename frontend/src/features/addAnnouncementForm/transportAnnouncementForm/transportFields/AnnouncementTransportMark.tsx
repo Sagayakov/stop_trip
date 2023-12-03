@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const AnnouncementTransportMark = ({ setValue, control }: Props) => {
-    const optionValues = valuesOfTransportForm.mark;
+    const optionValues = valuesOfTransportForm.transport_brand;
     return (
         <div className="ann-field">
             <h3>Марка транспорта</h3>
@@ -17,7 +17,7 @@ export const AnnouncementTransportMark = ({ setValue, control }: Props) => {
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="transportMark"
+                name="transport_brand"
                 options={optionValues}
                 placeholder="Выберите марку"
                 prefix="filterAnnouncementCategory"

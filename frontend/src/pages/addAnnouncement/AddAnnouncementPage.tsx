@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { OptionalFields } from '../../widgets';
+import { useGetFiltersQuery } from '../../app/api/fetchAdverts';
+import { FiltersType } from '../../app/api/types/filtersType';
 import { AnnouncementSubmitButton } from '../../entities/addAnnouncementForm/universalFields';
 import {
     AnnouncementCategoryField,
@@ -10,22 +11,28 @@ import {
     AnnouncementPhotoField,
     AnnouncementPriceField,
 } from '../../features/addAnnouncementForm/universalFields';
-import { FormAddAnn } from './libr/AnnouncementFormTypes';
+import { OptionalFields } from '../../widgets';
+import { FormAddAnn, SelectOption } from './libr/AnnouncementFormTypes';
 import './libr/addAnnouncement.scss';
-import { useGetFieldsData } from './libr/getFieldsData';
 interface Image {
     image: string;
 }
 
 export const AddAnnouncementPage = () => {
     const {
-        register, handleSubmit, reset, control, setValue, formState, watch,
+        register,
+        handleSubmit,
+        reset,
+        control,
+        setValue,
+        formState,
+        watch,
     } = useForm<FormAddAnn>({
         reValidateMode: 'onBlur',
     });
-    const { categoryList } = useGetFieldsData()
+    const { data } = useGetFiltersQuery('');
 
-    const [selectedImages, setSelectedImages] = useState<Image[] |undefined>();
+    const [selectedImages, setSelectedImages] = useState<Image[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [descript, setDescript] = useState<string | undefined>();
 
@@ -39,6 +46,61 @@ export const AddAnnouncementPage = () => {
         reset();
     };
 
+    interface IFieldData {
+        job?: Record<string, SelectOption[]>;
+        property?: Record<string, SelectOption[]>;
+        categoryList: SelectOption[] | undefined;
+    }
+
+    type ChoicesType = {
+        name: string;
+        choices: SelectOption[];
+    };
+
+    const useGetFieldsData = (data: FiltersType | undefined) => {
+        // eslint-disable-next-line prefer-const
+        let fieldData: IFieldData = {
+            categoryList: [],
+        };
+
+        function transform(
+            objects: ChoicesType[]
+        ): Record<string, SelectOption[]> {
+            const transformedObject: Record<string, SelectOption[]> = {};
+
+            for (const obj of objects) {
+                transformedObject[obj.name] = obj.choices;
+            }
+
+            return transformedObject;
+        }
+
+        if (data) {
+            console.log(data);
+            const params = data.params;
+            const job: ChoicesType[] = [];
+            const property: ChoicesType[] = [];
+            for (let i = 0; i < params.length; i++) {
+                if (params[i].name.includes('job')) {
+                    job.push(params[i] as ChoicesType);
+                }
+                fieldData.job = transform(job);
+                if (params[i].name === 'category') {
+                    const categoryList = (params[i] as ChoicesType)
+                        .choices as SelectOption[];
+                    fieldData.categoryList = categoryList;
+                }
+                if (params[i].name.includes('property')) {
+                    property.push(params[i] as ChoicesType);
+                }
+                fieldData.property = transform(property);
+            }
+        }
+        console.log(fieldData)
+        return fieldData;
+    };
+
+    const { categoryList } = useGetFieldsData(data);
     return (
         <>
             <section className="add-ann">

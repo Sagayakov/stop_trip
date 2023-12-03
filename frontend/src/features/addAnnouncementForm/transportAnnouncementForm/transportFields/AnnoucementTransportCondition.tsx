@@ -8,13 +8,13 @@ interface Props {
 }
 
 export const AnnoucementTransportCondition = ({ register }: Props) => {
-    const conditionValue = valuesOfTransportForm.condition;
+    const conditionValue = valuesOfTransportForm.transport_condition;
     return (
         <div className="ann-field">
             <h3>Состояние</h3>
             <UniversalRadioGroup
                 register={register}
-                name="transportCondition"
+                name="transport_condition"
                 radioValues={conditionValue}
             />
             <div className="ann-field-err"></div>

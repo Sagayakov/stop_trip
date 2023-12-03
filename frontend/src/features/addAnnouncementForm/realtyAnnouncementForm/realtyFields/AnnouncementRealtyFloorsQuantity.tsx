@@ -15,7 +15,7 @@ export const AnnouncementRealtyFloorsQuantity = ({ register }: Props) => {
                     autoComplete="off"
                     min={0}
                     placeholder="Количество этажей"
-                    {...register('FloorsQuantity')}
+                    {...register('property_building_max_floor')}
                 />
             </div>
             <div className="ann-field-err"></div>

@@ -18,7 +18,7 @@ export const AnnouncementJobPayment = ({ setValue, control }: Props) => {
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="announcementJob.payment"
+                name="job_payment_type"
                 options={paymentValues}
                 placeholder="Тип оплаты"
                 prefix="filterAnnouncementCategory"

@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const AnnouncementRealtyPrepayment = ({ setValue, control }: Props) => {
-    const optionValues = valuesOfPropertyForm.prepayment;
+    const optionValues = valuesOfPropertyForm.property_prepayment;
     return (
         <div className="ann-field">
             <h3>Предоплата</h3>
@@ -17,7 +17,7 @@ export const AnnouncementRealtyPrepayment = ({ setValue, control }: Props) => {
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="Prepayment"
+                name="property_prepayment"
                 options={optionValues}
                 placeholder="Предоплата"
                 prefix="filterAnnouncementCategory"
