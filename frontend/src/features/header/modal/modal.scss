@@ -1,4 +1,15 @@
 .modal {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.6s ease;
+
+  &.visible {
+    opacity: 1;
+    max-height: 100vh;
+  }
+}
+.modal {
     width: 100vw;
     height: 100vh;
     z-index: 10;

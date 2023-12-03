@@ -12,8 +12,9 @@ export const Modal = () => {
 
     return (
         <div
-            className="modal"
-            style={{ display: `${toggle ? 'block' : 'none'}` }}
+            className={`modal ${toggle ? 'visible' : ''}`}
+            // className="modal"
+            // style={{ display: `${toggle ? 'block' : 'none'}` }}
             onClick={() => dispatch(toggleModalEnter(!toggle))}
         >
             <div
