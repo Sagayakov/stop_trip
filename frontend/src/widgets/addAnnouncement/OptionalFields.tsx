@@ -35,7 +35,7 @@ export const OptionalFields = ({ register, setValue, control, watch }: Props) =>
     };
 
     return (
-        <>
+        <div className={`optional-fields ${category && 'visible'}`}>
             {getCategoryValue('transport') && (
                 <AnnouncementTransport
                     control={control}
@@ -93,6 +93,6 @@ export const OptionalFields = ({ register, setValue, control, watch }: Props) =>
                     register={register}
                 />
             )}
-        </>
+        </div>
     );
 };

@@ -34,6 +34,16 @@
         scrollbar-width: thin !important;
     }
 }
+.optional-fields {
+    opacity: 0;
+    max-height: 0;
+    transition: max-height 3s ease, opacity 2s ease;
+
+    &.visible {
+        opacity: 1;
+        max-height: fit-content;
+    }
+}
 main {
     max-width: 1440px;
     margin: 0 auto;
@@ -63,8 +73,8 @@ main {
                     display: flex;
                     gap: 24px;
                     width: 100%;
-                    .form-checkbox{
-                        input{
+                    .form-checkbox {
+                        input {
                             width: 15px;
                         }
                     }

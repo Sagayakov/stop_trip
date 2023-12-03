@@ -43,7 +43,8 @@ export const AddAnnouncementPage = () => {
         setSelectedImages(undefined);
         setMarkerPosition(undefined);
         setDescript(undefined);
-        reset();
+        reset()
+        setValue('category', data.category);
     };
 
     interface IFieldData {
@@ -76,7 +77,7 @@ export const AddAnnouncementPage = () => {
         }
 
         if (data) {
-            console.log(data);
+            // console.log(data);
             const params = data.params;
             const job: ChoicesType[] = [];
             const property: ChoicesType[] = [];
@@ -96,7 +97,7 @@ export const AddAnnouncementPage = () => {
                 fieldData.property = transform(property);
             }
         }
-        console.log(fieldData)
+        // console.log(fieldData)
         return fieldData;
     };
 
