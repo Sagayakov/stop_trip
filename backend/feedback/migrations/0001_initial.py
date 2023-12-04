@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                     models.CharField(
                         validators=[
                             django.core.validators.MinLengthValidator(10),
-                            django.core.validators.MaxLengthValidator(300),
+                            django.core.validators.MaxLengthValidator(900),
                         ],
                         verbose_name="Обратная связь",
                     ),

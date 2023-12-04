@@ -13,7 +13,7 @@ class FeedBackModel(models.Model):
         verbose_name="Создатель",
     )
     feedback = models.CharField(
-        "Обратная связь", validators=[MinLengthValidator(10), MaxLengthValidator(300)]
+        "Обратная связь", validators=[MinLengthValidator(10), MaxLengthValidator(900)]
     )
     date_create = models.DateTimeField(auto_now_add=True)
 
