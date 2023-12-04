@@ -2,6 +2,7 @@ import { Control, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from '../../../../entities/universalDropdown/UniversalSelectDropdown';
 import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { valuesOfPropertyForm } from '../../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
+import { useMatchMedia } from '../../../../app/hooks/useMatchMedia';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export const AnnouncementRealtyCity = ({ setValue, control }: Props) => {
+    const { isMobile } = useMatchMedia()
     const optionValues = valuesOfPropertyForm.property_city
     return (
         <div className="ann-field">
@@ -22,6 +24,7 @@ export const AnnouncementRealtyCity = ({ setValue, control }: Props) => {
                 placeholder="Выберите город"
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
+                isSearchable={!isMobile}
             />
             <div className="ann-field-err"></div>
         </div>

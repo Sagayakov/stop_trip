@@ -1,6 +1,18 @@
 .add-ann-form {
     .filterAnnouncementCategory__control {
         width: 30%;
+        height: 48px;
+        .filterAnnouncementCategory__value-container{
+            height: 100%;
+            .filterAnnouncementCategory__placeholder{
+                height: 100%;
+                display: flex;
+                align-items: center;
+            }
+            input{
+                height: auto;
+            }
+        }
         .filterAnnouncementCategory__indicators {
             .filterAnnouncementCategory__clear-indicator {
                 padding: 0;
