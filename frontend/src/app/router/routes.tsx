@@ -24,7 +24,6 @@ export const publicRoutes: Route[] = [
     { path: '/email/reset/confirm/:uid/:token', component: ResetPassword },
     { path: '/:category/:id', component: AdvertPage },
     { path: '/404', component: PageNotFound },
-    { path: '/add-announcement', component: AddAnnouncementPage }, // убрать, когда при перезагрузке страницы не вылетит ошибка или не перебросит на 404
     ...categoryRoutes,
 ];
 

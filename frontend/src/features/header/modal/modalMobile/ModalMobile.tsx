@@ -34,6 +34,7 @@ export const ModalMobile = (props: Props) => {
         clearTokensFromCookies();
         sessionStorage.clear();
         localStorage.removeItem('rememberMe');
+        localStorage.removeItem('isAuth')
     };
 
     return (
