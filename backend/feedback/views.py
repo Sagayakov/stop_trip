@@ -1,10 +1,9 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status
-from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema
 
-from users.models import User
 from .serializers import FeedBackCreateSerializer
 from .models import FeedBackModel
 
@@ -13,7 +12,7 @@ from .models import FeedBackModel
 class FeedbackModelViewSet(ModelViewSet):
     """Обратная связь"""
 
-    # serializer_class = FeedBackCreateSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         queryset = FeedBackModel.objects.all()
@@ -25,6 +24,6 @@ class FeedbackModelViewSet(ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.validated_data["owner"] = User.objects.get(pk=self.request.user.pk)
+        serializer.validated_data["owner"] = self.request.user
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
