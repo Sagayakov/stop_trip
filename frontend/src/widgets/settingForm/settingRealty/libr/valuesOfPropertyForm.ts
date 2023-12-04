@@ -35,7 +35,13 @@ export const valuesOfPropertyForm = {
         {label: 'Студентам', value: 'students'},
         {label: 'Не компаниям', value: 'not_companies'},
     ],
-    amenities: ['Wi-fi', 'Кондиционер', 'Увлажнитель', 'Сейф', 'Телевизор'],
+    property_amenities: [
+        {label: 'Wi-fi', value: '1'},
+        {label: 'Кондиционер', value: '2'},
+        {label: 'Увлажнитель', value: '3'},
+        {label: 'Сейф', value: '4'},
+        {label: 'Телевизор', value: '5'},
+    ],
     /* typeOfProperty: [
         { label: 'Квартира', value: 'Квартира' },
         { label: 'Комната', value: 'Комната' },

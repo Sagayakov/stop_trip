@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { LastAdvertsTypes } from './types/lastAdvertsTypes';
 import { url } from '../../shared/const/url';
 import { ProductType } from '../../pages/advertPage/libr/types';
+import { FiltersType } from './types/filtersType';
 
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
@@ -33,7 +34,10 @@ export const fetchAdverts = createApi({
         getAdvertById: build.query<ProductType, string>({
             query: (id) => `api/advertisements/${id}/`,
         }),
+        getFilters: build.query<FiltersType, string>({
+            query: () => `api/advertisements/get_filter_params/`,
+        }),
     }),
 });
 
-export const { useGetAdvertsQuery, useGetAdvertByIdQuery } = fetchAdverts;
+export const { useGetAdvertsQuery, useGetAdvertByIdQuery, useGetFiltersQuery } = fetchAdverts;
