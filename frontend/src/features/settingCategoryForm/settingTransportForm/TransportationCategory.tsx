@@ -5,8 +5,9 @@ import {
     SelectOption,
     TypeSettingTransport
 } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
-import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
-
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
@@ -14,8 +15,18 @@ interface Props {
 }
 
 export const TransportationCategory = ({ setValue, control }: Props) => {
-    const transportationCategory = valuesOfTransportForm.transport_category;
     const animated = makeAnimated();
+    const { data } = useGetFiltersQuery('');
+    const [categoryValues, setCategoryValues] = useState<SelectType[]>([]);
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'transport_category') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setCategoryValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (selectedOptions: SelectOption | SelectOption[] | null) => {
         if (selectedOptions) {
@@ -44,7 +55,7 @@ export const TransportationCategory = ({ setValue, control }: Props) => {
                         placeholder="Выберите категорию"
                         closeMenuOnSelect={false}
                         isMulti={true}
-                        options={transportationCategory}
+                        options={categoryValues}
                         onChange={(selectedOptions) => {
                             handleChange(
                                 selectedOptions as
@@ -53,8 +64,8 @@ export const TransportationCategory = ({ setValue, control }: Props) => {
                                     | null
                             );
                         }}
-                        value={transportationCategory.filter((option) =>
-                            field.value?.includes(option.value)
+                        value={categoryValues.filter((option) =>
+                            field.value?.includes(option.value as string)
                         )}
                     />
                 )}
