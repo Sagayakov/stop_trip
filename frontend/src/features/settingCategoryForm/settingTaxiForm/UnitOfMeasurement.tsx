@@ -5,7 +5,9 @@ import {
     SelectOption,
     TypeSettingTaxi,
 } from '../../../widgets/settingForm/settingTaxi/libr/TypeSettingTaxi';
-import { valuesOfTaxiForm } from '../../../widgets/settingForm/settingTaxi/libr/valuesOfTaxiForm';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTaxi>;
@@ -14,7 +16,17 @@ interface Props {
 
 export const UnitOfMeasurement = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const valuesUnitOfMeasurement = valuesOfTaxiForm.taxi_unit;
+    const { data } = useGetFiltersQuery('');
+    const [unitValues, setUnitValues] = useState<SelectType[]>([]);
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'taxi_unit') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setUnitValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -46,7 +58,7 @@ export const UnitOfMeasurement = ({ control, setValue }: Props) => {
                             placeholder="Единица измерения"
                             closeMenuOnSelect={false}
                             isMulti={true}
-                            options={valuesUnitOfMeasurement}
+                            options={unitValues}
                             onChange={(selectedOptions) => {
                                 handleChange(
                                     selectedOptions as
@@ -55,8 +67,8 @@ export const UnitOfMeasurement = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={valuesUnitOfMeasurement.filter((option) =>
-                                field.value?.includes(option.value)
+                            value={unitValues.filter((option) =>
+                                field.value?.includes(option.value as string)
                             )}
                         />
                     )}

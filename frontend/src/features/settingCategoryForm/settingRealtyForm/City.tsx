@@ -5,7 +5,9 @@ import {
     SelectOption,
     TypeSettingRealty,
 } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
-import { valuesOfPropertyForm } from '../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -13,8 +15,18 @@ interface Props {
 }
 
 export const City = ({ control, setValue }: Props) => {
+    const { data } = useGetFiltersQuery('');
+    const [cityValues, setCityValues] = useState<SelectType[]>([]);
     const animated = makeAnimated();
-    const cityValues = valuesOfPropertyForm.property_city;
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'property_city') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setCityValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -46,7 +58,7 @@ export const City = ({ control, setValue }: Props) => {
                             placeholder="Город"
                             closeMenuOnSelect={true}
                             isMulti={false}
-                            options={cityValues}
+                            options={cityValues as SelectType[]}
                             onChange={(selectedOptions) => {
                                 handleChange(
                                     selectedOptions as
@@ -55,8 +67,9 @@ export const City = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={cityValues.filter((option) =>
-                                field.value?.includes(option.value)
+                            value={cityValues.filter((option) => (
+                                    field.value?.includes(option.value as string)
+                                )  
                             )}
                         />
                     )}
