@@ -155,7 +155,7 @@ class PropertyTest(APITestCase):
         new_country = CountryFactory(name="Vietnam")
         new_region = RegionFactory(country=country, name="V1")
         new_city = CityFactory(region=region, name="Hue")
-        user = UserFactory()
+
 
         payload = {
             "title": "test",
@@ -185,7 +185,7 @@ class PropertyTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(16):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)

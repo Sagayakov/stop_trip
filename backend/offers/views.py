@@ -9,7 +9,7 @@ from common.filters import GetFilterParams
 from users.models import User
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
-from .models import Advertisement, Country, Region, City
+from .models import Advertisement
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
     PropertyCreateSerializer,
@@ -67,7 +67,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     def get_serializer_class(self):
         if self.action == self.create.__name__:
             subcategories_serializers = {
-                CategoryChoices.PROPERTY.value: PropertyCreateSerializer,
+                CategoryChoices.PROPERTY: PropertyCreateSerializer,
                 CategoryChoices.TRANSPORT: TransportCreateSerializer,
                 CategoryChoices.JOB: JobCreateSerializer,
                 CategoryChoices.SERVICE: ServiceCreateSerializer,
@@ -84,6 +84,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 return subcategories_serializers[category]
             else:
                 raise ValidationError
+
 
         elif self.action == self.update.__name__:
             return AdvertisementUpdateSerializer
