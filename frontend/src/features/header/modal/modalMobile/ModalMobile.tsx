@@ -39,12 +39,14 @@ export const ModalMobile = (props: Props) => {
 
     return (
         <div
-            className="modal-mobile"
-            style={{ display: `${showUserMenu ? 'block' : 'none'}` }}
+            className={`modal-mobile ${showUserMenu ? 'visible' : ''}`}
+            // className="modal-mobile"
+            // style={{ display: `${showUserMenu ? 'block' : 'none'}` }}
             onClick={() => setShowUserMenu(false)}
         >
             <div
-                className="modal-mobile-content"
+                className={`modal-mobile-content ${showUserMenu ? 'visible-content' : ''}`}
+                // className="modal-mobile-content"
                 onClick={(event) => event.stopPropagation()}
             >
                 <div className="menu">

@@ -2,7 +2,7 @@
   opacity: 0;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, opacity 0.6s ease;
+  transition: opacity 0.6s ease;
 
   &.visible {
     opacity: 1;
