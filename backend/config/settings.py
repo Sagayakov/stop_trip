@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # apps
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",
+    "feedback.apps.FeedbackConfig",
 ]
 
 MIDDLEWARE = [
