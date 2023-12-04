@@ -1,2 +1,2 @@
 export { HouseCall } from './HouseCall';
-export { SettingServicePrice } from './SetingServicePrive';
+export { SettingServicePrice } from './SettingServicePrice';
