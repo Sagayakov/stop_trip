@@ -90,3 +90,72 @@ class FoodTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_food_delivery(self):
+        user = UserFactory()
+        food_set = [
+            FoodAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                food_delivery=[True, False][_ % 2],
+                food_establishment=False,
+                food_type=FoodType.READY_FOOD,
+            )
+            for _ in range(2)
+        ]
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"food_delivery": True},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(food_set) // 2)
+
+    def test_food_establishment(self):
+        user = UserFactory()
+        food_set = [
+            FoodAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                food_delivery=True,
+                food_establishment=[True, False][_ % 2],
+                food_type=FoodType.READY_FOOD,
+            )
+            for _ in range(2)
+        ]
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"food_establishment": True},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(food_set) // 2)
+
+    def test_food_type(self):
+        user = UserFactory()
+        food_set = [
+            FoodAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                food_delivery=True,
+                food_establishment=False,
+                food_type=[FoodType.READY_FOOD, FoodType.NON_VEG_FOOD][_ % 2],
+            )
+            for _ in range(2)
+        ]
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"food_type": FoodType.READY_FOOD.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(food_set) // 2)
