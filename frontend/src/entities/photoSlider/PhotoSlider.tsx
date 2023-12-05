@@ -118,7 +118,7 @@ export const PhotoSlider = () => {
                         <ArrowRight color="white" handleClickNext={handleClickNext} />
                     </div>
                     <ShareIcon />
-                    <Like color="#ff3f25" strokeColor="#1C1C1E" />
+                    <Like id={Number(id)} color="#ff3f25" strokeColor="#1C1C1E" />
                     {imageHeight > imageWidth && (
                         <>
                             <img
