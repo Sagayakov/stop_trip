@@ -22,11 +22,7 @@ interface Props {
     control: Control<FormAddAnn, string[]>;
 }
 
-export const AnnouncementTransport = ({
-    register,
-    control,
-    setValue,
-}: Props) => {
+export const AnnouncementTransport = ({ register, control, setValue }: Props) => {
     return (
         <>
             <AnnouncementTransportTypeOfService register={register} />

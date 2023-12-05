@@ -12,8 +12,7 @@ export const AnnouncementRealtyParking = ({ register }: Props) => {
                 <label>
                     <input
                         type="radio"
-                        {...register('Parking')}
-                        value="true"
+                        {...register('property_has_parking')}
                         style={{ display: 'none' }}
                     />
                     <span>Парковка</span>

@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const AnnouncementRealtyHouseType = ({ setValue, control }: Props) => {
-    const optionValues = valuesOfPropertyForm.houseType;
+    const optionValues = valuesOfPropertyForm.property_house_type;
     return (
         <div className="ann-field">
             <h3>Тип дома</h3>
@@ -17,7 +17,7 @@ export const AnnouncementRealtyHouseType = ({ setValue, control }: Props) => {
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="HouseType"
+                name="property_house_type"
                 options={optionValues}
                 placeholder="Тип дома"
                 prefix="filterAnnouncementCategory"

@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const AnnouncementTransportEngineType = ({ setValue, control }: Props) => {
-    const optionValues = valuesOfTransportForm.engineType;
+    const optionValues = valuesOfTransportForm.transport_engine_type;
     return (
         <div className="ann-field">
             <h3>Тип двигателя</h3>
@@ -17,7 +17,7 @@ export const AnnouncementTransportEngineType = ({ setValue, control }: Props) =>
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="transportEngineType"
+                name="transport_engine_type"
                 options={optionValues}
                 placeholder="Тип двигателя"
                 prefix="filterAnnouncementCategory"

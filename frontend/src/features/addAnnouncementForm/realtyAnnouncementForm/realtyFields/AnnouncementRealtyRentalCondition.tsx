@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const AnnouncementRealtyRentalCondition = ({ setValue, control }: Props) => {
-    const optionValues = valuesOfPropertyForm.rentalCondition;
+    const optionValues = valuesOfPropertyForm.property_rental_condition;
     return (
         <div className="ann-field">
             <h3>Условия аренды</h3>
@@ -17,7 +17,7 @@ export const AnnouncementRealtyRentalCondition = ({ setValue, control }: Props) 
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="RentalCondition"
+                name="property_rental_condition"
                 options={optionValues}
                 placeholder="Условия аренды"
                 prefix="filterAnnouncementCategory"

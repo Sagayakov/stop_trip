@@ -17,7 +17,7 @@ export const AnnouncementTaxiType = ({ control, setValue }: Props) => {
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="annoucementTaxi.taxiType"
+                name="taxi_type"
                 placeholder="Вид такси"
                 options={valuesOfTaxiType}
                 prefix="filterAnnouncementCategory"

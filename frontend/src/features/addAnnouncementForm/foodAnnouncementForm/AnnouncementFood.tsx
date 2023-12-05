@@ -13,10 +13,10 @@ interface Props {
 
 export const AnnouncementFood = ({ register, control, setValue }: Props) => {
     return (
-        <div className="ann-food">
+        <>
             <AnnouncementFoodType control={control} setValue={setValue} />
             <AnnouncementFoodDelivery register={register} />
             <AnnouncementFoodEsteblishment register={register} />
-        </div>
+        </>
     );
 };

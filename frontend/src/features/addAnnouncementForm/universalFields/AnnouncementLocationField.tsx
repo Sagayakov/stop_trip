@@ -12,8 +12,8 @@ import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementForm
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
-    markerPosition: LatLng | undefined;
-    setMarkerPosition: React.Dispatch<React.SetStateAction<LatLng | undefined>>;
+    markerPosition: string | undefined;
+    setMarkerPosition: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export const AnnouncementLocationField = ({
@@ -26,9 +26,12 @@ export const AnnouncementLocationField = ({
 
     const handleMapClick = (e: LeafletMouseEvent) => {
         const { lat, lng } = e.latlng;
-        setMarkerPosition(new LatLng(lat, lng));
+        setMarkerPosition(String(lat) + ", " + lng);
     };
-
+    const position = {
+        lat: Number(markerPosition?.split(',')[0]),
+        lng: Number(markerPosition?.split(',')[1])
+    }
     const MapClickHandler = () => {
         useMapEvents({
             click: handleMapClick,
@@ -38,9 +41,7 @@ export const AnnouncementLocationField = ({
 
     useEffect(() => {
         markerPosition &&
-            setValue('announcementLocation.latitude', markerPosition.lat);
-        markerPosition &&
-            setValue('announcementLocation.longitude', markerPosition.lng);
+            setValue('coordinates', markerPosition);
     }, [markerPosition]);
 
     return (
@@ -56,10 +57,10 @@ export const AnnouncementLocationField = ({
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <MapClickHandler />
                 {markerPosition && (
-                    <Marker position={[markerPosition.lat, markerPosition.lng]}>
+                    <Marker position={[position.lat, position.lng]}>
                         <Popup>
-                            Координаты: {markerPosition.lat.toFixed(6)},{' '}
-                            {markerPosition.lng.toFixed(6)}
+                            Координаты: {position.lat.toFixed(6)},{' '}
+                            {position.lng.toFixed(6)}
                         </Popup>
                     </Marker>
                 )}

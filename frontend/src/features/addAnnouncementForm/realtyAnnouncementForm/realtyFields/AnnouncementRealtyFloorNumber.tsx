@@ -15,7 +15,7 @@ export const AnnouncementRealtyFloorNumber = ({ register }: Props) => {
                     autoComplete="off"
                     min={0}
                     placeholder="Этаж"
-                    {...register('FloorNumber')}
+                    {...register('property_floor')}
                 />
             </div>
             <div className="ann-field-err"></div>

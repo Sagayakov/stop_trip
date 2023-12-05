@@ -12,7 +12,7 @@ export const AnnouncementTransportTranspCategory = ({
     setValue,
     control,
 }: Props) => {
-    const optionValues = valuesOfTransportForm.transportationCategory;
+    const optionValues = valuesOfTransportForm.transport_category;
     return (
         <div className="ann-field">
             <h3>Категория транспорта</h3>
@@ -20,7 +20,7 @@ export const AnnouncementTransportTranspCategory = ({
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="transportTransportationCategory"
+                name="transport_category"
                 options={optionValues}
                 placeholder="Выберите категорию"
                 prefix="filterAnnouncementCategory"

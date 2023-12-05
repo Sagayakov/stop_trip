@@ -27,7 +27,7 @@ interface Props {
 }
 
 export const OptionalFields = ({ register, setValue, control, watch }: Props) => {
-    const category = watch('announcementCategory');
+    const category = watch('category');
     const getCategoryValue = (cat: string) => {
         if (category) {
             return category === cat;
@@ -35,60 +35,64 @@ export const OptionalFields = ({ register, setValue, control, watch }: Props) =>
     };
 
     return (
-        <>
-            {getCategoryValue('Транспорт') && (
+        <div className={`optional-fields ${category && 'visible'}`}>
+            {getCategoryValue('transport') && (
                 <AnnouncementTransport
                     control={control}
                     register={register}
                     setValue={setValue}
                 />
             )}
-            {getCategoryValue('Недвижимость') && (
+            {getCategoryValue('property') && (
                 <AnnouncementRealty
                     control={control}
                     register={register}
                     setValue={setValue}
                 />
             )}
-            {getCategoryValue('Документы') && (
+            {getCategoryValue('document') && (
                 <AnnouncementDoc register={register} />
             )}
-            {getCategoryValue('Мероприятия') && (
+            {getCategoryValue('event') && (
                 <AnnouncementEvent register={register} />
             )}
-            {getCategoryValue('Домашняя еда') && (
+            {getCategoryValue('food') && (
                 <AnnouncementFood
                     register={register}
                     control={control}
                     setValue={setValue}
                 />
             )}
-            {getCategoryValue('Работа') && (
+            {getCategoryValue('job') && (
                 <AnnouncementJob
                     control={control}
                     register={register}
                     setValue={setValue}
                 />
             )}
-            {getCategoryValue('Экскурсии') && (
+            {getCategoryValue('excursion') && (
                 <AnnouncementExcursion register={register} />
             )}
-            {getCategoryValue('Покупка/продажа') && (
+            {getCategoryValue('market') && (
                 <AnnouncementMarket register={register} />
             )}
-            {getCategoryValue('Валютные пары') && (
+            {getCategoryValue('exchange_rate') && (
                 <AnnouncementExchange
                     control={control}
                     register={register}
                     setValue={setValue}
                 />
             )}
-            {getCategoryValue('Услуги') && (
+            {getCategoryValue('service') && (
                 <AnnouncementService register={register} />
             )}
-            {getCategoryValue('Такси') && (
-                <AnnouncementTaxi control={control} setValue={setValue} register={register} />
+            {getCategoryValue('taxi') && (
+                <AnnouncementTaxi
+                    control={control}
+                    setValue={setValue}
+                    register={register}
+                />
             )}
-        </>
+        </div>
     );
 };

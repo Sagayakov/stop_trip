@@ -12,7 +12,7 @@ export const AnnouncementExcursionFood = ({ register }: Props) => {
             <label>
                 <input
                     type="checkbox"
-                    {...register('announcementExcursion.food')}
+                    {...register('excursion_food')}
                     style={{ display: 'none' }}
                 />
                 <span>Включена еда</span>

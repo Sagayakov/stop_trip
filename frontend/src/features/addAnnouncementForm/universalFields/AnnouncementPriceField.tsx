@@ -19,15 +19,15 @@ export const AnnouncementPriceField = ({ register, formState }: Props) => {
                 id="ann-field-price"
                 placeholder="Цена"
                 style={
-                    errors?.announcementPrice
+                    errors?.price
                         ? {
                               border: '1px solid red',
                           }
                         : {}
                 }
-                {...register('announcementPrice', { required: true })}
+                {...register('price', { required: true })}
             />
-            <div className="ann-field-err">{errors?.announcementPrice && "Пожалуйста, установите цену"}</div>
+            <div className="ann-field-err">{errors?.price && "Пожалуйста, установите цену"}</div>
         </div>
     );
 };

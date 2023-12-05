@@ -8,13 +8,13 @@ interface Props {
 }
 
 export const AnnoucementTransportDriveType = ({ register }: Props) => {
-    const driveValue = valuesOfTransportForm.drive;
+    const driveValue = valuesOfTransportForm.transport_drive_type;
     return (
         <div className="ann-field">
             <h3>Привод</h3>
             <UniversalRadioGroup
                 register={register}
-                name="transportDrive"
+                name="transport_drive_type"
                 radioValues={driveValue}
             />
             <div className="ann-field-err"></div>

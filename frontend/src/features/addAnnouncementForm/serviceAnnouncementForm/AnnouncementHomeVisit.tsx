@@ -12,7 +12,7 @@ export const AnnouncementHomeVisit = ({ register }: Props) => {
             <label>
                 <input
                     type="checkbox"
-                    {...register('announcementService')}
+                    {...register('service_home_visit')}
                     style={{display: 'none'}}
                 />
                 <span>Выезд на дом</span>
