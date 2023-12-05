@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { Favorite } from '../../shared/ui/icons/icons-tools/Favorite';
 import { getDateOfCreating } from './libr/getDateOfCreating';
+import {
+    useAddFavoriteMutation,
+    useDeleteFromFavoritesMutation,
+    useGetFavoritesQuery,
+ } from '../../app/api/fetchFavorites';
 
 export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
     const {
@@ -13,16 +18,28 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
         category,
         date_create: dateCreate,
     } = cart;
+    const { data } = useGetFavoritesQuery('');
+    const [addFavorite] = useAddFavoriteMutation();
+    const [deleteFromFavorites] = useDeleteFromFavoritesMutation();
+    
     const [addToFav, setAddToFav] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const target = data?.find((el) => el.id === id);
+        setAddToFav(!!target);
+    }, [data, id]);
 
     const style = {
         color: addToFav ? '#FF3F25' : '#f9f9f9',
         strokeColor: addToFav ? '#FF3F25' : '#8F8F8F',
     };
 
-    const handleAddToFavourite = () => {
-        setAddToFav(!addToFav); //потом редьюсер
+    const handleAddToFavorite = () => {
+        setAddToFav(!addToFav);
+        !addToFav
+            ? addFavorite({ id })
+            : deleteFromFavorites({ id });
     };
 
     return (
@@ -45,9 +62,7 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
                         <Favorite
                             color={style.color}
                             strokeColor={style.strokeColor}
-                            addToFavorite={handleAddToFavourite}
-                            // color="#FF3F25"
-                            // strokeColor="#FF3F25"
+                            addToFavorite={handleAddToFavorite}
                         />
                     </span>
                 </div>

@@ -23,7 +23,7 @@ export const fetchAdverts = createApi({
                       ]
                     : [{ type: 'Adverts', id: 'LIST' }],
         }),
-        addAdvert: build.mutation<LastAdvertsTypes[], LastAdvertsTypes>({
+        addAdvert: build.mutation<ProductType, ProductType>({
             query: (body) => ({
                 url: 'api/advertisements/', // сюда вписать адрес для добавления нового объявления
                 method: 'POST',
@@ -40,4 +40,9 @@ export const fetchAdverts = createApi({
     }),
 });
 
-export const { useGetAdvertsQuery, useGetAdvertByIdQuery, useGetFiltersQuery } = fetchAdverts;
+export const {
+    useGetAdvertsQuery,
+    useGetAdvertByIdQuery,
+    useGetFiltersQuery,
+    useAddAdvertMutation,
+} = fetchAdverts;
