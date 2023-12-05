@@ -26,7 +26,7 @@ export const AnyCategory = () => {
                             onClick={() => navigate(`/${category}/${el.id}/`)}
                         >
                             <span onClick={(event) => event.stopPropagation()}>
-                                <Like />
+                                <Like id={el.id}/>
                             </span>
                             <div className="image">
                                 {isMobile ? (
