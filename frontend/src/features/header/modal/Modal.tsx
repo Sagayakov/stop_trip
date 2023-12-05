@@ -12,7 +12,7 @@ export const Modal = () => {
 
     return (
         <div
-            className={`modal ${toggle ? 'visible' : ''}`}
+            className={`modal ${toggle ? 'visible visible-wrapper' : ''}`}
             // className="modal"
             // style={{ display: `${toggle ? 'block' : 'none'}` }}
             onClick={() => dispatch(toggleModalEnter(!toggle))}

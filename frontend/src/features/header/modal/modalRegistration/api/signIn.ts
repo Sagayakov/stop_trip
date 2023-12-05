@@ -18,11 +18,9 @@ export const signIn = async (body: UserEnter) => {
         if ((await responce).ok) {
             if (localStorage.getItem('rememberMe') == 'true') {
                 saveTokensAuthToCookie(data.access, data.refresh);
-                console.log('сохранил токен в куки');
             } else {
                 sessionStorage.setItem('accessToken', data.access);
                 sessionStorage.setItem('refreshToken', data.refresh);
-                console.log('сохранил токен в сешн сторадж');
             }
             return data;
         }
