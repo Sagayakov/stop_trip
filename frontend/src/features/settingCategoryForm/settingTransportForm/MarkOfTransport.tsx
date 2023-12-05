@@ -5,7 +5,9 @@ import {
     SelectOption,
     TypeSettingTransport,
 } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
-import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
@@ -13,8 +15,18 @@ interface Props {
 }
 
 export const MarkOfTransport = ({ setValue, control }: Props) => {
-    const markOfTrasportValues = valuesOfTransportForm.transport_brand;
     const animated = makeAnimated();
+    const { data } = useGetFiltersQuery('');
+    const [markOfTrasportValues, setMarkOfTrasportValues] = useState<SelectType[]>([]);
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'transport_brand') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setMarkOfTrasportValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -49,7 +61,7 @@ export const MarkOfTransport = ({ setValue, control }: Props) => {
                             handleChange(selectedOption as SelectOption | null);
                         }}
                         value={markOfTrasportValues.filter((option) =>
-                            field.value?.includes(option.value)
+                            field.value?.includes(option.value as string)
                         )}
                     />
                 )}

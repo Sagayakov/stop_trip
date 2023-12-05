@@ -15,7 +15,7 @@ export const Amenities = ({ register }: Props) => {
             <h3>Удобства</h3>
             <div className="amenities-setting">
                 {data &&
-                    (data!.params
+                    (data.params
                         .find((el) => el.name === 'property_amenities') as ChoicesType).choices
                         .filter((el) => (el as SelectType).value && (el as SelectType).label)
                         .map((el) => (
@@ -27,8 +27,9 @@ export const Amenities = ({ register }: Props) => {
                                 />
                                 <span>{(el as SelectType).label}</span>
                             </label>
-                        )
-                    )}
+                        )    
+                    )
+                }
             </div>
         </div>
     );

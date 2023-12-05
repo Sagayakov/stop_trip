@@ -5,7 +5,9 @@ import {
     SelectOption,
     TypeSettingTransport,
 } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
-import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     control: Control<TypeSettingTransport, string[]>;
@@ -13,8 +15,18 @@ interface Props {
 }
 
 export const EngineType = ({ control, setValue }: Props) => {
-    const engineTypeValues = valuesOfTransportForm.transport_engine_type;
     const animated = makeAnimated();
+    const { data } = useGetFiltersQuery('');
+    const [engineTypeValues, setEngineTypeValues] = useState<SelectType[]>([]);
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'transport_engine_type') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setEngineTypeValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -55,7 +67,7 @@ export const EngineType = ({ control, setValue }: Props) => {
                             );
                         }}
                         value={engineTypeValues.filter((option) =>
-                            field.value?.includes(option.value)
+                            field.value?.includes(option.value as string)
                         )}
                     />
                 )}

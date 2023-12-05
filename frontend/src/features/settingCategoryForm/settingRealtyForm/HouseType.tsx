@@ -5,7 +5,9 @@ import {
     SelectOption,
     TypeSettingRealty,
 } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
-import { valuesOfPropertyForm } from '../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -13,8 +15,18 @@ interface Props {
 }
 
 export const HouseType = ({ control, setValue }: Props) => {
+    const { data } = useGetFiltersQuery('');
+    const [houseTypeValues, setHouseTypeValues] = useState<SelectType[]>([]);
     const animated = makeAnimated();
-    const houseTypeValues = valuesOfPropertyForm.property_house_type;
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'property_house_type') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setHouseTypeValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -56,7 +68,7 @@ export const HouseType = ({ control, setValue }: Props) => {
                                 );
                             }}
                             value={houseTypeValues.filter((option) =>
-                                field.value?.includes(option.value)
+                                field.value?.includes(option.value as string)
                             )}
                         />
                     )}
