@@ -1,16 +1,16 @@
-import { FormState, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { useAppSelector } from '../../../../../../app/store/hooks';
 import '../../libr/inputEmail.scss';
 import { AuthData } from '../../libr/EnterType';
 
 interface Props {
-    formState: FormState<AuthData>;
+    errors: FieldErrors<AuthData>;
     register: UseFormRegister<AuthData>;
 }
 
-export const InputEmail = ({ formState, register }: Props) => {
-    const { errors } = formState;
+export const InputEmail = ({ errors, register }: Props) => {
     const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
+
     return (
         <>
             <input

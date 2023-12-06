@@ -12,12 +12,12 @@ export const YearOfProduction = ({ register }: Props) => {
             <div className="setting-yearOfProduction">
                 <input
                     type="number"
-                    {...register('yearOfProduction.min')}
+                    {...register('transport_year_of_production.min')}
                     placeholder="От"
                 />
                 <input
                     type="number"
-                    {...register('yearOfProduction.max')}
+                    {...register('transport_year_of_production.max')}
                     placeholder="До"
                 />
             </div>

@@ -1,14 +1,14 @@
 export const valuesOfTaxiForm = {
-    unitOfMeasurement: [
-        { label: 'Км', value: 'Км' },
-        { label: 'Час', value: 'Час' },
-        { label: 'Маршрут', value: 'Маршрут' },
+    taxi_unit: [
+        { label: 'Км', value: 'km' },
+        { label: 'Час', value: 'hour' },
+        { label: 'Маршрут', value: 'route' },
     ],
-    typeOfTaxi: [
-        { label: 'Эконом', value: 'Эконом' },
-        { label: 'Комфорт', value: 'Комфорт' },
-        { label: 'Бизнес', value: 'Бизнес' },
-        { label: 'Универсал', value: 'Универсал' },
-        { label: 'Минивэн', value: 'Минивэн' },
+    taxi_type: [
+        { label: 'Эконом', value: 'economy' },
+        { label: 'Комфорт', value: 'comfort' },
+        { label: 'Бизнес', value: 'business' },
+        { label: 'Универсал', value: 'station_wagon' },
+        { label: 'Минивэн', value: 'minivan' },
     ],
 };

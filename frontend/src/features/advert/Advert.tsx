@@ -16,12 +16,12 @@ export const Advert = () => {
     const { data } = useGetAdvertByIdQuery(id!);
     const [date, setDate] = useState<Date | null>(null);
     console.log(data);
-    const { isMobile } = useMatchMedia()
+    const { isMobile } = useMatchMedia();
 
     useEffect(() => {
         if (data) {
-            const date = getDate(data.date_create);
-            setDate(date);
+            const dateCreate = getDate(data.date_create);
+            setDate(dateCreate);
         }
     }, [data]);
 
@@ -48,14 +48,14 @@ export const Advert = () => {
                                 </div>
                                 <p>{data.description}</p>
                             </div>
-                            <AdvertLocation data={data} />
+                            {data.coordinates && <AdvertLocation data={data} />}
                         </section>
                         <section className="owner-info">
                             <div className="price-block">
                                 Сутки{' '}
                                 <span className="price">
                                     {data.price
-                                        ? `$${data.price}`
+                                        ? `₹${data.price}`
                                         : 'Договорная'}
                                 </span>
                             </div>
@@ -90,10 +90,11 @@ export const Advert = () => {
                                 {data.price ? 'Сутки' : ''}
                                 <span className="price">
                                     {data.price
-                                        ? `$${data.price}`
+                                        ? `₹${data.price}`
                                         : 'Цена договорная'}
                                 </span>
                             </div>
+                            <h1 className='full-title'>{data.title}</h1>
                             <AdvertOwner />
                             <button className="call-button">Позвонить</button>
                             <button className="write-button">Написать</button>
@@ -112,7 +113,7 @@ export const Advert = () => {
                                 </div>
                                 <p>{data.description}</p>
                             </div>
-                            <AdvertLocation data={data} />
+                            {data.coordinates && <AdvertLocation data={data} />}
                         </section>
                     </div>
                 </div>

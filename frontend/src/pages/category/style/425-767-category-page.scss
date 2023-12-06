@@ -106,10 +106,13 @@
                         .card-description {
                             display: none;
                         }
+                        .author {
+                            gap: 5px;
+                        }
                         .time {
                             position: relative;
                             bottom: 23px;
-                            left: 185px;
+                            left: 285px;
                             width: 45%;
                         }
                     }

@@ -6,7 +6,7 @@ interface Props {
     register: UseFormRegister<AuthRegistration>;
 }
 
-export const InputChechbox = ({ register }: Props) => {
+export const InputCheckbox = ({ register }: Props) => {
     return (
         <div className="user-agreement">
             <label htmlFor="userAgreement" className="form-checkbox">
@@ -23,7 +23,7 @@ export const InputChechbox = ({ register }: Props) => {
                             href="#"
                             target="_blank"
                             onClick={(event) => event.stopPropagation()}
-                            className="user-argeement-text"
+                            className="user-agreement-text"
                         >
                             Пользовательского соглашения
                         </a>

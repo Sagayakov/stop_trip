@@ -17,13 +17,31 @@
         padding: 10px;
         border: none;
     }
+    textarea {
+        width: 100%;
+        min-height: 60px;
+    }
     font-family: var(--font-inter);
+    .typeOfService,
+    .propertyСity,
+    .propertyDistrict,
+    .propertyCity,
+    .houseType,
+    .floor,
     .type-of-property,
+    .rentalCondition,
     .setting-price,
+    .amenities,
     .total-area,
     .living-space,
+    .sleepingPlaces,
+    .balcony,
+    .hasFurniture,
     .rooms-quantity,
+    .bathroom-quantity,
     .bathroom,
+    .hasParking,
+    .prepayment,
     .realtyComission {
         margin-bottom: 24px;
         h3 {
@@ -36,12 +54,30 @@
     .total-area-inputs,
     .living-space-inputs,
     .setting-rooms-quantity,
+    .balcony-setting,
+    .select-sleepingPlaces,
+    .setting-floor,
+    .setting-hasFurniture,
+    .setting-hasParking,
     .bathroom-setting,
     .select-realtyComission {
         display: flex;
         justify-content: space-between;
     }
-    .type-of-property {
+    .amenities-setting {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+    }
+    .type-of-property,
+    .propertyСity,
+    .typeOfService,
+    .houseType,
+    .prepayment,
+    .propertyCity,
+    .propertyDistrict,
+    .rentalCondition,
+    .propertyHouseType {
         margin-bottom: 24px;
         h3 {
             margin-bottom: 8px;
@@ -282,13 +318,17 @@
 @media (min-width: 768px) and (max-width: 1023px) {
     .filter-realty-form {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 120px 80px 80px 70px;
         grid-template-areas:
-            'price type'
-            'area check'
-            'liv-space check'
-            'comission somission'
+            'service condition'
+            'city district'
+            'houseType floor'
+            'area living-space'
+            'room sleep'
+            'bath bathqty'
+            'balcony parking'
+            'comission furniture'
+            'price amenities'
+            'prepayment prepayment'
             'send btn-reset';
 
         input[type='number'] {
@@ -304,20 +344,26 @@
             height: auto;
         }
         .type-of-property,
+        .typeOfService,
+        .propertyCity,
+        .propertyDistrict,
+        .houseType,
+        .rentalCondition,
+        .amenities,
+        .sleepingPlaces,
+        .balcony,
+        .hasFurniture,
+        .bathroom-quantity,
+        .realtyComission,
         .setting-price,
         .total-area,
         .living-space,
         .rooms-quantity,
-        .bathroom,
-        .balcony,
-        .only-with-photo {
+        .bathroom{
             width: 80%;
         }
         .realtyComission {
             grid-area: comission;
-        }
-        .type-of-property {
-            grid-area: type;
         }
         .setting-price {
             grid-area: price;
@@ -326,10 +372,54 @@
             grid-area: area;
         }
         .living-space {
-            grid-area: liv-space;
+            grid-area: living-space;
         }
-        .checkboxes {
-            grid-area: check;
+        .typeOfService{
+            grid-area: service;
+        }
+        .propertyСity{
+            grid-area: city;
+        }
+        .propertyDistrict{
+            grid-area: district;
+        }
+        .houseType{
+            grid-area: houseType;
+        }
+        .floor {
+            grid-area: floor;
+        }
+        .rentalCondition{
+            grid-area: condition;
+        }
+        .rooms-quantity{
+            grid-area: room;
+        }
+        .amenities{
+            grid-area: amenities;
+            min-height: 80px;
+        }
+        .sleepingPlaces{
+            grid-area: sleep;
+        }
+        .hasFurniture{
+            grid-area: furniture;
+        }
+        .bathroom{
+            grid-area: bath;
+        }
+        .bathroom-quantity{
+            grid-area: bathqty;
+        }
+        .balcony {
+            grid-area: balcony;
+        }
+        .hasParking {
+            grid-area: parking;
+        }
+        .prepayment {
+            grid-area: prepayment;
+            width: 91.5%;
         }
         input[type='submit'] {
             grid-area: send;
@@ -341,11 +431,6 @@
             width: 85%;
             height: 45px;
             margin-top: 10px;
-            width: 82%;
-        }
-        .checkboxes {
-            position: relative;
-            bottom: 43px;
         }
     }
 }

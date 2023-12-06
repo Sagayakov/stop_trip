@@ -1,9 +1,13 @@
 import { Control, Controller, UseFormSetValue } from 'react-hook-form';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { SelectOption, TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
-import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
-
+import {
+    SelectOption,
+    TypeSettingTransport
+} from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
@@ -11,8 +15,18 @@ interface Props {
 }
 
 export const TransportationCategory = ({ setValue, control }: Props) => {
-    const transportationCategory = valuesOfTransportForm.transportationCategory;
     const animated = makeAnimated();
+    const { data } = useGetFiltersQuery('');
+    const [categoryValues, setCategoryValues] = useState<SelectType[]>([]);
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'transport_category') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setCategoryValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (selectedOptions: SelectOption | SelectOption[] | null) => {
         if (selectedOptions) {
@@ -22,7 +36,7 @@ export const TransportationCategory = ({ setValue, control }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('transportationCategory', selectedValues);
+            setValue('transport_category', selectedValues);
         }
     };
 
@@ -30,7 +44,7 @@ export const TransportationCategory = ({ setValue, control }: Props) => {
         <div className="transportationCategory">
             <h3>Категория транспорта</h3>
             <Controller
-                name="transportationCategory"
+                name="transport_category"
                 control={control}
                 render={({ field }) => (
                     <Select
@@ -41,7 +55,7 @@ export const TransportationCategory = ({ setValue, control }: Props) => {
                         placeholder="Выберите категорию"
                         closeMenuOnSelect={false}
                         isMulti={true}
-                        options={transportationCategory}
+                        options={categoryValues}
                         onChange={(selectedOptions) => {
                             handleChange(
                                 selectedOptions as
@@ -50,8 +64,8 @@ export const TransportationCategory = ({ setValue, control }: Props) => {
                                     | null
                             );
                         }}
-                        value={transportationCategory.filter((option) =>
-                            field.value?.includes(option.value)
+                        value={categoryValues.filter((option) =>
+                            field.value?.includes(option.value as string)
                         )}
                     />
                 )}

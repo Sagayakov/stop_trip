@@ -12,7 +12,8 @@ export const BreadCrumbs = ({ data }: { data: ProductType }) => {
     const categorySubType: keyof typeof categorySubTypesDictionary | null =
         getCategorySubType(data);
     const { isMobile } = useMatchMedia();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
     return (
         <div className="bread-crumbs">
             {isMobile ? (
@@ -21,7 +22,7 @@ export const BreadCrumbs = ({ data }: { data: ProductType }) => {
                         style={{ cursor: 'pointer', marginRight: '16px' }}
                         handleClickPrev={() => navigate(-1)}
                     />
-                    {<h1>{data.title}</h1>}
+                    {<h1 onClick={() => navigate(-1)}>{data.title}</h1>}
                 </>
             ) : (
                 <>

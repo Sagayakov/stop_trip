@@ -5,7 +5,9 @@ import {
     SelectOption,
     TypeSettingTaxi,
 } from '../../../widgets/settingForm/settingTaxi/libr/TypeSettingTaxi';
-import { valuesOfTaxiForm } from '../../../widgets/settingForm/settingTaxi/libr/valuesOfTaxiForm';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTaxi>;
@@ -14,7 +16,17 @@ interface Props {
 
 export const TypeOfTaxi = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const valuesTypeOfTaxi = valuesOfTaxiForm.typeOfTaxi;
+    const { data } = useGetFiltersQuery('');
+    const [typeValues, setTypeValues] = useState<SelectType[]>([]);
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'taxi_type') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setTypeValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -26,7 +38,7 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('typeOfTaxi', selectedValues);
+            setValue('taxi_type', selectedValues);
         }
     };
 
@@ -35,7 +47,7 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
             <div className="typeOfTaxi">
                 <h3>Тип такси</h3>
                 <Controller
-                    name="typeOfTaxi"
+                    name="taxi_type"
                     control={control}
                     render={({ field }) => (
                         <Select
@@ -46,7 +58,7 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
                             placeholder="Тип такси"
                             closeMenuOnSelect={false}
                             isMulti={true}
-                            options={valuesTypeOfTaxi}
+                            options={typeValues}
                             onChange={(selectedOptions) => {
                                 handleChange(
                                     selectedOptions as
@@ -55,8 +67,8 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={valuesTypeOfTaxi.filter((option) =>
-                                field.value?.includes(option.value)
+                            value={typeValues.filter((option) =>
+                                field.value?.includes(option.value as string)
                             )}
                         />
                     )}

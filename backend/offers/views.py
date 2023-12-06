@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from common.filters import GetFilterParams
 from users.models import User
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
@@ -29,7 +30,7 @@ from .serializers import (
 
 
 @extend_schema(tags=["Advertisement"])
-class AdvertisementModelViewSet(ModelViewSet):
+class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     """Объявления."""
 
     custom_permission_classes = {
@@ -38,8 +39,10 @@ class AdvertisementModelViewSet(ModelViewSet):
         "destroy": [OwnerOrAdminPermission],
         "list": [AllowAny],
         "retrieve": [AllowAny],
+        "get_filter_params": [AllowAny],
     }
     filterset_class = AdvertisementFilter
+    # TODO добавить пагинацию
 
     def get_queryset(self):
         queryset = Advertisement.objects.filter(is_published=True)

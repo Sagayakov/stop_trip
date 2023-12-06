@@ -32,6 +32,9 @@
         &:hover {
             background-color: #02c66e;
         }
+        &:disabled {
+            background-color: var(--grey-2);
+        }
     }
     .enter-with {
         width: 258px;

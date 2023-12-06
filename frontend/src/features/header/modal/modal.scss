@@ -1,4 +1,32 @@
 .modal {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.6s ease, max-height 0s linear 0.6s;
+
+    &.visible {
+        opacity: 1;
+        max-height: 100vh;
+        transition: opacity 0.6s ease, max-height 1s ease;
+
+        .modal-wrapper {
+            height: 0;
+            transition: height 1s ease 0.6s;
+        }
+
+        &.visible-wrapper {
+            .modal-wrapper {
+                height: auto;
+            }
+        }
+    }
+}
+
+.modal-wrapper {
+    overflow: hidden;
+}
+
+.modal {
     width: 100vw;
     height: 100vh;
     z-index: 10;
@@ -53,8 +81,8 @@
 @media (max-width: 1439px) {
     .modal {
         .modal-wrapper {
-            left: 53%;
-            width: 40%;
+            left: 54.8%;
+            width: 38%;
         }
     }
 }
@@ -62,8 +90,8 @@
 @media (max-width: 1200px) {
     .modal {
         .modal-wrapper {
-            left: 43%;
-            width: 50%;
+            left: 53%;
+            width: 40%;
         }
     }
 }
@@ -71,8 +99,8 @@
 @media (max-width: 1000px) {
     .modal {
         .modal-wrapper {
-            left: 33%;
-            width: 60%;
+            left: 38%;
+            width: 55%;
         }
     }
 }

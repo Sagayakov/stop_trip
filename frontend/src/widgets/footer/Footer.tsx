@@ -7,7 +7,7 @@ import './footer.scss';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 
 export const Footer = () => {
-    const { isMobile } = useMatchMedia()
+    const { isMobile } = useMatchMedia();
 
     return (
         <footer>

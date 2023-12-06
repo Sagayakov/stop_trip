@@ -1,32 +1,35 @@
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
     watch: UseFormWatch<TypeSettingTransport>;
 }
 export const TypeOfTransport = ({ register }: Props) => {
+    const { data } = useGetFiltersQuery('');
 
     return (
         <div className="typeOfTransport">
             <h3>Тип транспорта</h3>
             <div className="setting-typeOfTransport">
-                <label className="form-checkbox">
-                    <input
-                        type="checkbox"
-                        {...register('typeOfTransport')}
-                        value="Наземный"
-                    />
-                    <span>Наземный</span>
-                </label>
-                <label className="form-checkbox">
-                    <input
-                        type="checkbox"
-                        {...register('typeOfTransport')}
-                        value="Водный"
-                    />
-                    <span>Водный</span>
-                </label>
+                {data &&
+                    (data.params
+                        .find((el) => el.name === 'transport_type') as ChoicesType).choices
+                        .filter((el) => (el as SelectType).value && (el as SelectType).label)
+                        .map((el) => (
+                            <label className="form-checkbox" key={(el as SelectType).label}>
+                                <input
+                                    type="checkbox"
+                                    value={(el as SelectType).value || ''}
+                                    {...register('transport_type')}
+                                />
+                                <span>{(el as SelectType).label}</span>
+                            </label>
+                        )    
+                    )
+                }
             </div>
         </div>
     );

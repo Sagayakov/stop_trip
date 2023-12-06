@@ -114,7 +114,7 @@ class AdvertisementAdmin(ModelAdmin):
         ),
         (
             _("Услуги"),
-            {"classes": ("collapse",), "fields": ("home_visit",)},
+            {"classes": ("collapse",), "fields": ("service_home_visit",)},
         ),
         (
             _("Валютные пары"),
@@ -219,7 +219,7 @@ class AdvertisementAdmin(ModelAdmin):
                     "start_date",
                     "end_date",
                     "is_online",
-                    "home_visit",
+                    "service_home_visit",
                     "proposed_currency",
                     "exchange_for",
                     "exchange_rate",

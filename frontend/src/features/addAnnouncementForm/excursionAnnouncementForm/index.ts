@@ -1,0 +1,1 @@
+export { AnnouncementExcursion } from './AnnouncementExcursion'

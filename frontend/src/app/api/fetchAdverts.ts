@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { LastAdvertsTypes } from './types/lastAdvertsTypes';
 import { url } from '../../shared/const/url';
 import { ProductType } from '../../pages/advertPage/libr/types';
+import { FiltersType } from './types/filtersType';
 
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
@@ -10,7 +11,7 @@ export const fetchAdverts = createApi({
     endpoints: (build) => ({
         getAdverts: build.query<LastAdvertsTypes[], string>({
             //дженериками передаем тип того что собираемся получить, а второй тип это то что передаем в качестве параметра при вызове хука, в данном случае пустая строка
-            query: () => 'api/advertisements/',
+            query: (filterQuery = '') => `api/advertisements/${filterQuery.replace(/%2C/g, '.')}`, //заменяет код запятой из строки
             providesTags: (result) =>
                 result // понадобится когда можно будет добавлять объявления
                     ? [
@@ -22,7 +23,7 @@ export const fetchAdverts = createApi({
                       ]
                     : [{ type: 'Adverts', id: 'LIST' }],
         }),
-        addAdvert: build.mutation<LastAdvertsTypes[], LastAdvertsTypes>({
+        addAdvert: build.mutation<ProductType, ProductType>({
             query: (body) => ({
                 url: 'api/advertisements/', // сюда вписать адрес для добавления нового объявления
                 method: 'POST',
@@ -33,7 +34,15 @@ export const fetchAdverts = createApi({
         getAdvertById: build.query<ProductType, string>({
             query: (id) => `api/advertisements/${id}/`,
         }),
+        getFilters: build.query<FiltersType, string>({
+            query: () => `api/advertisements/get_filter_params/`,
+        }),
     }),
 });
 
-export const { useGetAdvertsQuery, useGetAdvertByIdQuery } = fetchAdverts;
+export const {
+    useGetAdvertsQuery,
+    useGetAdvertByIdQuery,
+    useGetFiltersQuery,
+    useAddAdvertMutation,
+} = fetchAdverts;

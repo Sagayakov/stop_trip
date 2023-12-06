@@ -6,6 +6,7 @@ import { setIsCheckMailModalOpenSlice } from '../../features/header/model/modalA
 import { setIsEnterSlice } from '../../features/header/model/modalAuth/reducers/isEnter';
 import { setIsResetPasswordModalOpenSlice } from '../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
 import { toggleModalSlice } from '../../features/header/model/modalAuth/reducers/toggleModal';
+import { fetchFavorites } from '../../app/api/fetchFavorites';
 
 
 const setupStore = () =>
@@ -19,9 +20,12 @@ const setupStore = () =>
                 setIsResetPasswordModalOpenSlice.reducer,
             setLoading: setLoadingSlice,
             [fetchAdverts.reducerPath]: fetchAdverts.reducer,
+            [fetchFavorites.reducerPath]: fetchFavorites.reducer,
         },
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(fetchAdverts.middleware), //getDefaultMiddleWare это функция, которая вернет массив, и в этот массив мы добавляем еще миддлвееры которые лежат в goodsApi
+            getDefaultMiddleware()
+                .concat(fetchAdverts.middleware)
+                .concat(fetchFavorites.middleware), //getDefaultMiddleWare это функция, которая вернет массив, и в этот массив мы добавляем еще миддлвееры которые лежат в goodsApi
     });
 
 export const store = setupStore();

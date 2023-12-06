@@ -18,11 +18,11 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
             headers: headersConfig,
             body: JSON.stringify({ token: accessToken }),
         });
-        
+
         if (res.ok) {
             dispatch(setIsAuth(true));
+            localStorage.setItem('isAuth', 'true')
         } else {
-            console.log('401, пошел за новым access');
             try {
                 const response = await fetch(`${url}/api/auth/jwt/refresh/`, {
                     method: 'POST',
@@ -32,13 +32,14 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
                 if(response.ok){
                     const data = await response.json();
                     await dispatch(setIsAuth(true))
+                    localStorage.setItem('isAuth', 'true')
                     if (localStorage.getItem('rememberMe')) {
                         saveTokensAuthToCookie(data.access);
-                        console.log('сохранил токен в куки');
                     } else {
                         sessionStorage.setItem('accessToken', data.access);
-                        console.log('сохранил токен в сешн сторадж');
                     }
+                }else {
+                    localStorage.removeItem('isAuth')
                 }
             } catch (error) {
                 console.log(error);

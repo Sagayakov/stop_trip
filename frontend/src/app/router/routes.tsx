@@ -2,10 +2,11 @@ import { ComponentType } from 'react';
 import { MainPage } from '../../pages/main/MainPage';
 import { categories } from '../../shared/const/categories';
 import { CategoryPage } from '../../pages/category/CategoryPage';
-import { AddAdvertPage } from '../../pages/add-advert/AddAdvertPage';
 import { ActivateAccount } from '../../pages/activateAccount/ActivateAccount';
 import { ResetPassword } from '../../pages/resetPassword/ResetPassword';
 import { AdvertPage } from '../../pages/advertPage/AdvertPage';
+import { AddAnnouncementPage } from '../../pages/addAnnouncement/AddAnnouncementPage'
+import { PageNotFound } from '../../pages/notFound/PageNotFound';
 
 interface Route {
     path: string;
@@ -13,7 +14,7 @@ interface Route {
 }
 
 const categoryRoutes = Object.keys(categories).map((el) => ({
-    path: `/${el}`,
+    path: `/${el}/`,
     component: CategoryPage,
 }));
 
@@ -22,12 +23,14 @@ export const publicRoutes: Route[] = [
     { path: '/activate/:uid/:token', component: ActivateAccount },
     { path: '/email/reset/confirm/:uid/:token', component: ResetPassword },
     { path: '/:category/:id', component: AdvertPage },
+    { path: '/404', component: PageNotFound },
     ...categoryRoutes,
 ];
 
 export const privateRoutes: Route[] = [
     { path: '/', component: MainPage },
-    { path: '/add-advert', component: AddAdvertPage },
+    { path: '/add-announcement', component: AddAnnouncementPage },
     { path: '/:category/:id', component: AdvertPage },
+    { path: '/404', component: PageNotFound },
     ...categoryRoutes,
 ];

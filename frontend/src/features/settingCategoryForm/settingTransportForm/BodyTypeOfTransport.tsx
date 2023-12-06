@@ -5,7 +5,9 @@ import {
     SelectOption,
     TypeSettingTransport,
 } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
-import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     control: Control<TypeSettingTransport, string[]>;
@@ -13,8 +15,18 @@ interface Props {
 }
 
 export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
-    const bodyTypeValue = valuesOfTransportForm.bodyType;
+    const { data } = useGetFiltersQuery('');
+    const [bodyTypesValues, setBodyTypesValues] = useState<SelectType[]>([]);
     const animated = makeAnimated();
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'transport_body_type') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setBodyTypesValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -26,7 +38,7 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('bodyType', selectedValues);
+            setValue('transport_body_type', selectedValues);
         }
     };
 
@@ -34,7 +46,7 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
         <div className="bodyType">
             <h3>Тип кузова</h3>
             <Controller
-                name="bodyType"
+                name="transport_body_type"
                 control={control}
                 render={({ field }) => (
                     <Select
@@ -45,7 +57,7 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
                         placeholder="Тип кузова"
                         closeMenuOnSelect={false}
                         isMulti={true}
-                        options={bodyTypeValue}
+                        options={bodyTypesValues}
                         onChange={(selectedOptions) => {
                             handleChange(
                                 selectedOptions as
@@ -54,8 +66,8 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
                                     | null
                             );
                         }}
-                        value={bodyTypeValue.filter((option) =>
-                            field.value?.includes(option.value)
+                        value={bodyTypesValues.filter((option) =>
+                            field.value?.includes(option.value as string)
                         )}
                     />
                 )}

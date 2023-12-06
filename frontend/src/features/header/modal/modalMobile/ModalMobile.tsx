@@ -34,16 +34,19 @@ export const ModalMobile = (props: Props) => {
         clearTokensFromCookies();
         sessionStorage.clear();
         localStorage.removeItem('rememberMe');
+        localStorage.removeItem('isAuth')
     };
 
     return (
         <div
-            className="modal-mobile"
-            style={{ display: `${showUserMenu ? 'block' : 'none'}` }}
+            className={`modal-mobile ${showUserMenu ? 'visible' : ''}`}
+            // className="modal-mobile"
+            // style={{ display: `${showUserMenu ? 'block' : 'none'}` }}
             onClick={() => setShowUserMenu(false)}
         >
             <div
-                className="modal-mobile-content"
+                className={`modal-mobile-content ${showUserMenu ? 'visible-content' : ''}`}
+                // className="modal-mobile-content"
                 onClick={(event) => event.stopPropagation()}
             >
                 <div className="menu">

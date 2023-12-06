@@ -11,7 +11,9 @@ import {
     SelectOption,
     TypeSettingTransport,
 } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
-import { valuesOfTransportForm } from '../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -21,11 +23,21 @@ interface Props {
 }
 
 export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
-    const markOfTrasport = watch('mark');
+    const markOfTrasport = watch('transport_brand');
 
     const animated = makeAnimated();
-    const modelOfTransportValues = valuesOfTransportForm.model;
-    const disabled = markOfTrasport ? false : true;
+    const disabled = markOfTrasport && markOfTrasport.length ? false : true;
+    const { data } = useGetFiltersQuery('');
+    const [modelOfTransportValues, setModelOfTransportValues] = useState<SelectType[]>([]);
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'transport_model') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setModelOfTransportValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -37,7 +49,7 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean);
-            setValue('model', selectedValues);
+            setValue('transport_model', selectedValues);
         }
     };
 
@@ -45,7 +57,7 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
         <div className="model">
             <h3>Модель</h3>
             <Controller
-                name="model"
+                name="transport_model"
                 control={control}
                 render={({ field }) => (
                     <Select
@@ -61,7 +73,7 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
                             handleChange(selectedOption as SelectOption | null);
                         }}
                         value={modelOfTransportValues.filter((option) =>
-                            field.value?.includes(option.value)
+                            field.value?.includes(option.value as string)
                         )}
                     />
                 )}

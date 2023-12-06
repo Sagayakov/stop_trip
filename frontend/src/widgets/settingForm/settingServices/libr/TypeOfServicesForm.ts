@@ -1,5 +1,5 @@
 export interface TypeOfServicesForm {
-    houseCall: boolean
+    service_home_visit: boolean
     price: Price
 }
 

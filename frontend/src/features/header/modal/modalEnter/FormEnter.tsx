@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../../../app/store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { Google } from '../../../../shared/ui/icons/icons-tools/Google';
 import { Vk } from '../../../../shared/ui/icons/icons-tools/Vk';
 import { CheckboxRememberMe } from './inputsEnter/CheckboxRememberMe';
@@ -17,18 +17,25 @@ import { resetErrors } from '../../../../features/header/model/modalAuth/reducer
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
-    const { register, formState, handleSubmit, reset, control } =
-        useForm<AuthData>({
-            mode: 'onBlur',
-        });
+    const {
+        register,
+        formState: { errors, isValid },
+        handleSubmit,
+        reset,
+        control,
+    } = useForm<AuthData>({
+        mode: 'onBlur',
+    });
     const dispatch = useAppDispatch();
-
+    const enterError = useAppSelector((state) => state.setIsAuth.errorEnter)
 
     const onsubmit: SubmitHandler<AuthData> = async (submitData) => {
-        await dispatch(setLoading(true))
+        await dispatch(setLoading(true));
         await submitEntForm(submitData, dispatch, reset);
-        await dispatch(resetErrors())
-        await dispatch(setLoading(false))
+        if(enterError !== null){
+            await dispatch(resetErrors());
+        }
+        await dispatch(setLoading(false));
     };
 
     const openResetPasswordModal = () => {
@@ -42,9 +49,9 @@ export const FormEnter = () => {
             onSubmit={handleSubmit(onsubmit)}
             autoComplete="false"
         >
-            <InputEmail formState={formState} register={register} />
+            <InputEmail errors={errors} register={register} />
             <InputPassword
-                formState={formState}
+                errors={errors}
                 togglePass={togglePass}
                 setTogglePass={setTogglePass}
                 control={control}
@@ -53,7 +60,7 @@ export const FormEnter = () => {
                 Забыли пароль?
             </div>
             <CheckboxRememberMe register={register} />
-            <InputSubmit />
+            <InputSubmit isValid={isValid} />
             <div className="enter-with">
                 Войти с помощью
                 <div className="google">
