@@ -13,17 +13,9 @@ export const AnnouncementTransportEngineCapacity = ({ register }: Props) => {
                     type="text"
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
-                    {...register('transportEngineСapacity.min')}
+                    {...register('transport_engine_volume')}
                     min="0"
-                    placeholder="От"
-                />
-                <input
-                    type="text"
-                    pattern="[0-9]*[.,]?[0-9]+"
-                    autoComplete="off"
-                    {...register('transportEngineСapacity.max')}
-                    min="0.5"
-                    placeholder="До"
+                    placeholder="Объем"
                 />
             </div>
             <div className="ann-field-err"></div>

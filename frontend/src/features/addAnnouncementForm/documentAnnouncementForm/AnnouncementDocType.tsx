@@ -14,7 +14,7 @@ export const AnnouncementDocType = ({ register }: Props) => {
                 minLength={1}
                 maxLength={50}
                 placeholder="Тип документа"
-                {...register('announcementDoc.docType', { required: true })}
+                {...register('document_type')}
             />
             <div className="ann-field-err"></div>
         </div>

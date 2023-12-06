@@ -15,16 +15,8 @@ export const AnnouncementRealtyTotalArea = ({ register }: Props) => {
                     autoComplete="off"
                     min={0}
                     placeholder="Площадь"
-                    {...register('TotalArea.min')}
+                    {...register('property_area')}
                 />
-                {/* <input
-                    type="text"
-                    pattern="[0-9]*[.,]?[0-9]+"
-                    autoComplete="off"
-                    min={0}
-                    placeholder="До"
-                    {...register('TotalArea.max')}
-                /> */}
             </div>
             <div className="ann-field-err"></div>
         </div>

@@ -1,7 +1,6 @@
-import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
 import { Control, UseFormSetValue } from 'react-hook-form';
+import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-import { exchangeValues } from './libr/exchangeValues';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -9,7 +8,12 @@ interface Props {
 }
 
 export const AnnouncementExchangeName = ({ setValue, control }: Props) => {
-    const exchangeNameValues = exchangeValues.name;
+    const exchangeNameValues = [
+        { label: 'Доллар', value: 'Доллар' },
+        { label: 'Рубль', value: 'Рубль' },
+        { label: 'Рупий', value: 'Рупий' },
+        { label: 'Евро', value: 'Евро' },
+    ];
 
     return (
         <div className="ann-field">
@@ -18,7 +22,7 @@ export const AnnouncementExchangeName = ({ setValue, control }: Props) => {
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="announcementExchange.name"
+                name="proposed_currency"
                 options={exchangeNameValues}
                 placeholder="Предлагаемая валюта"
                 prefix="filterAnnouncementCategory"

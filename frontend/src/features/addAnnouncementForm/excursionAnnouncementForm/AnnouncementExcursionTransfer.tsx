@@ -12,7 +12,7 @@ export const AnnouncementExcursionTransfer = ({ register }: Props) => {
             <label>
                 <input
                     type="checkbox"
-                    {...register('announcementExcursion.transfer')}
+                    {...register('excursion_transfer')}
                     style={{ display: 'none' }}
                 />
                 <span>Трансфер</span>

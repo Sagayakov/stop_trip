@@ -6,12 +6,12 @@ interface Props {
     register: UseFormRegister<FormAddAnn>;
 }
 export const AnnouncementRealtyServise = ({ register }: Props) => {
-    const radioValues = ['Аренда', 'Продажа'];
+    const radioValues = [{label: 'Продажа', value: 'Продажа'}, {label: 'Аренда', value: 'Аренда'}];
     return (
         <div className="ann-field">
             <h3>Тип услуги</h3>
             <UniversalRadioGroup
-                name="transportTypeOfService"
+                name="property_type_of_service"
                 radioValues={radioValues}
                 register={register}
             />

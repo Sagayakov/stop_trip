@@ -11,7 +11,7 @@ export const AnnouncementEventEnd = ({ register }: Props) => {
             <h3>Дата начала:</h3>
             <input
                 type="date"
-                {...register('announcementEvent.end', { required: true })}
+                {...register('end_date', { required: true })}
             />
             <div className="ann-field-err"></div>
         </div>

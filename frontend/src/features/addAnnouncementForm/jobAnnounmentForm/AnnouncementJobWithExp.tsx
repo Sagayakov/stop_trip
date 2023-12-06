@@ -12,7 +12,7 @@ export const AnnouncementJobWithExp = ({ register }: Props) => {
             <label>
                 <input
                     type="checkbox"
-                    {...register('announcementJob.withExp')}
+                    {...register('job_experience')}
                     style={{display: 'none'}}
                 />
                 <span>С опытом</span>

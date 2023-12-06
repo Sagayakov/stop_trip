@@ -6,8 +6,12 @@ import {
 
 interface Props<T extends FieldValues> {
     register: UseFormRegister<T>;
-    checkboxValues: string[] | number[];
+    checkboxValues: Options[];
     name: Path<T>;
+}
+interface Options{
+    value: string | number
+    label: string | number
 }
 
 
@@ -16,13 +20,13 @@ export const UniversalCheckboxGroup = <T extends FieldValues>({ checkboxValues, 
     return (
         <div className="checkbox-group">
             {checkboxValues.map((el) => (
-                <label className="form-checkbox" key={el}>
+                <label className="form-checkbox" key={el.label}>
                     <input
                         type="checkbox"
-                        value={el}
+                        value={el.value}
                         {...register(name)}
                     />
-                    <span>{el}</span>
+                    <span>{el.label}</span>
                 </label>
             ))}
         </div>

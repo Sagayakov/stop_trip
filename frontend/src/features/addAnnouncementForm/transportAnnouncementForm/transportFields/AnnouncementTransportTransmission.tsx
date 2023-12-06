@@ -8,13 +8,13 @@ interface Props {
 }
 
 export const AnnouncementTransportTransmission = ({ register }: Props) => {
-    const transmissionValues = valuesOfTransportForm.transmissionType;
+    const transmissionValues = valuesOfTransportForm.transport_transmission_type;
     return (
         <div className="ann-field">
             <h3>Коробка передач</h3>
             <UniversalRadioGroup
                 register={register}
-                name="transportTransmissionType"
+                name="transport_transmission_type"
                 radioValues={transmissionValues}
             />
             <div className="ann-field-err"></div>

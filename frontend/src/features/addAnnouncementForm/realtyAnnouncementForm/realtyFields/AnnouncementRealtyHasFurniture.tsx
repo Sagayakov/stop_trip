@@ -12,7 +12,7 @@ export const AnnouncementRealtyHasFurniture = ({ register }: Props) => {
                 <label>
                     <input
                         type="radio"
-                        {...register('HasFurniture')}
+                        {...register('property_has_furniture')}
                         value="true"
                         style={{ display: 'none' }}
                     />

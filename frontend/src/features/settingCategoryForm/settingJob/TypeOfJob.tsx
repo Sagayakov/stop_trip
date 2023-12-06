@@ -2,8 +2,10 @@ import { Control, Controller, UseFormSetValue } from 'react-hook-form';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { TypesOfJobs } from '../../../widgets/settingForm/settingJob/libr/TypesOfJobs';
-import { valuesOfJob } from '../../../widgets/settingForm/settingJob/libr/valuesOfJob';
 import { SelectOption } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<TypesOfJobs>;
@@ -12,7 +14,17 @@ interface Props {
 
 export const TypeOfJob = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const valuesTypeOfJob = valuesOfJob.typeOfJob;
+    const { data } = useGetFiltersQuery('');
+    const [typeValues, setTypeValues] = useState<SelectType[]>([]);
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'job_type') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setTypeValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -43,7 +55,7 @@ export const TypeOfJob = ({ control, setValue }: Props) => {
                             placeholder="Тип работы"
                             closeMenuOnSelect={true}
                             isMulti={true}
-                            options={valuesTypeOfJob}
+                            options={typeValues}
                             onChange={(selectedOptions) => {
                                 handleChange(
                                     selectedOptions as
@@ -52,8 +64,8 @@ export const TypeOfJob = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={valuesTypeOfJob.filter((option) =>
-                                field.value?.includes(option.value)
+                            value={typeValues.filter((option) =>
+                                field.value?.includes(option.value as string)
                             )}
                         />
                     )}

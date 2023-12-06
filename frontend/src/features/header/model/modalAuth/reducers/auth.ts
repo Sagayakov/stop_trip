@@ -25,8 +25,8 @@ export const setIsAuthSlice = createSlice({
         setErrorEmail: (state, action: PayloadAction<ErrorEmail>) => {
             state.errorEmail = action.payload;
         },
-        setErrorEnter: (state) => {
-            state.errorEnter = 'Неверный логин или пароль';
+        setErrorEnter: (state, action: PayloadAction<string>) => {
+            state.errorEnter = action.payload;
         },
         resetErrors: (state) => {
             state.errorEmail = null;

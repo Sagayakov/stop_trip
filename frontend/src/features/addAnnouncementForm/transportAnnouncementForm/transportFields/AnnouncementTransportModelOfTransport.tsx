@@ -12,7 +12,7 @@ export const AnnouncementTransportModelOfTransport = ({
     setValue,
     control,
 }: Props) => {
-    const optionValues = valuesOfTransportForm.model;
+    const optionValues = valuesOfTransportForm.transport_model;
     return (
         <div className="ann-field">
             <h3>Модель транспорта</h3>
@@ -20,7 +20,7 @@ export const AnnouncementTransportModelOfTransport = ({
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="transportModel"
+                name="transport_model"
                 options={optionValues}
                 placeholder="Выберите модель"
                 prefix="filterAnnouncementCategory"

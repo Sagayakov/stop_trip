@@ -12,8 +12,10 @@ export const InputName = ({ register, errors }: Props) => {
             <input
                 {...register('userName', {
                     required: true,
-                    pattern: /^[a-zA-Zа-яА-Я]+$/,
+                    pattern: /^[\w\s-а-яА-ЯёЁ]+$/i,
+                    // pattern: /^[a-zA-Zа-яА-Я]+$/,
                     minLength: 2,
+                    maxLength: 50,
                 })}
                 placeholder="Имя пользователя"
                 style={{
@@ -26,6 +28,11 @@ export const InputName = ({ register, errors }: Props) => {
                 {errors?.userName && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                         Введите Ваше имя
+                    </p>
+                )}
+                {errors?.userName?.type === 'maxLength' && (
+                    <p style={{ color: '#FF3F25', fontSize: '13px' }}>
+                        Не более 50 символов
                     </p>
                 )}
             </div>

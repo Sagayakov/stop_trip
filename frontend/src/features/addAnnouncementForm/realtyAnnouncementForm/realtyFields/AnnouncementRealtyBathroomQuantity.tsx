@@ -15,7 +15,7 @@ export const AnnouncementRealtyBathroomQuantity = ({ register }: Props) => {
                     autoComplete="off"
                     min={0}
                     placeholder="Количество санузлов"
-                    {...register('BathroomQuantity')}
+                    {...register('property_bathroom_count')}
                 />
             </div>
             <div className="ann-field-err"></div>

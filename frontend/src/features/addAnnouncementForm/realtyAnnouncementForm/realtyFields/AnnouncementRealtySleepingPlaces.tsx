@@ -15,7 +15,7 @@ export const AnnouncementRealtySleepingPlaces = ({ register }: Props) => {
                     autoComplete="off"
                     min={0}
                     placeholder="Кол-во"
-                    {...register('SleepingPlaces')}
+                    {...register('property_sleeping_places')}
                 />
             </div>
             <div className="ann-field-err"></div>

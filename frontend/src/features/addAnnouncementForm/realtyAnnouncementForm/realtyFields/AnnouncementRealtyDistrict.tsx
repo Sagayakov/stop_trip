@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const AnnouncementRealtyDistrict = ({ setValue, control }: Props) => {
-    const optionValues = valuesOfPropertyForm.propertyDistrict;
+    const optionValues = valuesOfPropertyForm.property_district;
     return (
         <div className="ann-field">
             <h3>Район</h3>
@@ -17,7 +17,7 @@ export const AnnouncementRealtyDistrict = ({ setValue, control }: Props) => {
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="PropertyDistrict"
+                name="property_district"
                 options={optionValues}
                 placeholder="Выберите район"
                 prefix="filterAnnouncementCategory"
