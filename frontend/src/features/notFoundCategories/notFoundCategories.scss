@@ -1,0 +1,18 @@
+.categories_not-found {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: auto;
+    .category {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-family: var(--font-sf);
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--main-black);
+    }
+    .category.exchange_rate {
+        gap: 0;
+    }
+}
