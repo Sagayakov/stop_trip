@@ -8,6 +8,8 @@ import {
     useDeleteFromFavoritesMutation,
     useGetFavoritesQuery,
  } from '../../app/api/fetchFavorites';
+import { useAppSelector } from '../../app/store/hooks';
+import { toast } from 'react-toastify';
 
 export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
     const {
@@ -21,6 +23,7 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
     const { data } = useGetFavoritesQuery('');
     const [addFavorite] = useAddFavoriteMutation();
     const [deleteFromFavorites] = useDeleteFromFavoritesMutation();
+    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
     
     const [addToFav, setAddToFav] = useState(false);
     const navigate = useNavigate();
@@ -36,10 +39,17 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
     };
 
     const handleAddToFavorite = () => {
-        setAddToFav(!addToFav);
-        !addToFav
-            ? addFavorite({ id })
-            : deleteFromFavorites({ id });
+        if (isAuth) {
+            setAddToFav(!addToFav);
+
+            !addToFav
+                ? addFavorite({ id })
+                : deleteFromFavorites({ id });
+        } else {
+            toast.error(
+                'Пожалуйста, авторизуйтесь для возможности добавления объявлений в избранное'
+            );
+        }  
     };
 
     return (
