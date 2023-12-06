@@ -1,7 +1,13 @@
+import { NumberFour } from './NumberFour';
+import { NumberZero } from './NumberZero';
 import './notFoundNumbers.scss';
 
 export const NotFoundNumbers = () => {
     return (
-        <div className="numbers">404</div>
+        <div className="numbers">
+            <NumberFour />
+            <NumberZero />
+            <NumberFour />
+        </div>
     );
 }
