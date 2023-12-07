@@ -82,3 +82,22 @@ class MarketTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_market_condition_filter(self):
+        user = UserFactory()
+        market_set = [
+            MarketAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.MARKET.value,
+                title="market_new",
+                price=10_000,
+                market_condition=[MarketCondition.USED, MarketCondition.NEW][_ % 2],
+            )
+            for _ in range(2)
+        ]
+        with self.assertNumQueries(2):
+            res = self.client.get(self.list_url, {" market_condition": MarketCondition.USED.value})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(market_set))
