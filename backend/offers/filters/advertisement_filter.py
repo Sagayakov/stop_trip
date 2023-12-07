@@ -6,6 +6,7 @@ from django_filters.rest_framework import filters, OrderingFilter
 from .event_filter import EventFilter
 from .food_filter import FoodFilter
 from .job_filter import JobFilter
+from .market_filter import MarketFilter
 from .service_filter import ServiceFilter
 from .taxi_filter import TaxiFilter
 from .transport_filter import TransportFilter
@@ -14,7 +15,14 @@ from ..constants import CategoryChoices
 
 
 class AdvertisementFilter(
-    TransportFilter, PropertyFilter, EventFilter, JobFilter, ServiceFilter, TaxiFilter, FoodFilter
+    TransportFilter,
+    PropertyFilter,
+    EventFilter,
+    JobFilter,
+    ServiceFilter,
+    TaxiFilter,
+    FoodFilter,
+    MarketFilter,
 ):
     """Фильтры для объявлений."""
 

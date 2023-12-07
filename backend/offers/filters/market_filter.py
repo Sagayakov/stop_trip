@@ -13,7 +13,7 @@ class MarketFilter(FilterSet):
         specs: list[dict] = []
         # Состояние
         market_condition_specs = {
-            "name": "food_type",
+            "name": "market_condition",
             "choices": [
                 {"value": value, "label": label} for value, label in MarketCondition.choices
             ],
