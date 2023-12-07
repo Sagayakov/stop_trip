@@ -21,7 +21,7 @@ export const InputPassword = ({
     };
 
     const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
-
+    console.log(errors.passWord)
     return (
         <>
             <div className="password-div">
@@ -53,7 +53,7 @@ export const InputPassword = ({
                 )) ||
                     (errors?.passWord && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                            Введите корректный пароль
+                            Введите корректный пароль. Пароль должен содержать буквы, цифры и минимум 1 спецсимвол, минимальная длина 8 символов.
                         </p>
                     ))}
                 {errorEnter && (
