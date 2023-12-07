@@ -36,7 +36,7 @@
         box-shadow: 0px 0px 20px 0px #00000012;
         background-color: var(--white);
         position: relative;
-        top: 205px;
+        top: 197px;
         left: calc(50% - 625px);
         z-index: 12;
         .modal-category {
@@ -71,18 +71,51 @@
 @media (max-width: 1023px) {
     .modal-categories {
         .modal-content {
-            top: 160px;
+            top: 155px;
         }
     }
 }
 
-@media (min-width: 475px) and (max-width: 767px) {
+@media (min-width: 710px) and (max-width: 767px) {
+    .modal-categories {
+        background: none;
+        .modal-content {
+            width: 300px;
+            top: 255px;
+            left: calc(90% - 250px);
+        }
+    }
+}
+
+@media (min-width: 642px) and (max-width: 709px) {
+    .modal-categories {
+        background: none;
+        .modal-content {
+            width: 300px;
+            top: 255px;
+            left: calc(89% - 250px);
+        }
+    }
+}
+
+@media (min-width: 545px) and (max-width: 641px) {
     .modal-categories {
         background: none;
         .modal-content {
             width: 300px;
             top: 255px;
             left: calc(88% - 250px);
+        }
+    }
+}
+
+@media (min-width: 475px) and (max-width: 544px) {
+    .modal-categories {
+        background: none;
+        .modal-content {
+            width: 300px;
+            top: 255px;
+            left: calc(87% - 250px);
         }
     }
 }

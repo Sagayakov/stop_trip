@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './ActivateAccount.scss';
 import { activate } from './api/activate';
-import { LoaidngWithoutBackground } from '../../entities/loading/LoaidngWithoutBackground'
+import { LoaidngWithoutBackground } from '../../entities/loading/LoaidngWithoutBackground';
+import { setIsEnter } from '../../features/header/model/modalAuth/reducers/isEnter';
+import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
+import { toggleModalEnter } from '../../features/header/model/modalAuth/reducers/toggleModal';
 
 export const ActivateAccount = () => {
     const { uid, token } = useParams();
     const [success, setSuccess] = useState<boolean>(false);
-    const [load, setLoad] = useState(true)
+    const [load, setLoad] = useState(true);
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
+    const handleToggleModal = () => dispatch(toggleModalEnter(!toggle));
 
     const activationAcc = async (uid: string, token: string) => {
         await setLoad(true)
@@ -18,13 +25,19 @@ export const ActivateAccount = () => {
         const response = await activate(body);
         if (response.ok){
             await setSuccess(true);
-            await setLoad(false)
+            await setLoad(false);
         }
     };
 
     useEffect(() => {
         activationAcc(uid!, token!);
     }, []);
+    
+    const handleRedirect = () => {
+        navigate('/');
+        handleToggleModal();
+        dispatch(setIsEnter(true));
+    }
 
     return (
         <main>
@@ -33,14 +46,14 @@ export const ActivateAccount = () => {
                     <h1>Активация аккаунта</h1>
                     {success
                         ? 'Ваш аккаунт активирован, спасибо за регистрацию на нашем сайте!'
-                        : 'Ваш аккаунт еще не активирован'}
+                        : ''}
                     {load &&
                         <div className="activate-acc-loading">
                             <LoaidngWithoutBackground />
                         </div>
                     }
-                    <div className="redirect">
-                        <NavLink to={'/'}>Вернуться на главную</NavLink>
+                    <div className="redirect" onClick={handleRedirect}>
+                        Вернуться на главную
                     </div>
                 </div>
             </div>
