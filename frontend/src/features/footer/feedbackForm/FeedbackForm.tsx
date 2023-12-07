@@ -5,9 +5,11 @@ import { getId, handleSubmitFeedback } from './libr/handlers';
 import { TypesFeedbackForm } from './libr/typesFeedback';
 import { LoadingWithBackground } from '../../../entities/loading/LoadingWithBackground';
 import { useState } from 'react';
+import { getTokensFromStorage } from '../../../widgets/header/libr/authentication/getTokensFromStorage';
 
 export const FeedbackForm = () => {
     const [loading, setLoating] = useState(false)
+    const { accessToken } = getTokensFromStorage()
 
     const { handleSubmit, control, reset, setValue, formState: { isValid } } =
         useForm<TypesFeedbackForm>();
@@ -25,12 +27,16 @@ export const FeedbackForm = () => {
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
     ) => {
-        const url = import.meta.env.VITE_BASE_URL;
-        setLoating(true)
-        setTimeout(() => {
-            handleSubmitFeedback(url, feedbackData, reset);
-            setLoating(false)
-        }, 2000);
+        if(accessToken){
+            const url = import.meta.env.VITE_BASE_URL;
+            setLoating(true)
+            setTimeout(() => {
+                handleSubmitFeedback(url, feedbackData, reset);
+                setLoating(false)
+            }, 2000);
+        } else {
+            toast.error('Для обратной связи, пожалуйста, авторизуйтесь')
+        }
     };
 
     return (
