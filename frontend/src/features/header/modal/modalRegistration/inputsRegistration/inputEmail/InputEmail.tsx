@@ -1,41 +1,64 @@
 /* eslint-disable no-useless-escape */
 import { useState } from 'react';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { useAppSelector } from '../../../../../../app/store/hooks';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;
     register: UseFormRegister<AuthRegistration>;
+    watch: UseFormWatch<AuthRegistration>;
 }
 
-export const InputEmail = ({ errors, register }: Props) => {
+export const InputEmail = ({ errors, register, watch }: Props) => {
     const emailErrors = useAppSelector(
-        (state) => state.setIsAuth.errorEmail?.email
+        (state) => state.setIsAuth.errorRepeatEmail
     ); //ошибка повторного использования email
 
-    const [emailLengthError, setEmailLengthError] = useState(false);
     const [emailDomeinLengthError, setEmailDomeinLengthError] = useState(false);
+    const [emailDomeinLength, setEmailDomeinLength] = useState(false);
     const [twoPoints, setTwoPoints] = useState(false);
     const [startEndError, setStartEndError] = useState(false);
+    const allLength = watch('email');
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
+
+        if (allLength.length >= 128) {
+            setEmailDomeinLengthError(true);
+        } else {
+            setEmailDomeinLengthError(false);
+        }
+
         const atIndex = inputValue.indexOf('@');
 
         inputValue.length > 64 && atIndex === -1
-            ? setEmailLengthError(true)
-            : setEmailLengthError(false);
+            ? setEmailDomeinLengthError(true)
+            : setEmailDomeinLengthError(false);
     };
 
     const oninput = (event: React.FormEvent<HTMLInputElement>) => {
+        // eslint-disable-next-line prefer-const
         let inputText = event.currentTarget.value;
         const atIndex = inputText.indexOf('@');
         const firstPart = inputText.slice(0, atIndex);
         const domainPart = inputText.slice(atIndex + 1);
 
-        if (domainPart.length >= 63) setEmailDomeinLengthError(true);
-        else setEmailDomeinLengthError(false);
+        if (firstPart.length >= 64 || firstPart.length < 1) {
+            setEmailDomeinLengthError(true);
+        } else {
+            setEmailDomeinLengthError(false);
+        }
+        if (domainPart.length >= 64) {
+            setEmailDomeinLengthError(true);
+        } else {
+            setEmailDomeinLengthError(false);
+        }
+        if (inputText.length > 128 ) {
+            setEmailDomeinLength(true);
+        } else {
+            setEmailDomeinLength(false);
+        }
 
         if (firstPart.includes('..') || domainPart.includes('..')) {
             setTwoPoints(true);
@@ -72,19 +95,26 @@ export const InputEmail = ({ errors, register }: Props) => {
 
     const borderError = () => {
         return (
-            errors.email || emailLengthError || emailDomeinLengthError || emailErrors || twoPoints || startEndError
+            errors.email ||
+            emailDomeinLength ||
+            emailDomeinLengthError ||
+            emailErrors ||
+            twoPoints ||
+            startEndError
         );
     };
-
+    console.log(errors.email)
     return (
         <>
             <input
                 {...register('email', {
                     required: true,
                     pattern:
-                        /^(?!.*\.{2})[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/,
+                        /^(?!.*\.{2})[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]{2,}(?:\.[a-z]{2,})+$/i,
+                        // /^(?!.*\.{2})[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]+(?:\.[a-z]{2,})+$/i,
+                    // /^(?!.*\.{2})[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/,
                     minLength: 10,
-                    maxLength: 80,
+                    maxLength: 128,
                 })}
                 onChange={handleEmailChange}
                 type="email"
@@ -98,16 +128,16 @@ export const InputEmail = ({ errors, register }: Props) => {
                 }}
             />
             <div className="input-error">
-                {(errors?.email && (
+                {errors?.email && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                         Введите корректный email
                     </p>
-                )) ||
-                    (emailErrors && (
+                )}
+                {emailErrors && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                             Пользователь с такой почтой уже существует
                         </p>
-                    ))}
+                    )}
                 {errors?.email?.type === 'minLength' && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                         Минимальная длина email - 10 символов
@@ -118,14 +148,13 @@ export const InputEmail = ({ errors, register }: Props) => {
                         Максимальная длина email - 80 символов
                     </p>
                 )}
-                {emailLengthError ||
-                    (emailDomeinLengthError && (
-                        <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                            {
-                                'Превышена максимальная длина адреса до или после символа @, введите не более 64'
-                            }
-                        </p>
-                    ))}
+                {(emailDomeinLengthError || emailDomeinLength) && (
+                    <p style={{ color: '#FF3F25', fontSize: '13px' }}>
+                        Превышена максимальная длина адреса до или после символа
+                        @, введите не более 64, либо превышена общая
+                        максимальная длина (128 символов)
+                    </p>
+                )}
                 {twoPoints && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                         {'Нельзя вводить 2 точки подряд'}
@@ -133,9 +162,8 @@ export const InputEmail = ({ errors, register }: Props) => {
                 )}
                 {startEndError && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        {
-                            'Доменная часть не может иметь в начале или в конце цифру или тире'
-                        }
+                        Доменная часть не может иметь в начале или в конце цифру
+                        или тире
                     </p>
                 )}
             </div>
