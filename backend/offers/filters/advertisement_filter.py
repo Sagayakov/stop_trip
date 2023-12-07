@@ -3,6 +3,7 @@ from typing import Union
 from django.db.models import Min, Max
 from django_filters.rest_framework import filters, OrderingFilter
 
+from .document_filter import DocumentFilter
 from .event_filter import EventFilter
 from .food_filter import FoodFilter
 from .job_filter import JobFilter
@@ -14,7 +15,14 @@ from ..constants import CategoryChoices
 
 
 class AdvertisementFilter(
-    TransportFilter, PropertyFilter, EventFilter, JobFilter, ServiceFilter, TaxiFilter, FoodFilter
+    TransportFilter,
+    PropertyFilter,
+    EventFilter,
+    JobFilter,
+    ServiceFilter,
+    TaxiFilter,
+    FoodFilter,
+    DocumentFilter,
 ):
     """Фильтры для объявлений."""
 
