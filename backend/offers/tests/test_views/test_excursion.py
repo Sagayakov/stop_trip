@@ -86,3 +86,45 @@ class ExcursionTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_excursion_food_filter(self):
+        user = UserFactory()
+        excursion_set = [
+            ExcursionAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.EXCURSION.value,
+                title="excursion",
+                price=1_000,
+                excursion_food=[True, False][_ % 2],
+                excursion_transfer=False,
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(self.list_url, {"excursion_food": True})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(excursion_set) // 2)
+
+    def test_excursion_transfer_filter(self):
+        user = UserFactory()
+        excursion_set = [
+            ExcursionAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.EXCURSION.value,
+                title="excursion",
+                price=1_000,
+                excursion_food=False,
+                excursion_transfer=[True, False][_ % 2],
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(self.list_url, {"excursion_transfer": True})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(excursion_set) // 2)
