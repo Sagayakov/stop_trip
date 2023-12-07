@@ -7,7 +7,7 @@ interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
-export const SettingCurrencyForm = ({ setShowFilters }: Props) => {
+const SettingCurrencyForm = ({ setShowFilters }: Props) => {
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -36,3 +36,5 @@ export const SettingCurrencyForm = ({ setShowFilters }: Props) => {
         </section>
     );
 };
+
+export default SettingCurrencyForm;

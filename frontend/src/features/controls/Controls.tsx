@@ -8,7 +8,7 @@ import {
 import './controls.scss';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 
-export const Controls = () => {
+const Controls = () => {
     const [showModal, setShowModal] = useState(false);
     const { isMobile } = useMatchMedia()
 
@@ -31,3 +31,5 @@ export const Controls = () => {
         </div>
     );
 };
+
+export default Controls;

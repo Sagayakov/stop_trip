@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { categories } from '../../shared/const/categories';
 import './notFoundCategories.scss';
 
-export const NotFoundCategories = () => {
+const NotFoundCategories = () => {
     const navigate = useNavigate();
     
     return (
@@ -25,3 +25,5 @@ export const NotFoundCategories = () => {
         </section>
     );
 };
+
+export default NotFoundCategories;

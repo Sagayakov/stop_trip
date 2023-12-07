@@ -8,7 +8,7 @@ import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
 import { getSpelling } from './libr/getSpelling';
 
-export const PopularCategories = () => {
+const PopularCategories = () => {
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
     const { isMobile } = useMatchMedia();
@@ -59,3 +59,5 @@ export const PopularCategories = () => {
         </div>
     );
 };
+
+export default PopularCategories;

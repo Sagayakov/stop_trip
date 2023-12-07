@@ -11,7 +11,7 @@ import { Date } from './libr/types';
 import { AdvertOwner } from '../../entities/advertOwner/AdvertOwner';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 
-export const Advert = () => {
+const Advert = () => {
     const { id } = useParams();
     const { data } = useGetAdvertByIdQuery(id!);
     const [date, setDate] = useState<Date | null>(null);
@@ -122,3 +122,4 @@ export const Advert = () => {
     );
 };
 
+export default Advert;
