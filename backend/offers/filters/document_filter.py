@@ -4,6 +4,8 @@ from offers.constants import DocumentType, DocumentDuration
 
 
 class DocumentFilter(FilterSet):
+    """Фильтр документов"""
+
     document_type = filters.ChoiceFilter(label="Тип документа", choices=DocumentType.choices)
     document_duration = filters.ChoiceFilter(
         label="Срок действия", choices=DocumentDuration.choices
@@ -15,14 +17,14 @@ class DocumentFilter(FilterSet):
 
         # Тип документа
         document_type_specs = {
-            "name": "category",
+            "name": "document_type",
             "choices": [{"value": value, "label": label} for value, label in DocumentType.choices],
         }
         specs.append(document_type_specs)
 
         # Срок действия
         document_duration_specs = {
-            "name": "category",
+            "name": "document_duration",
             "choices": [
                 {"value": value, "label": label} for value, label in DocumentDuration.choices
             ],
