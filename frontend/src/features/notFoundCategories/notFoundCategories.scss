@@ -16,3 +16,27 @@
         gap: 0;
     }
 }
+
+@media (max-width: 1240px) {
+    .categories_not-found {
+        .category {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .category.exchange_rate {
+            gap: 0.5rem;
+            svg {
+                margin-left: 1.5rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 1023px) {
+    .categories_not-found {
+        gap: 1rem;
+        .category {
+            text-align: center;
+        }
+    }
+}

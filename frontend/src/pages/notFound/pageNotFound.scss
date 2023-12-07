@@ -14,6 +14,7 @@ main {
         font-family: var(--font-lato);
         text-align: center;
         width: 100%;
+        margin-top: 2rem;
         .info-header {
             font-family: var(--font-lato);
             font-size: 3rem;
@@ -44,3 +45,44 @@ main {
     }
 }
 
+@media (max-width: 1440px) {
+    .not-found-wrapper {
+        width: 84.5%;
+        .text-info {
+            p {
+                width: 55%;
+            }
+        }
+    }
+}
+
+@media (max-width: 1240px) {
+    .not-found-wrapper {
+        .text-info {
+            p {
+                width: 60%;
+            }
+        }
+    }
+}
+
+@media (max-width: 1023px) {
+    .not-found-wrapper {
+        .text-info {
+            .info-header {
+                width: 100%;
+                margin: 1rem auto 1.5rem;
+                text-align: center;
+            }
+            p {
+                width: 80%;
+            }
+        }
+    }
+}
+
+@media (max-width:767px) {
+    .not-found-wrapper {
+        width: 93%;
+    }
+}
