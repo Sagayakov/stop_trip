@@ -2,6 +2,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 import { useAppSelector } from '../../../../../../app/store/hooks';
+import { toast } from 'react-toastify';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;
@@ -10,17 +11,16 @@ interface Props {
     setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const InputPassword = ({
-    errors,
-    register,
-    showPassword,
-    setShowPassword,
-}: Props) => {
+export const InputPassword = ({ errors, register, showPassword, setShowPassword }: Props) => {
+    const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
+
     const handleShowPass = () => {
         setShowPassword(!showPassword);
     };
-
-    const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
+    const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
+        event.preventDefault()
+        toast.error('Копировать пароль запрещено')
+    }
 
     return (
         <>
@@ -29,8 +29,12 @@ export const InputPassword = ({
                     {...register('passWord', {
                         required: true,
                         minLength: 8,
-                        pattern: /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,}/
+                        maxLength: 22,
+                        pattern:
+                            /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])(?!.*\s)[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,22}/,
+                        // /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,22}/,
                     })}
+                    onCopy={(event) => handleCopy(event)}
                     placeholder="Пароль"
                     autoComplete="new-password"
                     type={showPassword ? 'text' : 'password'}
@@ -53,7 +57,9 @@ export const InputPassword = ({
                 )) ||
                     (errors?.passWord && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                            Введите корректный пароль
+                            Введите корректный пароль. Пароль должен состоять из латиницы, содержать
+                            буквы, цифры и минимум 1 спецсимвол. Минимальная
+                            длина 8 символов, максимальная - 22. Пробел запрещен.
                         </p>
                     ))}
                 {errorEnter && (

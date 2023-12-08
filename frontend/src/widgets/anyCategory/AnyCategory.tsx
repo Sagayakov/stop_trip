@@ -16,7 +16,7 @@ const AnyCategory = () => {
         .filter((el: LastAdvertsTypes) => el.category === category);
 
     return (
-        <section className="adverts">
+        <section className="announcement">
             {filteredData.length ? (
                 filteredData.map((el: LastAdvertsTypes) => {
                     return (

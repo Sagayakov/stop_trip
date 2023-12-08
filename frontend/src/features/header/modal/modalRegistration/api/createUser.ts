@@ -1,5 +1,5 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import { setErrorEmail } from '../../../../../features/header/model/modalAuth/reducers/auth';
+import { setErrorRepeatEmail } from '../../../../../features/header/model/modalAuth/reducers/auth';
 import { NewUser } from '../libr/RegistrationTypes';
 
 export const createUser = async (body: NewUser, dispatch: Dispatch) => {
@@ -18,8 +18,8 @@ export const createUser = async (body: NewUser, dispatch: Dispatch) => {
         }
         if (responce.status === 400) {
             //чтобы вывести ошибку "email уже используется"
-            const data = await responce.json();
-            dispatch(setErrorEmail(data));
+            // const data = await responce.json();
+            dispatch(setErrorRepeatEmail(true));
         }
 
         if (responce.ok) {

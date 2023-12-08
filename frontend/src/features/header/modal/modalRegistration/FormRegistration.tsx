@@ -22,17 +22,20 @@ export const FormRegistration = () => {
         reset,
         formState: { errors, isValid },
         getValues,
+        watch
     } = useForm<AuthRegistration>({
-        mode: 'onChange',
+        mode: 'all',
     });
 
     const dispatch = useAppDispatch();
 
     const onsubmit: SubmitHandler<AuthRegistration> = async (submitData) => {
-        await dispatch(setLoading(true))
-        await submitRegForm(submitData, dispatch, reset);
-        await dispatch(resetErrors())
-        await dispatch(setLoading(false))
+        dispatch(setLoading(true))
+        setTimeout(() => {
+            submitRegForm(submitData, dispatch, reset);
+            dispatch(setLoading(false))
+        }, 1200);
+        dispatch(resetErrors())
     };
 
     return (
@@ -43,7 +46,7 @@ export const FormRegistration = () => {
         >
             <InputName errors={errors} register={register} />
             <InputPhone errors={errors} register={register} />
-            <InputEmail errors={errors} register={register} />
+            <InputEmail errors={errors} register={register} watch={watch} />
             <InputPassword
                 errors={errors}
                 register={register}

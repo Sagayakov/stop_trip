@@ -5,6 +5,7 @@ import {
 } from 'react-hook-form';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
+import { toast } from 'react-toastify';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;
@@ -24,6 +25,10 @@ export const InputRepeatPassword = ({
     const handleShowPass = () => {
         setShowPassword(!showPassword);
     };
+    const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
+        event.preventDefault();
+        toast.error('Копировать пароль запрещено');
+    };
 
     const onBlurRepeatPassword = () => setShowPassword(false);
 
@@ -36,6 +41,7 @@ export const InputRepeatPassword = ({
                         minLength: 8,
                         validate: (value) => value === getValues('passWord'),
                     })}
+                    onCopy={(event) => handleCopy(event)}
                     placeholder="Повторите пароль"
                     autoComplete="new-password"
                     type={showPassword ? 'text' : 'password'}

@@ -13,6 +13,7 @@ export const InputPhone = ({ errors, register }: Props) => {
                 {...register('phone', {
                     required: true,
                     minLength: 5,
+                    pattern: /^[0-9()-]+$/,
                 })}
                 placeholder="Номер телефона"
                 style={{
