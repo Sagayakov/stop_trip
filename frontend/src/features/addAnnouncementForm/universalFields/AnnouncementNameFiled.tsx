@@ -6,7 +6,7 @@ interface Props {
     formState: FormState<FormAddAnn>;
 }
 
-export const AnnouncementNameField = ({ register, formState }: Props) => {
+const AnnouncementNameField = ({ register, formState }: Props) => {
     const { errors } = formState
 
     return (
@@ -31,3 +31,5 @@ export const AnnouncementNameField = ({ register, formState }: Props) => {
         </div>
     );
 };
+
+export default AnnouncementNameField;

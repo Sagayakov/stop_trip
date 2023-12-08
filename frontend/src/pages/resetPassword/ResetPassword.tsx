@@ -1,4 +1,5 @@
-import { FormConfirmResetPassword } from '../../features/formResetPassword/FormConfirmResetPassword';
+import { lazy } from 'react';
+const FormConfirmResetPassword = lazy(() => import('../../features/formResetPassword/FormConfirmResetPassword'));
 import './resetPassword.scss';
 
 export const ResetPassword = () => {

@@ -13,7 +13,7 @@ interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
-export const SettingEventForm = ({ setShowFilters }: Props) => {
+const SettingEventForm = ({ setShowFilters }: Props) => {
     const [, setSearchParams] = useSearchParams();
 
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -62,3 +62,5 @@ export const SettingEventForm = ({ setShowFilters }: Props) => {
         </section>
     );
 };
+
+export default SettingEventForm;

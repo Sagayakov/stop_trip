@@ -11,6 +11,10 @@
         font-size: 20px;
         font-weight: 600;
         color: var(--main-black);
+        cursor: pointer;
+    }
+    .category:hover {
+        color: var(--main-blue);
     }
     .category.exchange_rate {
         gap: 0;
@@ -37,6 +41,10 @@
         gap: 1rem;
         .category {
             text-align: center;
+            span {
+                font-size: 14px;
+            }
+            
         }
     }
 }

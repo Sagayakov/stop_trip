@@ -30,7 +30,7 @@ interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
-export const SettingRealtyForm = ({ setShowFilters }: Props) => {
+const SettingRealtyForm = ({ setShowFilters }: Props) => {
     const [, setSearchParams] = useSearchParams();
     
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -87,3 +87,5 @@ export const SettingRealtyForm = ({ setShowFilters }: Props) => {
         </section>
     );
 };
+
+export default SettingRealtyForm;

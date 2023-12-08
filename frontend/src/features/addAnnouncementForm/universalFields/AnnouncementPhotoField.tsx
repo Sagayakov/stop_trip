@@ -18,7 +18,7 @@ interface Image {
     image: string;
 }
 
-export const AnnouncementPhotoField = ({
+const AnnouncementPhotoField = ({
     selectedImages,
     setSelectedImages,
     setValue,
@@ -122,3 +122,5 @@ export const AnnouncementPhotoField = ({
         </div>
     );
 };
+
+export default AnnouncementPhotoField;

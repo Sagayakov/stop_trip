@@ -6,7 +6,7 @@ import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 import { getDate } from '../../shared/utils/getDate';
 
-export const AnyCategory = () => {
+const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
     const filterQuery = location.search;
     const navigate = useNavigate();
@@ -81,3 +81,5 @@ export const AnyCategory = () => {
         </section>
     );
 };
+
+export default AnyCategory;

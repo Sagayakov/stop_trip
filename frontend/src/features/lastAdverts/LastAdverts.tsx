@@ -5,7 +5,7 @@ import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackgro
 import { Pagination } from '../pagination';
 import './libr/LastAdverts.scss';
 
-export const LastAdverts = () => {
+const LastAdverts = () => {
     const { data = [], isLoading } = useGetAdvertsQuery('');
 
     return (
@@ -23,3 +23,5 @@ export const LastAdverts = () => {
         </div>
     );
 };
+
+export default LastAdverts;

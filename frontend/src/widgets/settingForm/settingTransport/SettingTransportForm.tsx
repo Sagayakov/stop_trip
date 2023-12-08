@@ -25,7 +25,7 @@ interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
-export const SettingTransportForm = ({ setShowFilters }: Props) => {
+const SettingTransportForm = ({ setShowFilters }: Props) => {
     const [, setSearchParams] = useSearchParams();
     
     const { register, handleSubmit, reset, watch, setValue, control } =
@@ -79,3 +79,5 @@ export const SettingTransportForm = ({ setShowFilters }: Props) => {
         </section>
     );
 };
+
+export default SettingTransportForm;

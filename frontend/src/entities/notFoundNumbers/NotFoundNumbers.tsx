@@ -2,7 +2,7 @@ import { NumberFour } from './NumberFour';
 import { NumberZero } from './NumberZero';
 import './notFoundNumbers.scss';
 
-export const NotFoundNumbers = () => {
+const NotFoundNumbers = () => {
     return (
         <div className="numbers">
             <NumberFour />
@@ -10,4 +10,6 @@ export const NotFoundNumbers = () => {
             <NumberFour />
         </div>
     );
-}
+};
+
+export default NotFoundNumbers;

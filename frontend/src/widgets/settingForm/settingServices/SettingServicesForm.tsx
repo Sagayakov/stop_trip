@@ -9,7 +9,7 @@ interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
-export const SettingServicesForm = ({ setShowFilters }: Props) => {
+const SettingServicesForm = ({ setShowFilters }: Props) => {
     const [, setSearchParams] = useSearchParams();
     
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -53,3 +53,5 @@ export const SettingServicesForm = ({ setShowFilters }: Props) => {
         </section>
     );
 };
+
+export default SettingServicesForm;

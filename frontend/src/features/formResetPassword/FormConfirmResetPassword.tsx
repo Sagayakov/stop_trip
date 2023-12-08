@@ -11,7 +11,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { setLoading } from '../../entities/loading/model/setLoadingSlice';
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
 
-export const FormConfirmResetPassword = () => {
+const FormConfirmResetPassword = () => {
     const [showPassword, setShowPassword] = useState(false);
     const {
         register,
@@ -77,3 +77,5 @@ export const FormConfirmResetPassword = () => {
         </div>
     );
 };
+
+export default FormConfirmResetPassword;

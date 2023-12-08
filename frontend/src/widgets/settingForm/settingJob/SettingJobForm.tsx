@@ -5,7 +5,7 @@ import {
     TypeOfJob,
     TypeOfPayment,
     WithExperience,
-} from '../../../features/settingCategoryForm/settingJob/';
+} from '../../../features/settingCategoryForm/settingJob';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypesOfJobs } from './libr/TypesOfJobs';
 import './libr/settingJobFilter.scss';
@@ -15,7 +15,7 @@ interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
-export const SettingJobForm = ({ setShowFilters }: Props) => {
+const SettingJobForm = ({ setShowFilters }: Props) => {
     const [, setSearchParams] = useSearchParams();
     
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -65,3 +65,5 @@ export const SettingJobForm = ({ setShowFilters }: Props) => {
         </section>
     );
 };
+
+export default SettingJobForm;

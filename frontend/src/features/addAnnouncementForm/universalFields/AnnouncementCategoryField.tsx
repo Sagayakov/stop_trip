@@ -10,7 +10,7 @@ interface Props {
     // categoryList: SelectOption[] | undefined;
 }
 
-export const AnnouncementCategoryField = ({
+const AnnouncementCategoryField = ({
     control,
     setValue,
     formState,
@@ -55,3 +55,5 @@ export const AnnouncementCategoryField = ({
         </>
     );
 };
+
+export default AnnouncementCategoryField;

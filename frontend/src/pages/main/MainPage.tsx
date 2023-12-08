@@ -1,17 +1,20 @@
+import { Suspense, lazy } from 'react';
 import { useAppSelector } from '../../app/store/hooks';
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
-import { Controls } from '../../features/controls';
-import { LastAdverts } from '../../features/lastAdverts/LastAdverts';
-import { PopularCategories } from '../../features/popularCategories';
+const Controls = lazy(() => import('../../features/controls/Controls'));
+const LastAdverts = lazy(() => import('../../features/lastAdverts/LastAdverts'));
+const PopularCategories = lazy(() => import('../../features/popularCategories/PopularCategories'));
 
 export const MainPage = () => {
     const load = useAppSelector((state) => state.setLoading.loading);
 
     return (
         <>
-            <Controls />
-            <PopularCategories />
-            <LastAdverts />
+            <Suspense fallback={<LoadingWithBackground />}>
+                <Controls />
+                <PopularCategories />
+                <LastAdverts />
+            </Suspense>
             {load && <LoadingWithBackground />}
         </>
     );

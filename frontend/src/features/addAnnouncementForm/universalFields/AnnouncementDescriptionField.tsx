@@ -3,7 +3,7 @@ interface Props {
     setDescript: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-export const AnnouncementDescriptionField = ({ descript, setDescript }: Props) => {
+const AnnouncementDescriptionField = ({ descript, setDescript }: Props) => {
     return (
         <div className="ann-field">
             <h3>Описание:</h3>
@@ -17,3 +17,5 @@ export const AnnouncementDescriptionField = ({ descript, setDescript }: Props) =
         </div>
     );
 };
+
+export default AnnouncementDescriptionField;
