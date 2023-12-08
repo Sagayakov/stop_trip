@@ -39,6 +39,7 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
 
     const oninput = (event: React.FormEvent<HTMLInputElement>) => {
         // eslint-disable-next-line prefer-const
+        event.currentTarget.value = event.currentTarget.value.toLowerCase();
         let inputText = event.currentTarget.value;
         const atIndex = inputText.indexOf('@');
         const firstPart = inputText.slice(0, atIndex);
@@ -54,7 +55,7 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
         } else {
             setEmailDomeinLengthError(false);
         }
-        if (inputText.length > 128 ) {
+        if (inputText.length > 128) {
             setEmailDomeinLength(true);
         } else {
             setEmailDomeinLength(false);
@@ -70,7 +71,12 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
         const isDigitOrHyphen = (char: string) =>
             !isNaN(parseInt(char, 10)) || char === '-';
 
-        if (isDigitOrHyphen(firstSymbol) || isDigitOrHyphen(lastSymbol)) {
+        if (
+            isDigitOrHyphen(firstSymbol) ||
+            isDigitOrHyphen(lastSymbol) ||
+            isDigitOrHyphen(firstPart[0]) ||
+            isDigitOrHyphen(firstPart[firstPart.length-1])
+        ) {
             setStartEndError(true);
         } else {
             setStartEndError(false);
@@ -103,7 +109,7 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
             startEndError
         );
     };
-    console.log(errors.email)
+
     return (
         <>
             <input
@@ -111,7 +117,7 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
                     required: true,
                     pattern:
                         /^(?!.*\.{2})[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]{2,}(?:\.[a-z]{2,})+$/i,
-                        // /^(?!.*\.{2})[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]+(?:\.[a-z]{2,})+$/i,
+                    // /^(?!.*\.{2})[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]+(?:\.[a-z]{2,})+$/i,
                     // /^(?!.*\.{2})[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/,
                     minLength: 10,
                     maxLength: 128,
@@ -134,10 +140,10 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
                     </p>
                 )}
                 {emailErrors && (
-                        <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                            Пользователь с такой почтой уже существует
-                        </p>
-                    )}
+                    <p style={{ color: '#FF3F25', fontSize: '13px' }}>
+                        Пользователь с такой почтой уже существует
+                    </p>
+                )}
                 {errors?.email?.type === 'minLength' && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                         Минимальная длина email - 10 символов
