@@ -4,6 +4,7 @@ import { useAppSelector } from '../../../../../../app/store/hooks';
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
 import '../../libr/inputEmail.scss';
 import { AuthData } from '../../libr/EnterType';
+import { toast } from 'react-toastify';
 
 interface Props {
     errors: FieldErrors<AuthData>;
@@ -23,6 +24,10 @@ export const InputPassword = ({
         setTogglePass(!togglePass);
         inputRef?.current?.focus();
     };
+    const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
+        event.preventDefault();
+        toast.error('Копировать пароль запрещено');
+    };
     const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
 
     return (
@@ -34,6 +39,7 @@ export const InputPassword = ({
                 render={({ field }) => (
                     <input
                         {...field}
+                        onCopy={(event) => handleCopy(event)}
                         placeholder="Пароль"
                         autoComplete="current-password"
                         type={togglePass ? 'text' : 'password'}
