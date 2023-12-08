@@ -78,7 +78,7 @@ export const CategoryPage = () => {
                     </div>
                 </div>
             )}
-            <div className="filters-adverts">
+            <div className="filters-announcement">
                 <div
                     className="filter-form"
                     onClick={handleClickFilterForm}
@@ -102,10 +102,10 @@ export const CategoryPage = () => {
                         <SettingJobForm setShowFilters={setShowFilters} />
                     )}
                     {category === 'event' && (
-                        <SettingEventForm setShowFilters={setShowFilters}/>
+                        <SettingEventForm setShowFilters={setShowFilters} />
                     )}
                     {category === 'exchange_rate' && (
-                        <SettingCurrencyForm setShowFilters={setShowFilters}/>
+                        <SettingCurrencyForm setShowFilters={setShowFilters} />
                     )}
                 </div>
                 <AnyCategory />
