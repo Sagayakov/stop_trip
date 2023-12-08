@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { useForm } from 'react-hook-form';
 // import { useGetFiltersQuery } from '../../app/api/fetchAdverts';
 // import { FiltersType } from '../../app/api/types/filtersType';
 import { AnnouncementSubmitButton } from '../../entities/addAnnouncementForm/universalFields';
-import {
-    AnnouncementCategoryField,
-    AnnouncementDescriptionField,
-    AnnouncementLocationField,
-    AnnouncementNameField,
-    AnnouncementPhotoField,
-    AnnouncementPriceField,
-} from '../../features/addAnnouncementForm/universalFields';
-import { OptionalFields } from '../../widgets';
+const AnnouncementCategoryField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementCategoryField'));
+const AnnouncementNameField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementNameFiled'));
+const AnnouncementPriceField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementPriceField'));
+const AnnouncementDescriptionField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementDescriptionField'));
+const AnnouncementPhotoField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementPhotoField'));
+const AnnouncementLocationField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementLocationField'));
+const OptionalFields = lazy(() => import('../../widgets/addAnnouncement/OptionalFields'));
 import { FormAddAnn, /*SelectOption*/ } from './libr/AnnouncementFormTypes';
 import './libr/addAnnouncement.scss';
+import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
+
 interface Image {
     image: string;
 }
@@ -109,42 +109,44 @@ export const AddAnnouncementPage = () => {
                     className="add-ann-form"
                     onSubmit={handleSubmit(onsubmit)}
                 >
-                    <h1>Размещение объявления</h1>
-                    <AnnouncementCategoryField
-                        control={control}
-                        setValue={setValue}
-                        formState={formState}
-                        // categoryList={categoryList}
-                    />
-                    <AnnouncementNameField
-                        register={register}
-                        formState={formState}
-                    />
-                    <AnnouncementPriceField
-                        register={register}
-                        formState={formState}
-                    />
-                    <AnnouncementDescriptionField
-                        descript={descript}
-                        setDescript={setDescript}
-                    />
-                    <OptionalFields
-                        control={control}
-                        register={register}
-                        setValue={setValue}
-                        watch={watch}
-                    />
-                    <AnnouncementPhotoField
-                        selectedImages={selectedImages}
-                        setSelectedImages={setSelectedImages}
-                        setValue={setValue}
-                    />
-                    <AnnouncementLocationField
-                        setValue={setValue}
-                        markerPosition={markerPosition}
-                        setMarkerPosition={setMarkerPosition}
-                    />
-                    <AnnouncementSubmitButton />
+                    <Suspense fallback={<LoadingWithBackground />}>
+                        <h1>Размещение объявления</h1>
+                        <AnnouncementCategoryField
+                            control={control}
+                            setValue={setValue}
+                            formState={formState}
+                            // categoryList={categoryList}
+                        />
+                        <AnnouncementNameField
+                            register={register}
+                            formState={formState}
+                        />
+                        <AnnouncementPriceField
+                            register={register}
+                            formState={formState}
+                        />
+                        <AnnouncementDescriptionField
+                            descript={descript}
+                            setDescript={setDescript}
+                        />
+                        <OptionalFields
+                            control={control}
+                            register={register}
+                            setValue={setValue}
+                            watch={watch}
+                        />
+                        <AnnouncementPhotoField
+                            selectedImages={selectedImages}
+                            setSelectedImages={setSelectedImages}
+                            setValue={setValue}
+                        />
+                        <AnnouncementLocationField
+                            setValue={setValue}
+                            markerPosition={markerPosition}
+                            setMarkerPosition={setMarkerPosition}
+                        />
+                        <AnnouncementSubmitButton />
+                    </Suspense>
                 </form>
             </section>
         </>

@@ -16,7 +16,7 @@ interface Props {
     setMarkerPosition: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-export const AnnouncementLocationField = ({
+const AnnouncementLocationField = ({
     setValue,
     markerPosition,
     setMarkerPosition,
@@ -69,3 +69,5 @@ export const AnnouncementLocationField = ({
         </div>
     );
 };
+
+export default AnnouncementLocationField;

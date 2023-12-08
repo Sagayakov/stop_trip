@@ -26,7 +26,7 @@ interface Props {
     watch: UseFormWatch<FormAddAnn>;
 }
 
-export const OptionalFields = ({ register, setValue, control, watch }: Props) => {
+const OptionalFields = ({ register, setValue, control, watch }: Props) => {
     const category = watch('category');
     const getCategoryValue = (cat: string) => {
         if (category) {
@@ -96,3 +96,5 @@ export const OptionalFields = ({ register, setValue, control, watch }: Props) =>
         </div>
     );
 };
+
+export default OptionalFields;
