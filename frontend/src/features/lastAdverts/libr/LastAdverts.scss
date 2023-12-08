@@ -2,7 +2,7 @@ a {
     text-decoration: none;
     color: var(--main-black);
 }
-.last-adverts {
+.last-announcement {
     width: 1440px;
     margin: 0px auto 50px;
     .last-adverts-wrapper {
@@ -97,7 +97,7 @@ a {
                             color: #434343;
                         }
                     }
-                    
+
                     span {
                         color: var(--grey-3);
                         font-weight: 400;
@@ -110,7 +110,7 @@ a {
 }
 
 @media (max-width: 1439px) {
-    .last-adverts {
+    .last-announcement {
         width: 100%;
         margin: 0px auto 40px;
         .last-adverts-wrapper {
@@ -133,7 +133,7 @@ a {
 }
 
 @media (max-width: 1090px) {
-    .last-adverts {
+    .last-announcement {
         width: 100%;
         margin: 0 auto 20px;
         .last-adverts-wrapper {
@@ -198,7 +198,7 @@ a {
 }
 
 @media (max-width: 767px) {
-    .last-adverts {
+    .last-announcement {
         .last-adverts-wrapper {
             width: 93.5%;
         }
@@ -206,7 +206,7 @@ a {
 }
 
 @media (max-width: 615px) {
-    .last-adverts {
+    .last-announcement {
         .last-adverts-wrapper {
             .adverts-list {
                 grid-template-columns: repeat(2, 1fr);

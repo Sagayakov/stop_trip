@@ -9,7 +9,7 @@ export const LastAdverts = () => {
     const { data = [], isLoading } = useGetAdvertsQuery('');
 
     return (
-        <div className="last-adverts">
+        <div className="last-announcement">
             <div className="last-adverts-wrapper">
                 <h3>Последние объявления</h3>
                 <div className="adverts-list">

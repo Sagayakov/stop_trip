@@ -37,7 +37,7 @@
             font-size: 22px;
         }
 
-        .filters-adverts {
+        .filters-announcement {
             flex-direction: column;
             .filter-form {
                 background-color: rgba(0, 0, 0, 0.7);
@@ -52,7 +52,7 @@
                     background-color: var(--main-background);
                 }
             }
-            .adverts {
+            .announcement {
                 width: calc(100% - 30px);
                 margin: 0px 15px;
                 .card {

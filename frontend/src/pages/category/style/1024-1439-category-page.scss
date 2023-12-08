@@ -13,7 +13,7 @@
             margin: 15px auto 25px;
         }
 
-        .filters-adverts {
+        .filters-announcement {
             width: 85%;
             margin: 0 auto;
             .filter-form {
@@ -24,7 +24,7 @@
                 }
             }
 
-            .adverts {
+            .announcement {
                 width: calc(70% - 16px);
                 .card {
                     width: 100%;
@@ -57,11 +57,11 @@
 }
 @media (min-width: 1300px) and (max-width: 1439px) {
     main {
-        .filters-adverts {
+        .filters-announcement {
             .filters {
                 .filter-realty-form {
                     .setting-price {
-                        .setting-price-adverts {
+                        .setting-price-announcement {
                             label {
                                 padding: 8px 5.5%;
                             }
