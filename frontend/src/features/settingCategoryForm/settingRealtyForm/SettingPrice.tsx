@@ -16,7 +16,7 @@ export const SettingPrice = ({ register, watch }: Props) => {
     return (
         <div className="setting-price">
             <h3>Цена</h3>
-            <div className="setting-price-adverts">
+            <div className="setting-price-announcement">
                 <label style={radio === '100' ? checkedStyle : {}}>
                     <input
                         type="radio"

@@ -79,7 +79,7 @@ export const CategoryPage = () => {
                     </div>
                 </div>
             )}
-            <div className="filters-adverts">
+            <div className="filters-announcement">
                 <Suspense fallback={<LoadingWithBackground />}>
                     <div
                         className="filter-form"

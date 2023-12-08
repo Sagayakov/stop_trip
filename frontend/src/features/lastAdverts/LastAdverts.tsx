@@ -10,9 +10,9 @@ const LastAdverts = () => {
 
     return (
         <div className="last-announcement">
-            <div className="last-adverts-wrapper">
+            <div className="last-announcement-wrapper">
                 <h3>Последние объявления</h3>
-                <div className="adverts-list">
+                <div className="announcement-list">
                     {isLoading && <LoadingWithBackground />}
                     {data.map((elem: LastAdvertsTypes) => (
                         <Cart cart={elem} key={elem.id} />

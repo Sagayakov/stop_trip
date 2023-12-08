@@ -74,7 +74,7 @@ const AnyCategory = () => {
                     );
                 })
             ) : (
-                <p className="adverts-not-found">
+                <p className="announcement-not-found">
                     В этой категории объявлений не найдено
                 </p>
             )}

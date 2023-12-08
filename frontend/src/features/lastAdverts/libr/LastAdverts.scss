@@ -5,7 +5,7 @@ a {
 .last-announcement {
     width: 1440px;
     margin: 0px auto 50px;
-    .last-adverts-wrapper {
+    .last-announcement-wrapper {
         width: 1240px;
         margin: 0 auto 40px;
         font-family: var(--font-inter);
@@ -18,13 +18,13 @@ a {
             margin-bottom: 40px;
             font-family: var(--font-sf);
         }
-        .adverts-list {
+        .announcement-list {
             width: 100%;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.25rem;
             margin-bottom: 40px;
-            .adverts-cart {
+            .announcement-cart {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -113,11 +113,11 @@ a {
     .last-announcement {
         width: 100%;
         margin: 0px auto 40px;
-        .last-adverts-wrapper {
+        .last-announcement-wrapper {
             width: 85%;
             margin: 0 auto 40px;
             font-family: var(--font-inter);
-            .adverts-list {
+            .announcement-list {
                 justify-items: center;
             }
             & .pagination {
@@ -136,7 +136,7 @@ a {
     .last-announcement {
         width: 100%;
         margin: 0 auto 20px;
-        .last-adverts-wrapper {
+        .last-announcement-wrapper {
             width: 85%;
             margin: 0 auto 20px;
             font-family: var(--font-inter);
@@ -148,13 +148,13 @@ a {
                 font-weight: 600;
                 margin-bottom: 18px;
             }
-            .adverts-list {
+            .announcement-list {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 1rem;
                 margin: 20px auto;
                 justify-content: space-between;
                 justify-items: center;
-                .adverts-cart {
+                .announcement-cart {
                     margin: 0 auto;
                     cursor: pointer;
                     font-size: 18px;
@@ -199,7 +199,7 @@ a {
 
 @media (max-width: 767px) {
     .last-announcement {
-        .last-adverts-wrapper {
+        .last-announcement-wrapper {
             width: 93.5%;
         }
     }
@@ -207,10 +207,10 @@ a {
 
 @media (max-width: 615px) {
     .last-announcement {
-        .last-adverts-wrapper {
-            .adverts-list {
+        .last-announcement-wrapper {
+            .announcement-list {
                 grid-template-columns: repeat(2, 1fr);
-                .adverts-cart {
+                .announcement-cart {
                     .description {
                         .user-main {
                             font-size: 13px;
@@ -223,14 +223,14 @@ a {
 }
 
 @media (min-width: 374px) and (max-width: 425px) {
-    .last-adverts {
-        .last-adverts-wrapper {
+    .last-announcement {
+        .last-announcement-wrapper {
             h3 {
                 font-size: 1.1rem;
             }
-            .adverts-list {
+            .announcement-list {
                 gap: 0.75rem;
-                .adverts-cart {
+                .announcement-cart {
                     img {
                         height: 130px;
                         border-radius: 12px 12px 0 0;
@@ -256,15 +256,15 @@ a {
 }
 
 @media (max-width: 374px) {
-    .last-adverts {
-        .last-adverts-wrapper {
+    .last-announcement {
+        .last-announcement-wrapper {
             h3 {
                 font-size: 1.1rem;
             }
-            .adverts-list {
+            .announcement-list {
                 grid-template-columns: 1fr 1fr;
                 gap: 0.75rem;
-                .adverts-cart {
+                .announcement-cart {
                     img {
                         height: 130px;
                         border-radius: 8px 8px 0 0;

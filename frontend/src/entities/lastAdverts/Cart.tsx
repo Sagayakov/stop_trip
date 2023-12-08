@@ -54,7 +54,7 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
 
     return (
         <div
-            className="adverts-cart"
+            className="announcement-cart"
             onClick={() => navigate(`/${category}/${id}/`)}
         >
             <img
