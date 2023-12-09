@@ -33,11 +33,11 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
                     const data = await response.json();
                     await dispatch(setIsAuth(true))
                     localStorage.setItem('isAuth', 'true')
-                    if (localStorage.getItem('rememberMe')) {
+                    /* if (localStorage.getItem('rememberMe')) { */
                         saveTokensAuthToCookie(data.access);
-                    } else {
+                    /* } else {
                         sessionStorage.setItem('accessToken', data.access);
-                    }
+                    } */
                 }else {
                     localStorage.removeItem('isAuth')
                 }

@@ -1,6 +1,6 @@
 import { Like } from '../../shared/ui/Like';
 import { Rating } from '../../shared/ui/Rating';
-import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
@@ -9,7 +9,6 @@ import { getDate } from '../../shared/utils/getDate';
 const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
     const filterQuery = location.search;
-    const navigate = useNavigate();
     const { data = [] } = useGetAdvertsQuery(filterQuery);
     const { isMobile } = useMatchMedia();
     const filteredData = JSON.parse(JSON.stringify(data))
@@ -20,10 +19,10 @@ const AnyCategory = () => {
             {filteredData.length ? (
                 filteredData.map((el: LastAdvertsTypes) => {
                     return (
-                        <div
+                        <NavLink
                             className="card"
                             key={el.id}
-                            onClick={() => navigate(`/${category}/${el.id}/`)}
+                            to={`/${category}/${el.id}/`}
                         >
                             <span onClick={(event) => event.stopPropagation()}>
                                 <Like id={el.id}/>
@@ -70,7 +69,7 @@ const AnyCategory = () => {
                                     `}
                                 </p>
                             </div>
-                        </div>
+                        </NavLink>
                     );
                 })
             ) : (

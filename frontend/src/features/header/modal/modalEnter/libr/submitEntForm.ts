@@ -13,7 +13,7 @@ export const submitEntForm = async (
     dispatch: Dispatch,
     reset: UseFormReset<AuthData>
 ) => {
-    await localStorage.setItem('rememberMe', submitData.rememberMe.toString());
+    /* await localStorage.setItem('rememberMe', submitData.rememberMe.toString()); */
 
     const authUser = async () =>
         await signIn({

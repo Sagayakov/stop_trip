@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { Google } from '../../../../shared/ui/icons/icons-tools/Google';
 import { Vk } from '../../../../shared/ui/icons/icons-tools/Vk';
-import { CheckboxRememberMe } from './inputsEnter/CheckboxRememberMe';
+//import { CheckboxRememberMe } from './inputsEnter/CheckboxRememberMe';
 import { InputSubmit } from './inputsEnter/InputSubmit';
 import { InputEmail } from './inputsEnter/inputEmail/InputEmail';
 import { InputPassword } from './inputsEnter/inputPassword/InputPassword';
@@ -59,7 +59,7 @@ export const FormEnter = () => {
             <div className="forget-password" onClick={openResetPasswordModal}>
                 Забыли пароль?
             </div>
-            <CheckboxRememberMe register={register} />
+            {/* <CheckboxRememberMe register={register} /> */}
             <InputSubmit isValid={isValid} />
             <div className="enter-with">
                 Войти с помощью

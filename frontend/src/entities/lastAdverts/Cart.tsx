@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { Favorite } from '../../shared/ui/icons/icons-tools/Favorite';
 import { getDateOfCreating } from './libr/getDateOfCreating';
@@ -26,7 +26,6 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
     
     const [addToFav, setAddToFav] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const target = data?.find((el) => el.id === id);
@@ -53,9 +52,9 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
     };
 
     return (
-        <div
+        <NavLink
             className="announcement-cart"
-            onClick={() => navigate(`/${category}/${id}/`)}
+            to={`/${category}/${id}/`}
         >
             <img
                 src={
@@ -83,6 +82,6 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
                 </div>
                 <span>{getDateOfCreating(dateCreate)}</span>
             </div>
-        </div>
+        </NavLink>
     );
 };
