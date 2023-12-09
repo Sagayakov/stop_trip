@@ -8,9 +8,14 @@ import {
 } from '../../../shared/ui/icons/loadPhoto';
 
 interface Props {
-    selectedImages: File[] | undefined;
-    setSelectedImages: React.Dispatch<React.SetStateAction<File[] | undefined>>;
+    selectedImages: Image[] | undefined;
+    setSelectedImages: React.Dispatch<
+        React.SetStateAction<Image[] | undefined>
+    >;
     setValue: UseFormSetValue<FormAddAnn>;
+}
+interface Image {
+    image: string;
 }
 
 export const AnnouncementPhotoField = ({
@@ -22,7 +27,11 @@ export const AnnouncementPhotoField = ({
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
-            const filesArray = Array.from(event.target.files);
+            const filesArray = Array
+                .from(event.target.files)
+                .map((el) => ({
+                    image: el.name
+                }));
             setSelectedImages((prevValue) => {
                 return prevValue ? [...prevValue, ...filesArray] : filesArray;
             });
@@ -44,15 +53,13 @@ export const AnnouncementPhotoField = ({
 
     useEffect(() => {
         if (selectedImages) {
-            setValue('announcementPhoto', selectedImages);
+            setValue('images', selectedImages);
         }
     }, [selectedImages]);
 
     return (
         <div className="ann-field mobile-add-photo">
-            <h3>
-                Фото:
-            </h3>
+            <h3>Фото:</h3>
             <div className="loadphoto">
                 <div className="loadphoto-btn-view">
                     <div
@@ -80,7 +87,7 @@ export const AnnouncementPhotoField = ({
                                         className="loadphoto-btn-view-delete"
                                         onClick={() => removeImage(index)}
                                     >
-                                        <p>{image.name}</p>
+                                        <p>{image.image}</p>
                                         <span>&#x2716;</span>
                                     </div>
                                 ))}
@@ -108,7 +115,9 @@ export const AnnouncementPhotoField = ({
                 </div>
             </div>
             <div className="ann-field-err">
-                {(selectedImages && selectedImages.length > 10) && "Пожалуйста, выберите не более 10 фотографий"}
+                {selectedImages &&
+                    selectedImages.length > 10 &&
+                    'Пожалуйста, выберите не более 10 фотографий'}
             </div>
         </div>
     );

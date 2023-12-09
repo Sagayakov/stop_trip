@@ -5,9 +5,10 @@ import { useAppSelector } from '../store/hooks';
 import { ActivateAccount } from '../../pages/activateAccount/ActivateAccount';
 
 export const AppRouter = () => {
+    const localStorageIsAuth = 'true' === localStorage.getItem('rememberMe') ? true : false;
+    //Изначально в редаксе isAuth="false". Если мы находились в приватном роутинге (и этой страницы не было в публичном), то при перезагрузке страницы перебрасывает на 404
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
-
-    const routes = isAuth ? privateRoutes : publicRoutes;
+    const routes = (localStorageIsAuth || isAuth) ? privateRoutes : publicRoutes;
 
     return (
         <Routes>

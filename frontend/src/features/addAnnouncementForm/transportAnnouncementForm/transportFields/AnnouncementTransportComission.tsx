@@ -14,17 +14,9 @@ export const AnnouncementTransportComission = ({ register }: Props) => {
                     type="text"
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
-                    {...register('transportCommission.min')}
+                    {...register('transport_commission')}
                     min={1}
-                    placeholder="От"
-                />
-                <input
-                    type="text"
-                    pattern="[0-9]*[.,]?[0-9]+"
-                    autoComplete="off"
-                    {...register('transportCommission.max')}
-                    min={1}
-                    placeholder="До"
+                    placeholder="Комиссия"
                 />
             </div>
             <div className="ann-field-err"></div>

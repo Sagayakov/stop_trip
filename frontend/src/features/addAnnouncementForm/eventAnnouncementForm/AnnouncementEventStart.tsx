@@ -12,7 +12,7 @@ export const AnnouncementEventStart = ({ register }: Props) => {
             <h3>Дата начала:</h3>
             <input
                 type="date"
-                {...register('announcementEvent.start', { required: true })}
+                {...register('start_date', { required: true })}
             />
             <div className="ann-field-err">
             </div>

@@ -1,6 +1,18 @@
 .add-ann-form {
     .filterAnnouncementCategory__control {
         width: 30%;
+        height: 48px;
+        .filterAnnouncementCategory__value-container{
+            height: 100%;
+            .filterAnnouncementCategory__placeholder{
+                height: 100%;
+                display: flex;
+                align-items: center;
+            }
+            input{
+                height: auto;
+            }
+        }
         .filterAnnouncementCategory__indicators {
             .filterAnnouncementCategory__clear-indicator {
                 padding: 0;
@@ -34,6 +46,16 @@
         scrollbar-width: thin !important;
     }
 }
+.optional-fields {
+    opacity: 0;
+    max-height: 0;
+    transition: max-height 3s ease, opacity 2s ease;
+
+    &.visible {
+        opacity: 1;
+        max-height: fit-content;
+    }
+}
 main {
     max-width: 1440px;
     margin: 0 auto;
@@ -63,8 +85,8 @@ main {
                     display: flex;
                     gap: 24px;
                     width: 100%;
-                    .form-checkbox{
-                        input{
+                    .form-checkbox {
+                        input {
                             width: 15px;
                         }
                     }

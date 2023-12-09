@@ -17,12 +17,16 @@ export const ModalWindow = ({ showModal, setShowModal }: Props) => {
 
     return (
         <div
-            className="modal-categories"
-            style={{ display: `${showModal ? 'flex' : 'none'}` }}
+            className={`modal-categories ${showModal ? 'visible' : ''}`}
+            // className="modal-categories"
+            // style={{ display: `${showModal ? 'flex' : 'none'}` }}
             onClick={() => setShowModal(false)}
         >
             <div
-                className="modal-content"
+                // className="modal-content"
+                className={`modal-content ${
+                    showModal ? 'visible-content' : ''
+                }`}
                 onClick={(event) => event.stopPropagation()}
             >
                 {Object.entries(categories).map((el) => {

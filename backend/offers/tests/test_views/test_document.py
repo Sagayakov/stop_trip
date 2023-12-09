@@ -90,3 +90,49 @@ class DocumentTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_document_type_filter(self):
+        user = UserFactory()
+        document_set = [
+            DocumentAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                document_type=[DocumentType.C_FORM, DocumentType.OTHER_DOCUMENT][_ % 2],
+                document_duration=DocumentDuration.QUARTER,
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"document_type": DocumentType.C_FORM.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(document_set) // 2)
+
+    def test_document_duration_filter(self):
+        user = UserFactory()
+        document_set = [
+            DocumentAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000 + _ * 50_000,
+                document_type=DocumentType.C_FORM,
+                document_duration=[DocumentDuration.QUARTER, DocumentDuration.OTHER][_ % 2],
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"document_duration": DocumentDuration.QUARTER.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(document_set) // 2)

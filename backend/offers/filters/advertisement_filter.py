@@ -3,6 +3,7 @@ from typing import Union
 from django.db.models import Min, Max
 from django_filters.rest_framework import filters, OrderingFilter
 
+from .document_filter import DocumentFilter
 from .currency_exchange_filter import CurrencyExchange
 from .event_filter import EventFilter
 from .food_filter import FoodFilter
@@ -22,6 +23,7 @@ class AdvertisementFilter(
     ServiceFilter,
     TaxiFilter,
     FoodFilter,
+    DocumentFilter,
     CurrencyExchange,
 ):
     """Фильтры для объявлений."""

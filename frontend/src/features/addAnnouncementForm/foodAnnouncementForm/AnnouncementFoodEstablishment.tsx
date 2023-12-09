@@ -7,13 +7,10 @@ interface Props {
 
 export const AnnouncementFoodEsteblishment = ({ register }: Props) => {
     return (
-        <div className="ann-field">
+        <div className="ann-field ann-food">
             <h3>Ресторан/кафе:</h3>
-            <label>
-                <input
-                    type="checkbox"
-                    {...register('announcementFood.establishment')}
-                />
+            <label className="form-checkbox">
+                <input type="checkbox" {...register('food_establishment')} />
                 <span>Ресторан/кафе</span>
             </label>
             <div className="ann-field-err"></div>

@@ -8,13 +8,13 @@ interface Props {
 }
 
 export const AnnouncementRealtyAmenities = ({ register }: Props) => {
-    const optionValues = valuesOfPropertyForm.amenities;
+    const optionValues = valuesOfPropertyForm.property_amenities;
     return (
         <div className="ann-field">
             <h3>Удобства</h3>
             <UniversalCheckboxGroup
                 checkboxValues={optionValues}
-                name="transportCondition"
+                name="property_amenities"
                 register={register}
             />
             <div className="ann-field-err"></div>

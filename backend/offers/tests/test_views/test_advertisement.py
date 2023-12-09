@@ -25,6 +25,8 @@ from offers.constants import (
     JobDurationType,
     JobPaymentType,
     FoodType,
+    DocumentType,
+    DocumentDuration,
 )
 from users.tests.factories import UserFactory
 from ..factories import BaseAdvertisementFactory
@@ -212,5 +214,10 @@ class AdvertisementViewSetTest(APITestCase):
                 self.assertEqual(spec["choices"], [True, False])
             elif spec["name"] == "food_type":
                 self.assertEqual(len(spec["choices"]), len(FoodType.choices))
+            # documents
+            elif spec["name"] == "document_type":
+                self.assertTrue(len(spec["choices"]), len(DocumentType.choices))
+            elif spec["name"] == "document_duration":
+                self.assertTrue(len(spec["choices"]), len(DocumentDuration.choices))
             else:
                 assert False, f"Add test for spec['name'] = '{spec['name']}'"

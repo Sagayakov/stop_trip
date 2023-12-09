@@ -14,7 +14,7 @@ interface Props {
 
 export const Prepayment = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const houseTypeValues = valuesOfPropertyForm.property_prepayment;
+    const prepaymentValues = valuesOfPropertyForm.property_prepayment;
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -46,7 +46,7 @@ export const Prepayment = ({ control, setValue }: Props) => {
                             placeholder="Предоплата"
                             closeMenuOnSelect={false}
                             isMulti={true}
-                            options={houseTypeValues}
+                            options={prepaymentValues}
                             onChange={(selectedOptions) => {
                                 handleChange(
                                     selectedOptions as
@@ -55,7 +55,7 @@ export const Prepayment = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={houseTypeValues.filter((option) =>
+                            value={prepaymentValues.filter((option) =>
                                 field.value?.includes(option.value)
                             )}
                         />

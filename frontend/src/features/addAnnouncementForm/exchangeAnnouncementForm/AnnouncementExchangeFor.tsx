@@ -18,7 +18,7 @@ export const AnnouncementExchangeFor = ({ setValue, control }: Props) => {
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
-                name="announcementExchange.name"
+                name="exchange_for"
                 options={exchangeForValues}
                 placeholder="Обмен на"
                 prefix="filterAnnouncementCategory"

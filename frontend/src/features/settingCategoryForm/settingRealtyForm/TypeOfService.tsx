@@ -5,7 +5,9 @@ import {
     SelectOption,
     TypeSettingRealty,
 } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
-import { valuesOfPropertyForm } from '../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
+import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
+import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useEffect, useState } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -14,7 +16,17 @@ interface Props {
 
 export const TypeOfService = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
-    const valuesTypeOfService = valuesOfPropertyForm.property_type_of_service;
+    const { data } = useGetFiltersQuery('');
+    const [typesValues, setTypesValues] = useState<SelectType[]>([]);
+
+    useEffect(() => {
+        if (data) {
+            const result = (data.params
+                .find((el) => el.name === 'property_type_of_service') as ChoicesType).choices
+                .filter((el) => (el as SelectType).value && (el as SelectType).label);
+            data && setTypesValues(result as SelectType[]);    
+        }
+    }, [data]);
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -46,7 +58,7 @@ export const TypeOfService = ({ control, setValue }: Props) => {
                             placeholder="Тип услуги"
                             closeMenuOnSelect={false}
                             isMulti={true}
-                            options={valuesTypeOfService}
+                            options={typesValues}
                             onChange={(selectedOptions) => {
                                 handleChange(
                                     selectedOptions as
@@ -55,8 +67,8 @@ export const TypeOfService = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={valuesTypeOfService.filter((option) =>
-                                field.value?.includes(option.value)
+                            value={typesValues.filter((option) =>
+                                field.value?.includes(option.value as string)
                             )}
                         />
                     )}
