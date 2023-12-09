@@ -6,6 +6,7 @@ interface Props {
 
 export const Favorite = ({ strokeColor, color, addToFavorite }: Props) => {
     const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
+        event.preventDefault();
         event.stopPropagation();
         addToFavorite && addToFavorite();
     };

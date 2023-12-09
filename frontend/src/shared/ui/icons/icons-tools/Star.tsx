@@ -37,6 +37,7 @@ export const Star = ({
     };
 
     const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
+        event.preventDefault();
         event.stopPropagation();
         if (isAuth) {
             setActiveStar(id);
