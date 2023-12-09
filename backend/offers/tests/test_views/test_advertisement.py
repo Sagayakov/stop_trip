@@ -194,6 +194,7 @@ class AdvertisementViewSetTest(APITestCase):
                 self.assertEqual(len(spec["choices"]), len(TransportCondition.choices))
             elif spec["name"] == "transport_commission":
                 self.assertTrue(len(spec["range"]))
+            # documents
             elif spec["name"] == "document_type":
                 self.assertTrue(len(spec["choices"]), len(DocumentType.choices))
             elif spec["name"] == "document_duration":
