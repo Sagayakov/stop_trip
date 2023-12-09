@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { LastAdvertsTypes } from './types/lastAdvertsTypes';
 import { url } from '../../shared/const/url';
+import Cookies from 'js-cookie';
 
 export const fetchFavorites = createApi({
     reducerPath: 'fetchFavorites',
@@ -28,7 +29,7 @@ export const fetchFavorites = createApi({
             query: (body) => ({
                 url: 'api/favorites/',
                 method: 'POST',
-                headers: { 'X-Csrftoken': `${sessionStorage.getItem('accessToken')}` },
+                headers: { 'X-Csrftoken': `${Cookies.get('access_token')}` },
                 body,
             }),
             invalidatesTags: ['Favorites'],
@@ -37,7 +38,7 @@ export const fetchFavorites = createApi({
             query: (body) => ({
                 url: 'api/favorites/delete_favorite/',
                 method: 'POST',
-                headers: { 'X-Csrftoken': `${sessionStorage.getItem('accessToken')}` },
+                headers: { 'X-Csrftoken': `${Cookies.get('access_token')}` },
                 body,
             }),
             invalidatesTags: ['Favorites'],
@@ -47,7 +48,7 @@ export const fetchFavorites = createApi({
                 url: 'api/favorites/clear_favorite/',
                 method: 'POST',
                 headers: {
-                    'X-Csrftoken': `${sessionStorage.getItem('accessToken')}`,
+                    'X-Csrftoken': `${Cookies.get('access_token')}`,
                 },
             }),
             invalidatesTags: ['Favorites'],
