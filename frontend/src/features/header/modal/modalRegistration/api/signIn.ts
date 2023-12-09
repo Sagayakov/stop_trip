@@ -16,12 +16,12 @@ export const signIn = async (body: UserEnter) => {
         const data = await responce.json(); //для ошибки неверного логина или пароля
 
         if ((await responce).ok) {
-            if (localStorage.getItem('rememberMe') == 'true') {
+            /* if (localStorage.getItem('rememberMe') == 'true') { */
                 saveTokensAuthToCookie(data.access, data.refresh);
-            } else {
+            /* } else {
                 sessionStorage.setItem('accessToken', data.access);
                 sessionStorage.setItem('refreshToken', data.refresh);
-            }
+            } */
             return data;
         }
     } catch (e) {
