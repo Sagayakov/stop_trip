@@ -9,6 +9,7 @@ from .event_filter import EventFilter
 from .excursion_filter import ExcursionFilter
 from .food_filter import FoodFilter
 from .job_filter import JobFilter
+from .market_filter import MarketFilter
 from .service_filter import ServiceFilter
 from .taxi_filter import TaxiFilter
 from .transport_filter import TransportFilter
@@ -27,6 +28,7 @@ class AdvertisementFilter(
     DocumentFilter,
     CurrencyExchange,
     ExcursionFilter,
+    MarketFilter,
 ):
     """Фильтры для объявлений."""
 
