@@ -24,7 +24,7 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
 
-        if (allLength.length >= 128) {
+        if (allLength && allLength.length >= 128) {
             setEmailDomeinLengthError(true);
         } else {
             setEmailDomeinLengthError(false);
@@ -67,6 +67,8 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
 
         const firstSymbol = domainPart.charAt(0);
         const lastSymbol = domainPart.charAt(domainPart.length - 1);
+        const symbolBeforeDot = domainPart[domainPart.lastIndexOf('.') - 1];
+        const symbolAfterDot = domainPart[domainPart.lastIndexOf('.') + 1];
 
         const isDigitOrHyphen = (char: string) =>
             !isNaN(parseInt(char, 10)) || char === '-';
@@ -74,8 +76,8 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
         if (
             isDigitOrHyphen(firstSymbol) ||
             isDigitOrHyphen(lastSymbol) ||
-            isDigitOrHyphen(firstPart[0]) ||
-            isDigitOrHyphen(firstPart[firstPart.length-1])
+            isDigitOrHyphen(symbolBeforeDot) ||
+            isDigitOrHyphen(symbolAfterDot)
         ) {
             setStartEndError(true);
         } else {
