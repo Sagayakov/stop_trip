@@ -13,7 +13,7 @@ export const InputPhone = ({ errors, register }: Props) => {
                 {...register('phone', {
                     required: true,
                     minLength: 5,
-                    pattern: /^[0-9()-]+$/,
+                    pattern: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$/,
                 })}
                 placeholder="Номер телефона"
                 style={{
@@ -25,7 +25,7 @@ export const InputPhone = ({ errors, register }: Props) => {
             <div className="input-error">
                 {errors?.phone && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Введите Ваш номер телефона
+                        Введите корректный номер телефона
                     </p>
                 )}
             </div>
