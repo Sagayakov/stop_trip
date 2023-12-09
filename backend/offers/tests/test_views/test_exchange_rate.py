@@ -92,3 +92,67 @@ class ExchangeRateTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)
+
+    def test_proposed_currency_filter(self):
+        user = UserFactory()
+        names = ["Фунт", "Евро", "Рубль", "Доллар"]
+        short_names = ["FNT", "EUR", "RUB", "USD"]
+
+        currency = [
+            CurrencyFactory(name=name, short_name=short_name)
+            for name, short_name in zip(names, short_names)
+        ]
+
+        currency_exchange_set = [
+            ExchangeAdvertisementFactory(
+                owner=user,
+                title="exchange_rate",
+                price=1500,
+                proposed_currency=currency[0],
+                exchange_for=currency[0],
+                exchange_rate=3.15,
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"proposed_currency": currency[0].short_name},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(currency_exchange_set))
+
+    def test_exchange_for_filter(self):
+        user = UserFactory()
+        names = ["Фунт", "Евро", "Рубль", "Доллар"]
+        short_names = ["FNT", "EUR", "RUB", "USD"]
+
+        currency = [
+            CurrencyFactory(name=name, short_name=short_name)
+            for name, short_name in zip(names, short_names)
+        ]
+
+        currency_exchange_set = [
+            ExchangeAdvertisementFactory(
+                owner=user,
+                title="exchange_rate",
+                price=1500,
+                proposed_currency=currency[0],
+                exchange_for=currency[0],
+                exchange_rate=3.15,
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"exchange_for": currency[0].short_name},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(currency_exchange_set))

@@ -3,17 +3,32 @@ from typing import Union
 from django.db.models import Min, Max
 from django_filters.rest_framework import filters, OrderingFilter
 
+from .currency_exchange_filter import CurrencyExchange
+from .document_filter import DocumentFilter
 from .event_filter import EventFilter
+from .excursion_filter import ExcursionFilter
+from .food_filter import FoodFilter
 from .job_filter import JobFilter
+from .market_filter import MarketFilter
+from .property_filter import PropertyFilter
 from .service_filter import ServiceFilter
 from .taxi_filter import TaxiFilter
 from .transport_filter import TransportFilter
-from .property_filter import PropertyFilter
 from ..constants import CategoryChoices
 
 
 class AdvertisementFilter(
-    TransportFilter, PropertyFilter, EventFilter, JobFilter, ServiceFilter, TaxiFilter
+    TransportFilter,
+    PropertyFilter,
+    EventFilter,
+    JobFilter,
+    ServiceFilter,
+    TaxiFilter,
+    FoodFilter,
+    DocumentFilter,
+    CurrencyExchange,
+    ExcursionFilter,
+    MarketFilter,
 ):
     """Фильтры для объявлений."""
 

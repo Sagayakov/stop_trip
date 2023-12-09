@@ -77,7 +77,15 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 CategoryChoices.FOOD: FoodCreateSerializer,
                 CategoryChoices.EXCURSION: ExcursionCreateSerializer,
             }
-
+            # category = self.request.data.get("category")
+            # if category:
+            #     serializer_class = subcategories_serializers.get(category)
+            #     if serializer_class:
+            #         return serializer_class
+            #     else:
+            #         raise ValidationError(f"Invalid category: {category}")
+            # else:
+            #     return AdvertisementListSerializer
             if category := self.request.data.get("category"):
                 return subcategories_serializers[category]
             else:
