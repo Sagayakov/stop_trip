@@ -11,6 +11,7 @@ class MarketFilter(FilterSet):
     @classmethod
     def _market_filter_specs(cls, queryset) -> list[dict]:
         specs: list[dict] = []
+
         # Состояние
         market_condition_specs = {
             "name": "market_condition",
