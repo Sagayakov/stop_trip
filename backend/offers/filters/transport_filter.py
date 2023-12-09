@@ -81,9 +81,8 @@ class TransportFilter(FilterSet):
             "name": "transport_brand",
             "choices": [
                 {"value": value, "label": label}
-                for value, label in queryset.values_list(
-                    "transport_brand__slug", "transport_brand__name"
-                )
+                for value, label in queryset.exclude(transport_brand__isnull=True)
+                .values_list("transport_brand__slug", "transport_brand__name")
                 .order_by("transport_brand__slug")
                 .distinct("transport_brand__slug")
             ],
@@ -95,9 +94,8 @@ class TransportFilter(FilterSet):
             "name": "transport_model",
             "choices": [
                 {"value": value, "label": label}
-                for value, label in queryset.values_list(
-                    "transport_model__slug", "transport_model__name"
-                )
+                for value, label in queryset.exclude(transport_model__isnull=True)
+                .values_list("transport_model__slug", "transport_model__name")
                 .order_by("transport_model__slug")
                 .distinct("transport_model__slug")
             ],

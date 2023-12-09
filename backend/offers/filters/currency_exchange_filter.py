@@ -18,9 +18,8 @@ class CurrencyExchange(FilterSet):
             "name": "proposed_currency",
             "choices": (
                 {"value": value, "label": label}
-                for value, label in queryset.values_list(
-                    "proposed_currency__short_name", "proposed_currency__name"
-                )
+                for value, label in queryset.exclude(proposed_currency__isnull=True)
+                .values_list("proposed_currency__short_name", "proposed_currency__name")
                 .order_by("proposed_currency__short_name")
                 .distinct("proposed_currency__short_name")
             ),
@@ -32,9 +31,8 @@ class CurrencyExchange(FilterSet):
             "name": "exchange_for",
             "choices": [
                 {"value": value, "label": label}
-                for value, label in queryset.values_list(
-                    "exchange_for__short_name", "exchange_for__name"
-                )
+                for value, label in queryset.exclude(exchange_for__isnull=True)
+                .values_list("exchange_for__short_name", "exchange_for__name")
                 .order_by("exchange_for__short_name")
                 .distinct("exchange_for__short_name")
             ],

@@ -55,9 +55,8 @@ class PropertyFilter(FilterSet):
             "name": "property_city",
             "choices": [
                 {"value": value, "label": label}
-                for value, label in queryset.values_list(
-                    "property_city__slug", "property_city__name"
-                )
+                for value, label in queryset.exclude(property_city__isnull=True)
+                .values_list("property_city__slug", "property_city__name")
                 .order_by("property_city__slug")
                 .distinct("property_city__slug")
             ],
@@ -69,9 +68,8 @@ class PropertyFilter(FilterSet):
             "name": "property_district",
             "choices": [
                 {"value": value, "label": label}
-                for value, label in queryset.values_list(
-                    "property_district__slug", "property_district__name"
-                )
+                for value, label in queryset.exclude(property_district__isnull=True)
+                .values_list("property_district__slug", "property_district__name")
                 .order_by("property_district__slug")
                 .distinct("property_district__slug")
             ],
@@ -83,9 +81,8 @@ class PropertyFilter(FilterSet):
             "name": "property_bathroom_count",
             "choices": [
                 {"value": value, "label": label}
-                for value, label in queryset.values_list(
-                    "property_bathroom_count", "property_bathroom_count"
-                )
+                for value, label in queryset.exclude(property_bathroom_count__isnull=True)
+                .values_list("property_bathroom_count", "property_bathroom_count")
                 .order_by("property_bathroom_count")
                 .distinct("property_bathroom_count")
             ],
@@ -165,9 +162,8 @@ class PropertyFilter(FilterSet):
             "name": "property_amenities",
             "choices": [
                 {"value": value, "label": label}
-                for value, label in queryset.values_list(
-                    "property_amenities__slug", "property_amenities__name"
-                )
+                for value, label in queryset.exclude(property_amenities__isnull=True)
+                .values_list("property_amenities__slug", "property_amenities__name")
                 .order_by("property_amenities__slug")
                 .distinct("property_amenities__slug")
             ],
