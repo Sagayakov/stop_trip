@@ -6,6 +6,7 @@ from django_filters.rest_framework import filters, OrderingFilter
 from .document_filter import DocumentFilter
 from .currency_exchange_filter import CurrencyExchange
 from .event_filter import EventFilter
+from .excursion_filter import ExcursionFilter
 from .food_filter import FoodFilter
 from .job_filter import JobFilter
 from .service_filter import ServiceFilter
@@ -25,6 +26,7 @@ class AdvertisementFilter(
     FoodFilter,
     DocumentFilter,
     CurrencyExchange,
+    ExcursionFilter,
 ):
     """Фильтры для объявлений."""
 
