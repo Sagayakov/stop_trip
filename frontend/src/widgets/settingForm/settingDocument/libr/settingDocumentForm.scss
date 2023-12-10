@@ -1,0 +1,86 @@
+.filterDocumentForm {
+    .filterDocumentForm__control {
+        width: 100%;
+        .filterDocumentForm__indicators {
+            .filterDocumentForm__clear-indicator {
+                padding: 0;
+            }
+            .filterDocumentForm__dropdown-indicator {
+                padding: 8px 8px 8px 0px;
+            }
+            span {
+                display: none;
+            }
+        }
+    }
+    .filterDocumentForm__control {
+        &::-webkit-scrollbar {
+            width: 2px !important;
+        }
+        &::-webkit-scrollbar-thumb {
+            width: 2px;
+            background-color: gray !important;
+        }
+    }
+    .filterDocumentForm__input {
+        height: 25px;
+        border: none !important;
+    }
+    .filterDocumentForm__menu-list {
+        max-height: 200px;
+        scrollbar-width: thin !important;
+    }
+}
+
+.filterDocumentForm {
+    h3 {
+        margin-bottom: 14px;
+    }
+    .documentDuration,
+    .documentType {
+        margin-bottom: 24px;
+    }
+    input[type='submit'] {
+        width: 100%;
+        height: 43px;
+        // padding: 12px 20px;
+        display: flex;
+        justify-content: center;
+        border-radius: var(--radii);
+        border: none;
+        color: white;
+        background-color: var(--main-blue);
+        font-family: var(--font-lato);
+        font-weight: 600;
+        margin-bottom: 16px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        cursor: pointer;
+    }
+    .reset-setting-form {
+        padding: 12px 20px;
+        width: 100%;
+        height: 45px;
+        color: var(--main-blue);
+        font-family: var(--font-lato);
+        font-weight: 700;
+        background-color: white;
+        border-radius: var(--radii);
+        border: 1px solid var(--main-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        svg {
+            margin-right: 16px;
+        }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .filterDocumentForm{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+}
