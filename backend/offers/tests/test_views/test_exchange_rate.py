@@ -115,7 +115,7 @@ class ExchangeRateTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"proposed_currency": currency[0].short_name},
@@ -123,7 +123,7 @@ class ExchangeRateTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(currency_exchange_set))
+        self.assertEqual(res_json["count"], len(currency_exchange_set))
 
     def test_exchange_for_filter(self):
         user = UserFactory()
@@ -147,7 +147,7 @@ class ExchangeRateTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"exchange_for": currency[0].short_name},
@@ -155,4 +155,4 @@ class ExchangeRateTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(currency_exchange_set))
+        self.assertEqual(res_json["count"], len(currency_exchange_set))

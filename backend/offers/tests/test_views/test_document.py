@@ -104,7 +104,7 @@ class DocumentTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"document_type": DocumentType.C_FORM.value},
@@ -112,7 +112,7 @@ class DocumentTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(document_set) // 2)
+        self.assertEqual(res_json["count"], len(document_set) // 2)
 
     def test_document_duration_filter(self):
         user = UserFactory()
@@ -127,7 +127,7 @@ class DocumentTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"document_duration": DocumentDuration.QUARTER.value},
@@ -135,4 +135,4 @@ class DocumentTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(document_set) // 2)
+        self.assertEqual(res_json["count"], len(document_set) // 2)

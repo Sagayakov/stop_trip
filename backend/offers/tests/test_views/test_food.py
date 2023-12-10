@@ -104,7 +104,7 @@ class FoodTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"food_delivery": True},
@@ -112,7 +112,7 @@ class FoodTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(food_set) // 2)
+        self.assertEqual(res_json["count"], len(food_set) // 2)
 
     def test_food_establishment(self):
         user = UserFactory()
@@ -127,7 +127,7 @@ class FoodTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"food_establishment": True},
@@ -135,7 +135,7 @@ class FoodTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(food_set) // 2)
+        self.assertEqual(res_json["count"], len(food_set) // 2)
 
     def test_food_type(self):
         user = UserFactory()
@@ -150,7 +150,7 @@ class FoodTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"food_type": FoodType.READY_FOOD.value},
@@ -158,4 +158,4 @@ class FoodTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(food_set) // 2)
+        self.assertEqual(res_json["count"], len(food_set) // 2)

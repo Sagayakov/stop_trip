@@ -47,12 +47,12 @@ class AdvertisementViewSetTest(APITestCase):
             for category in CategoryChoices.values
         ]
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(self.list_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(advertisements))
+        self.assertEqual(res_json["count"], len(advertisements))
 
     def test_detail(self):
         user = UserFactory()
@@ -75,7 +75,7 @@ class AdvertisementViewSetTest(APITestCase):
             for category in CategoryChoices.values
         ]
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"category": CategoryChoices.TRANSPORT},
@@ -83,7 +83,7 @@ class AdvertisementViewSetTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(advertisements) // len(CategoryChoices.values))
+        self.assertEqual(res_json["count"], len(advertisements) // len(CategoryChoices.values))
 
     def test_filter_price(self):
         user = UserFactory()
@@ -92,7 +92,7 @@ class AdvertisementViewSetTest(APITestCase):
             for _ in [i * 100_000 for i in range(1, 10)]
         ]
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"price_min": advertisements[1].price, "price_max": advertisements[-2].price},
@@ -100,13 +100,13 @@ class AdvertisementViewSetTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(advertisements) - 2)
+        self.assertEqual(res_json["count"], len(advertisements) - 2)
 
     def test_filter_order_date_create(self):
         user = UserFactory()
         advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(3)]
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"order": "-date_create"},
@@ -114,9 +114,9 @@ class AdvertisementViewSetTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(advertisements))
-        self.assertEqual(res_json[0]["id"], advertisements[-1].id)
-        self.assertEqual(res_json[-1]["id"], advertisements[0].id)
+        self.assertEqual(res_json["count"], len(advertisements))
+        self.assertEqual(res_json["results"][0]["id"], advertisements[-1].id)
+        self.assertEqual(res_json["results"][-1]["id"], advertisements[0].id)
 
     def test_get_filter_params(self):
         with self.assertNumQueries(16):

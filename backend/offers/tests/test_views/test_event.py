@@ -99,7 +99,7 @@ class EventTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"start_date": str(start_date)},
@@ -107,7 +107,7 @@ class EventTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(events_set))
+        self.assertEqual(res_json["count"], len(events_set))
 
     def test_filter_event_end_date(self):
         user = UserFactory()
@@ -125,7 +125,7 @@ class EventTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"end_date": str(end_date)},
@@ -133,7 +133,7 @@ class EventTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(events_set))
+        self.assertEqual(res_json["count"], len(events_set))
 
     def test_filter_event_is_online(self):
         user = UserFactory()
@@ -153,7 +153,7 @@ class EventTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"is_online": True},
@@ -161,4 +161,4 @@ class EventTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(events_set) // 2)
+        self.assertEqual(res_json["count"], len(events_set) // 2)

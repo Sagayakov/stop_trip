@@ -108,7 +108,7 @@ class JobTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"job_type": JobType.FULL_TIME.value},
@@ -116,7 +116,7 @@ class JobTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(job_set) // 2)
+        self.assertEqual(res_json["count"], len(job_set) // 2)
 
     def test_filter_job_duration(self):
         user = UserFactory()
@@ -132,7 +132,7 @@ class JobTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"job_duration": JobDurationType.TEMPORARY.value},
@@ -140,9 +140,9 @@ class JobTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(job_set) // 2)
+        self.assertEqual(res_json["count"], len(job_set) // 2)
 
-    def test_filer_job_payment_type(self):
+    def test_filter_job_payment_type(self):
         user = UserFactory()
         job_set = [
             JobAdvertisementFactory(
@@ -158,7 +158,7 @@ class JobTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"job_payment_type": JobPaymentType.WEEKLY_PAYMENT.value},
@@ -166,7 +166,7 @@ class JobTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(job_set) // 2)
+        self.assertEqual(res_json["count"], len(job_set) // 2)
 
     def test_filter_job_experience(self):
         user = UserFactory()
@@ -182,7 +182,7 @@ class JobTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
                 {"job_experience": True},
@@ -190,4 +190,4 @@ class JobTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(job_set) // 2)
+        self.assertEqual(res_json["count"], len(job_set) // 2)
