@@ -45,7 +45,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     # TODO добавить пагинацию
 
     def get_queryset(self):
-        queryset = Advertisement.objects.filter(is_published=True)
+        queryset = Advertisement.objects.filter(is_published=True).select_related("owner")
 
         if self.action in [self.list.__name__, self.retrieve.__name__]:
             queryset = queryset.prefetch_related("images")
