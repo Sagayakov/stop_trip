@@ -1,7 +1,7 @@
 export interface TypeOfCurrencyFilter {
     proposed_currency: Currency,
     exchange_for: Currency,
-    exchange_rate: number,
+    exchange_rate: number;
 }
 
 type Currency = {

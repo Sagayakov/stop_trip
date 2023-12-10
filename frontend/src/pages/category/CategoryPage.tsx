@@ -13,6 +13,7 @@ const SettingTaxiForm = lazy(() => import('../../widgets/settingForm/settingTaxi
 const SettingServicesForm = lazy(() => import('../../widgets/settingForm/settingServices/SettingServicesForm'));
 const SettingEventForm = lazy(() => import('../../widgets/settingForm/settingEvent/SettingEventForm'));
 const SettingJobForm = lazy(() => import('../../widgets/settingForm/settingJob/SettingJobForm'));
+const SettingExcursionForm = lazy(() => import('../../widgets/settingForm/settingExcursion/SettingExcursionForm'));
 const SettingDocumentForm = lazy(() => import('../../widgets/settingForm/settingDocument/SettingDocumentForm'));
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
 import './style/category-page.scss';
@@ -112,6 +113,9 @@ export const CategoryPage = () => {
                         )}
                         {category === 'document' && (
                             <SettingDocumentForm setShowFilters={setShowFilters} />
+                        )}
+                        {category === 'excursion' && (
+                            <SettingExcursionForm setShowFilters={setShowFilters} />
                         )}
                     </div>
                     <AnyCategory />

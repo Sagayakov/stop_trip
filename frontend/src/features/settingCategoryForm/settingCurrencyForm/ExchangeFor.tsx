@@ -13,10 +13,9 @@ export const ExchangeFor = ({ control, setValue }: Props) => {
     const options = [{ value: 'options', label: 'options' }];
 
     return (
-        <>
             <div className="exchangeFor">
                 <h3>Обмен на</h3>
-                <UniversalSelectDropdown
+                <UniversalSelectDropdown<TypeOfCurrencyFilter>
                     closeMenuOnSelect={false}
                     control={control}
                     isMulti={true}
@@ -28,6 +27,5 @@ export const ExchangeFor = ({ control, setValue }: Props) => {
                     isSearchable={!isMobile}
                 />
             </div>
-        </>
     );
 };

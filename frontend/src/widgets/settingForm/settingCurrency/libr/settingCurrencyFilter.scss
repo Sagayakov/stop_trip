@@ -1,6 +1,12 @@
-.filterCurrencyForm {
+#proposed_currency, #exchange_for {
+    height: 46px;
     .filterCurrencyForm__control {
         width: 100%;
+        height: 100%;
+        .filterCurrencyForm__value-container {
+            height: 100%;
+            align-content: center;
+        }
         .filterCurrencyForm__indicators {
             .filterCurrencyForm__clear-indicator {
                 padding: 0;
