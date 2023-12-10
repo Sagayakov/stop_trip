@@ -26,7 +26,11 @@ from offers.constants import (
     JobPaymentType,
 )
 from users.tests.factories import UserFactory
-from ..factories import BaseAdvertisementFactory
+from ..factories import (BaseAdvertisementFactory,
+                         CountryFactory,
+                         RegionFactory,
+                         CityFactory
+                         )
 
 
 @mark.django_db
@@ -38,8 +42,13 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_list(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         advertisements = [
-            BaseAdvertisementFactory(owner=user, category=category)
+            BaseAdvertisementFactory(owner=user, country=country,
+                                     region=region, city=city,
+                                     category=category)
             for category in CategoryChoices.values
         ]
 
@@ -52,8 +61,14 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_detail(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         advertisements = [
-            BaseAdvertisementFactory(owner=user, category=category)
+            BaseAdvertisementFactory(owner=user, category=category,
+                                     country=country,
+                                     region=region, city=city,
+                                     )
             for category in CategoryChoices.values
         ]
 
@@ -66,8 +81,14 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_filter_category(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         advertisements = [
-            BaseAdvertisementFactory(owner=user, category=category)
+            BaseAdvertisementFactory(owner=user, category=category,
+                                     country=country,
+                                     region=region, city=city
+                                     )
             for category in CategoryChoices.values
         ]
 
@@ -83,8 +104,13 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_filter_price(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         advertisements = [
-            BaseAdvertisementFactory(owner=user, price=_)
+            BaseAdvertisementFactory(owner=user, country=country,
+                                     region=region, city=city,
+                                     price=_)
             for _ in [i * 100_000 for i in range(1, 10)]
         ]
 
@@ -100,7 +126,12 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_filter_order_date_create(self):
         user = UserFactory()
-        advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(3)]
+        user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+        advertisements = [BaseAdvertisementFactory(owner=user, country=country,
+                                                   region=region, city=city) for _ in range(3)]
 
         with self.assertNumQueries(2):
             res = self.client.get(

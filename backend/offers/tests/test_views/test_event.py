@@ -10,7 +10,11 @@ from rest_framework.test import APITestCase
 from offers.constants import CategoryChoices
 from offers.models import Advertisement
 from users.tests.factories import UserFactory
-from ..factories import EventAdvertisementFactory
+from ..factories import (EventAdvertisementFactory,
+                         CountryFactory,
+                         RegionFactory,
+                         CityFactory
+                         )
 
 
 @mark.django_db
@@ -20,8 +24,14 @@ class EventTest(APITestCase):
         self.detail_url = partial(reverse, "advertisements-detail")
 
     def test_create_event(self):
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.EVENT.value,
+            "country": country.id,
+            "region": region.id,
+            "city": city.id,
             "title": "event",
             "price": 12_000,
             "start_date": str(now() + datetime.timedelta(days=2)),
@@ -32,7 +42,7 @@ class EventTest(APITestCase):
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(6):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -49,9 +59,20 @@ class EventTest(APITestCase):
 
     def test_update_event(self):
         user = UserFactory()
-        advertisement = EventAdvertisementFactory(owner=user)
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+        advertisement = EventAdvertisementFactory(owner=user, country=country,
+                                                  region=region,
+                                                  city=city)
+        new_country = CountryFactory()
+        new_region = RegionFactory(country=country)
+        new_city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.EVENT.value,
+            "country": new_country.id,
+            "region": new_region.id,
+            "city": new_city.id,
             "title": "event_test",
             "price": 13_000,
             "start_date": str(now() + datetime.timedelta(days=2)),
@@ -61,7 +82,7 @@ class EventTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
 
         self.client.force_login(user)
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(10):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -72,11 +93,14 @@ class EventTest(APITestCase):
 
     def test_delete_event(self):
         user = UserFactory()
-        advertisement = EventAdvertisementFactory(owner=user)
-
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+        advertisement = EventAdvertisementFactory(owner=user, country=country,
+                                                  region=region,
+                                                  city=city)
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
-
         with self.assertNumQueries(6):
             res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
 
@@ -85,11 +109,17 @@ class EventTest(APITestCase):
 
     def test_filter_event_start_date(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         start_date = "2023-11-06 00:00:00"
         end_date = "2023-11-07 00:00:00"
         events_set = [
             EventAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.EVENT.value,
                 price=100_000 + _ * 50_000,
                 start_date=start_date,
@@ -111,11 +141,17 @@ class EventTest(APITestCase):
 
     def test_filter_event_end_date(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         start_date = "2023-11-06 00:00:00"
         end_date = "2023-11-07 00:00:00"
         events_set = [
             EventAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.EVENT.value,
                 price=100_000 + _ * 50_000,
                 start_date=start_date,
@@ -137,11 +173,17 @@ class EventTest(APITestCase):
 
     def test_filter_event_is_online(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         # start_date = "2023-11-06 00:00:00"
         # end_date = "2023-11-07 00:00:00"
         events_set = [
             EventAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.EVENT.value,
                 price=100_000 + _ * 50_000,
                 # start_date=start_date,

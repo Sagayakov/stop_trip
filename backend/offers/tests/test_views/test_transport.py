@@ -45,6 +45,9 @@ class TransportTest(APITestCase):
             "category": CategoryChoices.TRANSPORT.value,
             "title": "test_transport",
             "price": 100_000,
+            "country": country.id,
+            "region": region.id,
+            "city": city.id,
             "coordinates": "35,56",
             "transport_type_of_service": TransportTypeOfService.SALE,
             "transport_type": TransportType.GROUND,
@@ -65,7 +68,7 @@ class TransportTest(APITestCase):
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(9):
+        with self.assertNumQueries(8):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -112,8 +115,8 @@ class TransportTest(APITestCase):
         advertisement = TransportAdvertisementFactory(
             owner=user,
             country=country,
-            region = region,
-            city = city,
+            region=region,
+            city=city,
             category=CategoryChoices.TRANSPORT.value,
             title="test_transport",
             price=100_000,
@@ -141,9 +144,9 @@ class TransportTest(APITestCase):
             "category": CategoryChoices.TRANSPORT.value,
             "title": "test_transport_new",
             "price": 120_000,
-            "country":new_country.id,
-            "region":new_region.id,
-            "city":new_city.id,
+            "country": new_country.id,
+            "region": new_region.id,
+            "city": new_city.id,
             "transport_type_of_service": TransportTypeOfService.SALE,
             "transport_type": TransportType.GROUND,
             "transport_category": TransportCategory.CAR,
@@ -201,8 +204,14 @@ class TransportTest(APITestCase):
 
     def test_delete_transport(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         advertisement = TransportAdvertisementFactory(
             owner=user,
+            country=country,
+            region=region,
+            city=city
         )
         [AdvertisementImageFactory(advertisement=advertisement) for _ in range(10)]
 
@@ -217,6 +226,9 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_type_of_service(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brands = [
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
@@ -228,6 +240,9 @@ class TransportTest(APITestCase):
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 transport_type_of_service=[
@@ -265,6 +280,9 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_type(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brands = [
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
@@ -276,6 +294,9 @@ class TransportTest(APITestCase):
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
@@ -313,6 +334,9 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_category(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brands = [
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
@@ -324,6 +348,9 @@ class TransportTest(APITestCase):
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
@@ -358,6 +385,9 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_brand(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brands = [
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
@@ -369,6 +399,9 @@ class TransportTest(APITestCase):
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
@@ -403,6 +436,9 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_model(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brands = [
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
@@ -415,6 +451,9 @@ class TransportTest(APITestCase):
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
@@ -448,6 +487,9 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_engine_type(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brands = [
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
@@ -459,6 +501,9 @@ class TransportTest(APITestCase):
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
@@ -493,6 +538,9 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_drive_type(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brands = [
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
@@ -504,6 +552,9 @@ class TransportTest(APITestCase):
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
@@ -541,11 +592,17 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_engine_volume(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000,
+                country=country,
+                region=region,
+                city=city,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=TransportCategory.CAR,
@@ -574,9 +631,15 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_year_of_production(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
@@ -610,6 +673,9 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_transmission_type(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brands = [
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
@@ -623,6 +689,9 @@ class TransportTest(APITestCase):
                 owner=user,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
+                country=country,
+                region=region,
+                city=city,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=TransportCategory.MOTORCYCLE,
@@ -658,6 +727,9 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_body_type(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brands = [
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
@@ -669,6 +741,9 @@ class TransportTest(APITestCase):
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
@@ -703,6 +778,9 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_condition(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_brands = [
             TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
@@ -714,6 +792,9 @@ class TransportTest(APITestCase):
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
@@ -748,11 +829,17 @@ class TransportTest(APITestCase):
 
     def test_filter_transport_commission(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000,
+                country=country,
+                region=region,
+                city=city,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=TransportCategory.CAR,

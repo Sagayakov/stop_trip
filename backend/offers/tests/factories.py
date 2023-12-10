@@ -73,7 +73,7 @@ class AdvertisementImageFactory(factory.django.DjangoModelFactory):
 class CountryFactory(factory.django.DjangoModelFactory):
     """Фабрика страны"""
 
-    name = factory.Faker("word")
+    name = factory.Faker("country")
     slug = factory.Sequence(lambda x: f"slug_{x}")
 
     class Meta:
@@ -90,15 +90,17 @@ class RegionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Region
 
+
 class CityFactory(factory.django.DjangoModelFactory):
     """Фабрика города."""
 
-    name = factory.Faker("word")
+    name = factory.Faker("city")
     slug = factory.Sequence(lambda x: f"slug_{x}")
     region = factory.SubFactory(RegionFactory)
 
     class Meta:
         model = City
+
 
 class PropertyAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по недвижимости."""

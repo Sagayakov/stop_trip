@@ -12,7 +12,10 @@ from offers.constants import (
 )
 from offers.models import Advertisement
 from users.tests.factories import UserFactory
-from ..factories import DocumentAdvertisementFactory
+from ..factories import (DocumentAdvertisementFactory,
+                         CountryFactory,
+                         RegionFactory,
+                         CityFactory)
 
 
 @mark.django_db
@@ -22,8 +25,14 @@ class DocumentTest(APITestCase):
         self.detail_url = partial(reverse, "advertisements-detail")
 
     def test_create_document(self):
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.DOCUMENT.value,
+            "country": country.id,
+            "region": region.id,
+            "city": city.id,
             "title": "document",
             "price": 1_000,
             "document_type": DocumentType.C_FORM,
@@ -34,7 +43,7 @@ class DocumentTest(APITestCase):
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(6):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -43,6 +52,9 @@ class DocumentTest(APITestCase):
         new_advertisement = Advertisement.objects.first()
 
         self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.country, country)
+        self.assertEqual(new_advertisement.region, region)
+        self.assertEqual(new_advertisement.city, city)
         self.assertEqual(new_advertisement.category, payload["category"])
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
@@ -51,10 +63,22 @@ class DocumentTest(APITestCase):
 
     def test_update_document(self):
         user = UserFactory()
-        advertisement = DocumentAdvertisementFactory(owner=user)
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+        advertisement = DocumentAdvertisementFactory(
+            owner=user, country=country,
+            region=region, city=city
+        )
+        new_country = CountryFactory()
+        new_region = RegionFactory(country=country)
+        new_city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.DOCUMENT.value,
             "title": "document_new",
+            "country": new_country.id,
+            "region": new_region.id,
+            "city": new_city.id,
             "price": 10_000,
             "document_type": DocumentType.C_FORM,
             "document_duration": DocumentDuration.QUARTER,
@@ -63,7 +87,7 @@ class DocumentTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(10):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -71,6 +95,9 @@ class DocumentTest(APITestCase):
         advertisement.refresh_from_db()
 
         self.assertEqual(advertisement.owner, user)
+        self.assertEqual(advertisement.country, new_country)
+        self.assertEqual(advertisement.region, new_region)
+        self.assertEqual(advertisement.city, new_city)
         self.assertEqual(advertisement.category, payload["category"])
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
@@ -79,8 +106,13 @@ class DocumentTest(APITestCase):
 
     def test_delete_document(self):
         user = UserFactory()
-
-        advertisement = DocumentAdvertisementFactory(owner=user)
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+        advertisement = DocumentAdvertisementFactory(
+            owner=user, country=country,
+            region=region, city=city
+        )
 
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
