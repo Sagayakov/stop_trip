@@ -15,13 +15,17 @@ export const getValuesList = ({ data, category }: GetListProps) => {
 
     let key: keyof ProductType;
     for (key in data) {
-        if (key === 'images' || key === 'is_published' || data[key] === '') {
+        if (key === 'images'
+            || key === 'is_published'
+            || data[key] === ''
+            || key === 'owner'
+            || key === 'property_city') {
             continue;
         } else if (key === 'property_amenities') {
             if (data.property_amenities.length) {
                 list.push(
                     <div key={key}>
-                        <p>{data[key].join(', ')}</p>
+                        <p>{data[key].map((el) => el.name).join(', ')}</p>
                     </div>
                 );
             } else {

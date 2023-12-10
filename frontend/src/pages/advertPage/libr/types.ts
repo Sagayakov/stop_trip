@@ -19,15 +19,15 @@ export type ProductType = {
     job_experience: boolean;
     job_payment_type: null | string;
     job_type: null | keyof typeof categorySubTypesDictionary;
-    owner: number;
+    owner: Owner;
     price: null | number;
-    property_amenities: string[];
+    property_amenities: Amenity[];
     property_area: null | string;
     property_balcony: string;
     property_bathroom_count: null | number;
     property_bathroom_type: string;
     property_building_max_floor: null | number;
-    property_city: string;
+    property_city: { name: string };
     coordinates: string;
     property_district: string;
     property_floor: null | number;
@@ -63,3 +63,15 @@ export type ProductType = {
     transport_year_of_production: null | number;
     transport_comission: null | number;
 };
+
+type Owner = {
+    date_joined: string;
+    email: string;
+    full_name: string;
+    id: number;
+    phone: string;
+}
+
+type Amenity = {
+    name: string;
+}

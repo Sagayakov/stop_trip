@@ -18,7 +18,7 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
             <div className="location-header">Расположение</div>
             <p>
                 {data.property_city
-                    ? `${data.property_city}, ${data.property_district ?? ''}`
+                    ? `${data.property_city.name}, ${data.property_district ?? ''}`
                     : 'Адрес не указан'}
             </p>
             <div className="map-wrapper">
