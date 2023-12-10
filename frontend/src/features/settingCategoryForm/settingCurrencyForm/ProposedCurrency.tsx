@@ -1,29 +1,29 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { useMatchMedia } from '../../../app/hooks/useMatchMedia';
 import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
-import { TypeOfDocumentFilter } from '../../../widgets/settingForm/settingDocument/libr/TypeOfDocumentFilter';
+import { TypeOfCurrencyFilter } from '../../../widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter';
 
 interface Props {
-    setValue: UseFormSetValue<TypeOfDocumentFilter>;
-    control: Control<TypeOfDocumentFilter, string[]>;
+    setValue: UseFormSetValue<TypeOfCurrencyFilter>;
+    control: Control<TypeOfCurrencyFilter, string[]>;
 }
 
-export const DocumentDuration = ({ control, setValue }: Props) => {
+export const ProposedCurrency = ({ control, setValue }: Props) => {
     const { isMobile } = useMatchMedia();
     const options = [{ value: 'options', label: 'options' }];
 
     return (
         <>
-            <div className="documentDuration">
-                <h3>Срок действия</h3>
+            <div className="proposedCurrency">
+                <h3>Предлагаемая валюта</h3>
                 <UniversalSelectDropdown
                     closeMenuOnSelect={false}
                     control={control}
                     isMulti={true}
-                    name="document_duration"
+                    name="proposed_currency"
                     options={options}
-                    placeholder="Срок действия"
-                    prefix="filterDocumentForm"
+                    placeholder="Предлагаемая валюта"
+                    prefix="filterCurrencyForm"
                     setValue={setValue}
                     isSearchable={!isMobile}
                 />

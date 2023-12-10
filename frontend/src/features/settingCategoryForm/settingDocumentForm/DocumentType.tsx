@@ -17,7 +17,7 @@ export const DocumentType = ({ control, setValue }: Props) => {
             <div className="documentType">
                 <h3>Тип документа</h3>
                 <UniversalSelectDropdown
-                    closeMenuOnSelect
+                    closeMenuOnSelect={false}
                     control={control}
                     isMulti={true}
                     name="document_type"
