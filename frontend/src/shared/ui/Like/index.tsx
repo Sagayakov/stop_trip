@@ -28,8 +28,8 @@ export const Like = ({
 
     useEffect(() => {
         const target = data?.find((el) => el.id === id);
-        setIsLike(!!target);
-    }, [data, id]);
+        isAuth && setIsLike(!!target);
+    }, [data, id, isAuth]);
 
     const addToFavorite = () => {
         if (isAuth) {
@@ -48,8 +48,8 @@ export const Like = ({
     return (
         <div className="add-to-favorite">
             <Favorite
-                color={isLike ? color : 'transparent'}
-                strokeColor={isLike ? 'transparent' : strokeColor}
+                color={isLike && isAuth ? color : 'transparent'}
+                strokeColor={isLike && isAuth ? 'transparent' : strokeColor}
                 addToFavorite={addToFavorite}
             />
         </div>
