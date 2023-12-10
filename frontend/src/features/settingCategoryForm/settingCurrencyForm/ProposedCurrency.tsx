@@ -10,7 +10,7 @@ interface Props {
 
 export const ProposedCurrency = ({ control, setValue }: Props) => {
     const { isMobile } = useMatchMedia();
-    const options = [{ value: 'options', label: 'options' }];
+    const options = [{ value: 'USD', label: 'Доллар' }];
 
     return (
         <>

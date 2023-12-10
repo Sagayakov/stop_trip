@@ -6,6 +6,7 @@ interface Props {
 }
 
 export const ExchangeRate = ({ register }: Props) => {
+    
     return (
         <div className="exchangeRate">
             <h3>Курс</h3>

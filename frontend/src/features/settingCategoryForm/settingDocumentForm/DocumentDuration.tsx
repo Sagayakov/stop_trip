@@ -10,7 +10,13 @@ interface Props {
 
 export const DocumentDuration = ({ control, setValue }: Props) => {
     const { isMobile } = useMatchMedia();
-    const options = [{ value: 'options', label: 'options' }];
+    const options = [
+        { value: 'month', label: 'Месяц' },
+        { value: 'quarter', label: 'Квартал' },
+        { value: 'year', label: 'Год' },
+        { value: 'years_5', label: '5 лет' },
+        { value: 'other', label: 'Другое' },
+    ];
 
     return (
         <>

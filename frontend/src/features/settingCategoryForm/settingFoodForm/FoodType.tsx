@@ -1,5 +1,5 @@
-import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
 import { Control, UseFormSetValue } from 'react-hook-form';
+import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
 import { TypeForFoodForm } from '../../../widgets/settingForm/settingFood/libr/TypeForFoodForm';
 
 interface Props {
@@ -8,7 +8,13 @@ interface Props {
 }
 
 export const FoodType = ({ control, setValue }: Props) => {
-    const options = [{ label: 'label', value: 'value' }];
+    const options = [
+        { value: 'veg_food', label: 'Вегетарианская еда' },
+        { value: 'non_veg_food', label: 'Невегетарианская еда' },
+        { value: 'ready_food', label: 'Готовая еда' },
+        { value: 'semi_finished_food', label: 'Полуфабрикаты' },
+        { value: 'other_food', label: 'Другое' },
+    ];
 
     return (
         <div className="foodType">

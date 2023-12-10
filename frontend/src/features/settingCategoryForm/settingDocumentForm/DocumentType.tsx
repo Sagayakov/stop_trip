@@ -10,7 +10,13 @@ interface Props {
 
 export const DocumentType = ({ control, setValue }: Props) => {
     const { isMobile } = useMatchMedia();
-    const options = [{ value: 'options', label: 'options' }];
+    const options = [
+        { value: 'tourist-visa', label: 'Туристская виза' },
+        { value: 'business-visa', label: 'Бизнес-виза' },
+        { value: 'c-form', label: 'C-форма' },
+        { value: 'exit-permit', label: 'Продление выезда' },
+        { value: 'other', label: 'Другое' },
+    ];
 
     return (
         <>
