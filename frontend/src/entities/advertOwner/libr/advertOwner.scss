@@ -3,12 +3,21 @@
     align-items: center;
     gap: 15px;
     width: 100%;
-    img {
+    .user-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25%;
+        aspect-ratio: 1/1;
+        border-radius: 8px;
+        font-size: 2rem;
+    }
+    /* img {
         width: 25%;
         aspect-ratio: 1/1;
         object-fit: cover;
         border-radius: 8px;
-    }
+    } */
     .owner-characteristics {
         display: flex;
         flex-direction: column;

@@ -19,6 +19,7 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
         images,
         category,
         date_create: dateCreate,
+        owner
     } = cart;
     const { data } = useGetFavoritesQuery('');
     const [addFavorite] = useAddFavoriteMutation();
@@ -77,7 +78,7 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
                 </div>
                 <p>{title}</p>
                 <div className='user-main'>
-                    Константин
+                    {`${owner.full_name[0].toUpperCase()}${owner.full_name.slice(1)}`}
                     <span className="rating-number">4.5</span>
                 </div>
                 <span>{getDateOfCreating(dateCreate)}</span>

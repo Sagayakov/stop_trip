@@ -62,7 +62,7 @@ const AnyCategory = () => {
                                     {el.description}
                                 </p>
                                 <div className="author">
-                                    Константин
+                                    {`${el.owner.full_name[0].toUpperCase()}${el.owner.full_name.slice(1)}`}
                                     <span className="rating-number">4.5</span>
                                     <Rating rating={4.5} />
                                 </div>
