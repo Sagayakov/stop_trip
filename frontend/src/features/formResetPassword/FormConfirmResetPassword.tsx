@@ -28,7 +28,7 @@ const FormConfirmResetPassword = () => {
 
     const onsubmit: SubmitHandler<ResetPasswordType> = async (submitData) => {
         if (uid && token) {
-            await dispatch(setLoading(true))
+            dispatch(setLoading(true))
 
             const response = await confimResetPassword({
                 new_password: submitData.password,
@@ -36,8 +36,8 @@ const FormConfirmResetPassword = () => {
                 token,
             });
             if (response.ok){
-                await setSuccess(true);
-                await dispatch(setLoading(false))
+                setSuccess(true);
+                dispatch(setLoading(false))
             }
         }
     };
