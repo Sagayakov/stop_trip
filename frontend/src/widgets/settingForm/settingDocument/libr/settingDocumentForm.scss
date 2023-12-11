@@ -1,17 +1,11 @@
-#proposed_currency, #exchange_for {
-    height: 46px;
-    .filterCurrencyForm__control {
+.filterDocumentForm {
+    .filterDocumentForm__control {
         width: 100%;
-        height: 100%;
-        .filterCurrencyForm__value-container {
-            height: 100%;
-            align-content: center;
-        }
-        .filterCurrencyForm__indicators {
-            .filterCurrencyForm__clear-indicator {
+        .filterDocumentForm__indicators {
+            .filterDocumentForm__clear-indicator {
                 padding: 0;
             }
-            .filterCurrencyForm__dropdown-indicator {
+            .filterDocumentForm__dropdown-indicator {
                 padding: 8px 8px 8px 0px;
             }
             span {
@@ -19,7 +13,7 @@
             }
         }
     }
-    .filterCurrencyForm__control {
+    .filterDocumentForm__control {
         &::-webkit-scrollbar {
             width: 2px !important;
         }
@@ -28,45 +22,28 @@
             background-color: gray !important;
         }
     }
-    .filterCurrencyForm__input {
+    .filterDocumentForm__input {
         height: 25px;
         border: none !important;
     }
-    .filterCurrencyForm__menu-list {
+    .filterDocumentForm__menu-list {
         max-height: 200px;
         scrollbar-width: thin !important;
     }
 }
 
-.filterCurrencyForm {
+.filterDocumentForm {
     h3 {
         margin-bottom: 14px;
     }
-    .proposedCurrency,
-    .exchangeFor,
-    .exchangeRateInput {
+    .documentDuration,
+    .documentType {
         margin-bottom: 24px;
     }
-    input[type='number'] {
-        height: auto;
-        border: none;
-        width: 50%;
-    }
-    // чтобы стрелочек не было в инпутах
-    input[type='number']::-webkit-outer-spin-button,
-    input[type='number']::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-    }
-    input[type='number'],
-    input[type='number']:hover,
-    input[type='number']:focus {
-        appearance: none;
-        -moz-appearance: textfield;
-    }
-    // чтобы стрелочек не было в инпутах
     input[type='submit'] {
         width: 100%;
         height: 43px;
+        // padding: 12px 20px;
         display: flex;
         justify-content: center;
         border-radius: var(--radii);
@@ -101,27 +78,9 @@
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-    .filterCurrencyForm {
+    .filterDocumentForm{
         display: grid;
-        grid-template-areas:
-            'exchangeFor proposedCurrency'
-            'exchangeRate .'
-            'submitBtn resetBtn';
+        grid-template-columns: 1fr 1fr;
         gap: 16px;
-        .exchangeFor {
-            grid-area: exchangeFor;
-        }
-        .exchangeRateInput {
-            grid-area: exchangeRate;
-        }
-        .proposedCurrency {
-            grid-area: proposedCurrency;
-        }
-        .reset-setting-form {
-            grid-area: resetBtn;
-        }
-        input[type='submit'] {
-            grid-area: submitBtn;
-        }
     }
 }
