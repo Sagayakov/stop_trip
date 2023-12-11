@@ -43,7 +43,7 @@ const PopularCategories = () => {
                                 <div
                                     key={el[0]}
                                     className={`category ${el[0]}>`}
-                                    onClick={() => navigate(`/${el[0]}/`)}
+                                    onClick={() => navigate(`/${el[0]}/?category=${el[0]}`)}
                                 >
                                     <Icon />
                                     <p>{el[1].description}</p>
