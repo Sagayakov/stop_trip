@@ -1,26 +1,42 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { TypeForFoodForm } from './libr/TypeForFoodForm';
-import './libr/settingFoordForm.scss'
+import { useSearchParams } from 'react-router-dom';
+import {
+    FoodDelivery,
+    FoodEstablishment,
+    FoodType,
+} from '../../../features/settingCategoryForm/settingFoodForm';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
-import { FoodDelivery, FoodEstablishment, FoodType } from '../../../features/settingCategoryForm/settingFoodForm';
-
+import { TypeForFoodForm } from './libr/TypeForFoodForm';
+import { searchParamsForFood } from './libr/searchParamsForFood';
+import './libr/settingFoordForm.scss';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 const SettingFoodForm = ({ setShowFilters }: Props) => {
-
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
+    const [, setSearchParams] = useSearchParams();
 
     const { register, handleSubmit, reset, setValue, control } =
         useForm<TypeForFoodForm>();
 
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
     const onsubmit: SubmitHandler<TypeForFoodForm> = (data) => {
-        console.log(data)
+        const { food_delivery, food_establishment, food_type } = data;
+
+        const { delivery, establishment, type } = searchParamsForFood(
+            food_delivery,
+            food_establishment,
+            food_type
+        );
+        setSearchParams(`category=food${type}${delivery}${establishment}`);
+        
         setShowFilters(false);
+        scrollToTop();
     };
 
     const onReset = () => {

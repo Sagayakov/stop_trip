@@ -20,7 +20,7 @@ export const FoodType = ({ control, setValue }: Props) => {
         <div className="foodType">
             <h3>Тип еды</h3>
             <UniversalSelectDropdown<TypeForFoodForm>
-                closeMenuOnSelect
+                closeMenuOnSelect={false}
                 control={control}
                 isMulti={true}
                 name="food_type"

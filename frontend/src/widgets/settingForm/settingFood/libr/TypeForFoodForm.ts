@@ -4,6 +4,6 @@ export interface TypeForFoodForm {
     food_type: FoodType;
 }
 type FoodType = {
-    "label": string,
-    "value": string
+    label: string,
+    value: string
 }
