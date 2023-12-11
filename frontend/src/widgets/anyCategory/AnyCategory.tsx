@@ -12,7 +12,6 @@ const AnyCategory = () => {
     const queryParam = useLocation().search;
     const { data = [], isLoading } = useGetAdvertsQuery(queryParam);
     const { isMobile } = useMatchMedia();
-    console.log(data)
 
     return (
         <section className="announcement">

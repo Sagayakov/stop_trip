@@ -2,7 +2,7 @@ import { BreadCrumbs } from '../../widgets/breadCrumbs/BreadCrumbs';
 import './libr/advert.scss';
 import { PhotoSlider } from '../../entities/photoSlider/PhotoSlider';
 import { useGetAdvertByIdQuery } from '../../app/api/fetchAdverts';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AdvertCharacteristics } from '../../entities/advertCharacteristics/AdvertCharacterictics';
 import { AdvertLocation } from '../../entities/location/AdvertLocation';
 import { getDate } from '../../shared/utils/getDate';
@@ -59,7 +59,7 @@ const Advert = () => {
                                         : 'Договорная'}
                                 </span>
                             </div>
-                            <AdvertOwner />
+                            <AdvertOwner owner={data.owner} />
                             <button className="call-button">Позвонить</button>
                             <button className="write-button">Написать</button>
                             {date && (
@@ -95,8 +95,8 @@ const Advert = () => {
                                 </span>
                             </div>
                             <h1 className='full-title'>{data.title}</h1>
-                            <AdvertOwner />
-                            <button className="call-button">Позвонить</button>
+                            <AdvertOwner owner={data.owner} />
+                            <Link className="call-button" to={`tel:${data.owner.phone}`}>Позвонить</Link>
                             <button className="write-button">Написать</button>
                             {date && (
                                 <p className="public-date">
