@@ -33,8 +33,8 @@ const Advert = () => {
                     <h1 className="announcement-header">{data.title}</h1>
                     <p>
                         {data.property_city
-                            ? `${data.property_city}, ${
-                                  data.property_district ?? ''
+                            ? `${data.property_city.name}, ${
+                                  data.property_district ?? 'район не указан'
                               }`
                             : 'Адрес не указан'}
                     </p>

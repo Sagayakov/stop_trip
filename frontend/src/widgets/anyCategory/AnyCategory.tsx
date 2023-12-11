@@ -5,20 +5,18 @@ import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 import { getDate } from '../../shared/utils/getDate';
+import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
 
 const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
-    const queryParam = useLocation().search;
-    const { data = [] } = useGetAdvertsQuery(queryParam);
+    const filterQuery = location.search;
+    const { data = [], isLoading } = useGetAdvertsQuery(filterQuery);
     const { isMobile } = useMatchMedia();
-    const filteredData = JSON.parse(JSON.stringify(data)).filter(
-        (el: LastAdvertsTypes) => el.category === category
-    );
 
     return (
         <section className="announcement">
-            {filteredData.length ? (
-                filteredData.map((el: LastAdvertsTypes) => {
+            {data.length ? (
+                data.map((el: LastAdvertsTypes) => {
                     return (
                         <NavLink
                             className="card"
@@ -81,9 +79,13 @@ const AnyCategory = () => {
                     );
                 })
             ) : (
-                <p className="announcement-not-found">
-                    В этой категории объявлений не найдено
-                </p>
+                isLoading
+                    ? <LoadingWithBackground />
+                    : (
+                        <p className="announcement-not-found">
+                            В этой категории объявлений не найдено
+                        </p>
+                    )
             )}
         </section>
     );

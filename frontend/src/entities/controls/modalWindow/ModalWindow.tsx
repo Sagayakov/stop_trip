@@ -12,7 +12,7 @@ export const ModalWindow = ({ showModal, setShowModal }: Props) => {
     const navigate = useNavigate();
     const navigateAndClose = (el: [string, Category]) => {
         setShowModal(false);
-        navigate(`/${el[0]}/`);
+        navigate(`/${el[0]}/?category=${el[0]}`);
     };
 
     return (

@@ -29,12 +29,12 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
 
     useEffect(() => {
         const target = data?.find((el) => el.id === id);
-        setAddToFav(!!target);
-    }, [data, id]);
+        isAuth && setAddToFav(!!target);
+    }, [data, id, isAuth]);
 
     const style = {
-        color: addToFav ? '#FF3F25' : '#f9f9f9',
-        strokeColor: addToFav ? '#FF3F25' : '#8F8F8F',
+        color: addToFav && isAuth ? '#FF3F25' : '#f9f9f9',
+        strokeColor: addToFav && isAuth ? '#FF3F25' : '#8F8F8F',
     };
 
     const handleAddToFavorite = () => {
