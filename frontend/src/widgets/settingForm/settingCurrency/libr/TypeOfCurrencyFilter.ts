@@ -1,8 +1,6 @@
 export interface TypeOfCurrencyFilter {
-    // proposed_currency: Currency,
-    proposed_currency: Currency[] | Currency;
-    // exchange_for: Currency,
-    exchange_for: Currency[] | Currency;
+    proposed_currency: Currency;
+    exchange_for: Currency;
     exchange_rate: number;
 }
 

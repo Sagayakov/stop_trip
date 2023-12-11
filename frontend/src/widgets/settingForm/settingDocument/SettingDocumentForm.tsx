@@ -25,7 +25,6 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
         useForm<TypeOfDocumentFilter>();
 
     const onsubmit: SubmitHandler<TypeOfDocumentFilter> = (data) => {
-        console.log(data)
         const { document_duration, document_type } = data;
 
         const { duration, types } = searchParamsForDocument(
