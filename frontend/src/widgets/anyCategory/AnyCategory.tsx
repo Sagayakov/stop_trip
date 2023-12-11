@@ -9,8 +9,8 @@ import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackgro
 
 const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
-    const filterQuery = location.search;
-    const { data = [], isLoading } = useGetAdvertsQuery(filterQuery);
+    const queryParam = useLocation().search;
+    const { data = [], isLoading } = useGetAdvertsQuery(queryParam);
     const { isMobile } = useMatchMedia();
 
     return (
