@@ -171,7 +171,7 @@ class PropertyTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(15):
+        with self.assertNumQueries(14):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -225,7 +225,7 @@ class PropertyTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(5):
             res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)

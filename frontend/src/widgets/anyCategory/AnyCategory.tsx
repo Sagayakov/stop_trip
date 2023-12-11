@@ -1,6 +1,6 @@
 import { Like } from '../../shared/ui/Like';
 import { Rating } from '../../shared/ui/Rating';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
@@ -24,15 +24,21 @@ const AnyCategory = () => {
                             to={`/${category}/${el.id}/`}
                         >
                             <span onClick={(event) => event.stopPropagation()}>
-                                <Like id={el.id}/>
+                                <Like id={el.id} />
                             </span>
                             <div className="image">
                                 {isMobile ? (
                                     <>
-                                        {!el.images[0]
-                                            ? <img src='../../../src/entities/lastAdverts/ui/image-not-found.jpg' />
-                                            : el.images.map((item) => <img src={item.image} key={item.image} />)
-                                        }
+                                        {!el.images[0] ? (
+                                            <img src="../../../src/entities/lastAdverts/ui/image-not-found.jpg" />
+                                        ) : (
+                                            el.images.map((item) => (
+                                                <img
+                                                    src={item.image}
+                                                    key={item.image}
+                                                />
+                                            ))
+                                        )}
                                     </>
                                 ) : (
                                     <img
@@ -60,11 +66,12 @@ const AnyCategory = () => {
                                     <span className="rating-number">4.5</span>
                                     <Rating rating={4.5} />
                                 </div>
-                                <p
-                                    className="time">
+                                <p className="time">
                                     {`
                                         ${getDate(el.date_create).dayToDisplay},
-                                        ${getDate(el.date_create).hours}:${getDate(el.date_create).minutes}
+                                        ${getDate(el.date_create).hours}:${
+                                        getDate(el.date_create).minutes
+                                    }
                                     `}
                                 </p>
                             </div>

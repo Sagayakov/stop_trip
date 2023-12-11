@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from users.models import User
 from ..constants import CategoryChoices
-from ..models import Advertisement, AdvertisementImage
+from ..models import Advertisement, AdvertisementImage, PropertyCity, PropertyAmenity
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
@@ -33,10 +33,35 @@ class AdvertisementImageSerializer(serializers.ModelSerializer):
         fields = ("image",)
 
 
+class AdvertisementPropertyCitySerializer(serializers.ModelSerializer):
+    """Сериализатор города объявления."""
+
+    class Meta:
+        model = PropertyCity
+        fields = ("name",)
+
+
+class AdvertisementPropertyAmenitySerializer(serializers.ModelSerializer):
+    """Сериализатор удобств объявления."""
+
+    class Meta:
+        model = PropertyAmenity
+        fields = ("name",)
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """Сериализатор вывода юзера в объявлении."""
+
+    class Meta:
+        model = User
+        fields = ("id", "full_name", "phone", "email", "date_joined")
+
+
 class AdvertisementListSerializer(serializers.ModelSerializer):
     """Список объявлений."""
 
     images = AdvertisementImageSerializer(many=True)
+    owner = UserSerializer(read_only=True)
 
     class Meta:
         model = Advertisement
@@ -48,6 +73,7 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
             "description",
             "images",
             "date_create",
+            "owner",
         )
 
 
@@ -55,6 +81,9 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
     """Сериализатор деталки объявления."""
 
     images = AdvertisementImageSerializer(many=True)
+    property_city = AdvertisementPropertyCitySerializer(required=False)
+    property_amenities = AdvertisementPropertyAmenitySerializer(many=True, required=False)
+    owner = UserSerializer(read_only=True)
 
     class Meta:
         model = Advertisement

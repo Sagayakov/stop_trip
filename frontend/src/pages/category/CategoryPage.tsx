@@ -13,12 +13,16 @@ const SettingTaxiForm = lazy(() => import('../../widgets/settingForm/settingTaxi
 const SettingServicesForm = lazy(() => import('../../widgets/settingForm/settingServices/SettingServicesForm'));
 const SettingEventForm = lazy(() => import('../../widgets/settingForm/settingEvent/SettingEventForm'));
 const SettingJobForm = lazy(() => import('../../widgets/settingForm/settingJob/SettingJobForm'));
+const SettingExcursionForm = lazy(() => import('../../widgets/settingForm/settingExcursion/SettingExcursionForm'));
+const SettingDocumentForm = lazy(() => import('../../widgets/settingForm/settingDocument/SettingDocumentForm'));
+const SettingFoodForm = lazy(() => import('../../widgets/settingForm/settingFood/SettingFoodForm'));
+const SettingMarketForm = lazy(() => import('../../widgets/settingForm/settingMarket/SettnigMarketForm'));
+import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
 import './style/category-page.scss';
 import './style/1024-1439-category-page.scss';
 import './style/768-1023-category-page.scss';
 import './style/425-767-category-page.scss';
 import './style/min-424-category-page.scss';
-import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
 const AnyCategory = lazy(() => import('../../widgets/anyCategory/AnyCategory'));
 
 export const CategoryPage = () => {
@@ -108,6 +112,18 @@ export const CategoryPage = () => {
                         )}
                         {category === 'exchange_rate' && (
                             <SettingCurrencyForm setShowFilters={setShowFilters}/>
+                        )}
+                        {category === 'document' && (
+                            <SettingDocumentForm setShowFilters={setShowFilters} />
+                        )}
+                        {category === 'excursion' && (
+                            <SettingExcursionForm setShowFilters={setShowFilters} />
+                        )}
+                        {category === 'food' && (
+                            <SettingFoodForm setShowFilters={setShowFilters} />
+                        )}
+                        {category === 'market' && (
+                            <SettingMarketForm setShowFilters={setShowFilters} />
                         )}
                     </div>
                     <AnyCategory />

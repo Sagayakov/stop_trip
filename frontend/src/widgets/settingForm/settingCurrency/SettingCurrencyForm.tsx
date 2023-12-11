@@ -1,6 +1,13 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useSearchParams } from 'react-router-dom';
+import {
+    ExchangeFor,
+    ExchangeRate,
+    ProposedCurrency,
+} from '../../../features/settingCategoryForm/settingCurrencyForm';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeOfCurrencyFilter } from './libr/TypeOfCurrencyFilter';
+import { searchParamsForExchange } from './libr/searchParamsForExchange';
 import './libr/settingCurrencyFilter.scss';
 
 interface Props {
@@ -8,25 +15,41 @@ interface Props {
 }
 
 const SettingCurrencyForm = ({ setShowFilters }: Props) => {
+    const [, setSearchParams] = useSearchParams();
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    const { handleSubmit, reset } =
+    const { handleSubmit, reset, control, setValue, register } =
         useForm<TypeOfCurrencyFilter>();
 
     const onSubmit: SubmitHandler<TypeOfCurrencyFilter> = (data) => {
-        console.log(data);
+        const { exchange_for, exchange_rate, proposed_currency } = data;
+
+        const { exFor, proposed, rate } = searchParamsForExchange(
+            exchange_for,
+            exchange_rate,
+            proposed_currency
+        );
+
+        setSearchParams(`category=exchange_rate${proposed}${exFor}${rate}`);
+
         setShowFilters(false);
-        reset();
+        scrollToTop();
     };
 
     const onReset = () => reset();
 
     return (
         <section className="filters" onClick={handleClick}>
-            <form className="filter-currency-form" onSubmit={handleSubmit(onSubmit)}>
-                
+            <form
+                className="filterCurrencyForm"
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <ProposedCurrency control={control} setValue={setValue} />
+                <ExchangeFor control={control} setValue={setValue} />
+                <ExchangeRate register={register} />
                 <input type="submit" value="Применить" />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />

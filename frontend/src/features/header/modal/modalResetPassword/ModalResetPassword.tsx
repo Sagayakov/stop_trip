@@ -45,10 +45,7 @@ export const ModalResetPassword = () => {
 
     return (
         <div
-            className="modal"
-            style={{
-                display: `${isResetPasswordModalOpen ? 'block' : 'none'}`,
-            }}
+            className={`modal ${isResetPasswordModalOpen ? 'visible visible-wrapper' : ''}`}
             onClick={() => dispatch(setIsResetPasswordModalOpen(false))}
         >
             <div
@@ -59,15 +56,15 @@ export const ModalResetPassword = () => {
                     onclick={() => dispatch(setIsResetPasswordModalOpen(false))}
                 />
                 <div className="form-reset-password">
-                    <h3>
+                    {!success && <h3>
                         Пожалуйста, введите вашу почту. На нее придет ссылка для
                         восстановления пароля.
-                    </h3>
+                    </h3>}
                     {success ? (
-                        <p>
-                            письмо для восстановления пароля отправлено на ваш
+                        <h3>
+                            Письмо для восстановления пароля отправлено на ваш
                             почтовый ящик
-                        </p>
+                        </h3>
                     ) : (
                         <form onSubmit={handleSubmit(onsubmit)}>
                             <input
