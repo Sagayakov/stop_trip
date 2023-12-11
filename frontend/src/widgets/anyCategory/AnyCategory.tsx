@@ -12,6 +12,7 @@ const AnyCategory = () => {
     const queryParam = useLocation().search;
     const { data = [], isLoading } = useGetAdvertsQuery(queryParam);
     const { isMobile } = useMatchMedia();
+    console.log(data)
 
     return (
         <section className="announcement">
@@ -62,7 +63,7 @@ const AnyCategory = () => {
                                     {el.description}
                                 </p>
                                 <div className="author">
-                                    Константин
+                                    {`${el.owner.full_name[0].toUpperCase()}${el.owner.full_name.slice(1)}`}
                                     <span className="rating-number">4.5</span>
                                     <Rating rating={4.5} />
                                 </div>
