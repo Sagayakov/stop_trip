@@ -10,13 +10,15 @@ import { useEffect, useState } from 'react';
 import { Date } from './libr/types';
 import { AdvertOwner } from '../../entities/advertOwner/AdvertOwner';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { toast } from 'react-toastify';
+import { Tooltip } from 'react-tooltip'
 
 const Advert = () => {
     const { id } = useParams();
     const { data } = useGetAdvertByIdQuery(id!);
     const [date, setDate] = useState<Date | null>(null);
     console.log(data);
-    const { isMobile } = useMatchMedia();
+    const { isMobile, isTablet, isDesktop } = useMatchMedia();
 
     useEffect(() => {
         if (data) {
@@ -24,6 +26,12 @@ const Advert = () => {
             setDate(dateCreate);
         }
     }, [data]);
+
+    const handleClickShowNumber = () => {
+        if (data) {
+            toast.success(`${data.owner.phone}`);
+        }
+    }
 
     return (
         <>
@@ -60,7 +68,16 @@ const Advert = () => {
                                 </span>
                             </div>
                             <AdvertOwner owner={data.owner} />
-                            <button className="call-button">Позвонить</button>
+                            {isTablet
+                                ? <Link className="call-button" to={`tel:${data.owner.phone}`}>Позвонить</Link>
+                                : <button
+                                    className="call-button"
+                                    onClick={handleClickShowNumber}
+                                    data-tooltip-id="my-tooltip"
+                                    data-tooltip-content={`${data.owner.phone}`}
+                                    >
+                                        Показать телефон
+                                  </button>}
                             <button className="write-button">Написать</button>
                             {date && (
                                 <p className="public-date">
@@ -70,6 +87,7 @@ const Advert = () => {
                             )}
                         </section>
                     </div>
+                    {isDesktop && <Tooltip id="my-tooltip" variant='success' place='top' />}
                 </div>
             )}
             {data && isMobile && (
