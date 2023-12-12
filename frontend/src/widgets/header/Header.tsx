@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import { Modal } from '../../features/header/modal';
@@ -66,9 +66,7 @@ export const Header = () => {
     return (
         <header ref={ref}>
             <div className="header-wrapper">
-                <NavLink to="/">
-                    <LogoHeader />
-                </NavLink>
+                <LogoHeader />
                 <button
                     className={isAuth ? 'addAdvert active' : 'addAdvert'}
                     onClick={

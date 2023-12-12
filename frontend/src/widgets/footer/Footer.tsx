@@ -13,7 +13,7 @@ export const Footer = () => {
         <footer>
             <div className="footer-wrapper">
                 <div className="footer-top">
-                    {!isMobile && <LogoHeader />}
+                    {!isMobile && <LogoHeader isFooter={true} />}
                     <FeedbackForm />
                 </div>
                 <div className="hr">
@@ -21,7 +21,7 @@ export const Footer = () => {
                 </div>
                 {isMobile && (
                     <div className="footer-bot">
-                        <LogoHeader />
+                        <LogoHeader isFooter={true} />
                         <div className="contacts">
                             <p>admin@gmail.com</p>
                             <div className="contacts-logo">
