@@ -13,6 +13,7 @@ from offers.constants import (
     PropertyHouseType,
     PropertyRentalCondition,
     PropertyPrepayment,
+    PropertyType,
 )
 from offers.models import Advertisement
 from users.tests.factories import UserFactory
@@ -836,3 +837,63 @@ class PropertyTest(APITestCase):
         res_json = res.json()
         self.assertEqual(len(res_json), 1)
         self.assertEqual(res_json[0]["id"], property_set[-1].id)
+
+    def test_filter_property_type(self):
+        user = UserFactory()
+        property_cities = [
+            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
+        ]
+        property_districts = [
+            PropertyDistrictFactory(name=name, city=city)
+            for name in ["1d", "2d", "3d", "4d"]
+            for city in property_cities
+        ]
+        property_set = [
+            PropertyAdvertisementFactory(
+                owner=user,
+                price=100_000 + _ * 50_000,
+                category=CategoryChoices.PROPERTY.value,
+                coordinates="35,35",
+                property_type=[PropertyType.HOUSE, PropertyType.FLAT][_ % 2],
+                property_type_of_service=PropertyTypeOfService.SALE,
+                property_city=city,
+                property_district=district,
+                property_building_max_floor=5,
+                property_floor=4,
+                property_bathroom_count=2,
+                property_bathroom_type=PropertyBathroomType.SEPARATE,
+                property_area=35,
+                property_living_area=50,
+                property_balcony=PropertyBalcony.YES,
+                property_has_furniture=True,
+                property_house_type=PropertyHouseType.BLOCK,
+                property_has_parking=True,
+                property_rental_condition=PropertyRentalCondition.FAMILY,
+                property_prepayment=PropertyPrepayment.TWO_MONTHS,
+                property_sleeping_places=5,
+                property_rooms_count=3,
+            )
+            for city in property_cities
+            for district in property_districts
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"property_type": PropertyType.HOUSE.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(property_set) // 2)
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"property_type": [PropertyType.HOUSE.value, PropertyType.FLAT]},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(property_set))

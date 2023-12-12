@@ -7,10 +7,14 @@ from ..constants import (
     PropertyBathroomType,
     PropertyHouseType,
     PropertyRentalCondition,
+    PropertyType,
 )
 
 
 class PropertyFilter(FilterSet):
+    property_type = filters.MultipleChoiceFilter(
+        label="Тип собственности", choices=PropertyType.choices
+    )
     property_type_of_service = filters.ChoiceFilter(
         label="Тип услуги", choices=PropertyTypeOfService.choices
     )
