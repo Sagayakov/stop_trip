@@ -159,3 +159,13 @@ class FoodTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), len(food_set) // 2)
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"food_type": [FoodType.READY_FOOD.value, FoodType.NON_VEG_FOOD.value]},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(food_set))

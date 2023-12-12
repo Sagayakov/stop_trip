@@ -8,7 +8,7 @@ class FoodFilter(FilterSet):
 
     food_delivery = filters.BooleanFilter(label="Доставка на дом")
     food_establishment = filters.BooleanFilter(label="Ресторан/кафе")
-    food_type = filters.ChoiceFilter(label="Тип еды", choices=FoodType.choices)
+    food_type = filters.MultipleChoiceFilter(label="Тип еды", choices=FoodType.choices)
 
     @classmethod
     def _food_filter_specs(cls, queryset) -> list[dict]:
