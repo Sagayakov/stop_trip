@@ -142,3 +142,42 @@
         }
     }
 }
+
+@media (max-width: 767px) {
+    .numbers {
+        .number-four,
+        .number-zero {
+            .image-block,
+            .blue-block {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    }
+}
+
+@media (max-width: 580px) {
+    .numbers {
+        width: 80%;
+    }
+}
+
+@media (max-width: 490px) {
+    .numbers {
+        width: 100%;
+        padding-top: 5rem;
+    }
+}
+
+@media (max-width: 390px) {
+    .numbers {
+        .number-four,
+        .number-zero {
+            .image-block,
+            .blue-block {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+}

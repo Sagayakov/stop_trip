@@ -88,8 +88,23 @@ main {
     }
 }
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .not-found-wrapper {
         width: 93%;
+    }
+}
+
+@media (max-width: 424px) {
+    .not-found-wrapper {
+        width: 90%;
+        .text-info {
+            .info-header {
+                margin: 0.5rem auto 1rem;
+                font-size: 20px;
+            }
+            p {
+                font-size: 14px;
+            }
+        }
     }
 }
