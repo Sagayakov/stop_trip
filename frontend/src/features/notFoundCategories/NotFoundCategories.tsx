@@ -1,14 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { categories } from '../../shared/const/categories';
 import './notFoundCategories.scss';
+import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 
 const NotFoundCategories = () => {
     const navigate = useNavigate();
-    
+    const { isMobile } = useMatchMedia();
+    const shownCategoriesNumber = isMobile ? 4 : 5;
+
     return (
-        <section className='categories_not-found'>
+        <section className="categories_not-found">
             {Object.entries(categories)
-                .slice(0, 5)
+                .slice(0, shownCategoriesNumber)
                 .map((el) => {
                     const { icon: Icon } = el[1];
                     return (

@@ -16,6 +16,7 @@ export const submitRegForm = async (
             {
                 full_name: submitData.userName,
                 email: submitData.email,
+                phone: submitData.phone,
                 password: submitData.passWord,
                 re_password: submitData.repeatPassword,
             },

@@ -13,7 +13,8 @@ export const InputPhone = ({ errors, register }: Props) => {
                 {...register('phone', {
                     required: true,
                     minLength: 5,
-                    pattern: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$/,
+                    pattern:
+                        /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,11}(\s*)?$/,
                 })}
                 placeholder="Номер телефона"
                 style={{

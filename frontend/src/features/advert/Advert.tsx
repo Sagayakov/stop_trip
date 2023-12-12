@@ -11,7 +11,7 @@ import { Date } from './libr/types';
 import { AdvertOwner } from '../../entities/advertOwner/AdvertOwner';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 import { toast } from 'react-toastify';
-import { Tooltip } from 'react-tooltip'
+import { Tooltip } from 'react-tooltip';
 
 const Advert = () => {
     const { id } = useParams();
@@ -31,7 +31,7 @@ const Advert = () => {
         if (data) {
             toast.success(`${data.owner.phone}`);
         }
-    }
+    };
 
     return (
         <>
@@ -50,12 +50,14 @@ const Advert = () => {
                         <section className="product-info">
                             <PhotoSlider />
                             <AdvertCharacteristics data={data} />
-                            <div className="description">
-                                <div className="description-header">
-                                    Описание
+                            {data.description && (
+                                <div className="description">
+                                    <div className="description-header">
+                                        Описание
+                                    </div>
+                                    <p>{data.description}</p>
                                 </div>
-                                <p>{data.description}</p>
-                            </div>
+                            )}
                             {data.coordinates && <AdvertLocation data={data} />}
                         </section>
                         <section className="owner-info">
@@ -68,16 +70,23 @@ const Advert = () => {
                                 </span>
                             </div>
                             <AdvertOwner owner={data.owner} />
-                            {isTablet
-                                ? <Link className="call-button" to={`tel:${data.owner.phone}`}>Позвонить</Link>
-                                : <button
+                            {isTablet ? (
+                                <Link
+                                    className="call-button"
+                                    to={`tel:${data.owner.phone}`}
+                                >
+                                    Позвонить
+                                </Link>
+                            ) : (
+                                <button
                                     className="call-button"
                                     onClick={handleClickShowNumber}
                                     data-tooltip-id="my-tooltip"
                                     data-tooltip-content={`${data.owner.phone}`}
-                                    >
-                                        Показать телефон
-                                  </button>}
+                                >
+                                    Показать телефон
+                                </button>
+                            )}
                             <button className="write-button">Написать</button>
                             {date && (
                                 <p className="public-date">
@@ -87,7 +96,13 @@ const Advert = () => {
                             )}
                         </section>
                     </div>
-                    {isDesktop && <Tooltip id="my-tooltip" variant='success' place='top' />}
+                    {isDesktop && (
+                        <Tooltip
+                            id="my-tooltip"
+                            variant="success"
+                            place="top"
+                        />
+                    )}
                 </div>
             )}
             {data && isMobile && (
@@ -112,9 +127,14 @@ const Advert = () => {
                                         : 'Цена договорная'}
                                 </span>
                             </div>
-                            <h1 className='full-title'>{data.title}</h1>
+                            <h1 className="full-title">{data.title}</h1>
                             <AdvertOwner owner={data.owner} />
-                            <Link className="call-button" to={`tel:${data.owner.phone}`}>Позвонить</Link>
+                            <Link
+                                className="call-button"
+                                to={`tel:${data.owner.phone}`}
+                            >
+                                Позвонить
+                            </Link>
                             <button className="write-button">Написать</button>
                             {date && (
                                 <p className="public-date">
@@ -125,12 +145,14 @@ const Advert = () => {
                         </section>
                         <section className="product-info">
                             <AdvertCharacteristics data={data} />
-                            <div className="description">
-                                <div className="description-header">
-                                    Описание
+                            {data.description && (
+                                <div className="description">
+                                    <div className="description-header">
+                                        Описание
+                                    </div>
+                                    <p>{data.description}</p>
                                 </div>
-                                <p>{data.description}</p>
-                            </div>
+                            )}
                             {data.coordinates && <AdvertLocation data={data} />}
                         </section>
                     </div>
