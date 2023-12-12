@@ -50,12 +50,14 @@ const Advert = () => {
                         <section className="product-info">
                             <PhotoSlider />
                             <AdvertCharacteristics data={data} />
-                            <div className="description">
-                                <div className="description-header">
-                                    Описание
+                            {data.description && (
+                                <div className="description">
+                                    <div className="description-header">
+                                        Описание
+                                    </div>
+                                    <p>{data.description}</p>
                                 </div>
-                                <p>{data.description}</p>
-                            </div>
+                            )}
                             {data.coordinates && <AdvertLocation data={data} />}
                         </section>
                         <section className="owner-info">
@@ -143,12 +145,14 @@ const Advert = () => {
                         </section>
                         <section className="product-info">
                             <AdvertCharacteristics data={data} />
-                            <div className="description">
-                                <div className="description-header">
-                                    Описание
+                            {data.description && (
+                                <div className="description">
+                                    <div className="description-header">
+                                        Описание
+                                    </div>
+                                    <p>{data.description}</p>
                                 </div>
-                                <p>{data.description}</p>
-                            </div>
+                            )}
                             {data.coordinates && <AdvertLocation data={data} />}
                         </section>
                     </div>

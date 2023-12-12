@@ -5,18 +5,24 @@ import { getKeysList } from './utils/getKeysList';
 
 export const AdvertCharacteristics = ({ data }: { data: ProductType }) => {
     const { category } = data;
+    const keysList = getKeysList({ data, category });
+    const valuesList = getValuesList({ data, category });
 
     return (
-        <div className="characteristics">
-            <h2 className="characteristics-header">Характеристики</h2>
-            <div className="characteristics-wrapper">
-                <span className="characteristics-key">
-                    {getKeysList({ data, category })}
-                </span>
-                <span className="characteristics-value">
-                    {getValuesList({ data, category })}
-                </span>
-            </div>
-        </div>
+        <>
+            {keysList.length ? (
+                <div className="characteristics">
+                    <h2 className="characteristics-header">Характеристики</h2>
+                    <div className="characteristics-wrapper">
+                        <span className="characteristics-key">{keysList}</span>
+                        <span className="characteristics-value">
+                            {valuesList}
+                        </span>
+                    </div>
+                </div>
+            ) : (
+                <></>
+            )}
+        </>
     );
 };
