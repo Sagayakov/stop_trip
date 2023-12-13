@@ -44,7 +44,6 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     }
     filterset_class = AdvertisementFilter
     pagination_class = PageNumberPagination
-    page_size = 12
 
     def get_queryset(self):
         queryset = Advertisement.objects.filter(is_published=True).select_related("owner")
@@ -129,7 +128,9 @@ class UserAdvertisementModelView(ModelViewSet):
 
     def get_queryset(self):
         user = User.objects.get(id=self.request.user.id)
-        queryset = Advertisement.objects.filter(owner=user)
+        queryset = Advertisement.objects.filter(owner=user).select_related("owner")
+        queryset = queryset.prefetch_related("images")
+
         return queryset
 
     def get_serializer_class(self):
