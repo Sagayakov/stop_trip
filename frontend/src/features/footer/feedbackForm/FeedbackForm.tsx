@@ -6,13 +6,20 @@ import { TypesFeedbackForm } from './libr/typesFeedback';
 import { LoadingWithBackground } from '../../../entities/loading/LoadingWithBackground';
 import { useState } from 'react';
 import { getTokensFromStorage } from '../../../widgets/header/libr/authentication/getTokensFromStorage';
+import { useTranslation } from 'react-i18next';
 
 export const FeedbackForm = () => {
-    const [loading, setLoating] = useState(false)
-    const { accessToken } = getTokensFromStorage()
+    const [loading, setLoating] = useState(false);
+    const { accessToken } = getTokensFromStorage();
+    const { t } = useTranslation();
 
-    const { handleSubmit, control, reset, setValue, formState: { isValid } } =
-        useForm<TypesFeedbackForm>();
+    const {
+        handleSubmit,
+        control,
+        reset,
+        setValue,
+        formState: { isValid },
+    } = useForm<TypesFeedbackForm>();
 
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         if (event.currentTarget.value.length >= 900) {
@@ -22,20 +29,20 @@ export const FeedbackForm = () => {
         }
     };
 
-    const onFocusGetId = () => getId( import.meta.env.VITE_BASE_URL, setValue);
+    const onFocusGetId = () => getId(import.meta.env.VITE_BASE_URL, setValue);
 
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
     ) => {
-        if(accessToken){
+        if (accessToken) {
             const url = import.meta.env.VITE_BASE_URL;
-            setLoating(true)
+            setLoating(true);
             setTimeout(() => {
                 handleSubmitFeedback(url, feedbackData, reset);
-                setLoating(false)
+                setLoating(false);
             }, 2000);
         } else {
-            toast.error('Для обратной связи, пожалуйста, авторизуйтесь')
+            toast.error('Для обратной связи, пожалуйста, авторизуйтесь');
         }
     };
 
@@ -43,7 +50,7 @@ export const FeedbackForm = () => {
         <div className="feedback">
             <div className="feed">
                 <Pencil color="#02C66E" />
-                <p>Пожелания по работе сайта</p>
+                <p>{t('main-page.suggestions')}</p>
             </div>
             <form onSubmit={handleSubmit(onsubmit)}>
                 <Controller
@@ -53,7 +60,7 @@ export const FeedbackForm = () => {
                     render={({ field }) => (
                         <textarea
                             {...field}
-                            placeholder="Введите текст"
+                            placeholder={t('main-page.enter-text')}
                             minLength={10}
                             maxLength={900}
                             onFocus={onFocusGetId}
@@ -64,7 +71,12 @@ export const FeedbackForm = () => {
                         />
                     )}
                 />
-                <input type="submit" value="Отправить" disabled={!isValid}  style={{backgroundColor: isValid ? "#02c66e" : "gray"}}/>
+                <input
+                    type="submit"
+                    value={t('main-page.send')}
+                    disabled={!isValid}
+                    style={{ backgroundColor: isValid ? '#02c66e' : 'gray' }}
+                />
             </form>
             {loading && <LoadingWithBackground />}
         </div>

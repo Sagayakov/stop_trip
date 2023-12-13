@@ -66,8 +66,7 @@ header {
                 .language-ru {
                     width: 50%;
                     height: 36px;
-                    color: var(--main-blue);
-                    background-color: #f0f0f0;
+                    color: var(--grey-3);
                     border-radius: 8px 0px 0px 8px;
                     padding: 9px 11px;
                     cursor: pointer;
@@ -80,6 +79,10 @@ header {
                     padding: 9px 14px 9px 9px;
                     border-radius: 0px 8px 8px 0px;
                     cursor: pointer;
+                }
+                .lang-active {
+                    background-color: #f0f0f0;
+                    color: var(--main-blue);
                 }
             }
             .auth-button {

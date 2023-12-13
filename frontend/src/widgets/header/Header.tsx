@@ -17,11 +17,20 @@ import { handleScroll } from './libr/eventListeners/handleScroll';
 import { ModalCheckEmail } from '../../features/header/modal/modalCheckEmail/ModalCheckEmail';
 import { ModalResetPassword } from '../../features/header/modal/modalResetPassword/ModalResetPassword';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { Langs } from '../../entities/langs';
+import { useTranslation } from 'react-i18next';
 
 export const Header = () => {
     const dispatch: Dispatch = useAppDispatch();
     const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
     const ref = useRef(null);
+    const lang = useAppSelector((state) => state.setLang.lang);
+    const { i18n, t } = useTranslation();
+
+    useEffect(() => {
+        i18n.changeLanguage(lang);
+        localStorage.setItem('lang', lang);
+    }, [lang, i18n]);
 
     const { isMobile } = useMatchMedia();
 
@@ -75,8 +84,8 @@ export const Header = () => {
                 >
                     <Plus color="white" />
                     {window.innerWidth >= 425
-                        ? 'Разместить объявление'
-                        : 'Опубликовать'}
+                        ? `${t('main-page.post-advert')}`
+                        : `${t('main-page.publish')}`}
                 </button>
                 {isMobile ? (
                     <Person
@@ -89,10 +98,7 @@ export const Header = () => {
                     />
                 ) : (
                     <div className="language-auth">
-                        <div className="language">
-                            <div className="language-ru">RU</div>
-                            <div className="language-eng">ENG</div>
-                        </div>
+                        <Langs />
                         {isAuth ? (
                             <div className="person-auth">
                                 <Person
@@ -107,7 +113,7 @@ export const Header = () => {
                                 className="auth-button"
                                 onClick={handleToggleModal}
                             >
-                                Вход/Регистрация
+                                {t('main-page.enter-register')}
                             </div>
                         )}
                     </div>

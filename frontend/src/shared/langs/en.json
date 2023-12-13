@@ -1,0 +1,31 @@
+{
+    "main-page": {
+        "post-advert": "Place an advert",
+        "publish": "Publish",
+        "enter-register": "Enter/Registration",
+        "all-categories": "All categories",
+        "find": "Find service or product",
+        "in-city": "In city",
+        "goa": "Goa",
+        "popular-categories": "Popular categories",
+        "offer-spelling": "offer",
+        "last-adverts": "Last adverts",
+        "suggestions": "Suggestions for the site",
+        "enter-text": "Enter text",
+        "send": "Send"
+    },
+
+    "categories": {
+        "property": "Rental of property",
+        "transport": "Rental of transport",
+        "exchange_rate": "Currency pairs",
+        "document": "Documents",
+        "food": "Homemade food",
+        "event": "Events",
+        "market": "Buy/Sell",
+        "job": "Job",
+        "taxi": "Taxi",
+        "service": "Services",
+        "excursion": "Excursions"
+    }
+}

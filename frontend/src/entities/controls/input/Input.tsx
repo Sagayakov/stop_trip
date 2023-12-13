@@ -1,10 +1,13 @@
-import { Find } from "../../../shared/ui/icons/icons-tools/Find"
+import { Find } from '../../../shared/ui/icons/icons-tools/Find';
+import { useTranslation } from 'react-i18next';
 
 export const Input = () => {
+    const { t } = useTranslation();
+
     return (
         <div className="input-wrapper">
             <Find />
-            <input placeholder="Найти услугу или товар" />
+            <input placeholder={t('main-page.find')} />
         </div>
-    )
-}
+    );
+};
