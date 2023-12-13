@@ -32,7 +32,7 @@ interface Props {
 
 const SettingRealtyForm = ({ setShowFilters }: Props) => {
     const [, setSearchParams] = useSearchParams();
-    
+
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -56,7 +56,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 className="filter-realty-form"
                 onSubmit={handleSubmit(onsubmit)}
             >
-                <TypeOfService control={control} setValue={setValue}/>
+                <TypeOfService control={control} setValue={setValue} register={register}/>
                 <City control={control} setValue={setValue}/>
                 <District control={control} setValue={setValue}/>
                 {/* <TypeOfProperty control={control} setValue={setValue} /> не нужно*/}
