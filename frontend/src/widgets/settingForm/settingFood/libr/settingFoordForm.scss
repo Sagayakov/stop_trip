@@ -4,6 +4,12 @@
     .filterFoodForm__value-container {
         height: 100%;
         align-content: center;
+        .filterFoodForm__input-container{
+            .filterFoodForm__input {
+                height: 25px;
+                border: none !important;
+            }
+        }
     }
     .filterFoodForm__indicators {
         .filterCurrencyForm__clear-indicator {
@@ -26,10 +32,7 @@
         background-color: gray !important;
     }
 }
-.filterFoodForm__input {
-    height: 25px;
-    border: none !important;
-}
+
 .filterFoodForm__menu-list {
     max-height: 200px;
     scrollbar-width: thin !important;
