@@ -120,3 +120,17 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
         serializer.save()  # todo оптимизация создания M2M связей
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class UserAdvertisementModelView(ModelViewSet):
+    """Вывод собственных объявлений юзера"""
+
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = User.objects.get(id=self.request.user.id)
+        queryset = Advertisement.objects.filter(owner=user)
+        return queryset
+
+    def get_serializer_class(self):
+        return AdvertisementListSerializer
