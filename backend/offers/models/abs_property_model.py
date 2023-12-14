@@ -70,7 +70,7 @@ class AbsProperty(models.Model):
     )
 
     property_type = models.CharField(
-        "Тип собственности", max_length=50, choices=PropertyType.choices, blank=True
+        "Тип собственности", max_length=50, choices=PropertyType.choices, null=True, blank=True
     )
 
     property_type_of_service = models.CharField(

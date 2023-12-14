@@ -21,28 +21,28 @@ class TransportFilter(FilterSet):
         label="Тип услуги", choices=TransportTypeOfService.choices
     )
     transport_type = filters.ChoiceFilter(label="Тип транспорта", choices=TransportType.choices)
-    transport_category = filters.ChoiceFilter(
+    transport_category = filters.MultipleChoiceFilter(
         label="Категория транспорта", choices=TransportCategory.choices
     )
     transport_brand = filters.CharFilter(
         label="Марка транспорта", field_name="transport_brand__slug"
     )
     transport_model = CharInFilter(label="Модель транспорта", field_name="transport_model__slug")
-    transport_engine_type = filters.ChoiceFilter(
+    transport_engine_type = filters.MultipleChoiceFilter(
         label="Тип двигателя", choices=TransportEngineType.choices
     )
-    transport_drive_type = filters.ChoiceFilter(
+    transport_drive_type = filters.MultipleChoiceFilter(
         label="Вид привода", choices=TransportDriveType.choices
     )
     transport_engine_volume = filters.RangeFilter(label="Объём двигателя")
     transport_year_of_production = filters.RangeFilter(label="Год производства")
-    transport_transmission_type = filters.ChoiceFilter(
+    transport_transmission_type = filters.MultipleChoiceFilter(
         label="Тип коробки передач", choices=TransportTransmissionType.choices
     )
-    transport_body_type = filters.ChoiceFilter(
+    transport_body_type = filters.MultipleChoiceFilter(
         label="Тип кузова", choices=TransportBodyType.choices
     )
-    transport_condition = filters.ChoiceFilter(
+    transport_condition = filters.MultipleChoiceFilter(
         label="Состояние транспорта", choices=TransportCondition.choices
     )
     transport_commission = filters.RangeFilter(label="Комиссия")
