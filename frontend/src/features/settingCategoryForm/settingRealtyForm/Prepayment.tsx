@@ -35,7 +35,7 @@ export const Prepayment = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="prepayment">
-                <h3>{t('filters.prepayment')}</h3>
+                <h3>{t('filters.property_prepayment')}</h3>
                 <Controller
                     name="property_prepayment"
                     control={control}
@@ -45,7 +45,7 @@ export const Prepayment = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="prepayment"
                             components={animated}
-                            placeholder={t('filters.prepayment')}
+                            placeholder={t('filters.property_prepayment')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={prepaymentValues}

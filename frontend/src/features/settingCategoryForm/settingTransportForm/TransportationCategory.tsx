@@ -50,7 +50,7 @@ export const TransportationCategory = ({ setValue, control }: Props) => {
 
     return (
         <div className="transportationCategory">
-            <h3>{t('filters.transport-category')}</h3>
+            <h3>{t('filters.transport_category')}</h3>
             <Controller
                 name="transport_category"
                 control={control}

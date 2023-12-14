@@ -10,7 +10,7 @@ export const DateOfEndEvent = ({ register }: Props) => {
 
     return (
         <div className="dateOfEndEvent">
-            <h3>{t('filters.end')}</h3>
+            <h3>{t('filters.end_date')}</h3>
             <div className="setting-dateOfEndEvent">
                 <span>{`${t('filters.date')}:`}</span>
                 <input

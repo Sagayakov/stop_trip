@@ -51,7 +51,7 @@ export const District = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="propertyDistrict">
-                <h3>{t('filters.district')}</h3>
+                <h3>{t('filters.property_district')}</h3>
                 <Controller
                     name="property_district"
                     control={control}
@@ -61,7 +61,7 @@ export const District = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="propertyDistrict"
                             components={animated}
-                            placeholder={t('filters.district')}
+                            placeholder={t('filters.property_district')}
                             closeMenuOnSelect={true}
                             isMulti={false}
                             options={districtValues}

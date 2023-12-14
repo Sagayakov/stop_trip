@@ -11,11 +11,11 @@ export const WithExperience = ({ register }: Props) => {
 
     return (
         <div className="withExperience">
-            <h3>{t('filters.experience')}</h3>
+            <h3>{t('filters.job_experience')}</h3>
             <div className="setting-withExperience">
                 <label className="form-checkbox">
                     <input type="checkbox" {...register('job_experience')} />
-                    <span>{t('filters.experience')}</span>
+                    <span>{t('filters.job_experience')}</span>
                 </label>
             </div>
         </div>

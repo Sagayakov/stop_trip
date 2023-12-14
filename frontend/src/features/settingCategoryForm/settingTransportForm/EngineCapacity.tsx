@@ -11,7 +11,7 @@ export const EngineCapacity = ({ register }: Props) => {
 
     return (
         <div className="engineСapacity">
-            <h3>{t('filters.engine-capacity')}</h3>
+            <h3>{t('filters.transport_engine_volume')}</h3>
             <div className="setting-engineCapacity">
                 <input
                     type="text"

@@ -48,7 +48,7 @@ export const TypeOfPayment = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="typeOfPayment">
-                <h3>{t('filters.payment-type')}</h3>
+                <h3>{t('filters.job_payment_type')}</h3>
                 <Controller
                     name="job_payment_type"
                     control={control}
@@ -58,7 +58,7 @@ export const TypeOfPayment = ({ control, setValue }: Props) => {
                             classNamePrefix="filterJobForm"
                             id="typeOfPayment"
                             components={animated}
-                            placeholder={t('filters.payment-type')}
+                            placeholder={t('filters.job_payment_type')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={paymentValues}

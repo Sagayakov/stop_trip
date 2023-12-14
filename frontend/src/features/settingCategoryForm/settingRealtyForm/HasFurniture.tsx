@@ -11,7 +11,7 @@ export const HasFurniture = ({ register }: Props) => {
 
     return (
         <div className="hasFurniture">
-            <h3>{t('filters.furniture')}</h3>
+            <h3>{t('filters.property_has_furniture')}</h3>
             <div className="setting-hasFurniture">
                 <label className="form-checkbox">
                     <input

@@ -50,7 +50,7 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
 
     return (
         <div className="bodyType">
-            <h3>{t('filters.body-type')}</h3>
+            <h3>{t('filters.transport_body_type')}</h3>
             <Controller
                 name="transport_body_type"
                 control={control}
@@ -60,7 +60,7 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
                         classNamePrefix="filterTransporForm"
                         id="bodyType"
                         components={animated}
-                        placeholder={t('filters.body-type')}
+                        placeholder={t('filters.transport_body_type')}
                         closeMenuOnSelect={false}
                         isMulti={true}
                         options={bodyTypesValues}

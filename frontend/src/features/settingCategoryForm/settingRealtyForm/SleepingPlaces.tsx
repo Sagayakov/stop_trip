@@ -11,7 +11,7 @@ export const SleepingPlaces = ({ register }: Props) => {
 
     return (
         <div className="sleepingPlaces">
-            <h3>{t('filters.sleeping-places')}</h3>
+            <h3>{t('filters.property_sleeping_places')}</h3>
             <div className="setting-sleepingPlaces">
                 <input
                     type="number"

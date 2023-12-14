@@ -10,7 +10,7 @@ export const RealtyCommission = ({ register }: Props) => {
 
     return (
         <div className="realtyComission">
-            <h3>{t('filters.commission')}</h3>
+            <h3>{t('filters.property_commission')}</h3>
             <div className="select-realtyComission">
                 <input
                     type="number"

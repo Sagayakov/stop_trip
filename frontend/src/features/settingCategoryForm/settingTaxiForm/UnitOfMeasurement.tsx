@@ -49,7 +49,7 @@ export const UnitOfMeasurement = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="unitOfMeasurement">
-                <h3>{t('filters.unit')}</h3>
+                <h3>{t('filters.taxi_unit')}</h3>
                 <Controller
                     name="taxi_unit"
                     control={control}
@@ -59,7 +59,7 @@ export const UnitOfMeasurement = ({ control, setValue }: Props) => {
                             classNamePrefix="filterTaxiForm"
                             id="unitOfMeasurement"
                             components={animated}
-                            placeholder={t('filters.unit')}
+                            placeholder={t('filters.taxi_unit')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={unitValues}

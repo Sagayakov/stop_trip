@@ -15,7 +15,7 @@ export const ConditionOfTransport = ({ register }: Props) => {
 
     return (
         <div className="condition">
-            <h3>{t('filters.condition')}</h3>
+            <h3>{t('filters.transport_condition')}</h3>
             <div className="select-condition">
                 {data &&
                     (

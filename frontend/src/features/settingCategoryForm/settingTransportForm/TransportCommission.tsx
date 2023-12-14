@@ -10,7 +10,7 @@ export const TransportCommission = ({ register }: Props) => {
 
     return (
         <div className="transportComission">
-            <h3>{t('filters.commission')}</h3>
+            <h3>{t('filters.transport_commission')}</h3>
             <div className="setting-transportComission">
                 <input
                     type="text"

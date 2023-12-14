@@ -48,7 +48,7 @@ export const DurationOfWork = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="durationOfWork">
-                <h3>{t('filters.job-duration')}</h3>
+                <h3>{t('filters.job_duration')}</h3>
                 <Controller
                     name="job_duration"
                     control={control}
@@ -58,7 +58,7 @@ export const DurationOfWork = ({ control, setValue }: Props) => {
                             classNamePrefix="filterJobForm"
                             id="durationOfWork"
                             components={animated}
-                            placeholder={t('filters.job-duration')}
+                            placeholder={t('filters.job_duration')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={durationValues}

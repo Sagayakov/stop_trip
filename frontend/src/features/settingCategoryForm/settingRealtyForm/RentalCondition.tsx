@@ -51,7 +51,7 @@ export const RentalCondition = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="rentalCondition">
-                <h3>{t('filters.rent-conditions')}</h3>
+                <h3>{t('filters.property_rental_condition')}</h3>
                 <Controller
                     name="property_rental_condition"
                     control={control}
@@ -61,7 +61,7 @@ export const RentalCondition = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="rentalCondition"
                             components={animated}
-                            placeholder={t('filters.rent-conditions')}
+                            placeholder={t('filters.property_rental_condition')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={rentalValues}

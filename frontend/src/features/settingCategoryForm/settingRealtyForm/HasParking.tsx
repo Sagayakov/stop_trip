@@ -11,7 +11,7 @@ export const HasParking = ({ register }: Props) => {
 
     return (
         <div className="hasParking">
-            <h3>{t('filters.parking')}</h3>
+            <h3>{t('filters.property_has_parking')}</h3>
             <div className="setting-hasParking">
                 <label className="form-checkbox">
                     <input

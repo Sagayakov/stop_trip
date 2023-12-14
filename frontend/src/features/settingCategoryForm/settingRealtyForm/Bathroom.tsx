@@ -11,7 +11,7 @@ export const Bathroom = ({ register }: Props) => {
 
     return (
         <div className="bathroom">
-            <h3>{t('filters.bathroom')}</h3>
+            <h3>{t('filters.property_bathroom_type')}</h3>
             <div className="bathroom-setting">
                 <label className="form-checkbox">
                     <input

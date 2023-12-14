@@ -51,7 +51,7 @@ export const TypeOfService = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="typeOfService">
-                <h3>{t('filters.service-type')}</h3>
+                <h3>{t('filters.property_type_of_service')}</h3>
                 <Controller
                     name="property_type_of_service"
                     control={control}
@@ -61,7 +61,7 @@ export const TypeOfService = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="typeOfService"
                             components={animated}
-                            placeholder={t('filters.service-type')}
+                            placeholder={t('filters.property_type_of_service')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={typesValues}

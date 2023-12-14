@@ -11,7 +11,7 @@ export const LivingSpace = ({ register }: Props) => {
 
     return (
         <div className="living-space">
-            <h3>{t('filters.living-area')}</h3>
+            <h3>{t('filters.property_living_area')}</h3>
             <div className="living-space-inputs">
                 <input
                     id="living-space-input-min"

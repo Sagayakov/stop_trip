@@ -51,7 +51,7 @@ export const HouseType = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="houseType">
-                <h3>{t('filters.house-type')}</h3>
+                <h3>{t('filters.property_house_type')}</h3>
                 <Controller
                     name="property_house_type"
                     control={control}
@@ -61,7 +61,7 @@ export const HouseType = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="houseType"
                             components={animated}
-                            placeholder={t('filters.house-type')}
+                            placeholder={t('filters.property_house_type')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={houseTypeValues}

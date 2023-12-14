@@ -24,14 +24,14 @@ export const DocumentDuration = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="documentDuration">
-                <h3>{t('filters.validity')}</h3>
+                <h3>{t('filters.document_duration')}</h3>
                 <UniversalSelectDropdown
                     closeMenuOnSelect={false}
                     control={control}
                     isMulti={true}
                     name="document_duration"
                     options={options}
-                    placeholder={t('filters.validity')}
+                    placeholder={t('filters.document_duration')}
                     prefix="filterDocumentForm"
                     setValue={setValue}
                     isSearchable={!isMobile}

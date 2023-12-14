@@ -11,7 +11,7 @@ export const Balcony = ({ register }: Props) => {
 
     return (
         <div className="balcony">
-            <h3>{t('filters.balcony')}</h3>
+            <h3>{t('filters.property_balcony')}</h3>
             <div className="balcony-setting">
                 <label className="form-checkbox">
                     <input

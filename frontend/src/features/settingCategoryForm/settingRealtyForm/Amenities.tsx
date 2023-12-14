@@ -14,7 +14,7 @@ export const Amenities = ({ register }: Props) => {
 
     return (
         <div className="amenities">
-            <h3>{t('filters.amenities')}</h3>
+            <h3>{t('filters.property_amenities')}</h3>
             <div className="amenities-setting">
                 {data &&
                     (

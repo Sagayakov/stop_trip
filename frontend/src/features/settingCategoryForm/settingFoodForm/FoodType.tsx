@@ -21,14 +21,14 @@ export const FoodType = ({ control, setValue }: Props) => {
 
     return (
         <div className="foodType">
-            <h3>{t('filters.food-type')}</h3>
+            <h3>{t('filters.food_type')}</h3>
             <UniversalSelectDropdown<TypeForFoodForm>
                 closeMenuOnSelect={false}
                 control={control}
                 isMulti={true}
                 name="food_type"
                 options={options}
-                placeholder={t('filters.food-type')}
+                placeholder={t('filters.food_type')}
                 prefix="filterFoodForm"
                 setValue={setValue}
             />

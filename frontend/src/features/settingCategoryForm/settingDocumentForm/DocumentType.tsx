@@ -24,14 +24,14 @@ export const DocumentType = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="documentType">
-                <h3>{t('filters.document-type')}</h3>
+                <h3>{t('filters.document_type')}</h3>
                 <UniversalSelectDropdown
                     closeMenuOnSelect={false}
                     control={control}
                     isMulti={true}
                     name="document_type"
                     options={options}
-                    placeholder={t('filters.document-type')}
+                    placeholder={t('filters.document_type')}
                     prefix="filterDocumentForm"
                     setValue={setValue}
                     isSearchable={!isMobile}

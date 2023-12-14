@@ -49,7 +49,7 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="typeOfTaxi">
-                <h3>{t('filters.taxi-type')}</h3>
+                <h3>{t('filters.taxi_type')}</h3>
                 <Controller
                     name="taxi_type"
                     control={control}
@@ -59,7 +59,7 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
                             classNamePrefix="filterTaxiForm"
                             id="typeOfTaxi"
                             components={animated}
-                            placeholder={t('filters.taxi-type')}
+                            placeholder={t('filters.taxi_type')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={typeValues}

@@ -11,7 +11,7 @@ export const BathroomQuantity = ({ register }: Props) => {
 
     return (
         <div className="bathroom-quantity">
-            <h3>{t('filters.bathroom-count')}</h3>
+            <h3>{t('filters.property_bathroom_count')}</h3>
             <div className="setting-rooms-quantity">
                 <input
                     type="number"

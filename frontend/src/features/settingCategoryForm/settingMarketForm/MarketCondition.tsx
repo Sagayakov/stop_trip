@@ -16,7 +16,7 @@ export const MarketCondition = ({ register }: Props) => {
 
     return (
         <div className="marketCondition">
-            <h3>{t('filters.condition')}</h3>
+            <h3>{t('filters.market_condition')}</h3>
             <UniversalCheckboxGroup
                 checkboxValues={values}
                 register={register}

@@ -11,7 +11,7 @@ export const HouseCall = ({ register }: Props) => {
 
     return (
         <div className="houseCall">
-            <h3>{t('filters.home-visit')}</h3>
+            <h3>{t('filters.service_home_visit')}</h3>
             <div className="setting-houseCall">
                 <label className="form-checkbox">
                     <input
@@ -19,7 +19,7 @@ export const HouseCall = ({ register }: Props) => {
                         // value=""
                         {...register('service_home_visit')}
                     />
-                    <span>{t('filters.home-visit')}</span>
+                    <span>{t('filters.service_home_visit')}</span>
                 </label>
             </div>
         </div>

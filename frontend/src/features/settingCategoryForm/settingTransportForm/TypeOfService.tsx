@@ -26,7 +26,7 @@ export const TypeOfService = ({ register /*watch*/ }: Props) => {
 
     return (
         <div className="typeOfService">
-            <h3>{t('filters.service-type')}</h3>
+            <h3>{t('filters.transport_type_of_service')}</h3>
             <div className="setting-typeOfService">
                 {data &&
                     (

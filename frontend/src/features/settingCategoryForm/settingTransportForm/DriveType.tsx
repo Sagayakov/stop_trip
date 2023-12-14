@@ -15,7 +15,7 @@ export const DriveType = ({ register }: Props) => {
 
     return (
         <div className="drive">
-            <h3>{t('filters.drive-type')}</h3>
+            <h3>{t('filters.transport_drive_type')}</h3>
             <div className="select-drive">
                 {data &&
                     (

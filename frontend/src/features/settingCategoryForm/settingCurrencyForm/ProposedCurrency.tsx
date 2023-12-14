@@ -23,14 +23,14 @@ export const ProposedCurrency = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="proposedCurrency">
-                <h3>{t('filters.currency-proposed')}</h3>
+                <h3>{t('filters.proposed_currency')}</h3>
                 <UniversalSelectDropdown
                     closeMenuOnSelect={false}
                     control={control}
                     isMulti={true}
                     name="proposed_currency"
                     options={options}
-                    placeholder={t('filters.currency-proposed')}
+                    placeholder={t('filters.proposed_currency')}
                     prefix="filterCurrencyForm"
                     setValue={setValue}
                     isSearchable={!isMobile}

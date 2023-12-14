@@ -11,10 +11,10 @@ export const ExcursionTransfer = ({ register }: Props) => {
 
     return (
         <div className="settingExcursion">
-            <h3>{t('filters.transfer')}</h3>
+            <h3>{t('filters.excursion_transfer')}</h3>
             <label className="form-checkbox">
                 <input type="checkbox" {...register('excursion_transfer')} />
-                <span>{t('filters.transfer')}</span>
+                <span>{t('filters.excursion_transfer')}</span>
             </label>
         </div>
     );

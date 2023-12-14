@@ -51,7 +51,7 @@ export const City = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="propertyCity">
-                <h3>{t('filters.city')}</h3>
+                <h3>{t('filters.property_city')}</h3>
                 <Controller
                     name="property_city"
                     control={control}
@@ -61,7 +61,7 @@ export const City = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="propertyCity"
                             components={animated}
-                            placeholder={t('filters.city')}
+                            placeholder={t('filters.property_city')}
                             closeMenuOnSelect={true}
                             isMulti={false}
                             options={cityValues as SelectType[]}

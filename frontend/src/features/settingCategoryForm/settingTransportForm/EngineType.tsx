@@ -50,7 +50,7 @@ export const EngineType = ({ control, setValue }: Props) => {
 
     return (
         <div className="engineType">
-            <h3>{t('filters.engine-type')}</h3>
+            <h3>{t('filters.transport_engine_type')}</h3>
             <Controller
                 name="transport_engine_type"
                 control={control}
@@ -60,7 +60,7 @@ export const EngineType = ({ control, setValue }: Props) => {
                         classNamePrefix="filterTransporForm"
                         id="engineType"
                         components={animated}
-                        placeholder={t('filters.engine-type')}
+                        placeholder={t('filters.transport_engine_type')}
                         closeMenuOnSelect={false}
                         isMulti={true}
                         options={engineTypeValues}

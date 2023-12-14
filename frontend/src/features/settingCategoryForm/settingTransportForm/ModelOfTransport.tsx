@@ -62,7 +62,7 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
 
     return (
         <div className="model">
-            <h3>{t('filters.model')}</h3>
+            <h3>{t('filters.transport_model')}</h3>
             <Controller
                 name="transport_model"
                 control={control}

@@ -11,7 +11,7 @@ export const YearOfProduction = ({ register }: Props) => {
 
     return (
         <div className="yearOfProduction">
-            <h3>{t('filters.year')}</h3>
+            <h3>{t('filters.transport_year_of_production')}</h3>
             <div className="setting-yearOfProduction">
                 <input
                     type="number"

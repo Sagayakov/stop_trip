@@ -10,7 +10,7 @@ export const DateOfStartEvent = ({ register }: Props) => {
 
     return (
         <div className="dateOfStartEvent">
-            <h3>{t('filters.start')}</h3>
+            <h3>{t('filters.start_date')}</h3>
             <div className="setting-dateOfStartEvent">
                 <span>{`${t('filters.date')}:`}</span>
                 <input

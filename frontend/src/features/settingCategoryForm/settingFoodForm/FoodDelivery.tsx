@@ -11,7 +11,7 @@ export const FoodDelivery = ({ register }: Props) => {
 
     return (
         <div className="foodDelivery">
-            <h3>{t('filters.food-delivery')}</h3>
+            <h3>{t('filters.food_delivery')}</h3>
             <label className="form-checkbox">
                 <input type="checkbox" {...register('food_delivery')} />
                 <span>{t('filters.delivery')}</span>

@@ -14,7 +14,7 @@ export const TransmissionType = ({ register }: Props) => {
 
     return (
         <div className="transmissionType">
-            <h3>{t('filters.transmission')}</h3>
+            <h3>{t('filters.transport_transmission_type')}</h3>
             <div className="select-transmissionType">
                 {data &&
                     (

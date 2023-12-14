@@ -52,7 +52,7 @@ export const MarkOfTransport = ({ setValue, control }: Props) => {
 
     return (
         <div className="mark">
-            <h3>{t('filters.brand')}</h3>
+            <h3>{t('filters.transport_brand')}</h3>
             <Controller
                 name="transport_brand"
                 control={control}

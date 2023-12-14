@@ -11,11 +11,11 @@ export const Floor = ({ register }: Props) => {
 
     return (
         <div className="floor">
-            <h3>{t('filters.floor')}</h3>
+            <h3>{t('filters.property_floor')}</h3>
             <div className="setting-floor">
                 <input
                     type="number"
-                    placeholder={t('filters.floor')}
+                    placeholder={t('filters.property_floor')}
                     min={0}
                     {...register('property_floor')}
                 />

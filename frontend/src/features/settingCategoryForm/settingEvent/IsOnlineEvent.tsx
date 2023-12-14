@@ -16,7 +16,7 @@ export const IsOnlineEvent = ({ register }: Props) => {
                 <label className="form-checkbox">
                     <input type="checkbox" {...register('is_online')} />
                     <span>
-                        <b>{t('filters.online')}</b>
+                        <b>{t('filters.is_online')}</b>
                     </span>
                 </label>
             </div>

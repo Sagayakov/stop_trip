@@ -11,7 +11,7 @@ export const RoomsQuantity = ({ register }: Props) => {
 
     return (
         <div className="rooms-quantity">
-            <h3>{t('filters.rooms-count')}</h3>
+            <h3>{t('filters.property_rooms_count')}</h3>
             <div className="setting-rooms-quantity">
                 <label className="form-checkbox">
                     <input

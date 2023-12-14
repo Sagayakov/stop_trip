@@ -22,14 +22,14 @@ export const ExchangeFor = ({ control, setValue }: Props) => {
 
     return (
         <div className="exchangeFor">
-            <h3>{t('filters.exchange-for')}</h3>
+            <h3>{t('filters.exchange_for')}</h3>
             <UniversalSelectDropdown<TypeOfCurrencyFilter>
                 closeMenuOnSelect={false}
                 control={control}
                 isMulti={true}
                 name="exchange_for"
                 options={options}
-                placeholder={t('filters.exchange-for')}
+                placeholder={t('filters.exchange_for')}
                 prefix="filterCurrencyForm"
                 setValue={setValue}
                 isSearchable={!isMobile}

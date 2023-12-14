@@ -11,11 +11,11 @@ export const ExchangeRate = ({ register }: Props) => {
 
     return (
         <div className="exchangeRate">
-            <h3>{t('filters.exchange-rate')}</h3>
+            <h3>{t('filters.exchange_rate')}</h3>
             <div className="exchangeRateInput">
                 <input
                     type="number"
-                    placeholder={t('filters.exchange-rate')}
+                    placeholder={t('filters.exchange_rate')}
                     min={0}
                     {...register('exchange_rate')}
                 />

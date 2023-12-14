@@ -46,7 +46,7 @@ export const TypeOfJob = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="typeOfJob">
-                <h3>{t('filters.job-type')}</h3>
+                <h3>{t('filters.job_type')}</h3>
                 <Controller
                     name="job_type"
                     control={control}
@@ -56,7 +56,7 @@ export const TypeOfJob = ({ control, setValue }: Props) => {
                             classNamePrefix="filterJobForm"
                             id="typeOfJob"
                             components={animated}
-                            placeholder={t('filters.job-type')}
+                            placeholder={t('filters.job_type')}
                             closeMenuOnSelect={true}
                             isMulti={true}
                             options={typeValues}
