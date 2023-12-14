@@ -9,6 +9,7 @@ from ..constants import (
     PropertyRentalCondition,
     PropertyType,
 )
+from ..models import PropertyCity
 
 
 class PropertyFilter(FilterSet):
@@ -18,16 +19,18 @@ class PropertyFilter(FilterSet):
     property_type_of_service = filters.ChoiceFilter(
         label="Тип услуги", choices=PropertyTypeOfService.choices
     )
-    property_city = filters.CharFilter(label="Город", field_name="property_city__slug")
+    property_city = CharInFilter(label="Город", field_name="property_city__slug")
     property_district = filters.CharFilter(label="Район", field_name="property_district__slug")
     property_bathroom_count = filters.NumberFilter(label="Количество санузлов")
-    property_bathroom_type = filters.ChoiceFilter(
+    property_bathroom_type = filters.MultipleChoiceFilter(
         label="Тип санузла", choices=PropertyBathroomType.choices
     )
-    property_house_type = filters.ChoiceFilter(label="Тип дома", choices=PropertyHouseType.choices)
+    property_house_type = filters.MultipleChoiceFilter(
+        label="Тип дома", choices=PropertyHouseType.choices
+    )
     property_sleeping_places = filters.NumberFilter(label="Количество спальных мест")
     property_rooms_count = filters.NumberFilter(label="Количество комнат")
-    property_rental_condition = filters.ChoiceFilter(
+    property_rental_condition = filters.MultipleChoiceFilter(
         label="Условия аренды", choices=PropertyRentalCondition.choices
     )
     property_area = filters.RangeFilter(label="Общая площадь")
@@ -44,6 +47,13 @@ class PropertyFilter(FilterSet):
     @classmethod
     def _property_filter_specs(cls, queryset) -> list[dict]:
         specs: list[dict] = []
+
+        # Тип собственности
+        property_type_specs = {
+            "name": "property_type",
+            "choices": [{"value": value, "label": label} for value, label in PropertyType.choices],
+        }
+        specs.append(property_type_specs)
 
         # Тип услуги
         property_type_of_service_specs = {

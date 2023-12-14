@@ -299,9 +299,7 @@ class PropertyTest(APITestCase):
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
-                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][
-                    _ % 2
-                ],
+                property_type_of_service=PropertyTypeOfService.RENT,
                 property_city=city,
                 property_district=district,
                 property_building_max_floor=5,
@@ -329,8 +327,16 @@ class PropertyTest(APITestCase):
                 self.list_url,
                 {"property_city": property_cities[0].slug},
             )
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(property_set) // len(property_cities))
 
-            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {"property_city": [property_cities[0].slug, property_cities[1].slug]},
+            )
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), len(property_set) // len(property_cities))
 
@@ -350,9 +356,7 @@ class PropertyTest(APITestCase):
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
-                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][
-                    _ % 2
-                ],
+                property_type_of_service=PropertyTypeOfService.SALE,
                 property_city=city,
                 property_district=district,
                 property_building_max_floor=5,
@@ -436,6 +440,21 @@ class PropertyTest(APITestCase):
             self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), len(property_set) // 2)
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "property_bathroom_type": [
+                        PropertyBathroomType.COMBINED.value,
+                        PropertyBathroomType.SEPARATE.value,
+                    ]
+                },
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(property_set))
 
     def test_filter_property_bathroom_count(self):
         user = UserFactory()
@@ -532,6 +551,21 @@ class PropertyTest(APITestCase):
             self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), len(property_set) // 2)
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "property_house_type": [
+                        PropertyHouseType.BLOCK.value,
+                        PropertyHouseType.BRICK.value,
+                    ]
+                },
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(property_set))
 
     def test_filter_property_sleeping_places(self):
         user = UserFactory()
@@ -678,6 +712,21 @@ class PropertyTest(APITestCase):
             self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), len(property_set) // 2)
+
+        with self.assertNumQueries(2):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "property_rental_condition": [
+                        PropertyRentalCondition.FAMILY.value,
+                        PropertyRentalCondition.OFFICE.value,
+                    ]
+                },
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(property_set))
 
     def test_filter_property_area(self):
         user = UserFactory()
