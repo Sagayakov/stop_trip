@@ -24,13 +24,7 @@ export const Header = () => {
     const dispatch: Dispatch = useAppDispatch();
     const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
     const ref = useRef(null);
-    const lang = useAppSelector((state) => state.setLang.lang);
-    const { i18n, t } = useTranslation();
-
-    useEffect(() => {
-        i18n.changeLanguage(lang);
-        localStorage.setItem('lang', lang);
-    }, [lang, i18n]);
+    const { t } = useTranslation();
 
     const { isMobile } = useMatchMedia();
 

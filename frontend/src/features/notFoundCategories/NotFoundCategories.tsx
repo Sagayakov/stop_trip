@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { categories } from '../../shared/const/categories';
 import './notFoundCategories.scss';
+import { useTranslation } from 'react-i18next';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 
 const NotFoundCategories = () => {
     const navigate = useNavigate();
     const { isMobile } = useMatchMedia();
     const shownCategoriesNumber = isMobile ? 4 : 5;
+    const { t } = useTranslation();
 
     return (
         <section className="categories_not-found">
@@ -21,7 +23,7 @@ const NotFoundCategories = () => {
                             onClick={() => navigate(`/${el[0]}/`)}
                         >
                             <Icon />
-                            <span>{el[1].description}</span>
+                            <span>{t(`categories.${el[0]}`)}</span>
                         </div>
                     );
                 })}

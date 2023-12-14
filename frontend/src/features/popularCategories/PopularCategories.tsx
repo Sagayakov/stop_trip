@@ -53,10 +53,7 @@ const PopularCategories = () => {
                                     }
                                 >
                                     <Icon />
-                                    <p>
-                                        {/* {el[1].description} */}
-                                        {t(`categories.${category}`)}
-                                    </p>
+                                    <p>{t(`categories.${category}`)}</p>
                                     <span>
                                         {`${offersAmount} ${GetSpelling(
                                             offersAmount

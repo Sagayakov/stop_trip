@@ -27,5 +27,11 @@
         "taxi": "Taxi",
         "service": "Services",
         "excursion": "Excursions"
+    },
+
+    "page-not-found": {
+        "no-page": "There is no such page :(",
+        "perhaps": "It may have been moved, or you simply entered the page address incorrectly",
+        "to-main": "Go to main page"
     }
 }
