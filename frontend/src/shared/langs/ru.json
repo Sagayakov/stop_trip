@@ -33,5 +33,98 @@
         "no-page": "Такой страницы нет :(",
         "perhaps": "Возможно, она была перенесена, или вы просто неверно указали адрес страницы",
         "to-main": "На главную"
+    },
+
+    "category-page": {
+        "main-link": "Главная"
+    },
+
+    "filters": {
+        "filters": "Фильтры",
+        "service-type": "Тип услуги",
+        "sale": "Продажа",
+        "rent": "Аренда",
+        "city": "Город",
+        "district": "Район",
+        "house-type": "Тип дома",
+        "price": "Цена",
+        "max": "До",
+        "up-to": "До",
+        "from": "От",
+        "rent-conditions": "Условия аренды",
+        "total-area": "Общая площадь, м2",
+        "living-area": "Жилая площадь, м2",
+        "floor": "Этаж",
+        "sleeping-places": "Количество спальных мест",
+        "quantity": "Количество",
+        "balcony": "Балкон",
+        "yes": "Есть",
+        "no": "Нет",
+        "loggia": "Лоджия",
+        "furniture": "Мебель",
+        "with-furniture": "С мебелью",
+        "amenities": "Удобства",
+        "rooms-count": "Количество комнат",
+        "bathroom": "Санузел",
+        "combined": "Совмещённый",
+        "separate": "Раздельный",
+        "bathroom-count": "Количество санузлов",
+        "parking": "Парковка",
+        "with-parking": "С парковкой",
+        "prepayment": "Предоплата",
+        "commission": "Комиссия",
+        "apply": "Применить",
+        "reset": "Сбросить фильтры",
+
+        "transport-type": "Тип транспорта",
+        "transport-category": "Категория транспорта",
+        "choose-category": "Выберите категорию",
+        "brand": "Марка",
+        "choose-brand": "Выберите марку",
+        "model": "Модель",
+        "choose-model": "Выберите модель",
+        "engine-type": "Тип двигателя",
+        "engine-capacity": "Объём двигателя",
+        "drive-type": "Привод",
+        "year": "Год производства",
+        "transmission": "Тип коробки передач",
+        "body-type": "Тип кузова",
+        "condition": "Состояние",
+
+        "currency-proposed": "Предлагаемая валюта",
+        "exchange-for": "Обмен на",
+        "exchange-rate": "Курс",
+
+        "document-type": "Тип документа",
+        "validity": "Срок действия",
+
+        "food-type": "Тип еды",
+        "food-delivery": "Доставка еды",
+        "delivery": "Доставка",
+        "restaurant-cafe": "Ресторан/кафе",
+
+        "start": "Начало",
+        "date": "Дата",
+        "time": "Время",
+        "end": "Окончание",
+        "online": "Онлайн",
+
+        "new": "Новое",
+        "used": "Б/у",
+
+        "job-type": "Тип работы",
+        "job-duration": "Продолжительность работы",
+        "payment-type": "Тип оплаты",
+        "salary": "Зарплата",
+        "experience": "С опытом",
+
+        "unit": "Единица измерения",
+        "taxi-type": "Тип такси",
+
+        "home-visit": "Выезд на дом",
+
+        "food": "Еда",
+        "food-included": "Еда включена",
+        "transfer": "Трансфер"
     }
 }

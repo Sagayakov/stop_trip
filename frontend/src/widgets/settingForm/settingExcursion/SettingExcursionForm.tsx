@@ -7,12 +7,15 @@ import {
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeForExcursionFilter } from './libr/TypeForExcursionFilter';
 import './libr/settingExcursionFilter.scss';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 const SettingExcursionForm = ({ setShowFilters }: Props) => {
+    const { t } = useTranslation();
+
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -35,10 +38,10 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
             >
                 <ExcursionFood register={register} />
                 <ExcursionTransfer register={register} />
-                <input type="submit" value="Применить" />
+                <input type="submit" value={t('filters.apply')} />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
-                    Сбросить фильтры
+                    {t('filters.reset')}
                 </button>
             </form>
         </section>

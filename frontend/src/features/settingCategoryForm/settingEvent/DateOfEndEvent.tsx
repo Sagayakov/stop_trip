@@ -1,21 +1,24 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypeOfEventFilter } from '../../../widgets/settingForm/settingEvent/libr/TypeOfEventFilter';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<TypeOfEventFilter>;
 }
 export const DateOfEndEvent = ({ register }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="dateOfEndEvent">
-            <h3>Окончание</h3>
+            <h3>{t('filters.end')}</h3>
             <div className="setting-dateOfEndEvent">
-                <span>Дата:</span>
+                <span>{`${t('filters.date')}:`}</span>
                 <input
                     type="date"
                     placeholder="Дата окончания"
                     {...register('end_date.date')}
                 />
-                <span>Время:</span>
+                <span>{`${t('filters.time')}:`}</span>
                 <input
                     type="time"
                     placeholder="Время окончания"

@@ -6,6 +6,7 @@ import {
     TypeSettingRealty,
 } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
 import { valuesOfPropertyForm } from '../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -15,6 +16,7 @@ interface Props {
 export const Prepayment = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
     const prepaymentValues = valuesOfPropertyForm.property_prepayment;
+    const { t } = useTranslation();
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -33,7 +35,7 @@ export const Prepayment = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="prepayment">
-                <h3>Предоплата</h3>
+                <h3>{t('filters.prepayment')}</h3>
                 <Controller
                     name="property_prepayment"
                     control={control}
@@ -43,7 +45,7 @@ export const Prepayment = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="prepayment"
                             components={animated}
-                            placeholder="Предоплата"
+                            placeholder={t('filters.prepayment')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={prepaymentValues}
@@ -55,8 +57,8 @@ export const Prepayment = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={prepaymentValues.filter((option) =>
-                                field.value?.includes(option.value)
+                            value={prepaymentValues.filter(
+                                (option) => field.value?.includes(option.value)
                             )}
                         />
                     )}

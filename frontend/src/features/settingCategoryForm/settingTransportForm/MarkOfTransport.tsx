@@ -8,6 +8,7 @@ import {
 import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
 import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
@@ -17,14 +18,21 @@ interface Props {
 export const MarkOfTransport = ({ setValue, control }: Props) => {
     const animated = makeAnimated();
     const { data } = useGetFiltersQuery('');
-    const [markOfTrasportValues, setMarkOfTrasportValues] = useState<SelectType[]>([]);
+    const [markOfTrasportValues, setMarkOfTrasportValues] = useState<
+        SelectType[]
+    >([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
-            const result = (data.params
-                .find((el) => el.name === 'transport_brand') as ChoicesType).choices
-                .filter((el) => (el as SelectType).value && (el as SelectType).label);
-            data && setMarkOfTrasportValues(result as SelectType[]);    
+            const result = (
+                data.params.find(
+                    (el) => el.name === 'transport_brand'
+                ) as ChoicesType
+            ).choices.filter(
+                (el) => (el as SelectType).value && (el as SelectType).label
+            );
+            data && setMarkOfTrasportValues(result as SelectType[]);
         }
     }, [data]);
 
@@ -44,7 +52,7 @@ export const MarkOfTransport = ({ setValue, control }: Props) => {
 
     return (
         <div className="mark">
-            <h3>Марка</h3>
+            <h3>{t('filters.brand')}</h3>
             <Controller
                 name="transport_brand"
                 control={control}
@@ -54,14 +62,15 @@ export const MarkOfTransport = ({ setValue, control }: Props) => {
                         classNamePrefix="filterTransporForm"
                         id="mark"
                         components={animated}
-                        placeholder="Выберите марку"
+                        placeholder={t('filters.choose-brand')}
                         isMulti={false}
                         options={markOfTrasportValues}
                         onChange={(selectedOption) => {
                             handleChange(selectedOption as SelectOption | null);
                         }}
-                        value={markOfTrasportValues.filter((option) =>
-                            field.value?.includes(option.value as string)
+                        value={markOfTrasportValues.filter(
+                            (option) =>
+                                field.value?.includes(option.value as string)
                         )}
                     />
                 )}

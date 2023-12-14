@@ -1,14 +1,17 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
 }
 
 export const Balcony = ({ register }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="balcony">
-            <h3>Балкон</h3>
+            <h3>{t('filters.balcony')}</h3>
             <div className="balcony-setting">
                 <label className="form-checkbox">
                     <input
@@ -17,7 +20,7 @@ export const Balcony = ({ register }: Props) => {
                         value="yes"
                         {...register('property_balcony')}
                     />
-                    <span>Есть</span>
+                    <span>{t('filters.yes')}</span>
                 </label>
                 <label className="form-checkbox">
                     <input
@@ -26,7 +29,7 @@ export const Balcony = ({ register }: Props) => {
                         value="no"
                         {...register('property_balcony')}
                     />
-                    <span>Нет</span>
+                    <span>{t('filters.no')}</span>
                 </label>
                 <label className="form-checkbox">
                     <input
@@ -35,7 +38,7 @@ export const Balcony = ({ register }: Props) => {
                         value="loggia"
                         {...register('property_balcony')}
                     />
-                    <span>Лоджия</span>
+                    <span>{t('filters.loggia')}</span>
                 </label>
             </div>
         </div>

@@ -4,6 +4,7 @@ import { MarketCondition } from '../../../features/settingCategoryForm/settingMa
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeForMarketForm } from './libr/TypeForMarketForm';
 import './libr/settingMarketForm.scss';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -11,6 +12,8 @@ interface Props {
 
 const SettingMarketForm = ({ setShowFilters }: Props) => {
     const [, setSearchParams] = useSearchParams();
+    const { t } = useTranslation();
+
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -19,8 +22,8 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    
+    };
+
     const onsubmit: SubmitHandler<TypeForMarketForm> = (data) => {
         const { market_condition } = data;
         const category = market_condition ? 'category=market' : '';
@@ -29,12 +32,12 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         if (market_condition.length === 2) {
             params = `${market_condition[0]}%2C${market_condition[1]}`;
         }
-        if(market_condition.length === 1){
+        if (market_condition.length === 1) {
             params = `${market_condition[0]}`;
         }
         setSearchParams(`${category}${condition}${params}`);
         setShowFilters(false);
-        scrollToTop()
+        scrollToTop();
     };
 
     const onReset = () => {
@@ -45,10 +48,10 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         <section className="filters" onClick={handleClick}>
             <form className="filterFoodForm" onSubmit={handleSubmit(onsubmit)}>
                 <MarketCondition register={register} />
-                <input type="submit" value="Применить" />
+                <input type="submit" value={t('filters.apply')} />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
-                    Сбросить фильтры
+                    {t('filters.reset')}
                 </button>
             </form>
         </section>

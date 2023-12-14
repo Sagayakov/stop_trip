@@ -8,6 +8,7 @@ import {
 import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
 import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -18,13 +19,18 @@ export const District = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
     const { data } = useGetFiltersQuery('');
     const [districtValues, setDistrictValues] = useState<SelectType[]>([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
-            const result = (data.params
-                .find((el) => el.name === 'property_district') as ChoicesType).choices
-                .filter((el) => (el as SelectType).value && (el as SelectType).label);
-            data && setDistrictValues(result as SelectType[]);    
+            const result = (
+                data.params.find(
+                    (el) => el.name === 'property_district'
+                ) as ChoicesType
+            ).choices.filter(
+                (el) => (el as SelectType).value && (el as SelectType).label
+            );
+            data && setDistrictValues(result as SelectType[]);
         }
     }, [data]);
 
@@ -45,7 +51,7 @@ export const District = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="propertyDistrict">
-                <h3>Район</h3>
+                <h3>{t('filters.district')}</h3>
                 <Controller
                     name="property_district"
                     control={control}
@@ -55,7 +61,7 @@ export const District = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="propertyDistrict"
                             components={animated}
-                            placeholder="Район"
+                            placeholder={t('filters.district')}
                             closeMenuOnSelect={true}
                             isMulti={false}
                             options={districtValues}
@@ -67,8 +73,11 @@ export const District = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={districtValues.filter((option) =>
-                                field.value?.includes(option.value as string)
+                            value={districtValues.filter(
+                                (option) =>
+                                    field.value?.includes(
+                                        option.value as string
+                                    )
                             )}
                         />
                     )}

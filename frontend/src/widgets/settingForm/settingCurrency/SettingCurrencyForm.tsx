@@ -9,6 +9,7 @@ import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeOfCurrencyFilter } from './libr/TypeOfCurrencyFilter';
 import { searchParamsForExchange } from './libr/searchParamsForExchange';
 import './libr/settingCurrencyFilter.scss';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -20,6 +21,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
     const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+    const { t } = useTranslation();
 
     const { handleSubmit, reset, control, setValue, register } =
         useForm<TypeOfCurrencyFilter>();
@@ -50,10 +52,10 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
                 <ProposedCurrency control={control} setValue={setValue} />
                 <ExchangeFor control={control} setValue={setValue} />
                 <ExchangeRate register={register} />
-                <input type="submit" value="Применить" />
+                <input type="submit" value={t('filters.apply')} />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
-                    Сбросить фильтры
+                    {t('filters.reset')}
                 </button>
             </form>
         </section>

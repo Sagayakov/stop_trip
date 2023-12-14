@@ -1,9 +1,13 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { HouseCall, SettingServicePrice } from '../../../features/settingCategoryForm/settingServices';
+import {
+    HouseCall,
+    SettingServicePrice,
+} from '../../../features/settingCategoryForm/settingServices';
 import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeOfServicesForm } from './libr/TypeOfServicesForm';
 import './libr/settingServicesForm.scss';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -11,7 +15,8 @@ interface Props {
 
 const SettingServicesForm = ({ setShowFilters }: Props) => {
     const [, setSearchParams] = useSearchParams();
-    
+    const { t } = useTranslation();
+
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -20,8 +25,10 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
 
     const onsubmit: SubmitHandler<TypeOfServicesForm> = (data) => {
         const { service_home_visit, price } = data;
-        
-        const homeVisitQuery = service_home_visit ? `&service_home_visit=true` : '';
+
+        const homeVisitQuery = service_home_visit
+            ? `&service_home_visit=true`
+            : '';
         const priceMaxQuery = price.max ? `&price_max=${price.max}` : '';
         const priceMinQuery = price.min ? `&price_min=${price.min}` : '';
 
@@ -43,11 +50,11 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
                 autoComplete="off"
             >
                 <HouseCall register={register} />
-                <SettingServicePrice register={register}/>
-                <input type="submit" value="Применить" />
+                <SettingServicePrice register={register} />
+                <input type="submit" value={t('filters.apply')} />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
-                    Сбросить фильтры
+                    {t('filters.reset')}
                 </button>
             </form>
         </section>

@@ -8,6 +8,7 @@ import {
 import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
 import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -18,13 +19,18 @@ export const TypeOfService = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
     const { data } = useGetFiltersQuery('');
     const [typesValues, setTypesValues] = useState<SelectType[]>([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
-            const result = (data.params
-                .find((el) => el.name === 'property_type_of_service') as ChoicesType).choices
-                .filter((el) => (el as SelectType).value && (el as SelectType).label);
-            data && setTypesValues(result as SelectType[]);    
+            const result = (
+                data.params.find(
+                    (el) => el.name === 'property_type_of_service'
+                ) as ChoicesType
+            ).choices.filter(
+                (el) => (el as SelectType).value && (el as SelectType).label
+            );
+            data && setTypesValues(result as SelectType[]);
         }
     }, [data]);
 
@@ -45,7 +51,7 @@ export const TypeOfService = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="typeOfService">
-                <h3>Тип услуги</h3>
+                <h3>{t('filters.service-type')}</h3>
                 <Controller
                     name="property_type_of_service"
                     control={control}
@@ -55,7 +61,7 @@ export const TypeOfService = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="typeOfService"
                             components={animated}
-                            placeholder="Тип услуги"
+                            placeholder={t('filters.service-type')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={typesValues}
@@ -67,8 +73,11 @@ export const TypeOfService = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={typesValues.filter((option) =>
-                                field.value?.includes(option.value as string)
+                            value={typesValues.filter(
+                                (option) =>
+                                    field.value?.includes(
+                                        option.value as string
+                                    )
                             )}
                         />
                     )}

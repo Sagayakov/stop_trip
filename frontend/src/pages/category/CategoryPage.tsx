@@ -3,20 +3,50 @@ import { NavLink } from 'react-router-dom';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 const Controls = lazy(() => import('../../features/controls/Controls'));
 import { Pagination } from '../../features/pagination';
-import { categories } from '../../shared/const/categories';
 import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
 import { HorizontalMixer } from '../../shared/ui/icons/icons-tools/HorizontalMixer';
-const SettingCurrencyForm = lazy(() => import('../../widgets/settingForm/settingCurrency/SettingCurrencyForm'));
-const SettingRealtyForm = lazy(() => import('../../widgets/settingForm/settingRealty/SettingRealtyForm'));
-const SettingTransportForm = lazy(() => import('../../widgets/settingForm/settingTransport/SettingTransportForm'));
-const SettingTaxiForm = lazy(() => import('../../widgets/settingForm/settingTaxi/SettingTaxiForm'));
-const SettingServicesForm = lazy(() => import('../../widgets/settingForm/settingServices/SettingServicesForm'));
-const SettingEventForm = lazy(() => import('../../widgets/settingForm/settingEvent/SettingEventForm'));
-const SettingJobForm = lazy(() => import('../../widgets/settingForm/settingJob/SettingJobForm'));
-const SettingExcursionForm = lazy(() => import('../../widgets/settingForm/settingExcursion/SettingExcursionForm'));
-const SettingDocumentForm = lazy(() => import('../../widgets/settingForm/settingDocument/SettingDocumentForm'));
-const SettingFoodForm = lazy(() => import('../../widgets/settingForm/settingFood/SettingFoodForm'));
-const SettingMarketForm = lazy(() => import('../../widgets/settingForm/settingMarket/SettnigMarketForm'));
+const SettingCurrencyForm = lazy(
+    () =>
+        import('../../widgets/settingForm/settingCurrency/SettingCurrencyForm')
+);
+const SettingRealtyForm = lazy(
+    () => import('../../widgets/settingForm/settingRealty/SettingRealtyForm')
+);
+const SettingTransportForm = lazy(
+    () =>
+        import(
+            '../../widgets/settingForm/settingTransport/SettingTransportForm'
+        )
+);
+const SettingTaxiForm = lazy(
+    () => import('../../widgets/settingForm/settingTaxi/SettingTaxiForm')
+);
+const SettingServicesForm = lazy(
+    () =>
+        import('../../widgets/settingForm/settingServices/SettingServicesForm')
+);
+const SettingEventForm = lazy(
+    () => import('../../widgets/settingForm/settingEvent/SettingEventForm')
+);
+const SettingJobForm = lazy(
+    () => import('../../widgets/settingForm/settingJob/SettingJobForm')
+);
+const SettingExcursionForm = lazy(
+    () =>
+        import(
+            '../../widgets/settingForm/settingExcursion/SettingExcursionForm'
+        )
+);
+const SettingDocumentForm = lazy(
+    () =>
+        import('../../widgets/settingForm/settingDocument/SettingDocumentForm')
+);
+const SettingFoodForm = lazy(
+    () => import('../../widgets/settingForm/settingFood/SettingFoodForm')
+);
+const SettingMarketForm = lazy(
+    () => import('../../widgets/settingForm/settingMarket/SettnigMarketForm')
+);
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
 import './style/category-page.scss';
 import './style/1024-1439-category-page.scss';
@@ -24,13 +54,14 @@ import './style/768-1023-category-page.scss';
 import './style/425-767-category-page.scss';
 import './style/min-424-category-page.scss';
 const AnyCategory = lazy(() => import('../../widgets/anyCategory/AnyCategory'));
+import { useTranslation } from 'react-i18next';
 
 export const CategoryPage = () => {
     const category = location.pathname.split('/')[1];
-    const description = categories[category].description;
-    const [showFilters, setShowFilters] = useState<boolean>(false);
 
+    const [showFilters, setShowFilters] = useState<boolean>(false);
     const { isDesktop } = useMatchMedia();
+    const { t } = useTranslation();
 
     const filterFormStyleMobile = {
         display: `${showFilters ? 'block' : 'none'}`,
@@ -57,10 +88,10 @@ export const CategoryPage = () => {
             {isDesktop ? (
                 <>
                     <div className="bread-crumbs">
-                        <NavLink to="/">Главная</NavLink>
-                        {` > ${description}`}
+                        <NavLink to="/">{t('category-page.main-link')}</NavLink>
+                        {` > ${t(`categories.${category}`)}`}
                     </div>
-                    <h1>{description}</h1>
+                    <h1>{t(`categories.${category}`)}</h1>
                 </>
             ) : (
                 <div className="bread-crumbs">
@@ -72,14 +103,14 @@ export const CategoryPage = () => {
                             }}
                         />
                     </NavLink>
-                    <h1>{description}</h1>
+                    <h1>{t(`categories.${category}`)}</h1>
                     <div
                         className="filter-btn"
                         onClick={() => setShowFilters(!showFilters)}
                         style={filterBtnStyle}
                     >
                         <HorizontalMixer />
-                        Фильтры
+                        {t('filters.filters')}
                     </div>
                 </div>
             )}
@@ -89,41 +120,57 @@ export const CategoryPage = () => {
                         className="filter-form"
                         onClick={handleClickFilterForm}
                         style={
-                            isDesktop ? { display: 'block' } : filterFormStyleMobile
+                            isDesktop
+                                ? { display: 'block' }
+                                : filterFormStyleMobile
                         }
                     >
                         {category === 'property' && (
-                            <SettingRealtyForm setShowFilters={setShowFilters} />
+                            <SettingRealtyForm
+                                setShowFilters={setShowFilters}
+                            />
                         )}
                         {category === 'transport' && (
-                            <SettingTransportForm setShowFilters={setShowFilters} />
+                            <SettingTransportForm
+                                setShowFilters={setShowFilters}
+                            />
                         )}
                         {category === 'taxi' && (
                             <SettingTaxiForm setShowFilters={setShowFilters} />
                         )}
                         {category === 'service' && (
-                            <SettingServicesForm setShowFilters={setShowFilters} />
+                            <SettingServicesForm
+                                setShowFilters={setShowFilters}
+                            />
                         )}
                         {category === 'job' && (
                             <SettingJobForm setShowFilters={setShowFilters} />
                         )}
                         {category === 'event' && (
-                            <SettingEventForm setShowFilters={setShowFilters}/>
+                            <SettingEventForm setShowFilters={setShowFilters} />
                         )}
                         {category === 'exchange_rate' && (
-                            <SettingCurrencyForm setShowFilters={setShowFilters}/>
+                            <SettingCurrencyForm
+                                setShowFilters={setShowFilters}
+                            />
                         )}
                         {category === 'document' && (
-                            <SettingDocumentForm setShowFilters={setShowFilters} />
+                            <SettingDocumentForm
+                                setShowFilters={setShowFilters}
+                            />
                         )}
                         {category === 'excursion' && (
-                            <SettingExcursionForm setShowFilters={setShowFilters} />
+                            <SettingExcursionForm
+                                setShowFilters={setShowFilters}
+                            />
                         )}
                         {category === 'food' && (
                             <SettingFoodForm setShowFilters={setShowFilters} />
                         )}
                         {category === 'market' && (
-                            <SettingMarketForm setShowFilters={setShowFilters} />
+                            <SettingMarketForm
+                                setShowFilters={setShowFilters}
+                            />
                         )}
                     </div>
                     <AnyCategory />

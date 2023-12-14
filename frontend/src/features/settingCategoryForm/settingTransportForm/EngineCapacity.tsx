@@ -1,14 +1,17 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
 }
 
 export const EngineCapacity = ({ register }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="engineСapacity">
-            <h3>Объем двигателя</h3>
+            <h3>{t('filters.engine-capacity')}</h3>
             <div className="setting-engineCapacity">
                 <input
                     type="text"
@@ -16,7 +19,7 @@ export const EngineCapacity = ({ register }: Props) => {
                     autoComplete="off"
                     {...register('transport_engine_volume.min')}
                     min="0"
-                    placeholder="От"
+                    placeholder={t('filters.from')}
                 />
                 <input
                     type="text"
@@ -24,7 +27,7 @@ export const EngineCapacity = ({ register }: Props) => {
                     autoComplete="off"
                     {...register('transport_engine_volume.max')}
                     min="0.5"
-                    placeholder="До"
+                    placeholder={t('filters.up-to')}
                 />
             </div>
         </div>

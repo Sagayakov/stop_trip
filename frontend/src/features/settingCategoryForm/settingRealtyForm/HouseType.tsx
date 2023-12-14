@@ -8,6 +8,7 @@ import {
 import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
 import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -18,13 +19,18 @@ export const HouseType = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [houseTypeValues, setHouseTypeValues] = useState<SelectType[]>([]);
     const animated = makeAnimated();
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
-            const result = (data.params
-                .find((el) => el.name === 'property_house_type') as ChoicesType).choices
-                .filter((el) => (el as SelectType).value && (el as SelectType).label);
-            data && setHouseTypeValues(result as SelectType[]);    
+            const result = (
+                data.params.find(
+                    (el) => el.name === 'property_house_type'
+                ) as ChoicesType
+            ).choices.filter(
+                (el) => (el as SelectType).value && (el as SelectType).label
+            );
+            data && setHouseTypeValues(result as SelectType[]);
         }
     }, [data]);
 
@@ -45,7 +51,7 @@ export const HouseType = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="houseType">
-                <h3>Тип дома</h3>
+                <h3>{t('filters.house-type')}</h3>
                 <Controller
                     name="property_house_type"
                     control={control}
@@ -55,7 +61,7 @@ export const HouseType = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="houseType"
                             components={animated}
-                            placeholder="Тип дома"
+                            placeholder={t('filters.house-type')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={houseTypeValues}
@@ -67,8 +73,11 @@ export const HouseType = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={houseTypeValues.filter((option) =>
-                                field.value?.includes(option.value as string)
+                            value={houseTypeValues.filter(
+                                (option) =>
+                                    field.value?.includes(
+                                        option.value as string
+                                    )
                             )}
                         />
                     )}

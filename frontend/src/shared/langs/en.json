@@ -33,5 +33,98 @@
         "no-page": "There is no such page :(",
         "perhaps": "It may have been moved, or you simply entered the page address incorrectly",
         "to-main": "Go to main page"
+    },
+
+    "category-page": {
+        "main-link": "Main"
+    },
+
+    "filters": {
+        "filters": "Filters",
+        "service-type": "Service type",
+        "sale": "Sale",
+        "rent": "Rent",
+        "city": "City",
+        "district": "District",
+        "house-type": "House type",
+        "price": "Price",
+        "max": "max",
+        "up-to": "Up to",
+        "from": "From",
+        "rent-conditions": "Rent conditions",
+        "total-area": "Total area, m2",
+        "living-area": "Living area, m2",
+        "floor": "Floor",
+        "sleeping-places": "Number of sleeping places",
+        "quantity": "Quantity",
+        "balcony": "Balcony",
+        "yes": "Yes",
+        "no": "No",
+        "loggia": "Loggia",
+        "furniture": "Furniture",
+        "with-furniture": "With furniture",
+        "amenities": "Amenities",
+        "rooms-count": "Rooms quantity",
+        "bathroom": "Bathroom",
+        "combined": "Combined",
+        "separate": "Separate",
+        "bathroom-count": "Number of bathrooms",
+        "parking": "Parking",
+        "with-parking": "With parking",
+        "prepayment": "Prepayment",
+        "commission": "Commission",
+        "apply": "Apply",
+        "reset": "Reset filters",
+
+        "transport-type": "Transport type",
+        "transport-category": "Transport category",
+        "choose-category": "Choose category",
+        "brand": "Brand",
+        "choose-brand": "Choose brand",
+        "model": "Model",
+        "choose-model": "Choose model",
+        "engine-type": "Engine type",
+        "engine-capacity": "Engine capacity",
+        "drive-type": "Drive type",
+        "year": "Year of production",
+        "transmission": "Transmission",
+        "body-type": "Body type",
+        "condition": "Condition",
+
+        "currency-proposed": "Proposed currency",
+        "exchange-for": "Exchange for",
+        "exchange-rate": "Rate",
+
+        "document-type": "Document type",
+        "validity": "Validity",
+
+        "food-type": "Food type",
+        "food-delivery": "Food delivery",
+        "delivery": "Delivery",
+        "restaurant-cafe": "Restaurant/cafe",
+
+        "start": "Beginning",
+        "date": "Date",
+        "time": "Time",
+        "end": "Ending",
+        "online": "Online",
+
+        "new": "New",
+        "used": "Used",
+
+        "job-type": "Job type",
+        "job-duration": "Job duration",
+        "payment-type": "Payment type",
+        "salary": "Salary",
+        "experience": "With experience",
+
+        "unit": "Unit",
+        "taxi-type": "Taxi type",
+
+        "home-visit": "Home visit",
+
+        "food": "Food",
+        "food-included": "Food included",
+        "transfer": "Transfer"
     }
 }

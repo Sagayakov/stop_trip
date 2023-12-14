@@ -8,6 +8,7 @@ import {
 import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
 import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -18,13 +19,18 @@ export const City = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [cityValues, setCityValues] = useState<SelectType[]>([]);
     const animated = makeAnimated();
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
-            const result = (data.params
-                .find((el) => el.name === 'property_city') as ChoicesType).choices
-                .filter((el) => (el as SelectType).value && (el as SelectType).label);
-            data && setCityValues(result as SelectType[]);    
+            const result = (
+                data.params.find(
+                    (el) => el.name === 'property_city'
+                ) as ChoicesType
+            ).choices.filter(
+                (el) => (el as SelectType).value && (el as SelectType).label
+            );
+            data && setCityValues(result as SelectType[]);
         }
     }, [data]);
 
@@ -45,7 +51,7 @@ export const City = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="propertyCity">
-                <h3>Город</h3>
+                <h3>{t('filters.city')}</h3>
                 <Controller
                     name="property_city"
                     control={control}
@@ -55,7 +61,7 @@ export const City = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="propertyCity"
                             components={animated}
-                            placeholder="Город"
+                            placeholder={t('filters.city')}
                             closeMenuOnSelect={true}
                             isMulti={false}
                             options={cityValues as SelectType[]}
@@ -67,9 +73,11 @@ export const City = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={cityValues.filter((option) => (
-                                    field.value?.includes(option.value as string)
-                                )  
+                            value={cityValues.filter(
+                                (option) =>
+                                    field.value?.includes(
+                                        option.value as string
+                                    )
                             )}
                         />
                     )}
