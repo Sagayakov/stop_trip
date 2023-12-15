@@ -454,7 +454,7 @@ class PropertyTest(APITestCase):
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(property_set))
+        self.assertEqual(len(res_json), len(property_set) // 2)
 
     def test_filter_property_bathroom_count(self):
         user = UserFactory()
@@ -565,7 +565,7 @@ class PropertyTest(APITestCase):
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(property_set))
+        self.assertEqual(len(res_json), len(property_set) // 2)
 
     def test_filter_property_sleeping_places(self):
         user = UserFactory()
@@ -726,7 +726,7 @@ class PropertyTest(APITestCase):
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(property_set))
+        self.assertEqual(len(res_json), len(property_set) // 2)
 
     def test_filter_property_area(self):
         user = UserFactory()
@@ -945,4 +945,4 @@ class PropertyTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(property_set))
+        self.assertEqual(len(res_json), len(property_set) // 2)

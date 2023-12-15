@@ -1,7 +1,7 @@
 from django.db.models import Min, Max
 from django_filters.rest_framework import filters, FilterSet
 
-from common.filters import CharInFilter
+from common.filters import CharInFilter, ChoiceInFilter
 from ..constants import (
     PropertyTypeOfService,
     PropertyBathroomType,
@@ -13,24 +13,20 @@ from ..models import PropertyCity
 
 
 class PropertyFilter(FilterSet):
-    property_type = filters.MultipleChoiceFilter(
-        label="Тип собственности", choices=PropertyType.choices
-    )
+    property_type = ChoiceInFilter(label="Тип собственности", choices=PropertyType.choices)
     property_type_of_service = filters.ChoiceFilter(
         label="Тип услуги", choices=PropertyTypeOfService.choices
     )
     property_city = CharInFilter(label="Город", field_name="property_city__slug")
     property_district = filters.CharFilter(label="Район", field_name="property_district__slug")
     property_bathroom_count = filters.NumberFilter(label="Количество санузлов")
-    property_bathroom_type = filters.MultipleChoiceFilter(
+    property_bathroom_type = ChoiceInFilter(
         label="Тип санузла", choices=PropertyBathroomType.choices
     )
-    property_house_type = filters.MultipleChoiceFilter(
-        label="Тип дома", choices=PropertyHouseType.choices
-    )
+    property_house_type = ChoiceInFilter(label="Тип дома", choices=PropertyHouseType.choices)
     property_sleeping_places = filters.NumberFilter(label="Количество спальных мест")
     property_rooms_count = filters.NumberFilter(label="Количество комнат")
-    property_rental_condition = filters.MultipleChoiceFilter(
+    property_rental_condition = ChoiceInFilter(
         label="Условия аренды", choices=PropertyRentalCondition.choices
     )
     property_area = filters.RangeFilter(label="Общая площадь")
