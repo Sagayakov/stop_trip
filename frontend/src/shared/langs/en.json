@@ -67,6 +67,23 @@
         "send": "Send"
     },
 
+    "modal-add-advert": {
+        "must": "To post an ad, you must",
+        "login": "log in",
+        "or": "or",
+        "register": "register"
+    },
+
+    "modal-check-email": "To complete the registration process, please follow the link,\nsent to the specified email address",
+
+    "modal-logged": {
+        "adverts": "My adverts",
+        "messages": "My messages",
+        "favorites": "Favorites",
+        "settings": "Settings",
+        "logout": "Logout"
+    },
+
     "page-not-found": {
         "no-page": "There is no such page :(",
         "perhaps": "It may have been moved, or you simply entered the page address incorrectly",
