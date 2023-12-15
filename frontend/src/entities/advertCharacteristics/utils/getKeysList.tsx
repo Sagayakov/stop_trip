@@ -1,13 +1,16 @@
 import { ProductType } from '../../../pages/advertPage/libr/types';
 import { Categories } from 'shared/const/categories';
 import { categoryCharacteristicsKeys } from '../../../shared/const/categoryCharacteristics';
+import { useTranslation } from 'react-i18next';
 
 type GetListProps = {
     data: ProductType;
     category: Categories;
 };
 
-export const getKeysList = ({ data, category }: GetListProps) => {
+export const GetKeysList = ({ data, category }: GetListProps) => {
+    const { t } = useTranslation();
+
     const list = [];
 
     let key: keyof ProductType;
@@ -24,7 +27,7 @@ export const getKeysList = ({ data, category }: GetListProps) => {
             if (data.property_amenities.length) {
                 list.push(
                     <p key={key}>
-                        Удобства
+                        {t('filters.property_amenities')}
                         <span className="dashes"></span>
                     </p>
                 );
@@ -41,7 +44,7 @@ export const getKeysList = ({ data, category }: GetListProps) => {
             if (data[key] === true) {
                 list.push(
                     <p key={key}>
-                        {categoryCharacteristicsKeys[category][key]}
+                        {t(`filters.${key}`)}
                         <span className="dashes"></span>
                     </p>
                 );
@@ -51,7 +54,7 @@ export const getKeysList = ({ data, category }: GetListProps) => {
         } else {
             list.push(
                 <p key={key} className={key}>
-                    {categoryCharacteristicsKeys[category][key]}
+                    {t(`filters.${key}`)}
                     <span className="dashes"></span>
                 </p>
             );

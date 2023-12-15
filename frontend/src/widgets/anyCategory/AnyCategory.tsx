@@ -4,14 +4,16 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
-import { getDate } from '../../shared/utils/getDate';
+import { GetDate } from '../../shared/utils/getDate';
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
+import { useTranslation } from 'react-i18next';
 
 const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
     const queryParam = useLocation().search;
     const { data = [], isLoading } = useGetAdvertsQuery(queryParam);
     const { isMobile } = useMatchMedia();
+    const { t } = useTranslation();
 
     return (
         <section className="announcement">
@@ -62,30 +64,30 @@ const AnyCategory = () => {
                                     {el.description}
                                 </p>
                                 <div className="author">
-                                    {`${el.owner.full_name[0].toUpperCase()}${el.owner.full_name.slice(1)}`}
+                                    {`${el.owner.full_name[0].toUpperCase()}${el.owner.full_name.slice(
+                                        1
+                                    )}`}
                                     <span className="rating-number">4.5</span>
                                     <Rating rating={4.5} />
                                 </div>
                                 <p className="time">
                                     {`
-                                        ${getDate(el.date_create).dayToDisplay},
-                                        ${getDate(el.date_create).hours}:${
-                                        getDate(el.date_create).minutes
-                                    }
+                                        ${GetDate(el.date_create).dayToDisplay},
+                                        ${GetDate(el.date_create).hours}:${
+                                            GetDate(el.date_create).minutes
+                                        }
                                     `}
                                 </p>
                             </div>
                         </NavLink>
                     );
                 })
+            ) : isLoading ? (
+                <LoadingWithBackground />
             ) : (
-                isLoading
-                    ? <LoadingWithBackground />
-                    : (
-                        <p className="announcement-not-found">
-                            В этой категории объявлений не найдено
-                        </p>
-                    )
+                <p className="announcement-not-found">
+                    {t('category-page.no-adverts')}
+                </p>
             )}
         </section>
     );

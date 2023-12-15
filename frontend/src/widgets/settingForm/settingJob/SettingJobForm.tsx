@@ -10,14 +10,16 @@ import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypesOfJobs } from './libr/TypesOfJobs';
 import './libr/settingJobFilter.scss';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 const SettingJobForm = ({ setShowFilters }: Props) => {
+    const { t } = useTranslation();
     const [, setSearchParams] = useSearchParams();
-    
+
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -26,19 +28,30 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
         useForm<TypesOfJobs>();
 
     const onsubmit: SubmitHandler<TypesOfJobs> = (data) => {
-        const { job_type, job_payment_type, job_experience, job_duration, price } = data;
+        const {
+            job_type,
+            job_payment_type,
+            job_experience,
+            job_duration,
+            price,
+        } = data;
 
         const priceMaxQuery = price.max ? `&price_max=${price.max}` : '';
         const priceMinQuery = price.min ? `&price_min=${price.min}` : '';
-        const typeQuery = job_type ? `&job_type=${job_type.map((el) => `${el}`).join(',')}` : '';
+        const typeQuery = job_type
+            ? `&job_type=${job_type.map((el) => `${el}`).join(',')}`
+            : '';
         const paymentTypeQuery = job_payment_type
-            ? `&job_payment_type=${job_payment_type.map((el) => `${el}`).join(',')}`
+            ? `&job_payment_type=${job_payment_type
+                  .map((el) => `${el}`)
+                  .join(',')}`
             : '';
         const experienceQuery = job_experience ? `&job_experience=true` : '';
-        const durationQuery = job_duration ? `&job_duration=${job_duration.map((el) => `${el}`).join(',')}` : '';
+        const durationQuery = job_duration
+            ? `&job_duration=${job_duration.map((el) => `${el}`).join(',')}`
+            : '';
 
-        const filters =
-            `${typeQuery}${paymentTypeQuery}${experienceQuery}${durationQuery}${priceMinQuery}${priceMaxQuery}`;
+        const filters = `${typeQuery}${paymentTypeQuery}${experienceQuery}${durationQuery}${priceMinQuery}${priceMaxQuery}`;
         setSearchParams(`category=job${filters}`);
 
         setShowFilters(false);
@@ -56,10 +69,10 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
                 <TypeOfPayment control={control} setValue={setValue} />
                 <PriceOfJob register={register} />
                 <WithExperience register={register} />
-                <input type="submit" value="Применить" />
+                <input type="submit" value={t('filters.apply')} />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
-                    Сбросить фильтры
+                    {t('filters.reset')}
                 </button>
             </form>
         </section>

@@ -2,6 +2,7 @@ import { Control, Controller, FieldErrors } from 'react-hook-form';
 import { useAppSelector } from '../../../../../../app/store/hooks';
 import '../../libr/inputEmail.scss';
 import { AuthData } from '../../libr/EnterType';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     errors: FieldErrors<AuthData>;
@@ -11,6 +12,7 @@ interface Props {
 
 export const InputEmail = ({ errors, control }: Props) => {
     const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
+    const { t } = useTranslation();
 
     return (
         <>
@@ -45,7 +47,7 @@ export const InputEmail = ({ errors, control }: Props) => {
                         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                     minLength: 10,
                 })}
-                type='email'
+                type="email"
                 placeholder="Email"
                 autoComplete="username"
                 style={{
@@ -57,7 +59,7 @@ export const InputEmail = ({ errors, control }: Props) => {
             <div className="input-error">
                 {errors?.email && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Введите корректный email
+                        {t('modal-login.correct-email')}
                     </p>
                 )}
             </div>

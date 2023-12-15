@@ -2,6 +2,7 @@ import { Control, UseFormSetValue } from 'react-hook-form';
 import { useMatchMedia } from '../../../app/hooks/useMatchMedia';
 import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
 import { TypeOfDocumentFilter } from '../../../widgets/settingForm/settingDocument/libr/TypeOfDocumentFilter';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfDocumentFilter>;
@@ -10,6 +11,8 @@ interface Props {
 
 export const DocumentType = ({ control, setValue }: Props) => {
     const { isMobile } = useMatchMedia();
+    const { t } = useTranslation();
+
     const options = [
         { value: 'tourist-visa', label: 'Туристская виза' },
         { value: 'business-visa', label: 'Бизнес-виза' },
@@ -21,14 +24,14 @@ export const DocumentType = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="documentType">
-                <h3>Тип документа</h3>
+                <h3>{t('filters.document_type')}</h3>
                 <UniversalSelectDropdown
                     closeMenuOnSelect={false}
                     control={control}
                     isMulti={true}
                     name="document_type"
                     options={options}
-                    placeholder="Тип документа"
+                    placeholder={t('filters.document_type')}
                     prefix="filterDocumentForm"
                     setValue={setValue}
                     isSearchable={!isMobile}

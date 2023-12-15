@@ -8,12 +8,14 @@ import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeOfDocumentFilter } from './libr/TypeOfDocumentFilter';
 import { searchParamsForDocument } from './libr/searchParamsForDocument';
 import './libr/settingDocumentForm.scss';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 const SettingDocumentForm = ({ setShowFilters }: Props) => {
+    const { t } = useTranslation();
     const [, setSearchParams] = useSearchParams();
 
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -50,10 +52,10 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
             >
                 <DocumentType control={control} setValue={setValue} />
                 <DocumentDuration control={control} setValue={setValue} />
-                <input type="submit" value="Применить" />
+                <input type="submit" value={t('filters.apply')} />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
-                    Сбросить фильтры
+                    {t('filters.reset')}
                 </button>
             </form>
         </section>

@@ -1,5 +1,6 @@
 import { UniversalCheckboxGroup } from '../../../entities/universalDropdown';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 // import makeAnimated from 'react-select/animated';
 import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
@@ -19,6 +20,7 @@ interface Options {
 export const TypeOfService = ({ register }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [typesValues, setTypesValues] = useState<Options[]>([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
@@ -36,7 +38,7 @@ export const TypeOfService = ({ register }: Props) => {
     return (
         <>
             <div className="typeOfService">
-                <h3>Тип услуги</h3>
+                <h3>{t('filters.property_type_of_service')}</h3>
                 <UniversalCheckboxGroup
                     checkboxValues={typesValues}
                     name="property_type_of_service"

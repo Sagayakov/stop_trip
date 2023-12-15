@@ -8,6 +8,7 @@ import {
 import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
 import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -18,13 +19,18 @@ export const RentalCondition = ({ control, setValue }: Props) => {
     const animated = makeAnimated();
     const { data } = useGetFiltersQuery('');
     const [rentalValues, setRentalValues] = useState<SelectType[]>([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
-            const result = (data.params
-                .find((el) => el.name === 'property_rental_condition') as ChoicesType).choices
-                .filter((el) => (el as SelectType).value && (el as SelectType).label);
-            data && setRentalValues(result as SelectType[]);    
+            const result = (
+                data.params.find(
+                    (el) => el.name === 'property_rental_condition'
+                ) as ChoicesType
+            ).choices.filter(
+                (el) => (el as SelectType).value && (el as SelectType).label
+            );
+            data && setRentalValues(result as SelectType[]);
         }
     }, [data]);
 
@@ -45,7 +51,7 @@ export const RentalCondition = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="rentalCondition">
-                <h3>Условия аренды</h3>
+                <h3>{t('filters.property_rental_condition')}</h3>
                 <Controller
                     name="property_rental_condition"
                     control={control}
@@ -55,7 +61,7 @@ export const RentalCondition = ({ control, setValue }: Props) => {
                             classNamePrefix="filterPropertyForm"
                             id="rentalCondition"
                             components={animated}
-                            placeholder="Условия аренды"
+                            placeholder={t('filters.property_rental_condition')}
                             closeMenuOnSelect={false}
                             isMulti={true}
                             options={rentalValues}
@@ -67,8 +73,11 @@ export const RentalCondition = ({ control, setValue }: Props) => {
                                         | null
                                 );
                             }}
-                            value={rentalValues.filter((option) =>
-                                field.value?.includes(option.value as string)
+                            value={rentalValues.filter(
+                                (option) =>
+                                    field.value?.includes(
+                                        option.value as string
+                                    )
                             )}
                         />
                     )}

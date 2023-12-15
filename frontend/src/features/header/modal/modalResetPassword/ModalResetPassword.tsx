@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { Close } from '../../../../shared/ui/icons/icons-tools/Close';
 import { setIsResetPasswordModalOpen } from '../../../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
 import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
+import { useTranslation } from 'react-i18next';
 
 export const ModalResetPassword = () => {
     interface Email {
@@ -18,10 +19,11 @@ export const ModalResetPassword = () => {
         (state) => state.setIsResetPasswordModalOpen.isResetPasswordModalOpen
     );
     const dispatch = useAppDispatch();
+    const { t } = useTranslation();
 
     const onsubmit: SubmitHandler<Email> = async (data) => {
         const { email } = data;
-        dispatch(setLoading(true))
+        dispatch(setLoading(true));
         try {
             const response = await fetch(
                 `${url}/api/auth/users/reset_password/`,
@@ -34,9 +36,9 @@ export const ModalResetPassword = () => {
                 }
             );
             console.log(response);
-            if (response.ok){
+            if (response.ok) {
                 setSuccess(true);
-                dispatch(setLoading(false))
+                dispatch(setLoading(false));
             }
         } catch (error) {
             console.log(error);
@@ -45,7 +47,9 @@ export const ModalResetPassword = () => {
 
     return (
         <div
-            className={`modal ${isResetPasswordModalOpen ? 'visible visible-wrapper' : ''}`}
+            className={`modal ${
+                isResetPasswordModalOpen ? 'visible visible-wrapper' : ''
+            }`}
             onClick={() => dispatch(setIsResetPasswordModalOpen(false))}
         >
             <div
@@ -56,15 +60,9 @@ export const ModalResetPassword = () => {
                     onclick={() => dispatch(setIsResetPasswordModalOpen(false))}
                 />
                 <div className="form-reset-password">
-                    {!success && <h3>
-                        Пожалуйста, введите вашу почту. На нее придет ссылка для
-                        восстановления пароля.
-                    </h3>}
+                    {!success && <h3>{t('modal-reset.enter-email')}</h3>}
                     {success ? (
-                        <h3>
-                            Письмо для восстановления пароля отправлено на ваш
-                            почтовый ящик
-                        </h3>
+                        <h3>{t('modal-reset.email-sent')}</h3>
                     ) : (
                         <form onSubmit={handleSubmit(onsubmit)}>
                             <input
@@ -90,11 +88,14 @@ export const ModalResetPassword = () => {
                                             fontSize: '13px',
                                         }}
                                     >
-                                        Введите корректный email
+                                        {t('modal-login.correct-email')}
                                     </p>
                                 )}
                             </div>
-                            <input type="submit" value="Отправить" />
+                            <input
+                                type="submit"
+                                value={t('modal-reset.send')}
+                            />
                         </form>
                     )}
                 </div>

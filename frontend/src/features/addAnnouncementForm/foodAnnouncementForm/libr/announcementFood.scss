@@ -20,7 +20,7 @@ label > input:checked + span::before {
     background-color: var(--main-green);
     box-shadow: none;
 }
-label{
+label {
     cursor: pointer;
 }
 
@@ -31,7 +31,7 @@ label > span {
 
 label > span {
     display: flex;
-    font-size: 13px;
+    font-size: 14px;
 }
 .ann-food {
     width: 50%;

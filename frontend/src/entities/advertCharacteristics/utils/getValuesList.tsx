@@ -4,22 +4,27 @@ import {
     categoryCharacteristicsKeys,
     categoryCharacteristicsValues,
 } from '../../../shared/const/categoryCharacteristics';
+import { useTranslation } from 'react-i18next';
 
 type GetListProps = {
     data: ProductType;
     category: Categories;
 };
 
-export const getValuesList = ({ data, category }: GetListProps) => {
+export const GetValuesList = ({ data, category }: GetListProps) => {
+    const { t } = useTranslation();
+
     const list = [];
 
     let key: keyof ProductType;
     for (key in data) {
-        if (key === 'images'
-            || key === 'is_published'
-            || data[key] === ''
-            || key === 'owner'
-            || key === 'property_city') {
+        if (
+            key === 'images' ||
+            key === 'is_published' ||
+            data[key] === '' ||
+            key === 'owner' ||
+            key === 'property_city'
+        ) {
             continue;
         } else if (key === 'property_amenities') {
             if (data.property_amenities.length) {
@@ -41,7 +46,7 @@ export const getValuesList = ({ data, category }: GetListProps) => {
         ) {
             list.push(
                 <div key={key}>
-                    <p>{data[key] === true && 'Да'}</p>
+                    <p>{data[key] === true && `${t('filters.yes')}`}</p>
                 </div>
             );
         } else if (key === 'start_date' || key === 'end_date') {

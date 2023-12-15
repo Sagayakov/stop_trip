@@ -9,12 +9,15 @@ import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
 import { TypeForFoodForm } from './libr/TypeForFoodForm';
 import { searchParamsForFood } from './libr/searchParamsForFood';
 import './libr/settingFoordForm.scss';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 const SettingFoodForm = ({ setShowFilters }: Props) => {
+    const { t } = useTranslation();
+
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -34,7 +37,7 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
             food_type
         );
         setSearchParams(`category=food${type}${delivery}${establishment}`);
-        
+
         setShowFilters(false);
         scrollToTop();
     };
@@ -49,10 +52,10 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
                 <FoodType control={control} setValue={setValue} />
                 <FoodDelivery register={register} />
                 <FoodEstablishment register={register} />
-                <input type="submit" value="Применить" />
+                <input type="submit" value={t('filters.apply')} />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
-                    Сбросить фильтры
+                    {t('filters.reset')}
                 </button>
             </form>
         </section>

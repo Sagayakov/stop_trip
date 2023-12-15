@@ -1,9 +1,9 @@
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 import { ProductType } from '../../pages/advertPage/libr/types';
-import { categories } from '../../shared/const/categories';
 import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
 import './breadCrumbs.scss';
+import { useTranslation } from 'react-i18next';
 
 export const BreadCrumbs = ({ data }: { data: ProductType }) => {
     const { category } = useParams();
@@ -11,6 +11,7 @@ export const BreadCrumbs = ({ data }: { data: ProductType }) => {
         getCategorySubType(data); */
     const { isMobile } = useMatchMedia();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     return (
         <div className="bread-crumbs">
@@ -24,10 +25,10 @@ export const BreadCrumbs = ({ data }: { data: ProductType }) => {
                 </>
             ) : (
                 <>
-                    <NavLink to="/">Главная</NavLink>
-                    <NavLink to={`/${category}`}>{`\u00A0>\u00A0${
-                        categories[category!].description
-                    }`}</NavLink>
+                    <NavLink to="/">{t('category-page.main-link')}</NavLink>
+                    <NavLink to={`/${category}`}>{`\u00A0>\u00A0${t(
+                        `categories.${category}`
+                    )}`}</NavLink>
                     {/* {categorySubType && (
                         <NavLink
                             to={`/${category}`}

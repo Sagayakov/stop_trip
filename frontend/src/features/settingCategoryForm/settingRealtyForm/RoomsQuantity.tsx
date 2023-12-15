@@ -1,14 +1,17 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
 }
 
 export const RoomsQuantity = ({ register }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="rooms-quantity">
-            <h3>Количество комнат</h3>
+            <h3>{t('filters.property_rooms_count')}</h3>
             <div className="setting-rooms-quantity">
                 <label className="form-checkbox">
                     <input

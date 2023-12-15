@@ -1,13 +1,16 @@
 import { UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
 }
 export const AnnouncementTransportEngineCapacity = ({ register }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="ann-field">
-            <h3>Объем двигателя</h3>
+            <h3>{t('filters.transport_engine_volume')}</h3>
             <div className="inputNumber-group">
                 <input
                     type="text"
@@ -15,7 +18,7 @@ export const AnnouncementTransportEngineCapacity = ({ register }: Props) => {
                     autoComplete="off"
                     {...register('transport_engine_volume')}
                     min="0"
-                    placeholder="Объем"
+                    placeholder={t('filters.volume')}
                 />
             </div>
             <div className="ann-field-err"></div>

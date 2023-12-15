@@ -2,6 +2,7 @@ import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
 import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
 import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -10,17 +11,28 @@ interface Props {
 
 export const ConditionOfTransport = ({ register }: Props) => {
     const { data } = useGetFiltersQuery('');
+    const { t } = useTranslation();
 
     return (
         <div className="condition">
-            <h3>Состояние</h3>
+            <h3>{t('filters.transport_condition')}</h3>
             <div className="select-condition">
                 {data &&
-                    (data.params
-                        .find((el) => el.name === 'transport_condition') as ChoicesType).choices
-                        .filter((el) => (el as SelectType).value && (el as SelectType).label)
+                    (
+                        data.params.find(
+                            (el) => el.name === 'transport_condition'
+                        ) as ChoicesType
+                    ).choices
+                        .filter(
+                            (el) =>
+                                (el as SelectType).value &&
+                                (el as SelectType).label
+                        )
                         .map((el) => (
-                            <label className="form-checkbox" key={(el as SelectType).label}>
+                            <label
+                                className="form-checkbox"
+                                key={(el as SelectType).label}
+                            >
                                 <input
                                     type="checkbox"
                                     value={(el as SelectType).value || ''}
@@ -28,9 +40,7 @@ export const ConditionOfTransport = ({ register }: Props) => {
                                 />
                                 <span>{(el as SelectType).label}</span>
                             </label>
-                        )    
-                    )
-                }
+                        ))}
             </div>
         </div>
     );

@@ -1,18 +1,22 @@
 import { ProductType } from '../../pages/advertPage/libr/types';
 import './advertCharacteristics.scss';
-import { getValuesList } from './utils/getValuesList';
-import { getKeysList } from './utils/getKeysList';
+import { GetValuesList } from './utils/getValuesList';
+import { GetKeysList } from './utils/getKeysList';
+import { useTranslation } from 'react-i18next';
 
 export const AdvertCharacteristics = ({ data }: { data: ProductType }) => {
     const { category } = data;
-    const keysList = getKeysList({ data, category });
-    const valuesList = getValuesList({ data, category });
+    const keysList = GetKeysList({ data, category });
+    const valuesList = GetValuesList({ data, category });
+    const { t } = useTranslation();
 
     return (
         <>
             {keysList.length ? (
                 <div className="characteristics">
-                    <h2 className="characteristics-header">Характеристики</h2>
+                    <h2 className="characteristics-header">
+                        {t('advert-page.characteristics')}
+                    </h2>
                     <div className="characteristics-wrapper">
                         <span className="characteristics-key">{keysList}</span>
                         <span className="characteristics-value">

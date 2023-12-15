@@ -58,6 +58,7 @@ main {
                 color: var(--main-black);
                 width: 100%;
                 height: 280px; //иначе картинка поплывет
+                text-decoration: none;
                 cursor: pointer;
                 .add-to-favorite {
                     position: absolute;

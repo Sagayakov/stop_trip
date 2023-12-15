@@ -3,16 +3,49 @@ import { useForm } from 'react-hook-form';
 // import { useGetFiltersQuery } from '../../app/api/fetchAdverts';
 // import { FiltersType } from '../../app/api/types/filtersType';
 import { AnnouncementSubmitButton } from '../../entities/addAnnouncementForm/universalFields';
-const AnnouncementCategoryField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementCategoryField'));
-const AnnouncementNameField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementNameFiled'));
-const AnnouncementPriceField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementPriceField'));
-const AnnouncementDescriptionField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementDescriptionField'));
-const AnnouncementPhotoField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementPhotoField'));
-const AnnouncementLocationField = lazy(() => import('../../features/addAnnouncementForm/universalFields/AnnouncementLocationField'));
-const OptionalFields = lazy(() => import('../../widgets/addAnnouncement/OptionalFields'));
-import { FormAddAnn, /*SelectOption*/ } from './libr/AnnouncementFormTypes';
+const AnnouncementCategoryField = lazy(
+    () =>
+        import(
+            '../../features/addAnnouncementForm/universalFields/AnnouncementCategoryField'
+        )
+);
+const AnnouncementNameField = lazy(
+    () =>
+        import(
+            '../../features/addAnnouncementForm/universalFields/AnnouncementNameFiled'
+        )
+);
+const AnnouncementPriceField = lazy(
+    () =>
+        import(
+            '../../features/addAnnouncementForm/universalFields/AnnouncementPriceField'
+        )
+);
+const AnnouncementDescriptionField = lazy(
+    () =>
+        import(
+            '../../features/addAnnouncementForm/universalFields/AnnouncementDescriptionField'
+        )
+);
+const AnnouncementPhotoField = lazy(
+    () =>
+        import(
+            '../../features/addAnnouncementForm/universalFields/AnnouncementPhotoField'
+        )
+);
+const AnnouncementLocationField = lazy(
+    () =>
+        import(
+            '../../features/addAnnouncementForm/universalFields/AnnouncementLocationField'
+        )
+);
+const OptionalFields = lazy(
+    () => import('../../widgets/addAnnouncement/OptionalFields')
+);
+import { FormAddAnn /*SelectOption*/ } from './libr/AnnouncementFormTypes';
 import './libr/addAnnouncement.scss';
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
+import { useTranslation } from 'react-i18next';
 
 interface Image {
     image: string;
@@ -35,6 +68,7 @@ export const AddAnnouncementPage = () => {
     const [selectedImages, setSelectedImages] = useState<Image[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [descript, setDescript] = useState<string | undefined>();
+    const { t } = useTranslation();
 
     const onsubmit = async (data: FormAddAnn) => {
         descript && setValue('description', descript);
@@ -43,7 +77,7 @@ export const AddAnnouncementPage = () => {
         setSelectedImages(undefined);
         setMarkerPosition(undefined);
         setDescript(undefined);
-        reset()
+        reset();
         setValue('category', data.category);
     };
 
@@ -110,7 +144,7 @@ export const AddAnnouncementPage = () => {
                     onSubmit={handleSubmit(onsubmit)}
                 >
                     <Suspense fallback={<LoadingWithBackground />}>
-                        <h1>Размещение объявления</h1>
+                        <h1>{t('add-page.post')}</h1>
                         <AnnouncementCategoryField
                             control={control}
                             setValue={setValue}

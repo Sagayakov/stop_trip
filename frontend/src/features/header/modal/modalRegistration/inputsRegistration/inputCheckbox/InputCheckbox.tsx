@@ -1,5 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export const InputCheckbox = ({ register }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="user-agreement">
             <label htmlFor="userAgreement" className="form-checkbox">
@@ -18,14 +21,14 @@ export const InputCheckbox = ({ register }: Props) => {
                 />
                 <span>
                     <p>
-                        Я принимаю условия{' '}
+                        {t('modal-registration.accept')}{' '}
                         <a
                             href="#"
                             target="_blank"
                             onClick={(event) => event.stopPropagation()}
                             className="user-agreement-text"
                         >
-                            Пользовательского соглашения
+                            {t('modal-registration.agreement')}
                         </a>
                     </p>
                 </span>

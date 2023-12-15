@@ -8,6 +8,8 @@ import { Setting } from '../../../../shared/ui/icons/icons-tools/Setting';
 import './modalMobile.scss';
 import { clearTokensFromCookies } from '../../../../app/cookie/cookieAuth';
 import { useEffect, useState } from 'react';
+import { Langs } from '../../../../entities/langs';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     showUserMenu: boolean;
@@ -18,6 +20,7 @@ export const ModalMobile = (props: Props) => {
     const { showUserMenu, setShowUserMenu } = props;
     const dispatch: Dispatch = useAppDispatch();
     const [width, setWidth] = useState<number>(window.innerWidth);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const handleResize = () => setWidth(window.innerWidth);
@@ -34,7 +37,7 @@ export const ModalMobile = (props: Props) => {
         clearTokensFromCookies();
         sessionStorage.clear();
         /* localStorage.removeItem('rememberMe'); */
-        localStorage.removeItem('isAuth')
+        localStorage.removeItem('isAuth');
     };
 
     return (
@@ -45,37 +48,44 @@ export const ModalMobile = (props: Props) => {
             onClick={() => setShowUserMenu(false)}
         >
             <div
-                className={`modal-mobile-content ${showUserMenu ? 'visible-content' : ''}`}
+                className={`modal-mobile-content ${
+                    showUserMenu ? 'visible-content' : ''
+                }`}
                 // className="modal-mobile-content"
                 onClick={(event) => event.stopPropagation()}
             >
                 <div className="menu">
                     <div className="user-option">
                         <Docs />
-                        <p className="user-option-text">Мои объявления</p>
+                        <p className="user-option-text">
+                            {t('modal-logged.adverts')}
+                        </p>
                     </div>
                     <div className="user-option">
                         <Message color="#1C1C1E" stroke="#1C1C1E" />
-                        <p className="user-option-text">Мои сообщения</p>
+                        <p className="user-option-text">
+                            {t('modal-logged.messages')}
+                        </p>
                     </div>
                     <div className="user-option">
                         <Favorite color="white" strokeColor="#1C1C1E" />
-                        <p className="user-option-text">Избранные</p>
+                        <p className="user-option-text">
+                            {t('modal-logged.favorites')}
+                        </p>
                     </div>
                     <div className="user-option">
                         <Setting color="#1C1C1E" stroke="#1C1C1E" />
-                        <p className="user-option-text">Настройки</p>
+                        <p className="user-option-text">
+                            {t('modal-logged.settings')}
+                        </p>
                     </div>
                     {width < 767 && (
                         <div className="language-auth">
-                            <div className="language">
-                                <div className="language-ru">RU</div>
-                                <div className="language-eng">ENG</div>
-                            </div>
+                            <Langs />
                         </div>
                     )}
                 </div>
-                <p onClick={handleLogout}>Выход</p>
+                <p onClick={handleLogout}>{t('modal-logged.logout')}</p>
             </div>
         </div>
     );

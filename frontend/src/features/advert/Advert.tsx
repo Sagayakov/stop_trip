@@ -12,6 +12,7 @@ import { AdvertOwner } from '../../entities/advertOwner/AdvertOwner';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
 import { toast } from 'react-toastify';
 import { Tooltip } from 'react-tooltip';
+import { useTranslation } from 'react-i18next';
 
 const Advert = () => {
     const { id } = useParams();
@@ -19,6 +20,7 @@ const Advert = () => {
     const [date, setDate] = useState<Date | null>(null);
     console.log(data);
     const { isMobile, isTablet, isDesktop } = useMatchMedia();
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
@@ -42,9 +44,10 @@ const Advert = () => {
                     <p>
                         {data.property_city
                             ? `${data.property_city.name}, ${
-                                  data.property_district ?? 'район не указан'
+                                  data.property_district ??
+                                  `${t('advert-page.no-district')}`
                               }`
-                            : 'Адрес не указан'}
+                            : `${t('advert-page.no-address')}`}
                     </p>
                     <div className="announcement-info">
                         <section className="product-info">
@@ -53,7 +56,7 @@ const Advert = () => {
                             {data.description && (
                                 <div className="description">
                                     <div className="description-header">
-                                        Описание
+                                        {t('advert-page.description')}
                                     </div>
                                     <p>{data.description}</p>
                                 </div>
@@ -62,11 +65,11 @@ const Advert = () => {
                         </section>
                         <section className="owner-info">
                             <div className="price-block">
-                                Сутки{' '}
+                                {t('advert-page.day')}{' '}
                                 <span className="price">
                                     {data.price
                                         ? `₹${data.price}`
-                                        : 'Договорная'}
+                                        : `${t('advert-page.negotiated')}`}
                                 </span>
                             </div>
                             <AdvertOwner owner={data.owner} />
@@ -75,7 +78,7 @@ const Advert = () => {
                                     className="call-button"
                                     to={`tel:${data.owner.phone}`}
                                 >
-                                    Позвонить
+                                    {t('advert-page.call')}
                                 </Link>
                             ) : (
                                 <button
@@ -84,13 +87,15 @@ const Advert = () => {
                                     data-tooltip-id="my-tooltip"
                                     data-tooltip-content={`${data.owner.phone}`}
                                 >
-                                    Показать телефон
+                                    {t('advert-page.show-number')}
                                 </button>
                             )}
-                            <button className="write-button">Написать</button>
+                            <button className="write-button">
+                                {t('advert-page.write')}
+                            </button>
                             {date && (
                                 <p className="public-date">
-                                    Опубликовано:{' '}
+                                    {t('advert-page.published')}{' '}
                                     <span>{`${date.dayToDisplay}, ${date.hours}:${date.minutes}`}</span>
                                 </p>
                             )}
@@ -120,11 +125,13 @@ const Advert = () => {
                     <div className="announcement-info">
                         <section className="owner-info">
                             <div className="price-block">
-                                {data.price ? 'Сутки' : ''}
+                                {data.price ? `${t('advert-page.day')}` : ''}
                                 <span className="price">
                                     {data.price
                                         ? `₹${data.price}`
-                                        : 'Цена договорная'}
+                                        : `${t(
+                                              'advert-page.price-negotiated'
+                                          )}`}
                                 </span>
                             </div>
                             <h1 className="full-title">{data.title}</h1>
@@ -133,12 +140,14 @@ const Advert = () => {
                                 className="call-button"
                                 to={`tel:${data.owner.phone}`}
                             >
-                                Позвонить
+                                {t('advert-page.call')}
                             </Link>
-                            <button className="write-button">Написать</button>
+                            <button className="write-button">
+                                {t('advert-page.write')}
+                            </button>
                             {date && (
                                 <p className="public-date">
-                                    Опубликовано:{' '}
+                                    {t('advert-page.published')}{' '}
                                     <span>{`${date.dayToDisplay}, ${date.hours}:${date.minutes}`}</span>
                                 </p>
                             )}
@@ -148,7 +157,7 @@ const Advert = () => {
                             {data.description && (
                                 <div className="description">
                                     <div className="description-header">
-                                        Описание
+                                        {t('advert-page.description')}
                                     </div>
                                     <p>{data.description}</p>
                                 </div>

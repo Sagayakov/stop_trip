@@ -4,11 +4,13 @@ import { setIsEnter } from '../model/modalAuth/reducers/isEnter';
 import { toggleModalEnter } from '../model/modalAuth/reducers/toggleModal';
 import { FormEnter, FormRegistration } from './index';
 import './modal.scss';
+import { useTranslation } from 'react-i18next';
 
 export const Modal = () => {
     const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
     const dispatch = useAppDispatch();
     const isEnter = useAppSelector((state) => state.setIsEnter.isEnter);
+    const { t } = useTranslation();
 
     return (
         <div
@@ -27,7 +29,7 @@ export const Modal = () => {
                         className={isEnter ? 'enter enter-active' : 'enter'}
                         onClick={() => dispatch(setIsEnter(true))}
                     >
-                        Вход
+                        {t('modal-login.login')}
                     </div>
                     <div
                         className={
@@ -37,7 +39,7 @@ export const Modal = () => {
                         }
                         onClick={() => dispatch(setIsEnter(false))}
                     >
-                        Регистрация
+                        {t('modal-registration.registration')}
                     </div>
                 </div>
                 {isEnter ? <FormEnter /> : <FormRegistration />}

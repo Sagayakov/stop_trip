@@ -2,6 +2,7 @@ import { Control, UseFormSetValue } from 'react-hook-form';
 import { useMatchMedia } from '../../../app/hooks/useMatchMedia';
 import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
 import { TypeOfCurrencyFilter } from '../../../widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;
@@ -10,6 +11,8 @@ interface Props {
 
 export const ProposedCurrency = ({ control, setValue }: Props) => {
     const { isMobile } = useMatchMedia();
+    const { t } = useTranslation();
+
     const options = [
         { value: 'EUR', label: 'Евро' },
         { value: 'RUB', label: 'Рубль' },
@@ -20,14 +23,14 @@ export const ProposedCurrency = ({ control, setValue }: Props) => {
     return (
         <>
             <div className="proposedCurrency">
-                <h3>Предлагаемая валюта</h3>
+                <h3>{t('filters.proposed_currency')}</h3>
                 <UniversalSelectDropdown
                     closeMenuOnSelect={false}
                     control={control}
                     isMulti={true}
                     name="proposed_currency"
                     options={options}
-                    placeholder="Предлагаемая валюта"
+                    placeholder={t('filters.proposed_currency')}
                     prefix="filterCurrencyForm"
                     setValue={setValue}
                     isSearchable={!isMobile}

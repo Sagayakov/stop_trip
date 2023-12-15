@@ -1,0 +1,278 @@
+{
+    "main-page": {
+        "post-advert": "Разместить объявление",
+        "publish": "Опубликовать",
+        "login-register": "Вход/Регистрация",
+        "all-categories": "Все категории",
+        "find": "Найти услугу или товар",
+        "in-city": "В городе",
+        "goa": "Гоа",
+        "popular-categories": "Популярные категории",
+        "offer-spelling": "предложени",
+        "last-adverts": "Последние объявления",
+        "suggestions": "Пожелания по работе сайта",
+        "enter-text": "Введите текст",
+        "send": "Отправить",
+        "toast-favs": "Пожалуйста, авторизуйтесь для возможности добавления объявлений в избранное",
+        "toast-feedback": "Превышено максимально возможное количество символов в текстовом поле!",
+        "toast-feedback-login": "Пожалуйста, авторизуйтесь для обратной связи",
+        "toast-wrong": "Что-то пошло не так, пожалуйста, попробуйте снова!",
+        "toast-thanks": "Спасибо за обратную связь!",
+        "toast-copied": "Скопировано!",
+        "toast-error": "Произошла ошибка при копировании текста: "
+    },
+
+    "categories": {
+        "property": "Аренда недвижимости",
+        "transport": "Аренда транспорта",
+        "exchange_rate": "Валютные пары",
+        "document": "Документы",
+        "food": "Домашняя еда",
+        "event": "Мероприятия",
+        "market": "Покупка/продажа",
+        "job": "Работа",
+        "taxi": "Такси",
+        "service": "Услуги",
+        "excursion": "Экскурсии"
+    },
+
+    "modal-login": {
+        "login": "Вход",
+        "correct-email": "Введите корректный email",
+        "password": "Пароль",
+        "correct-password": "Введите корректный пароль",
+        "copy-password": "Копировать пароль запрещено!",
+        "forgot": "Забыли пароль?",
+        "login-help": "Войти с помощью",
+        "enter": "Войти"
+    },
+
+    "modal-registration": {
+        "registration": "Регистрация",
+        "user-name": "Введите ваше имя",
+        "not-more-50": "Не более 50 символов",
+        "phone": "Номер телефона",
+        "correct-number": "Введите корректный номер телефона",
+        "email-exists": "Пользователь с такой почтой уже существует",
+        "email-min": "Minimum email length - 10 characters",
+        "email-max": "Maximum email length - 50 characters",
+        "email-length": "Превышена максимальная длина адреса до или после символа\n@, введите не более 64, либо превышена общая\nмаксимальная длина (128 символов)",
+        "two-dots": "Нельзя вводить две точки подряд",
+        "digit": "Доменная часть не может иметь в начале или в конце цифру\nили тире",
+        "password-short": "Пароль слишком короткий. Минимальная длина 8 символов.",
+        "password-correct": "Введите корректный пароль. Пароль должен состоять из\nлатиницы, содержать буквы, цифры и минимум один\nспецсимвол. Минимальная длина 8 символов,\nмаксимальная - 22. Пробел запрещен.",
+        "repeat": "Повторите пароль",
+        "mismatch": "Пароли не совпадают",
+        "accept": "Я принимаю условия",
+        "agreement": "Пользовательского соглашения",
+        "register": "Зарегистрироваться"
+    },
+
+    "modal-reset": {
+        "enter-email": "Пожалуйста, введите вашу почту. На нее придет ссылка\nдля восстановления пароля.",
+        "email-sent": "Письмо для восстановления пароля отправлено на ваш\nпочтовый ящик",
+        "send": "Отправить"
+    },
+
+    "modal-add-advert": {
+        "must": "Чтобы разместить объявление, необходимо",
+        "login": "войти",
+        "or": "или",
+        "register": "зарегистрироваться"
+    },
+
+    "modal-check-email": "Чтобы завершить процесс регистрации, перейдите по ссылке,\nотправленной на указанный адрес электронной почты",
+
+    "modal-logged": {
+        "adverts": "Мои объявления",
+        "messages": "Мои сообщения",
+        "favorites": "Избранное",
+        "settings": "Настройки",
+        "logout": "Выход"
+    },
+
+    "page-not-found": {
+        "no-page": "Такой страницы нет :(",
+        "perhaps": "Возможно, она была перенесена, или вы просто неверно указали адрес страницы",
+        "to-main": "На главную"
+    },
+
+    "category-page": {
+        "main-link": "Главная",
+        "no-adverts": "В этой категории объявлений не найдено"
+    },
+
+    "filters": {
+        "filters": "Фильтры",
+        "property_type_of_service": "Тип услуги",
+        "sale": "Продажа",
+        "rent": "Аренда",
+        "property_city": "Город",
+        "choose-city": "Выберите город",
+        "property_district": "Район",
+        "choose-district": "Выберите район",
+        "property_house_type": "Тип дома",
+        "price": "Цена",
+        "max": "До",
+        "up-to": "До",
+        "from": "От",
+        "property_rental_condition": "Условия аренды",
+        "property_area": "Общая площадь, м2",
+        "area": "Прощадь",
+        "property_living_area": "Жилая площадь, м2",
+        "property_building_max_floor": "Количество этажей в доме",
+        "floors-number": "Количество этажей",
+        "property_floor": "Этаж",
+        "property_sleeping_places": "Количество спальных мест",
+        "quantity": "Количество",
+        "count": "Кол-во",
+        "property_balcony": "Балкон",
+        "yes": "Есть",
+        "no": "Нет",
+        "loggia": "Лоджия",
+        "property_has_furniture": "Мебель",
+        "with-furniture": "С мебелью",
+        "property_amenities": "Удобства",
+        "property_rooms_count": "Количество комнат",
+        "property_bathroom_type": "Санузел",
+        "combined": "Совмещённый",
+        "separate": "Раздельный",
+        "property_bathroom_count": "Количество санузлов",
+        "property_has_parking": "Парковка",
+        "with-parking": "С парковкой",
+        "property_prepayment": "Предоплата",
+        "property_commission": "Комиссия",
+        "apply": "Применить",
+        "reset": "Сбросить фильтры",
+
+        "transport_type_of_service": "Тип услуги",
+        "transport_type": "Тип транспорта",
+        "ground": "Наземный",
+        "water": "Водный",
+        "transport_category": "Категория транспорта",
+        "choose-category": "Выберите категорию",
+        "transport_brand": "Марка",
+        "choose-brand": "Выберите марку",
+        "transport_model": "Модель",
+        "choose-model": "Выберите модель",
+        "transport_engine_type": "Тип двигателя",
+        "transport_engine_volume": "Объём двигателя",
+        "volume": "Объём",
+        "transport_drive_type": "Привод",
+        "transport_year_of_production": "Год производства",
+        "year": "Год",
+        "transport_transmission_type": "Тип коробки передач",
+        "transport_body_type": "Тип кузова",
+        "choose-body": "Выберите тип кузова",
+        "transport_condition": "Состояние",
+        "transport_commission": "Комиссия",
+
+        "proposed_currency": "Предлагаемая валюта",
+        "exchange_for": "Обмен на",
+        "exchange_rate": "Курс",
+
+        "document_type": "Тип документа",
+        "document_duration": "Срок действия",
+
+        "food_type": "Тип еды",
+        "food_delivery": "Доставка еды",
+        "delivery": "Доставка",
+        "food_establishment": "Ресторан/кафе",
+
+        "start_date": "Начало",
+        "date": "Дата",
+        "date-start": "Дата начала",
+        "time": "Время",
+        "end_date": "Окончание",
+        "date-end": "Дата окончания",
+        "is_online": "Онлайн",
+
+        "market_condition": "Состояние",
+        "new": "Новое",
+        "used": "Б/у",
+
+        "job_type": "Тип работы",
+        "job_duration": "Продолжительность работы",
+        "job_payment_type": "Тип оплаты",
+        "salary": "Зарплата",
+        "job_experience": "С опытом",
+
+        "taxi_unit": "Единица измерения",
+        "taxi_type": "Тип такси",
+
+        "service_home_visit": "Выезд на дом",
+
+        "food": "Еда",
+        "excursion_food": "Еда включена",
+        "excursion_transfer": "Трансфер"
+    },
+
+    "advert-page": {
+        "no-address": "Адрес не указан",
+        "no-district": "район не указан",
+        "description": "Описание",
+        "characteristics": "Характеристики",
+        "location": "Расположение",
+        "day": "Сутки",
+        "negotiated": "Договорная",
+        "price-negotiated": "Цена договорная",
+        "call": "Позвонить",
+        "show-number": "Показать телефон",
+        "write": "Написать",
+        "published": "Опубликовано:",
+        "registration-date": "Дата регистрации:",
+        "grade": "оцен",
+        "grade-added": "Спасибо! Ваша оценка добавлена!",
+        "grade-register": "Пожалуйста, авторизуйтесь для возможности выставления рейтинга"
+    },
+
+    "activate-page": {
+        "activation": "Активация аккаунта",
+        "activated": "Ваш аккаунт активирован, спасибо за регистрацию на нашем сайте!",
+        "back": "Вернуться на главную"
+    },
+
+    "reset-page": {
+        "password-new": "Новый пароль",
+        "password-short": "Пароль слишком короткий. Минимальная длина: 8 символов.",
+        "password-correct": "Введите корректный пароль. Пароль должен состоять из\nлатиницы, содержать буквы, цифры и минимум один\nспецсимвол. Минимальная длина 8 символов,\nмаксимальная - 22. Пробел запрещен.",
+        "repeat": "Повторите новый пароль",
+        "mismatch": "Пароли не совпадают",
+        "update": "Обновить пароль",
+        "success": "Ваш пароль был успешно изменён!",
+        "back": "Вернуться на главную"
+    },
+
+    "add-page": {
+        "post": "Размещение объявления",
+        "category": "Категория",
+        "choose": "Выберите категорию",
+        "choose-please": "Пожалуйста, выберите категорию",
+        "advert-title": "Название объявления",
+        "title": "Название",
+        "enter-title": "Пожалуйста, введите название объявления",
+        "price": "Цена",
+        "set-price": "Пожалуйста, установите цену",
+        "description": "Описание",
+        "photo": "Фото",
+        "choose-photo": "Выберите фото",
+        "uploaded": "Загружено",
+        "please-select": "Пожалуйста, выберите не более 10 фотографий",
+        "location": "Локация",
+        "back": "Назад"
+    },
+
+    "labels": {
+        "property": "Недвижимость",
+        "transport": "Транспорт",
+        "exchange_rate": "Обмен валюты",
+        "document": "Документы",
+        "food": "Еда",
+        "event": "Мероприятия",
+        "market": "Покупка/продажа",
+        "job": "Работа",
+        "taxi": "Такси",
+        "service": "Услуги",
+        "excursion": "Экскурсии"
+    }
+}

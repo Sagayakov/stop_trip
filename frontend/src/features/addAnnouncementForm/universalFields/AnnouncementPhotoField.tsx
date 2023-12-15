@@ -6,6 +6,7 @@ import {
     LoadPhotoIcon,
     MiniLoadPhoto,
 } from '../../../shared/ui/icons/loadPhoto';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     selectedImages: Image[] | undefined;
@@ -24,14 +25,13 @@ const AnnouncementPhotoField = ({
     setValue,
 }: Props) => {
     const inputRef = useRef<HTMLInputElement>(null);
+    const { t } = useTranslation();
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
-            const filesArray = Array
-                .from(event.target.files)
-                .map((el) => ({
-                    image: el.name
-                }));
+            const filesArray = Array.from(event.target.files).map((el) => ({
+                image: el.name,
+            }));
             setSelectedImages((prevValue) => {
                 return prevValue ? [...prevValue, ...filesArray] : filesArray;
             });
@@ -59,7 +59,7 @@ const AnnouncementPhotoField = ({
 
     return (
         <div className="ann-field mobile-add-photo">
-            <h3>Фото:</h3>
+            <h3>{`${t('add-page.photo')}:`}</h3>
             <div className="loadphoto">
                 <div className="loadphoto-btn-view">
                     <div
@@ -67,7 +67,7 @@ const AnnouncementPhotoField = ({
                         onClick={() => inputRef.current?.click()}
                     >
                         <LoadPhotoIcon />
-                        Выберите фотографии
+                        {t('add-page.choose-photo')}
                         <input
                             className="loadphoto-btn-hidden"
                             type="file"
@@ -109,7 +109,7 @@ const AnnouncementPhotoField = ({
                 <div className="loadphoto-counter">
                     <div className="loadphoto-counter-wrapper">
                         <MiniLoadPhoto />
-                        Загружено{' '}
+                        {t('add-page.uploaded')}{' '}
                         {(selectedImages && selectedImages.length) || 0}/10
                     </div>
                 </div>
@@ -117,7 +117,7 @@ const AnnouncementPhotoField = ({
             <div className="ann-field-err">
                 {selectedImages &&
                     selectedImages.length > 10 &&
-                    'Пожалуйста, выберите не более 10 фотографий'}
+                    `${t('add-page.please-select')}`}
             </div>
         </div>
     );

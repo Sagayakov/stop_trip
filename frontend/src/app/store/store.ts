@@ -7,7 +7,7 @@ import { setIsEnterSlice } from '../../features/header/model/modalAuth/reducers/
 import { setIsResetPasswordModalOpenSlice } from '../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
 import { toggleModalSlice } from '../../features/header/model/modalAuth/reducers/toggleModal';
 import { fetchFavorites } from '../../app/api/fetchFavorites';
-
+import { setLangSlice } from '../../features/header/model/langsReducer/lang';
 
 const setupStore = () =>
     configureStore({
@@ -19,6 +19,7 @@ const setupStore = () =>
             setIsResetPasswordModalOpen:
                 setIsResetPasswordModalOpenSlice.reducer,
             setLoading: setLoadingSlice,
+            setLang: setLangSlice.reducer,
             [fetchAdverts.reducerPath]: fetchAdverts.reducer,
             [fetchFavorites.reducerPath]: fetchFavorites.reducer,
         },
