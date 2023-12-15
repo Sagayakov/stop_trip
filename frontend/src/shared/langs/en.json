@@ -211,5 +211,16 @@
         "activation": "Account activation",
         "activated": "Your account has been activated, thank you for registering on our website!",
         "back": "Go back to the main page"
+    },
+
+    "reset-page": {
+        "password-new": "New password",
+        "password-short": "The password is too short. Minimum length is 8 characters.",
+        "password-correct": "Enter the correct password. The password must consist of\nLatin alphabet, contain letters, numbers and at least one\nspecial character Minimum length 8 characters,\nmaximum - 22. Space is prohibited.",
+        "repeat": "Repeat new password",
+        "mismatch": "Password mismatch",
+        "update": "Update password",
+        "success": "Your password has been successfully changed!",
+        "back": "Go back to the main page"
     }
 }

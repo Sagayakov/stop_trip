@@ -1,6 +1,7 @@
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { Eye } from '../../../shared/ui/icons/icons-tools/Eye';
 import { ResetPasswordType } from '../libr/types';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     errors: FieldErrors<ResetPasswordType>;
@@ -17,6 +18,8 @@ export const InputRepeatPassword = ({
     watch,
     setShowPassword,
 }: Props) => {
+    const { t } = useTranslation();
+
     const handleShowPass = () => {
         setShowPassword(!showPassword);
     };
@@ -33,7 +36,7 @@ export const InputRepeatPassword = ({
                         required: true,
                         minLength: 5,
                     })}
-                    placeholder="Повторите новый пароль"
+                    placeholder={t('reset-page.repeat')}
                     autoComplete="new-password"
                     type={showPassword ? 'text' : 'password'}
                     style={{
@@ -53,7 +56,7 @@ export const InputRepeatPassword = ({
                     {(errors?.repeat_password ||
                         password !== repeatPassword) && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                            Пароли не совпадают
+                            {t('reset-page.mismatch')}
                         </p>
                     )}
                 </div>
