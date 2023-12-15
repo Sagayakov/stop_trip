@@ -19,7 +19,6 @@ import { useTranslation } from 'react-i18next';
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
     const {
-        register,
         formState: { errors, isValid },
         handleSubmit,
         reset,
@@ -51,7 +50,7 @@ export const FormEnter = () => {
             onSubmit={handleSubmit(onsubmit)}
             autoComplete="false"
         >
-            <InputEmail errors={errors} register={register} />
+            <InputEmail errors={errors} control={control} />
             <InputPassword
                 errors={errors}
                 togglePass={togglePass}

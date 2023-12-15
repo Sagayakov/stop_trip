@@ -58,9 +58,9 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 className="filter-realty-form"
                 onSubmit={handleSubmit(onsubmit)}
             >
-                <TypeOfService control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} />
-                <District control={control} setValue={setValue} />
+                <TypeOfService control={control} setValue={setValue} register={register}/>
+                <City control={control} setValue={setValue}/>
+                <District control={control} setValue={setValue}/>
                 {/* <TypeOfProperty control={control} setValue={setValue} /> не нужно*/}
                 <HouseType control={control} setValue={setValue} />
                 <SettingPrice register={register} watch={watch} />

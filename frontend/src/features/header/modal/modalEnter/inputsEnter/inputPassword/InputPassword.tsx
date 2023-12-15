@@ -39,6 +39,7 @@ export const InputPassword = ({
             <Controller
                 name="password"
                 control={control}
+                defaultValue=''
                 rules={{ required: true }}
                 render={({ field }) => (
                     <input
