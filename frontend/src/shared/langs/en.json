@@ -205,5 +205,11 @@
         "grade": "grade",
         "grade-added": "Thank you! Your rating has been added!",
         "grade-register": "Please log in to be able to rate"
+    },
+
+    "activate-page": {
+        "activation": "Account activation",
+        "activated": "Your account has been activated, thank you for registering on our website!",
+        "back": "Go back to the main page"
     }
 }
