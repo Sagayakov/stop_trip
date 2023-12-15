@@ -6,6 +6,7 @@ import {
 import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;
@@ -22,12 +23,15 @@ export const InputRepeatPassword = ({
     setShowPassword,
     getValues,
 }: Props) => {
+    const { t } = useTranslation();
+
     const handleShowPass = () => {
         setShowPassword(!showPassword);
     };
+
     const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
         event.preventDefault();
-        toast.error('Копировать пароль запрещено');
+        toast.error(`${t('modal-login.copy-password')}`);
     };
 
     const onBlurRepeatPassword = () => setShowPassword(false);
@@ -42,15 +46,13 @@ export const InputRepeatPassword = ({
                         validate: (value) => value === getValues('passWord'),
                     })}
                     onCopy={(event) => handleCopy(event)}
-                    placeholder="Повторите пароль"
+                    placeholder={t('modal-registration.repeat')}
                     autoComplete="new-password"
                     type={showPassword ? 'text' : 'password'}
                     onBlur={onBlurRepeatPassword}
                     style={{
                         border: `1px solid ${
-                            errors?.repeatPassword
-                                ? '#FF3F25'
-                                : '#DCDCDC'
+                            errors?.repeatPassword ? '#FF3F25' : '#DCDCDC'
                         }`,
                     }}
                 />
@@ -58,9 +60,9 @@ export const InputRepeatPassword = ({
                     <Eye />
                 </div>
                 <div className="input-error">
-                    {(errors?.repeatPassword) && (
+                    {errors?.repeatPassword && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                            Пароли не совпадают
+                            {t('modal-registration.mismatch')}
                         </p>
                     )}
                 </div>

@@ -14,6 +14,7 @@ import { setIsResetPasswordModalOpen } from '../../../../features/header/model/m
 import { toggleModalEnter } from '../../../../features/header/model/modalAuth/reducers/toggleModal';
 import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
 import { resetErrors } from '../../../../features/header/model/modalAuth/reducers/auth';
+import { useTranslation } from 'react-i18next';
 
 export const FormEnter = () => {
     const [togglePass, setTogglePass] = useState(false);
@@ -27,12 +28,13 @@ export const FormEnter = () => {
         mode: 'onBlur',
     });
     const dispatch = useAppDispatch();
-    const enterError = useAppSelector((state) => state.setIsAuth.errorEnter)
+    const enterError = useAppSelector((state) => state.setIsAuth.errorEnter);
+    const { t } = useTranslation();
 
     const onsubmit: SubmitHandler<AuthData> = async (submitData) => {
         await dispatch(setLoading(true));
         await submitEntForm(submitData, dispatch, reset);
-        if(enterError !== null){
+        if (enterError !== null) {
             await dispatch(resetErrors());
         }
         await dispatch(setLoading(false));
@@ -57,12 +59,12 @@ export const FormEnter = () => {
                 control={control}
             />
             <div className="forget-password" onClick={openResetPasswordModal}>
-                Забыли пароль?
+                {t('modal-login.forgot')}
             </div>
             {/* <CheckboxRememberMe register={register} /> */}
             <InputSubmit isValid={isValid} />
             <div className="enter-with">
-                Войти с помощью
+                {t('modal-login.login-help')}
                 <div className="google">
                     <Google />
                 </div>

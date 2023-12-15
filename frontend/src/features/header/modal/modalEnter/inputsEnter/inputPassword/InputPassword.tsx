@@ -5,6 +5,7 @@ import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
 import '../../libr/inputEmail.scss';
 import { AuthData } from '../../libr/EnterType';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     errors: FieldErrors<AuthData>;
@@ -20,15 +21,18 @@ export const InputPassword = ({
     control,
 }: Props) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
+    const { t } = useTranslation();
+
     const handleToggle = () => {
         setTogglePass(!togglePass);
         inputRef?.current?.focus();
     };
+
     const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
         event.preventDefault();
-        toast.error('Копировать пароль запрещено');
+        toast.error(`${t('modal-login.copy-password')}`);
     };
-    const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
 
     return (
         <div className="password-div">
@@ -40,7 +44,7 @@ export const InputPassword = ({
                     <input
                         {...field}
                         onCopy={(event) => handleCopy(event)}
-                        placeholder="Пароль"
+                        placeholder={t('modal-login.password')}
                         autoComplete="current-password"
                         type={togglePass ? 'text' : 'password'}
                         style={{
@@ -60,7 +64,7 @@ export const InputPassword = ({
             <div className="input-error">
                 {errors?.password && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Введите корректный пароль
+                        {t('modal-login.correct-password')}
                     </p>
                 )}
                 {errorEnter && (

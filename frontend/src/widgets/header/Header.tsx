@@ -107,7 +107,7 @@ export const Header = () => {
                                 className="auth-button"
                                 onClick={handleToggleModal}
                             >
-                                {t('main-page.enter-register')}
+                                {t('main-page.login-register')}
                             </div>
                         )}
                     </div>
