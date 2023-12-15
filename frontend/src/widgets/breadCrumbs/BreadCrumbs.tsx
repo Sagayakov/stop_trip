@@ -26,9 +26,9 @@ export const BreadCrumbs = ({ data }: { data: ProductType }) => {
             ) : (
                 <>
                     <NavLink to="/">{t('category-page.main-link')}</NavLink>
-                    <NavLink to={`/${category}`}>{`\u00A0>\u00A0${t(
-                        `categories.${category}`
-                    )}`}</NavLink>
+                    <NavLink
+                        to={`/${category}/?category=${category}`}
+                    >{`\u00A0>\u00A0${t(`categories.${category}`)}`}</NavLink>
                     {/* {categorySubType && (
                         <NavLink
                             to={`/${category}`}

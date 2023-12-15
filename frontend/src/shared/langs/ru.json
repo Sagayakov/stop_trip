@@ -164,6 +164,7 @@
         "transport_transmission_type": "Тип коробки передач",
         "transport_body_type": "Тип кузова",
         "choose-body": "Выберите тип кузова",
+        "transport_passengers_quality": "Количество пассажиров",
         "transport_condition": "Состояние",
         "transport_commission": "Комиссия",
 

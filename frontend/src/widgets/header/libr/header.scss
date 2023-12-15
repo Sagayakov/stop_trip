@@ -28,7 +28,7 @@ header {
         .addAdvert {
             width: 262px;
             height: 3rem;
-            padding: 12px 24px 12px 24px;
+            padding: 12px 24px 12px 18px;
             // margin-left: 355px;
             border: none;
             border-radius: var(--radii);
@@ -36,6 +36,7 @@ header {
             color: white;
             display: flex;
             align-items: center;
+            justify-content: center;
             font-family: var(--font-sf);
             cursor: pointer;
             .svg {

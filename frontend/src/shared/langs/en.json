@@ -164,6 +164,7 @@
         "transport_transmission_type": "Transmission",
         "transport_body_type": "Body type",
         "choose-body": "Choose body type",
+        "transport_passengers_quality": "Number of passengers",
         "transport_condition": "Condition",
         "transport_commission": "Commission",
 

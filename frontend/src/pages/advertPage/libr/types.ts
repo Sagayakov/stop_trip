@@ -61,7 +61,7 @@ export type ProductType = {
     transport_type_of_service: null | string;
     transport_vin: null | number;
     transport_year_of_production: null | number;
-    transport_comission: null | number;
+    transport_commission: null | number;
 };
 
 type Owner = {
@@ -70,8 +70,8 @@ type Owner = {
     full_name: string;
     id: number;
     phone: string;
-}
+};
 
 type Amenity = {
     name: string;
-}
+};
