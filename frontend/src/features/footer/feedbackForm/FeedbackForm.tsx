@@ -1,7 +1,7 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { Pencil } from '../../../shared/ui/icons/icons-tools/Pencil';
-import { getId, handleSubmitFeedback } from './libr/handlers';
+import { getId, HandleSubmitFeedback } from './libr/handlers';
 import { TypesFeedbackForm } from './libr/typesFeedback';
 import { LoadingWithBackground } from '../../../entities/loading/LoadingWithBackground';
 import { useState } from 'react';
@@ -23,9 +23,7 @@ export const FeedbackForm = () => {
 
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         if (event.currentTarget.value.length >= 900) {
-            toast.error(
-                'Превышено максимально возможное количество символов в текстом поле!'
-            );
+            toast.error(`${t('main-page.toast-feedback')}`);
         }
     };
 
@@ -38,11 +36,11 @@ export const FeedbackForm = () => {
             const url = import.meta.env.VITE_BASE_URL;
             setLoating(true);
             setTimeout(() => {
-                handleSubmitFeedback(url, feedbackData, reset);
+                HandleSubmitFeedback(url, feedbackData, reset);
                 setLoating(false);
             }, 2000);
         } else {
-            toast.error('Для обратной связи, пожалуйста, авторизуйтесь');
+            toast.error(`${t('main-page.toast-feedback-login')}`);
         }
     };
 

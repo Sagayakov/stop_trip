@@ -4,9 +4,10 @@ import {
     useAddFavoriteMutation,
     useDeleteFromFavoritesMutation,
     useGetFavoritesQuery,
- } from '../../../app/api/fetchFavorites';
+} from '../../../app/api/fetchFavorites';
 import { useAppSelector } from '../../../app/store/hooks';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 type LikeProps = {
     id: number;
@@ -23,6 +24,7 @@ export const Like = ({
     const [addFavorite] = useAddFavoriteMutation();
     const [deleteFromFavorites] = useDeleteFromFavoritesMutation();
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const { t } = useTranslation();
 
     const [isLike, setIsLike] = useState(false);
 
@@ -35,14 +37,10 @@ export const Like = ({
         if (isAuth) {
             setIsLike(!isLike);
 
-            !isLike
-                ? addFavorite({ id })
-                : deleteFromFavorites({ id });
+            !isLike ? addFavorite({ id }) : deleteFromFavorites({ id });
         } else {
-            toast.error(
-                'Пожалуйста, авторизуйтесь для возможности добавления объявлений в избранное'
-            );
-        }  
+            toast.error(`${t('advert-page.toast-favs')}`);
+        }
     };
 
     return (

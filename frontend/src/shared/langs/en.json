@@ -12,7 +12,14 @@
         "last-adverts": "Last adverts",
         "suggestions": "Suggestions for the site",
         "enter-text": "Enter text",
-        "send": "Send"
+        "send": "Send",
+        "toast-favs": "Please log in to add adverts to your favorites",
+        "toast-feedback": "The maximum number of characters in the text field has been exceeded!",
+        "toast-feedback-login": "Please, log in for feedback",
+        "toast-wrong": "Something went wrong, please try again!",
+        "toast-thanks": "Thanks for your feedback!",
+        "toast-copied": "Copied!",
+        "toast-error": "An error occurred while copying text: "
     },
 
     "categories": {

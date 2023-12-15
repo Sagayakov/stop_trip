@@ -7,9 +7,10 @@ import {
     useAddFavoriteMutation,
     useDeleteFromFavoritesMutation,
     useGetFavoritesQuery,
- } from '../../app/api/fetchFavorites';
+} from '../../app/api/fetchFavorites';
 import { useAppSelector } from '../../app/store/hooks';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
     const {
@@ -19,13 +20,14 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
         images,
         category,
         date_create: dateCreate,
-        owner
+        owner,
     } = cart;
     const { data } = useGetFavoritesQuery('');
     const [addFavorite] = useAddFavoriteMutation();
     const [deleteFromFavorites] = useDeleteFromFavoritesMutation();
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
-    
+    const { t } = useTranslation();
+
     const [addToFav, setAddToFav] = useState(false);
 
     useEffect(() => {
@@ -42,21 +44,14 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
         if (isAuth) {
             setAddToFav(!addToFav);
 
-            !addToFav
-                ? addFavorite({ id })
-                : deleteFromFavorites({ id });
+            !addToFav ? addFavorite({ id }) : deleteFromFavorites({ id });
         } else {
-            toast.error(
-                'Пожалуйста, авторизуйтесь для возможности добавления объявлений в избранное'
-            );
-        }  
+            toast.error(`${t('advert-page.toast-favs')}`);
+        }
     };
 
     return (
-        <NavLink
-            className="announcement-cart"
-            to={`/${category}/${id}/`}
-        >
+        <NavLink className="announcement-cart" to={`/${category}/${id}/`}>
             <img
                 src={
                     images[0] === undefined
@@ -67,7 +62,9 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
             />
             <div className="description">
                 <div className="price">
-                    <p>{price ? `₹${price}` : 'Договорная'}</p>
+                    <p>
+                        {price ? `₹${price}` : `${t('advert-page.negotiated')}`}
+                    </p>
                     <span>
                         <Favorite
                             color={style.color}
@@ -77,8 +74,10 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
                     </span>
                 </div>
                 <p>{title}</p>
-                <div className='user-main'>
-                    {`${owner.full_name[0].toUpperCase()}${owner.full_name.slice(1)}`}
+                <div className="user-main">
+                    {`${owner.full_name[0].toUpperCase()}${owner.full_name.slice(
+                        1
+                    )}`}
                     <span className="rating-number">4.5</span>
                 </div>
                 <span>{getDateOfCreating(dateCreate)}</span>
