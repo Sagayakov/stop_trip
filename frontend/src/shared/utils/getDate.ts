@@ -1,4 +1,8 @@
-export const getDate = (publicDate: string) => {
+import { useAppSelector } from '../../app/store/hooks';
+
+export const GetDate = (publicDate: string) => {
+    const lang = useAppSelector((state) => state.setLang.lang);
+
     const date = new Date(publicDate);
     const { day, month, year } = {
         day: date.getDate(),
@@ -17,15 +21,19 @@ export const getDate = (publicDate: string) => {
 
     if (month === todayMonth && year === todayYear) {
         if (day === todayDay) {
-            dayToDisplay = 'Сегодня';
+            dayToDisplay = lang === 'ru' ? 'Сегодня' : 'Today';
         }
         if (todayDay - day === 1) {
-            dayToDisplay = 'Вчера';
+            dayToDisplay = lang === 'ru' ? 'Вчера' : 'Yesterday';
         }
     }
 
     const hours = date.getHours();
     const minutes = date.getMinutes();
 
-    return { dayToDisplay, hours, minutes: minutes < 10 ? `0${minutes}` : minutes };
+    return {
+        dayToDisplay,
+        hours,
+        minutes: minutes < 10 ? `0${minutes}` : minutes,
+    };
 };

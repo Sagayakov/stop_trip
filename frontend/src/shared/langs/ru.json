@@ -98,7 +98,8 @@
     },
 
     "category-page": {
-        "main-link": "Главная"
+        "main-link": "Главная",
+        "no-adverts": "В этой категории объявлений не найдено"
     },
 
     "filters": {

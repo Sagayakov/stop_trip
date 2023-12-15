@@ -98,7 +98,8 @@
     },
 
     "category-page": {
-        "main-link": "Main"
+        "main-link": "Main",
+        "no-adverts": "No adverts found in this category"
     },
 
     "filters": {

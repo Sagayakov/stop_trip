@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { Favorite } from '../../shared/ui/icons/icons-tools/Favorite';
-import { getDateOfCreating } from './libr/getDateOfCreating';
+import { GetDateOfCreating } from './libr/getDateOfCreating';
 import {
     useAddFavoriteMutation,
     useDeleteFromFavoritesMutation,
@@ -80,7 +80,7 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
                     )}`}
                     <span className="rating-number">4.5</span>
                 </div>
-                <span>{getDateOfCreating(dateCreate)}</span>
+                <span>{GetDateOfCreating(dateCreate)}</span>
             </div>
         </NavLink>
     );
