@@ -1,18 +1,21 @@
 import { UseFormRegister } from 'react-hook-form';
 import { UniversalRadioGroup } from '../../../../entities/universalDropdown/UniversalRadioGroup';
 import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
 }
 export const AnnouncementTransportTypeOfTransport = ({ register }: Props) => {
+    const { t } = useTranslation();
+
     const values = [
-        { label: 'Наземный', value: 'Наземный' },
-        { label: 'Водный', value: 'Водный' },
+        { label: `${t('filters.ground')}`, value: 'ground' },
+        { label: `${t('filters.water')}`, value: 'water' },
     ];
     return (
         <div className="ann-field">
-            <h3>Тип транспорта</h3>
+            <h3>{t('filters.transport_type')}</h3>
             <UniversalRadioGroup
                 name="transport_type"
                 radioValues={values}

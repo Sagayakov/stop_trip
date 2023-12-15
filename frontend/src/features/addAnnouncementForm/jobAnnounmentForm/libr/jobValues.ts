@@ -7,10 +7,10 @@ export const jobValues = {
         'Другое',
     ],
     payment: [
-        { value: 'Почасовая оплата', label: 'Почасовая оплата' },
-        { value: 'Ежедневная оплата', label: 'Ежедневная оплата' },
-        { value: 'Еженедельная оплата', label: 'Еженедельная оплата' },
-        { value: 'Ежемесячная оплата', label: 'Ежемесячная оплата' },
-        { value: 'Другое', label: 'Другое' },
+        { value: 'hourly_payment', label: 'Почасовая оплата' },
+        { value: 'daily_payment', label: 'Ежедневная оплата' },
+        { value: 'weekly_payment', label: 'Еженедельная оплата' },
+        { value: 'monthly_payment', label: 'Ежемесячная оплата' },
+        { value: 'other', label: 'Другое' },
     ],
 };

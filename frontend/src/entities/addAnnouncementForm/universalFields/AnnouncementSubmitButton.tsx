@@ -5,8 +5,8 @@ export const AnnouncementSubmitButton = () => {
 
     return (
         <div className="add-ann-form-button">
-            <input type="submit" value={t('main-page.publish')} />
-            <button className="goBack">Назад</button>
+            <input type="submit" value={t('main-page.post-advert')} />
+            <button className="goBack">{t('add-page.back')}</button>
         </div>
     );
 };

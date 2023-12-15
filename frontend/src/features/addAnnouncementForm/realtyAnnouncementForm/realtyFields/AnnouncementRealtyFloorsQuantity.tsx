@@ -17,7 +17,7 @@ export const AnnouncementRealtyFloorsQuantity = ({ register }: Props) => {
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
                     min={0}
-                    placeholder={t('filters.floors-number')}
+                    placeholder={t('filters.count')}
                     {...register('property_building_max_floor')}
                 />
             </div>

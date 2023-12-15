@@ -2,6 +2,7 @@ import { Control, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from '../../../../entities/universalDropdown/UniversalSelectDropdown';
 import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { valuesOfTransportForm } from '../../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -10,16 +11,18 @@ interface Props {
 
 export const AnnouncementTransportBodyType = ({ setValue, control }: Props) => {
     const optionValues = valuesOfTransportForm.transport_body_type;
+    const { t } = useTranslation();
+
     return (
         <div className="ann-field">
-            <h3>Тип кузова</h3>
+            <h3>{t('filters.transport_body_type')}</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
                 name="transport_body_type"
                 options={optionValues}
-                placeholder="Выберите кузов"
+                placeholder={t('filters.choose-body')}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

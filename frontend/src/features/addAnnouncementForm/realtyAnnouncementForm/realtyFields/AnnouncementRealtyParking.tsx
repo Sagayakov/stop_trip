@@ -1,13 +1,16 @@
 import { UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
 }
 export const AnnouncementRealtyParking = ({ register }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="ann-field">
-            <h3>С парковкой</h3>
+            <h3>{t('filters.with-parking')}</h3>
             <div className="radio-group">
                 <label>
                     <input
@@ -15,7 +18,7 @@ export const AnnouncementRealtyParking = ({ register }: Props) => {
                         {...register('property_has_parking')}
                         style={{ display: 'none' }}
                     />
-                    <span>Парковка</span>
+                    <span>{t('filters.property_has_parking')}</span>
                 </label>
             </div>
             <div className="ann-field-err"></div>

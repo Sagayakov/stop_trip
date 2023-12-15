@@ -100,7 +100,9 @@
         "sale": "Sale",
         "rent": "Rent",
         "property_city": "City",
+        "choose-city": "Choose city",
         "property_district": "District",
+        "choose-district": "Choose district",
         "property_house_type": "House type",
         "price": "Price",
         "max": "max",
@@ -108,12 +110,14 @@
         "from": "From",
         "property_rental_condition": "Rent conditions",
         "property_area": "Total area, m2",
+        "area": "Area",
         "property_living_area": "Living area, m2",
         "property_building_max_floor": "Number of floors in the house",
         "floors-number": "Number of floors",
         "property_floor": "Floor",
         "property_sleeping_places": "Number of sleeping places",
         "quantity": "Quantity",
+        "count": "Number",
         "property_balcony": "Balcony",
         "yes": "Yes",
         "no": "No",
@@ -135,6 +139,8 @@
 
         "transport_type_of_service": "Service type",
         "transport_type": "Transport type",
+        "ground": "Ground",
+        "water": "Water",
         "transport_category": "Transport category",
         "choose-category": "Choose category",
         "transport_brand": "Brand",
@@ -143,10 +149,13 @@
         "choose-model": "Choose model",
         "transport_engine_type": "Engine type",
         "transport_engine_volume": "Engine capacity",
+        "volume": "Volume",
         "transport_drive_type": "Drive type",
         "transport_year_of_production": "Year of production",
+        "year": "Year",
         "transport_transmission_type": "Transmission",
         "transport_body_type": "Body type",
+        "choose-body": "Choose body type",
         "transport_condition": "Condition",
         "transport_commission": "Commission",
 
@@ -164,8 +173,10 @@
 
         "start_date": "Beginning",
         "date": "Date",
+        "date-start": "Date of beginning",
         "time": "Time",
         "end_date": "Ending",
+        "date-end": "Date of ending",
         "is_online": "Online",
 
         "market_condition": "Condition",
@@ -222,5 +233,39 @@
         "update": "Update password",
         "success": "Your password has been successfully changed!",
         "back": "Go back to the main page"
+    },
+
+    "add-page": {
+        "post": "Posting an advert",
+        "category": "Category",
+        "choose": "Choose category",
+        "choose-please": "Please, choose category",
+        "advert-title": "Advert title",
+        "title": "Title",
+        "enter-title": "Please, enter advert title",
+        "price": "Price",
+        "set-price": "Please, set a price",
+        "description": "Description",
+        "photo": "Photos",
+        "choose-photo": "Choose photo",
+        "uploaded": "Uploaded",
+        "please-select": "Please, select no more than 10 photos",
+        "location": "Location",
+        "back": "Back"
+    },
+
+    "labels": {
+        "category": "Category",
+        "property": "Property",
+        "transport": "Transport",
+        "exchange_rate": "Currency exchange",
+        "document": "Documents",
+        "food": "Food",
+        "event": "Events",
+        "market": "Buy/Sell",
+        "job": "Job",
+        "taxi": "Taxi",
+        "service": "Services",
+        "excursion": "Excursions"
     }
 }

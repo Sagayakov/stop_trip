@@ -1,5 +1,6 @@
 import { FormState, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -7,17 +8,19 @@ interface Props {
 }
 
 const AnnouncementPriceField = ({ register, formState }: Props) => {
-    const { errors } = formState
+    const { errors } = formState;
+    const { t } = useTranslation();
 
     return (
         <div className="ann-field">
             <h3>
-                Цена<span>*</span>:
+                {t('add-page.price')}
+                <span>*</span>:
             </h3>
             <input
                 type="text"
                 id="ann-field-price"
-                placeholder="Цена"
+                placeholder={t('add-page.price')}
                 style={
                     errors?.price
                         ? {
@@ -27,7 +30,9 @@ const AnnouncementPriceField = ({ register, formState }: Props) => {
                 }
                 {...register('price', { required: true })}
             />
-            <div className="ann-field-err">{errors?.price && "Пожалуйста, установите цену"}</div>
+            <div className="ann-field-err">
+                {errors?.price && `${t('add-page.set-price')}`}
+            </div>
         </div>
     );
 };

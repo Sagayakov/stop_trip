@@ -2,6 +2,7 @@ import { Control, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from '../../../../entities/universalDropdown/UniversalSelectDropdown';
 import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { valuesOfPropertyForm } from '../../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -10,16 +11,18 @@ interface Props {
 
 export const AnnouncementRealtyHouseType = ({ setValue, control }: Props) => {
     const optionValues = valuesOfPropertyForm.property_house_type;
+    const { t } = useTranslation();
+
     return (
         <div className="ann-field">
-            <h3>Тип дома</h3>
+            <h3>{t('filters.property_house_type')}</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
                 name="property_house_type"
                 options={optionValues}
-                placeholder="Тип дома"
+                placeholder={t('filters.property_house_type')}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

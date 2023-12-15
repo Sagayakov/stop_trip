@@ -100,7 +100,9 @@
         "sale": "Продажа",
         "rent": "Аренда",
         "property_city": "Город",
+        "choose-city": "Выберите город",
         "property_district": "Район",
+        "choose-district": "Выберите район",
         "property_house_type": "Тип дома",
         "price": "Цена",
         "max": "До",
@@ -108,12 +110,14 @@
         "from": "От",
         "property_rental_condition": "Условия аренды",
         "property_area": "Общая площадь, м2",
+        "area": "Прощадь",
         "property_living_area": "Жилая площадь, м2",
         "property_building_max_floor": "Количество этажей в доме",
         "floors-number": "Количество этажей",
         "property_floor": "Этаж",
         "property_sleeping_places": "Количество спальных мест",
         "quantity": "Количество",
+        "count": "Кол-во",
         "property_balcony": "Балкон",
         "yes": "Есть",
         "no": "Нет",
@@ -135,6 +139,8 @@
 
         "transport_type_of_service": "Тип услуги",
         "transport_type": "Тип транспорта",
+        "ground": "Наземный",
+        "water": "Водный",
         "transport_category": "Категория транспорта",
         "choose-category": "Выберите категорию",
         "transport_brand": "Марка",
@@ -143,10 +149,13 @@
         "choose-model": "Выберите модель",
         "transport_engine_type": "Тип двигателя",
         "transport_engine_volume": "Объём двигателя",
+        "volume": "Объём",
         "transport_drive_type": "Привод",
         "transport_year_of_production": "Год производства",
+        "year": "Год",
         "transport_transmission_type": "Тип коробки передач",
         "transport_body_type": "Тип кузова",
+        "choose-body": "Выберите тип кузова",
         "transport_condition": "Состояние",
         "transport_commission": "Комиссия",
 
@@ -164,8 +173,10 @@
 
         "start_date": "Начало",
         "date": "Дата",
+        "date-start": "Дата начала",
         "time": "Время",
         "end_date": "Окончание",
+        "date-end": "Дата окончания",
         "is_online": "Онлайн",
 
         "market_condition": "Состояние",
@@ -222,5 +233,38 @@
         "update": "Обновить пароль",
         "success": "Ваш пароль был успешно изменён!",
         "back": "Вернуться на главную"
+    },
+
+    "add-page": {
+        "post": "Размещение объявления",
+        "category": "Категория",
+        "choose": "Выберите категорию",
+        "choose-please": "Пожалуйста, выберите категорию",
+        "advert-title": "Название объявления",
+        "title": "Название",
+        "enter-title": "Пожалуйста, введите название объявления",
+        "price": "Цена",
+        "set-price": "Пожалуйста, установите цену",
+        "description": "Описание",
+        "photo": "Фото",
+        "choose-photo": "Выберите фото",
+        "uploaded": "Загружено",
+        "please-select": "Пожалуйста, выберите не более 10 фотографий",
+        "location": "Локация",
+        "back": "Назад"
+    },
+
+    "labels": {
+        "property": "Недвижимость",
+        "transport": "Транспорт",
+        "exchange_rate": "Обмен валюты",
+        "document": "Документы",
+        "food": "Еда",
+        "event": "Мероприятия",
+        "market": "Покупка/продажа",
+        "job": "Работа",
+        "taxi": "Такси",
+        "service": "Услуги",
+        "excursion": "Экскурсии"
     }
 }

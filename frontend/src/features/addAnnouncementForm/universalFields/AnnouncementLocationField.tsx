@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { MapComponent } from '../../../entities/map/MapComponent';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -31,16 +32,16 @@ const AnnouncementLocationField = ({
         });
         return null;
     }; */
+    const { t } = useTranslation();
 
     useEffect(() => {
-        markerPosition &&
-            setValue('coordinates', markerPosition);
+        markerPosition && setValue('coordinates', markerPosition);
     }, [markerPosition]);
 
     return (
         <div className="ann-field">
             <h3>
-                Локация:
+                {`${t('add-page.location')}:`}
                 {/* Локация<span>*</span>: */}
             </h3>
             <div className="map-wrapper">

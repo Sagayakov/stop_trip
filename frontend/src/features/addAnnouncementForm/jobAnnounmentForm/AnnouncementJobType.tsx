@@ -1,20 +1,23 @@
 import { UseFormRegister } from 'react-hook-form';
 import { UniversalRadioGroup } from '../../../entities/universalDropdown/UniversalRadioGroup';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
 }
 
 export const AnnouncementJobType = ({ register }: Props) => {
+    const { t } = useTranslation();
+
     const jobTypeValues = [
-        { label: 'Полный день', value: 'Полный день' },
-        { label: 'Неполный день', value: 'Неполный день' },
+        { label: 'Полный день', value: 'full_time' },
+        { label: 'Неполный день', value: 'part_time' },
     ];
 
     return (
         <div className="ann-field">
-            <h3>Тип работы:</h3>
+            <h3>{t('filters.job_type')}:</h3>
             <UniversalRadioGroup
                 name="job_type"
                 radioValues={jobTypeValues}
