@@ -15,6 +15,8 @@ export const AdvertOwner = ({ owner }: { owner: Owner }) => {
         owner.full_name
     );
 
+    const spelling = useGradeSpelling(grades);
+
     return (
         <div className="owner">
             {/* <img src="../../../src/shared/ui/images/owner.png" /> */}
@@ -33,7 +35,7 @@ export const AdvertOwner = ({ owner }: { owner: Owner }) => {
                 </div>
                 <div className="rating-block">
                     <Rating rating={5} grades={grades} setGrades={setGrades} />
-                    <span>{`${grades} ${useGradeSpelling(grades)}`}</span>
+                    <span>{`${grades} ${spelling}`}</span>
                 </div>
                 <p>{`${t('advert-page.registration-date')} ${
                     getDate(owner.date_joined).dayToDisplay

@@ -4,9 +4,10 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
 import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
 import { useMatchMedia } from '../../app/hooks/useMatchMedia';
-import { GetDate } from '../../shared/utils/getDate';
+import { getDate } from '../../shared/utils/getDate';
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '../../app/store/hooks';
 
 const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
@@ -14,11 +15,31 @@ const AnyCategory = () => {
     const { data = [], isLoading } = useGetAdvertsQuery(queryParam);
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
+
+    if (!data.length && !isLoading) {
+        return (
+            <p className="announcement-not-found">
+                {t('category-page.no-adverts')}
+            </p>
+        );
+    }
 
     return (
         <section className="announcement">
-            {data.length ? (
+            {isLoading && <LoadingWithBackground />}
+            {data.length &&
                 data.map((el: LastAdvertsTypes) => {
+                    const date = getDate(el.date_create);
+                    const { dayToDisplay } = date;
+                    let day = '';
+
+                    if (dayToDisplay === 'Сегодня') {
+                        day = lang === 'ru' ? 'Сегодня' : 'Today';
+                    }
+                    if (dayToDisplay === 'Вчера') {
+                        day = lang === 'ru' ? 'Вчера' : 'Yesterday';
+                    }
                     return (
                         <NavLink
                             className="card"
@@ -72,23 +93,14 @@ const AnyCategory = () => {
                                 </div>
                                 <p className="time">
                                     {`
-                                        ${GetDate(el.date_create).dayToDisplay},
-                                        ${GetDate(el.date_create).hours}:${
-                                            GetDate(el.date_create).minutes
-                                        }
+                                        ${day},
+                                        ${date.hours}:${date.minutes}
                                     `}
                                 </p>
                             </div>
                         </NavLink>
                     );
-                })
-            ) : isLoading ? (
-                <LoadingWithBackground />
-            ) : (
-                <p className="announcement-not-found">
-                    {t('category-page.no-adverts')}
-                </p>
-            )}
+                })}{' '}
         </section>
     );
 };
