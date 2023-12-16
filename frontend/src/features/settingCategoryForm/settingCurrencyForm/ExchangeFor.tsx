@@ -1,7 +1,7 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { useMatchMedia } from '../../../app/hooks/useMatchMedia';
-import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
-import { TypeOfCurrencyFilter } from '../../../widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

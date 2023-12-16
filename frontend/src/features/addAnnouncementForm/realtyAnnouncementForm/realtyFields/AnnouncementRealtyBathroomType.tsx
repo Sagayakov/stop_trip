@@ -1,6 +1,6 @@
 import { UseFormRegister } from 'react-hook-form';
-import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-import { UniversalRadioGroup } from '../../../../entities/universalDropdown/UniversalRadioGroup';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

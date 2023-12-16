@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { useAppSelector } from '../../../../app/store/hooks';
+import { useAppSelector } from 'app/store/hooks.ts';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 

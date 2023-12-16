@@ -1,7 +1,7 @@
-import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
-import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
-import { Cart } from '../../entities/lastAdverts';
-import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
+import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
+import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
+import { Cart } from 'entities/lastAdverts';
+import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 import { Pagination } from '../pagination';
 import './libr/LastAdverts.scss';
 import { useTranslation } from 'react-i18next';

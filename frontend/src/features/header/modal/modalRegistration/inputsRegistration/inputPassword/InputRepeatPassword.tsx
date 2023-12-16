@@ -3,7 +3,7 @@ import {
     UseFormGetValues,
     UseFormRegister,
 } from 'react-hook-form';
-import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
+import { Eye } from 'shared/ui/icons/icons-tools/Eye.tsx';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';

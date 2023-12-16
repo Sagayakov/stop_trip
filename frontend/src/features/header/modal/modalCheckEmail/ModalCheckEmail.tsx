@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Close } from '../../../../shared/ui/icons/icons-tools/Close';
+import { Close } from 'shared/ui/icons/icons-tools/Close.tsx';
 import './modalCheckEmail.scss';
 import { useTranslation } from 'react-i18next';
 

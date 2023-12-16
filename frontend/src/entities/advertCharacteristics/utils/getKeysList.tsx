@@ -1,6 +1,6 @@
-import { ProductType } from '../../../pages/advertPage/libr/types';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { Categories } from 'shared/const/categories';
-import { categoryCharacteristicsKeys } from '../../../shared/const/categoryCharacteristics';
+import { categoryCharacteristicsKeys } from 'shared/const/categoryCharacteristics.ts';
 import { useTranslation } from 'react-i18next';
 
 type GetListProps = {

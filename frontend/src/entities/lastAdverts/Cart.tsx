@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
-import { Favorite } from '../../shared/ui/icons/icons-tools/Favorite';
+import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
+import { Favorite } from 'shared/ui/icons/icons-tools/Favorite.tsx';
 import { GetDateOfCreating } from './libr/getDateOfCreating';
 import {
     useAddFavoriteMutation,
     useDeleteFromFavoritesMutation,
     useGetFavoritesQuery,
-} from '../../app/api/fetchFavorites';
-import { useAppSelector } from '../../app/store/hooks';
+} from 'app/api/fetchFavorites.ts';
+import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 

@@ -1,6 +1,6 @@
-import { UniversalCheckboxGroup } from '../../../entities/universalDropdown';
+import { UniversalCheckboxGroup } from 'entities/universalEntites';
 import { UseFormRegister } from 'react-hook-form';
-import { TypeForMarketForm } from '../../../widgets/settingForm/settingMarket/libr/TypeForMarketForm';
+import { TypeForMarketForm } from 'widgets/settingForm/settingMarket/libr/TypeForMarketForm.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

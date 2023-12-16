@@ -1,5 +1,5 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import { setErrorRepeatEmail } from '../../../../../features/header/model/modalAuth/reducers/auth';
+import { setErrorRepeatEmail } from 'features/header/model/modalAuth/reducers/auth.ts';
 import { NewUser } from '../libr/RegistrationTypes';
 
 export const createUser = async (body: NewUser, dispatch: Dispatch) => {

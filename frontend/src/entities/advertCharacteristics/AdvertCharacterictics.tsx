@@ -1,4 +1,4 @@
-import { ProductType } from '../../pages/advertPage/libr/types';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 import './advertCharacteristics.scss';
 import { GetValuesList } from './utils/getValuesList';
 import { GetKeysList } from './utils/getKeysList';

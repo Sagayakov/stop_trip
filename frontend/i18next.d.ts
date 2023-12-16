@@ -1,6 +1,10 @@
 import 'i18next';
-import en from './src/shared/langs/en.json';
-import ru from './src/shared/langs/ru.json';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import en from '../frontend/src/shared/langs/en.json';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import ru from './/frontend/src/shared/langs/ru.json';
 
 declare module 'i18next' {
     interface CustomTypeOptions {

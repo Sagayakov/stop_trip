@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
-import { Google } from '../../../../shared/ui/icons/icons-tools/Google';
-import { Vk } from '../../../../shared/ui/icons/icons-tools/Vk';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { Google } from 'shared/ui/icons/icons-tools/Google.tsx';
+import { Vk } from 'shared/ui/icons/icons-tools/Vk.tsx';
 //import { CheckboxRememberMe } from './inputsEnter/CheckboxRememberMe';
 import { InputSubmit } from './inputsEnter/InputSubmit';
 import { InputEmail } from './inputsEnter/inputEmail/InputEmail';
@@ -10,10 +10,10 @@ import { InputPassword } from './inputsEnter/inputPassword/InputPassword';
 import './libr/formEnter.scss';
 import { AuthData } from './libr/EnterType';
 import { submitEntForm } from './libr/submitEntForm';
-import { setIsResetPasswordModalOpen } from '../../../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
-import { toggleModalEnter } from '../../../../features/header/model/modalAuth/reducers/toggleModal';
-import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
-import { resetErrors } from '../../../../features/header/model/modalAuth/reducers/auth';
+import { setIsResetPasswordModalOpen } from 'features/header/model/modalAuth/reducers/isResetPasswordModalOpen.ts';
+import { toggleModalEnter } from 'features/header/model/modalAuth/reducers/toggleModal.ts';
+import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
+import { resetErrors } from 'features/header/model/modalAuth/reducers/auth.ts';
 import { useTranslation } from 'react-i18next';
 
 export const FormEnter = () => {

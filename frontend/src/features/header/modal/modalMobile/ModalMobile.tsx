@@ -1,14 +1,14 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import { setIsAuth } from '../../../../features/header/model/modalAuth/reducers/auth';
-import { useAppDispatch } from '../../../../app/store/hooks';
-import { Docs } from '../../../../shared/ui/icons/category/Docs';
-import { Favorite } from '../../../../shared/ui/icons/icons-tools/Favorite';
-import { Message } from '../../../../shared/ui/icons/icons-tools/Message';
-import { Setting } from '../../../../shared/ui/icons/icons-tools/Setting';
+import { setIsAuth } from 'features/header/model/modalAuth/reducers/auth.ts';
+import { useAppDispatch } from 'app/store/hooks.ts';
+import { Docs } from 'shared/ui/icons/category/Docs.tsx';
+import { Favorite } from 'shared/ui/icons/icons-tools/Favorite.tsx';
+import { Message } from 'shared/ui/icons/icons-tools/Message.tsx';
+import { Setting } from 'shared/ui/icons/icons-tools/Setting.tsx';
 import './modalMobile.scss';
-import { clearTokensFromCookies } from '../../../../app/cookie/cookieAuth';
+import { clearTokensFromCookies } from 'app/cookie/cookieAuth.ts';
 import { useEffect, useState } from 'react';
-import { Langs } from '../../../../entities/langs';
+import { Langs } from 'entities/langs';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

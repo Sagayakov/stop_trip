@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { LastAdvertsTypes } from './types/lastAdvertsTypes';
-import { url } from '../../shared/const/url';
-import { ProductType } from '../../pages/advertPage/libr/types';
+import { url } from 'shared/const/url.ts';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { FiltersType } from './types/filtersType';
 
 export const fetchAdverts = createApi({

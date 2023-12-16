@@ -3,11 +3,7 @@ interface Currency {
     label: string;
 }
 
-export const searchParamsForExchange = (
-    exchange_for: Currency | Currency,
-    exchange_rate: number,
-    proposed_currency: Currency | Currency
-) => {
+export const searchParamsForExchange = ( exchange_for: Currency, exchange_rate: number, proposed_currency: Currency ) => {
     let proposedValues = '';
     try {
         Object.entries(proposed_currency).forEach((el) => {

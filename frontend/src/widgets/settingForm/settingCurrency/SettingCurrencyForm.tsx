@@ -4,8 +4,8 @@ import {
     ExchangeFor,
     ExchangeRate,
     ProposedCurrency,
-} from '../../../features/settingCategoryForm/settingCurrencyForm';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+} from 'features/settingCategoryForm/settingCurrencyForm';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeOfCurrencyFilter } from './libr/TypeOfCurrencyFilter';
 import { searchParamsForExchange } from './libr/searchParamsForExchange';
 import './libr/settingCurrencyFilter.scss';

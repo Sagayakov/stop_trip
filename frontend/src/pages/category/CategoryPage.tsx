@@ -1,10 +1,10 @@
 import { Suspense, lazy, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 const Controls = lazy(() => import('../../features/controls/Controls'));
-import { Pagination } from '../../features/pagination';
-import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
-import { HorizontalMixer } from '../../shared/ui/icons/icons-tools/HorizontalMixer';
+import { Pagination } from 'features/pagination';
+import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
+import { HorizontalMixer } from 'shared/ui/icons/icons-tools/HorizontalMixer.tsx';
 const SettingCurrencyForm = lazy(
     () =>
         import('../../widgets/settingForm/settingCurrency/SettingCurrencyForm')
@@ -45,9 +45,9 @@ const SettingFoodForm = lazy(
     () => import('../../widgets/settingForm/settingFood/SettingFoodForm')
 );
 const SettingMarketForm = lazy(
-    () => import('../../widgets/settingForm/settingMarket/SettnigMarketForm')
+    () => import('widgets/settingForm/settingMarket/SettingMarketForm.tsx')
 );
-import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
+import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 import './style/category-page.scss';
 import './style/1024-1439-category-page.scss';
 import './style/768-1023-category-page.scss';

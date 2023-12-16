@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './ActivateAccount.scss';
 import { activate } from './api/activate';
-import { LoaidngWithoutBackground } from '../../entities/loading/LoaidngWithoutBackground';
-import { setIsEnter } from '../../features/header/model/modalAuth/reducers/isEnter';
-import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
-import { toggleModalEnter } from '../../features/header/model/modalAuth/reducers/toggleModal';
+import { LoaidngWithoutBackground } from 'entities/loading/LoaidngWithoutBackground.tsx';
+import { setIsEnter } from 'features/header/model/modalAuth/reducers/isEnter.ts';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { toggleModalEnter } from 'features/header/model/modalAuth/reducers/toggleModal.ts';
 import { useTranslation } from 'react-i18next';
 
 export const ActivateAccount = () => {

@@ -1,10 +1,10 @@
 import { Control, Controller, UseFormSetValue } from 'react-hook-form';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { TypesOfJobs } from '../../../widgets/settingForm/settingJob/libr/TypesOfJobs';
-import { SelectOption } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
-import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
-import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { TypesOfJobs } from 'widgets/settingForm/settingJob/libr/TypesOfJobs.ts';
+import { SelectOption } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

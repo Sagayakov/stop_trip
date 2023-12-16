@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { categories } from '../../shared/const/categories';
+import { categories } from 'shared/const/categories.tsx';
 import './notFoundCategories.scss';
 import { useTranslation } from 'react-i18next';
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 
 const NotFoundCategories = () => {
     const navigate = useNavigate();

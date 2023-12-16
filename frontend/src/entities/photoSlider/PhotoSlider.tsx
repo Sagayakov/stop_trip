@@ -1,15 +1,15 @@
 import { useRef, useState } from 'react';
-import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
-import { ArrowRight } from '../../shared/ui/icons/icons-tools/ArrowRight';
+import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
+import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
 import './libr/photoSlider.scss';
 import { useParams } from 'react-router-dom';
-import { useGetAdvertByIdQuery } from '../../app/api/fetchAdverts';
-import { Like } from '../../shared/ui/Like';
-import { ShareIcon } from '../../shared/ui/shareIcon';
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { useGetAdvertByIdQuery } from 'app/api/fetchAdverts.ts';
+import { Like } from 'shared/ui/Like';
+import { ShareIcon } from 'shared/ui/shareIcon';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { createPortal } from 'react-dom';
-import { Portal } from '../../entities/portal/Portal';
-import { Shadow } from '../../entities/portal/Shadow';
+import { Portal } from 'entities/portal/Portal.tsx';
+import { Shadow } from 'entities/portal/Shadow.tsx';
 
 export const PhotoSlider = () => {
     const { id } = useParams();

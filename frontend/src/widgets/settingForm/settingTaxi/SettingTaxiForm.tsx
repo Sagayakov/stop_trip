@@ -3,8 +3,8 @@ import {
     SettingTaxiPrice,
     TypeOfTaxi,
     UnitOfMeasurement,
-} from '../../../features/settingCategoryForm/settingTaxiForm/index';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+} from 'features/settingCategoryForm/settingTaxiForm';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeSettingTaxi } from './libr/TypeSettingTaxi';
 import './libr/settingTaxiForm.scss';
 import { useSearchParams } from 'react-router-dom';

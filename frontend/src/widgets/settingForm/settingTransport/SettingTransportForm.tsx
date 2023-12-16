@@ -14,12 +14,12 @@ import {
     TypeOfService,
     TypeOfTransport,
     YearOfProduction,
-} from '../../../features/settingCategoryForm/settingTransportForm/index';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+} from 'features/settingCategoryForm/settingTransportForm';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import '././libr/settingTransportForm.scss';
 import { TypeSettingTransport } from './libr/TypeSettingTransport';
 import { useSearchParams } from 'react-router-dom';
-import { getTransportQuery } from '../../../shared/utils/getTransportQuery';
+import { getTransportQuery } from 'shared/utils/getTransportQuery.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
@@ -54,7 +54,7 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 autoComplete="off"
             >
-                <TypeOfService register={register} watch={watch} />
+                <TypeOfService register={register} />
                 <TypeOfTransport register={register} watch={watch} />
                 <TransportationCategory setValue={setValue} control={control} />
                 <MarkOfTransport setValue={setValue} control={control} />

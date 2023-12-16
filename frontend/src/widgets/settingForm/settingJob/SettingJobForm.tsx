@@ -5,8 +5,8 @@ import {
     TypeOfJob,
     TypeOfPayment,
     WithExperience,
-} from '../../../features/settingCategoryForm/settingJob';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+} from 'features/settingCategoryForm/settingJob';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypesOfJobs } from './libr/TypesOfJobs';
 import './libr/settingJobFilter.scss';
 import { useSearchParams } from 'react-router-dom';

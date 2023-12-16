@@ -1,5 +1,5 @@
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
+import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

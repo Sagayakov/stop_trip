@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
-import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-import { MapComponent } from '../../../entities/map/MapComponent';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { MapComponent } from 'entities/map/MapComponent.tsx';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

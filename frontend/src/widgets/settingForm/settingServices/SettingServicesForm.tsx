@@ -2,8 +2,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import {
     HouseCall,
     SettingServicePrice,
-} from '../../../features/settingCategoryForm/settingServices';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+} from 'features/settingCategoryForm/settingServices';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeOfServicesForm } from './libr/TypeOfServicesForm';
 import './libr/settingServicesForm.scss';
 import { useSearchParams } from 'react-router-dom';

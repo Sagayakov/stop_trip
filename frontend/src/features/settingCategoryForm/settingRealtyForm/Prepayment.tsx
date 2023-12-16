@@ -4,8 +4,8 @@ import makeAnimated from 'react-select/animated';
 import {
     SelectOption,
     TypeSettingRealty,
-} from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
-import { valuesOfPropertyForm } from '../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
+} from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
+import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { ArrowRight } from '../../shared/ui/icons/icons-tools/ArrowRight';
+import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
 import './popularCategories.scss';
-import { AllCategories, ModalWindow } from '../../entities/controls';
-import { categories } from '../../shared/const/categories';
+import { AllCategories, ModalWindow } from 'entities/controls';
+import { categories } from 'shared/const/categories.tsx';
 import { useNavigate } from 'react-router-dom';
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
-import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
+import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
 import { GetSpelling } from './libr/getSpelling';
 import { useTranslation } from 'react-i18next';
 

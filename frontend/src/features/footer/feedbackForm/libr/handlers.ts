@@ -1,6 +1,6 @@
 import { UseFormReset, UseFormSetValue } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { getTokensFromStorage } from '../../../../widgets/header/libr/authentication/getTokensFromStorage';
+import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { TypesFeedbackForm } from './typesFeedback';
 import { useTranslation } from 'react-i18next';
 

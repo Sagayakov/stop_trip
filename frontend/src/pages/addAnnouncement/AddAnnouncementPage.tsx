@@ -2,7 +2,7 @@ import { Suspense, lazy, useState } from 'react';
 import { useForm } from 'react-hook-form';
 // import { useGetFiltersQuery } from '../../app/api/fetchAdverts';
 // import { FiltersType } from '../../app/api/types/filtersType';
-import { AnnouncementSubmitButton } from '../../entities/addAnnouncementForm/universalFields';
+import { AnnouncementSubmitButton } from 'entities/addAnnouncementForm/universalFields';
 const AnnouncementCategoryField = lazy(
     () =>
         import(

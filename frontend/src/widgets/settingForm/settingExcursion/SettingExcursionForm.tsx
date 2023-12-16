@@ -1,10 +1,9 @@
-//SettingExcursionFilter
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
     ExcursionFood,
     ExcursionTransfer,
-} from '../../../features/settingCategoryForm/settingExcursionForm';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+} from 'features/settingCategoryForm/settingExcursionForm';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForExcursionFilter } from './libr/TypeForExcursionFilter';
 import './libr/settingExcursionFilter.scss';
 import { useTranslation } from 'react-i18next';

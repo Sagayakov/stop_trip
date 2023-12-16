@@ -1,5 +1,5 @@
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { AnnouncementFoodDelivery } from './AnnouncementFoodDelivery';
 import { AnnouncementFoodEsteblishment } from './AnnouncementFoodEstablishment';
 import { AnnouncementFoodType } from './AnnouncementFoodType';

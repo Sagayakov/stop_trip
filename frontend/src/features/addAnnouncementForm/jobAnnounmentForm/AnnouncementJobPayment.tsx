@@ -1,6 +1,6 @@
-import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { jobValues } from './libr/jobValues';
 import { useTranslation } from 'react-i18next';
 

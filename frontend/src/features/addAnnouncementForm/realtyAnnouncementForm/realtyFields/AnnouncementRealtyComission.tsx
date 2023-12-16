@@ -1,6 +1,5 @@
-//AnnouncementTransportComission
 import { UseFormRegister } from 'react-hook-form';
-import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

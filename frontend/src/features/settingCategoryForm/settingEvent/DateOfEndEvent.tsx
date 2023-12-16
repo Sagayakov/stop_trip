@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeOfEventFilter } from '../../../widgets/settingForm/settingEvent/libr/TypeOfEventFilter';
+import { TypeOfEventFilter } from 'widgets/settingForm/settingEvent/libr/TypeOfEventFilter.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

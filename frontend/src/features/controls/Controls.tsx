@@ -4,9 +4,9 @@ import {
     Input,
     ModalWindow,
     SelectGeo,
-} from '../../entities/controls';
+} from 'entities/controls';
 import './controls.scss';
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 
 const Controls = () => {
     const [showModal, setShowModal] = useState(false);

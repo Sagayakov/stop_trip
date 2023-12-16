@@ -1,4 +1,4 @@
-import { ProductType } from "../../../pages/advertPage/libr/types";
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 
 type HandlersType = {
     data?: ProductType | undefined;

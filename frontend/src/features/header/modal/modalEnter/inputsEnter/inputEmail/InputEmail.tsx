@@ -1,5 +1,5 @@
 import { Control, Controller, FieldErrors } from 'react-hook-form';
-import { useAppSelector } from '../../../../../../app/store/hooks';
+import { useAppSelector } from 'app/store/hooks.ts';
 import '../../libr/inputEmail.scss';
 import { AuthData } from '../../libr/EnterType';
 import { useTranslation } from 'react-i18next';

@@ -1,4 +1,4 @@
-import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { UseFormRegister, UseFormSetValue, Control } from 'react-hook-form';
 import { AnnouncementJobType } from './AnnouncementJobType';
 import { AnnouncementJobDuration } from './AnnouncementJobDuration';

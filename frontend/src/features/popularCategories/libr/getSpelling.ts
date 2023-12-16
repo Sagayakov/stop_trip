@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../../app/store/hooks';
+import { useAppSelector } from 'app/store/hooks.ts';
 import { useTranslation } from 'react-i18next';
 
 export const GetSpelling = (value: number) => {

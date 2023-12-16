@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { Close } from '../../../shared/ui/icons/icons-tools/Close';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { Close } from 'shared/ui/icons/icons-tools/Close.tsx';
 import { setIsEnter } from '../model/modalAuth/reducers/isEnter';
 import { toggleModalEnter } from '../model/modalAuth/reducers/toggleModal';
 import { FormEnter, FormRegistration } from './index';

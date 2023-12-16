@@ -1,7 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
-import { UniversalRadioGroup } from '../../../../entities/universalDropdown/UniversalRadioGroup';
-import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-import { valuesOfTransportForm } from '../../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { valuesOfTransportForm } from 'widgets/settingForm/settingTransport/libr/valuesOfTransportForm.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

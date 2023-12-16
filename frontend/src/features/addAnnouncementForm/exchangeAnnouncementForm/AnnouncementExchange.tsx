@@ -1,4 +1,4 @@
-import { FormAddAnn } from "../../../pages/addAnnouncement/libr/AnnouncementFormTypes";
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { UseFormRegister, UseFormSetValue, Control } from "react-hook-form";
 import { AnnouncementExchangeName } from "./AnnouncementExchangeName";
 import { AnnouncementExchangeFor } from "./AnnouncementExchangeFor";

@@ -4,9 +4,9 @@ import makeAnimated from 'react-select/animated';
 import {
     SelectOption,
     TypeSettingTaxi,
-} from '../../../widgets/settingForm/settingTaxi/libr/TypeSettingTaxi';
-import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
-import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+} from 'widgets/settingForm/settingTaxi/libr/TypeSettingTaxi.ts';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

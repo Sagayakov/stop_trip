@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeOfCurrencyFilter } from '../../../widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter';
+import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

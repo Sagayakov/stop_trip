@@ -1,5 +1,5 @@
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { Eye } from '../../../shared/ui/icons/icons-tools/Eye';
+import { Eye } from 'shared/ui/icons/icons-tools/Eye.tsx';
 import { ResetPasswordType } from '../libr/types';
 import { useTranslation } from 'react-i18next';
 

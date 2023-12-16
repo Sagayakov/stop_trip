@@ -1,10 +1,10 @@
-import { FeedbackForm } from '../../features/footer';
-import { Facebook } from '../../shared/ui/icons/contacts/Facebook';
-import { Telegram } from '../../shared/ui/icons/contacts/Telegram';
-import { WhatsApp } from '../../shared/ui/icons/contacts/WhatsApp';
-import { LogoHeader } from '../../shared/ui/icons/icons-tools/LogoHeader';
+import { FeedbackForm } from 'features/footer';
+import { Facebook } from 'shared/ui/icons/contacts/Facebook.tsx';
+import { Telegram } from 'shared/ui/icons/contacts/Telegram.tsx';
+import { WhatsApp } from 'shared/ui/icons/contacts/WhatsApp.tsx';
+import { LogoHeader } from 'shared/ui/icons/icons-tools/LogoHeader.tsx';
 import './footer.scss';
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 
 export const Footer = () => {
     const { isMobile } = useMatchMedia();

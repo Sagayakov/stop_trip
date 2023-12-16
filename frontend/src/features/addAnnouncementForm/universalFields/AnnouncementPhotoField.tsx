@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
-import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import {
     LoadPhotoAlternative,
     LoadPhotoIcon,
     MiniLoadPhoto,
-} from '../../../shared/ui/icons/loadPhoto';
+} from 'shared/ui/icons/loadPhoto';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
