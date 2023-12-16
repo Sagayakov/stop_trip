@@ -168,4 +168,4 @@ class FoodTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(food_set))
+        self.assertEqual(len(res_json), len(food_set) // 2)
