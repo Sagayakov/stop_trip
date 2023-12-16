@@ -32,7 +32,7 @@ const AnyCategory = () => {
                 data.results.map((el: AdvertsTypes) => {
                     const date = getDate(el.date_create);
                     const { dayToDisplay } = date;
-                    let day = '';
+                    let day = dayToDisplay;
 
                     if (dayToDisplay === 'Сегодня') {
                         day = lang === 'ru' ? 'Сегодня' : 'Today';
@@ -53,7 +53,10 @@ const AnyCategory = () => {
                                 {isMobile ? (
                                     <>
                                         {!el.images[0] ? (
-                                            <img src="../../../src/entities/lastAdverts/ui/image-not-found.jpg" alt="Not found" />
+                                            <img
+                                                src="../../../src/entities/lastAdverts/ui/image-not-found.jpg"
+                                                alt="Not found"
+                                            />
                                         ) : (
                                             el.images.map((item) => (
                                                 <img
