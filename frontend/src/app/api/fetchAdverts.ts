@@ -11,7 +11,8 @@ export const fetchAdverts = createApi({
     endpoints: (build) => ({
         getAdverts: build.query<LastAdvertsTypes, string>({
             //дженериками передаем тип того что собираемся получить, а второй тип это то что передаем в качестве параметра при вызове хука, в данном случае пустая строка
-            query: (filterQuery = '') => `api/advertisements/${filterQuery.replace(/%2C/g, '.')}`, //заменяет код запятой из строки
+            query: (filterQuery = '') =>
+                `api/advertisements/${filterQuery.replace(/%2C/g, '.')}`, //заменяет код запятой из строки
             providesTags: (result) =>
                 result // понадобится когда можно будет добавлять объявления
                     ? [
@@ -40,8 +41,5 @@ export const fetchAdverts = createApi({
     }),
 });
 
-export const {
-    useGetAdvertsQuery,
-    useGetAdvertByIdQuery,
-    useGetFiltersQuery,
-} = fetchAdverts;
+export const { useGetAdvertsQuery, useGetAdvertByIdQuery, useGetFiltersQuery } =
+    fetchAdverts;

@@ -14,3 +14,12 @@
         width: 85%;
     }
 }
+
+@media (max-width: 767px) {
+    .bread-crumbs {
+        .link-main {
+            display: flex;
+            cursor: pointer;
+        }
+    }
+}

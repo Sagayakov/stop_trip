@@ -1,4 +1,4 @@
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 767px) and (max-width: 1023px) {
     main {
         width: 100%;
         margin: 0 auto;
@@ -8,7 +8,7 @@
             margin: 0 auto 30px;
             display: flex;
             align-items: center;
-            a{
+            a {
                 display: flex;
             }
             .filter-btn {
@@ -72,6 +72,7 @@
             }
         }
         .pagination {
+            width: 85%;
             margin: 30px auto 40px;
         }
     }

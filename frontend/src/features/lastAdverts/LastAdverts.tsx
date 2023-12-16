@@ -16,11 +16,12 @@ const LastAdverts = () => {
                 <h3>{t('main-page.last-adverts')}</h3>
                 <div className="announcement-list">
                     {isLoading && <LoadingWithBackground />}
-                    {data && data.results.map((elem: AdvertsTypes) => (
-                        <Cart cart={elem} key={elem.id} />
-                    ))}
+                    {data &&
+                        data.results.map((elem: AdvertsTypes) => (
+                            <Cart cart={elem} key={elem.id} />
+                        ))}
                 </div>
-                <Pagination />
+                <Pagination data={data} />
             </div>
         </div>
     );

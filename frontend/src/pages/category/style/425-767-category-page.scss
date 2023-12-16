@@ -3,9 +3,9 @@
         width: 100vw;
 
         .bread-crumbs {
-            width: 100%;
+            width: 93%;
             margin: 0 auto 16px;
-            padding: 0px 15px;
+            padding: 0px;
             display: flex;
             align-items: center;
             svg {
@@ -39,11 +39,12 @@
 
         .filters-announcement {
             flex-direction: column;
+            width: 93%;
             .filter-form {
                 background-color: rgba(0, 0, 0, 0.7);
                 z-index: 10;
                 height: 460vh;
-                width: 100vw;
+                width: 100%;
                 position: absolute;
                 .filters {
                     width: 100%;
@@ -53,8 +54,7 @@
                 }
             }
             .announcement {
-                width: calc(100% - 30px);
-                margin: 0px 15px;
+                width: 100%;
                 .card {
                     flex-direction: column;
                     width: 100%;
@@ -112,7 +112,7 @@
                         .time {
                             position: relative;
                             bottom: 23px;
-                            left: 285px;
+                            left: 255px;
                             width: 45%;
                         }
                     }
@@ -121,6 +121,7 @@
         }
 
         .pagination {
+            width: 93%;
             margin: 20px auto 30px;
         }
     }
