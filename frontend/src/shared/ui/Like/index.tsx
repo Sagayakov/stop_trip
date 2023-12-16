@@ -29,7 +29,7 @@ export const Like = ({
     const [isLike, setIsLike] = useState(false);
 
     useEffect(() => {
-        const target = data?.find((el) => el.id === id);
+        const target = data?.results.find((el) => el.id === id);
         isAuth && setIsLike(!!target);
     }, [data, id, isAuth]);
 

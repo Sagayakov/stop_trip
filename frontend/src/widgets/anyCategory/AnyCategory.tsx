@@ -2,7 +2,7 @@ import { Like } from 'shared/ui/Like';
 import { Rating } from 'shared/ui/Rating';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
-import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
+import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { getDate } from 'shared/utils/getDate.ts';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
@@ -12,12 +12,12 @@ import { useAppSelector } from 'app/store/hooks.ts';
 const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
     const queryParam = useLocation().search;
-    const { data = [], isLoading } = useGetAdvertsQuery(queryParam);
+    const { data, isLoading } = useGetAdvertsQuery(queryParam);
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
 
-    if (!data.length && !isLoading) {
+    if (!data?.results.length && !isLoading) {
         return (
             <p className="announcement-not-found">
                 {t('category-page.no-adverts')}
@@ -28,8 +28,8 @@ const AnyCategory = () => {
     return (
         <section className="announcement">
             {isLoading && <LoadingWithBackground />}
-            {data.length &&
-                data.map((el: LastAdvertsTypes) => {
+            {data?.results.length &&
+                data.results.map((el: AdvertsTypes) => {
                     const date = getDate(el.date_create);
                     const { dayToDisplay } = date;
                     let day = '';

@@ -9,13 +9,13 @@ export const fetchAdverts = createApi({
     tagTypes: ['Adverts'],
     baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
     endpoints: (build) => ({
-        getAdverts: build.query<LastAdvertsTypes[], string>({
+        getAdverts: build.query<LastAdvertsTypes, string>({
             //дженериками передаем тип того что собираемся получить, а второй тип это то что передаем в качестве параметра при вызове хука, в данном случае пустая строка
             query: (filterQuery = '') => `api/advertisements/${filterQuery.replace(/%2C/g, '.')}`, //заменяет код запятой из строки
             providesTags: (result) =>
                 result // понадобится когда можно будет добавлять объявления
                     ? [
-                          ...result.map(({ id }) => ({
+                          ...result.results.map(({ id }) => ({
                               type: 'Adverts' as const,
                               id,
                           })),
@@ -44,5 +44,4 @@ export const {
     useGetAdvertsQuery,
     useGetAdvertByIdQuery,
     useGetFiltersQuery,
-    useAddAdvertMutation,
 } = fetchAdverts;

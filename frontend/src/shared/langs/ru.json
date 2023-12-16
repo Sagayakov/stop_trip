@@ -264,6 +264,7 @@
     },
 
     "labels": {
+        "category": "Категория",
         "property": "Недвижимость",
         "transport": "Транспорт",
         "exchange_rate": "Обмен валюты",

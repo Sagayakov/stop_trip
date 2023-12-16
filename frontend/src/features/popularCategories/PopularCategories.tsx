@@ -13,7 +13,7 @@ const PopularCategories = () => {
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
     const { isMobile } = useMatchMedia();
-    const { data = [] } = useGetAdvertsQuery('');
+    const { data } = useGetAdvertsQuery('');
     const { t } = useTranslation();
 
     return (
@@ -40,7 +40,7 @@ const PopularCategories = () => {
                         .filter((el) => el[0] !== 'event')
                         .map((el) => {
                             const { icon: Icon } = el[1];
-                            const offersAmount = data.filter(
+                            const offersAmount = data?.results.filter(
                                 (item) => item.category === el[0]
                             ).length;
                             const category = el[0];
@@ -55,9 +55,9 @@ const PopularCategories = () => {
                                     <Icon />
                                     <p>{t(`categories.${category}`)}</p>
                                     <span>
-                                        {`${offersAmount} ${GetSpelling(
-                                            offersAmount
-                                        )} `}
+                                        {/*{`${offersAmount} ${GetSpelling(*/}
+                                        {/*    offersAmount*/}
+                                        {/*)} `}*/}
                                         <ArrowRight color="#1F6FDE" />
                                     </span>
                                 </div>
