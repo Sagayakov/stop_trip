@@ -1,6 +1,6 @@
 import { useRef } from 'react';
-import { MapIcon } from '../../../shared/ui/icons/icons-tools/MapIcon';
-import { useMatchMedia } from '../../../app/hooks/useMatchMedia';
+import { MapIcon } from 'shared/ui/icons/icons-tools/MapIcon.tsx';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { useTranslation } from 'react-i18next';
 
 export const SelectGeo = () => {

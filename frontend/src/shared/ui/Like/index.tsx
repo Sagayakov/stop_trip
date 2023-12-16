@@ -4,8 +4,8 @@ import {
     useAddFavoriteMutation,
     useDeleteFromFavoritesMutation,
     useGetFavoritesQuery,
-} from '../../../app/api/fetchFavorites';
-import { useAppSelector } from '../../../app/store/hooks';
+} from 'app/api/fetchFavorites.ts';
+import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 

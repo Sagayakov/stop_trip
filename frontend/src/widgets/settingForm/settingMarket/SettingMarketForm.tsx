@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
-import { MarketCondition } from '../../../features/settingCategoryForm/settingMarketForm';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+import { MarketCondition } from 'features/settingCategoryForm/settingMarketForm';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForMarketForm } from './libr/TypeForMarketForm';
 import './libr/settingMarketForm.scss';
 import { useTranslation } from 'react-i18next';

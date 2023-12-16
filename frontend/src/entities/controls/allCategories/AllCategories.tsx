@@ -1,4 +1,4 @@
-import { Burger } from '../../../shared/ui/icons/icons-tools/Burger';
+import { Burger } from 'shared/ui/icons/icons-tools/Burger.tsx';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

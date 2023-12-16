@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../../app/store/hooks';
+import { useAppSelector } from 'app/store/hooks.ts';
 
 export const GetDateOfCreating = (str: string) => {
     const lang = useAppSelector((state) => state.setLang.lang);

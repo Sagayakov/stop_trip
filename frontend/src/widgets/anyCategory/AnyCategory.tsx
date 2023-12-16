@@ -1,13 +1,13 @@
-import { Like } from '../../shared/ui/Like';
-import { Rating } from '../../shared/ui/Rating';
+import { Like } from 'shared/ui/Like';
+import { Rating } from 'shared/ui/Rating';
 import { NavLink, useLocation } from 'react-router-dom';
-import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
-import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
-import { getDate } from '../../shared/utils/getDate';
-import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
+import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
+import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
+import { getDate } from 'shared/utils/getDate.ts';
+import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 import { useTranslation } from 'react-i18next';
-import { useAppSelector } from '../../app/store/hooks';
+import { useAppSelector } from 'app/store/hooks.ts';
 
 const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
@@ -53,12 +53,13 @@ const AnyCategory = () => {
                                 {isMobile ? (
                                     <>
                                         {!el.images[0] ? (
-                                            <img src="../../../src/entities/lastAdverts/ui/image-not-found.jpg" />
+                                            <img src="../../../src/entities/lastAdverts/ui/image-not-found.jpg" alt="Not found" />
                                         ) : (
                                             el.images.map((item) => (
                                                 <img
                                                     src={item.image}
                                                     key={item.image}
+                                                    alt="Not found"
                                                 />
                                             ))
                                         )}
@@ -70,6 +71,7 @@ const AnyCategory = () => {
                                                 ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
                                                 : el.images[0].image
                                         }
+                                        alt="Not found"
                                     />
                                 )}
                             </div>

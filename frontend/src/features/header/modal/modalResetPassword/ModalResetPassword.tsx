@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import './ModalResetPassword.scss';
-import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
-import { Close } from '../../../../shared/ui/icons/icons-tools/Close';
-import { setIsResetPasswordModalOpen } from '../../../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
-import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { Close } from 'shared/ui/icons/icons-tools/Close.tsx';
+import { setIsResetPasswordModalOpen } from 'features/header/model/modalAuth/reducers/isResetPasswordModalOpen.ts';
+import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
 import { useTranslation } from 'react-i18next';
 
 export const ModalResetPassword = () => {

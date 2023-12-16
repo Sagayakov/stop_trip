@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 import { useState } from 'react';
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { useAppSelector } from '../../../../../../app/store/hooks';
+import { useAppSelector } from 'app/store/hooks.ts';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 import { useTranslation } from 'react-i18next';
 

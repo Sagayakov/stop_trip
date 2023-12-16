@@ -4,7 +4,7 @@ import {
     Price,
     EngineCapacity,
     YearOfProduction,
-} from "../../widgets/settingForm/settingTransport/libr/TypeSettingTransport";
+} from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { getMultiQuery } from "./getMultiQuery";
 
 export const getTransportQuery = (data: TypeSettingTransport) => {

@@ -1,4 +1,4 @@
-import { ProductType } from '../../pages/advertPage/libr/types';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 import './advertLocation.scss';
 import { useMemo } from 'react';
 import { MapComponent } from '../map/MapComponent';

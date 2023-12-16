@@ -1,5 +1,5 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { useTranslation } from 'react-i18next';
 

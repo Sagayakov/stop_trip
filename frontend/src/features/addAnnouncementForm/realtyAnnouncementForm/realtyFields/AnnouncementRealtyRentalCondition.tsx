@@ -1,7 +1,7 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from '../../../../entities/universalDropdown/UniversalSelectDropdown';
-import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-import { valuesOfPropertyForm } from '../../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

@@ -1,12 +1,12 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeOfEventFilter } from './libr/TypeOfEventFilter';
 import {
     DateOfEndEvent,
     DateOfStartEvent,
     EventPrice,
     IsOnlineEvent,
-} from '../../../features/settingCategoryForm/settingEvent';
+} from 'features/settingCategoryForm/settingEvent';
 import './libr/settingEventFilter.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

@@ -1,4 +1,4 @@
-import { getTokensAuthFromCookies } from '../../../../app/cookie/cookieAuth';
+import { getTokensAuthFromCookies } from 'app/cookie/cookieAuth.ts';
 
 export const getTokensFromStorage = () => {
     /* const rememberMe =

@@ -1,6 +1,6 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import { saveTokensAuthToCookie } from '../../../../app/cookie/cookieAuth';
-import { setIsAuth } from '../../../../features/header/model/modalAuth/reducers/auth';
+import { saveTokensAuthToCookie } from 'app/cookie/cookieAuth.ts';
+import { setIsAuth } from 'features/header/model/modalAuth/reducers/auth.ts';
 import { getTokensFromStorage } from './getTokensFromStorage';
 
 export const checkAuthentication = async (dispatch: Dispatch) => {
@@ -36,7 +36,7 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
             });
             if(response.ok){
                 const data = await response.json();
-                await dispatch(setIsAuth(true))
+                dispatch(setIsAuth(true))
                 localStorage.setItem('isAuth', 'true')
                 saveTokensAuthToCookie(data.access);
             }else {

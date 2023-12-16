@@ -19,9 +19,14 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
-        "baseUrl": "./src",
+        "baseUrl": "src",
         "paths": {
-            "scr/*": ["src/*"]
+            "app/*": ["app/*"],
+            "entities/*": ["entities/*"],
+            "features/*": ["features/*"],
+            "pages/*": ["pages/*"],
+            "shared/*": ["shared/*"],
+            "widgets/*": ["widgets/*"],
         }
     },
     "include": ["src"],

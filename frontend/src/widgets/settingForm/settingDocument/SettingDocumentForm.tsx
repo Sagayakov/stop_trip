@@ -3,8 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import {
     DocumentDuration,
     DocumentType,
-} from '../../../features/settingCategoryForm/settingDocumentForm';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+} from 'features/settingCategoryForm/settingDocumentForm';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeOfDocumentFilter } from './libr/TypeOfDocumentFilter';
 import { searchParamsForDocument } from './libr/searchParamsForDocument';
 import './libr/settingDocumentForm.scss';

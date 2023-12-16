@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeForFoodForm } from '../../../widgets/settingForm/settingFood/libr/TypeForFoodForm';
+import { TypeForFoodForm } from 'widgets/settingForm/settingFood/libr/TypeForFoodForm.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

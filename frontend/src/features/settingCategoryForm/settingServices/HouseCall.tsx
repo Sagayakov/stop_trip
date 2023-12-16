@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeOfServicesForm } from '../../../widgets/settingForm/settingServices/libr/TypeOfServicesForm';
+import { TypeOfServicesForm } from 'widgets/settingForm/settingServices/libr/TypeOfServicesForm.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

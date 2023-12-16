@@ -1,6 +1,6 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
-import { TypeForFoodForm } from '../../../widgets/settingForm/settingFood/libr/TypeForFoodForm';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { TypeForFoodForm } from 'widgets/settingForm/settingFood/libr/TypeForFoodForm.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

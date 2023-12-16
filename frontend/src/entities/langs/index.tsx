@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
-import { setLang } from '../../features/header/model/langsReducer/lang';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { setLang } from 'features/header/model/langsReducer/lang.ts';
 
 export const Langs = () => {
     const lang = useAppSelector((state) => state.setLang.lang);

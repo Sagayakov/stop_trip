@@ -1,23 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Dispatch } from 'redux';
-import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
-import { Modal } from '../../features/header/modal';
-import { ModalAddAdvert } from '../../features/header/modal/modalAddAdvert/ModalAddAdvert';
-import { ModalMobile } from '../../features/header/modal/modalMobile/ModalMobile';
-import { toggleModalEnter } from '../../features/header/model/modalAuth/reducers/toggleModal';
-import { LogoHeader } from '../../shared/ui/icons/icons-tools/LogoHeader';
-import { Person } from '../../shared/ui/icons/icons-tools/Person';
-import { Plus } from '../../shared/ui/icons/icons-tools/Plus';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { Modal } from 'features/header/modal';
+import { ModalAddAdvert } from 'features/header/modal/modalAddAdvert/ModalAddAdvert.tsx';
+import { ModalMobile } from 'features/header/modal/modalMobile/ModalMobile.tsx';
+import { toggleModalEnter } from 'features/header/model/modalAuth/reducers/toggleModal.ts';
+import { LogoHeader } from 'shared/ui/icons/icons-tools/LogoHeader.tsx';
+import { Person } from 'shared/ui/icons/icons-tools/Person.tsx';
+import { Plus } from 'shared/ui/icons/icons-tools/Plus.tsx';
 import './libr/header.scss';
-import { setIsAuth } from '../../features/header/model/modalAuth/reducers/auth';
+import { setIsAuth } from 'features/header/model/modalAuth/reducers/auth.ts';
 import { checkAuthentication } from './libr/authentication/checkAuthentication';
 import { getTokensFromStorage } from './libr/authentication/getTokensFromStorage';
 import { handleScroll } from './libr/eventListeners/handleScroll';
-import { ModalCheckEmail } from '../../features/header/modal/modalCheckEmail/ModalCheckEmail';
-import { ModalResetPassword } from '../../features/header/modal/modalResetPassword/ModalResetPassword';
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
-import { Langs } from '../../entities/langs';
+import { ModalCheckEmail } from 'features/header/modal/modalCheckEmail/ModalCheckEmail.tsx';
+import { ModalResetPassword } from 'features/header/modal/modalResetPassword/ModalResetPassword.tsx';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
+import { Langs } from 'entities/langs';
 import { useTranslation } from 'react-i18next';
 
 export const Header = () => {

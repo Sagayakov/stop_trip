@@ -4,8 +4,8 @@ import {
     FoodDelivery,
     FoodEstablishment,
     FoodType,
-} from '../../../features/settingCategoryForm/settingFoodForm';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+} from 'features/settingCategoryForm/settingFoodForm';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForFoodForm } from './libr/TypeForFoodForm';
 import { searchParamsForFood } from './libr/searchParamsForFood';
 import './libr/settingFoordForm.scss';

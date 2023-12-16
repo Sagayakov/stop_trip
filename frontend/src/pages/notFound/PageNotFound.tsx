@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './pageNotFound.scss';
-import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
+import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 const NotFoundNumbers = lazy(
     () => import('../../entities/notFoundNumbers/NotFoundNumbers')
 );

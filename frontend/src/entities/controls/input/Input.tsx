@@ -1,4 +1,4 @@
-import { Find } from '../../../shared/ui/icons/icons-tools/Find';
+import { Find } from 'shared/ui/icons/icons-tools/Find.tsx';
 import { useTranslation } from 'react-i18next';
 
 export const Input = () => {

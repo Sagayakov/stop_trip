@@ -1,12 +1,12 @@
 import { ComponentType } from 'react';
-import { MainPage } from '../../pages/main/MainPage';
-import { categories } from '../../shared/const/categories';
-import { CategoryPage } from '../../pages/category/CategoryPage';
-import { ActivateAccount } from '../../pages/activateAccount/ActivateAccount';
-import { ResetPassword } from '../../pages/resetPassword/ResetPassword';
-import { AdvertPage } from '../../pages/advertPage/AdvertPage';
-import { AddAnnouncementPage } from '../../pages/addAnnouncement/AddAnnouncementPage'
-import { PageNotFound } from '../../pages/notFound/PageNotFound';
+import { MainPage } from 'pages/main/MainPage.tsx';
+import { categories } from 'shared/const/categories.tsx';
+import { CategoryPage } from 'pages/category/CategoryPage.tsx';
+import { ActivateAccount } from 'pages/activateAccount/ActivateAccount.tsx';
+import { ResetPassword } from 'pages/resetPassword/ResetPassword.tsx';
+import { AdvertPage } from 'pages/advertPage/AdvertPage.tsx';
+import { AddAnnouncementPage } from 'pages/addAnnouncement/AddAnnouncementPage.tsx'
+import { PageNotFound } from 'pages/notFound/PageNotFound.tsx';
 
 interface Route {
     path: string;

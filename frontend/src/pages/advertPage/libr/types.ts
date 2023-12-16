@@ -1,6 +1,6 @@
-import { categorySubTypesDictionary } from '../../../shared/const/categorySubTypesDictionary';
-import { LastAdvertsImages } from '../../../app/api/types/lastAdvertsTypes';
-import { Categories } from '../../../shared/const/categories';
+import { categorySubTypesDictionary } from 'shared/const/categorySubTypesDictionary.ts';
+import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
+import { Categories } from 'shared/const/categories.tsx';
 
 export type ProductType = {
     category: Categories;

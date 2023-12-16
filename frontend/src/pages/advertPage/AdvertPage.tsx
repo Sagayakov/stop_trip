@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useGetAdvertByIdQuery } from '../../app/api/fetchAdverts';
 import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
 const Advert = lazy(() => import('../../features/advert/Advert'));
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 
 export const AdvertPage = () => {
     const { id } = useParams();

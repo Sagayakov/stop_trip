@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { LastAdvertsTypes } from './types/lastAdvertsTypes';
-import { url } from '../../shared/const/url';
+import { url } from 'shared/const/url.ts';
 import Cookies from 'js-cookie';
 
 export const fetchFavorites = createApi({

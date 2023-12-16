@@ -1,5 +1,5 @@
-import { categorySubTypesDictionary } from '../../shared/const/categorySubTypesDictionary';
-import { ProductType } from '../../pages/advertPage/libr/types';
+import { categorySubTypesDictionary } from 'shared/const/categorySubTypesDictionary.ts';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 
 export const getCategorySubType = (
     data: ProductType

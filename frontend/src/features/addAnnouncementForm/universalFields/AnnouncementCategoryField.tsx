@@ -1,9 +1,9 @@
-import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import {
     FormAddAnn /* SelectOption, */,
-} from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-import { useMatchMedia } from '../../../app/hooks/useMatchMedia';
+} from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

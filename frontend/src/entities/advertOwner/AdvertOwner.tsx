@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Rating } from '../../shared/ui/Rating';
+import { Rating } from 'shared/ui/Rating';
 import './libr/advertOwner.scss';
 import { useGradeSpelling } from './libr/utils/getGradeSpelling';
-import { Owner } from '../../app/api/types/lastAdvertsTypes';
-import { getDate } from '../../shared/utils/getDate';
-import { getUserIcon } from '../../shared/utils/userIcon/getUserIcon';
+import { Owner } from 'app/api/types/lastAdvertsTypes.ts';
+import { getDate } from 'shared/utils/getDate.ts';
+import { getUserIcon } from 'shared/utils/userIcon/getUserIcon.ts';
 import { useTranslation } from 'react-i18next';
 
 export const AdvertOwner = ({ owner }: { owner: Owner }) => {

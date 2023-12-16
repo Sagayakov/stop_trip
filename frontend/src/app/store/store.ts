@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { fetchAdverts } from '../../app/api/fetchAdverts';
+import { fetchAdverts } from 'app/api/fetchAdverts.ts';
 import setLoadingSlice from '../../entities/loading/model/setLoadingSlice';
-import { setIsAuthSlice } from '../../features/header/model/modalAuth/reducers/auth';
-import { setIsCheckMailModalOpenSlice } from '../../features/header/model/modalAuth/reducers/isCheckMailModalOpen';
-import { setIsEnterSlice } from '../../features/header/model/modalAuth/reducers/isEnter';
-import { setIsResetPasswordModalOpenSlice } from '../../features/header/model/modalAuth/reducers/isResetPasswordModalOpen';
-import { toggleModalSlice } from '../../features/header/model/modalAuth/reducers/toggleModal';
-import { fetchFavorites } from '../../app/api/fetchFavorites';
-import { setLangSlice } from '../../features/header/model/langsReducer/lang';
+import { setIsAuthSlice } from 'features/header/model/modalAuth/reducers/auth.ts';
+import { setIsCheckMailModalOpenSlice } from 'features/header/model/modalAuth/reducers/isCheckMailModalOpen.ts';
+import { setIsEnterSlice } from 'features/header/model/modalAuth/reducers/isEnter.ts';
+import { setIsResetPasswordModalOpenSlice } from 'features/header/model/modalAuth/reducers/isResetPasswordModalOpen.ts';
+import { toggleModalSlice } from 'features/header/model/modalAuth/reducers/toggleModal.ts';
+import { fetchFavorites } from 'app/api/fetchFavorites.ts';
+import { setLangSlice } from 'features/header/model/langsReducer/lang.ts';
 
 const setupStore = () =>
     configureStore({

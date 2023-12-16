@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from '../layout';
 import { privateRoutes, publicRoutes } from './routes';
 import { useAppSelector } from '../store/hooks';
-import { ActivateAccount } from '../../pages/activateAccount/ActivateAccount';
+import { ActivateAccount } from 'pages/activateAccount/ActivateAccount.tsx';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 

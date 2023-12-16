@@ -1,4 +1,4 @@
-import { url } from '../../../shared/const/url';
+import { url } from 'shared/const/url.ts';
 import { ConfirmResetPasswordProps } from '../libr/types';
 
 export const confimResetPassword = async ({

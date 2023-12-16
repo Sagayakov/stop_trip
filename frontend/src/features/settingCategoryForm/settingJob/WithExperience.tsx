@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypesOfJobs } from '../../../widgets/settingForm/settingJob/libr/TypesOfJobs';
+import { TypesOfJobs } from 'widgets/settingForm/settingJob/libr/TypesOfJobs.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

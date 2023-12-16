@@ -1,5 +1,5 @@
-import { Close } from '../../../../shared/ui/icons/icons-tools/Close';
-import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
+import { Close } from 'shared/ui/icons/icons-tools/Close.tsx';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { toggleModalEnter } from '../../model/modalAuth/reducers/toggleModal';
 import './libr/modalAddAdvert.scss';
 import { setIsEnter } from '../../model/modalAuth/reducers/isEnter';

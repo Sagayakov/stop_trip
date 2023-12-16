@@ -1,11 +1,11 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { Pencil } from '../../../shared/ui/icons/icons-tools/Pencil';
+import { Pencil } from 'shared/ui/icons/icons-tools/Pencil.tsx';
 import { getId, HandleSubmitFeedback } from './libr/handlers';
 import { TypesFeedbackForm } from './libr/typesFeedback';
-import { LoadingWithBackground } from '../../../entities/loading/LoadingWithBackground';
+import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 import { useState } from 'react';
-import { getTokensFromStorage } from '../../../widgets/header/libr/authentication/getTokensFromStorage';
+import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { useTranslation } from 'react-i18next';
 
 export const FeedbackForm = () => {

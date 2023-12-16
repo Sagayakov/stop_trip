@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
-import { useAppSelector } from '../../../../../../app/store/hooks';
-import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
+import { useAppSelector } from 'app/store/hooks.ts';
+import { Eye } from 'shared/ui/icons/icons-tools/Eye.tsx';
 import '../../libr/inputEmail.scss';
 import { AuthData } from '../../libr/EnterType';
 import { toast } from 'react-toastify';

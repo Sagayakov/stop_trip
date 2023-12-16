@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { url } from '../../../../shared/const/url';
+import { url } from 'shared/const/url.ts';
 
 type LogoProps = {
     isFooter?: boolean;

@@ -1,7 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
-import { useGetFiltersQuery } from '../../../app/api/fetchAdverts';
-import { ChoicesType, SelectType } from '../../../app/api/types/filtersType';
+import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

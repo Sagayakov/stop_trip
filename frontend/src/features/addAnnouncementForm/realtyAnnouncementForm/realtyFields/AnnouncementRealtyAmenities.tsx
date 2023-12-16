@@ -1,7 +1,7 @@
-import { UniversalCheckboxGroup } from '../../../../entities/universalDropdown';
+import { UniversalCheckboxGroup } from 'entities/universalEntites';
 import { UseFormRegister } from 'react-hook-form';
-import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-import { valuesOfPropertyForm } from '../../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
