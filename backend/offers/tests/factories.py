@@ -41,11 +41,51 @@ from offers.models import (
     PropertyCity,
     PropertyDistrict,
 )
+from countries.models import (
+    Country,
+    Region,
+    City,
+)
+
+
+class CountryFactory(factory.django.DjangoModelFactory):
+    """Фабрика страны"""
+
+    name = factory.Faker("country")
+    slug = factory.Sequence(lambda x: f"slug_{x}")
+
+    class Meta:
+        model = Country
+
+
+class RegionFactory(factory.django.DjangoModelFactory):
+    """Фабрика региона."""
+
+    name = factory.Faker("word")
+    slug = factory.Sequence(lambda x: f"slug_{x}")
+    country = factory.SubFactory(CountryFactory)
+
+    class Meta:
+        model = Region
+
+
+class CityFactory(factory.django.DjangoModelFactory):
+    """Фабрика города."""
+
+    name = factory.Faker("city")
+    slug = factory.Sequence(lambda x: f"slug_{x}")
+    region = factory.SubFactory(RegionFactory)
+
+    class Meta:
+        model = City
 
 
 class BaseAdvertisementFactory(factory.django.DjangoModelFactory):
     """Базовая фабрика объявлений."""
 
+    country = factory.SubFactory(CountryFactory)
+    region = factory.SubFactory(RegionFactory)
+    city = factory.SubFactory(CityFactory)
     category = fuzzy.FuzzyChoice(choices=CategoryChoices.values)
     title = factory.Faker("word")
     price = factory.Faker("pyint", min_value=1000, max_value=10_000)
@@ -68,33 +108,10 @@ class AdvertisementImageFactory(factory.django.DjangoModelFactory):
         model = AdvertisementImage
 
 
-class PropertyCityFactory(factory.django.DjangoModelFactory):
-    """Фабрика города недвижимости"""
-
-    name = factory.Faker("word")
-    slug = factory.Sequence(lambda x: f"slug_{x}")
-
-    class Meta:
-        model = PropertyCity
-
-
-class PropertyDistrictFactory(factory.django.DjangoModelFactory):
-    """Фабрика района недвижимости."""
-
-    name = factory.Faker("word")
-    slug = factory.Sequence(lambda x: f"slug_{x}")
-    city = factory.SubFactory(PropertyCityFactory)
-
-    class Meta:
-        model = PropertyDistrict
-
-
 class PropertyAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по недвижимости."""
 
     property_type_of_service = fuzzy.FuzzyChoice(choices=PropertyTypeOfService.values)
-    property_city = factory.SubFactory(PropertyCityFactory)
-    property_district = factory.SubFactory(PropertyDistrictFactory)
     property_building_max_floor = factory.Faker("pyint", min_value=1, max_value=15)
     property_floor = factory.Faker("pyint", min_value=1, max_value=15)
     property_bathroom_count = factory.Faker("pyint", min_value=1, max_value=3)
@@ -105,7 +122,9 @@ class PropertyAdvertisementFactory(BaseAdvertisementFactory):
     property_has_furniture = True
     property_house_type = fuzzy.FuzzyChoice(choices=PropertyHouseType.values)
     property_has_parking = True
-    property_rental_condition = fuzzy.FuzzyChoice(choices=PropertyRentalCondition.values)
+    property_rental_condition = fuzzy.FuzzyChoice(
+        choices=PropertyRentalCondition.values
+    )
     property_prepayment = fuzzy.FuzzyChoice(choices=PropertyPrepayment.values)
     property_sleeping_places = factory.Faker("pyint", min_value=1, max_value=8)
     property_rooms_count = factory.Faker("pyint", min_value=1, max_value=5)
@@ -164,11 +183,17 @@ class TransportAdvertisementFactory(BaseAdvertisementFactory):
         "random_element",
         elements=[float(i / 10) for i in range(10, 100)],
     )
-    transport_transmission_type = fuzzy.FuzzyChoice(choices=TransportTransmissionType.values)
+    transport_transmission_type = fuzzy.FuzzyChoice(
+        choices=TransportTransmissionType.values
+    )
     transport_body_type = fuzzy.FuzzyChoice(choices=TransportBodyType.values)
     transport_condition = fuzzy.FuzzyChoice(choices=TransportCondition.values)
-    transport_passengers_quality = factory.Faker(provider="pyint", min_value=0, max_value=100)
-    transport_commission = factory.Faker(provider="pyint", min_value=100, max_value=5_000)
+    transport_passengers_quality = factory.Faker(
+        provider="pyint", min_value=0, max_value=100
+    )
+    transport_commission = factory.Faker(
+        provider="pyint", min_value=100, max_value=5_000
+    )
 
 
 class ServiceAdvertisementFactory(BaseAdvertisementFactory):
@@ -206,7 +231,9 @@ class CurrencyFactory(factory.django.DjangoModelFactory):
     """Фабрика валюты."""
 
     name = factory.Faker("word")
-    short_name = factory.Sequence(lambda x: f"{random_letter()}{random_letter()}{random_letter()}")
+    short_name = factory.Sequence(
+        lambda x: f"{random_letter()}{random_letter()}{random_letter()}"
+    )
 
     class Meta:
         model = Currency

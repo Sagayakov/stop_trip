@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",
     "feedback.apps.FeedbackConfig",
+    "countries.apps.CountryConfig"
+
 ]
 
 MIDDLEWARE = [
@@ -73,8 +75,10 @@ if DEBUG:
     INSTALLED_APPS.append("debug_toolbar")
     MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
 
+
     def show_toolbar_callback(_):
         return DEBUG
+
 
     DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "config.settings.show_toolbar_callback"}
 

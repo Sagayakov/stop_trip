@@ -83,7 +83,9 @@ class AdvertisementViewSetTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(advertisements) // len(CategoryChoices.values))
+        self.assertEqual(
+            len(res_json), len(advertisements) // len(CategoryChoices.values)
+        )
 
     def test_filter_price(self):
         user = UserFactory()
@@ -95,7 +97,10 @@ class AdvertisementViewSetTest(APITestCase):
         with self.assertNumQueries(2):
             res = self.client.get(
                 self.list_url,
-                {"price_min": advertisements[1].price, "price_max": advertisements[-2].price},
+                {
+                    "price_min": advertisements[1].price,
+                    "price_max": advertisements[-2].price,
+                },
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -119,7 +124,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res_json[-1]["id"], advertisements[0].id)
 
     def test_get_filter_params(self):
-        with self.assertNumQueries(16):
+        with self.assertNumQueries(14):
             res = self.client.get(self.get_filter_params_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -145,15 +150,19 @@ class AdvertisementViewSetTest(APITestCase):
                 self.assertEqual(len(spec["choices"]), len([True, False]))
             # property
             elif spec["name"] == "property_type_of_service":
-                self.assertEqual(len(spec["choices"]), len(PropertyTypeOfService.choices))
-            elif spec["name"] == "property_city":
-                self.assertEqual(len(spec["choices"]), 0)
-            elif spec["name"] == "property_district":
-                self.assertEqual(len(spec["choices"]), 0)
+                self.assertEqual(
+                    len(spec["choices"]), len(PropertyTypeOfService.choices)
+                )
+            # elif spec["name"] == "property_city":
+            #     self.assertEqual(len(spec["choices"]), 0)
+            # elif spec["name"] == "property_district":
+            #     self.assertEqual(len(spec["choices"]), 0)
             elif spec["name"] == "property_bathroom_count":
                 self.assertEqual(len(spec["choices"]), 0)
             elif spec["name"] == "property_bathroom_type":
-                self.assertEqual(len(spec["choices"]), len(PropertyBathroomType.choices))
+                self.assertEqual(
+                    len(spec["choices"]), len(PropertyBathroomType.choices)
+                )
             elif spec["name"] == "property_house_type":
                 self.assertEqual(len(spec["choices"]), len(PropertyHouseType.choices))
             elif spec["name"] == "property_sleeping_places":
@@ -161,7 +170,9 @@ class AdvertisementViewSetTest(APITestCase):
             elif spec["name"] == "property_rooms_count":
                 self.assertTrue(len(spec["range"]))
             elif spec["name"] == "property_rental_condition":
-                self.assertEqual(len(spec["choices"]), len(PropertyRentalCondition.choices))
+                self.assertEqual(
+                    len(spec["choices"]), len(PropertyRentalCondition.choices)
+                )
             elif spec["name"] == "property_area":
                 self.assertTrue(len(spec["range"]))
             elif spec["name"] == "property_has_furniture":
@@ -178,7 +189,9 @@ class AdvertisementViewSetTest(APITestCase):
                 self.assertEqual(len(spec["choices"]), len(TaxiType.choices))
             # transport
             elif spec["name"] == "transport_type_of_service":
-                self.assertEqual(len(spec["choices"]), len(TransportTypeOfService.choices))
+                self.assertEqual(
+                    len(spec["choices"]), len(TransportTypeOfService.choices)
+                )
             elif spec["name"] == "transport_type":
                 self.assertEqual(len(spec["choices"]), len(TransportType.choices))
             elif spec["name"] == "transport_category":
@@ -196,7 +209,9 @@ class AdvertisementViewSetTest(APITestCase):
             elif spec["name"] == "transport_year_of_production":
                 self.assertTrue(len(spec["range"]))
             elif spec["name"] == "transport_transmission_type":
-                self.assertEqual(len(spec["choices"]), len(TransportTransmissionType.choices))
+                self.assertEqual(
+                    len(spec["choices"]), len(TransportTransmissionType.choices)
+                )
             elif spec["name"] == "transport_body_type":
                 self.assertEqual(len(spec["choices"]), len(TransportBodyType.choices))
             elif spec["name"] == "transport_condition":

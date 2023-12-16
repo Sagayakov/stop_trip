@@ -18,14 +18,6 @@ class PropertyAmenitySerializer(serializers.ModelSerializer):
 class PropertyCreateSerializer(AdvertisementCreateSerializer):
     """Сериализатор создания объекта недвижимости."""
 
-    property_city = serializers.PrimaryKeyRelatedField(
-        queryset=PropertyCity.objects.all(),
-        required=True,
-    )
-    property_district = serializers.PrimaryKeyRelatedField(
-        queryset=PropertyDistrict.objects.all(),
-        required=True,
-    )
     property_type_of_service = serializers.CharField(required=True)
     property_building_max_floor = serializers.IntegerField(required=True)
     property_floor = serializers.IntegerField(required=True)
@@ -48,8 +40,6 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
         model = Advertisement
         fields = AdvertisementCreateSerializer.Meta.fields + (
             "property_type_of_service",
-            "property_city",
-            "property_district",
             "property_building_max_floor",
             "property_floor",
             "property_bathroom_count",

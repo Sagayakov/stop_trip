@@ -1,14 +1,26 @@
 from rest_framework import serializers
-
 from users.models import User
 from ..constants import CategoryChoices
-from ..models import Advertisement, AdvertisementImage, PropertyCity, PropertyAmenity
+from ..models import Advertisement, AdvertisementImage, PropertyAmenity
+from countries.models import Country, Region, City
+from countries.serializers import CountrySerializer, RegionSerializer, CitySerializer
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
     """Сериализатор создания объявления."""
 
-    owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
+    owner = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(), required=False
+    )
+    country = serializers.PrimaryKeyRelatedField(
+        queryset=Country.objects.all(), required=True
+    )
+    region = serializers.PrimaryKeyRelatedField(
+        queryset=Region.objects.all(), required=True
+    )
+    city = serializers.PrimaryKeyRelatedField(
+        queryset=City.objects.all(), required=True
+    )
     category = serializers.ChoiceField(choices=CategoryChoices.choices, required=True)
     title = serializers.CharField(required=True, max_length=100)
 
@@ -18,6 +30,9 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
         model = Advertisement
         fields = (
             "category",
+            "country",
+            "region",
+            "city",
             "title",
             "price",
             "description",
@@ -31,14 +46,6 @@ class AdvertisementImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = AdvertisementImage
         fields = ("image",)
-
-
-class AdvertisementPropertyCitySerializer(serializers.ModelSerializer):
-    """Сериализатор города объявления."""
-
-    class Meta:
-        model = PropertyCity
-        fields = ("name",)
 
 
 class AdvertisementPropertyAmenitySerializer(serializers.ModelSerializer):
@@ -62,12 +69,18 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
 
     images = AdvertisementImageSerializer(many=True)
     owner = UserSerializer(read_only=True)
+    country = CountrySerializer(read_only=True)
+    region = RegionSerializer(read_only=True)
+    city = CitySerializer(read_only=True)
 
     class Meta:
         model = Advertisement
         fields = (
             "id",
             "category",
+            "country",
+            "region",
+            "city",
             "title",
             "price",
             "description",
@@ -81,8 +94,12 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
     """Сериализатор деталки объявления."""
 
     images = AdvertisementImageSerializer(many=True)
-    property_city = AdvertisementPropertyCitySerializer(required=False)
-    property_amenities = AdvertisementPropertyAmenitySerializer(many=True, required=False)
+    country = CountrySerializer(read_only=True)
+    region = RegionSerializer(read_only=True)
+    city = CitySerializer(read_only=True)
+    property_amenities = AdvertisementPropertyAmenitySerializer(
+        many=True, required=False
+    )
     owner = UserSerializer(read_only=True)
 
     class Meta:
@@ -93,9 +110,21 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
 class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     """Сериализатор обновления объявления."""
 
-    owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
+    owner = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(), required=False
+    )
+    country = serializers.PrimaryKeyRelatedField(
+        queryset=Country.objects.all(), required=False
+    )
+    region = serializers.PrimaryKeyRelatedField(
+        queryset=Region.objects.all(), required=False
+    )
+    city = serializers.PrimaryKeyRelatedField(
+        queryset=City.objects.all(), required=False
+    )
     category = serializers.CharField(required=False)
     title = serializers.CharField(required=False)
+
     # price = serializers.IntegerField(required=False)
 
     class Meta:

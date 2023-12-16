@@ -36,15 +36,37 @@ class Advertisement(
         verbose_name="Создатель",
     )
 
-    category = models.CharField("Категории", max_length=100, choices=CategoryChoices.choices)
+    country = models.ForeignKey(
+        "countries.Country",
+        on_delete=models.CASCADE,
+        related_name="advertisement",
+        verbose_name="Страна",
+    )
+    region = models.ForeignKey(
+        "countries.Region",
+        on_delete=models.CASCADE,
+        related_name="advertisement",
+        verbose_name="Регион",
+    )
+    city = models.ForeignKey(
+        "countries.City",
+        on_delete=models.CASCADE,
+        related_name="advertisement",
+        verbose_name="Город",
+    )
+    category = models.CharField(
+        "Категории", max_length=100, choices=CategoryChoices.choices
+    )
     title = models.CharField("Название", max_length=100)
-    price = models.PositiveIntegerField("Цена", null=True, blank=True)
+    price = models.DecimalField(
+        "Цена", max_digits=10, decimal_places=2, null=True, blank=True
+    )
     coordinates = PlainLocationField(verbose_name="Координаты", blank=True)
     description = models.TextField("Описание", max_length=1000, null=True, blank=True)
     is_published = models.BooleanField("Опубликованно", default=True)
     date_create = models.DateTimeField("Дата создания", auto_now_add=True)
     date_update = models.DateTimeField("Дата редактирования", auto_now=True)
-    # location = models.CharField("Локация", max_length=128, null=True, blank=True)
+    # loca = models.CharField("Локация", max_length=128, null=True, blank=True)
     slug = models.SlugField("Слаг", blank=True, null=True, db_index=True, unique=True)
 
     class Meta:

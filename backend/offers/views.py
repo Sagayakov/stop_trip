@@ -45,7 +45,9 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     # TODO добавить пагинацию
 
     def get_queryset(self):
-        queryset = Advertisement.objects.filter(is_published=True).select_related("owner")
+        queryset = Advertisement.objects.filter(is_published=True).select_related(
+            "owner", "country", "region", "city"
+        )
 
         if self.action in [self.list.__name__, self.retrieve.__name__]:
             queryset = queryset.prefetch_related("images")
@@ -56,8 +58,6 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 "transport_model",
                 "proposed_currency",
                 "exchange_for",
-                "property_city",
-                "property_district",
             ).prefetch_related("property_amenities")
 
         return queryset
@@ -101,7 +101,10 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
     def get_permissions(self):
         if self.action in self.custom_permission_classes.keys():
-            return [permission() for permission in self.custom_permission_classes[self.action]]
+            return [
+                permission()
+                for permission in self.custom_permission_classes[self.action]
+            ]
         return [permission() for permission in self.permission_classes]
 
     def create(self, request, *args, **kwargs):

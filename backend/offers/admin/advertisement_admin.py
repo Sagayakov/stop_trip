@@ -21,6 +21,9 @@ class AdvertisementAdmin(ModelAdmin):
             {
                 "fields": (
                     "owner",
+                    "country",
+                    "region",
+                    "city",
                     "category",
                     "title",
                     "slug",
@@ -59,8 +62,6 @@ class AdvertisementAdmin(ModelAdmin):
                 "classes": ("collapse",),
                 "fields": (
                     "property_type_of_service",
-                    "property_city",
-                    "property_district",
                     "property_building_max_floor",
                     "property_floor",
                     "property_bathroom_count",
