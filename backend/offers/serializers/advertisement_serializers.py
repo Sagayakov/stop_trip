@@ -38,7 +38,7 @@ class AdvertisementPropertyCitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PropertyCity
-        fields = ("name",)
+        fields = ("name", "slug")
 
 
 class AdvertisementPropertyAmenitySerializer(serializers.ModelSerializer):
@@ -46,7 +46,7 @@ class AdvertisementPropertyAmenitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PropertyAmenity
-        fields = ("name",)
+        fields = ("name", "slug")
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -4,6 +4,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.pagination import PageNumberPagination
 
 from common.filters import GetFilterParams
 from users.models import User
@@ -42,7 +43,8 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         "get_filter_params": [AllowAny],
     }
     filterset_class = AdvertisementFilter
-    # TODO добавить пагинацию
+    pagination_class = PageNumberPagination
+    page_size = 12
 
     def get_queryset(self):
         queryset = Advertisement.objects.filter(is_published=True).select_related("owner")

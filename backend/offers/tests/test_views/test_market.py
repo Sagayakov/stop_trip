@@ -95,9 +95,9 @@ class MarketTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(self.list_url, {" market_condition": MarketCondition.USED.value})
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(market_set))
+        self.assertEqual(res_json["count"], len(market_set))
