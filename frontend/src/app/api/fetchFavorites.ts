@@ -8,7 +8,7 @@ export const fetchFavorites = createApi({
     tagTypes: ['Favorites'],
     baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
     endpoints: (build) => ({
-        getFavorites: build.query<LastAdvertsTypes[], string>({
+        getFavorites: build.query<LastAdvertsTypes, string>({
             query: () => ({
                 url: 'api/favorites/',
                 method: 'GET',
@@ -17,7 +17,7 @@ export const fetchFavorites = createApi({
             providesTags: (result) =>
                 result
                     ? [
-                          ...result.map(({ id }) => ({
+                          ...result.results.map(({ id }) => ({
                               type: 'Favorites' as const,
                               id,
                           })),

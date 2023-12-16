@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
+import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
 import { Favorite } from 'shared/ui/icons/icons-tools/Favorite.tsx';
 import { GetDateOfCreating } from './libr/getDateOfCreating';
 import {
@@ -12,7 +12,7 @@ import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
-export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
+export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
     const {
         price,
         title,
@@ -31,7 +31,7 @@ export const Cart = ({ cart }: { cart: LastAdvertsTypes }) => {
     const [addToFav, setAddToFav] = useState(false);
 
     useEffect(() => {
-        const target = data?.find((el) => el.id === id);
+        const target = data?.results.find((el) => el.id === id);
         isAuth && setAddToFav(!!target);
     }, [data, id, isAuth]);
 
