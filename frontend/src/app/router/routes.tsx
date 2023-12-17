@@ -7,6 +7,7 @@ import { ResetPassword } from 'pages/resetPassword/ResetPassword.tsx';
 import { AdvertPage } from 'pages/advertPage/AdvertPage.tsx';
 import { AddAnnouncementPage } from 'pages/addAnnouncement/AddAnnouncementPage.tsx'
 import { PageNotFound } from 'pages/notFound/PageNotFound.tsx';
+import { MyAnnouncements } from 'pages/myAnnouncements/MyAnnouncements.tsx';
 
 interface Route {
     path: string;
@@ -32,5 +33,6 @@ export const privateRoutes: Route[] = [
     { path: '/add-announcement', component: AddAnnouncementPage },
     { path: '/:category/:id', component: AdvertPage },
     { path: '/404', component: PageNotFound },
+    { path: '/my-announcements', component: MyAnnouncements },
     ...categoryRoutes,
 ];
