@@ -1,7 +1,8 @@
 from rest_framework.routers import DefaultRouter
 
 from favorites.views import FavoriteViewSet
-from offers.views import AdvertisementModelViewSet, UserAdvertisementModelView
+from offers.views import AdvertisementModelViewSet
+from users.viewsets import UserAdvertisementModelView
 from users.views import RateViewSet
 from feedback.views import FeedbackModelViewSet
 
