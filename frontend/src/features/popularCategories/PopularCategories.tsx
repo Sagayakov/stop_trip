@@ -5,15 +5,15 @@ import { AllCategories, ModalWindow } from 'entities/controls';
 import { categories } from 'shared/const/categories.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
-import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
-import { GetSpelling } from './libr/getSpelling';
+// import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
+// import { GetSpelling } from './libr/getSpelling';
 import { useTranslation } from 'react-i18next';
 
 const PopularCategories = () => {
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
     const { isMobile } = useMatchMedia();
-    const { data } = useGetAdvertsQuery('');
+    // const { data } = useGetAdvertsQuery('');
     const { t } = useTranslation();
 
     return (
@@ -40,9 +40,9 @@ const PopularCategories = () => {
                         .filter((el) => el[0] !== 'event')
                         .map((el) => {
                             const { icon: Icon } = el[1];
-                            const offersAmount = data?.results.filter(
-                                (item) => item.category === el[0]
-                            ).length;
+                            // const offersAmount = data?.results.filter(
+                            //     (item) => item.category === el[0]
+                            // ).length;
                             const category = el[0];
                             return (
                                 <div
