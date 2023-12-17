@@ -199,8 +199,9 @@
                 gap: 8px;
                 .category {
                     padding: 8px 12px;
-                    height: auto;
+                    height: 100%;
                     width: auto;
+                    //min-width: 19%;
 
                     & svg {
                         width: 30px;
@@ -209,15 +210,13 @@
                     p {
                         font-weight: 500;
                         font-size: 14px;
-                        width: auto;
                     }
                     span {
                         display: none;
                     }
                 }
-                .realty {
-                    width: 126px;
-                    min-width: 125px;
+                .category:first-child {
+                    min-width: 115px;
                 }
                 .transport {
                     min-width: 106px;

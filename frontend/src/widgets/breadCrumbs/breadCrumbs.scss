@@ -1,6 +1,6 @@
 .bread-crumbs {
     max-width: 1240px;
-    margin: 0 !important;
+    margin: auto;
     color: var(--grey-3);
     font-size: 14px;
     a {
@@ -12,5 +12,14 @@
 @media (max-width: 1440px) {
     .bread-crumbs {
         width: 85%;
+    }
+}
+
+@media (max-width: 767px) {
+    .bread-crumbs {
+        .link-main {
+            display: flex;
+            cursor: pointer;
+        }
     }
 }

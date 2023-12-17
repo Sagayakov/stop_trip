@@ -5,7 +5,7 @@ interface Props {
 }
 interface Style {
     marginRight: string;
-    cursor: string;
+    cursor?: string;
 }
 
 export const ArrowLeft10x24 = ({
@@ -13,7 +13,9 @@ export const ArrowLeft10x24 = ({
     style,
     handleClickPrev,
 }: Props) => {
-    const handleClick = (event:  React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    const handleClick = (
+        event: React.MouseEvent<SVGSVGElement, MouseEvent>
+    ) => {
         event.stopPropagation();
         handleClickPrev && handleClickPrev();
     };

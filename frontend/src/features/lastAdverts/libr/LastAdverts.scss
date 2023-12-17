@@ -6,6 +6,9 @@ a {
     width: 1440px;
     margin: 0px auto 50px;
     .last-announcement-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 1240px;
         margin: 0 auto 40px;
         font-family: var(--font-inter);
@@ -13,6 +16,7 @@ a {
             text-align: center;
         }
         h3 {
+            align-self: flex-start;
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 40px;
@@ -126,7 +130,7 @@ a {
             h3 {
                 font-size: 2rem;
                 font-weight: 700;
-                margin-bottom: 40px;
+                margin-bottom: 20px;
             }
         }
     }
@@ -145,13 +149,13 @@ a {
             }
             h3 {
                 font-size: 1.5rem;
-                font-weight: 600;
-                margin-bottom: 18px;
+                font-weight: 700;
+                margin-bottom: 10px;
             }
             .announcement-list {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 1rem;
-                margin: 20px auto;
+                margin: 0 auto;
                 justify-content: space-between;
                 justify-items: center;
                 .announcement-cart {
@@ -208,6 +212,9 @@ a {
 @media (max-width: 615px) {
     .last-announcement {
         .last-announcement-wrapper {
+            h3 {
+                font-size: 1rem;
+            }
             .announcement-list {
                 grid-template-columns: repeat(2, 1fr);
                 .announcement-cart {

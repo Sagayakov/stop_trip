@@ -1,5 +1,5 @@
 import { Suspense, lazy, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 const Controls = lazy(() => import('../../features/controls/Controls'));
 import { Pagination } from 'features/pagination';
@@ -55,9 +55,12 @@ import './style/425-767-category-page.scss';
 import './style/min-424-category-page.scss';
 const AnyCategory = lazy(() => import('../../widgets/anyCategory/AnyCategory'));
 import { useTranslation } from 'react-i18next';
+import { useGetAdvertsQuery } from 'app/api/fetchAdverts';
 
 export const CategoryPage = () => {
     const category = location.pathname.split('/')[1];
+    const queryParam = useLocation().search;
+    const { data } = useGetAdvertsQuery(queryParam);
 
     const [showFilters, setShowFilters] = useState<boolean>(false);
     const { isDesktop } = useMatchMedia();
@@ -176,7 +179,7 @@ export const CategoryPage = () => {
                     <AnyCategory />
                 </Suspense>
             </div>
-            <Pagination />
+            <Pagination data={data} />
         </>
     );
 };
