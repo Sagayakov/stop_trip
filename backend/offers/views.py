@@ -101,10 +101,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
     def get_permissions(self):
         if self.action in self.custom_permission_classes.keys():
-            return [
-                permission()
-                for permission in self.custom_permission_classes[self.action]
-            ]
+            return [permission() for permission in self.custom_permission_classes[self.action]]
         return [permission() for permission in self.permission_classes]
 
     def create(self, request, *args, **kwargs):

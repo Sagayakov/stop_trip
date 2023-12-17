@@ -58,9 +58,7 @@ class FoodTest(APITestCase):
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
         self.assertEqual(new_advertisement.food_delivery, payload["food_delivery"])
-        self.assertEqual(
-            new_advertisement.food_establishment, payload["food_establishment"]
-        )
+        self.assertEqual(new_advertisement.food_establishment, payload["food_establishment"])
         self.assertEqual(new_advertisement.food_type, payload["food_type"])
 
     def test_update_food(self):
@@ -90,9 +88,7 @@ class FoodTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(9):
-            res = self.client.put(
-                self.detail_url(kwargs={"pk": advertisement.id}), data=payload
-            )
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -106,9 +102,7 @@ class FoodTest(APITestCase):
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
         self.assertEqual(advertisement.food_delivery, payload["food_delivery"])
-        self.assertEqual(
-            advertisement.food_establishment, payload["food_establishment"]
-        )
+        self.assertEqual(advertisement.food_establishment, payload["food_establishment"])
         self.assertEqual(advertisement.food_type, payload["food_type"])
 
     def test_delete_food(self):

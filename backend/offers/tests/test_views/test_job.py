@@ -89,9 +89,7 @@ class JobTest(APITestCase):
 
         self.client.force_login(user)
         with self.assertNumQueries(9):
-            res = self.client.put(
-                self.detail_url(kwargs={"pk": advertisement.id}), data=payload
-            )
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -166,9 +164,7 @@ class JobTest(APITestCase):
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 job_type=JobType.FULL_TIME,
-                job_duration=[JobDurationType.ONE_TIME_TASK, JobDurationType.TEMPORARY][
-                    _ % 2
-                ],
+                job_duration=[JobDurationType.ONE_TIME_TASK, JobDurationType.TEMPORARY][_ % 2],
                 job_payment_type=JobPaymentType.HOURLY_PAYMENT,
                 job_experience=True,
             )

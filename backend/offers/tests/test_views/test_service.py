@@ -51,9 +51,7 @@ class ServiceTest(APITestCase):
         self.assertEqual(new_advertisement.owner, user)
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
-        self.assertEqual(
-            new_advertisement.service_home_visit, payload["service_home_visit"]
-        )
+        self.assertEqual(new_advertisement.service_home_visit, payload["service_home_visit"])
 
     def test_update_service(self):
         user = UserFactory()
@@ -83,9 +81,7 @@ class ServiceTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(9):
-            res = self.client.put(
-                self.detail_url(kwargs={"pk": advertisement.id}), data=payload
-            )
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)

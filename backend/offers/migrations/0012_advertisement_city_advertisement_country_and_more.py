@@ -5,29 +5,46 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('countries', '0001_initial'),
-        ('offers', '0011_rename_home_visit_advertisement_service_home_visit'),
+        ("countries", "0001_initial"),
+        ("offers", "0011_rename_home_visit_advertisement_service_home_visit"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='advertisement',
-            name='city',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='advertisement', to='countries.city', verbose_name='Город'),
+            model_name="advertisement",
+            name="city",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="advertisement",
+                to="countries.city",
+                verbose_name="Город",
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='advertisement',
-            name='country',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='advertisement', to='countries.country', verbose_name='Страна'),
+            model_name="advertisement",
+            name="country",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="advertisement",
+                to="countries.country",
+                verbose_name="Страна",
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='advertisement',
-            name='region',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='advertisement', to='countries.region', verbose_name='Регион'),
+            model_name="advertisement",
+            name="region",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="advertisement",
+                to="countries.region",
+                verbose_name="Регион",
+            ),
             preserve_default=False,
         ),
     ]

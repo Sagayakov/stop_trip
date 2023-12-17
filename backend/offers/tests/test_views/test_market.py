@@ -55,9 +55,7 @@ class MarketTest(APITestCase):
         self.assertEqual(new_advertisement.category, payload["category"])
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
-        self.assertEqual(
-            new_advertisement.market_condition, payload["market_condition"]
-        )
+        self.assertEqual(new_advertisement.market_condition, payload["market_condition"])
 
     def test_update_market(self):
         user = UserFactory()
@@ -84,9 +82,7 @@ class MarketTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(9):
-            res = self.client.put(
-                self.detail_url(kwargs={"pk": advertisement.id}), data=payload
-            )
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -133,9 +129,7 @@ class MarketTest(APITestCase):
             for _ in range(2)
         ]
         with self.assertNumQueries(2):
-            res = self.client.get(
-                self.list_url, {" market_condition": MarketCondition.USED.value}
-            )
+            res = self.client.get(self.list_url, {" market_condition": MarketCondition.USED.value})
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()

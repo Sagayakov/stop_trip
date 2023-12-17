@@ -107,42 +107,28 @@ class PropertyTest(APITestCase):
             new_advertisement.property_bathroom_type, payload["property_bathroom_type"]
         )
         self.assertEqual(new_advertisement.property_area, payload["property_area"])
-        self.assertEqual(
-            new_advertisement.property_living_area, payload["property_living_area"]
-        )
-        self.assertEqual(
-            new_advertisement.property_balcony, payload["property_balcony"]
-        )
+        self.assertEqual(new_advertisement.property_living_area, payload["property_living_area"])
+        self.assertEqual(new_advertisement.property_balcony, payload["property_balcony"])
         self.assertEqual(
             new_advertisement.property_has_furniture, payload["property_has_furniture"]
         )
-        self.assertEqual(
-            new_advertisement.property_house_type, payload["property_house_type"]
-        )
-        self.assertEqual(
-            new_advertisement.property_has_parking, payload["property_has_parking"]
-        )
+        self.assertEqual(new_advertisement.property_house_type, payload["property_house_type"])
+        self.assertEqual(new_advertisement.property_has_parking, payload["property_has_parking"])
         self.assertEqual(
             new_advertisement.property_rental_condition,
             payload["property_rental_condition"],
         )
-        self.assertEqual(
-            new_advertisement.property_prepayment, payload["property_prepayment"]
-        )
+        self.assertEqual(new_advertisement.property_prepayment, payload["property_prepayment"])
         self.assertEqual(
             new_advertisement.property_sleeping_places,
             payload["property_sleeping_places"],
         )
-        self.assertEqual(
-            new_advertisement.property_rooms_count, payload["property_rooms_count"]
-        )
+        self.assertEqual(new_advertisement.property_rooms_count, payload["property_rooms_count"])
         self.assertEqual(
             new_advertisement.property_amenities.count(),
             len(payload["property_amenities"]),
         )
-        self.assertEqual(
-            new_advertisement.property_commission, payload["property_commission"]
-        )
+        self.assertEqual(new_advertisement.property_commission, payload["property_commission"])
 
     def test_update_property(self):
         user = UserFactory()
@@ -208,9 +194,7 @@ class PropertyTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(15):
-            res = self.client.put(
-                self.detail_url(kwargs={"pk": advertisement.id}), data=payload
-            )
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -233,42 +217,24 @@ class PropertyTest(APITestCase):
             payload["property_building_max_floor"],
         )
         self.assertEqual(advertisement.property_floor, payload["property_floor"])
-        self.assertEqual(
-            advertisement.property_bathroom_count, payload["property_bathroom_count"]
-        )
-        self.assertEqual(
-            advertisement.property_bathroom_type, payload["property_bathroom_type"]
-        )
+        self.assertEqual(advertisement.property_bathroom_count, payload["property_bathroom_count"])
+        self.assertEqual(advertisement.property_bathroom_type, payload["property_bathroom_type"])
         self.assertEqual(advertisement.property_area, payload["property_area"])
-        self.assertEqual(
-            advertisement.property_living_area, payload["property_living_area"]
-        )
+        self.assertEqual(advertisement.property_living_area, payload["property_living_area"])
         self.assertEqual(advertisement.property_balcony, payload["property_balcony"])
-        self.assertEqual(
-            advertisement.property_has_furniture, payload["property_has_furniture"]
-        )
-        self.assertEqual(
-            advertisement.property_house_type, payload["property_house_type"]
-        )
-        self.assertEqual(
-            advertisement.property_has_parking, payload["property_has_parking"]
-        )
+        self.assertEqual(advertisement.property_has_furniture, payload["property_has_furniture"])
+        self.assertEqual(advertisement.property_house_type, payload["property_house_type"])
+        self.assertEqual(advertisement.property_has_parking, payload["property_has_parking"])
         self.assertEqual(
             advertisement.property_rental_condition,
             payload["property_rental_condition"],
         )
-        self.assertEqual(
-            advertisement.property_prepayment, payload["property_prepayment"]
-        )
-        self.assertEqual(
-            advertisement.property_commission, payload["property_commission"]
-        )
+        self.assertEqual(advertisement.property_prepayment, payload["property_prepayment"])
+        self.assertEqual(advertisement.property_commission, payload["property_commission"])
         self.assertEqual(
             advertisement.property_sleeping_places, payload["property_sleeping_places"]
         )
-        self.assertEqual(
-            advertisement.property_rooms_count, payload["property_rooms_count"]
-        )
+        self.assertEqual(advertisement.property_rooms_count, payload["property_rooms_count"])
         self.assertEqual(
             advertisement.property_amenities.count(), len(payload["property_amenities"])
         )
@@ -452,9 +418,7 @@ class PropertyTest(APITestCase):
                 property_living_area=50,
                 property_balcony=PropertyBalcony.YES,
                 property_has_furniture=True,
-                property_house_type=[PropertyHouseType.BLOCK, PropertyHouseType.BRICK][
-                    _ % 2
-                ],
+                property_house_type=[PropertyHouseType.BLOCK, PropertyHouseType.BRICK][_ % 2],
                 property_has_parking=True,
                 property_rental_condition=PropertyRentalCondition.FAMILY,
                 property_prepayment=PropertyPrepayment.TWO_MONTHS,

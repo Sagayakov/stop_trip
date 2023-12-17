@@ -57,9 +57,7 @@ class ExcursionTest(APITestCase):
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
         self.assertEqual(new_advertisement.excursion_food, payload["excursion_food"])
-        self.assertEqual(
-            new_advertisement.excursion_transfer, payload["excursion_transfer"]
-        )
+        self.assertEqual(new_advertisement.excursion_transfer, payload["excursion_transfer"])
 
     def test_update_excursion(self):
         user = UserFactory()
@@ -87,9 +85,7 @@ class ExcursionTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(9):
-            res = self.client.put(
-                self.detail_url(kwargs={"pk": advertisement.id}), data=payload
-            )
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -103,9 +99,7 @@ class ExcursionTest(APITestCase):
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
         self.assertEqual(advertisement.excursion_food, payload["excursion_food"])
-        self.assertEqual(
-            advertisement.excursion_transfer, payload["excursion_transfer"]
-        )
+        self.assertEqual(advertisement.excursion_transfer, payload["excursion_transfer"])
 
     def test_delete_excursion(self):
         user = UserFactory()

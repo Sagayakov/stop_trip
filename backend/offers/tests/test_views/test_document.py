@@ -58,9 +58,7 @@ class DocumentTest(APITestCase):
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
         self.assertEqual(new_advertisement.document_type, payload["document_type"])
-        self.assertEqual(
-            new_advertisement.document_duration, payload["document_duration"]
-        )
+        self.assertEqual(new_advertisement.document_duration, payload["document_duration"])
 
     def test_update_document(self):
         user = UserFactory()
@@ -88,9 +86,7 @@ class DocumentTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(9):
-            res = self.client.put(
-                self.detail_url(kwargs={"pk": advertisement.id}), data=payload
-            )
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -151,9 +147,7 @@ class DocumentTest(APITestCase):
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 document_type=DocumentType.C_FORM,
-                document_duration=[DocumentDuration.QUARTER, DocumentDuration.OTHER][
-                    _ % 2
-                ],
+                document_duration=[DocumentDuration.QUARTER, DocumentDuration.OTHER][_ % 2],
             )
             for _ in range(2)
         ]

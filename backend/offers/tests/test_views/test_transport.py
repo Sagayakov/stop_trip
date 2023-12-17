@@ -88,17 +88,11 @@ class TransportTest(APITestCase):
             payload["transport_type_of_service"],
         )
         self.assertEqual(new_advertisement.transport_type, payload["transport_type"])
-        self.assertEqual(
-            new_advertisement.transport_category, payload["transport_category"]
-        )
+        self.assertEqual(new_advertisement.transport_category, payload["transport_category"])
         self.assertEqual(new_advertisement.transport_brand, transport_brand)
         self.assertEqual(new_advertisement.transport_model, transport_model)
-        self.assertEqual(
-            new_advertisement.transport_engine_type, payload["transport_engine_type"]
-        )
-        self.assertEqual(
-            new_advertisement.transport_drive_type, payload["transport_drive_type"]
-        )
+        self.assertEqual(new_advertisement.transport_engine_type, payload["transport_engine_type"])
+        self.assertEqual(new_advertisement.transport_drive_type, payload["transport_drive_type"])
         self.assertEqual(
             new_advertisement.transport_engine_volume,
             payload["transport_engine_volume"],
@@ -111,19 +105,13 @@ class TransportTest(APITestCase):
             new_advertisement.transport_transmission_type,
             payload["transport_transmission_type"],
         )
-        self.assertEqual(
-            new_advertisement.transport_body_type, payload["transport_body_type"]
-        )
-        self.assertEqual(
-            new_advertisement.transport_condition, payload["transport_condition"]
-        )
+        self.assertEqual(new_advertisement.transport_body_type, payload["transport_body_type"])
+        self.assertEqual(new_advertisement.transport_condition, payload["transport_condition"])
         self.assertEqual(
             new_advertisement.transport_passengers_quality,
             payload["transport_passengers_quality"],
         )
-        self.assertEqual(
-            new_advertisement.transport_commission, payload["transport_commission"]
-        )
+        self.assertEqual(new_advertisement.transport_commission, payload["transport_commission"])
 
     def test_update_transport(self):
         user = UserFactory()
@@ -186,9 +174,7 @@ class TransportTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(11):
-            res = self.client.put(
-                self.detail_url(kwargs={"pk": advertisement.id}), data=payload
-            )
+            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -206,20 +192,12 @@ class TransportTest(APITestCase):
             payload["transport_type_of_service"],
         )
         self.assertEqual(advertisement.transport_type, payload["transport_type"])
-        self.assertEqual(
-            advertisement.transport_category, payload["transport_category"]
-        )
+        self.assertEqual(advertisement.transport_category, payload["transport_category"])
         self.assertEqual(advertisement.transport_brand, transport_brand)
         self.assertEqual(advertisement.transport_model, new_transport_model)
-        self.assertEqual(
-            advertisement.transport_engine_type, payload["transport_engine_type"]
-        )
-        self.assertEqual(
-            advertisement.transport_drive_type, payload["transport_drive_type"]
-        )
-        self.assertEqual(
-            advertisement.transport_engine_volume, payload["transport_engine_volume"]
-        )
+        self.assertEqual(advertisement.transport_engine_type, payload["transport_engine_type"])
+        self.assertEqual(advertisement.transport_drive_type, payload["transport_drive_type"])
+        self.assertEqual(advertisement.transport_engine_volume, payload["transport_engine_volume"])
         self.assertEqual(
             advertisement.transport_year_of_production,
             payload["transport_year_of_production"],
@@ -228,19 +206,13 @@ class TransportTest(APITestCase):
             advertisement.transport_transmission_type,
             payload["transport_transmission_type"],
         )
-        self.assertEqual(
-            advertisement.transport_body_type, payload["transport_body_type"]
-        )
-        self.assertEqual(
-            advertisement.transport_condition, payload["transport_condition"]
-        )
+        self.assertEqual(advertisement.transport_body_type, payload["transport_body_type"])
+        self.assertEqual(advertisement.transport_condition, payload["transport_condition"])
         self.assertEqual(
             advertisement.transport_passengers_quality,
             payload["transport_passengers_quality"],
         )
-        self.assertEqual(
-            advertisement.transport_commission, payload["transport_commission"]
-        )
+        self.assertEqual(advertisement.transport_commission, payload["transport_commission"])
 
     def test_delete_transport(self):
         user = UserFactory()
@@ -267,8 +239,7 @@ class TransportTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         transport_brands = [
-            TransportBrandFactory(name=name)
-            for name in ["Audi", "BMW", "Honda", "Lada"]
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
         transport_models = [
             TransportModelFactory(name=name, brand=brand)
@@ -322,8 +293,7 @@ class TransportTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         transport_brands = [
-            TransportBrandFactory(name=name)
-            for name in ["Audi", "BMW", "Honda", "Lada"]
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
         transport_models = [
             TransportModelFactory(name=name, brand=brand)
@@ -377,8 +347,7 @@ class TransportTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         transport_brands = [
-            TransportBrandFactory(name=name)
-            for name in ["Audi", "BMW", "Honda", "Lada"]
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
         transport_models = [
             TransportModelFactory(name=name, brand=brand)
@@ -432,8 +401,7 @@ class TransportTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         transport_brands = [
-            TransportBrandFactory(name=name)
-            for name in ["Audi", "BMW", "Honda", "Lada"]
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
         transport_models = [
             TransportModelFactory(name=name, brand=brand)
@@ -484,8 +452,7 @@ class TransportTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         transport_brands = [
-            TransportBrandFactory(name=name)
-            for name in ["Audi", "BMW", "Honda", "Lada"]
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
         transport_models = [
             TransportModelFactory(
@@ -536,8 +503,7 @@ class TransportTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         transport_brands = [
-            TransportBrandFactory(name=name)
-            for name in ["Audi", "BMW", "Honda", "Lada"]
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
         transport_models = [
             TransportModelFactory(name=name, brand=brand)
@@ -591,8 +557,7 @@ class TransportTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         transport_brands = [
-            TransportBrandFactory(name=name)
-            for name in ["Audi", "BMW", "Honda", "Lada"]
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
         transport_models = [
             TransportModelFactory(name=name, brand=brand)
@@ -727,8 +692,7 @@ class TransportTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         transport_brands = [
-            TransportBrandFactory(name=name)
-            for name in ["Audi", "BMW", "Honda", "Lada"]
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
         transport_models = [
             TransportModelFactory(name=name, brand=brand)
@@ -769,9 +733,7 @@ class TransportTest(APITestCase):
         with self.assertNumQueries(2):
             res = self.client.get(
                 self.list_url,
-                {
-                    "transport_transmission_type": TransportTransmissionType.MECHANIC.value
-                },
+                {"transport_transmission_type": TransportTransmissionType.MECHANIC.value},
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -784,8 +746,7 @@ class TransportTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         transport_brands = [
-            TransportBrandFactory(name=name)
-            for name in ["Audi", "BMW", "Honda", "Lada"]
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
         transport_models = [
             TransportModelFactory(name=name, brand=brand)
@@ -839,8 +800,7 @@ class TransportTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         transport_brands = [
-            TransportBrandFactory(name=name)
-            for name in ["Audi", "BMW", "Honda", "Lada"]
+            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
         ]
         transport_models = [
             TransportModelFactory(name=name, brand=brand)
@@ -866,9 +826,7 @@ class TransportTest(APITestCase):
                 transport_year_of_production=2015,
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
                 transport_body_type=TransportBodyType.LIFTBACK,
-                transport_condition=[TransportCondition.USED, TransportCondition.NEW][
-                    _ % 2
-                ],
+                transport_condition=[TransportCondition.USED, TransportCondition.NEW][_ % 2],
                 transport_passengers_quality=5 + 1 * _,
                 transport_commission=1000,
             )
