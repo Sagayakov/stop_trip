@@ -8,6 +8,7 @@ from ..constants import (
     PropertyHouseType,
     PropertyRentalCondition,
     PropertyPrepayment,
+    PropertyType,
 )
 
 
@@ -66,6 +67,10 @@ class AbsProperty(models.Model):
         related_name="advertisements",
         null=True,
         blank=True,
+    )
+
+    property_type = models.CharField(
+        "Тип собственности", max_length=50, choices=PropertyType.choices, null=True, blank=True
     )
 
     property_type_of_service = models.CharField(
