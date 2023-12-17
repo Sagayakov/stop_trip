@@ -5,9 +5,11 @@ import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.ts
 import { Pagination } from '../pagination';
 import './libr/LastAdverts.scss';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from 'app/store/hooks';
 
 const LastAdverts = () => {
-    const { data, isLoading } = useGetAdvertsQuery('');
+    const pageMain = useAppSelector((state) => state.setPageMain.pageMain);
+    const { data, isLoading } = useGetAdvertsQuery(`?page=${pageMain}`);
     const { t } = useTranslation();
 
     return (
