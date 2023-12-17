@@ -339,6 +339,18 @@ class TransportTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
 
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "transport_category": f"{TransportCategory.MOTORCYCLE.value},{TransportCategory.MOPED.value}"
+                },
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(transport_set))
+
     def test_filter_transport_brand(self):
         user = UserFactory()
         transport_brands = [
@@ -467,17 +479,24 @@ class TransportTest(APITestCase):
         with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
-                {
-                    "transport_engine_type": [
-                        TransportEngineType.FUEL.value,
-                        TransportEngineType.DIESEL.value,
-                    ]
-                },
+                {"transport_engine_type": TransportEngineType.FUEL.value},
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
+
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "transport_engine_type": f"{TransportEngineType.FUEL.value},{TransportEngineType.DIESEL.value}"
+                },
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(transport_set))
 
     def test_filter_transport_drive_type(self):
         user = UserFactory()
@@ -520,17 +539,24 @@ class TransportTest(APITestCase):
         with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
-                {
-                    "transport_drive_type": [
-                        TransportDriveType.ALL_WHEEL.value,
-                        TransportDriveType.FRONT_WHEEL.value,
-                    ]
-                },
+                {"transport_drive_type": TransportDriveType.ALL_WHEEL.value},
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
+
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "transport_drive_type": f"{TransportDriveType.ALL_WHEEL},{TransportDriveType.FRONT_WHEEL}"
+                },
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(transport_set))
 
     def test_filter_transport_engine_volume(self):
         user = UserFactory()
@@ -643,16 +669,26 @@ class TransportTest(APITestCase):
             res = self.client.get(
                 self.list_url,
                 {
-                    "transport_transmission_type": [
-                        TransportTransmissionType.MECHANIC.value,
-                        TransportTransmissionType.AUTOMATIC.value,
-                    ]
+                    "transport_transmission_type": TransportTransmissionType.MECHANIC.value,
                 },
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
+
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "transport_transmission_type": f"{TransportTransmissionType.MECHANIC.value},"
+                    f"{TransportTransmissionType.AUTOMATIC.value}"
+                },
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(transport_set))
 
     def test_filter_transport_body_type(self):
         user = UserFactory()
@@ -693,16 +729,25 @@ class TransportTest(APITestCase):
             res = self.client.get(
                 self.list_url,
                 {
-                    "transport_body_type": [
-                        TransportBodyType.LIFTBACK.value,
-                        TransportBodyType.SEDAN.value,
-                    ]
+                    "transport_body_type": TransportBodyType.LIFTBACK.value,
                 },
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
+
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "transport_body_type": f"{TransportBodyType.LIFTBACK.value},{TransportBodyType.SEDAN.value}"
+                },
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(transport_set))
 
     def test_filter_transport_condition(self):
         user = UserFactory()
@@ -742,17 +787,24 @@ class TransportTest(APITestCase):
         with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
-                {
-                    "transport_condition": [
-                        TransportCondition.USED.value,
-                        TransportCondition.NEW.value,
-                    ]
-                },
+                {"transport_condition": TransportCondition.USED.value},
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
+
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "transport_condition": f"{TransportCondition.USED.value},{TransportCondition.NEW.value}"
+                },
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(transport_set))
 
     def test_filter_transport_commission(self):
         user = UserFactory()

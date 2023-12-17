@@ -28,6 +28,7 @@ from offers.constants import (
     DocumentType,
     DocumentDuration,
     MarketCondition,
+    PropertyType,
 )
 from users.tests.factories import UserFactory
 from ..factories import BaseAdvertisementFactory
@@ -144,6 +145,8 @@ class AdvertisementViewSetTest(APITestCase):
             elif spec["name"] == "job_experience":
                 self.assertEqual(len(spec["choices"]), len([True, False]))
             # property
+            elif spec["name"] == "property_type":
+                self.assertEqual(len(spec["choices"]), len(PropertyType.choices))
             elif spec["name"] == "property_type_of_service":
                 self.assertEqual(len(spec["choices"]), len(PropertyTypeOfService.choices))
             elif spec["name"] == "property_city":

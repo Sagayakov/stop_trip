@@ -10,6 +10,7 @@ import { clearTokensFromCookies } from 'app/cookie/cookieAuth.ts';
 import { useEffect, useState } from 'react';
 import { Langs } from 'entities/langs';
 import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
 
 interface Props {
     showUserMenu: boolean;
@@ -43,24 +44,25 @@ export const ModalMobile = (props: Props) => {
     return (
         <div
             className={`modal-mobile ${showUserMenu ? 'visible' : ''}`}
-            // className="modal-mobile"
-            // style={{ display: `${showUserMenu ? 'block' : 'none'}` }}
             onClick={() => setShowUserMenu(false)}
         >
             <div
                 className={`modal-mobile-content ${
                     showUserMenu ? 'visible-content' : ''
                 }`}
-                // className="modal-mobile-content"
                 onClick={(event) => event.stopPropagation()}
             >
                 <div className="menu">
-                    <div className="user-option">
+                    <NavLink
+                        className="user-option"
+                        to={'/my-announcements'}
+                        onClick={() => setShowUserMenu(false)}
+                    >
                         <Docs />
                         <p className="user-option-text">
                             {t('modal-logged.adverts')}
                         </p>
-                    </div>
+                    </NavLink>
                     <div className="user-option">
                         <Message color="#1C1C1E" stroke="#1C1C1E" />
                         <p className="user-option-text">

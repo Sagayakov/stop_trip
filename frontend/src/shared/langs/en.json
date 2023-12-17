@@ -276,5 +276,11 @@
         "taxi": "Taxi",
         "service": "Services",
         "excursion": "Excursions"
+    },
+
+    "myAnnouncements": {
+        "published": "Published",
+        "edit": "Edit",
+        "noAnnouncements": "You don't have any announcements yet :("
     }
 }

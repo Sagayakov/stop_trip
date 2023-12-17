@@ -276,5 +276,11 @@
         "taxi": "Такси",
         "service": "Услуги",
         "excursion": "Экскурсии"
+    },
+
+    "myAnnouncements": {
+        "published": "Публикация",
+        "edit": "Редактировать",
+        "noAnnouncements": "У вас пока нет объявлений :("
     }
 }
