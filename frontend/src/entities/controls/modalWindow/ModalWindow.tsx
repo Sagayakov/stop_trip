@@ -3,6 +3,7 @@ import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
 import './modal-categories.scss';
 import { Category, categories } from 'shared/const/categories.tsx';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     showModal: boolean;
@@ -12,10 +13,13 @@ interface Props {
 export const ModalWindow = ({ showModal, setShowModal }: Props) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const pageCategory = useAppSelector(
+        (state) => state.setPageCategory.pageCategory
+    );
 
     const navigateAndClose = (el: [string, Category]) => {
         setShowModal(false);
-        navigate(`/${el[0]}/?category=${el[0]}`);
+        navigate(`/${el[0]}/?category=${el[0]}&page=${pageCategory}`);
     };
 
     return (

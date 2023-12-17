@@ -9,6 +9,7 @@ import { toggleModalSlice } from 'features/header/model/modalAuth/reducers/toggl
 import { fetchFavorites } from 'app/api/fetchFavorites.ts';
 import { setLangSlice } from 'features/header/model/langsReducer/lang.ts';
 import { setPageMainSlice } from 'features/lastAdverts/model/pageReducer/pageMain';
+import { setPageCategorySlice } from 'pages/category/model/pageReducer/pageCategory';
 
 const setupStore = () =>
     configureStore({
@@ -22,6 +23,7 @@ const setupStore = () =>
             setLoading: setLoadingSlice,
             setLang: setLangSlice.reducer,
             setPageMain: setPageMainSlice.reducer,
+            setPageCategory: setPageCategorySlice.reducer,
             [fetchAdverts.reducerPath]: fetchAdverts.reducer,
             [fetchFavorites.reducerPath]: fetchFavorites.reducer,
         },

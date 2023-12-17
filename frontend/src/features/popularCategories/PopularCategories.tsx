@@ -8,6 +8,7 @@ import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 //import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
 //import { GetSpelling } from './libr/getSpelling';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from 'app/store/hooks';
 
 const PopularCategories = () => {
     const [showModal, setShowModal] = useState(false);
@@ -15,6 +16,9 @@ const PopularCategories = () => {
     const { isMobile } = useMatchMedia();
     //const { data } = useGetAdvertsQuery('');
     const { t } = useTranslation();
+    const pageCategory = useAppSelector(
+        (state) => state.setPageCategory.pageCategory
+    );
 
     return (
         <div className="popular-categories">
@@ -49,7 +53,9 @@ const PopularCategories = () => {
                                     key={el[0]}
                                     className={`category ${el[0]}>`}
                                     onClick={() =>
-                                        navigate(`/${el[0]}/?category=${el[0]}`)
+                                        navigate(
+                                            `/${el[0]}/?category=${el[0]}&page=${pageCategory}`
+                                        )
                                     }
                                 >
                                     <Icon />

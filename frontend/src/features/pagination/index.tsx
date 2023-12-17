@@ -5,6 +5,8 @@ import './pagination.scss';
 import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks';
 import { setPageMain } from 'features/lastAdverts/model/pageReducer/pageMain';
+import { useLocation } from 'react-router-dom';
+import { setPageCategory } from 'pages/category/model/pageReducer/pageCategory';
 
 export const Pagination = ({
     data,
@@ -12,25 +14,41 @@ export const Pagination = ({
     data: LastAdvertsTypes | undefined;
 }) => {
     const pageMain = useAppSelector((state) => state.setPageMain.pageMain);
+    const pageCategory = useAppSelector(
+        (state) => state.setPageCategory.pageCategory
+    );
     const [pages, setPages] = useState(0);
     const dispatch = useAppDispatch();
+    const pathname = useLocation().pathname;
 
     useEffect(() => {
         if (data) {
-            const totalPages = Math.ceil(data?.count / 12);
+            const totalPages = Math.ceil(data.count / 12);
             setPages(totalPages);
         }
     }, [data, pages]);
 
     const handleClickPrev = () => {
-        if (pageMain > 1) {
-            dispatch(setPageMain(pageMain - 1));
+        if (pathname === '/') {
+            if (pageMain > 1) {
+                dispatch(setPageMain(pageMain - 1));
+            }
+        } else {
+            if (pageCategory > 1) {
+                dispatch(setPageCategory(pageCategory - 1));
+            }
         }
     };
 
     const handleClickNext = () => {
-        if (pageMain < pages) {
-            dispatch(setPageMain(pageMain + 1));
+        if (pathname === '/') {
+            if (pageMain < pages) {
+                dispatch(setPageMain(pageMain + 1));
+            }
+        } else {
+            if (pageCategory < pages) {
+                dispatch(setPageCategory(pageCategory + 1));
+            }
         }
     };
 

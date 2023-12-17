@@ -4,12 +4,16 @@ import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
 import './breadCrumbs.scss';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from 'app/store/hooks';
 
 export const BreadCrumbs = ({ data }: { data: ProductType }) => {
     const { category } = useParams();
     const { isMobile } = useMatchMedia();
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const pageCategory = useAppSelector(
+        (state) => state.setPageCategory.pageCategory
+    );
 
     return (
         <div className="bread-crumbs">
@@ -22,7 +26,7 @@ export const BreadCrumbs = ({ data }: { data: ProductType }) => {
                 <>
                     <NavLink to="/">{t('category-page.main-link')}</NavLink>
                     <NavLink
-                        to={`/${category}/?category=${category}`}
+                        to={`/${category}/?category=${category}&page=${pageCategory}`}
                     >{`\u00A0>\u00A0${t(`categories.${category}`)}`}</NavLink>
                     {`\u00A0>\u00A0${data.title}`}
                 </>
