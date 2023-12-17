@@ -1,8 +1,9 @@
 /* eslint-disable no-useless-escape */
 import { useState } from 'react';
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { useAppSelector } from '../../../../../../app/store/hooks';
+import { useAppSelector } from 'app/store/hooks.ts';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;
@@ -14,6 +15,7 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
     const emailErrors = useAppSelector(
         (state) => state.setIsAuth.errorRepeatEmail
     ); //ошибка повторного использования email
+    const { t } = useTranslation();
 
     const [emailDomeinLengthError, setEmailDomeinLengthError] = useState(false);
     const [emailDomeinLength, setEmailDomeinLength] = useState(false);
@@ -138,40 +140,37 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
             <div className="input-error">
                 {errors?.email && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Введите корректный email
+                        {t('modal-login.correct-email')}
                     </p>
                 )}
                 {emailErrors && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Пользователь с такой почтой уже существует
+                        {t('modal-registration.email-exists')}
                     </p>
                 )}
                 {errors?.email?.type === 'minLength' && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Минимальная длина email - 10 символов
+                        {t('modal-registration.email-min')}
                     </p>
                 )}
                 {errors?.email?.type === 'minLength' && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Максимальная длина email - 80 символов
+                        {t('modal-registration.email-max')}
                     </p>
                 )}
                 {(emailDomeinLengthError || emailDomeinLength) && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Превышена максимальная длина адреса до или после символа
-                        @, введите не более 64, либо превышена общая
-                        максимальная длина (128 символов)
+                        {t('modal-registration.email-length')}
                     </p>
                 )}
                 {twoPoints && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        {'Нельзя вводить 2 точки подряд'}
+                        {t('modal-registration.two-dots')}
                     </p>
                 )}
                 {startEndError && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Доменная часть не может иметь в начале или в конце цифру
-                        или тире
+                        {t('modal-registration.digit')}
                     </p>
                 )}
             </div>

@@ -10,6 +10,7 @@ export interface AuthRegistration {
 export type NewUser = {
     full_name: string;
     email: string;
+    phone: number;
     password: string;
     re_password: string;
 };

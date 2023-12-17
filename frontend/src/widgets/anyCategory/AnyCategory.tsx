@@ -1,23 +1,45 @@
-import { Like } from '../../shared/ui/Like';
-import { Rating } from '../../shared/ui/Rating';
-import { NavLink } from 'react-router-dom';
-import { useGetAdvertsQuery } from '../../app/api/fetchAdverts';
-import { LastAdvertsTypes } from '../../app/api/types/lastAdvertsTypes';
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
-import { getDate } from '../../shared/utils/getDate';
+import { Like } from 'shared/ui/Like';
+import { Rating } from 'shared/ui/Rating';
+import { NavLink, useLocation } from 'react-router-dom';
+import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
+import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
+import { getDate } from 'shared/utils/getDate.ts';
+import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { useTranslation } from 'react-i18next';
+import { useAppSelector } from 'app/store/hooks.ts';
 
 const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
-    const filterQuery = location.search;
-    const { data = [] } = useGetAdvertsQuery(filterQuery);
+    const queryParam = useLocation().search;
+    const { data, isLoading } = useGetAdvertsQuery(queryParam);
     const { isMobile } = useMatchMedia();
-    const filteredData = JSON.parse(JSON.stringify(data))
-        .filter((el: LastAdvertsTypes) => el.category === category);
+    const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
+
+    if (!data?.results.length && !isLoading) {
+        return (
+            <p className="announcement-not-found">
+                {t('category-page.no-adverts')}
+            </p>
+        );
+    }
 
     return (
         <section className="announcement">
-            {filteredData.length ? (
-                filteredData.map((el: LastAdvertsTypes) => {
+            {isLoading && <LoadingWithBackground />}
+            {data?.results.length &&
+                data.results.map((el: AdvertsTypes) => {
+                    const date = getDate(el.date_create);
+                    const { dayToDisplay } = date;
+                    let day = '';
+
+                    if (dayToDisplay === 'Сегодня') {
+                        day = lang === 'ru' ? 'Сегодня' : 'Today';
+                    }
+                    if (dayToDisplay === 'Вчера') {
+                        day = lang === 'ru' ? 'Вчера' : 'Yesterday';
+                    }
                     return (
                         <NavLink
                             className="card"
@@ -25,15 +47,22 @@ const AnyCategory = () => {
                             to={`/${category}/${el.id}/`}
                         >
                             <span onClick={(event) => event.stopPropagation()}>
-                                <Like id={el.id}/>
+                                <Like id={el.id} />
                             </span>
                             <div className="image">
                                 {isMobile ? (
                                     <>
-                                        {!el.images[0]
-                                            ? <img src='../../../src/entities/lastAdverts/ui/image-not-found.jpg' />
-                                            : el.images.map((item) => <img src={item.image} key={item.image} />)
-                                        }
+                                        {!el.images[0] ? (
+                                            <img src="../../../src/entities/lastAdverts/ui/image-not-found.jpg" alt="Not found" />
+                                        ) : (
+                                            el.images.map((item) => (
+                                                <img
+                                                    src={item.image}
+                                                    key={item.image}
+                                                    alt="Not found"
+                                                />
+                                            ))
+                                        )}
                                     </>
                                 ) : (
                                     <img
@@ -42,6 +71,7 @@ const AnyCategory = () => {
                                                 ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
                                                 : el.images[0].image
                                         }
+                                        alt="Not found"
                                     />
                                 )}
                             </div>
@@ -57,26 +87,22 @@ const AnyCategory = () => {
                                     {el.description}
                                 </p>
                                 <div className="author">
-                                    Константин
+                                    {`${el.owner.full_name[0].toUpperCase()}${el.owner.full_name.slice(
+                                        1
+                                    )}`}
                                     <span className="rating-number">4.5</span>
                                     <Rating rating={4.5} />
                                 </div>
-                                <p
-                                    className="time">
+                                <p className="time">
                                     {`
-                                        ${getDate(el.date_create).dayToDisplay},
-                                        ${getDate(el.date_create).hours}:${getDate(el.date_create).minutes}
+                                        ${day},
+                                        ${date.hours}:${date.minutes}
                                     `}
                                 </p>
                             </div>
                         </NavLink>
                     );
-                })
-            ) : (
-                <p className="announcement-not-found">
-                    В этой категории объявлений не найдено
-                </p>
-            )}
+                })}{' '}
         </section>
     );
 };

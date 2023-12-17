@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
-import { useAppSelector } from '../../../../app/store/hooks';
+import { useAppSelector } from 'app/store/hooks.ts';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
 
 type StarProps = {
     id: number;
@@ -21,6 +22,7 @@ export const Star = ({
     grades,
     setGrades,
 }: StarProps) => {
+    const { t } = useTranslation();
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
 
     const getStarClass = () => {
@@ -42,11 +44,9 @@ export const Star = ({
         if (isAuth) {
             setActiveStar(id);
             grades && setGrades && setGrades(grades + 1);
-            toast.success('Спасибо! Ваша оценка добавлена!');
+            toast.success(`${t('advert-page.grade-added')}`);
         } else {
-            toast.error(
-                'Пожалуйста, авторизуйтесь для возможности выставления рейтинга'
-            );
+            toast.error(`${t('advert-page.grade-register')}`);
         }
     };
 

@@ -1,13 +1,16 @@
 import { UseFormRegister } from 'react-hook-form';
-import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
 }
 export const AnnouncementRealtyHasFurniture = ({ register }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="ann-field">
-            <h3>С мебелью</h3>
+            <h3>{t('filters.with-furniture')}</h3>
             <div className="radio-group">
                 <label>
                     <input
@@ -16,7 +19,7 @@ export const AnnouncementRealtyHasFurniture = ({ register }: Props) => {
                         value="true"
                         style={{ display: 'none' }}
                     />
-                    <span>Мебель</span>
+                    <span>{t('filters.property_has_furniture')}</span>
                 </label>
             </div>
             <div className="ann-field-err"></div>

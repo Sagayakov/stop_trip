@@ -18,21 +18,14 @@ export interface SelectOption {
     value: string;
     label: string;
 }
-//type TypeOfService = 'Аренда' | 'Продажа';
-
-//type TypeOfTransport = 'Наземный' | 'Водный';
-//type Drive = 'Передний' | 'Задний' | 'Постоянный полный' | 'Полный подключаемый';
 export interface EngineCapacity{
     min: number;
     max: number;
 }
-//type TransmissionType = 'МКПП' | 'АКПП' | 'Робот' | 'Вариатор';
 export interface YearOfProduction{
     min: number;
     max: number;
 }
-
-//type Condition = 'Новый' | 'Б/у' | 'Аварийный' | 'На запчасти';
 
 export interface Commission {
     min: number;

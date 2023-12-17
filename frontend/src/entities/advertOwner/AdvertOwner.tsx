@@ -1,24 +1,45 @@
 import { useState } from 'react';
-import { Rating } from '../../shared/ui/Rating';
+import { Rating } from 'shared/ui/Rating';
 import './libr/advertOwner.scss';
-import { getGradeSpelling } from './libr/utils/getGradeSpelling';
+import { useGradeSpelling } from './libr/utils/getGradeSpelling';
+import { Owner } from 'app/api/types/lastAdvertsTypes.ts';
+import { getDate } from 'shared/utils/getDate.ts';
+import { getUserIcon } from 'shared/utils/userIcon/getUserIcon.ts';
+import { useTranslation } from 'react-i18next';
 
-export const AdvertOwner = () => {
+export const AdvertOwner = ({ owner }: { owner: Owner }) => {
     const [grades, setGrades] = useState(0); //изменить 0 на значение, которое будет отдавать бэк по юзеру
+    const { t } = useTranslation();
+
+    const { firstLetters, lettersColor, bgColor } = getUserIcon(
+        owner.full_name
+    );
+
+    const spelling = useGradeSpelling(grades);
 
     return (
         <div className="owner">
-            <img src="../../../src/shared/ui/images/owner.png" />
+            {/* <img src="../../../src/shared/ui/images/owner.png" /> */}
+            <span
+                className="user-icon"
+                style={{ color: lettersColor, backgroundColor: bgColor }}
+            >
+                {firstLetters}
+            </span>
             <div className="owner-characteristics">
                 <div>
-                    <p>Константин</p>
+                    <p>{`${owner.full_name[0].toUpperCase()}${owner.full_name.slice(
+                        1
+                    )}`}</p>
                     <div className="rating-number">4.5</div>
                 </div>
                 <div className="rating-block">
                     <Rating rating={5} grades={grades} setGrades={setGrades} />
-                    <span>{`${grades} ${getGradeSpelling(grades)}`}</span>
+                    <span>{`${grades} ${spelling}`}</span>
                 </div>
-                <p>Дата регистрации: 10.02.2023</p>
+                <p>{`${t('advert-page.registration-date')} ${
+                    getDate(owner.date_joined).dayToDisplay
+                }`}</p>
             </div>
         </div>
     );

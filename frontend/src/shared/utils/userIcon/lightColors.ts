@@ -1,0 +1,23 @@
+export const LIGHT_COLORS = [
+    '#FFD700',
+    '#FFA07A',
+    '#EEE8AA',
+    '#90EE90',
+    '#AFEEEE',
+    '#ADD8E6',
+    '#D8BFD8',
+    '#FFB6C1',
+    '#F5F5DC',
+    '#FFF8DC',
+    '#FFE4B5',
+    '#FFF0F5',
+    '#E6E6FA',
+    '#F0FFFF',
+    '#DCDCDC',
+    '#FF7F50',
+    '#BDB76B',
+    '#9ACD32',
+    '#8FBC8F',
+    '#E0FFFF',
+  ];
+  

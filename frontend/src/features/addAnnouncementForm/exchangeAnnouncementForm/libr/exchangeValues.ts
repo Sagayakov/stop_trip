@@ -6,9 +6,9 @@ export const exchangeValues = {
         { label: 'Евро', value: 'Евро' },
     ],
     exchangeFor: [
-        { label: 'Доллар', value: 'Доллар' },
-        { label: 'Рубль', value: 'Рубль' },
+        { label: 'Доллар', value: 'USD' },
+        { label: 'Рубль', value: 'RUB' },
         { label: 'Рупий', value: 'Рупий' },
-        { label: 'Евро', value: 'Евро' },
-    ]
+        { label: 'Евро', value: 'EUR' },
+    ],
 };

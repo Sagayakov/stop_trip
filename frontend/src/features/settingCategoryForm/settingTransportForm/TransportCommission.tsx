@@ -1,14 +1,16 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TypeSettingTransport } from '../../../widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
 }
 export const TransportCommission = ({ register }: Props) => {
+    const { t } = useTranslation();
 
     return (
         <div className="transportComission">
-            <h3>Комиссия</h3>
+            <h3>{t('filters.transport_commission')}</h3>
             <div className="setting-transportComission">
                 <input
                     type="text"
@@ -16,7 +18,7 @@ export const TransportCommission = ({ register }: Props) => {
                     autoComplete="off"
                     {...register('transport_commission.min')}
                     min={1}
-                    placeholder="От"
+                    placeholder={t('filters.from')}
                 />
                 <input
                     type="text"
@@ -24,7 +26,7 @@ export const TransportCommission = ({ register }: Props) => {
                     autoComplete="off"
                     {...register('transport_commission.max')}
                     min={1}
-                    placeholder="До"
+                    placeholder={t('filters.up-to')}
                 />
             </div>
         </div>

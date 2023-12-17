@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react';
-import { useAppSelector } from '../../app/store/hooks';
-import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
+import { useAppSelector } from 'app/store/hooks.ts';
+import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 const Controls = lazy(() => import('../../features/controls/Controls'));
 const LastAdverts = lazy(() => import('../../features/lastAdverts/LastAdverts'));
 const PopularCategories = lazy(() => import('../../features/popularCategories/PopularCategories'));

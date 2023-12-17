@@ -6,10 +6,11 @@ import { InputRepeatPassword } from './inputs/InputRepeatPassword';
 import { InputSubmit } from './inputs/InputSubmit';
 import { confimResetPassword } from './api/confirmResetPassword';
 import { NavLink, useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { Dispatch } from '@reduxjs/toolkit';
-import { setLoading } from '../../entities/loading/model/setLoadingSlice';
-import { LoadingWithBackground } from '../../entities/loading/LoadingWithBackground';
+import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
+import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { useTranslation } from 'react-i18next';
 
 const FormConfirmResetPassword = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -23,21 +24,22 @@ const FormConfirmResetPassword = () => {
     });
     const { uid, token } = useParams();
     const [success, setSuccess] = useState<boolean>(false);
-    const dispatch: Dispatch = useAppDispatch()
-    const load = useAppSelector((state) => state.setLoading.loading)
+    const dispatch: Dispatch = useAppDispatch();
+    const load = useAppSelector((state) => state.setLoading.loading);
+    const { t } = useTranslation();
 
     const onsubmit: SubmitHandler<ResetPasswordType> = async (submitData) => {
         if (uid && token) {
-            await dispatch(setLoading(true))
+            dispatch(setLoading(true));
 
             const response = await confimResetPassword({
                 new_password: submitData.password,
                 uid,
                 token,
             });
-            if (response.ok){
-                await setSuccess(true);
-                await dispatch(setLoading(false))
+            if (response.ok) {
+                setSuccess(true);
+                dispatch(setLoading(false));
             }
         }
     };
@@ -68,9 +70,9 @@ const FormConfirmResetPassword = () => {
                 </form>
             ) : (
                 <div className="reset-success">
-                    Ваш пароль был успешно изменён!
+                    {t('reset-page.success')}
                     <NavLink className="main-link" to={'/'}>
-                        Вернуться на главную
+                        {t('reset-page.back')}
                     </NavLink>
                 </div>
             )}

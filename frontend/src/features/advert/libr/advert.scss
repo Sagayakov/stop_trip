@@ -81,6 +81,7 @@ main {
                 color: white;
                 font-family: var(--font-sf);
                 font-weight: 700;
+                text-decoration: none;
                 cursor: pointer;
             }
             .write-button {
@@ -130,6 +131,7 @@ main {
 @media (max-width: 767px) {
     main {
         .announcement-wrapper {
+            width: 93%;
             .bread-crumbs {
                 display: flex;
                 padding: 90px 0px 0px;

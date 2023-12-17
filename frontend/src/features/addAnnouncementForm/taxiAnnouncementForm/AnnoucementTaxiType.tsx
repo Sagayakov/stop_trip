@@ -1,7 +1,8 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
-import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { taxiValues } from './taxiValues';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -9,16 +10,17 @@ interface Props {
 }
 export const AnnouncementTaxiType = ({ control, setValue }: Props) => {
     const valuesOfTaxiType = taxiValues.valuesofTaxiType;
+    const { t } = useTranslation();
 
     return (
         <div className="ann-field">
-            <h3>Вид такси:</h3>
+            <h3>{t('filters.taxi_type')}:</h3>
             <UniversalSelectDropdown
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
                 name="taxi_type"
-                placeholder="Вид такси"
+                placeholder={t('filters.taxi_type')}
                 options={valuesOfTaxiType}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}

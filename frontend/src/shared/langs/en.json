@@ -1,0 +1,286 @@
+{
+    "main-page": {
+        "post-advert": "Place an advert",
+        "publish": "Publish",
+        "login-register": "Login/Registration",
+        "all-categories": "All categories",
+        "find": "Find service or product",
+        "in-city": "In city",
+        "goa": "Goa",
+        "popular-categories": "Popular categories",
+        "offer-spelling": "offer",
+        "last-adverts": "Last adverts",
+        "suggestions": "Suggestions for the site",
+        "enter-text": "Enter text",
+        "send": "Send",
+        "toast-favs": "Please log in to add adverts to your favorites",
+        "toast-feedback": "The maximum number of characters in the text field has been exceeded!",
+        "toast-feedback-login": "Please, log in for feedback",
+        "toast-wrong": "Something went wrong, please try again!",
+        "toast-thanks": "Thanks for your feedback!",
+        "toast-copied": "Copied!",
+        "toast-error": "An error occurred while copying text: "
+    },
+
+    "categories": {
+        "property": "Rental of property",
+        "transport": "Rental of transport",
+        "exchange_rate": "Currency pairs",
+        "document": "Documents",
+        "food": "Homemade food",
+        "event": "Events",
+        "market": "Buy/Sell",
+        "job": "Job",
+        "taxi": "Taxi",
+        "service": "Services",
+        "excursion": "Excursions"
+    },
+
+    "modal-login": {
+        "login": "Login",
+        "correct-email": "Enter a correct email",
+        "password": "Password",
+        "correct-password": "Enter the correct password",
+        "copy-password": "Copying the password is prohibited!",
+        "forgot": "Forgot your password?",
+        "login-help": "Login using",
+        "enter": "Login"
+    },
+
+    "modal-registration": {
+        "registration": "Registration",
+        "user-name": "Enter your name",
+        "not-more-50": "No more than 50 characters",
+        "phone": "Phone number",
+        "correct-number": "Enter correct phone number",
+        "email-exists": "A user with this email already exists",
+        "email-min": "Minimum email length - 10 characters",
+        "email-max": "Maximum email length - 50 characters",
+        "email-length": "Maximum address length before or after character exceeded\n@, enter no more than 64, or the total has been exceeded\nmaximum length (128 characters)",
+        "two-dots": "You cannot enter two points in a row",
+        "digit": "The domain part cannot have a number at the beginning or end\nor dash",
+        "password-short": "The password is too short. Minimum length is 8 characters.",
+        "password-correct": "Enter the correct password. The password must consist of\nLatin alphabet, contain letters, numbers and at least one\nspecial character Minimum length 8 characters,\nmaximum - 22. Space is prohibited.",
+        "repeat": "Repeat password",
+        "mismatch": "Password mismatch",
+        "accept": "I accept the terms of the",
+        "agreement": "User agreement",
+        "register": "Register"
+    },
+
+    "modal-reset": {
+        "enter-email": "Please enter your email. There will be a link to\n recover your password.",
+        "email-sent": "A password recovery email has been sent to your\nmailbox",
+        "send": "Send"
+    },
+
+    "modal-add-advert": {
+        "must": "To post an ad, you must",
+        "login": "log in",
+        "or": "or",
+        "register": "register"
+    },
+
+    "modal-check-email": "To complete the registration process, please follow the link,\nsent to the specified email address",
+
+    "modal-logged": {
+        "adverts": "My adverts",
+        "messages": "My messages",
+        "favorites": "Favorites",
+        "settings": "Settings",
+        "logout": "Logout"
+    },
+
+    "page-not-found": {
+        "no-page": "There is no such page :(",
+        "perhaps": "It may have been moved, or you simply entered the page address incorrectly",
+        "to-main": "Go to main page"
+    },
+
+    "category-page": {
+        "main-link": "Main",
+        "no-adverts": "No adverts found in this category"
+    },
+
+    "filters": {
+        "filters": "Filters",
+        "property_type_of_service": "Service type",
+        "sale": "Sale",
+        "rent": "Rent",
+        "property_city": "City",
+        "choose-city": "Choose city",
+        "property_district": "District",
+        "choose-district": "Choose district",
+        "property_house_type": "House type",
+        "price": "Price",
+        "max": "max",
+        "up-to": "Up to",
+        "from": "From",
+        "property_rental_condition": "Rent conditions",
+        "property_area": "Total area, m2",
+        "area": "Area",
+        "property_living_area": "Living area, m2",
+        "property_building_max_floor": "Number of floors in the house",
+        "floors-number": "Number of floors",
+        "property_floor": "Floor",
+        "property_sleeping_places": "Number of sleeping places",
+        "quantity": "Quantity",
+        "count": "Number",
+        "property_balcony": "Balcony",
+        "yes": "Yes",
+        "no": "No",
+        "loggia": "Loggia",
+        "property_has_furniture": "Furniture",
+        "with-furniture": "With furniture",
+        "property_amenities": "Amenities",
+        "property_rooms_count": "Rooms quantity",
+        "property_bathroom_type": "Bathroom",
+        "combined": "Combined",
+        "separate": "Separate",
+        "property_bathroom_count": "Number of bathrooms",
+        "property_has_parking": "Parking",
+        "with-parking": "With parking",
+        "property_prepayment": "Prepayment",
+        "property_commission": "Commission",
+        "apply": "Apply",
+        "reset": "Reset filters",
+
+        "transport_type_of_service": "Service type",
+        "transport_type": "Transport type",
+        "ground": "Ground",
+        "water": "Water",
+        "transport_category": "Transport category",
+        "choose-category": "Choose category",
+        "transport_brand": "Brand",
+        "choose-brand": "Choose brand",
+        "transport_model": "Model",
+        "choose-model": "Choose model",
+        "transport_engine_type": "Engine type",
+        "transport_engine_volume": "Engine capacity",
+        "volume": "Volume",
+        "transport_drive_type": "Drive type",
+        "transport_year_of_production": "Year of production",
+        "year": "Year",
+        "transport_transmission_type": "Transmission",
+        "transport_body_type": "Body type",
+        "choose-body": "Choose body type",
+        "transport_passengers_quality": "Number of passengers",
+        "transport_condition": "Condition",
+        "transport_commission": "Commission",
+
+        "proposed_currency": "Proposed currency",
+        "exchange_for": "Exchange for",
+        "exchange_rate": "Rate",
+
+        "document_type": "Document type",
+        "document_duration": "Validity",
+
+        "food_type": "Food type",
+        "food_delivery": "Food delivery",
+        "delivery": "Delivery",
+        "food_establishment": "Restaurant/cafe",
+
+        "start_date": "Beginning",
+        "date": "Date",
+        "date-start": "Date of beginning",
+        "time": "Time",
+        "end_date": "Ending",
+        "date-end": "Date of ending",
+        "is_online": "Online",
+
+        "market_condition": "Condition",
+        "new": "New",
+        "used": "Used",
+
+        "job_type": "Job type",
+        "job_duration": "Job duration",
+        "job_payment_type": "Payment type",
+        "salary": "Salary",
+        "job_experience": "With experience",
+
+        "taxi_unit": "Unit",
+        "taxi_type": "Taxi type",
+
+        "service_home_visit": "Home visit",
+
+        "food": "Food",
+        "excursion_food": "Food included",
+        "excursion_transfer": "Transfer"
+    },
+
+    "advert-page": {
+        "no-address": "Address not specified",
+        "no-district": "district not specified",
+        "description": "Description",
+        "characteristics": "Characteristics",
+        "location": "Location",
+        "day": "24 hours",
+        "negotiated": "Negotiated",
+        "price-negotiated": "Price negotiated",
+        "call": "Call",
+        "show-number": "Show phone number",
+        "write": "Write",
+        "published": "Published:",
+        "registration-date": "Registration date:",
+        "grade": "grade",
+        "grade-added": "Thank you! Your rating has been added!",
+        "grade-register": "Please log in to be able to rate"
+    },
+
+    "activate-page": {
+        "activation": "Account activation",
+        "activated": "Your account has been activated, thank you for registering on our website!",
+        "back": "Go back to the main page"
+    },
+
+    "reset-page": {
+        "password-new": "New password",
+        "password-short": "The password is too short. Minimum length is 8 characters.",
+        "password-correct": "Enter the correct password. The password must consist of\nLatin alphabet, contain letters, numbers and at least one\nspecial character Minimum length 8 characters,\nmaximum - 22. Space is prohibited.",
+        "repeat": "Repeat new password",
+        "mismatch": "Password mismatch",
+        "update": "Update password",
+        "success": "Your password has been successfully changed!",
+        "back": "Go back to the main page"
+    },
+
+    "add-page": {
+        "post": "Posting an advert",
+        "category": "Category",
+        "choose": "Choose category",
+        "choose-please": "Please, choose category",
+        "advert-title": "Advert title",
+        "title": "Title",
+        "enter-title": "Please, enter advert title",
+        "price": "Price",
+        "set-price": "Please, set a price",
+        "description": "Description",
+        "photo": "Photos",
+        "choose-photo": "Choose photo",
+        "uploaded": "Uploaded",
+        "please-select": "Please, select no more than 10 photos",
+        "location": "Location",
+        "back": "Back"
+    },
+
+    "labels": {
+        "category": "Category",
+        "property": "Property",
+        "transport": "Transport",
+        "exchange_rate": "Currency exchange",
+        "document": "Documents",
+        "food": "Food",
+        "event": "Events",
+        "market": "Buy/Sell",
+        "job": "Job",
+        "taxi": "Taxi",
+        "service": "Services",
+        "excursion": "Excursions"
+    },
+
+    "myAnnouncements": {
+        "published": "Published",
+        "edit": "Edit",
+        "noAnnouncements": "You don't have any announcements yet :("
+    }
+}

@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './ActivateAccount.scss';
 import { activate } from './api/activate';
-import { LoaidngWithoutBackground } from '../../entities/loading/LoaidngWithoutBackground';
-import { setIsEnter } from '../../features/header/model/modalAuth/reducers/isEnter';
-import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
-import { toggleModalEnter } from '../../features/header/model/modalAuth/reducers/toggleModal';
+import { LoaidngWithoutBackground } from 'entities/loading/LoaidngWithoutBackground.tsx';
+import { setIsEnter } from 'features/header/model/modalAuth/reducers/isEnter.ts';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { toggleModalEnter } from 'features/header/model/modalAuth/reducers/toggleModal.ts';
+import { useTranslation } from 'react-i18next';
 
 export const ActivateAccount = () => {
     const { uid, token } = useParams();
@@ -15,15 +16,16 @@ export const ActivateAccount = () => {
     const dispatch = useAppDispatch();
     const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
     const handleToggleModal = () => dispatch(toggleModalEnter(!toggle));
+    const { t } = useTranslation();
 
     const activationAcc = async (uid: string, token: string) => {
-        await setLoad(true)
+        await setLoad(true);
         const body = {
             uid,
             token,
         };
         const response = await activate(body);
-        if (response.ok){
+        if (response.ok) {
             await setSuccess(true);
             await setLoad(false);
         }
@@ -32,28 +34,26 @@ export const ActivateAccount = () => {
     useEffect(() => {
         activationAcc(uid!, token!);
     }, []);
-    
+
     const handleRedirect = () => {
         navigate('/');
         handleToggleModal();
         dispatch(setIsEnter(true));
-    }
+    };
 
     return (
         <main>
             <div className="activate-acc-page">
                 <div className="activate-acc-header">
-                    <h1>Активация аккаунта</h1>
-                    {success
-                        ? 'Ваш аккаунт активирован, спасибо за регистрацию на нашем сайте!'
-                        : ''}
-                    {load &&
+                    <h1>{t('activate-page.activation')}</h1>
+                    {success ? `${t('activate-page.activated')}` : ''}
+                    {load && (
                         <div className="activate-acc-loading">
                             <LoaidngWithoutBackground />
                         </div>
-                    }
+                    )}
                     <div className="redirect" onClick={handleRedirect}>
-                        Вернуться на главную
+                        {t('activate-page.back')}
                     </div>
                 </div>
             </div>

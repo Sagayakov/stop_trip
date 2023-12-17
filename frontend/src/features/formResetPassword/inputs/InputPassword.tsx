@@ -1,6 +1,8 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { Eye } from '../../../shared/ui/icons/icons-tools/Eye';
+import { Eye } from 'shared/ui/icons/icons-tools/Eye.tsx';
 import { ResetPasswordType } from '../libr/types';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 interface Props {
     errors: FieldErrors<ResetPasswordType>;
@@ -15,8 +17,15 @@ export const InputPassword = ({
     showPassword,
     setShowPassword,
 }: Props) => {
+    const { t } = useTranslation();
+
     const handleShowPass = () => {
         setShowPassword(!showPassword);
+    };
+
+    const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
+        event.preventDefault();
+        toast.error(`${t('modal-login.copy-password')}`);
     };
 
     return (
@@ -27,8 +36,12 @@ export const InputPassword = ({
                     {...register('password', {
                         required: true,
                         minLength: 8,
+                        maxLength: 22,
+                        pattern:
+                            /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])(?!.*\s)[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,22}/,
                     })}
-                    placeholder="Новый пароль"
+                    onCopy={(event) => handleCopy(event)}
+                    placeholder={t('reset-page.password-new')}
                     autoComplete="new-password"
                     type={showPassword ? 'text' : 'password'}
                     style={{
@@ -45,12 +58,12 @@ export const InputPassword = ({
             <div className="input-error">
                 {(errors?.password?.type === 'minLength' && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Пароль слишком короткий. Минимальная длина: 8 символов.
+                        {t('reset-page.password-short')}
                     </p>
                 )) ||
                     (errors?.password && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                            Ведите корректный пароль
+                            {t('reset-page.password-correct')}
                         </p>
                     ))}
             </div>

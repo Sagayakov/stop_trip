@@ -27,5 +27,9 @@ export const getDate = (publicDate: string) => {
     const hours = date.getHours();
     const minutes = date.getMinutes();
 
-    return { dayToDisplay, hours, minutes: minutes < 10 ? `0${minutes}` : minutes };
+    return {
+        dayToDisplay,
+        hours,
+        minutes: minutes < 10 ? `0${minutes}` : minutes,
+    };
 };

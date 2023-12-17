@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { LastAdvertsTypes } from './types/lastAdvertsTypes';
-import { url } from '../../shared/const/url';
-import { ProductType } from '../../pages/advertPage/libr/types';
+import { url } from 'shared/const/url.ts';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { FiltersType } from './types/filtersType';
 
 export const fetchAdverts = createApi({
@@ -9,13 +9,13 @@ export const fetchAdverts = createApi({
     tagTypes: ['Adverts'],
     baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
     endpoints: (build) => ({
-        getAdverts: build.query<LastAdvertsTypes[], string>({
+        getAdverts: build.query<LastAdvertsTypes, string>({
             //дженериками передаем тип того что собираемся получить, а второй тип это то что передаем в качестве параметра при вызове хука, в данном случае пустая строка
             query: (filterQuery = '') => `api/advertisements/${filterQuery.replace(/%2C/g, '.')}`, //заменяет код запятой из строки
             providesTags: (result) =>
                 result // понадобится когда можно будет добавлять объявления
                     ? [
-                          ...result.map(({ id }) => ({
+                          ...result.results.map(({ id }) => ({
                               type: 'Adverts' as const,
                               id,
                           })),
@@ -44,5 +44,4 @@ export const {
     useGetAdvertsQuery,
     useGetAdvertByIdQuery,
     useGetFiltersQuery,
-    useAddAdvertMutation,
 } = fetchAdverts;

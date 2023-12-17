@@ -10,8 +10,8 @@ import {
     AnnouncementService,
     AnnouncementTaxi,
     AnnouncementTransport,
-} from '../../features/addAnnouncementForm';
-import { FormAddAnn } from '../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+} from 'features/addAnnouncementForm';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import {
     Control,
     UseFormRegister,

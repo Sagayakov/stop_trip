@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../../../app/store/hooks';
+import { useAppDispatch } from 'app/store/hooks.ts';
 import { InputCheckbox } from './inputsRegistration/inputCheckbox/InputCheckbox';
 import { InputEmail } from './inputsRegistration/inputEmail/InputEmail';
 import { InputName } from './inputsRegistration/inputName/InputName';
@@ -11,8 +11,8 @@ import { InputSubmit } from './inputsRegistration/inputSubmit/InputSubmit';
 import './libr/formRegistration.scss';
 import { AuthRegistration } from './libr/RegistrationTypes';
 import { submitRegForm } from './libr/onSubmitRegForm';
-import { setLoading } from '../../../../entities/loading/model/setLoadingSlice';
-import { resetErrors } from '../../../../features/header/model/modalAuth/reducers/auth';
+import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
+import { resetErrors } from 'features/header/model/modalAuth/reducers/auth.ts';
 
 export const FormRegistration = () => {
     const [showPassword, setShowPassword] = useState(false);

@@ -4,7 +4,7 @@ import {
     Price,
     TotalArea,
     TypeSettingRealty
-} from "../../widgets/settingForm/settingRealty/libr/TypeSettingRealty";
+} from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { getMultiQuery } from "./getMultiQuery";
 
 export const getRealtyQuery = (data: TypeSettingRealty) => {

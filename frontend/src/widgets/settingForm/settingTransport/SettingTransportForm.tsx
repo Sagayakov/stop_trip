@@ -14,12 +14,13 @@ import {
     TypeOfService,
     TypeOfTransport,
     YearOfProduction,
-} from '../../../features/settingCategoryForm/settingTransportForm/index';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+} from 'features/settingCategoryForm/settingTransportForm';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import '././libr/settingTransportForm.scss';
 import { TypeSettingTransport } from './libr/TypeSettingTransport';
 import { useSearchParams } from 'react-router-dom';
-import { getTransportQuery } from '../../../shared/utils/getTransportQuery';
+import { getTransportQuery } from 'shared/utils/getTransportQuery.ts';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -27,9 +28,11 @@ interface Props {
 
 const SettingTransportForm = ({ setShowFilters }: Props) => {
     const [, setSearchParams] = useSearchParams();
-    
+    const { t } = useTranslation();
+
     const { register, handleSubmit, reset, watch, setValue, control } =
         useForm<TypeSettingTransport>();
+
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -51,7 +54,7 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 autoComplete="off"
             >
-                <TypeOfService register={register} watch={watch} />
+                <TypeOfService register={register} />
                 <TypeOfTransport register={register} watch={watch} />
                 <TransportationCategory setValue={setValue} control={control} />
                 <MarkOfTransport setValue={setValue} control={control} />
@@ -69,11 +72,11 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 <BodyTypeOfTransport setValue={setValue} control={control} />
                 <ConditionOfTransport register={register} setValue={setValue} />
                 <TransportCommission register={register} />
-                <SettingTransportPrice register={register}/>
-                <input type="submit" value="Применить" />
+                <SettingTransportPrice register={register} />
+                <input type="submit" value={t('filters.apply')} />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
-                    Сбросить фильтры
+                    {t('filters.reset')}
                 </button>
             </form>
         </section>

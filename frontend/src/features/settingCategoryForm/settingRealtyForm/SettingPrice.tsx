@@ -1,5 +1,6 @@
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { TypeSettingRealty } from '../../../widgets/settingForm/settingRealty/libr/TypeSettingRealty';
+import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     watch: UseFormWatch<TypeSettingRealty>;
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export const SettingPrice = ({ register, watch }: Props) => {
+    const { t } = useTranslation();
+
     const radio = watch('price.adverts');
     const checkedStyle = {
         color: 'white',
@@ -15,7 +18,7 @@ export const SettingPrice = ({ register, watch }: Props) => {
 
     return (
         <div className="setting-price">
-            <h3>Цена</h3>
+            <h3>{t('filters.price')}</h3>
             <div className="setting-price-announcement">
                 <label style={radio === '100' ? checkedStyle : {}}>
                     <input
@@ -23,7 +26,7 @@ export const SettingPrice = ({ register, watch }: Props) => {
                         value="100"
                         {...register('price.adverts')}
                     />
-                    До 100$
+                    {`${t('filters.max')} 100$`}
                 </label>
                 <label style={radio === '500' ? checkedStyle : {}}>
                     <input
@@ -31,7 +34,7 @@ export const SettingPrice = ({ register, watch }: Props) => {
                         value="500"
                         {...register('price.adverts')}
                     />
-                    До 500$
+                    {`${t('filters.max')} 500$`}
                 </label>
                 <label style={radio === '1000' ? checkedStyle : {}}>
                     <input
@@ -39,7 +42,7 @@ export const SettingPrice = ({ register, watch }: Props) => {
                         value="1000"
                         {...register('price.adverts')}
                     />
-                    До 1000$
+                    {`${t('filters.max')} 1000$`}
                 </label>
             </div>
             <div className="setting-price-inputs">
@@ -47,13 +50,13 @@ export const SettingPrice = ({ register, watch }: Props) => {
                     id="price-input-min"
                     type="number"
                     min="0"
-                    placeholder="От"
+                    placeholder={t('filters.from')}
                     {...register('price.min')}
                 />
                 <input
                     id="price-input-max"
                     type="number"
-                    placeholder="До"
+                    placeholder={t('filters.up-to')}
                     {...register('price.max')}
                 />
             </div>

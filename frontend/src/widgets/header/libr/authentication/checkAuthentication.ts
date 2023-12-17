@@ -1,6 +1,6 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import { saveTokensAuthToCookie } from '../../../../app/cookie/cookieAuth';
-import { setIsAuth } from '../../../../features/header/model/modalAuth/reducers/auth';
+import { saveTokensAuthToCookie } from 'app/cookie/cookieAuth.ts';
+import { setIsAuth } from 'features/header/model/modalAuth/reducers/auth.ts';
 import { getTokensFromStorage } from './getTokensFromStorage';
 
 export const checkAuthentication = async (dispatch: Dispatch) => {
@@ -10,42 +10,41 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
         'Content-Type': 'application/json',
         Accept: 'application/json',
     };
+    if(accessToken){
+        try {
+            //если токена нет, вернет статус 401
+            const res = await fetch(`${url}/api/auth/jwt/verify/`, {
+                method: 'POST',
+                headers: headersConfig,
+                body: JSON.stringify({ token: accessToken }),
+            });
 
-    try {
-        //если токена нет, вернет статус 401
-        const res = await fetch(`${url}/api/auth/jwt/verify/`, {
-            method: 'POST',
-            headers: headersConfig,
-            body: JSON.stringify({ token: accessToken }),
-        });
-
-        if (res.ok) {
-            dispatch(setIsAuth(true));
-            localStorage.setItem('isAuth', 'true')
-        } else {
-            try {
-                const response = await fetch(`${url}/api/auth/jwt/refresh/`, {
-                    method: 'POST',
-                    headers: headersConfig,
-                    body: JSON.stringify({ refresh: refreshToken }),
-                });
-                if(response.ok){
-                    const data = await response.json();
-                    await dispatch(setIsAuth(true))
-                    localStorage.setItem('isAuth', 'true')
-                    /* if (localStorage.getItem('rememberMe')) { */
-                        saveTokensAuthToCookie(data.access);
-                    /* } else {
-                        sessionStorage.setItem('accessToken', data.access);
-                    } */
-                }else {
-                    localStorage.removeItem('isAuth')
-                }
-            } catch (error) {
-                console.log(error);
+            if (res.ok) {
+                dispatch(setIsAuth(true));
+                localStorage.setItem('isAuth', 'true')
             }
+        } catch (error) {
+            console.log(error);
         }
-    } catch (error) {
-        console.log(error);
     }
+    if(!accessToken && refreshToken){
+        try {
+            const response = await fetch(`${url}/api/auth/jwt/refresh/`, {
+                method: 'POST',
+                headers: headersConfig,
+                body: JSON.stringify({ refresh: refreshToken }),
+            });
+            if(response.ok){
+                const data = await response.json();
+                dispatch(setIsAuth(true))
+                localStorage.setItem('isAuth', 'true')
+                saveTokensAuthToCookie(data.access);
+            }else {
+                localStorage.removeItem('isAuth')
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 };

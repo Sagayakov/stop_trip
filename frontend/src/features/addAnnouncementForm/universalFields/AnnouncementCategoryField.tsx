@@ -1,7 +1,10 @@
-import { UniversalSelectDropdown } from '../../../entities/universalDropdown/UniversalSelectDropdown';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
-import { FormAddAnn, /* SelectOption, */  } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-import { useMatchMedia } from '../../../app/hooks/useMatchMedia';
+import {
+    FormAddAnn /* SelectOption, */,
+} from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -10,31 +13,31 @@ interface Props {
     // categoryList: SelectOption[] | undefined;
 }
 
-const AnnouncementCategoryField = ({
-    control,
-    setValue,
-    formState,
-}: Props) => {
+const AnnouncementCategoryField = ({ control, setValue, formState }: Props) => {
     const { errors } = formState;
-    const { isMobile } = useMatchMedia()
+    const { isMobile } = useMatchMedia();
+    const { t } = useTranslation();
+
     const categoryList = [
-        { label: 'Недвижимость', value: 'property' },
-        { label: 'Транспорт', value: 'transport' },
-        { label: 'Работа', value: 'job' },
-        { label: 'Услуги', value: 'service' },
-        { label: 'Такси', value: 'taxi' },
-        { label: 'События', value: 'event' },
-        { label: 'Обмен валюты', value: 'exchange_rate' },
-        { label: 'Купля/продажа', value: 'market' },
-        { label: 'Документы', value: 'document' },
-        { label: 'Еда', value: 'food' },
-        { label: 'Экскурсии', value: 'excursion' },
+        { label: `${t('labels.property')}`, value: 'property' },
+        { label: `${t('labels.transport')}`, value: 'transport' },
+        { label: `${t('labels.job')}`, value: 'job' },
+        { label: `${t('labels.service')}`, value: 'service' },
+        { label: `${t('labels.taxi')}`, value: 'taxi' },
+        { label: `${t('labels.event')}`, value: 'event' },
+        { label: `${t('labels.exchange_rate')}`, value: 'exchange_rate' },
+        { label: `${t('labels.market')}`, value: 'market' },
+        { label: `${t('labels.document')}`, value: 'document' },
+        { label: `${t('labels.food')}`, value: 'food' },
+        { label: `${t('labels.excursion')}`, value: 'excursion' },
     ];
+
     return (
         <>
             <div className="ann-field">
                 <h3>
-                    Категория<span>*</span>:
+                    {t('labels.category')}
+                    <span>*</span>:
                 </h3>
                 <UniversalSelectDropdown
                     closeMenuOnSelect={true}
@@ -42,14 +45,14 @@ const AnnouncementCategoryField = ({
                     isMulti={false}
                     name="category"
                     options={categoryList}
-                    placeholder="Выберите категорию"
+                    placeholder={t('add-page.choose')}
                     prefix="filterAnnouncementCategory"
                     setValue={setValue}
                     required={true}
                     isSearchable={!isMobile}
                 />
                 <div className="ann-field-err">
-                    {errors?.category && 'Пожалуйста, выберите категорию'}
+                    {errors?.category && `${t('add-page.choose-please')}`}
                 </div>
             </div>
         </>

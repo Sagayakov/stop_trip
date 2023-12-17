@@ -1,7 +1,8 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from '../../../../entities/universalDropdown/UniversalSelectDropdown';
-import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-import { valuesOfPropertyForm } from '../../../../widgets/settingForm/settingRealty/libr/valuesOfPropertyForm';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -10,16 +11,18 @@ interface Props {
 
 export const AnnouncementRealtyPrepayment = ({ setValue, control }: Props) => {
     const optionValues = valuesOfPropertyForm.property_prepayment;
+    const { t } = useTranslation();
+
     return (
         <div className="ann-field">
-            <h3>Предоплата</h3>
+            <h3>{t('filters.property_prepayment')}</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
                 name="property_prepayment"
                 options={optionValues}
-                placeholder="Предоплата"
+                placeholder={t('filters.property_prepayment')}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

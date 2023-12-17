@@ -1,14 +1,16 @@
-//AnnouncementTransportComission
 import { UseFormRegister } from 'react-hook-form';
-import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
 }
 export const AnnouncementRealtyComission = ({ register }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="ann-field">
-            <h3>Комиссия</h3>
+            <h3>{t('filters.property_commission')}</h3>
             <div className="inputNumber-group">
                 <input
                     type="text"
@@ -16,7 +18,7 @@ export const AnnouncementRealtyComission = ({ register }: Props) => {
                     autoComplete="off"
                     {...register('property_commission')}
                     min={1}
-                    placeholder="От"
+                    placeholder={t('filters.from')}
                 />
             </div>
             <div className="ann-field-err"></div>

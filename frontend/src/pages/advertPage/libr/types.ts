@@ -1,6 +1,6 @@
-import { categorySubTypesDictionary } from '../../../shared/const/categorySubTypesDictionary';
-import { LastAdvertsImages } from '../../../app/api/types/lastAdvertsTypes';
-import { Categories } from '../../../shared/const/categories';
+import { categorySubTypesDictionary } from 'shared/const/categorySubTypesDictionary.ts';
+import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
+import { Categories } from 'shared/const/categories.tsx';
 
 export type ProductType = {
     category: Categories;
@@ -19,15 +19,15 @@ export type ProductType = {
     job_experience: boolean;
     job_payment_type: null | string;
     job_type: null | keyof typeof categorySubTypesDictionary;
-    owner: number;
+    owner: Owner;
     price: null | number;
-    property_amenities: string[];
+    property_amenities: Amenity[];
     property_area: null | string;
     property_balcony: string;
     property_bathroom_count: null | number;
     property_bathroom_type: string;
     property_building_max_floor: null | number;
-    property_city: string;
+    property_city: { name: string };
     coordinates: string;
     property_district: string;
     property_floor: null | number;
@@ -61,5 +61,17 @@ export type ProductType = {
     transport_type_of_service: null | string;
     transport_vin: null | number;
     transport_year_of_production: null | number;
-    transport_comission: null | number;
+    transport_commission: null | number;
+};
+
+type Owner = {
+    date_joined: string;
+    email: string;
+    full_name: string;
+    id: number;
+    phone: string;
+};
+
+type Amenity = {
+    name: string;
 };

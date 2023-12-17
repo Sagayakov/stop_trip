@@ -1,10 +1,10 @@
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import './portal.scss';
-import { LastAdvertsImages } from '../../app/api/types/lastAdvertsTypes';
-import { Close } from '../../shared/ui/icons/icons-tools/Close';
+import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
+import { Close } from 'shared/ui/icons/icons-tools/Close.tsx';
 import { useRef, useState } from 'react';
-import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
-import { ArrowRight } from '../../shared/ui/icons/icons-tools/ArrowRight';
+import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
+import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
 
 type PortalProps = {
     image: string;

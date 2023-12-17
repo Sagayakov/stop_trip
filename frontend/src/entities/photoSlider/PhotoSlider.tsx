@@ -1,15 +1,15 @@
 import { useRef, useState } from 'react';
-import { ArrowLeft10x24 } from '../../shared/ui/icons/icons-tools/ArrowLeft10x24';
-import { ArrowRight } from '../../shared/ui/icons/icons-tools/ArrowRight';
+import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
+import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
 import './libr/photoSlider.scss';
 import { useParams } from 'react-router-dom';
-import { useGetAdvertByIdQuery } from '../../app/api/fetchAdverts';
-import { Like } from '../../shared/ui/Like';
-import { ShareIcon } from '../../shared/ui/shareIcon';
-import { useMatchMedia } from '../../app/hooks/useMatchMedia';
+import { useGetAdvertByIdQuery } from 'app/api/fetchAdverts.ts';
+import { Like } from 'shared/ui/Like';
+import { ShareIcon } from 'shared/ui/shareIcon';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { createPortal } from 'react-dom';
-import { Portal } from '../../entities/portal/Portal';
-import { Shadow } from '../../entities/portal/Shadow';
+import { Portal } from 'entities/portal/Portal.tsx';
+import { Shadow } from 'entities/portal/Shadow.tsx';
 
 export const PhotoSlider = () => {
     const { id } = useParams();
@@ -21,7 +21,10 @@ export const PhotoSlider = () => {
     const { isMobile } = useMatchMedia();
     const [isPortalOpen, setIsPortalOpen] = useState(false);
     const [activePortalImage, setActivePortalImage] = useState(activeImage + 1);
-    const [touchStart, setTouchStart] = useState<{identifier: number, screenX: number} | null>(null);
+    const [touchStart, setTouchStart] = useState<{
+        identifier: number;
+        screenX: number;
+    } | null>(null);
 
     const handleClickPrev = () => {
         if (data) {
@@ -49,7 +52,11 @@ export const PhotoSlider = () => {
         setImageHeight(imageRef.current!.naturalHeight);
     };
 
-    const openPhoto = () => setIsPortalOpen(true);
+    const openPhoto = () => {
+        if (data && data.images.length) {
+            setIsPortalOpen(true);
+        }
+    };
 
     const handleClickPortalPrev = () => {
         if (data) {
@@ -65,7 +72,6 @@ export const PhotoSlider = () => {
                 ? setActivePortalImage(activePortalImage + 1)
                 : setActivePortalImage(1);
         }
-        
     };
 
     const handleTouchStart = (event: React.TouchEvent<HTMLImageElement>) => {
@@ -80,7 +86,10 @@ export const PhotoSlider = () => {
 
     const handleTouchEnd = (event: React.TouchEvent<HTMLImageElement>) => {
         if (isMobile) {
-            if ( data && touchStart?.identifier === event.changedTouches[0].identifier) {
+            if (
+                data &&
+                touchStart?.identifier === event.changedTouches[0].identifier
+            ) {
                 if (event.changedTouches[0].screenX < touchStart.screenX) {
                     handleClickNext();
                 }
@@ -90,7 +99,7 @@ export const PhotoSlider = () => {
             }
         }
         return;
-    }
+    };
 
     return (
         <>
@@ -101,7 +110,7 @@ export const PhotoSlider = () => {
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
                 >
-                    <div className='arrow-container'>
+                    <div className="arrow-container">
                         <ArrowLeft10x24
                             color="white"
                             handleClickPrev={handleClickPrev}
@@ -112,13 +121,22 @@ export const PhotoSlider = () => {
                         alt="Main image"
                         ref={imageRef}
                         onLoad={handleOnLoad}
-                        className={imageWidth > imageHeight ? 'horizontal' : 'vertical'}
+                        className={
+                            imageWidth > imageHeight ? 'horizontal' : 'vertical'
+                        }
                     />
-                    <div className='arrow-container'>
-                        <ArrowRight color="white" handleClickNext={handleClickNext} />
+                    <div className="arrow-container">
+                        <ArrowRight
+                            color="white"
+                            handleClickNext={handleClickNext}
+                        />
                     </div>
                     <ShareIcon />
-                    <Like id={Number(id)} color="#ff3f25" strokeColor="#1C1C1E" />
+                    <Like
+                        id={Number(id)}
+                        color="#ff3f25"
+                        strokeColor="#1C1C1E"
+                    />
                     {imageHeight > imageWidth && (
                         <>
                             <img
@@ -138,7 +156,9 @@ export const PhotoSlider = () => {
                     {data &&
                         data.images.map((el, i) => (
                             <img
-                                className={activeImage !== i ? 'blurred-image' : ''}
+                                className={
+                                    activeImage !== i ? 'blurred-image' : ''
+                                }
                                 src={
                                     el.image ??
                                     '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
@@ -150,7 +170,9 @@ export const PhotoSlider = () => {
                         ))}
                 </div>
             </div>
-            {isPortalOpen && data && data.images &&
+            {isPortalOpen &&
+                data &&
+                data.images &&
                 createPortal(
                     <>
                         <Portal
@@ -164,8 +186,7 @@ export const PhotoSlider = () => {
                         <Shadow setIsPortalOpen={setIsPortalOpen} />
                     </>,
                     document.body
-                )
-            }
+                )}
         </>
     );
 };

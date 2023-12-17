@@ -1,5 +1,5 @@
-import { ArrowLeft14x7 } from '../../shared/ui/icons/icons-tools/ArrowLeft14x7';
-import { ArrowRight14x7 } from '../../shared/ui/icons/icons-tools/ArrowRight14x7';
+import { ArrowLeft14x7 } from 'shared/ui/icons/icons-tools/ArrowLeft14x7.tsx';
+import { ArrowRight14x7 } from 'shared/ui/icons/icons-tools/ArrowRight14x7.tsx';
 
 export const Pagination = () => {
     return (

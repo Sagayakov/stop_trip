@@ -1,4 +1,7 @@
-export const getDateOfCreating = (str: string) => {
+import { useAppSelector } from 'app/store/hooks.ts';
+
+export const GetDateOfCreating = (str: string) => {
+    const lang = useAppSelector((state) => state.setLang.lang);
     let day: string | number = new Date(str).getDate();
     let month: string | number = new Date(str).getMonth();
     const year = new Date(str).getFullYear();
@@ -16,9 +19,13 @@ export const getDateOfCreating = (str: string) => {
 
     switch (diffDays) {
         case 0:
-            return `Cегодня, ${hours}:${minutes}`;
+            return `${
+                lang === 'ru' ? 'Cегодня' : 'Today'
+            }, ${hours}:${minutes}`;
         case 1:
-            return `Вчера, ${hours}:${minutes}`;
+            return `${
+                lang === 'ru' ? 'Вчера' : 'Yesterday'
+            }, ${hours}:${minutes}`;
         default:
             return `${day}.${Number(month) + 1}.${year}`;
     }

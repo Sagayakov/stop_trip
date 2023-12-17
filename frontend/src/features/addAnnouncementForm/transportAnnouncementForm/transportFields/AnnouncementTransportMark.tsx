@@ -1,7 +1,8 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from '../../../../entities/universalDropdown/UniversalSelectDropdown';
-import { FormAddAnn } from '../../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
-import { valuesOfTransportForm } from '../../../../widgets/settingForm/settingTransport/libr/valuesOfTransportForm';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { valuesOfTransportForm } from 'widgets/settingForm/settingTransport/libr/valuesOfTransportForm.ts';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -9,17 +10,20 @@ interface Props {
 }
 
 export const AnnouncementTransportMark = ({ setValue, control }: Props) => {
+    const { t } = useTranslation();
+
     const optionValues = valuesOfTransportForm.transport_brand;
+
     return (
         <div className="ann-field">
-            <h3>Марка транспорта</h3>
+            <h3>{t('filters.transport_brand')}</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
                 name="transport_brand"
                 options={optionValues}
-                placeholder="Выберите марку"
+                placeholder={t('filters.choose-brand')}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

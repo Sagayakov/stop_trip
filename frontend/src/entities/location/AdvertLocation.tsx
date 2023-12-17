@@ -1,57 +1,37 @@
-import { ProductType } from '../../pages/advertPage/libr/types';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 import './advertLocation.scss';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import { useMemo } from 'react';
+import { MapComponent } from '../map/MapComponent';
+import { useTranslation } from 'react-i18next';
 
 type AdvertLocationProps = {
     data: ProductType;
 };
 
 export const AdvertLocation = ({ data }: AdvertLocationProps) => {
-    const propertyLocation = [
-        Number(data.coordinates.split(',')[0]),
-        Number(data.coordinates.split(',')[1]),
-    ];
+    const propertyLocation = useMemo(
+        () => [
+            Number(data.coordinates.split(',')[0]),
+            Number(data.coordinates.split(',')[1]),
+        ],
+        [data.coordinates]
+    );
+    const { t } = useTranslation();
 
     return (
         <div className="location">
-            <div className="location-header">Расположение</div>
+            <div className="location-header">{t('advert-page.location')}</div>
             <p>
                 {data.property_city
-                    ? `${data.property_city}, ${data.property_district ?? ''}`
-                    : 'Адрес не указан'}
+                    ? `${data.property_city.name}, ${
+                          data.property_district ??
+                          `${t('advert-page.no-district')}`
+                      }`
+                    : `${t('advert-page.no-address')}`}
             </p>
             <div className="map-wrapper">
                 {propertyLocation && (
-                    <MapContainer
-                        center={[
-                            propertyLocation[0],
-                            propertyLocation[1],
-                        ]}
-                        zoom={11}
-                        scrollWheelZoom={true}
-                        zoomControl
-                    >
-                        <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        <Marker
-                            position={[
-                                propertyLocation[0],
-                                propertyLocation[1],
-                            ]}
-                        >
-                            <Popup>
-                                {data.property_city
-                                    ? `${data.property_city}, ${
-                                          data.property_district ?? ''
-                                      }`
-                                    : `${propertyLocation[0]},
-                                    ${propertyLocation[1]}`}
-                            </Popup>
-                        </Marker>
-                    </MapContainer>
+                    <MapComponent propertyLocation={propertyLocation} />
                 )}
             </div>
         </div>

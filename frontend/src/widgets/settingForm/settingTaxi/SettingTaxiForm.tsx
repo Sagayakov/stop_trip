@@ -3,11 +3,12 @@ import {
     SettingTaxiPrice,
     TypeOfTaxi,
     UnitOfMeasurement,
-} from '../../../features/settingCategoryForm/settingTaxiForm/index';
-import { Reset } from '../../../shared/ui/icons/icons-tools/Reset';
+} from 'features/settingCategoryForm/settingTaxiForm';
+import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeSettingTaxi } from './libr/TypeSettingTaxi';
-import './libr/settingTaxiForm.scss'
+import './libr/settingTaxiForm.scss';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -15,7 +16,8 @@ interface Props {
 
 const SettingTaxiForm = ({ setShowFilters }: Props) => {
     const [, setSearchParams] = useSearchParams();
-    
+    const { t } = useTranslation();
+
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -28,8 +30,12 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
 
         const priceMaxQuery = price.max ? `&price_max=${price.max}` : '';
         const priceMinQuery = price.min ? `&price_min=${price.min}` : '';
-        const taxiUnitQuery = taxi_unit ? `&taxi_unit=${taxi_unit.map((el) => `${el}`).join(',')}` : '';
-        const taxiTypeQuery = taxi_type ? `&taxi_type=${taxi_type.map((el) => `${el}`).join(',')}` : '';
+        const taxiUnitQuery = taxi_unit
+            ? `&taxi_unit=${taxi_unit.map((el) => `${el}`).join(',')}`
+            : '';
+        const taxiTypeQuery = taxi_type
+            ? `&taxi_type=${taxi_type.map((el) => `${el}`).join(',')}`
+            : '';
 
         const filters = `${taxiUnitQuery}${taxiTypeQuery}${priceMinQuery}${priceMaxQuery}`;
         setSearchParams(`category=taxi${filters}`);
@@ -51,10 +57,10 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 <UnitOfMeasurement control={control} setValue={setValue} />
                 <TypeOfTaxi control={control} setValue={setValue} />
                 <SettingTaxiPrice register={register} />
-                <input type="submit" value="Применить" />
+                <input type="submit" value={t('filters.apply')} />
                 <button className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
-                    Сбросить фильтры
+                    {t('filters.reset')}
                 </button>
             </form>
         </section>

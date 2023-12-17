@@ -1,22 +1,17 @@
+import { useTranslation } from 'react-i18next';
+
 interface Props {
     isValid: boolean;
 }
 
 export const InputSubmit = ({ isValid }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <input
             className="submit"
             type="submit"
-            style={{
-                width: '100%',
-                height: '43px',
-                backgroundColor: '#02C66E',
-                border: 'none',
-                borderRadius: '8px',
-                color: 'white',
-                cursor: 'pointer',
-            }}
-            value="Обновить пароль"
+            value={t('reset-page.update')}
             disabled={!isValid}
         />
     );

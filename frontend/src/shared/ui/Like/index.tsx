@@ -4,9 +4,10 @@ import {
     useAddFavoriteMutation,
     useDeleteFromFavoritesMutation,
     useGetFavoritesQuery,
- } from '../../../app/api/fetchFavorites';
-import { useAppSelector } from '../../../app/store/hooks';
+} from 'app/api/fetchFavorites.ts';
+import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 type LikeProps = {
     id: number;
@@ -23,33 +24,30 @@ export const Like = ({
     const [addFavorite] = useAddFavoriteMutation();
     const [deleteFromFavorites] = useDeleteFromFavoritesMutation();
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const { t } = useTranslation();
 
     const [isLike, setIsLike] = useState(false);
 
     useEffect(() => {
-        const target = data?.find((el) => el.id === id);
-        setIsLike(!!target);
-    }, [data, id]);
+        const target = data?.results.find((el) => el.id === id);
+        isAuth && setIsLike(!!target);
+    }, [data, id, isAuth]);
 
     const addToFavorite = () => {
         if (isAuth) {
             setIsLike(!isLike);
 
-            !isLike
-                ? addFavorite({ id })
-                : deleteFromFavorites({ id });
+            !isLike ? addFavorite({ id }) : deleteFromFavorites({ id });
         } else {
-            toast.error(
-                'Пожалуйста, авторизуйтесь для возможности добавления объявлений в избранное'
-            );
-        }  
+            toast.error(`${t('advert-page.toast-favs')}`);
+        }
     };
 
     return (
         <div className="add-to-favorite">
             <Favorite
-                color={isLike ? color : 'transparent'}
-                strokeColor={isLike ? 'transparent' : strokeColor}
+                color={isLike && isAuth ? color : 'transparent'}
+                strokeColor={isLike && isAuth ? 'transparent' : strokeColor}
                 addToFavorite={addToFavorite}
             />
         </div>

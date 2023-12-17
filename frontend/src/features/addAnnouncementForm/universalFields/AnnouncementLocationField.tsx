@@ -1,14 +1,8 @@
-import { LatLng, LeafletMouseEvent } from 'leaflet';
 import { useEffect } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
-import {
-    MapContainer,
-    Marker,
-    Popup,
-    TileLayer,
-    useMapEvents,
-} from 'react-leaflet';
-import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { MapComponent } from 'entities/map/MapComponent.tsx';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -21,36 +15,43 @@ const AnnouncementLocationField = ({
     markerPosition,
     setMarkerPosition,
 }: Props) => {
-    const initialPosition: LatLng = new LatLng(15.2993, 74.124);
-    const zoom = 10;
+    /* const initialPosition: LatLng = new LatLng(15.2993, 74.124);
+    const zoom = 10; */
 
-    const handleMapClick = (e: LeafletMouseEvent) => {
+    /* const handleMapClick = (e: LeafletMouseEvent) => {
         const { lat, lng } = e.latlng;
         setMarkerPosition(String(lat) + ", " + lng);
-    };
-    const position = {
+    }; */
+    /* const position = {
         lat: Number(markerPosition?.split(',')[0]),
         lng: Number(markerPosition?.split(',')[1])
-    }
-    const MapClickHandler = () => {
+    } */
+    /* const MapClickHandler = () => {
         useMapEvents({
             click: handleMapClick,
         });
         return null;
-    };
+    }; */
+    const { t } = useTranslation();
 
     useEffect(() => {
-        markerPosition &&
-            setValue('coordinates', markerPosition);
+        markerPosition && setValue('coordinates', markerPosition);
     }, [markerPosition]);
 
     return (
         <div className="ann-field">
             <h3>
-                Локация:
+                {`${t('add-page.location')}:`}
                 {/* Локация<span>*</span>: */}
             </h3>
-            <MapContainer
+            <div className="map-wrapper">
+                <MapComponent
+                    propertyLocation={[15.2993, 54.124]}
+                    isSelected={true}
+                    setMarkerPosition={setMarkerPosition}
+                />
+            </div>
+            {/* <MapContainer
                 center={initialPosition}
                 zoom={zoom}
             >
@@ -64,7 +65,7 @@ const AnnouncementLocationField = ({
                         </Popup>
                     </Marker>
                 )}
-            </MapContainer>
+            </MapContainer> */}
             <div className="ann-field-err"></div>
         </div>
     );

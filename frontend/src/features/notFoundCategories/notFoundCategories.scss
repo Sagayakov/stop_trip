@@ -44,7 +44,32 @@
             span {
                 font-size: 14px;
             }
-            
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .categories_not-found {
+        .category {
+            align-items: flex-start;
+            span {
+                text-align: left;
+                font-size: 13px;
+            }
+        }
+        .category.exchange_rate {
+            gap: 0.5rem;
+            svg {
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .categories_not-found {
+        .category:last-child {
+            display: none;
         }
     }
 }

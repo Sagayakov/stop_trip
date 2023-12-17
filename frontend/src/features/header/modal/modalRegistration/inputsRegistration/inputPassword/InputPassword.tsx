@@ -1,8 +1,9 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { Eye } from '../../../../../../shared/ui/icons/icons-tools/Eye';
+import { Eye } from 'shared/ui/icons/icons-tools/Eye.tsx';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
-import { useAppSelector } from '../../../../../../app/store/hooks';
+import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;
@@ -11,16 +12,23 @@ interface Props {
     setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const InputPassword = ({ errors, register, showPassword, setShowPassword }: Props) => {
+export const InputPassword = ({
+    errors,
+    register,
+    showPassword,
+    setShowPassword,
+}: Props) => {
     const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
+    const { t } = useTranslation();
 
     const handleShowPass = () => {
         setShowPassword(!showPassword);
     };
+
     const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
-        event.preventDefault()
-        toast.error('Копировать пароль запрещено')
-    }
+        event.preventDefault();
+        toast.error(`${t('modal-login.copy-password')}`);
+    };
 
     return (
         <>
@@ -35,7 +43,7 @@ export const InputPassword = ({ errors, register, showPassword, setShowPassword 
                         // /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,22}/,
                     })}
                     onCopy={(event) => handleCopy(event)}
-                    placeholder="Пароль"
+                    placeholder={t('modal-login.password')}
                     autoComplete="new-password"
                     type={showPassword ? 'text' : 'password'}
                     style={{
@@ -52,14 +60,12 @@ export const InputPassword = ({ errors, register, showPassword, setShowPassword 
             <div className="input-error">
                 {(errors?.passWord?.type === 'minLength' && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Пароль слишком короткий. Минимальная длина: 8 символов.
+                        {t('modal-registration.password-short')}
                     </p>
                 )) ||
                     (errors?.passWord && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                            Введите корректный пароль. Пароль должен состоять из латиницы, содержать
-                            буквы, цифры и минимум 1 спецсимвол. Минимальная
-                            длина 8 символов, максимальная - 22. Пробел запрещен.
+                            {t('modal-registration.password-correct')}
                         </p>
                     ))}
                 {errorEnter && (

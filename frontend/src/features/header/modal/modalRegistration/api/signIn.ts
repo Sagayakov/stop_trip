@@ -1,4 +1,4 @@
-import { saveTokensAuthToCookie } from '../../../../../app/cookie/cookieAuth';
+import { saveTokensAuthToCookie } from 'app/cookie/cookieAuth.ts';
 import { UserEnter } from '../libr/RegistrationTypes';
 
 export const signIn = async (body: UserEnter) => {

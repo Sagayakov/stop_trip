@@ -4,7 +4,7 @@ import { UseFormReset } from 'react-hook-form';
 import { AuthRegistration } from './RegistrationTypes';
 import { createUser } from '../api/createUser';
 import { Dispatch } from '@reduxjs/toolkit';
-import { setIsCheckMailModalOpen } from '../../../../../features/header/model/modalAuth/reducers/isCheckMailModalOpen';
+import { setIsCheckMailModalOpen } from 'features/header/model/modalAuth/reducers/isCheckMailModalOpen.ts';
 
 export const submitRegForm = async (
     submitData: AuthRegistration,
@@ -16,6 +16,7 @@ export const submitRegForm = async (
             {
                 full_name: submitData.userName,
                 email: submitData.email,
+                phone: submitData.phone,
                 password: submitData.passWord,
                 re_password: submitData.repeatPassword,
             },

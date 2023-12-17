@@ -1,5 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;
@@ -7,15 +8,18 @@ interface Props {
 }
 
 export const InputPhone = ({ errors, register }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <>
             <input
                 {...register('phone', {
                     required: true,
                     minLength: 5,
-                    pattern: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$/,
+                    pattern:
+                        /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,11}(\s*)?$/,
                 })}
-                placeholder="Номер телефона"
+                placeholder={t('modal-registration.phone')}
                 style={{
                     border: `1px solid ${
                         errors?.phone ? '#FF3F25' : '#DCDCDC'
@@ -25,7 +29,7 @@ export const InputPhone = ({ errors, register }: Props) => {
             <div className="input-error">
                 {errors?.phone && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Введите корректный номер телефона
+                        {t('modal-registration.correct-number')}
                     </p>
                 )}
             </div>

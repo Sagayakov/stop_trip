@@ -1,5 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export const InputName = ({ register, errors }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <>
             <input
@@ -17,7 +20,7 @@ export const InputName = ({ register, errors }: Props) => {
                     minLength: 2,
                     maxLength: 50,
                 })}
-                placeholder="Имя пользователя"
+                placeholder={t('modal-registration.user-name')}
                 style={{
                     border: `1px solid ${
                         errors?.userName ? '#FF3F25' : '#DCDCDC'
@@ -27,12 +30,12 @@ export const InputName = ({ register, errors }: Props) => {
             <div className="input-error">
                 {errors?.userName && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Введите Ваше имя
+                        {t('modal-registration.user-name')}
                     </p>
                 )}
                 {errors?.userName?.type === 'maxLength' && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        Не более 50 символов
+                        {t('modal-registration.not-more-50')}
                     </p>
                 )}
             </div>

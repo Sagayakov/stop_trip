@@ -1,0 +1,116 @@
+.filterFoodForm__control {
+    width: 100%;
+    height: 100%;
+    .filterFoodForm__value-container {
+        height: 100%;
+        align-content: center;
+        .filterFoodForm__input-container{
+            .filterFoodForm__input {
+                height: 25px;
+                border: none !important;
+            }
+        }
+    }
+    .filterFoodForm__indicators {
+        .filterCurrencyForm__clear-indicator {
+            padding: 0;
+        }
+        .filterFoodForm__dropdown-indicator {
+            padding: 8px 8px 8px 0;
+        }
+        span {
+            display: none;
+        }
+    }
+}
+.filterFoodForm__control {
+    &::-webkit-scrollbar {
+        width: 2px !important;
+    }
+    &::-webkit-scrollbar-thumb {
+        width: 2px;
+        background-color: gray !important;
+    }
+}
+
+.filterFoodForm__menu-list {
+    max-height: 200px;
+    scrollbar-width: thin !important;
+}
+.filterFoodForm {
+    h3 {
+        margin-bottom: 14px;
+    }
+    .foodDelivery,
+    .foodEstablishment,
+    .foodType {
+        margin-bottom: 24px;
+    }
+    input[type='submit'] {
+        width: 100%;
+        height: 43px;
+        // padding: 12px 20px;
+        display: flex;
+        justify-content: center;
+        border-radius: var(--radii);
+        border: none;
+        color: white;
+        background-color: var(--main-blue);
+        font-family: var(--font-lato);
+        font-weight: 600;
+        margin-bottom: 16px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        cursor: pointer;
+    }
+    .reset-setting-form {
+        padding: 12px 20px;
+        width: 100%;
+        height: 45px;
+        color: var(--main-blue);
+        font-family: var(--font-lato);
+        font-weight: 700;
+        background-color: white;
+        border-radius: var(--radii);
+        border: 1px solid var(--main-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        svg {
+            margin-right: 16px;
+        }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .filterFoodForm{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        grid-template-areas:
+            'foodType foodDel foodEst'
+            'submitBtn . resetBnt';
+
+        .foodDelivery{
+            text-align: center;
+            grid-area: foodDel;
+        }
+        .foodEstablishment{
+            text-align: center;
+            grid-area: foodEst;
+        }
+        .foodType{
+            grid-area: foodType;
+        }
+        .reset-setting-form{
+            width: 135%;
+            justify-self: flex-end;
+            grid-area: resetBnt;
+        }
+        input[type="submit"]{
+            width: 135%;
+            grid-area: submitBtn;
+        }
+    }
+}

@@ -1,20 +1,26 @@
 import { useRef } from 'react';
-import { MapIcon } from '../../../shared/ui/icons/icons-tools/MapIcon';
-import { useMatchMedia } from '../../../app/hooks/useMatchMedia';
+import { MapIcon } from 'shared/ui/icons/icons-tools/MapIcon.tsx';
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
+import { useTranslation } from 'react-i18next';
 
 export const SelectGeo = () => {
     const selectRef = useRef<null | HTMLSelectElement>(null);
-    const { isMobile } = useMatchMedia()
+    const { isMobile } = useMatchMedia();
+    const { t } = useTranslation();
 
     return (
         <div className="select-wrapper">
-            {!isMobile ? <MapIcon color="#1F6FDE" /> : <p>В городе</p>}
+            {!isMobile ? (
+                <MapIcon color="#1F6FDE" />
+            ) : (
+                <p>{t('main-page.in-city')}</p>
+            )}
             <select ref={selectRef} disabled>
-                <option value="Гоа">Гоа</option>
-                <option value="Гоа">Гоа</option>
-                <option value="Гоа">Гоа</option>
-                <option value="Гоа">Гоа</option>
-                <option value="Гоа">Гоа</option>
+                <option value={t('main-page.goa')}>{t('main-page.goa')}</option>
+                <option value={t('main-page.goa')}>{t('main-page.goa')}</option>
+                <option value={t('main-page.goa')}>{t('main-page.goa')}</option>
+                <option value={t('main-page.goa')}>{t('main-page.goa')}</option>
+                <option value={t('main-page.goa')}>{t('main-page.goa')}</option>
             </select>
         </div>
     );

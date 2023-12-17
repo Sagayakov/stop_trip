@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from '../../../shared/ui/icons/icons-tools/ArrowRight';
+import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
 import './modal-categories.scss';
-import { Category, categories } from '../../../shared/const/categories';
+import { Category, categories } from 'shared/const/categories.tsx';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     showModal: boolean;
@@ -10,9 +11,11 @@ interface Props {
 
 export const ModalWindow = ({ showModal, setShowModal }: Props) => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
+
     const navigateAndClose = (el: [string, Category]) => {
         setShowModal(false);
-        navigate(`/${el[0]}/`);
+        navigate(`/${el[0]}/?category=${el[0]}`);
     };
 
     return (
@@ -37,7 +40,7 @@ export const ModalWindow = ({ showModal, setShowModal }: Props) => {
                             onClick={() => navigateAndClose(el)}
                             // onClick={() => navigate(`/${el[0]}`)}
                         >
-                            <span>{el[1].description}</span>
+                            <span>{t(`categories.${el[0]}`)}</span>
                             <ArrowRight color="#1C1C1E" />
                         </div>
                     );
