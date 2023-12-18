@@ -54,8 +54,8 @@
         min-height: 60px;
     }
     font-family: var(--font-inter);
-    .typeOfService{
-        .checkbox-group{
+    .typeOfService {
+        .checkbox-group {
             display: flex;
             justify-content: space-between;
         }
@@ -115,12 +115,12 @@
         h3 {
             margin-bottom: 8px;
         }
-
     }
     .setting-price {
         .setting-price-announcement {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
+            gap: 1rem;
             margin-bottom: 8px;
             label {
                 cursor: pointer;
@@ -257,7 +257,8 @@
         .setting-price {
             .setting-price-announcement {
                 display: flex;
-                justify-content: space-between;
+                justify-content: flex-start;
+                gap: 1rem;
                 margin-bottom: 8px;
                 label {
                     padding: 8px 3.5%;
@@ -321,7 +322,7 @@
         .total-area,
         .living-space,
         .rooms-quantity,
-        .bathroom{
+        .bathroom {
             width: 80%;
         }
         .realtyComission {
@@ -336,41 +337,41 @@
         .living-space {
             grid-area: living-space;
         }
-        .typeOfService{
+        .typeOfService {
             grid-area: service;
         }
-        .propertyСity{
+        .propertyСity {
             grid-area: city;
         }
-        .propertyDistrict{
+        .propertyDistrict {
             grid-area: district;
         }
-        .houseType{
+        .houseType {
             grid-area: houseType;
         }
         .floor {
             grid-area: floor;
         }
-        .rentalCondition{
+        .rentalCondition {
             grid-area: condition;
         }
-        .rooms-quantity{
+        .rooms-quantity {
             grid-area: room;
         }
-        .amenities{
+        .amenities {
             grid-area: amenities;
             min-height: 80px;
         }
-        .sleepingPlaces{
+        .sleepingPlaces {
             grid-area: sleep;
         }
-        .hasFurniture{
+        .hasFurniture {
             grid-area: furniture;
         }
-        .bathroom{
+        .bathroom {
             grid-area: bath;
         }
-        .bathroom-quantity{
+        .bathroom-quantity {
             grid-area: bathqty;
         }
         .balcony {

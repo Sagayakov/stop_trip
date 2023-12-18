@@ -2,6 +2,7 @@ import {
     Commission,
     LivingSpace,
     Price,
+    RoomsCount,
     TotalArea,
     TypeSettingRealty,
 } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
@@ -31,36 +32,21 @@ export const getRealtyQuery = (data: TypeSettingRealty) => {
                     key,
                     data[key as keyof TypeSettingRealty] as string[]
                 );
-            } else if (data[key as keyof TypeSettingRealty] === 'price') {
-                const maxQuery = (data[key as keyof TypeSettingRealty] as Price)
-                    .max
-                    ? `&price_max=${(
-                          data[key as keyof TypeSettingRealty] as Price
-                      ).max
-                          .toString()
-                          .replace(/,/g, '.')}`
-                    : '';
+            } else {
+                type Total =
+                    | TotalArea
+                    | LivingSpace
+                    | Commission
+                    | RoomsCount
+                    | Price;
 
-                const minQuery = (data[key as keyof TypeSettingRealty] as Price)
-                    .min
-                    ? `&price_min=${(
-                          data[key as keyof TypeSettingRealty] as Price
-                      ).min
-                          .toString()
-                          .replace(/,/g, '.')}`
-                    : '';
-
-                const limitsQuery = (
+                const limitQuery = (
                     data[key as keyof TypeSettingRealty] as Price
-                ).adverts
+                ).limit
                     ? `&price_max=${
-                          (data[key as keyof TypeSettingRealty] as Price)
-                              .adverts
+                          (data[key as keyof TypeSettingRealty] as Price).limit
                       }`
                     : '';
-                query += `${minQuery}${maxQuery}${limitsQuery}`;
-            } else {
-                type Total = TotalArea | LivingSpace | Commission;
 
                 const maxQuery = (data[key as keyof TypeSettingRealty] as Total)
                     .max
@@ -80,9 +66,10 @@ export const getRealtyQuery = (data: TypeSettingRealty) => {
                           .replace(/,/g, '.')}`
                     : '';
 
-                query += `${minQuery}${maxQuery}`;
+                query += `${minQuery}${maxQuery}${limitQuery}`;
             }
         }
     }
+
     return query;
 };

@@ -48,7 +48,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
         const filters = getRealtyQuery(data);
         setSearchParams(`category=property${filters}`);
         setShowFilters(false);
-        scrollToTop()
+        scrollToTop();
     };
 
     const onReset = () => {
@@ -61,9 +61,9 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 className="filter-realty-form"
                 onSubmit={handleSubmit(onsubmit)}
             >
-                <TypeOfService register={register}/>
-                <City control={control} setValue={setValue}/>
-                <District control={control} setValue={setValue}/>
+                <TypeOfService register={register} />
+                <City control={control} setValue={setValue} />
+                <District control={control} setValue={setValue} />
                 <HouseType control={control} setValue={setValue} />
                 <SettingPrice register={register} watch={watch} />
                 <RentalCondition control={control} setValue={setValue} />

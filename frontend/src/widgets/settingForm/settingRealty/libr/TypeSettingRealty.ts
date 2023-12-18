@@ -10,7 +10,7 @@ export interface TypeSettingRealty {
     property_living_area: LivingSpace;
     property_sleeping_places: number;
     property_has_furniture: boolean;
-    property_amenities: string,
+    property_amenities: string;
     property_rooms_count: RoomsCount;
     property_bathroom_type: string[];
     property_bathroom_count: number;
@@ -26,13 +26,13 @@ export interface SelectOption {
 }
 
 export interface Price {
-    adverts: Adverts;
+    limit: Limit;
     min: number;
     max: number;
 }
-type Adverts = null | '100' | '500' | '1000';
+type Limit = null | '15000' | '30000';
 
-interface RoomsCount{
+export interface RoomsCount {
     min: number;
     max: number;
 }
@@ -46,8 +46,7 @@ export interface LivingSpace {
     max: number;
 }
 
-
-export interface Commission{
+export interface Commission {
     min: number;
     max: number;
 }
