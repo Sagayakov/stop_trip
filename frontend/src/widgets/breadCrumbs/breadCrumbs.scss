@@ -1,7 +1,8 @@
 .bread-crumbs {
-    max-width: 1240px;
+    //max-width: 1240px;
     margin: auto;
     color: var(--grey-3);
+    font-family: var(--font-inter);
     font-size: 14px;
     a {
         text-decoration: none;
@@ -9,17 +10,22 @@
     }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 767px) {
     .bread-crumbs {
-        width: 85%;
+        .link-category {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 424px) {
     .bread-crumbs {
-        .link-main {
-            display: flex;
-            cursor: pointer;
+        .link-category {
+            h1 {
+                margin: 0;
+            }
         }
     }
 }

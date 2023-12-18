@@ -18,7 +18,14 @@ export const BreadCrumbs = ({ data }: { data: ProductType }) => {
     return (
         <div className="bread-crumbs">
             {isMobile ? (
-                <div className="link-main" onClick={() => navigate(-1)}>
+                <div
+                    className="link-category"
+                    onClick={() =>
+                        navigate(
+                            `/${category}/?category=${category}&page=${pageCategory}`
+                        )
+                    }
+                >
                     <ArrowLeft10x24 style={{ marginRight: '16px' }} />
                     {<h1>{data.title}</h1>}
                 </div>

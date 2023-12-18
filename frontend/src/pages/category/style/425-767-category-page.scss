@@ -1,6 +1,6 @@
 @media (min-width: 425px) and (max-width: 767px) {
     main {
-        width: 100vw;
+        width: 100%;
 
         .bread-crumbs {
             width: 93%;
@@ -8,13 +8,19 @@
             padding: 0px;
             display: flex;
             align-items: center;
-            svg {
-                display: block;
+            a {
+                display: flex;
+                align-items: center;
+                width: 85%;
+                svg {
+                    display: block;
+                }
+                h1 {
+                    padding: 0;
+                    color: var(--main-black);
+                }
             }
-            h1 {
-                padding: 0;
-                color: var(--main-black);
-            }
+
             .filter-btn {
                 display: flex;
                 align-items: center;
@@ -87,9 +93,10 @@
                         top: 110px;
                     }
                     .description {
+                        position: relative;
                         margin: 8px 0px 0px;
                         padding: 0px 8px;
-                        height: 94px;
+                        height: auto;
                         h2,
                         h3 {
                             font-size: 16px;
@@ -110,10 +117,10 @@
                             gap: 5px;
                         }
                         .time {
-                            position: relative;
-                            bottom: 23px;
+                            position: absolute;
+                            bottom: 8px;
                             left: 255px;
-                            width: 45%;
+                            margin-bottom: 0;
                         }
                     }
                 }
