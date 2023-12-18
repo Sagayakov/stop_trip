@@ -2,36 +2,26 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
-import { Modal } from 'features/header/modal';
 import { ModalAddAdvert } from 'features/header/modal/modalAddAdvert/ModalAddAdvert.tsx';
-import { ModalMobile } from 'features/header/modal/modalMobile/ModalMobile.tsx';
-import { toggleModalEnter } from 'features/header/model/modalAuth/reducers/toggleModal.ts';
 import { LogoHeader } from 'shared/ui/icons/icons-tools/LogoHeader.tsx';
-import { Person } from 'shared/ui/icons/icons-tools/Person.tsx';
 import { Plus } from 'shared/ui/icons/icons-tools/Plus.tsx';
-import './libr/header.scss';
+import styles from './libr/header.module.scss';
 import { setIsAuth } from 'features/header/model/modalAuth/reducers/auth.ts';
 import { checkAuthentication } from './libr/authentication/checkAuthentication';
 import { getTokensFromStorage } from './libr/authentication/getTokensFromStorage';
 import { handleScroll } from './libr/eventListeners/handleScroll';
 import { ModalCheckEmail } from 'features/header/modal/modalCheckEmail/ModalCheckEmail.tsx';
 import { ModalResetPassword } from 'features/header/modal/modalResetPassword/ModalResetPassword.tsx';
-import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
-import { Langs } from 'entities/langs';
 import { useTranslation } from 'react-i18next';
+import { UniversalButton } from 'entities/universalEntites';
+import { LangAuthBlock } from 'features/header/langAuthBlock/LangAuthBlock.tsx';
 
 export const Header = () => {
     const dispatch: Dispatch = useAppDispatch();
-    const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
     const ref = useRef(null);
     const { t } = useTranslation();
 
-    const { isMobile } = useMatchMedia();
-
-    const [showUserMenu, setShowUserMenu] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-
-    const handleToggleModal = () => dispatch(toggleModalEnter(!toggle));
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
     const isCheckEmailModalOpen = useAppSelector(
         (state) => state.setIsCheckMailModalOpen.isCheckMailModalOpen
@@ -65,13 +55,15 @@ export const Header = () => {
     const closeAddModal = () => {
         setIsAddModalOpen(false);
     };
+    const getClassName = () =>
+        isAuth ? `${styles.addAdvert} ${styles.active}` : `${styles.addAdvert}`;
 
     return (
         <header ref={ref}>
-            <div className="header-wrapper">
+            <div className={styles.header_wrapper}>
                 <LogoHeader />
-                <button
-                    className={isAuth ? 'addAdvert active' : 'addAdvert'}
+                <UniversalButton
+                    className={getClassName()}
                     onClick={
                         isAuth ? () => navigate('/add-announcement') : addAdvert
                     }
@@ -80,43 +72,8 @@ export const Header = () => {
                     {window.innerWidth >= 425
                         ? `${t('main-page.post-advert')}`
                         : `${t('main-page.publish')}`}
-                </button>
-                {isMobile ? (
-                    <Person
-                        stroke={isAuth ? '#1f6fde' : '#1C1C1E'}
-                        handleClick={
-                            isAuth
-                                ? () => setShowUserMenu(!showUserMenu)
-                                : () => handleToggleModal()
-                        }
-                    />
-                ) : (
-                    <div className="language-auth">
-                        <Langs />
-                        {isAuth ? (
-                            <div className="person-auth">
-                                <Person
-                                    stroke={isAuth ? '#1f6fde' : '#1C1C1E'}
-                                    handleClick={() =>
-                                        setShowUserMenu(!showUserMenu)
-                                    }
-                                />
-                            </div>
-                        ) : (
-                            <div
-                                className="auth-button"
-                                onClick={handleToggleModal}
-                            >
-                                {t('main-page.login-register')}
-                            </div>
-                        )}
-                    </div>
-                )}
-                <ModalMobile
-                    showUserMenu={showUserMenu}
-                    setShowUserMenu={setShowUserMenu}
-                />
-                <Modal />
+                </UniversalButton>
+                <LangAuthBlock />
                 {isAddModalOpen && (
                     <ModalAddAdvert closeAddModal={closeAddModal} />
                 )}

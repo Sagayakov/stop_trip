@@ -1,4 +1,4 @@
-header.fixed-header {
+header.fixed_header {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,20 +8,19 @@ header.fixed-header {
 
 header {
     width: 100%;
-    margin: 0px auto 50px;
-    box-shadow: 0px 6px 8px 0px #00000014;
+    margin: 0 auto 50px;
+    box-shadow: 0 6px 8px 0 #00000014;
     position: absolute;
     z-index: 1000;
     background-color: var(--main-background);
     transition: all 0.7s ease;
 
-    .header-wrapper {
+    .header_wrapper {
         width: 1240px;
         padding: 24px 0;
         margin: 0 auto;
         display: flex;
         align-items: center;
-        // justify-content: center;
         justify-content: space-between;
         cursor: pointer;
         transition: all 0.7s ease;
@@ -29,7 +28,6 @@ header {
             width: 262px;
             height: 3rem;
             padding: 12px 24px 12px 18px;
-            // margin-left: 355px;
             border: none;
             border-radius: var(--radii);
             background-color: var(--grey-2);
@@ -49,8 +47,7 @@ header {
         .addAdvert:active {
             opacity: 0.75;
         }
-        .language-auth {
-            // margin-left: 181px;
+        .language_auth {
             height: 36px;
             display: flex;
             align-items: center;
@@ -60,37 +57,43 @@ header {
                 justify-content: space-between;
                 font-size: 12px;
                 font-family: var(--font-inter);
-                font-weight: 700;
                 background-color: #f5f3f3;
                 border-radius: 8px;
+                border: none;
                 text-align: center;
-                .language-ru {
+                .language_ru {
                     width: 50%;
+                    font-weight: 700;
                     height: 36px;
                     color: var(--grey-3);
-                    border-radius: 8px 0px 0px 8px;
+                    border-radius: 8px 0 0 8px;
+                    background-color: #f5f3f3;
                     padding: 9px 11px;
                     cursor: pointer;
+                    border: none;
                 }
-                .language-eng {
+                .language_eng {
+                    font-weight: 700;
                     width: 50%;
                     height: 36px;
                     color: var(--grey-3);
-                    border-radius: 0px 8px 8px 0px;
+                    border-radius: 0 8px 8px 0;
                     padding: 9px 14px 9px 9px;
-                    border-radius: 0px 8px 8px 0px;
+                    background-color: #f5f3f3;
                     cursor: pointer;
+                    border: none;
                 }
-                .lang-active {
+                .lang_active {
                     background-color: #f0f0f0;
                     color: var(--main-blue);
                 }
             }
-            .auth-button {
+            .auth_button {
                 width: 197px;
                 height: 44px;
                 margin-left: 1rem;
                 color: var(--main-blue);
+                background-color: var(--main-background);
                 border: 2px solid var(--main-blue);
                 border-radius: var(--radii);
                 font-weight: 600;
@@ -101,7 +104,7 @@ header {
                 justify-content: center;
                 cursor: pointer;
             }
-            .person-auth {
+            .person_auth {
                 margin-left: 1rem;
                 svg {
                     height: 3rem;
@@ -112,9 +115,9 @@ header {
 }
 
 @media (min-width: 1440px) {
-    header.fixed-header {
-        .header-wrapper {
-            padding: 10px 0px;
+    header.fixed_header {
+        .header_wrapper {
+            padding: 10px 0;
         }
     }
 }
@@ -122,13 +125,13 @@ header {
 @media (max-width: 1439px) {
     header {
         width: 100%;
-        margin: 0px auto;
-        .header-wrapper {
+        margin: 0 auto;
+        .header_wrapper {
             width: 85%;
             margin: 0 auto;
             justify-content: space-between;
             .addAdvert,
-            .language-auth {
+            .language_auth {
                 margin: 0;
             }
         }
@@ -138,8 +141,8 @@ header {
 @media (max-width: 1023px) {
     header {
         width: 100%;
-        margin: 0px auto;
-        .header-wrapper {
+        margin: 0 auto;
+        .header_wrapper {
             .addAdvert {
                 width: 192px;
                 padding: 8px;
@@ -150,10 +153,9 @@ header {
 }
 
 @media (min-width: 768px) and (max-width: 1439px) {
-    header.fixed-header {
-        // transition: all 0.6s ease 0.5s;
-        .header-wrapper {
-            padding: 5px 0px;
+    header.fixed_header {
+        .header_wrapper {
+            padding: 5px 0;
             #logo {
                 transform: scale(0.9);
                 margin: 0 0 0 -7px;
@@ -161,16 +163,16 @@ header {
             .addAdvert {
                 height: 35px;
             }
-            .language-auth {
+            .language_auth {
                 .language {
-                    .language-ru,
-                    .language-eng {
+                    .language_ru,
+                    .language_eng {
                         height: 25px;
                         line-height: 8px;
                     }
                 }
             }
-            .auth-button {
+            .auth_button {
                 height: 35px;
             }
         }
@@ -179,16 +181,16 @@ header {
 
 @media (min-width: 768px) and (max-width: 1023px) {
     header {
-        .header-wrapper {
+        .header_wrapper {
             width: 85%;
             justify-content: space-between;
-            padding: 10px 0px;
+            padding: 10px 0;
             .addAdvert {
                 width: 30%;
                 justify-content: center;
             }
-            .language-auth {
-                .auth-button {
+            .language_auth {
+                .auth_button {
                     width: 85%;
                     padding: 0 10px;
                 }
@@ -198,8 +200,8 @@ header {
 }
 
 @media (min-width: 601px) and (max-width: 767px) {
-    header.fixed-header {
-        .header-wrapper {
+    header.fixed_header {
+        .header_wrapper {
             height: 40px;
             #logo {
                 transform: scale(0.9);
@@ -212,7 +214,7 @@ header {
         }
     }
     header {
-        .header-wrapper {
+        .header_wrapper {
             height: 70px;
             width: 93%;
             justify-content: space-between;
@@ -230,8 +232,8 @@ header {
     }
 }
 @media (max-width: 600px) {
-    header.fixed-header {
-        .header-wrapper {
+    header.fixed_header {
+        .header_wrapper {
             height: 40px;
             #logo {
                 transform: scale(0.9);
@@ -249,7 +251,7 @@ header {
         }
     }
     header {
-        .header-wrapper {
+        .header_wrapper {
             height: 60px;
             width: 93%;
             justify-content: space-between;
@@ -272,10 +274,10 @@ header {
 }
 
 @media (min-width: 425px) and (max-width: 476px) {
-    header.fixed-header {
+    header.fixed_header {
         height: 40px;
         margin: 0 auto;
-        .header-wrapper {
+        .header_wrapper {
             height: 30px;
             margin: 0 auto;
             padding: 20px 0;
@@ -296,9 +298,9 @@ header {
     }
     header {
         height: 50px;
-        .header-wrapper {
+        .header_wrapper {
             margin-bottom: 1.5rem;
-            width: 93%; //410
+            width: 93%;
             height: 33px;
             justify-content: space-between;
             #logo {
@@ -315,7 +317,7 @@ header {
                 cursor: pointer;
             }
 
-            .language-auth {
+            .language_auth {
                 display: none;
             }
         }
@@ -323,10 +325,10 @@ header {
 }
 
 @media (max-width: 424px) {
-    header.fixed-header {
+    header.fixed_header {
         height: 40px;
         margin: 0 auto;
-        .header-wrapper {
+        .header_wrapper {
             height: 30px;
             margin: 0 auto;
             padding: 20px 0;
@@ -346,7 +348,7 @@ header {
         }
     }
     header {
-        .header-wrapper {
+        .header_wrapper {
             width: 92%;
             height: 33px;
             justify-content: space-between;
@@ -366,7 +368,7 @@ header {
                 cursor: pointer;
                 transition: all 0.6s ease;
             }
-            .language-auth {
+            .language_auth {
                 display: none;
             }
         }

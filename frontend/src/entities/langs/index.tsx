@@ -1,5 +1,7 @@
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { setLang } from 'features/header/model/langsReducer/lang.ts';
+import styles from 'widgets/header/libr/header.module.scss'
+import { UniversalButton } from 'entities/universalEntites';
 
 export const Langs = () => {
     const lang = useAppSelector((state) => state.setLang.lang);
@@ -8,23 +10,27 @@ export const Langs = () => {
     const handleClick = () => dispatch(setLang(lang === 'ru' ? 'en' : 'ru'));
 
     return (
-        <div className="language">
-            <div
+        <div className={styles.language}>
+            <UniversalButton
                 className={
-                    lang === 'ru' ? 'language-ru lang-active' : 'language-ru'
+                    lang === 'ru'
+                        ? `${styles.language_ru} ${styles.lang_active}`
+                        : `${styles.language_ru}`
                 }
                 onClick={handleClick}
             >
                 RU
-            </div>
-            <div
+            </UniversalButton>
+            <UniversalButton
                 className={
-                    lang === 'en' ? 'language-eng lang-active' : 'language-eng'
+                    lang === 'en'
+                        ? `${styles.language_eng} ${styles.lang_active}`
+                        : `${styles.language_eng}`
                 }
                 onClick={handleClick}
             >
                 ENG
-            </div>
+            </UniversalButton>
         </div>
     );
 };
