@@ -15,6 +15,7 @@ interface Props<T extends FieldValues> {
     isSearchable?: boolean;
     isClearable?: boolean;
     defaultValue?: SelectOption
+    isDisabled?: boolean
 }
 interface SelectOption{
     value: string | number | null | boolean
@@ -32,7 +33,8 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
     options,
     isSearchable,
     isClearable,
-    defaultValue
+    defaultValue,
+    isDisabled
 }: Props<T>) => {
     const animated = makeAnimated();
 
@@ -70,6 +72,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                     isClearable={isClearable}
                     options={options}
                     defaultValue={defaultValue}
+                    isDisabled={isDisabled}
                     isSearchable={isSearchable}
                     onChange={(selectedOptions) => {
                         handleChange(

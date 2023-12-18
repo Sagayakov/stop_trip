@@ -53,40 +53,45 @@
     }
     // чтобы стрелочек не было в инпутах
     .typeOfTransport,
-    .typeOfService{
+    .typeOfService {
         .setting-typeOfTransport,
-        .setting-typeOfService{
+        .setting-typeOfService {
             display: flex;
-            .form-checkbox {
+            .radio-group {
                 display: flex;
-                align-items: center;
-                margin-right: 16px;
-                input[type='checkbox'] {
-                    position: absolute;
-                    z-index: -1;
-                    opacity: 0; //скрыл галочку чекбокса
-                    width: 53px;
-                    height: 15px;
+                .form-checkbox {
+                    display: flex;
+                    align-items: center;
                     margin-right: 16px;
-                }
-                span::before {
-                    content: '';
-                    display: inline-block;
-                    width: 20px; //14px
-                    height: 20px; //14px
-                    flex-shrink: 0;
-                    flex-grow: 0;
-                    border-radius: 4px;
-                    margin: 0 5px 0 0;
-                    background-repeat: no-repeat;
-                    background-position: center center;
-                    background-size: 50% 50%;
-                    background-color: var(--grey-1);
-                }
-                & > input[type='checkbox']:checked + span::before {
-                    background-size: 60%;
-                    background: var(--main-green) url('../../../../shared/ui/icons/union.svg') no-repeat center center;
-                    box-shadow: none;
+                    input[type='radio'] {
+                        position: absolute;
+                        z-index: -1;
+                        opacity: 0;
+                        width: 53px;
+                        height: 15px;
+                        margin-right: 16px;
+                    }
+                    span::before {
+                        content: '';
+                        display: inline-block;
+                        width: 20px;
+                        height: 20px;
+                        flex-shrink: 0;
+                        flex-grow: 0;
+                        border-radius: 4px;
+                        margin: 0 5px 0 0;
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 50% 50%;
+                        background-color: var(--grey-1);
+                    }
+                    & > input[type='radio']:checked + span::before {
+                        background-size: 60%;
+                        background: var(--main-green)
+                            url('shared/ui/icons/union.svg') no-repeat center
+                            center;
+                        box-shadow: none;
+                    }
                 }
             }
         }
@@ -257,7 +262,7 @@
         .transportComission {
             grid-area: comission;
         }
-        .transportPrice{
+        .transportPrice {
             grid-area: price;
         }
         .reset-setting-form {
