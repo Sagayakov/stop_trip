@@ -1,24 +1,24 @@
-import { Control, Controller, UseFormSetValue } from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import {
-    SelectOption,
-    TypeSettingTransport,
-} from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
+import { Control, UseFormSetValue } from 'react-hook-form';
+import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
-import { useEffect, useState } from 'react';
+import { SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
+import { useEffect, useState } from 'react';
 
 interface Props {
     control: Control<TypeSettingTransport, string[]>;
     setValue: UseFormSetValue<TypeSettingTransport>;
 }
+interface ChoicesType{
+    name: keyof ProductType;
+    choices: SelectType[];
+}
 
 export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [bodyTypesValues, setBodyTypesValues] = useState<SelectType[]>([]);
-    const animated = makeAnimated();
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -34,50 +34,18 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
         }
     }, [data]);
 
-    const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
-    ) => {
-        if (selectedOptions) {
-            const optionsArray = Array.isArray(selectedOptions)
-                ? selectedOptions
-                : [selectedOptions];
-            const selectedValues = optionsArray
-                .map((option) => option?.value)
-                .filter(Boolean);
-            setValue('transport_body_type', selectedValues);
-        }
-    };
-
     return (
         <div className="bodyType">
             <h3>{t('filters.transport_body_type')}</h3>
-            <Controller
-                name="transport_body_type"
+            <UniversalSelectDropdown
+                setValue={setValue}
                 control={control}
-                render={({ field }) => (
-                    <Select
-                        {...field}
-                        classNamePrefix="filterTransporForm"
-                        id="bodyType"
-                        components={animated}
-                        placeholder={t('filters.transport_body_type')}
-                        closeMenuOnSelect={false}
-                        isMulti={true}
-                        options={bodyTypesValues}
-                        onChange={(selectedOptions) => {
-                            handleChange(
-                                selectedOptions as
-                                    | SelectOption
-                                    | SelectOption[]
-                                    | null
-                            );
-                        }}
-                        value={bodyTypesValues.filter(
-                            (option) =>
-                                field.value?.includes(option.value as string)
-                        )}
-                    />
-                )}
+                name="transport_body_type"
+                prefix="filterTransporForm"
+                placeholder={t('filters.transport_body_type')}
+                closeMenuOnSelect={false}
+                isMulti={true}
+                options={bodyTypesValues}
             />
         </div>
     );

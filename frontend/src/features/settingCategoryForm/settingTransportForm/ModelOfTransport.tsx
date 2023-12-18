@@ -1,31 +1,25 @@
 import {
     Control,
-    Controller,
     UseFormRegister,
     UseFormSetValue,
     UseFormWatch,
 } from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import {
-    SelectOption,
-    TypeSettingTransport,
-} from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
+import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
     watch: UseFormWatch<TypeSettingTransport>;
     setValue: UseFormSetValue<TypeSettingTransport>;
-    control: Control<TypeSettingTransport, string>;
+    control: Control<TypeSettingTransport, string[]>;
 }
 
 export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
     const markOfTrasport = watch('transport_brand');
-    const animated = makeAnimated();
     const disabled = markOfTrasport && markOfTrasport.length ? false : true;
     const { data } = useGetFiltersQuery('');
     const [modelOfTransportValues, setModelOfTransportValues] = useState<
@@ -46,45 +40,20 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
         }
     }, [data]);
 
-    const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
-    ) => {
-        if (selectedOptions) {
-            const optionsArray = Array.isArray(selectedOptions)
-                ? selectedOptions
-                : [selectedOptions];
-            const selectedValues = optionsArray
-                .map((option) => option?.value)
-                .filter(Boolean);
-            setValue('transport_model', selectedValues);
-        }
-    };
-
     return (
         <div className="model">
             <h3>{t('filters.transport_model')}</h3>
-            <Controller
-                name="transport_model"
+            <UniversalSelectDropdown
+                setValue={setValue}
                 control={control}
-                render={({ field }) => (
-                    <Select
-                        {...field}
-                        classNamePrefix="filterTransporForm"
-                        id="model"
-                        components={animated}
-                        placeholder={t('filters.choose-model')}
-                        isDisabled={disabled}
-                        isMulti={false}
-                        options={modelOfTransportValues}
-                        onChange={(selectedOption) => {
-                            handleChange(selectedOption as SelectOption | null);
-                        }}
-                        value={modelOfTransportValues.filter(
-                            (option) =>
-                                field.value?.includes(option.value as string)
-                        )}
-                    />
-                )}
+                name="transport_model"
+                prefix="filterTransporForm"
+                placeholder={t('filters.transport_model')}
+                closeMenuOnSelect={false}
+                isDisabled={disabled}
+                isMulti={true}
+                options={modelOfTransportValues}
+
             />
         </div>
     );

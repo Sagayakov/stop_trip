@@ -21,6 +21,7 @@ import { TypeSettingTransport } from './libr/TypeSettingTransport';
 import { useSearchParams } from 'react-router-dom';
 import { getTransportQuery } from 'shared/utils/getTransportQuery.ts';
 import { useTranslation } from 'react-i18next';
+import { UniversalButton } from 'entities/universalEntites';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -36,11 +37,13 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const onsubmit: SubmitHandler<TypeSettingTransport> = (data) => {
         const filters = getTransportQuery(data);
         setSearchParams(`category=transport${filters}`);
         setShowFilters(false);
+        scrollToTop()
     };
 
     const onReset = () => {
@@ -74,10 +77,10 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 <TransportCommission register={register} />
                 <SettingTransportPrice register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className="reset-setting-form" onClick={onReset}>
+                <UniversalButton onClick={onReset} className="reset-setting-form">
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
-                </button>
+                </UniversalButton>
             </form>
         </section>
     );

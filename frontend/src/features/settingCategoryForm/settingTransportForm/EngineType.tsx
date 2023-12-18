@@ -1,22 +1,22 @@
-import { Control, Controller, UseFormSetValue } from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import {
-    SelectOption,
-    TypeSettingTransport,
-} from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
+import { Control, UseFormSetValue } from 'react-hook-form';
+import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
-import { useEffect, useState } from 'react';
+import { SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
+import { useEffect, useState } from 'react';
 
 interface Props {
     control: Control<TypeSettingTransport, string[]>;
     setValue: UseFormSetValue<TypeSettingTransport>;
 }
+interface ChoicesType{
+    name: keyof ProductType;
+    choices: SelectType[];
+}
 
 export const EngineType = ({ control, setValue }: Props) => {
-    const animated = makeAnimated();
     const { data } = useGetFiltersQuery('');
     const [engineTypeValues, setEngineTypeValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
@@ -33,51 +33,18 @@ export const EngineType = ({ control, setValue }: Props) => {
             data && setEngineTypeValues(result as SelectType[]);
         }
     }, [data]);
-
-    const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
-    ) => {
-        if (selectedOptions) {
-            const optionsArray = Array.isArray(selectedOptions)
-                ? selectedOptions
-                : [selectedOptions];
-            const selectedValues = optionsArray
-                .map((option) => option?.value)
-                .filter(Boolean);
-            setValue('transport_engine_type', selectedValues);
-        }
-    };
-
     return (
         <div className="engineType">
             <h3>{t('filters.transport_engine_type')}</h3>
-            <Controller
-                name="transport_engine_type"
+            <UniversalSelectDropdown
+                setValue={setValue}
                 control={control}
-                render={({ field }) => (
-                    <Select
-                        {...field}
-                        classNamePrefix="filterTransporForm"
-                        id="engineType"
-                        components={animated}
-                        placeholder={t('filters.transport_engine_type')}
-                        closeMenuOnSelect={false}
-                        isMulti={true}
-                        options={engineTypeValues}
-                        onChange={(selectedOptions) => {
-                            handleChange(
-                                selectedOptions as
-                                    | SelectOption
-                                    | SelectOption[]
-                                    | null
-                            );
-                        }}
-                        value={engineTypeValues.filter(
-                            (option) =>
-                                field.value?.includes(option.value as string)
-                        )}
-                    />
-                )}
+                name="transport_engine_type"
+                prefix="filterTransporForm"
+                placeholder={t('filters.transport_engine_type')}
+                closeMenuOnSelect={false}
+                isMulti={true}
+                options={engineTypeValues}
             />
         </div>
     );
