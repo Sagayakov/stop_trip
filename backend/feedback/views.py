@@ -1,25 +1,17 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework import mixins, viewsets, status
 from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema
 
 from .serializers import FeedBackCreateSerializer
-from .models import FeedBackModel
 
 
 @extend_schema(tags=["Feedback"])
-class FeedbackModelViewSet(ModelViewSet):
+class FeedbackModelViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     """Обратная связь"""
 
     permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        queryset = FeedBackModel.objects.all()
-        return queryset
-
-    def get_serializer_class(self):
-        return FeedBackCreateSerializer
+    serializer_class = FeedBackCreateSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
