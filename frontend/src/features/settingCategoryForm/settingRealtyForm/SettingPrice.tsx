@@ -10,7 +10,7 @@ interface Props {
 export const SettingPrice = ({ register, watch }: Props) => {
     const { t } = useTranslation();
 
-    const radio = watch('price.adverts');
+    const radio = watch('price.limit');
     const checkedStyle = {
         color: 'white',
         backgroundColor: '#1F6FDE',
@@ -20,29 +20,21 @@ export const SettingPrice = ({ register, watch }: Props) => {
         <div className="setting-price">
             <h3>{t('filters.price')}</h3>
             <div className="setting-price-announcement">
-                <label style={radio === '100' ? checkedStyle : {}}>
+                <label style={radio === '15000' ? checkedStyle : {}}>
                     <input
                         type="radio"
-                        value="100"
-                        {...register('price.adverts')}
+                        value="15000"
+                        {...register('price.limit')}
                     />
-                    {`${t('filters.max')} 100$`}
+                    {`${t('filters.max')} 15 000₹`}
                 </label>
-                <label style={radio === '500' ? checkedStyle : {}}>
+                <label style={radio === '30000' ? checkedStyle : {}}>
                     <input
                         type="radio"
-                        value="500"
-                        {...register('price.adverts')}
+                        value="30000"
+                        {...register('price.limit')}
                     />
-                    {`${t('filters.max')} 500$`}
-                </label>
-                <label style={radio === '1000' ? checkedStyle : {}}>
-                    <input
-                        type="radio"
-                        value="1000"
-                        {...register('price.adverts')}
-                    />
-                    {`${t('filters.max')} 1000$`}
+                    {`${t('filters.max')} 30 000₹`}
                 </label>
             </div>
             <div className="setting-price-inputs">

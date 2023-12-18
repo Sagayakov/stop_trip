@@ -172,12 +172,14 @@ main {
                     }
                 }
             }
-            .announcement-not-found {
-                text-align: center;
-                font-size: 1.8rem;
-                font-weight: 700;
-            }
         }
+    }
+
+    .announcement-not-found {
+        width: 100%;
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 700;
     }
 
     .pagination {

@@ -29,8 +29,14 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
         const homeVisitQuery = service_home_visit
             ? `&service_home_visit=true`
             : '';
-        const priceMaxQuery = price.max ? `&price_max=${price.max}` : '';
-        const priceMinQuery = price.min ? `&price_min=${price.min}` : '';
+
+        const priceMaxQuery = price.max
+            ? `&price_max=${price.max.toString().replace(/,/g, '.')}`
+            : '';
+
+        const priceMinQuery = price.min
+            ? `&price_min=${price.min.toString().replace(/,/g, '.')}`
+            : '';
 
         const filters = `${homeVisitQuery}${priceMinQuery}${priceMaxQuery}`;
         setSearchParams(`category=service${filters}`);

@@ -128,7 +128,8 @@
     .setting-price {
         .setting-price-announcement {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
+            gap: 1rem;
             margin-bottom: 8px;
             label {
                 cursor: pointer;
@@ -265,7 +266,8 @@
         .setting-price {
             .setting-price-announcement {
                 display: flex;
-                justify-content: space-between;
+                justify-content: flex-start;
+                gap: 1rem;
                 margin-bottom: 8px;
                 label {
                     padding: 8px 3.5%;

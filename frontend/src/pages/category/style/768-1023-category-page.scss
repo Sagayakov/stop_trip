@@ -10,6 +10,12 @@
             align-items: center;
             a {
                 display: flex;
+                align-items: center;
+                width: 85%;
+                h1 {
+                    margin: 0;
+                    font-size: 26px;
+                }
             }
             .filter-btn {
                 display: flex;
@@ -24,12 +30,6 @@
                 font-weight: 500;
                 padding: 10px 17px;
             }
-        }
-
-        h1 {
-            width: 85%;
-            margin: 0;
-            font-size: 26px;
         }
 
         .filters-announcement {

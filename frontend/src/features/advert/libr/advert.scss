@@ -111,8 +111,8 @@ main {
                 width: 85%;
                 margin: 0;
             }
-            .image-wrapper{
-                .active-image{
+            .image-wrapper {
+                .active-image {
                     height: 40vw;
                     img {
                         height: 40vw;
@@ -122,6 +122,18 @@ main {
                         height: 40vw;
                         clip-path: inset(0 0 0 0);
                     }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1023px) {
+    main {
+        .announcement-wrapper {
+            .bread-crumbs {
+                a {
+                    width: unset;
                 }
             }
         }

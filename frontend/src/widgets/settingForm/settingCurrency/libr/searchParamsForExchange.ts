@@ -3,7 +3,11 @@ interface Currency {
     label: string;
 }
 
-export const searchParamsForExchange = ( exchange_for: Currency, exchange_rate: number, proposed_currency: Currency ) => {
+export const searchParamsForExchange = (
+    exchange_for: Currency,
+    exchange_rate: number,
+    proposed_currency: Currency
+) => {
     let proposedValues = '';
     try {
         Object.entries(proposed_currency).forEach((el) => {
@@ -28,7 +32,9 @@ export const searchParamsForExchange = ( exchange_for: Currency, exchange_rate: 
     }
     const exFor = exchange_for ? `&exchange_for=${exchangeFor}` : '';
 
-    const rate = exchange_rate ? `&exchange_rate=${exchange_rate}` : '';
+    const rate = exchange_rate
+        ? `&exchange_rate=${exchange_rate.toString().replace(/,/g, '.')}`
+        : '';
 
-    return {proposed, exFor, rate}
+    return { proposed, exFor, rate };
 };

@@ -105,8 +105,8 @@ export const CategoryPage = () => {
                                 marginRight: '8px',
                             }}
                         />
+                        <h1>{t(`categories.${category}`)}</h1>
                     </NavLink>
-                    <h1>{t(`categories.${category}`)}</h1>
                     <div
                         className="filter-btn"
                         onClick={() => setShowFilters(!showFilters)}

@@ -52,11 +52,19 @@ export const Pagination = ({
         }
     };
 
+    const handleClickNumber = (page: number) =>
+        pathname === '/'
+            ? dispatch(setPageMain(page))
+            : dispatch(setPageCategory(page));
+
     return (
         <div className="pagination">
             <ArrowLeft14x7
                 color={data && data.previous ? '#1C1C1E' : '#BCBCBC'}
-                style={{ marginRight: '12px', cursor: 'pointer' }}
+                style={{
+                    marginRight: '12px',
+                    cursor: data && data.previous ? 'pointer' : 'unset',
+                }}
                 handleClickPrev={handleClickPrev}
             />
             {new Array(pages)
@@ -71,6 +79,7 @@ export const Pagination = ({
                                     : 'page-number'
                             }
                             key={el}
+                            onClick={() => handleClickNumber(el)}
                         >
                             {el}
                         </span>
@@ -78,7 +87,10 @@ export const Pagination = ({
                 })}
             <ArrowRight14x7
                 color={data && data.next ? '#1C1C1E' : '#BCBCBC'}
-                style={{ marginLeft: '12px', cursor: 'pointer' }}
+                style={{
+                    marginLeft: '12px',
+                    cursor: data && data.next ? 'pointer' : 'unset',
+                }}
                 handleClickNext={handleClickNext}
             />
         </div>
