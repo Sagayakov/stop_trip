@@ -42,10 +42,13 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
     const { register, handleSubmit, reset, watch, setValue, control } =
         useForm<TypeSettingRealty>();
 
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
     const onsubmit: SubmitHandler<TypeSettingRealty> = (data) => {
         const filters = getRealtyQuery(data);
         setSearchParams(`category=property${filters}`);
         setShowFilters(false);
+        scrollToTop()
     };
 
     const onReset = () => {
@@ -70,7 +73,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 <SleepingPlaces register={register} />
                 <Balcony register={register} />
                 <HasFurniture register={register} />
-                <Amenities register={register} />
+                <Amenities setValue={setValue} control={control} />
                 <RoomsQuantity register={register} />
                 <Bathroom register={register} />
                 <BathroomQuantity register={register} />

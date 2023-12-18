@@ -9,6 +9,7 @@ import { TypeSettingTaxi } from './libr/TypeSettingTaxi';
 import './libr/settingTaxiForm.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getSearchParams } from 'widgets/settingForm/settingTaxi/libr/getSearchParams.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -25,21 +26,13 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
     const { register, handleSubmit, reset, setValue, control } =
         useForm<TypeSettingTaxi>();
 
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
     const onsubmit: SubmitHandler<TypeSettingTaxi> = (data) => {
         const { taxi_unit, taxi_type, price } = data;
 
-        const priceMaxQuery = price.max ? `&price_max=${price.max}` : '';
-        const priceMinQuery = price.min ? `&price_min=${price.min}` : '';
-        const taxiUnitQuery = taxi_unit
-            ? `&taxi_unit=${taxi_unit.map((el) => `${el}`).join(',')}`
-            : '';
-        const taxiTypeQuery = taxi_type
-            ? `&taxi_type=${taxi_type.map((el) => `${el}`).join(',')}`
-            : '';
-
-        const filters = `${taxiUnitQuery}${taxiTypeQuery}${priceMinQuery}${priceMaxQuery}`;
+        const filters = getSearchParams(taxi_type, taxi_unit, price)
         setSearchParams(`category=taxi${filters}`);
-
+        scrollToTop()
         setShowFilters(false);
     };
 
@@ -54,7 +47,7 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 autoComplete="off"
             >
-                <UnitOfMeasurement control={control} setValue={setValue} />
+                <UnitOfMeasurement register={register} />
                 <TypeOfTaxi control={control} setValue={setValue} />
                 <SettingTaxiPrice register={register} />
                 <input type="submit" value={t('filters.apply')} />

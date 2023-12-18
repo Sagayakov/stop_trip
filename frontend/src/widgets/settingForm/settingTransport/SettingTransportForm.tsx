@@ -66,11 +66,11 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 />
                 <EngineType setValue={setValue} control={control} />
                 <EngineCapacity register={register} />
-                <DriveType register={register} setValue={setValue} />
+                <DriveType setValue={setValue} control={control} />
                 <YearOfProduction register={register} />
-                <TransmissionType register={register} />
+                <TransmissionType control={control} setValue={setValue} />
                 <BodyTypeOfTransport setValue={setValue} control={control} />
-                <ConditionOfTransport register={register} setValue={setValue} />
+                <ConditionOfTransport control={control} setValue={setValue} />
                 <TransportCommission register={register} />
                 <SettingTransportPrice register={register} />
                 <input type="submit" value={t('filters.apply')} />

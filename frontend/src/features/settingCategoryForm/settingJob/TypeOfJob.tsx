@@ -1,22 +1,22 @@
-import { Control, Controller, UseFormSetValue } from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
+import { UseFormRegister } from 'react-hook-form';
 import { TypesOfJobs } from 'widgets/settingForm/settingJob/libr/TypesOfJobs.ts';
-import { SelectOption } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
+import { ChoicesType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { UniversalCheckboxGroup } from 'entities/universalEntites';
 
 interface Props {
-    setValue: UseFormSetValue<TypesOfJobs>;
-    control: Control<TypesOfJobs, string[]>;
+    register: UseFormRegister<TypesOfJobs>;
+}
+interface Options{
+    value: string | number
+    label: string | number
 }
 
-export const TypeOfJob = ({ control, setValue }: Props) => {
-    const animated = makeAnimated();
+export const TypeOfJob = ({ register }: Props) => {
     const { data } = useGetFiltersQuery('');
-    const [typeValues, setTypeValues] = useState<SelectType[]>([]);
+    const [typeValues, setTypeValues] = useState<Options[]>([]);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -24,58 +24,20 @@ export const TypeOfJob = ({ control, setValue }: Props) => {
             const result = (
                 data.params.find((el) => el.name === 'job_type') as ChoicesType
             ).choices.filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
+                (el) => (el as Options).value && (el as Options).label
             );
-            data && setTypeValues(result as SelectType[]);
+            data && setTypeValues(result as Options[]);
         }
     }, [data]);
 
-    const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
-    ) => {
-        if (selectedOptions) {
-            const optionsArray = Array.isArray(selectedOptions)
-                ? selectedOptions
-                : [selectedOptions];
-            const selectedValues = optionsArray
-                .map((option) => option?.value)
-                .filter(Boolean);
-            setValue('job_type', selectedValues);
-        }
-    };
     return (
         <>
             <div className="typeOfJob">
                 <h3>{t('filters.job_type')}</h3>
-                <Controller
+                <UniversalCheckboxGroup
+                    register={register}
+                    checkboxValues={typeValues}
                     name="job_type"
-                    control={control}
-                    render={({ field }) => (
-                        <Select
-                            {...field}
-                            classNamePrefix="filterJobForm"
-                            id="typeOfJob"
-                            components={animated}
-                            placeholder={t('filters.job_type')}
-                            closeMenuOnSelect={true}
-                            isMulti={true}
-                            options={typeValues}
-                            onChange={(selectedOptions) => {
-                                handleChange(
-                                    selectedOptions as
-                                        | SelectOption
-                                        | SelectOption[]
-                                        | null
-                                );
-                            }}
-                            value={typeValues.filter(
-                                (option) =>
-                                    field.value?.includes(
-                                        option.value as string
-                                    )
-                            )}
-                        />
-                    )}
                 />
             </div>
         </>

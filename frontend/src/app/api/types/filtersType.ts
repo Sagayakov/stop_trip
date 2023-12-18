@@ -1,4 +1,4 @@
-import { ProductType } from "../../../pages/advertPage/libr/types";
+import { ProductType } from "pages/advertPage/libr/types";
 
 export type FiltersType = {
     count: number;

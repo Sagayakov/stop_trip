@@ -1,46 +1,42 @@
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { Control, UseFormSetValue } from 'react-hook-form';
 import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
+import { SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 
 interface Props {
-    register: UseFormRegister<TypeSettingTransport>;
     setValue: UseFormSetValue<TypeSettingTransport>;
+    control: Control<TypeSettingTransport, string[]>;
+}
+interface ChoicesType{
+    name: keyof ProductType;
+    choices: SelectType[];
 }
 
-export const DriveType = ({ register }: Props) => {
+export const DriveType = ({ setValue, control }: Props) => {
     const { data } = useGetFiltersQuery('');
     const { t } = useTranslation();
+
+    const options = (data?.params.find((el) => el.name === 'transport_drive_type') as ChoicesType)
 
     return (
         <div className="drive">
             <h3>{t('filters.transport_drive_type')}</h3>
             <div className="select-drive">
                 {data &&
-                    (
-                        data.params.find(
-                            (el) => el.name === 'transport_drive_type'
-                        ) as ChoicesType
-                    ).choices
-                        .filter(
-                            (el) =>
-                                (el as SelectType).value &&
-                                (el as SelectType).label
-                        )
-                        .map((el) => (
-                            <label
-                                className="form-checkbox"
-                                key={(el as SelectType).label}
-                            >
-                                <input
-                                    type="checkbox"
-                                    value={(el as SelectType).value || ''}
-                                    {...register('transport_drive_type')}
-                                />
-                                <span>{(el as SelectType).label}</span>
-                            </label>
-                        ))}
+                    <UniversalSelectDropdown<TypeSettingTransport>
+                        setValue={setValue}
+                        control={control}
+                        name="transport_drive_type"
+                        prefix="filterTransporForm"
+                        placeholder={t('filters.transport_drive_type')}
+                        closeMenuOnSelect={false}
+                        isMulti={true}
+                        options={options.choices}
+                    />
+                }
             </div>
         </div>
     );
