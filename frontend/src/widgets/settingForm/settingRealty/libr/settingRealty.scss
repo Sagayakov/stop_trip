@@ -1,33 +1,42 @@
-.filterPropertyForm__control {
-    width: 100%;
-    .filterPropertyForm__indicators {
-        .filterPropertyForm__clear-indicator {
-            padding: 0;
+.filter-realty-form {
+    .filterPropertyForm__control {
+        width: 100%;
+        .filterPropertyForm__value-container {
+            .filterPropertyForm__placeholder {
+                .filterPropertyForm__input-container {
+                    border: none !important;
+                }
+            }
         }
-        .filterPropertyForm__dropdown-indicator {
-            padding: 8px 8px 8px 0;
-        }
-        span {
-            display: none;
+        .filterPropertyForm__indicators {
+            .filterPropertyForm__clear-indicator {
+                padding: 0;
+            }
+            .filterPropertyForm__dropdown-indicator {
+                padding: 8px 8px 8px 0;
+            }
+            span {
+                display: none;
+            }
         }
     }
-}
-.filterPropertyForm__control {
-    &::-webkit-scrollbar {
-        width: 2px !important;
+    .filterPropertyForm__control {
+        &::-webkit-scrollbar {
+            width: 2px !important;
+        }
+        &::-webkit-scrollbar-thumb {
+            width: 2px;
+            background-color: gray !important;
+        }
     }
-    &::-webkit-scrollbar-thumb {
-        width: 2px;
-        background-color: gray !important;
+    .filterPropertyForm__input {
+        height: 25px;
+        border: none !important;
     }
-}
-.filterPropertyForm__input {
-    height: 25px;
-    border: none !important;
-}
-.filterPropertyForm__menu-list {
-    max-height: 200px;
-    scrollbar-width: thin !important;
+    .filterPropertyForm__menu-list {
+        max-height: 200px;
+        scrollbar-width: thin !important;
+    }
 }
 
 .filter-realty-form {
@@ -54,8 +63,8 @@
         min-height: 60px;
     }
     font-family: var(--font-inter);
-    .typeOfService{
-        .checkbox-group{
+    .typeOfService {
+        .checkbox-group {
             display: flex;
             justify-content: space-between;
         }
@@ -115,7 +124,6 @@
         h3 {
             margin-bottom: 8px;
         }
-
     }
     .setting-price {
         .setting-price-announcement {
@@ -321,7 +329,7 @@
         .total-area,
         .living-space,
         .rooms-quantity,
-        .bathroom{
+        .bathroom {
             width: 80%;
         }
         .realtyComission {
@@ -336,41 +344,41 @@
         .living-space {
             grid-area: living-space;
         }
-        .typeOfService{
+        .typeOfService {
             grid-area: service;
         }
-        .propertyСity{
+        .propertyСity {
             grid-area: city;
         }
-        .propertyDistrict{
+        .propertyDistrict {
             grid-area: district;
         }
-        .houseType{
+        .houseType {
             grid-area: houseType;
         }
         .floor {
             grid-area: floor;
         }
-        .rentalCondition{
+        .rentalCondition {
             grid-area: condition;
         }
-        .rooms-quantity{
+        .rooms-quantity {
             grid-area: room;
         }
-        .amenities{
+        .amenities {
             grid-area: amenities;
             min-height: 80px;
         }
-        .sleepingPlaces{
+        .sleepingPlaces {
             grid-area: sleep;
         }
-        .hasFurniture{
+        .hasFurniture {
             grid-area: furniture;
         }
-        .bathroom{
+        .bathroom {
             grid-area: bath;
         }
-        .bathroom-quantity{
+        .bathroom-quantity {
             grid-area: bathqty;
         }
         .balcony {

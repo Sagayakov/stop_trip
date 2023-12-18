@@ -37,7 +37,6 @@ export const ModalMobile = (props: Props) => {
         setShowUserMenu(false);
         clearTokensFromCookies();
         sessionStorage.clear();
-        /* localStorage.removeItem('rememberMe'); */
         localStorage.removeItem('isAuth');
     };
 

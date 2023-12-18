@@ -7,6 +7,8 @@ import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.ts
 import { useState } from 'react';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'widgets/footer/footer.module.scss';
+import { InputTypeSubmit } from 'entities/universalEntites';
 
 export const FeedbackForm = () => {
     const [loading, setLoating] = useState(false);
@@ -45,8 +47,8 @@ export const FeedbackForm = () => {
     };
 
     return (
-        <div className="feedback">
-            <div className="feed">
+        <div className={styles.feedback}>
+            <div className={styles.feed}>
                 <Pencil color="#02C66E" />
                 <p>{t('main-page.suggestions')}</p>
             </div>
@@ -69,10 +71,9 @@ export const FeedbackForm = () => {
                         />
                     )}
                 />
-                <input
-                    type="submit"
-                    value={t('main-page.send')}
+                <InputTypeSubmit
                     disabled={!isValid}
+                    value={t('main-page.send')}
                     style={{ backgroundColor: isValid ? '#02c66e' : 'gray' }}
                 />
             </form>
