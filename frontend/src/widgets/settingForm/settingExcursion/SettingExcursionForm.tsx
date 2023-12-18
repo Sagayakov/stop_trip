@@ -1,12 +1,9 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import {
-    ExcursionFood,
-    ExcursionTransfer,
-} from 'features/settingCategoryForm/settingExcursionForm';
+import { ExcursionFood, ExcursionTransfer } from 'features/settingCategoryForm/settingExcursionForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForExcursionFilter } from './libr/TypeForExcursionFilter';
-import './libr/settingExcursionFilter.scss';
 import { useTranslation } from 'react-i18next';
+import styles from './libr/settingExcursionFilter.module.scss';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -20,9 +17,8 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
     };
 
     const { handleSubmit, reset, register } = useForm<TypeForExcursionFilter>();
-
     const onSubmit: SubmitHandler<TypeForExcursionFilter> = (data) => {
-        console.log(data);
+        console.log(data)
         setShowFilters(false);
         reset();
     };
@@ -32,13 +28,13 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
     return (
         <section className="filters" onClick={handleClick}>
             <form
-                className="filterExcursionForm"
+                className={styles.filterExcursionForm}
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <ExcursionFood register={register} />
                 <ExcursionTransfer register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className="reset-setting-form" onClick={onReset}>
+                <button className={styles.resetSettingForm} onClick={onReset}>
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>

@@ -4,7 +4,6 @@ export interface TypeSettingRealty {
     property_district: string[];
     property_house_type: string[];
     property_floor: number;
-    //typeOfProperty: string[];
     property_rental_condition: string[];
     price: Price;
     property_area: TotalArea;
@@ -12,17 +11,15 @@ export interface TypeSettingRealty {
     property_sleeping_places: number;
     property_has_furniture: boolean;
     property_amenities: string,
-    property_rooms_count: string[];
+    property_rooms_count: RoomsCount;
     property_bathroom_type: string[];
     property_bathroom_count: number;
     property_balcony: string;
-    //onlyWithPhotos: boolean;
     property_has_parking: boolean;
     property_commission: Commission;
     property_prepayment: string[];
 }
 
-// type TypeOfProperty = 'Квартира' | 'Комната' | 'Дом'
 export interface SelectOption {
     value: string;
     label: string;
@@ -35,6 +32,10 @@ export interface Price {
 }
 type Adverts = null | '100' | '500' | '1000';
 
+interface RoomsCount{
+    min: number;
+    max: number;
+}
 export interface TotalArea {
     min: number;
     max: number;
@@ -45,8 +46,6 @@ export interface LivingSpace {
     max: number;
 }
 
-//type RoomsQuantity = 1 | 2 | 3 | 4;
-//type BathRoom = 'separate' | 'combined';
 
 export interface Commission{
     min: number;

@@ -6,16 +6,12 @@
                 padding: 0;
             }
             .filterTransporForm__dropdown-indicator {
-                padding: 8px 8px 8px 0px;
+                padding: 8px 8px 8px 0;
             }
             span {
                 display: none;
             }
         }
-        // .filterTransporForm__value-container {
-        //     // height: 40px;
-        //     overflow-y: scroll;
-        // }
     }
     .filterTransporForm__control {
         &::-webkit-scrollbar {
@@ -57,15 +53,9 @@
     }
     // чтобы стрелочек не было в инпутах
     .typeOfTransport,
-    .typeOfService,
-    .transmissionType,
-    .drive,
-    .condition {
+    .typeOfService{
         .setting-typeOfTransport,
-        .setting-typeOfService,
-        .select-drive,
-        .select-transmissionType,
-        .select-condition {
+        .setting-typeOfService{
             display: flex;
             .form-checkbox {
                 display: flex;
@@ -94,28 +84,13 @@
                     background-color: var(--grey-1);
                 }
                 & > input[type='checkbox']:checked + span::before {
-                    background: url('../../../../shared/ui/icons/union.svg')
-                        no-repeat center center;
                     background-size: 60%;
-                    background-color: var(--main-green);
+                    background: var(--main-green) url('../../../../shared/ui/icons/union.svg') no-repeat center center;
                     box-shadow: none;
                 }
             }
         }
     }
-    .drive,
-    .condition,
-    .transmissionType {
-        .select-drive,
-        .select-condition,
-        .select-transmissionType {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 8px 0px;
-        }
-    }
-
     .typeOfService,
     .typeOfTransport,
     .transportationCategory,
@@ -158,7 +133,6 @@
     input[type='submit'] {
         width: 100%;
         height: 43px;
-        // padding: 12px 20px;
         display: flex;
         justify-content: center;
         border-radius: var(--radii);

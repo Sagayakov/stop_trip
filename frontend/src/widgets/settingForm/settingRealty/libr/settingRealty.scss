@@ -1,3 +1,35 @@
+.filterPropertyForm__control {
+    width: 100%;
+    .filterPropertyForm__indicators {
+        .filterPropertyForm__clear-indicator {
+            padding: 0;
+        }
+        .filterPropertyForm__dropdown-indicator {
+            padding: 8px 8px 8px 0;
+        }
+        span {
+            display: none;
+        }
+    }
+}
+.filterPropertyForm__control {
+    &::-webkit-scrollbar {
+        width: 2px !important;
+    }
+    &::-webkit-scrollbar-thumb {
+        width: 2px;
+        background-color: gray !important;
+    }
+}
+.filterPropertyForm__input {
+    height: 25px;
+    border: none !important;
+}
+.filterPropertyForm__menu-list {
+    max-height: 200px;
+    scrollbar-width: thin !important;
+}
+
 .filter-realty-form {
     input[type='number']::-webkit-outer-spin-button,
     input[type='number']::-webkit-inner-spin-button {
@@ -70,11 +102,6 @@
         display: flex;
         justify-content: space-between;
     }
-    .amenities-setting {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 5px;
-    }
     .type-of-property,
     .propertyСity,
     .typeOfService,
@@ -88,37 +115,7 @@
         h3 {
             margin-bottom: 8px;
         }
-        .filterPropertyForm__control {
-            width: 100%;
-            .filterPropertyForm__indicators {
-                .filterPropertyForm__clear-indicator {
-                    padding: 0;
-                }
-                .filterPropertyForm__dropdown-indicator {
-                    padding: 8px 8px 8px 0;
-                }
-                span {
-                    display: none;
-                }
-            }
-        }
-        .filterPropertyForm__control {
-            &::-webkit-scrollbar {
-                width: 2px !important;
-            }
-            &::-webkit-scrollbar-thumb {
-                width: 2px;
-                background-color: gray !important;
-            }
-        }
-        .filterPropertyForm__input {
-            height: 25px;
-            border: none !important;
-        }
-        .filterPropertyForm__menu-list {
-            max-height: 200px;
-            scrollbar-width: thin !important;
-        }
+
     }
     .setting-price {
         .setting-price-announcement {
@@ -144,18 +141,6 @@
         }
     }
     .checkboxes {
-        .rooms-quantity {
-            .setting-rooms-quantity {
-                height: 17px;
-                label {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 12px;
-                    font-weight: 500;
-                }
-            }
-        }
         .bathroom {
             .bathroom-setting {
                 height: 17px;

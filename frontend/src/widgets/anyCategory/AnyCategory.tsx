@@ -25,6 +25,12 @@ const AnyCategory = () => {
         );
     }
 
+    const notFoundImg = [
+        "../../../src/entities/lastAdverts/ui/image-not-found.jpg",
+        "../../../src/entities/lastAdverts/ui/image-not-found.jpg",
+        "../../../src/entities/lastAdverts/ui/image-not-found.jpg",
+    ];
+
     return (
         <section className="announcement">
             {isLoading && <LoadingWithBackground />}
@@ -53,17 +59,12 @@ const AnyCategory = () => {
                                 {isMobile ? (
                                     <>
                                         {!el.images[0] ? (
-                                            <img
-                                                src="../../../src/entities/lastAdverts/ui/image-not-found.jpg"
-                                                alt="Not found"
-                                            />
+                                            notFoundImg.map((el, index) =>
+                                                <img src={el} alt="Not found" key={index} />
+                                            )
                                         ) : (
                                             el.images.map((item) => (
-                                                <img
-                                                    src={item.image}
-                                                    key={item.image}
-                                                    alt="Not found"
-                                                />
+                                                <img src={item.image} key={item.image} alt="Not found" />
                                             ))
                                         )}
                                     </>

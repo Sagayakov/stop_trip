@@ -5,6 +5,7 @@ import { getTokensFromStorage } from './getTokensFromStorage';
 
 export const checkAuthentication = async (dispatch: Dispatch) => {
     const { accessToken, refreshToken } = getTokensFromStorage();
+    const isAuth = localStorage.getItem('isAuth');
     const url = import.meta.env.VITE_BASE_URL;
     const headersConfig = {
         'Content-Type': 'application/json',
@@ -27,7 +28,7 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
             console.log(error);
         }
     }
-    if(!accessToken && refreshToken){
+    if(!accessToken && isAuth && refreshToken){
         try {
             const response = await fetch(`${url}/api/auth/jwt/refresh/`, {
                 method: 'POST',

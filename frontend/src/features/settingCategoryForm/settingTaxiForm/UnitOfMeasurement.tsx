@@ -1,24 +1,22 @@
-import { Control, Controller, UseFormSetValue } from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import {
-    SelectOption,
-    TypeSettingTaxi,
-} from 'widgets/settingForm/settingTaxi/libr/TypeSettingTaxi.ts';
+import { UseFormRegister } from 'react-hook-form';
+import { TypeSettingTaxi } from 'widgets/settingForm/settingTaxi/libr/TypeSettingTaxi.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
+import { ChoicesType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup.tsx';
 
 interface Props {
-    setValue: UseFormSetValue<TypeSettingTaxi>;
-    control: Control<TypeSettingTaxi, string[]>;
+    register: UseFormRegister<TypeSettingTaxi>;
+}
+interface Options {
+    value: string | number;
+    label: string | number;
 }
 
-export const UnitOfMeasurement = ({ control, setValue }: Props) => {
-    const animated = makeAnimated();
+export const UnitOfMeasurement = ({ register }: Props) => {
     const { data } = useGetFiltersQuery('');
-    const [unitValues, setUnitValues] = useState<SelectType[]>([]);
+    const [unitValues, setUnitValues] = useState<Options[]>([]);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -26,59 +24,20 @@ export const UnitOfMeasurement = ({ control, setValue }: Props) => {
             const result = (
                 data.params.find((el) => el.name === 'taxi_unit') as ChoicesType
             ).choices.filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
+                (el) => (el as Options).value && (el as Options).label
             );
-            data && setUnitValues(result as SelectType[]);
+            data && setUnitValues(result as Options[]);
         }
     }, [data]);
-
-    const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
-    ) => {
-        if (selectedOptions) {
-            const optionsArray = Array.isArray(selectedOptions)
-                ? selectedOptions
-                : [selectedOptions];
-            const selectedValues = optionsArray
-                .map((option) => option?.value)
-                .filter(Boolean);
-            setValue('taxi_unit', selectedValues);
-        }
-    };
 
     return (
         <>
             <div className="unitOfMeasurement">
                 <h3>{t('filters.taxi_unit')}</h3>
-                <Controller
+                <UniversalRadioGroup<TypeSettingTaxi>
+                    register={register}
+                    radioValues={unitValues}
                     name="taxi_unit"
-                    control={control}
-                    render={({ field }) => (
-                        <Select
-                            {...field}
-                            classNamePrefix="filterTaxiForm"
-                            id="unitOfMeasurement"
-                            components={animated}
-                            placeholder={t('filters.taxi_unit')}
-                            closeMenuOnSelect={false}
-                            isMulti={true}
-                            options={unitValues}
-                            onChange={(selectedOptions) => {
-                                handleChange(
-                                    selectedOptions as
-                                        | SelectOption
-                                        | SelectOption[]
-                                        | null
-                                );
-                            }}
-                            value={unitValues.filter(
-                                (option) =>
-                                    field.value?.includes(
-                                        option.value as string
-                                    )
-                            )}
-                        />
-                    )}
                 />
             </div>
         </>

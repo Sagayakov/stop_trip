@@ -64,7 +64,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
     return (
         <section className="filters" onClick={handleClick}>
             <form className="filterJobForm" onSubmit={handleSubmit(onsubmit)}>
-                <TypeOfJob control={control} setValue={setValue} />
+                <TypeOfJob register={register} />
                 <DurationOfWork control={control} setValue={setValue} />
                 <TypeOfPayment control={control} setValue={setValue} />
                 <PriceOfJob register={register} />

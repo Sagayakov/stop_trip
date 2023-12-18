@@ -17,8 +17,8 @@ interface Props<T extends FieldValues> {
     defaultValue?: SelectOption
 }
 interface SelectOption{
-    value: string | number | null
-    label: string | number | null
+    value: string | number | null | boolean
+    label: string | number | null | boolean
 }
 
 export const UniversalSelectDropdown = <T extends FieldValues>({
