@@ -48,7 +48,6 @@ export const getId = async (
         });
         if (response.status === 200) {
             const data = await response.json();
-            console.log(data);
             setValue('owner', data.id);
         }
     } catch (error) {
