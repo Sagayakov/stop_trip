@@ -1,11 +1,11 @@
-import { 
+import {
     Commission,
     LivingSpace,
     Price,
     TotalArea,
-    TypeSettingRealty
+    TypeSettingRealty,
 } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
-import { getMultiQuery } from "./getMultiQuery";
+import { getMultiQuery } from './getMultiQuery';
 
 export const getRealtyQuery = (data: TypeSettingRealty) => {
     let query = '';
@@ -13,35 +13,76 @@ export const getRealtyQuery = (data: TypeSettingRealty) => {
     for (const key in data) {
         if (data[key as keyof TypeSettingRealty]) {
             if (Number(data[key as keyof TypeSettingRealty])) {
-                query += `&${key}=${data[key as keyof TypeSettingRealty]}`;
-            } else if (data[key as keyof TypeSettingRealty] === "property_balcony") {
-                query +=`&property_balcony=${data[key as keyof TypeSettingRealty]}`;
-            } else if (typeof data[key as keyof TypeSettingRealty] === "boolean") {
+                query += `&${key}=${data[key as keyof TypeSettingRealty]
+                    .toString()
+                    .replace(/,/g, '.')}`;
+            } else if (
+                data[key as keyof TypeSettingRealty] === 'property_balcony'
+            ) {
+                query += `&property_balcony=${
+                    data[key as keyof TypeSettingRealty]
+                }`;
+            } else if (
+                typeof data[key as keyof TypeSettingRealty] === 'boolean'
+            ) {
                 query += `&${key}=true`;
             } else if (Array.isArray(data[key as keyof TypeSettingRealty])) {
-                query += getMultiQuery(key, data[key as keyof TypeSettingRealty] as string[]);
-            } else if (data[key as keyof TypeSettingRealty] === "price") {
-                const maxQuery = (data[key as keyof TypeSettingRealty] as Price).max
-                    ? `&price_max=${(data[key as keyof TypeSettingRealty] as Price).max}`
+                query += getMultiQuery(
+                    key,
+                    data[key as keyof TypeSettingRealty] as string[]
+                );
+            } else if (data[key as keyof TypeSettingRealty] === 'price') {
+                const maxQuery = (data[key as keyof TypeSettingRealty] as Price)
+                    .max
+                    ? `&price_max=${(
+                          data[key as keyof TypeSettingRealty] as Price
+                      ).max
+                          .toString()
+                          .replace(/,/g, '.')}`
                     : '';
-                const minQuery = (data[key as keyof TypeSettingRealty] as Price).min
-                    ? `&price_min=${(data[key as keyof TypeSettingRealty] as Price).min}`
+
+                const minQuery = (data[key as keyof TypeSettingRealty] as Price)
+                    .min
+                    ? `&price_min=${(
+                          data[key as keyof TypeSettingRealty] as Price
+                      ).min
+                          .toString()
+                          .replace(/,/g, '.')}`
                     : '';
-                const limitsQuery = (data[key as keyof TypeSettingRealty] as Price).adverts
-                    ? `&price_max=${(data[key as keyof TypeSettingRealty] as Price).adverts}`
+
+                const limitsQuery = (
+                    data[key as keyof TypeSettingRealty] as Price
+                ).adverts
+                    ? `&price_max=${
+                          (data[key as keyof TypeSettingRealty] as Price)
+                              .adverts
+                      }`
                     : '';
                 query += `${minQuery}${maxQuery}${limitsQuery}`;
             } else {
                 type Total = TotalArea | LivingSpace | Commission;
-                const maxQuery = (data[key as keyof TypeSettingRealty] as Total).max
-                    ? `&${key}_max=${(data[key as keyof TypeSettingRealty] as Total).max}`
+
+                const maxQuery = (data[key as keyof TypeSettingRealty] as Total)
+                    .max
+                    ? `&${key}_max=${(
+                          data[key as keyof TypeSettingRealty] as Total
+                      ).max
+                          .toString()
+                          .replace(/,/g, '.')}`
                     : '';
-                const minQuery = (data[key as keyof TypeSettingRealty] as Total).min
-                    ? `&${key}_min=${(data[key as keyof TypeSettingRealty] as Total).min}`
+
+                const minQuery = (data[key as keyof TypeSettingRealty] as Total)
+                    .min
+                    ? `&${key}_min=${(
+                          data[key as keyof TypeSettingRealty] as Total
+                      ).min
+                          .toString()
+                          .replace(/,/g, '.')}`
                     : '';
+
                 query += `${minQuery}${maxQuery}`;
             }
-        } 
+        }
     }
     return query;
-}
+};
