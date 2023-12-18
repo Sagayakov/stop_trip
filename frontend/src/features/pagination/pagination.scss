@@ -17,6 +17,7 @@
     .page-number.active {
         background-color: var(--main-black);
         border-radius: 6px;
+        cursor: unset;
         color: #ffffff;
     }
 }
