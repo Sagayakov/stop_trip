@@ -1,5 +1,6 @@
 import { Burger } from 'shared/ui/icons/icons-tools/Burger.tsx';
 import { useTranslation } from 'react-i18next';
+import styles from 'features/controls/controls.module.scss'
 
 interface Props {
     showModal: boolean;
@@ -11,7 +12,7 @@ export const AllCategories = ({ showModal, setShowModal }: Props) => {
 
     return (
         <div
-            className="button-all-categories"
+            className={styles.button_all_categories}
             onClick={() => setShowModal(!showModal)}
         >
             <Burger color="white" />

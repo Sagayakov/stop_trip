@@ -5,7 +5,7 @@ import {
     ModalWindow,
     SelectGeo,
 } from 'entities/controls';
-import './controls.scss';
+import styles from './controls.module.scss';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 
 const Controls = () => {
@@ -13,8 +13,8 @@ const Controls = () => {
     const { isMobile } = useMatchMedia()
 
     return (
-        <div className="controls">
-            <div className="controls-wrapper">
+        <div className={styles.controls}>
+            <div className={styles.controls_wrapper}>
                 {!isMobile && (
                     <AllCategories
                         showModal={showModal}
