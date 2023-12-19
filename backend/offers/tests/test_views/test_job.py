@@ -118,6 +118,16 @@ class JobTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(job_set) // 2)
 
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {"job_type": [JobType.FULL_TIME.value, JobType.PART_TIME.value]},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(job_set) // 2)
+
     def test_filter_job_duration(self):
         user = UserFactory()
         job_set = [
@@ -136,6 +146,21 @@ class JobTest(APITestCase):
             res = self.client.get(
                 self.list_url,
                 {"job_duration": JobDurationType.TEMPORARY.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(job_set) // 2)
+
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "job_duration": [
+                        JobDurationType.ONE_TIME_TASK.value,
+                        JobDurationType.TEMPORARY.value,
+                    ]
+                },
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -162,6 +187,21 @@ class JobTest(APITestCase):
             res = self.client.get(
                 self.list_url,
                 {"job_payment_type": JobPaymentType.WEEKLY_PAYMENT.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(job_set) // 2)
+
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "job_payment_type": [
+                        JobPaymentType.HOURLY_PAYMENT.value,
+                        JobPaymentType.WEEKLY_PAYMENT.value,
+                    ]
+                },
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
