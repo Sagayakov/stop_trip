@@ -25,12 +25,9 @@ export const ModalWindow = ({ showModal, setShowModal }: Props) => {
     return (
         <div
             className={`modal-categories ${showModal ? 'visible' : ''}`}
-            // className="modal-categories"
-            // style={{ display: `${showModal ? 'flex' : 'none'}` }}
             onClick={() => setShowModal(false)}
         >
             <div
-                // className="modal-content"
                 className={`modal-content ${
                     showModal ? 'visible-content' : ''
                 }`}
@@ -42,7 +39,6 @@ export const ModalWindow = ({ showModal, setShowModal }: Props) => {
                             key={el[0]}
                             className="modal-category"
                             onClick={() => navigateAndClose(el)}
-                            // onClick={() => navigate(`/${el[0]}`)}
                         >
                             <span>{t(`categories.${el[0]}`)}</span>
                             <ArrowRight color="#1C1C1E" />

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 //import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
-import './popularCategories.scss';
+import './libr/popularCategories.scss';
 import { AllCategories, ModalWindow } from 'entities/controls';
 import { categories } from 'shared/const/categories.tsx';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,6 @@ const PopularCategories = () => {
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
     const { isMobile } = useMatchMedia();
-    //const { data } = useGetAdvertsQuery('');
     const { t } = useTranslation();
     const pageCategory = useAppSelector(
         (state) => state.setPageCategory.pageCategory

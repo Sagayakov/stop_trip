@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { MapIcon } from 'shared/ui/icons/icons-tools/MapIcon.tsx';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'features/controls/controls.module.scss'
 
 export const SelectGeo = () => {
     const selectRef = useRef<null | HTMLSelectElement>(null);
@@ -9,7 +10,7 @@ export const SelectGeo = () => {
     const { t } = useTranslation();
 
     return (
-        <div className="select-wrapper">
+        <div className={styles.select_wrapper}>
             {!isMobile ? (
                 <MapIcon color="#1F6FDE" />
             ) : (

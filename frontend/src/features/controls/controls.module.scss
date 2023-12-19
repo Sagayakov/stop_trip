@@ -1,13 +1,13 @@
 .controls {
     width: 1440px;
-    margin: 0px auto 50px;
+    margin: 0 auto 50px;
     padding-top: 146px;
-    .controls-wrapper {
+    .controls_wrapper {
         width: 1240px;
         margin: 0 auto;
         display: flex;
         font-family: var(--font-inter);
-        .button-all-categories {
+        .button_all_categories {
             width: 190px;
             height: 3rem;
             border-radius: 8px;
@@ -25,15 +25,14 @@
                 margin-right: 8px;
             }
         }
-        .button-all-categories:active {
+        .button_all_categories:active {
             opacity: 0.75;
         }
-        .input-wrapper {
+        .input_wrapper {
             width: 820px;
             height: 3rem;
             padding: 24px 12px;
             border-radius: var(--radii);
-            // border: 1px solid var(--grey-1);
             display: flex;
             align-items: center;
             margin-right: 47px;
@@ -45,22 +44,19 @@
             }
             input {
                 outline: none;
-                border: none;
                 width: 100%;
                 height: 50px;
                 border: 1px solid var(--grey-1);
                 padding: 16px 16px 16px 50px;
-                // width: 350px; было
-                // height: 19px; // было
                 &:focus {
                     border: 1px solid var(--main-blue);
                 }
             }
         }
-        .select-wrapper {
+        .select_wrapper {
             width: 164px;
             height: 3rem;
-            padding: 12px, 16px, 12px, 16px;
+            padding: 12px 16px;
             border-radius: var(--radii);
             border: 1px solid var(--main-blue);
             display: flex;
@@ -73,12 +69,11 @@
                 color: var(--main-blue);
                 border: none;
                 -webkit-appearance: none;
-                background-color: white; // для firefox
-                background: url('../../shared/ui/icons/down.svg') right 30%
-                    no-repeat;
+                //для firefox
+                background: white url('../../shared/ui/icons/down.svg') no-repeat right 30%;
                 background-size: 20%;
             }
-            #arrow-down {
+            #arrow_down {
                 position: absolute;
                 top: 13px;
                 right: 5px;
@@ -93,24 +88,22 @@
 @media (max-width: 1439px) {
     .controls {
         width: 100%;
-
-        margin: 0px auto 40px;
+        margin: 0 auto 40px;
         padding-top: 136px;
-
-        .controls-wrapper {
+        .controls_wrapper {
             width: 85%;
             margin: 0 auto 40px;
             justify-content: space-between;
-            .button-all-categories {
+            .button_all_categories {
                 width: 18%;
                 padding: 12px;
                 font-size: 14px;
             }
-            .input-wrapper {
+            .input_wrapper {
                 width: 55%;
                 margin-right: 15px;
             }
-            .select-wrapper {
+            .select_wrapper {
                 width: 15%;
                 padding: 0.5rem;
                 select {
@@ -126,16 +119,16 @@
         width: 100%;
         margin: 0 0 40px;
         padding-top: 106px;
-        .controls-wrapper {
-            .button-all-categories {
+        .controls_wrapper {
+            .button_all_categories {
                 width: 10rem;
                 padding: 8px;
                 margin-right: 0;
             }
-            .input-wrapper {
+            .input_wrapper {
                 margin-right: 0;
             }
-            .select-wrapper {
+            .select_wrapper {
                 width: 22%;
                 select {
                     background-size: 20%;
@@ -147,12 +140,30 @@
         }
     }
 }
+@media (max-width: 767px){
+    .button_all_categories {
+        margin-left: auto;
+        margin-top: 12px;
+        width: 82%;
+        height: 24px;
+        border: none;
+        background: none;
+        color: var(--main-green);
+        font-size: 14px;
+        text-align: end;
+        vertical-align: center;
+        cursor: pointer;
+        svg {
+            display: none;
+        }
+    }
+}
 
 @media (min-width: 475px) and (max-width: 767px) {
     .controls {
         width: 100%;
         margin-bottom: 20px;
-        .controls-wrapper {
+        .controls_wrapper {
             width: 93%;
             margin: 0 auto 20px;
             display: grid;
@@ -160,20 +171,10 @@
                 'input input'
                 'select button';
 
-            .button-all-categories {
+            .button_all_categories {
                 grid-area: button;
-                margin-left: auto;
-                margin-top: 12px;
-                width: 7.5rem;
-                height: 24px;
-                border: none;
-                background: none;
-                color: var(--main-green);
-                svg {
-                    display: none;
-                }
             }
-            .input-wrapper {
+            .input_wrapper {
                 grid-area: input;
                 width: 100%;
                 padding: 0;
@@ -185,10 +186,10 @@
                     left: 10px;
                 }
             }
-            .input-wrapper:focus {
+            .input_wrapper:focus {
                 border: 1px solid var(--main-blue);
             }
-            .select-wrapper {
+            .select_wrapper {
                 border: none;
                 width: 90%;
                 padding-left: 0;
@@ -205,28 +206,14 @@
         width: 100%;
         padding-top: 76px;
         margin: 0 0 10px;
-        .controls-wrapper {
+        .controls_wrapper {
             width: 100%;
-            margin: 0 0 20px;
             display: flex;
             flex-direction: column;
             padding: 0 15px;
-            margin-bottom: 10px;
+            margin: 0 0 10px;
 
-            .button-all-categories {
-                grid-area: button;
-                margin-left: auto;
-                margin-top: 12px;
-                width: 82%;
-                height: 24px;
-                border: none;
-                background: none;
-                color: var(--main-green);
-                svg {
-                    display: none;
-                }
-            }
-            .input-wrapper {
+            .input_wrapper {
                 grid-area: input;
                 width: 100%;
                 padding: 0;
@@ -238,11 +225,10 @@
                     left: 10px;
                 }
             }
-
-            .input-wrapper:focus {
+            .input_wrapper:focus {
                 border: 1px solid var(--main-blue);
             }
-            .select-wrapper {
+            .select_wrapper {
                 justify-content: flex-start;
                 border: none;
                 width: 45%;
@@ -252,7 +238,6 @@
                 }
                 select {
                     width: 50%;
-                    //background-position: right center;
                 }
             }
         }
@@ -261,8 +246,8 @@
 
 @media (max-width: 400px) {
     .controls {
-        .controls-wrapper {
-            .select-wrapper {
+        .controls_wrapper {
+            .select_wrapper {
                 width: 60%;
                 select {
                     width: 45%;
