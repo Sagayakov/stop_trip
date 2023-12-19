@@ -105,6 +105,7 @@
     "filters": {
         "filters": "Фильтры",
         "property_type_of_service": "Тип услуги",
+        "property_type": "Тип недвижимости",
         "sale": "Продажа",
         "rent": "Аренда",
         "property_city": "Город",

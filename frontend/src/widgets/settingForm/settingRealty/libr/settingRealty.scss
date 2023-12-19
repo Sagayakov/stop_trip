@@ -64,9 +64,10 @@
     }
     font-family: var(--font-inter);
     .typeOfService {
-        .checkbox-group {
-            display: flex;
-            justify-content: space-between;
+        .radio-group {
+            .form-checkbox{
+                margin-right: 1rem;
+            }
         }
     }
     .typeOfService,
@@ -75,7 +76,7 @@
     .propertyCity,
     .houseType,
     .floor,
-    .type-of-property,
+    .propertyType,
     .rentalCondition,
     .setting-price,
     .amenities,
@@ -107,11 +108,12 @@
     .setting-hasFurniture,
     .setting-hasParking,
     .bathroom-setting,
-    .select-realtyComission {
+    .select-realtyComission,
+    .setting-sleepingPlaces{
         display: flex;
         justify-content: space-between;
     }
-    .type-of-property,
+    .propertyType,
     .propertyСity,
     .typeOfService,
     .houseType,
@@ -149,39 +151,6 @@
             }
         }
     }
-    .checkboxes {
-        .bathroom {
-            .bathroom-setting {
-                height: 17px;
-                label {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 14px;
-                    font-weight: 400;
-                }
-            }
-        }
-        .balcony,
-        .only-with-photo {
-            margin-bottom: 24px;
-            height: 17px;
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            font-weight: 600;
-            input {
-                margin-right: 8px;
-            }
-        }
-    }
-
-    input[type='checkbox'] {
-        width: 14px;
-        height: 14px;
-        margin-right: 4px;
-    }
-
     input[type='submit'] {
         width: 100%;
         height: 43px;
@@ -196,6 +165,12 @@
         word-wrap: break-word;
         overflow-wrap: break-word;
         cursor: pointer;
+    }
+
+    input[type='checkbox'] {
+        width: 14px;
+        height: 14px;
+        margin-right: 4px;
     }
 
     .form-checkbox {
@@ -224,9 +199,8 @@
     }
 
     .form-checkbox > input:checked + span::before {
-        background: url('shared/ui/icons/union.svg') no-repeat center center;
         background-size: 60%;
-        background-color: var(--main-green);
+        background: var(--main-green) url('shared/ui/icons/union.svg') no-repeat center center;
         box-shadow: none;
     }
 
@@ -274,34 +248,37 @@
                 }
             }
         }
-        .checkboxes {
-            .bathroom {
-                .bathroom-setting {
-                    flex-direction: column;
-                    align-items: start;
-                    gap: 6px;
-                    height: auto;
-                }
-            }
-        }
     }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
     .filter-realty-form {
         display: grid;
+        gap: 1.5rem 2rem;
+        grid-template-columns: 1fr 1fr;
         grid-template-areas:
-            'service condition'
+            'service propertyType'
             'city district'
             'houseType floor'
+            'price condition'
             'area living-space'
             'room sleep'
             'bath bathqty'
             'balcony parking'
             'comission furniture'
-            'price amenities'
-            'prepayment prepayment'
+            'amenities prepayment'
             'send btn-reset';
+            //'service condition'
+            //'city district'
+            //'houseType floor'
+            //'area living-space'
+            //'room sleep'
+            //'bath bathqty'
+            //'balcony parking'
+            //'comission furniture'
+            //'price amenities'
+            //'prepayment prepayment'
+            //'send btn-reset';
 
         input[type='number'] {
             width: 44%;
@@ -310,12 +287,7 @@
             padding: 10px;
             border: none;
         }
-        input[type='submit'] {
-            white-space: normal;
-            width: 82%;
-            height: auto;
-        }
-        .type-of-property,
+        .propertyType,
         .typeOfService,
         .propertyCity,
         .propertyDistrict,
@@ -332,10 +304,13 @@
         .living-space,
         .rooms-quantity,
         .bathroom {
-            width: 80%;
+            margin-bottom: 0;
         }
         .realtyComission {
             grid-area: comission;
+        }
+        .propertyType{
+            grid-area: propertyType;
         }
         .setting-price {
             grid-area: price;
@@ -369,7 +344,6 @@
         }
         .amenities {
             grid-area: amenities;
-            min-height: 80px;
         }
         .sleepingPlaces {
             grid-area: sleep;
@@ -391,18 +365,13 @@
         }
         .prepayment {
             grid-area: prepayment;
-            width: 91.5%;
         }
         input[type='submit'] {
             grid-area: send;
-            width: 85%;
-            margin-top: 10px;
         }
         .reset-setting-form {
             grid-area: btn-reset;
-            width: 85%;
             height: 45px;
-            margin-top: 10px;
         }
     }
 }
@@ -421,14 +390,13 @@
             height: auto;
         }
 
-        .type-of-property,
+        .propertyType,
         .setting-price,
         .total-area,
         .living-space,
         .rooms-quantity,
         .bathroom,
-        .balcony,
-        .only-with-photo {
+        .balcony{
             width: 100%;
         }
         .setting-price {
@@ -436,19 +404,6 @@
                 width: 320px; //в процентах не красиво
                 label {
                     padding: 10px 14px;
-                }
-            }
-        }
-
-        .checkboxes {
-            .rooms-quantity {
-                .setting-rooms-quantity {
-                    width: 50%;
-                }
-            }
-            .bathroom {
-                .bathroom-setting {
-                    width: 70%;
                 }
             }
         }
@@ -468,14 +423,13 @@
             height: auto;
         }
 
-        .type-of-property,
+        .propertyType,
         .setting-price,
         .total-area,
         .living-space,
         .rooms-quantity,
         .bathroom,
-        .balcony,
-        .only-with-photo {
+        .balcony{
             width: 100%;
         }
         .setting-price {
@@ -487,17 +441,5 @@
             }
         }
 
-        .checkboxes {
-            .rooms-quantity {
-                .setting-rooms-quantity {
-                    width: 50%;
-                }
-            }
-            .bathroom {
-                .bathroom-setting {
-                    width: 85%;
-                }
-            }
-        }
     }
 }

@@ -105,6 +105,7 @@
     "filters": {
         "filters": "Filters",
         "property_type_of_service": "Service type",
+        "property_type": "Property type",
         "sale": "Sale",
         "rent": "Rent",
         "property_city": "City",

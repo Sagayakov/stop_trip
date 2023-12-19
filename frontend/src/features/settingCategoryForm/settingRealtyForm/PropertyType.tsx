@@ -1,8 +1,8 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
+import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 
@@ -11,39 +11,39 @@ interface Props {
     control: Control<TypeSettingRealty, string[]>;
 }
 
-export const City = ({ control, setValue }: Props) => {
+export const PropertyType = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');
-    const [cityValues, setCityValues] = useState<SelectType[]>([]);
+    const [propertyType, setPropertyType] = useState<SelectType[]>([]);
     const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
             const result = (
                 data.params.find(
-                    (el) => el.name === 'property_city'
+                    (el) => el.name === 'property_type'
                 ) as ChoicesType
             ).choices.filter(
                 (el) => (el as SelectType).value && (el as SelectType).label
             );
-            data && setCityValues(result as SelectType[]);
+            data && setPropertyType(result as SelectType[]);
         }
     }, [data]);
 
     return (
         <>
-            <div className="propertyCity">
-                <h3>{t('filters.property_city')}</h3>
+            <div className="propertyType">
+                <h3>{t('filters.property_type')}</h3>
                 <UniversalSelectDropdown<TypeSettingRealty>
                     setValue={setValue}
                     control={control}
-                    name="property_city"
+                    name="property_type"
                     prefix="filterPropertyForm"
-                    placeholder={t('filters.property_city')}
+                    placeholder={t('filters.property_type')}
                     closeMenuOnSelect={false}
                     isMulti={true}
-                    options={cityValues}
+                    options={propertyType}
                 />
             </div>
         </>
-    );
-};
+    )
+}

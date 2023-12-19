@@ -18,7 +18,7 @@ import {
     Prepayment,
     LivingSpace,
     HasParking,
-    Floor,
+    Floor, PropertyType,
 } from 'features/settingCategoryForm/settingRealtyForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeSettingRealty } from './libr/TypeSettingRealty';
@@ -26,6 +26,7 @@ import './libr/settingRealty.scss';
 import { useSearchParams } from 'react-router-dom';
 import { getRealtyQuery } from 'shared/utils/getRealtyQuery.ts';
 import { useTranslation } from 'react-i18next';
+import { UniversalButton } from 'entities/universalEntites';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -50,7 +51,6 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
         setShowFilters(false);
         scrollToTop();
     };
-
     const onReset = () => {
         reset();
     };
@@ -65,6 +65,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 <City control={control} setValue={setValue} />
                 <District control={control} setValue={setValue} />
                 <HouseType control={control} setValue={setValue} />
+                <PropertyType setValue={setValue} control={control} />
                 <SettingPrice register={register} watch={watch} />
                 <RentalCondition control={control} setValue={setValue} />
                 <TotalArea register={register} />
@@ -81,10 +82,10 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 <Prepayment control={control} setValue={setValue} />
                 <RealtyCommission register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className="reset-setting-form" onClick={onReset}>
+                <UniversalButton className="reset-setting-form" onClick={onReset}>
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
-                </button>
+                </UniversalButton>
             </form>
         </section>
     );

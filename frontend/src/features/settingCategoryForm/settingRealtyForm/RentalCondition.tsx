@@ -1,14 +1,10 @@
-import { Control, Controller, UseFormSetValue } from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import {
-    SelectOption,
-    TypeSettingRealty,
-} from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
+import { Control, UseFormSetValue } from 'react-hook-form';
+import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -16,7 +12,6 @@ interface Props {
 }
 
 export const RentalCondition = ({ control, setValue }: Props) => {
-    const animated = makeAnimated();
     const { data } = useGetFiltersQuery('');
     const [rentalValues, setRentalValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
@@ -34,53 +29,19 @@ export const RentalCondition = ({ control, setValue }: Props) => {
         }
     }, [data]);
 
-    const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
-    ) => {
-        if (selectedOptions) {
-            const optionsArray = Array.isArray(selectedOptions)
-                ? selectedOptions
-                : [selectedOptions];
-            const selectedValues = optionsArray
-                .map((option) => option?.value)
-                .filter(Boolean);
-            setValue('property_rental_condition', selectedValues);
-        }
-    };
-
     return (
         <>
             <div className="rentalCondition">
                 <h3>{t('filters.property_rental_condition')}</h3>
-                <Controller
-                    name="property_rental_condition"
+                <UniversalSelectDropdown<TypeSettingRealty>
+                    setValue={setValue}
                     control={control}
-                    render={({ field }) => (
-                        <Select
-                            {...field}
-                            classNamePrefix="filterPropertyForm"
-                            id="rentalCondition"
-                            components={animated}
-                            placeholder={t('filters.property_rental_condition')}
-                            closeMenuOnSelect={false}
-                            isMulti={true}
-                            options={rentalValues}
-                            onChange={(selectedOptions) => {
-                                handleChange(
-                                    selectedOptions as
-                                        | SelectOption
-                                        | SelectOption[]
-                                        | null
-                                );
-                            }}
-                            value={rentalValues.filter(
-                                (option) =>
-                                    field.value?.includes(
-                                        option.value as string
-                                    )
-                            )}
-                        />
-                    )}
+                    name="property_rental_condition"
+                    prefix="filterPropertyForm"
+                    placeholder={t('filters.property_rental_condition')}
+                    closeMenuOnSelect={false}
+                    isMulti={true}
+                    options={rentalValues}
                 />
             </div>
         </>

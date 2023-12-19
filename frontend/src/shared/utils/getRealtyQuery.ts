@@ -27,6 +27,8 @@ export const getRealtyQuery = (data: TypeSettingRealty) => {
                 typeof data[key as keyof TypeSettingRealty] === 'boolean'
             ) {
                 query += `&${key}=true`;
+            }else if(typeof data[key as keyof TypeSettingRealty] === "string") {
+                query += `&${key}=${data[key as keyof  TypeSettingRealty]}`
             } else if (Array.isArray(data[key as keyof TypeSettingRealty])) {
                 query += getMultiQuery(
                     key,
