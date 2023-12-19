@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
-import './modal-categories.scss';
 import { Category, categories } from 'shared/const/categories.tsx';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks';
+import styles from './modalCategories.module.scss';
 
 interface Props {
     showModal: boolean;
@@ -22,22 +22,29 @@ export const ModalWindow = ({ showModal, setShowModal }: Props) => {
         navigate(`/${el[0]}/?category=${el[0]}&page=${pageCategory}`);
     };
 
+    const classNameForModalCategories = () => {
+        const visible = showModal ? styles.visible : '';
+        return `${styles.modal_categories} ${visible}`;
+    };
+    const classNameForModalContent = () => {
+        const visibleContent = showModal ? styles.visible_content : '';
+        return `${styles.modal_content} ${visibleContent}`;
+    };
+
     return (
         <div
-            className={`modal-categories ${showModal ? 'visible' : ''}`}
+            className={classNameForModalCategories()}
             onClick={() => setShowModal(false)}
         >
             <div
-                className={`modal-content ${
-                    showModal ? 'visible-content' : ''
-                }`}
+                className={classNameForModalContent()}
                 onClick={(event) => event.stopPropagation()}
             >
                 {Object.entries(categories).map((el) => {
                     return (
                         <div
                             key={el[0]}
-                            className="modal-category"
+                            className={styles.modal_category}
                             onClick={() => navigateAndClose(el)}
                         >
                             <span>{t(`categories.${el[0]}`)}</span>
