@@ -8,6 +8,7 @@ import { TypeOfServicesForm } from './libr/TypeOfServicesForm';
 import './libr/settingServicesForm.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getSearchParams } from './libr/getSearchParams.ts'
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -20,32 +21,21 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const { register, handleSubmit, reset } = useForm<TypeOfServicesForm>();
 
     const onsubmit: SubmitHandler<TypeOfServicesForm> = (data) => {
         const { service_home_visit, price } = data;
-
-        const homeVisitQuery = service_home_visit
-            ? `&service_home_visit=true`
-            : '';
-
-        const priceMaxQuery = price.max
-            ? `&price_max=${price.max.toString().replace(/,/g, '.')}`
-            : '';
-
-        const priceMinQuery = price.min
-            ? `&price_min=${price.min.toString().replace(/,/g, '.')}`
-            : '';
-
-        const filters = `${homeVisitQuery}${priceMinQuery}${priceMaxQuery}`;
+        const filters = getSearchParams(service_home_visit, price)
         setSearchParams(`category=service${filters}`);
-
         setShowFilters(false);
+        scrollToTop()
     };
 
     const onReset = () => {
         reset();
+        scrollToTop()
     };
 
     return (

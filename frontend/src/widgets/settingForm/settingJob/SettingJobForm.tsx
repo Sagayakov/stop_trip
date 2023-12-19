@@ -11,6 +11,7 @@ import { TypesOfJobs } from './libr/TypesOfJobs';
 import './libr/settingJobFilter.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getSearchParams } from './libr/getSearchParams.ts'
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -23,6 +24,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const { register, handleSubmit, reset, setValue, control } =
         useForm<TypesOfJobs>();
@@ -36,37 +38,16 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
             price,
         } = data;
 
-        const priceMaxQuery = price.max
-            ? `&price_max=${price.max.toString().replace(/,/g, '.')}`
-            : '';
-
-        const priceMinQuery = price.min
-            ? `&price_min=${price.min.toString().replace(/,/g, '.')}`
-            : '';
-
-        const typeQuery = job_type
-            ? `&job_type=${job_type.map((el) => `${el}`).join(',')}`
-            : '';
-
-        const paymentTypeQuery = job_payment_type
-            ? `&job_payment_type=${job_payment_type
-                  .map((el) => `${el}`)
-                  .join(',')}`
-            : '';
-
-        const experienceQuery = job_experience ? `&job_experience=true` : '';
-        const durationQuery = job_duration
-            ? `&job_duration=${job_duration.map((el) => `${el}`).join(',')}`
-            : '';
-
-        const filters = `${typeQuery}${paymentTypeQuery}${experienceQuery}${durationQuery}${priceMinQuery}${priceMaxQuery}`;
+        const filters = getSearchParams(job_type, job_payment_type, job_experience, job_duration, price)
         setSearchParams(`category=job${filters}`);
 
         setShowFilters(false);
+        scrollToTop()
     };
 
     const onReset = () => {
         reset();
+        scrollToTop()
     };
 
     return (

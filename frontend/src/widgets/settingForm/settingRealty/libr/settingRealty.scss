@@ -66,6 +66,11 @@
     .typeOfService {
         .radio-group {
             .form-checkbox{
+                input{
+                    width: 1px;
+                    height: 1px;
+                    opacity: 0;
+                }
                 margin-right: 1rem;
             }
         }

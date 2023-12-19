@@ -5,11 +5,11 @@ export interface TypeOfEventFilter {
     price: Price
 }
 
-interface TypeDate{
+export interface TypeDate{
     date: Date
     time: string
 }
-interface Price{
+export interface Price{
     min: number
     max: number
 }
