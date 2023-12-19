@@ -24,6 +24,7 @@ export type ProductType = {
     property_amenities: Amenity[];
     property_area: null | string;
     property_balcony: string;
+    property_type: string;
     property_bathroom_count: null | number;
     property_bathroom_type: string;
     property_building_max_floor: null | number;

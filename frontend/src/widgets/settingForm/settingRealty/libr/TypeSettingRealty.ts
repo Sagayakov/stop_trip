@@ -6,14 +6,15 @@ export interface TypeSettingRealty {
     property_floor: number;
     property_rental_condition: string[];
     price: Price;
+    property_type: string[];
     property_area: TotalArea;
     property_living_area: LivingSpace;
-    property_sleeping_places: number;
+    property_sleeping_places: SleepingPlaces;
     property_has_furniture: boolean;
     property_amenities: string;
     property_rooms_count: RoomsCount;
     property_bathroom_type: string[];
-    property_bathroom_count: number;
+    property_bathroom_count: BathroomCount;
     property_balcony: string;
     property_has_parking: boolean;
     property_commission: Commission;
@@ -42,6 +43,14 @@ export interface TotalArea {
 }
 
 export interface LivingSpace {
+    min: number;
+    max: number;
+}
+export interface SleepingPlaces{
+    min: number;
+    max: number;
+}
+export interface BathroomCount{
     min: number;
     max: number;
 }

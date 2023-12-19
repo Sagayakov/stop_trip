@@ -15,9 +15,14 @@ export const SleepingPlaces = ({ register }: Props) => {
             <div className="setting-sleepingPlaces">
                 <input
                     type="number"
-                    placeholder={t('filters.quantity')}
-                    min={0}
-                    {...register('property_sleeping_places')}
+                    min="0"
+                    placeholder={t('filters.from')}
+                    {...register('property_bathroom_count.min')}
+                />
+                <input
+                    type="number"
+                    placeholder={t('filters.up-to')}
+                    {...register('property_bathroom_count.max')}
                 />
             </div>
         </div>

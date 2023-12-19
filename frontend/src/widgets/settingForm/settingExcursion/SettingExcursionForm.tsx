@@ -17,13 +17,18 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
     };
 
     const { handleSubmit, reset, register } = useForm<TypeForExcursionFilter>();
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
     const onSubmit: SubmitHandler<TypeForExcursionFilter> = (data) => {
         console.log(data)
         setShowFilters(false);
         reset();
+        scrollToTop()
     };
 
-    const onReset = () => reset();
+    const onReset = () => {
+        reset();
+        scrollToTop()
+    }
 
     return (
         <section className="filters" onClick={handleClick}>

@@ -29,7 +29,6 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
     const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
     const onsubmit: SubmitHandler<TypeSettingTaxi> = (data) => {
         const { taxi_unit, taxi_type, price } = data;
-
         const filters = getSearchParams(taxi_type, taxi_unit, price)
         setSearchParams(`category=taxi${filters}`);
         scrollToTop()
@@ -38,6 +37,7 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
 
     const onReset = () => {
         reset();
+        scrollToTop()
     };
 
     return (

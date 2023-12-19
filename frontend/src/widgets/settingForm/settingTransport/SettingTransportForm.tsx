@@ -48,6 +48,7 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
 
     const onReset = () => {
         reset();
+        scrollToTop()
     };
 
     return (

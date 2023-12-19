@@ -17,3 +17,4 @@ export { HasParking } from './HasParking';
 export { Amenities } from './Amenities';
 export { Balcony } from './Balcony';
 export { Prepayment } from './Prepayment';
+export { PropertyType } from './PropertyType.tsx'

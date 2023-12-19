@@ -29,30 +29,6 @@ export const Bathroom = ({ register }: Props) => {
                     />
                     <span>{t('filters.separate')}</span>
                 </label>
-                {/* {data &&
-                    (
-                        data.params.find(
-                            (el) => el.name === 'property_bathroom_type'
-                        ) as ChoicesType
-                    ).choices
-                        .filter(
-                            (el) =>
-                                (el as SelectType).value &&
-                                (el as SelectType).label
-                        )
-                        .map((el) => (
-                            <label
-                                className="form-checkbox"
-                                key={(el as SelectType).label}
-                            >
-                                <input
-                                    type="checkbox"
-                                    value={(el as SelectType).value || ''}
-                                    {...register('property_bathroom_type')}
-                                />
-                                <span>{(el as SelectType).label}</span>
-                            </label>
-                        ))} */}
             </div>
         </div>
     );
