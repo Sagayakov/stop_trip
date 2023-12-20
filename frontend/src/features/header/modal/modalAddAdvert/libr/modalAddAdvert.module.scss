@@ -1,0 +1,41 @@
+.modal_add {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+.modal_add_content {
+    position: absolute;
+    top: 8rem;
+    left: 25%;
+    z-index: 10;
+    box-shadow: 0 0 20px 0 #00000012;
+    width: 50%;
+    padding: 60px 40px 40px;
+    border-radius: 8px;
+    background-color: white;
+    font-weight: 500;
+    font-family: var(--font-sf);
+    text-align: center;
+    svg {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+    }
+    .auth_link {
+        cursor: pointer;
+        color: var(--main-blue);
+    }
+}
+
+@media (max-width: 474px) {
+    .modal_add_content {
+        width: 60%;
+        top: 4rem;
+        left: 20%;
+    }
+}
+
+@media (max-width: 425px) {
+    .modal_ad_content {
+        width: 80%;
+        left: 10%;
+    }
+}
