@@ -3,7 +3,7 @@ import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
 import { Cart } from 'entities/lastAdverts';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 import { Pagination } from '../pagination';
-import './libr/LastAdverts.scss';
+import styles from './libr/LastAdverts.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks';
 
@@ -13,10 +13,10 @@ const LastAdverts = () => {
     const { t } = useTranslation();
 
     return (
-        <div className="last-announcement">
-            <div className="last-announcement-wrapper">
+        <div className={styles.last_announcement}>
+            <div className={styles.last_announcement_wrapper}>
                 <h3>{t('main-page.last-adverts')}</h3>
-                <div className="announcement-list">
+                <div className={styles.announcement_list}>
                     {isLoading && <LoadingWithBackground />}
                     {data &&
                         data.results.map((elem: AdvertsTypes) => (

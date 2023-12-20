@@ -11,7 +11,6 @@ import { checkAuthentication } from './libr/authentication/checkAuthentication';
 import { getTokensFromStorage } from './libr/authentication/getTokensFromStorage';
 import { handleScroll } from './libr/eventListeners/handleScroll';
 import { ModalCheckEmail } from 'features/header/modal/modalCheckEmail/ModalCheckEmail.tsx';
-import { ModalResetPassword } from 'features/header/modal/modalResetPassword/ModalResetPassword.tsx';
 import { useTranslation } from 'react-i18next';
 import { UniversalButton } from 'entities/universalEntites';
 import { LangAuthBlock } from 'features/header/langAuthBlock/LangAuthBlock.tsx';
@@ -25,9 +24,6 @@ export const Header = () => {
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
     const isCheckEmailModalOpen = useAppSelector(
         (state) => state.setIsCheckMailModalOpen.isCheckMailModalOpen
-    );
-    const isResetPasswordModalOpen = useAppSelector(
-        (state) => state.setIsResetPasswordModalOpen.isResetPasswordModalOpen
     );
 
     const navigate = useNavigate();
@@ -78,7 +74,6 @@ export const Header = () => {
                     <ModalAddAdvert closeAddModal={closeAddModal} />
                 )}
                 {isCheckEmailModalOpen && <ModalCheckEmail />}
-                {isResetPasswordModalOpen && <ModalResetPassword />}
             </div>
         </header>
     );

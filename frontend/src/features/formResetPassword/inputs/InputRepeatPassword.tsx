@@ -2,6 +2,7 @@ import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { Eye } from 'shared/ui/icons/icons-tools/Eye.tsx';
 import { ResetPasswordType } from '../libr/types';
 import { useTranslation } from 'react-i18next';
+import styleForInput from 'pages/resetPassword/resetPassword.module.scss'
 
 interface Props {
     errors: FieldErrors<ResetPasswordType>;
@@ -29,9 +30,8 @@ export const InputRepeatPassword = ({
 
     return (
         <>
-            <div className="password-div">
+            <div className={styleForInput.password_div}>
                 <input
-                    className="reset-input"
                     {...register('repeat_password', {
                         required: true,
                         minLength: 5,
@@ -49,10 +49,10 @@ export const InputRepeatPassword = ({
                     }}
                     onBlur={() => setShowPassword(false)}
                 />
-                <div id="eye" onClick={handleShowPass}>
+                <div id={styleForInput.eye} onClick={handleShowPass}>
                     <Eye />
                 </div>
-                <div className="input-error">
+                <div className={styleForInput.input_error}>
                     {(errors?.repeat_password ||
                         password !== repeatPassword) && (
                         <p style={{ color: '#FF3F25', fontSize: '13px' }}>

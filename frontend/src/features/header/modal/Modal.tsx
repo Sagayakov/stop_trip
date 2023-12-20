@@ -1,46 +1,53 @@
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { Close } from 'shared/ui/icons/icons-tools/Close.tsx';
-import { setIsEnter } from '../model/modalAuth/reducers/isEnter';
 import { toggleModalEnter } from '../model/modalAuth/reducers/toggleModal';
 import { FormEnter, FormRegistration } from './index';
-import './modal.scss';
-import { useTranslation } from 'react-i18next';
+import styles from './modal.module.scss';
+import { ResetPasswordForm } from 'features/header/modal/authorizationForm/modalResetPassword/ResetPasswordForm.tsx';
+import { setIsResetPasswordModalOpen } from 'features/header/model/modalAuth/reducers/isResetPasswordModalOpen.ts';
+import { AuthorizationHeader } from 'features/header/modal/authorizationForm/AuthorizationHeader.tsx';
 
 export const Modal = () => {
     const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
     const dispatch = useAppDispatch();
     const isEnter = useAppSelector((state) => state.setIsEnter.isEnter);
-    const { t } = useTranslation();
+    const isResetPasswordModalOpen = useAppSelector(
+        (state) => state.setIsResetPasswordModalOpen.isResetPasswordModalOpen
+    );
+
+    const classNameForModalBackground = () => {
+        const visible = toggle
+            ? `${styles.visible} ${styles.visible_wrapper}`
+            : '';
+        return `${styles.modal} ${visible}`;
+    };
+    const handleClose = () => {
+        dispatch(toggleModalEnter(false))
+        setTimeout(() => {
+            dispatch(setIsResetPasswordModalOpen(false))
+        },500)//без таймаута сначала появляется окно с входом
+    }
 
     return (
         <div
-            className={`modal ${toggle ? 'visible visible-wrapper' : ''}`}
-            onClick={() => dispatch(toggleModalEnter(!toggle))}
+            className={classNameForModalBackground()}
+            onClick={handleClose}
         >
             <div
-                className="modal-wrapper"
+                className={styles.modal_wrapper}
                 onClick={(event) => event.stopPropagation()}
             >
-                <Close onclick={() => dispatch(toggleModalEnter(false))} />
-                <div className="modal-header">
-                    <div
-                        className={isEnter ? 'enter enter-active' : 'enter'}
-                        onClick={() => dispatch(setIsEnter(true))}
-                    >
-                        {t('modal-login.login')}
-                    </div>
-                    <div
-                        className={
-                            isEnter
-                                ? 'registration'
-                                : 'registration enter-active'
-                        }
-                        onClick={() => dispatch(setIsEnter(false))}
-                    >
-                        {t('modal-registration.registration')}
-                    </div>
-                </div>
-                {isEnter ? <FormEnter /> : <FormRegistration />}
+                <button className={styles.close}>
+                    <Close onclick={handleClose} />
+                </button>
+                {isResetPasswordModalOpen ? (
+                    <ResetPasswordForm />
+                ) : (
+                    <>
+                        <AuthorizationHeader isEnter={isEnter} />
+                        {isEnter ? <FormEnter /> : <FormRegistration />}
+                    </>
+                )}
             </div>
         </div>
     );

@@ -2,13 +2,16 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface InitState {
     isAuth: boolean;
-    errorRepeatEmail: boolean
+    errorRegistration: ErrorRegistration | undefined
     errorEnter: string | null
+}
+interface ErrorRegistration {
+    [key: string]: string
 }
 
 const initialState: InitState = {
     isAuth: false,
-    errorRepeatEmail: false,
+    errorRegistration: undefined,
     errorEnter: null
 };
 
@@ -23,15 +26,15 @@ export const setIsAuthSlice = createSlice({
         setErrorEnter: (state, action: PayloadAction<string>) => {
             state.errorEnter = action.payload;
         },
-        setErrorRepeatEmail: (state, action: PayloadAction<boolean>) => {
-            state.errorRepeatEmail = action.payload;
+        setErrorRegistration: (state, action: PayloadAction<ErrorRegistration>) => {
+            state.errorRegistration = action.payload;
         },
         resetErrors: (state) => {
             state.errorEnter = null;
-            state.errorRepeatEmail = false;
+            state.errorRegistration = undefined;
         },
     },
 });
 
 export default setIsAuthSlice.reducer;
-export const { setIsAuth, setErrorEnter, resetErrors, setErrorRepeatEmail } = setIsAuthSlice.actions;
+export const { setIsAuth, setErrorEnter, resetErrors, setErrorRegistration } = setIsAuthSlice.actions;

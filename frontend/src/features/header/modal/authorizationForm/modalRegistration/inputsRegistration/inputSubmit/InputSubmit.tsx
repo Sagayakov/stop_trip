@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import styleForBnt from 'features/header/modal/authorizationForm/modalEnter/libr/formEnter.module.scss'
-
+import styles from 'features/header/modal/authorizationForm/modalEnter/libr/formEnter.module.scss'
 interface Props {
     isValid: boolean;
 }
@@ -10,11 +9,10 @@ export const InputSubmit = ({ isValid }: Props) => {
 
     return (
         <input
-            className={styleForBnt.submit}
             type="submit"
-            value={t('reset-page.update')}
+            className={styles.submit}
+            value={t('modal-registration.register')}
             disabled={!isValid}
-            style={{marginTop: 0}}
         />
     );
 };
