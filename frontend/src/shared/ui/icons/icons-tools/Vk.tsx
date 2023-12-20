@@ -2,7 +2,7 @@ export const Vk = () => {
     return (
         <svg
             enableBackground="new 0 0 100 100"
-            id="vk-icon"
+            id="vk_icon"
             version="1.1"
             viewBox="0 0 100 100"
             width="28px"

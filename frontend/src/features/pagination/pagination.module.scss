@@ -1,0 +1,23 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    .page_number {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 22px;
+        height: 24px;
+        cursor: pointer;
+        font-family: var(--font-inter);
+        font-size: 20px;
+        color: var(--grey-3);
+    }
+    .page_number.active {
+        background-color: var(--main-black);
+        border-radius: 6px;
+        cursor: unset;
+        color: #ffffff;
+    }
+}

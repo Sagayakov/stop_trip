@@ -2,7 +2,7 @@ export const Google = () => {
     return (
         <svg
             enableBackground="new 0 0 512 512"
-            id="google-icon"
+            id="google_icon"
             version="1.1"
             viewBox="0 0 512 512"
             width="24px"

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowLeft14x7 } from 'shared/ui/icons/icons-tools/ArrowLeft14x7.tsx';
 import { ArrowRight14x7 } from 'shared/ui/icons/icons-tools/ArrowRight14x7.tsx';
-import './pagination.scss';
+import styles from './pagination.module.scss';
 import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks';
 import { setPageMain } from 'features/lastAdverts/model/pageReducer/pageMain';
@@ -58,7 +58,7 @@ export const Pagination = ({
             : dispatch(setPageCategory(page));
 
     return (
-        <div className="pagination">
+        <div className={styles.pagination}>
             <ArrowLeft14x7
                 color={data && data.previous ? '#1C1C1E' : '#BCBCBC'}
                 style={{
@@ -75,8 +75,8 @@ export const Pagination = ({
                         <span
                             className={
                                 pageMain === el
-                                    ? 'page-number active'
-                                    : 'page-number'
+                                    ? `${styles.page_number} ${styles.active}`
+                                    : `${styles.page_number}`
                             }
                             key={el}
                             onClick={() => handleClickNumber(el)}

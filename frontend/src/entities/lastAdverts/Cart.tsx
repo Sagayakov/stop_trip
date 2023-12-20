@@ -11,6 +11,7 @@ import {
 import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import styles from 'features/lastAdverts/libr/LastAdverts.module.scss'
 
 export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
     const {
@@ -51,7 +52,7 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
     };
 
     return (
-        <NavLink className="announcement-cart" to={`/${category}/${id}/`}>
+        <NavLink className={styles.announcement_cart} to={`/${category}/${id}/`}>
             <img
                 src={
                     images[0] === undefined
@@ -60,8 +61,8 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
                 }
                 alt="img"
             />
-            <div className="description">
-                <div className="price">
+            <div className={styles.description}>
+                <div className={styles.price}>
                     <p>
                         {price ? `₹${price}` : `${t('advert-page.negotiated')}`}
                     </p>
@@ -74,11 +75,11 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
                     </span>
                 </div>
                 <p>{title}</p>
-                <div className="user-main">
+                <div className={styles.user_main}>
                     {`${owner.full_name[0].toUpperCase()}${owner.full_name.slice(
                         1
                     )}`}
-                    <span className="rating-number">4.5</span>
+                    <span className={styles.rating_number}>4.5</span>
                 </div>
                 <span>{GetDateOfCreating(dateCreate)}</span>
             </div>

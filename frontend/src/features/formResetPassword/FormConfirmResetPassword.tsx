@@ -11,6 +11,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 import { useTranslation } from 'react-i18next';
+import styles from 'pages/resetPassword/resetPassword.module.scss'
 
 const FormConfirmResetPassword = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -45,11 +46,11 @@ const FormConfirmResetPassword = () => {
     };
 
     return (
-        <div className="reset">
+        <div className={styles.reset}>
             {load && <LoadingWithBackground />}
             {!success ? (
                 <form
-                    className="form"
+                    className={styles.form}
                     onSubmit={handleSubmit(onsubmit)}
                     autoComplete="false"
                 >
@@ -68,14 +69,14 @@ const FormConfirmResetPassword = () => {
                     />
                     <InputSubmit isValid={isValid} />
                 </form>
-            ) : (
-                <div className="reset-success">
-                    {t('reset-page.success')}
-                    <NavLink className="main-link" to={'/'}>
-                        {t('reset-page.back')}
-                    </NavLink>
-                </div>
-            )}
+             ) : (
+                 <div className={styles.reset_success}>
+                     {t('reset-page.success')}
+                     <NavLink className={styles.main_link} to={'/'}>
+                         {t('reset-page.back')}
+                     </NavLink>
+                 </div>
+             )}
         </div>
     );
 };
