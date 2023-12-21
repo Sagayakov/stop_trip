@@ -120,12 +120,12 @@ class TaxiTest(APITestCase):
         with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
-                {"taxi_unit": [TaxiUnit.KM.value, TaxiUnit.ROUTE.value]},
+                {"taxi_unit": f"{TaxiUnit.KM.value},{TaxiUnit.ROUTE.value}"},
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(res_json["count"], len(taxi_set) // 2)
+        self.assertEqual(res_json["count"], len(taxi_set))
 
     def test_filter_taxi_type(self):
         user = UserFactory()
@@ -151,10 +151,9 @@ class TaxiTest(APITestCase):
 
         with self.assertNumQueries(3):
             res = self.client.get(
-                self.list_url,
-                {"taxi_type": [TaxiType.ECONOMY.value, TaxiType.BUSINESS.value]},
+                self.list_url, {"taxi_type": f"{TaxiType.ECONOMY.value},{TaxiType.BUSINESS.value}"}
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(res_json["count"], len(taxi_set) // 2)
+        self.assertEqual(res_json["count"], len(taxi_set))
