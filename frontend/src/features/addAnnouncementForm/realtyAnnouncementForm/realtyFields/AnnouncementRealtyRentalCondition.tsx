@@ -3,6 +3,7 @@ import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSele
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -17,7 +18,7 @@ export const AnnouncementRealtyRentalCondition = ({
     const { t } = useTranslation();
 
     return (
-        <div className="ann-field">
+        <div className={styles.ann_field}>
             <h3>{t('filters.property_rental_condition')}</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
@@ -29,7 +30,7 @@ export const AnnouncementRealtyRentalCondition = ({
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />
-            <div className="ann-field-err"></div>
+            <div className={styles.ann_field_err}></div>
         </div>
     );
 };

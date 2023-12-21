@@ -3,6 +3,7 @@ import { UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { MapComponent } from 'entities/map/MapComponent.tsx';
 import { useTranslation } from 'react-i18next';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -15,23 +16,6 @@ const AnnouncementLocationField = ({
     markerPosition,
     setMarkerPosition,
 }: Props) => {
-    /* const initialPosition: LatLng = new LatLng(15.2993, 74.124);
-    const zoom = 10; */
-
-    /* const handleMapClick = (e: LeafletMouseEvent) => {
-        const { lat, lng } = e.latlng;
-        setMarkerPosition(String(lat) + ", " + lng);
-    }; */
-    /* const position = {
-        lat: Number(markerPosition?.split(',')[0]),
-        lng: Number(markerPosition?.split(',')[1])
-    } */
-    /* const MapClickHandler = () => {
-        useMapEvents({
-            click: handleMapClick,
-        });
-        return null;
-    }; */
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -39,34 +23,18 @@ const AnnouncementLocationField = ({
     }, [markerPosition]);
 
     return (
-        <div className="ann-field">
+        <div className={styles.ann_field}>
             <h3>
                 {`${t('add-page.location')}:`}
-                {/* Локация<span>*</span>: */}
             </h3>
-            <div className="map-wrapper">
+            <div className={styles.map_wrapper}>
                 <MapComponent
                     propertyLocation={[15.2993, 54.124]}
                     isSelected={true}
                     setMarkerPosition={setMarkerPosition}
                 />
             </div>
-            {/* <MapContainer
-                center={initialPosition}
-                zoom={zoom}
-            >
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <MapClickHandler />
-                {markerPosition && (
-                    <Marker position={[position.lat, position.lng]}>
-                        <Popup>
-                            Координаты: {position.lat.toFixed(6)},{' '}
-                            {position.lng.toFixed(6)}
-                        </Popup>
-                    </Marker>
-                )}
-            </MapContainer> */}
-            <div className="ann-field-err"></div>
+            <div className={styles.ann_field_err}></div>
         </div>
     );
 };

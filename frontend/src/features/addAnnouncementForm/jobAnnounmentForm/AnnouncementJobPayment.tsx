@@ -3,6 +3,7 @@ import { Control, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { jobValues } from './libr/jobValues';
 import { useTranslation } from 'react-i18next';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -14,7 +15,7 @@ export const AnnouncementJobPayment = ({ setValue, control }: Props) => {
     const { t } = useTranslation();
 
     return (
-        <div className="ann-field">
+        <div className={styles.ann_field}>
             <h3>{t('filters.job_payment_type')}:</h3>
             <UniversalSelectDropdown
                 closeMenuOnSelect={true}
@@ -26,7 +27,7 @@ export const AnnouncementJobPayment = ({ setValue, control }: Props) => {
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />
-            <div className="ann-field-err"></div>
+            <div className={styles.ann_field_err}></div>
         </div>
     );
 };

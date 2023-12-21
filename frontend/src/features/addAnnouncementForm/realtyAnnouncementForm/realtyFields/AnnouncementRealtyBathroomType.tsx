@@ -2,6 +2,7 @@ import { UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup';
 import { useTranslation } from 'react-i18next';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -15,16 +16,17 @@ export const AnnouncementRealtyBathroomType = ({ register }: Props) => {
         { label: `${t('filters.separate')}`, value: 'separate' },
     ];
     return (
-        <div className="ann-field">
+        <div className={styles.ann_field}>
             <h3>{t('filters.property_bathroom_type')}</h3>
-            <div className="radio-group">
+            <div className={styles.radio_group}>
                 <UniversalRadioGroup
                     name="property_bathroom_type"
                     radioValues={optionValues}
                     register={register}
+                    className={styles.radio_group}
                 />
             </div>
-            <div className="ann-field-err"></div>
+            <div className={styles.ann_field_err}></div>
         </div>
     );
 };

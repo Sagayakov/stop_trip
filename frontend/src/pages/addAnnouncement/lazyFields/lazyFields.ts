@@ -27,7 +27,7 @@ export const AnnouncementDescriptionField = lazy(
 export const AnnouncementPhotoField = lazy(
     () =>
         import(
-            'features/addAnnouncementForm/universalFields/AnnouncementPhotoField'
+            'features/addAnnouncementForm/universalFields/annPhoto/AnnouncementPhotoField.tsx'
         )
 );
 export const AnnouncementLocationField = lazy(

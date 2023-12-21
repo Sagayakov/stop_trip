@@ -1,6 +1,7 @@
 import { FormState, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -12,7 +13,7 @@ const AnnouncementNameField = ({ register, formState }: Props) => {
     const { errors } = formState;
 
     return (
-        <div className="ann-field">
+        <div className={styles.ann_field}>
             <h3>
                 {t('add-page.advert-title')}
                 <span>*</span>:
@@ -31,7 +32,7 @@ const AnnouncementNameField = ({ register, formState }: Props) => {
                 }
                 {...register('title', { required: true })}
             />
-            <div className="ann-field-err">
+            <div className={styles.ann_field_err}>
                 {errors?.title && `${t('add-page.enter-title')}`}
             </div>
         </div>

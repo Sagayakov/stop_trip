@@ -5,6 +5,7 @@ import {
 } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -34,7 +35,7 @@ const AnnouncementCategoryField = ({ control, setValue, formState }: Props) => {
 
     return (
         <>
-            <div className="ann-field">
+            <div className={styles.ann_field}>
                 <h3>
                     {t('labels.category')}
                     <span>*</span>:
@@ -51,7 +52,7 @@ const AnnouncementCategoryField = ({ control, setValue, formState }: Props) => {
                     required={true}
                     isSearchable={!isMobile}
                 />
-                <div className="ann-field-err">
+                <div className={styles.ann_field_err}>
                     {errors?.category && `${t('add-page.choose-please')}`}
                 </div>
             </div>

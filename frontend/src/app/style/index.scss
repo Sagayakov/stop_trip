@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lato:wght@700&display=swap');
 @import url('https://fonts.cdnfonts.com/css/sf-ui-display?styles=16099,16101,16097');
-
 * {
     margin: 0;
     padding: 0;
@@ -44,4 +43,38 @@
     footer {
         margin-top: auto;//прижимаем футер к низу
     }
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: 1px !important;
+    height: 1px;
+    opacity: 0 !important;
+}
+
+.form_checkbox > span::before {
+    content: '';
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border-radius: 4px;
+    margin: 0 1rem 0 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+    background-color: var(--grey-1);
+}
+
+.form_checkbox > input:checked + span::before {
+    background-size: 60%;
+    background: var(--main-green) url('shared/ui/icons/union.svg') no-repeat
+    center center;
+    box-shadow: none;
+}
+
+.form_checkbox > span {
+    align-items: center;
+    user-select: none;
 }

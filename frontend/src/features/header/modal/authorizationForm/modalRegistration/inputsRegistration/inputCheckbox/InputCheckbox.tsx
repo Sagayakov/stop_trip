@@ -13,7 +13,7 @@ export const InputCheckbox = ({ register }: Props) => {
 
     return (
         <div className={styles.user_agreement}>
-            <label htmlFor="userAgreement" className={styles.form_checkbox}>
+            <label htmlFor="userAgreement" className={`${styles.form_checkbox} form_checkbox`}>
                 <input
                     id="userAgreement"
                     {...register('agreement', { required: true })}

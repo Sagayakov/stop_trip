@@ -12,6 +12,7 @@ import { Point } from 'ol/geom';
 import ScaleLineControl from 'ol/control/ScaleLine';
 import { Zoom } from 'ol/control';
 import { Coordinate } from 'ol/coordinate';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 type MapProps = {
     propertyLocation: number[];
@@ -89,7 +90,7 @@ export const MapComponent = ({ propertyLocation, isSelected, setMarkerPosition }
     return (
         <div
             ref={mapTargetElement}
-            className="map"
+            className={styles.map}
             onWheel={handleWheel}>
         </div>
     );

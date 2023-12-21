@@ -1,0 +1,188 @@
+.loadphoto {
+    width: 950px;
+    padding: 24px;
+    display: flex;
+    border-radius: var(--radii);
+    border: none;
+    background-color: var(--main-background);
+    .loadphoto_btn_view {
+        .loadphoto_btn_hidden {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            line-height: 0;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+        .loadphoto_btn {
+            width: 194px;
+            height: 38px;
+            padding: 12px;
+            margin-bottom: 14px;
+            border-radius: var(--radii);
+            border: none;
+            color: white;
+            background-color: var(--main-blue);
+            font-family: var(--font-lato);
+            font-size: 12px;
+            font-weight: 300;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .loadphoto_btn_view_list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 193px;
+            .loadphoto_btn_view_delete {
+                display: flex;
+                margin-bottom: 8px;
+                justify-self: center;
+                cursor: pointer;
+                & span {
+                    margin-left: 6px;
+                }
+            }
+        }
+    }
+
+    .loadphoto_icons {
+        display: inline;
+        & svg {
+            margin-left: 34px;
+        }
+    }
+    .loadphoto_counter {
+        display: flex;
+        margin-left: auto;
+        align-items: flex-end;
+        color: var(--grey-3);
+        .loadphoto_counter_wrapper {
+            & svg {
+                margin-right: 6px;
+            }
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .loadphoto {
+        width: 100%;
+    }
+}
+@media (min-width: 511px) and (max-width: 767px) {
+    .loadphoto {
+        display: grid;
+        grid-template-areas:
+            'btn photoCounter'
+            'btn icons';
+        width: 100%;
+        .loadphoto_btn_view {
+            grid-area: btn;
+            .loadphoto_btn_view_list {
+                display: block;
+            }
+        }
+        .loadphoto_icons {
+            grid-area: icons;
+        }
+        .loadphoto_counter {
+            grid-area: photoCounter;
+            align-items: center;
+            margin-right: 30%;
+        }
+    }
+    .mobile_add_photo {
+        .loadphoto {
+            order: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            padding: 16px;
+            .loadphoto_btn_view {
+                order: 1;
+                .loadphoto_btn {
+                    margin: 0 auto 16px;
+                }
+                .loadphoto_btn_view_list {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+                    width: 100%;
+                }
+            }
+            .loadphoto_counter {
+                order: 2;
+                margin: 0 auto;
+            }
+            .loadphoto_icons {
+                order: 3;
+                text-align: center;
+                & svg {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 511px) {
+    .mobile_add_photo {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 27px;
+        h3 {
+            order: 1;
+            margin: 0;
+        }
+        .ann_field_err {
+            order: 2;
+        }
+        #ann_field_price {
+            width: 50%;
+        }
+        input[type='text'],
+        textarea {
+            width: 100%;
+            padding: 12px 12px 12px 10px;
+        }
+        .loadphoto {
+            order: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            padding: 16px;
+            .loadphoto_btn_view {
+                order: 1;
+                .loadphoto_btn {
+                    margin: 0 auto 16px;
+                }
+                .loadphoto_btn_view_list {
+                    display: grid;
+                    grid-template-columns: repeat(
+                                    auto-fit,
+                                    minmax(90px, 1fr)
+                                );
+                    width: 100%;
+                }
+            }
+            .loadphoto_counter {
+                order: 2;
+                margin: 0 auto;
+            }
+            .loadphoto_icons {
+                order: 3;
+                text-align: center;
+                & svg {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
