@@ -2,7 +2,7 @@ import { Control, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { useTranslation } from 'react-i18next';
-
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
@@ -19,7 +19,7 @@ export const AnnouncementExchangeName = ({ setValue, control }: Props) => {
     ];
 
     return (
-        <div className="ann-field">
+        <div className={styles.ann_field}>
             <h3>{t('filters.proposed_currency')}:</h3>
             <UniversalSelectDropdown
                 closeMenuOnSelect={true}
@@ -31,7 +31,7 @@ export const AnnouncementExchangeName = ({ setValue, control }: Props) => {
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />
-            <div className="ann-field-err"></div>
+            <div className={styles.ann_field_err}></div>
         </div>
     );
 };

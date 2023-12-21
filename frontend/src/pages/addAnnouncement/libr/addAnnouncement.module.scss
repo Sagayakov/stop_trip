@@ -1,0 +1,345 @@
+.optional_fields {
+    opacity: 0;
+    max-height: 0;
+    transition:
+        max-height 3s ease,
+        opacity 2s ease;
+    .ann_event {
+        width: 50%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr auto;
+        gap: 0 1.5rem;
+        input[type="date"]{
+            width: 100%;
+            border-color: var(--grey-3);
+        }
+    }
+
+    &.visible {
+        opacity: 1;
+        max-height: fit-content;
+    }
+}
+main {
+    max-width: 1440px;
+    margin: 0 auto;
+    .add_ann {
+        width: 1240px;
+        padding-top: 110px;
+        margin: 0 auto 80px;
+        .add_ann_form {
+            h1 {
+                font-size: 34px;
+                margin-bottom: 16px;
+            }
+            h2 {
+                font-size: 30px;
+                margin-bottom: 27px;
+            }
+            .ann_field {
+                margin-bottom: 9px;
+                h3 {
+                    margin-bottom: 16px;
+                    span {
+                        color: red;
+                    }
+                }
+                .radio_group,
+                .checkbox_group {
+                    display: flex;
+                    gap: 1.5rem;
+                    width: 100%;
+                }
+                .inputNumber_group {
+                    width: 40%;
+                    display: flex;
+                    justify-content: space-between;
+                    input {
+                        width: 40% !important;
+                    }
+                }
+                .ann_field_err {
+                    height: 18px;
+                    color: red;
+                    font-size: 14px;
+                }
+                #ann_field_price {
+                    width: 25%;
+                }
+                input[type='text'],
+                textarea {
+                    width: 50%;
+                    height: 36px;
+                    padding: 12px;
+                    border-radius: var(--radii);
+                    border: 1px solid var(--grey-1);
+                }
+                textarea {
+                    min-height: 120px;
+                    padding: 12px;
+                }
+                .map_wrapper {
+                    width: 100%;
+                    height: 70vh;
+                    border-radius: 16px;
+                    margin-top: 1rem;
+                    .map {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 16px;
+                        overflow: hidden;
+                    }
+                }
+            }
+            .add_ann_form_button {
+                width: 50%;
+                display: flex;
+                justify-content: space-between;
+                margin-top: 65px;
+                input[type='submit'] {
+                    width: 60%;
+                    height: 48px;
+                    padding: 12px 20px;
+                    border-radius: var(--radii);
+                    border: none;
+                    color: white;
+                    background-color: var(--main-blue);
+                    font-family: var(--font-lato);
+                    font-weight: 600;
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
+                    cursor: pointer;
+                }
+                .goBack {
+                    width: 30%;
+                    padding: 12px 20px;
+                    color: var(--main-blue);
+                    font-family: var(--font-lato);
+                    font-weight: 700;
+                    background-color: white;
+                    border-radius: var(--radii);
+                    border: 1px solid var(--main-blue);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    height: 48px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1439px) {
+    main {
+        .add_ann {
+            width: 85%;
+            padding-top: 110px;
+            margin: 0 auto 80px;
+            .add_ann_form {
+                width: 100%;
+            }
+        }
+    }
+}
+@media (max-width: 1100px) {
+    .ann_event {
+        width: 70%;
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    main {
+        .add_ann {
+            padding-top: 90px;
+            .add_ann_form {
+                .ann_field {
+                    .map_wrapper {
+                        width: 100%;
+                        height: 60vh;
+                    }
+                }
+                .add_ann_form_button {
+                    width: 100%;
+                    input[type='submit'],
+                    .goBack {
+                        width: 50%;
+                    }
+
+                    .goBack {
+                        width: 35%;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 600px) {
+    .add_ann {
+        .add_ann_form {
+            .ann_field {
+                .inputNumber_group {
+                    width: 70% !important;
+                }
+                .radio_group,
+                .checkbox_group {
+                    width: 100%;
+                    display: grid !important;
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 511px) {
+    .add_ann {
+        .add_ann_form {
+            .ann_field {
+                .inputNumber_group {
+                    width: 100% !important;
+                }
+            }
+            .ann_event{
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+            }
+        }
+    }
+}@media (max-width: 425px) {
+    .add_ann {
+        .add_ann_form {
+            .ann_event{
+                width: 70%;
+            }
+        }
+    }
+}
+@media (min-width: 511px) and (max-width: 767px) {
+    main {
+        .add_ann {
+            padding-top: 70px;
+            margin: 0 auto 40px;
+            .add_ann_form {
+                .ann_field {
+                    #ann_field_price {
+                        width: 50%;
+                    }
+                    input[type='text'],
+                    textarea {
+                        width: 70%;
+                    }
+                    .map_wrapper {
+                        width: 100%;
+                        height: 60vh;
+                    }
+                }
+                .add_ann_form_button {
+                    width: 100%;
+                    margin-top: 30px;
+                    input[type='submit'],
+                    .goBack {
+                        width: 50%;
+                    }
+
+                    .goBack {
+                        width: 35%;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 511px) {
+    main {
+        .add_ann {
+            padding-top: 70px;
+            margin: 0 auto 40px;
+            .add_ann_form {
+                h1 {
+                    font-size: 26px;
+                    margin: 0;
+                    padding: 0 0 16px;
+                }
+                .ann_field {
+                    #ann_field_price {
+                        width: 40%;
+                        padding: 8px 12px;
+                    }
+                    input[type='text'],
+                    textarea {
+                        width: 100%;
+                        padding: 8px 12px;
+                    }
+                    .map_wrapper {
+                        width: 100%;
+                        height: 50vh;
+                    }
+                }
+                .add_ann_form_button {
+                    width: 100%;
+                    margin-top: 30px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 475px) {
+    main {
+        .add_ann {
+            .add_ann_form {
+                .ann_field {
+                    .map_wrapper {
+                        width: 100%;
+                        height: 35vh;
+                    }
+                }
+                .add_ann_form_button {
+                    width: 100%;
+                    margin-top: 20px;
+                    input[type='submit'],
+                    .goBack {
+                        width: 55%;
+                        font-size: 13px;
+                        padding: 12px;
+                    }
+
+                    .goBack {
+                        width: 30%;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 400px) {
+    main {
+        .add_ann {
+            .add_ann_form {
+                .ann_field {
+                    #ann_field_price {
+                        width: 40%;
+                    }
+                    #ann_field_price,
+                    input[type='text'],
+                    textarea {
+                        padding: 8px;
+                    }
+                }
+                .add_ann_form_button {
+                    width: 100%;
+                    input[type='submit'],
+                    .goBack {
+                        width: auto;
+                        font-size: 13px;
+                        padding: 8px;
+                    }
+
+                    .goBack {
+                        min-width: 25%;
+                    }
+                }
+            }
+        }
+    }
+}

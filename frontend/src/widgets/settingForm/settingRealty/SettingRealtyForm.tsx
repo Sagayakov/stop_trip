@@ -27,6 +27,7 @@ import { useSearchParams } from 'react-router-dom';
 import { getRealtyQuery } from 'shared/utils/getRealtyQuery.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalButton } from 'entities/universalEntites';
+import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -43,7 +44,6 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
     const { register, handleSubmit, reset, watch, setValue, control } =
         useForm<TypeSettingRealty>();
 
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const onsubmit: SubmitHandler<TypeSettingRealty> = (data) => {
         const filters = getRealtyQuery(data);

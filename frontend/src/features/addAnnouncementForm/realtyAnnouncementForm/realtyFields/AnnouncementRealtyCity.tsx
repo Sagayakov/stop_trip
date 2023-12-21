@@ -4,6 +4,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -16,7 +17,7 @@ export const AnnouncementRealtyCity = ({ setValue, control }: Props) => {
     const { t } = useTranslation();
 
     return (
-        <div className="ann-field">
+        <div className={styles.ann_field}>
             <h3>{t('filters.property_city')}</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
@@ -29,7 +30,7 @@ export const AnnouncementRealtyCity = ({ setValue, control }: Props) => {
                 setValue={setValue}
                 isSearchable={!isMobile}
             />
-            <div className="ann-field-err"></div>
+            <div className={styles.ann_field_err}></div>
         </div>
     );
 };

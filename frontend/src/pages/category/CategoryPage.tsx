@@ -1,14 +1,12 @@
 import { lazy, Suspense, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 export const AnyCategory = lazy(() => import('widgets/anyCategory/AnyCategory'));
 export const Controls = lazy(() => import('features/controls/Controls'));
-import { Pagination } from 'features/pagination';
 import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
 import { HorizontalMixer } from 'shared/ui/icons/icons-tools/HorizontalMixer.tsx';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 import { useTranslation } from 'react-i18next';
-import { useGetAdvertsQuery } from 'app/api/fetchAdverts';
 import { FilterForms } from 'widgets/settingForm/Forms/FilterForms.tsx';
 import './style/category-page.scss';
 import './style/1024-1439-category-page.scss';
@@ -18,8 +16,6 @@ import './style/min-424-category-page.scss';
 
 export const CategoryPage = () => {
     const category = location.pathname.split('/')[1];
-    const queryParam = useLocation().search;
-    const { data } = useGetAdvertsQuery(queryParam);
     const [showFilters, setShowFilters] = useState<boolean>(false);
     const { isDesktop } = useMatchMedia();
     const { t } = useTranslation();
@@ -69,7 +65,6 @@ export const CategoryPage = () => {
                     <AnyCategory />
                 </Suspense>
             </div>
-            <Pagination data={data} />
         </>
     );
 };

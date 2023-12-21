@@ -3,6 +3,7 @@ import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSele
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { valuesOfTransportForm } from 'widgets/settingForm/settingTransport/libr/valuesOfTransportForm.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -18,7 +19,7 @@ export const AnnouncementTransportModelOfTransport = ({
     const optionValues = valuesOfTransportForm.transport_model;
 
     return (
-        <div className="ann-field">
+        <div className={styles.ann_field}>
             <h3>{t('filters.transport_model')}</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
@@ -30,7 +31,7 @@ export const AnnouncementTransportModelOfTransport = ({
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />
-            <div className="ann-field-err"></div>
+            <div className={styles.ann_field_err}></div>
         </div>
     );
 };

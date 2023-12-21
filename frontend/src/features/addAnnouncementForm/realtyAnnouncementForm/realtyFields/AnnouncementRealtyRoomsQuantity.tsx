@@ -2,6 +2,7 @@ import { UseFormRegister } from 'react-hook-form';
 import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -17,16 +18,17 @@ export const AnnouncementRealtyRoomsQuantity = ({ register }: Props) => {
         { value: '4', label: '4' },
     ];
     return (
-        <div className="ann-field">
+        <div className={styles.ann_field}>
             <h3>{t('filters.property_rooms_count')}</h3>
-            <div className="radio-group">
+            <div className={styles.radio_group}>
                 <UniversalRadioGroup
                     radioValues={optionValues}
                     name="property_rooms_count"
                     register={register}
+                    className={styles.radio_group}
                 />
             </div>
-            <div className="ann-field-err"></div>
+            <div className={styles.ann_field_err}></div>
         </div>
     );
 };

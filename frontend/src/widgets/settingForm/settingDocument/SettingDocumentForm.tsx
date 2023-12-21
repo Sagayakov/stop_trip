@@ -9,6 +9,7 @@ import { TypeOfDocumentFilter } from './libr/TypeOfDocumentFilter';
 import { searchParamsForDocument } from './libr/searchParamsForDocument';
 import './libr/settingDocumentForm.scss';
 import { useTranslation } from 'react-i18next';
+import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -21,7 +22,6 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const { handleSubmit, reset, setValue, control } =
         useForm<TypeOfDocumentFilter>();

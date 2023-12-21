@@ -18,6 +18,7 @@ import {
     UseFormSetValue,
     UseFormWatch,
 } from 'react-hook-form';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -35,7 +36,7 @@ const OptionalFields = ({ register, setValue, control, watch }: Props) => {
     };
 
     return (
-        <div className={`optional-fields ${category && 'visible'}`}>
+        <div className={`${styles.optional_fields} ${category && `${styles.visible}`}`}>
             {getCategoryValue('transport') && (
                 <AnnouncementTransport
                     control={control}

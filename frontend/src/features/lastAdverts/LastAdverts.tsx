@@ -6,15 +6,17 @@ import { Pagination } from '../pagination';
 import styles from './libr/LastAdverts.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks';
+import { useRef } from 'react';
 
 const LastAdverts = () => {
     const pageMain = useAppSelector((state) => state.setPageMain.pageMain);
     const { data, isLoading } = useGetAdvertsQuery(`?page=${pageMain}`);
     const { t } = useTranslation();
+    const parentRef = useRef<HTMLDivElement>(null);
 
     return (
         <div className={styles.last_announcement}>
-            <div className={styles.last_announcement_wrapper}>
+            <div className={styles.last_announcement_wrapper} ref={parentRef}>
                 <h3>{t('main-page.last-adverts')}</h3>
                 <div className={styles.announcement_list}>
                     {isLoading && <LoadingWithBackground />}
@@ -23,7 +25,7 @@ const LastAdverts = () => {
                             <Cart cart={elem} key={elem.id} />
                         ))}
                 </div>
-                <Pagination data={data} />
+                <Pagination data={data} parentRef={parentRef} />
             </div>
         </div>
     );

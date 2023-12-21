@@ -1,6 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -10,7 +11,7 @@ export const AnnouncementJobWithExp = ({ register }: Props) => {
     const { t } = useTranslation();
 
     return (
-        <div className="ann-field">
+        <div className={styles.ann_field}>
             <h3>{t('filters.job_experience')}:</h3>
             <label>
                 <input
@@ -20,7 +21,7 @@ export const AnnouncementJobWithExp = ({ register }: Props) => {
                 />
                 <span>{t('filters.job_experience')}</span>
             </label>
-            <div className="ann-field-err"></div>
+            <div className={styles.ann_field_err}></div>
         </div>
     );
 };

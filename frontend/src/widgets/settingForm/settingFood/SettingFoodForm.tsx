@@ -10,6 +10,7 @@ import { TypeForFoodForm } from './libr/TypeForFoodForm';
 import { searchParamsForFood } from './libr/searchParamsForFood';
 import './libr/settingFoordForm.scss';
 import { useTranslation } from 'react-i18next';
+import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -26,7 +27,6 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
     const { register, handleSubmit, reset, setValue, control } =
         useForm<TypeForFoodForm>();
 
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const onsubmit: SubmitHandler<TypeForFoodForm> = (data) => {
         const { food_delivery, food_establishment, food_type } = data;
