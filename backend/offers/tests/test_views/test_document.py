@@ -117,12 +117,14 @@ class DocumentTest(APITestCase):
         with self.assertNumQueries(3):
             res = self.client.get(
                 self.list_url,
-                {"document_type": [DocumentType.C_FORM.value, DocumentType.OTHER_DOCUMENT.value]},
+                {
+                    "document_type": f"{DocumentType.C_FORM.value},{DocumentType.OTHER_DOCUMENT.value}"
+                },
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(res_json["count"], len(document_set) // 2)
+        self.assertEqual(res_json["count"], len(document_set))
 
     def test_document_duration_filter(self):
         user = UserFactory()
@@ -132,7 +134,10 @@ class DocumentTest(APITestCase):
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 document_type=DocumentType.C_FORM,
-                document_duration=[DocumentDuration.QUARTER, DocumentDuration.OTHER][_ % 2],
+                document_duration=[
+                    DocumentDuration.QUARTER,
+                    DocumentDuration.OTHER,
+                ][_ % 2],
             )
             for _ in range(2)
         ]
@@ -151,13 +156,9 @@ class DocumentTest(APITestCase):
             res = self.client.get(
                 self.list_url,
                 {
-                    "document_duration": [
-                        DocumentDuration.QUARTER.value,
-                        DocumentDuration.OTHER.value,
-                    ]
+                    "document_duration": f"{DocumentDuration.QUARTER.value},{DocumentDuration.OTHER.value}"
                 },
             )
-
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(res_json["count"], len(document_set) // 2)
+        self.assertEqual(res_json["count"], len(document_set))
