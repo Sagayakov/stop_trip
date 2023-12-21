@@ -5,6 +5,7 @@ import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForMarketForm } from './libr/TypeForMarketForm';
 import './libr/settingMarketForm.scss';
 import { useTranslation } from 'react-i18next';
+import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -19,10 +20,6 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
     };
 
     const { register, handleSubmit, reset } = useForm<TypeForMarketForm>();
-
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
 
     const onsubmit: SubmitHandler<TypeForMarketForm> = (data) => {
         const { market_condition } = data;

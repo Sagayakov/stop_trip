@@ -4,6 +4,7 @@ import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForExcursionFilter } from './libr/TypeForExcursionFilter';
 import { useTranslation } from 'react-i18next';
 import styles from './libr/settingExcursionFilter.module.scss';
+import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -17,7 +18,6 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
     };
 
     const { handleSubmit, reset, register } = useForm<TypeForExcursionFilter>();
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
     const onSubmit: SubmitHandler<TypeForExcursionFilter> = (data) => {
         console.log(data)
         setShowFilters(false);

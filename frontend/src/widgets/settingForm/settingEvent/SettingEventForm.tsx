@@ -11,6 +11,7 @@ import './libr/settingEventFilter.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getSearchParams } from './libr/getSearchParams.ts';
+import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -25,7 +26,6 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
     };
 
     const { register, handleSubmit, reset } = useForm<TypeOfEventFilter>();
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
     const onsubmit: SubmitHandler<TypeOfEventFilter> = (data) => {
         const { end_date, start_date, is_online, price } = data;
         const filters = getSearchParams(end_date, start_date, is_online, price);

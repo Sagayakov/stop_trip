@@ -6,7 +6,8 @@ import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import './libr/addAnnouncement.scss';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
-import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
+import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
+import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 
 interface Image {
     image: string;
@@ -29,35 +30,30 @@ export const AddAnnouncementPage = () => {
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [descript, setDescript] = useState<string | undefined>();
     const { t } = useTranslation();
-
-    const { accessToken } = getTokensFromStorage();
+    const [ addAdvert, { isSuccess, isLoading } ] = useAddAdvertMutation();
     const onsubmit = async (data: FormAddAnn) => {
-        const body = JSON.stringify(data);
         try {
-            const response = await fetch('http://stoptrip.com/api/advertisements/', {
-                body,
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${accessToken}`,
-                },
-            })
-            const answ = await response.json()
-            console.log(answ)
+
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            await addAdvert(data);
+            if(isSuccess){
+                descript && setValue('description', descript);
+                setSelectedImages(undefined);
+                setMarkerPosition(undefined);
+                setDescript(undefined);
+                reset();
+                setValue('category', data.category);
+                scrollToTop()
+            }
         } catch (error){
             console.log(error)
         }
-        descript && setValue('description', descript);
-        console.log(data);
-        setSelectedImages(undefined);
-        setMarkerPosition(undefined);
-        setDescript(undefined);
-        reset();
-        setValue('category', data.category);
     };
 
     return (
         <>
+            {isLoading && <LoadingWithBackground />}
             <section className="add-ann">
                 <form
                     className="add-ann-form"

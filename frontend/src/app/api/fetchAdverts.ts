@@ -3,7 +3,9 @@ import { LastAdvertsTypes } from './types/lastAdvertsTypes';
 import { url } from 'shared/const/url.ts';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { FiltersType } from './types/filtersType';
+import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 
+const { accessToken } = getTokensFromStorage();
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
     tagTypes: ['Adverts'],
@@ -28,6 +30,10 @@ export const fetchAdverts = createApi({
             query: (body) => ({
                 url: 'api/advertisements/', // сюда вписать адрес для добавления нового объявления
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                },
                 body,
             }),
             invalidatesTags: ['Adverts'],
@@ -41,5 +47,5 @@ export const fetchAdverts = createApi({
     }),
 });
 
-export const { useGetAdvertsQuery, useGetAdvertByIdQuery, useGetFiltersQuery } =
+export const { useGetAdvertsQuery, useGetAdvertByIdQuery, useGetFiltersQuery, useAddAdvertMutation } =
     fetchAdverts;

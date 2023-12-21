@@ -10,6 +10,7 @@ import { TypeOfCurrencyFilter } from './libr/TypeOfCurrencyFilter';
 import { searchParamsForExchange } from './libr/searchParamsForExchange';
 import './libr/settingCurrencyFilter.scss';
 import { useTranslation } from 'react-i18next';
+import { scrollToTop } from 'shared/utils/scrollToTop';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -20,7 +21,6 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
     const { t } = useTranslation();
 
     const { handleSubmit, reset, control, setValue, register } =

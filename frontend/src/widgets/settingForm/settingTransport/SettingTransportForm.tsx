@@ -22,6 +22,7 @@ import { useSearchParams } from 'react-router-dom';
 import { getTransportQuery } from 'shared/utils/getTransportQuery.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalButton } from 'entities/universalEntites';
+import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -37,7 +38,6 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const onsubmit: SubmitHandler<TypeSettingTransport> = (data) => {
         const filters = getTransportQuery(data);

@@ -9,6 +9,7 @@ import './libr/settingServicesForm.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getSearchParams } from './libr/getSearchParams.ts'
+import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -21,7 +22,6 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const { register, handleSubmit, reset } = useForm<TypeOfServicesForm>();
 
