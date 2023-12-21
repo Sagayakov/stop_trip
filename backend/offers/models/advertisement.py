@@ -1,5 +1,8 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from location_field.models.plain import PlainLocationField
+
+from forbidden_words.models import ForbiddenWords
 from .abs_event_model import AbsEvent
 from .abs_exchange_rate_model import AbsExchangeRate
 from .abs_job_model import AbsJob
@@ -58,6 +61,20 @@ class Advertisement(
         #         name="owner_proposed_currency_exchange_for_unique_together",
         #     )
         # ]
+
+    def clean(self):
+        forbidden_words = ForbiddenWords.get_solo()
+
+        all_words = forbidden_words.russian_words + "," + forbidden_words.english_words
+        all_words = all_words.lower().split(",")
+
+        for word in all_words:
+            if self.title.lower() in word:
+                raise ValidationError("Имя пользователя содержит запрещенное слово.")
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        return super()
 
     def __str__(self):
         return f"Объявление: {self.title}. Владелец: {self.owner}"
