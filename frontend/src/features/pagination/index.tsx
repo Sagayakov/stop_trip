@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import { ArrowLeft14x7 } from 'shared/ui/icons/icons-tools/ArrowLeft14x7.tsx';
 import { ArrowRight14x7 } from 'shared/ui/icons/icons-tools/ArrowRight14x7.tsx';
-import styles from './pagination.module.scss';
+import styles from './libr/pagination.module.scss';
 import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks';
 import { setPageMain } from 'features/lastAdverts/model/pageReducer/pageMain';
 import { useLocation } from 'react-router-dom';
 import { setPageCategory } from 'pages/category/model/pageReducer/pageCategory';
+import { beginnigParentScroll } from 'features/pagination/libr/beginnigParentScroll.ts';
 
-export const Pagination = ({
-    data,
-}: {
+interface Props {
     data: LastAdvertsTypes | undefined;
-}) => {
+    parentRef: RefObject<HTMLElement> |  RefObject<HTMLDivElement>
+}
+
+export const Pagination = ({ data, parentRef  }: Props) => {
     const pageMain = useAppSelector((state) => state.setPageMain.pageMain);
     const pageCategory = useAppSelector(
         (state) => state.setPageCategory.pageCategory
@@ -38,6 +40,7 @@ export const Pagination = ({
                 dispatch(setPageCategory(pageCategory - 1));
             }
         }
+        beginnigParentScroll(parentRef)
     };
 
     const handleClickNext = () => {
@@ -50,12 +53,16 @@ export const Pagination = ({
                 dispatch(setPageCategory(pageCategory + 1));
             }
         }
+        beginnigParentScroll(parentRef)
     };
 
-    const handleClickNumber = (page: number) =>
+    const handleClickNumber = (page: number) => {
         pathname === '/'
             ? dispatch(setPageMain(page))
             : dispatch(setPageCategory(page));
+        beginnigParentScroll(parentRef)
+    }
+
 
     return (
         <div className={styles.pagination}>

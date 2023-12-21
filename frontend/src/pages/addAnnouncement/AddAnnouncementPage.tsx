@@ -6,6 +6,7 @@ import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import './libr/addAnnouncement.scss';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
+import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 
 interface Image {
     image: string;
@@ -29,9 +30,24 @@ export const AddAnnouncementPage = () => {
     const [descript, setDescript] = useState<string | undefined>();
     const { t } = useTranslation();
 
+    const { accessToken } = getTokensFromStorage();
     const onsubmit = async (data: FormAddAnn) => {
+        const body = JSON.stringify(data);
+        try {
+            const response = await fetch('http://stoptrip.com/api/advertisements/', {
+                body,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${accessToken}`,
+                },
+            })
+            const answ = await response.json()
+            console.log(answ)
+        } catch (error){
+            console.log(error)
+        }
         descript && setValue('description', descript);
-
         console.log(data);
         setSelectedImages(undefined);
         setMarkerPosition(undefined);

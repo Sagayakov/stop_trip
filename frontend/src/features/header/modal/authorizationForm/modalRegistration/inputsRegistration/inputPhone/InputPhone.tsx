@@ -20,7 +20,7 @@ export const InputPhone = ({ errors, register }: Props) => {
                 {...register('phone', {
                     required: true,
                     minLength: 5,
-                    pattern: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,11}(\s*)?$/,
+                    pattern: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$/,
                 })}
                 placeholder={t('modal-registration.phone')}
                 style={{

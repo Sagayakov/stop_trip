@@ -8,6 +8,8 @@ import { getDate } from 'shared/utils/getDate.ts';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks.ts';
+import { Pagination } from 'features/pagination';
+import { useRef } from 'react';
 
 const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
@@ -16,6 +18,7 @@ const AnyCategory = () => {
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
+    const parentRef = useRef<HTMLElement>(null);
 
     if (!data?.results.length && !isLoading) {
         return (
@@ -32,7 +35,7 @@ const AnyCategory = () => {
     ];
 
     return (
-        <section className="announcement">
+        <section className="announcement" ref={parentRef}>
             {isLoading && <LoadingWithBackground />}
             {data?.results.length &&
                 data.results.map((el: AdvertsTypes) => {
@@ -107,6 +110,7 @@ const AnyCategory = () => {
                         </NavLink>
                     );
                 })}{' '}
+            <Pagination data={data} parentRef={parentRef} />
         </section>
     );
 };
