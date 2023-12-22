@@ -17,11 +17,10 @@
         color: var(--grey-3);
     }
 }
-.noAnnouncements{
+.noAnnouncements {
     font-size: 30px;
     width: 100%;
     text-align: center;
-    margin-bottom: 67vh; //прижать футер к низу для всех страниц и убрать этот margin
 }
 
 .announcements_list {
@@ -30,7 +29,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.25rem;
-
     .announcement {
         display: flex;
         flex-direction: column;

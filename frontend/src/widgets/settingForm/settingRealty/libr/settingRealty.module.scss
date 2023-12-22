@@ -1,0 +1,257 @@
+.filter_realty_form {
+    textarea {
+        width: 100%;
+        min-height: 60px;
+    }
+    font-family: var(--font-inter);
+    .radio_group {
+        display: flex;
+        gap: 1rem;
+    }
+    .bathroom {
+        .bathroom_setting {
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+    }
+    .typeOfService,
+    .propertyСity,
+    .propertyDistrict,
+    .propertyCity,
+    .houseType,
+    .floor,
+    .propertyType,
+    .rentalCondition,
+    .setting_price,
+    .amenities,
+    .total_area,
+    .living_space,
+    .sleepingPlaces,
+    .balcony,
+    .hasFurniture,
+    .rooms_quantity,
+    .bathroom_quantity,
+    .bathroom,
+    .hasParking,
+    .prepayment,
+    .realtyComission {
+        margin-bottom: 24px;
+        h3 {
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
+    .setting_price_inputs,
+    .total_area_inputs,
+    .living_space_inputs,
+    .setting_rooms_quantity,
+    .balcony_setting,
+    .select_sleepingPlaces,
+    .setting_floor,
+    .setting_hasFurniture,
+    .setting_hasParking,
+    .bathroom_setting,
+    .select_realtyComission,
+    .setting_sleepingPlaces {
+        display: flex;
+        justify-content: space-between;
+    }
+    .propertyType,
+    .propertyСity,
+    .typeOfService,
+    .houseType,
+    .prepayment,
+    .propertyCity,
+    .propertyDistrict,
+    .rentalCondition,
+    .propertyHouseType {
+        margin-bottom: 24px;
+        h3 {
+            margin-bottom: 8px;
+        }
+    }
+    .setting_price {
+        .setting_price_announcement {
+            display: flex;
+            justify-content: flex-start;
+            gap: 1rem;
+            margin-bottom: 8px;
+            label {
+                cursor: pointer;
+                background-color: #e8f4ff;
+                padding: 8px 10px;
+                font-size: 12px;
+                font-weight: 600;
+                border-radius: var(--radii);
+                border: none;
+            }
+        }
+    }
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .filter_realty_form {
+        width: 100%;
+        .setting_price {
+            .setting_price_announcement {
+                display: flex;
+                justify-content: flex-start;
+                gap: 1rem;
+                margin-bottom: 8px;
+                label {
+                    padding: 8px 3.5%;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .filter_realty_form {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            'service propertyType'
+            'city district'
+            'houseType floor'
+            'price condition'
+            'area living-space'
+            'room sleep'
+            'bath bathqty'
+            'balcony parking'
+            'comission furniture'
+            'amenities prepayment'
+            'send btn-reset';
+
+        .propertyType,
+        .typeOfService,
+        .propertyCity,
+        .propertyDistrict,
+        .houseType,
+        .rentalCondition,
+        .amenities,
+        .sleepingPlaces,
+        .balcony,
+        .hasFurniture,
+        .bathroom_quantity,
+        .realtyComission,
+        .setting_price,
+        .total_area,
+        .living_space,
+        .rooms_quantity,
+        .bathroom {
+            margin-bottom: 0;
+        }
+        .realtyComission {
+            grid-area: comission;
+        }
+        .propertyType {
+            grid-area: propertyType;
+        }
+        .setting_price {
+            grid-area: price;
+        }
+        .total_area {
+            grid-area: area;
+        }
+        .living_space {
+            grid-area: living-space;
+        }
+        .typeOfService {
+            grid-area: service;
+        }
+        .propertyСity {
+            grid-area: city;
+        }
+        .propertyDistrict {
+            grid-area: district;
+        }
+        .houseType {
+            grid-area: houseType;
+        }
+        .floor {
+            grid-area: floor;
+        }
+        .rentalCondition {
+            grid-area: condition;
+        }
+        .rooms_quantity {
+            grid-area: room;
+        }
+        .amenities {
+            grid-area: amenities;
+        }
+        .sleepingPlaces {
+            grid-area: sleep;
+        }
+        .hasFurniture {
+            grid-area: furniture;
+        }
+        .bathroom {
+            grid-area: bath;
+        }
+        .bathroom_quantity {
+            grid-area: bathqty;
+        }
+        .balcony {
+            grid-area: balcony;
+        }
+        .hasParking {
+            grid-area: parking;
+        }
+        .prepayment {
+            grid-area: prepayment;
+        }
+        input[type='submit'] {
+            grid-area: send;
+        }
+        .reset_setting_form {
+            grid-area: btn-reset;
+            height: 45px;
+        }
+    }
+}
+
+@media (min-width: 425px) and (max-width: 767px) {
+    .filter_realty_form {
+        .propertyType,
+        .setting_price,
+        .total_area,
+        .living_space,
+        .rooms_quantity,
+        .bathroom,
+        .balcony {
+            width: 100%;
+        }
+        .setting_price {
+            .setting_price_announcement {
+                width: 320px; //в процентах не красиво
+                label {
+                    padding: 10px 14px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 424px) {
+    .filter_realty_form {
+        .propertyType,
+        .setting_price,
+        .total_area,
+        .living_space,
+        .rooms_quantity,
+        .bathroom,
+        .balcony {
+            width: 100%;
+        }
+        .setting_price {
+            .setting_price_announcement {
+                width: 260px; //в процентах не красиво
+                label {
+                    padding: 10px 14px;
+                }
+            }
+        }
+    }
+}

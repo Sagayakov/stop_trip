@@ -6,7 +6,7 @@ import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks';
 import { setPageMain } from 'features/lastAdverts/model/pageReducer/pageMain';
 import { useLocation } from 'react-router-dom';
-import { setPageCategory } from 'pages/category/model/pageReducer/pageCategory';
+import { setPageCategory } from 'pages/categoryPage/model/pageReducer/pageCategory';
 import { beginnigParentScroll } from 'features/pagination/libr/beginnigParentScroll.ts';
 
 interface Props {

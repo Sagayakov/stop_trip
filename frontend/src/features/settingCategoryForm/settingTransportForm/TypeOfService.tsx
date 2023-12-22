@@ -4,6 +4,7 @@ import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useTranslation } from 'react-i18next';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup.tsx';
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -24,15 +25,16 @@ export const TypeOfService = ({ register }: Props) => {
     const options = data?.params.find((el) => el.name === 'transport_type_of_service') as ChoicesType;
 
     return (
-        <div className="typeOfService">
+        <div className={styles.typeOfService}>
             <h3>{t('filters.transport_type_of_service')}</h3>
-            <div className="setting-typeOfService">
+            <div className={styles.setting_typeOfService}>
                 {
                     data && (
                         <UniversalRadioGroup
                             register={register}
                             radioValues={options.choices}
                             name="transport_type_of_service"
+                            className={styles.radio_group}
                         />
                     )
                 }

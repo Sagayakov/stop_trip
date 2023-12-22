@@ -8,9 +8,10 @@ import {
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForFoodForm } from './libr/TypeForFoodForm';
 import { searchParamsForFood } from './libr/searchParamsForFood';
-import './libr/settingFoordForm.scss';
 import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
+import styles from './libr/settingFoordForm.module.scss';
+import stylesForm from 'widgets/settingForm/forms/filtersForm.module.scss'
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -48,13 +49,13 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
     };
 
     return (
-        <section className="filters" onClick={handleClick}>
-            <form className="filterFoodForm" onSubmit={handleSubmit(onsubmit)}>
+        <section className={stylesForm.filters} onClick={handleClick}>
+            <form className={styles.filterFoodForm} onSubmit={handleSubmit(onsubmit)}>
                 <FoodType control={control} setValue={setValue} />
                 <FoodDelivery register={register} />
                 <FoodEstablishment register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className="reset-setting-form" onClick={onReset}>
+                <button className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`} onClick={onReset}>
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>

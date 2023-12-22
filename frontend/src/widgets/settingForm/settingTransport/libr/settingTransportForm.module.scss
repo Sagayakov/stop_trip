@@ -1,0 +1,129 @@
+.filter_transport_form {
+    h3 {
+        margin-bottom: 14px;
+    }
+    .typeOfTransport,
+    .typeOfService {
+        .setting_typeOfTransport,
+        .setting_typeOfService {
+            display: flex;
+            .radio_group {
+                display: flex;
+                gap: 1rem;
+            }
+        }
+    }
+    .typeOfService,
+    .typeOfTransport,
+    .transportationCategory,
+    .mark,
+    .model,
+    .engineType,
+    .engineСapacity,
+    .drive,
+    .yearOfProduction,
+    .transmissionType,
+    .bodyType,
+    .condition,
+    .transportComission,
+    .transportPrice {
+        margin-bottom: 24px;
+    }
+    .engineСapacity,
+    .yearOfProduction,
+    .transportComission,
+    .transportPrice {
+        .setting_engineCapacity,
+        .setting_yearOfProduction,
+        .setting_transportComission,
+        .setting_transportPrice {
+            display: flex;
+            justify-content: space-between;
+            input[type='text'],
+            input[type='number'] {
+                width: 119.5px;
+                height: 37px;
+                border-radius: var(--radii);
+                padding: 10px;
+                border: none;
+            }
+        }
+    }
+    .transportComission {
+        margin-bottom: 24px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .filter_transport_form {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-areas:
+            'service typeTransport'
+            'category body'
+            'markTr engineType'
+            'modelTr year'
+            'transmission condition'
+            'drive capacity'
+            'price comission'
+            'btnReset btnSubmit';
+        .typeOfService {
+            grid-area: service;
+        }
+        .typeOfTransport {
+            grid-area: typeTransport;
+        }
+        .transportationCategory {
+            grid-area: category;
+        }
+        .mark {
+            grid-area: markTr;
+        }
+        .model {
+            grid-area: modelTr;
+        }
+        .engineType {
+            grid-area: engineType;
+        }
+        .engineСapacity {
+            grid-area: capacity;
+        }
+        .drive {
+            grid-area: drive;
+        }
+        .yearOfProduction {
+            grid-area: year;
+        }
+        .transmissionType {
+            grid-area: transmission;
+        }
+        .bodyType {
+            grid-area: body;
+        }
+        .condition {
+            grid-area: condition;
+        }
+        .transportComission {
+            grid-area: comission;
+        }
+        .transportPrice {
+            grid-area: price;
+        }
+        .reset_setting_form {
+            grid-area: btnReset;
+        }
+        input[type='submit'] {
+            grid-area: btnSubmit;
+        }
+    }
+}
+
+@media (min-width: 425px) and (max-width: 767px) {
+    .filter_transport_form {
+        .typeOfService,
+        .typeOfTransport {
+            display: inline-block;
+            width: 50%;
+        }
+    }
+}

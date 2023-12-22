@@ -6,11 +6,12 @@ import {
 } from 'features/settingCategoryForm/settingTaxiForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeSettingTaxi } from './libr/TypeSettingTaxi';
-import './libr/settingTaxiForm.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getSearchParams } from 'widgets/settingForm/settingTaxi/libr/getSearchParams.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
+import styles from './libr/settingTaxiForm.module.scss';
+import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss'
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -41,9 +42,9 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
     };
 
     return (
-        <section className="filters" onClick={handleClick}>
+        <section className={formStyles.filters} onClick={handleClick}>
             <form
-                className="filterTaxiForm"
+                className={styles.filterTaxiForm}
                 onSubmit={handleSubmit(onsubmit)}
                 autoComplete="off"
             >
@@ -51,7 +52,7 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 <TypeOfTaxi control={control} setValue={setValue} />
                 <SettingTaxiPrice register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className="reset-setting-form" onClick={onReset}>
+                <button className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`} onClick={onReset}>
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>

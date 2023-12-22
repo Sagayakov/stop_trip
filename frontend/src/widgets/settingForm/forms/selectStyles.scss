@@ -1,0 +1,33 @@
+.filterForm__control {
+    width: 100%;
+    .filterForm__indicators {
+        .filterForm__clear-indicator {
+            padding: 0;
+        }
+        .filterForm__dropdown-indicator {
+            padding: 8px 8px 8px 0;
+        }
+        span {
+            display: none;
+        }
+    }
+    &::-webkit-scrollbar {
+        width: 2px !important;
+    }
+    &::-webkit-scrollbar-thumb {
+        width: 2px;
+        background-color: gray !important;
+    }
+    .filterForm__value-container {
+        .filterForm__input-container {
+            .filterForm__input {
+                height: 25px;
+                border: none !important;
+            }
+        }
+    }
+    .filterForm__menu-list {
+        max-height: 200px;
+        scrollbar-width: thin !important;
+    }
+}

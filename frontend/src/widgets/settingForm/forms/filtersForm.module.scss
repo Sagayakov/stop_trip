@@ -1,0 +1,154 @@
+.filter_form {
+    width: calc(25% - 16px);
+    .filters {
+        width: 100%;
+        border-radius: 16px;
+        height: fit-content;
+        background-color: var(--grey-4);
+        padding: 24px 24px 32px;
+        position: relative; //попробовать чтобы не закрывалось
+        z-index: 11; //модальное окно при скролле на телефоне
+        input[type='number'] {
+            width: 119.5px;
+            height: 37px;
+            border-radius: var(--radii);
+            padding: 10px;
+            border: none;
+        }
+        input[type='submit'] {
+            width: 100%;
+            height: 43px;
+            display: flex;
+            justify-content: center;
+            border-radius: var(--radii);
+            border: none;
+            color: white;
+            background-color: var(--main-blue);
+            font-family: var(--font-lato);
+            font-weight: 600;
+            margin-bottom: 16px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            cursor: pointer;
+        }
+        .reset_setting_form {
+            padding: 12px 20px;
+            width: 100%;
+            height: 45px;
+            color: var(--main-blue);
+            font-family: var(--font-lato);
+            font-weight: 700;
+            background-color: white;
+            border-radius: var(--radii);
+            border: 1px solid var(--main-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            svg {
+                margin-right: 16px;
+            }
+        }
+    }
+}
+@media (min-width: 1300px) and (max-width: 1439px) {
+    .filter_form {
+        .filters {
+            .filter_realty_form {
+                .setting_price {
+                    .setting_price_announcement {
+                        label {
+                            padding: 8px 5.5%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .filter_form {
+        width: 30%;
+        .filters {
+            width: 100%;
+            padding: 16px 16px 24px 16px;
+            input[type='number'] {
+                width: 42%;
+                height: 34px;
+            }
+        }
+    }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    .filter_form {
+        width: 100%;
+        .filters {
+            width: 100%;
+            padding: 24px 24px 12px;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .filter_btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--main-black);
+        border-radius: var(--radii);
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-family: var(--font-inter);
+        font-weight: 500;
+        padding: 10px 17px;
+    }
+    .filter_form {
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 10;
+        height: 460vh;
+        width: 100vw;
+        position: absolute;
+        .filters {
+            width: 100%;
+            padding: 16px 40px 24px;
+            border-radius: 0 0 8px 8px;
+            background-color: var(--main-background);
+            input[type='number'] {
+                width: 44%;
+            }
+        }
+    }
+}
+@media (max-width: 425px) {
+    .filter_btn {
+        margin-left: auto;
+    }
+    .filter_form {
+        .filters {
+            input[type='number'] {
+                width: 47%;
+            }
+        }
+    }
+}
+@media (max-width: 375px) {
+    .filter_form {
+        .filters {
+            .filter_realty_form {
+                .checkboxes {
+                    .rooms_quantity {
+                        .setting_rooms_quantity {
+                            width: 60%;
+                        }
+                    }
+                    .bathroom {
+                        .bathroom_setting {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

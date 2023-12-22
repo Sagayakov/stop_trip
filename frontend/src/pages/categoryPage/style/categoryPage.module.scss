@@ -1,0 +1,556 @@
+main {
+    max-width: 1440px;
+    margin: auto;
+    .bread_crumbs {
+        max-width: 1240px;
+        margin: auto;
+        color: var(--grey-3);
+        font-size: 14px;
+        a {
+            text-decoration: none;
+            color: var(--grey-3);
+        }
+    }
+    .filter_btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--main-black);
+        border-radius: var(--radii);
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-family: var(--font-inter);
+        font-weight: 500;
+        padding: 10px 17px;
+    }
+
+    h1 {
+        max-width: 1240px;
+        margin: 20px auto 40px;
+        font-family: var(--font-sf);
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .filters_announcement {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1240px;
+        width: 100%;
+        margin: 0 auto 40px;
+        gap: 16px;
+        position: relative; //чтобы темный фон открытых фильтров был на всю высоту родителя
+
+        .announcement {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 75%;
+            & > :last-child{
+                margin: auto auto 0!important;
+            }
+
+            .card {
+                position: relative;
+                border-radius: 16px;
+                background-color: var(--main-background);
+                display: flex;
+                font-family: var(--font-inter);
+                color: var(--main-black);
+                width: 100%;
+                height: 280px; //иначе картинка поплывет
+                text-decoration: none;
+                cursor: pointer;
+                .add_to_favorite {
+                    position: absolute;
+                    top: 16px;
+                    left: calc(100% - 32px);
+                    height: 20px;
+                    z-index: 2;
+                    cursor: pointer;
+                }
+                .image {
+                    img {
+                        border-radius: 16px 0 0 16px;
+                        margin-right: 16px;
+                        width: 319px;
+                        height: 280px;
+                        object-fit: cover;
+                    }
+                }
+                .description {
+                    padding: 16px 8px 16px 0;
+                    position: relative;
+                    h2 {
+                        font-size: 26px;
+                        font-weight: 700;
+                        margin-bottom: 16px;
+                        -ms-text-overflow: ellipsis;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        -ms-line-clamp: 1;
+                        -webkit-line-clamp: 1;
+                        line-clamp: 1;
+                        display: -webkit-box;
+                        display: box;
+                        word-wrap: break-word;
+                        -webkit-box-orient: vertical;
+                        box-orient: vertical;
+                    }
+                    .description_location {
+                        font-weight: 600;
+                        margin-bottom: 16px;
+                    }
+                    h3 {
+                        font-size: 26px;
+                        font-weight: 700;
+                        color: var(--main-blue);
+                        letter-spacing: 3px;
+                        margin-bottom: 16px;
+                    }
+                    .card_description {
+                        font-size: 14px;
+                        font-weight: 400;
+                        margin-bottom: 16px;
+                        //будет только 4 строчки и многоточие
+                        -ms-text-overflow: ellipsis;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        -ms-line-clamp: 4;
+                        -webkit-line-clamp: 4;
+                        line-clamp: 4;
+                        display: -webkit-box;
+                        display: box;
+                        word-wrap: break-word;
+                        -webkit-box-orient: vertical;
+                        box-orient: vertical;
+                    }
+                    .time,
+                    .author {
+                        display: flex;
+                        gap: 16px;
+                        font-size: 14px;
+                        font-weight: 400;
+                        margin-bottom: 16px;
+                    }
+                    .author {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 4px;
+                        .rating_number {
+                            width: 37px;
+                            height: 26px;
+                            padding: 4px 5px;
+                            background-color: #ffd87366;
+                            border-radius: 50%;
+                            margin: 0 0.5rem;
+                            font-size: 16px;
+                            font-weight: 700;
+                            color: #434343;
+                        }
+                        p {
+                            display: flex;
+                            gap: 2px;
+                            svg {
+                                width: 22px;
+                                height: 22px;
+                                fill: var(--grey-2);
+                                cursor: pointer;
+                                transition: all 0.3s;
+                            }
+                            .hover_star {
+                                transform: scale(1.2);
+                                fill: #ffd873;
+                            }
+                            .active_star {
+                                fill: #ffd873;
+                            }
+                        }
+                    }
+                    .time {
+                        color: var(--grey-3);
+                    }
+                }
+            }
+        }
+    }
+
+    .announcement_not_found {
+        width: 100%;
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    .pagination {
+        max-width: 1240px;
+        width: 85%;
+        margin: 30px auto 60px;
+        text-align: center;
+    }
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+    main {
+        width: 100%;
+        margin: 0 auto;
+
+        .bread_crumbs {
+            width: 85%;
+            margin: 0 auto;
+        }
+
+        h1 {
+            width: 85%;
+            margin: 15px auto 25px;
+        }
+
+        .filters_announcement {
+            width: 85%;
+            margin: auto auto 50px;
+
+            .announcement {
+                width: calc(70% - 16px);
+                .card {
+                    width: 100%;
+                    .image {
+                        img {
+                            width: 240px;
+                        }
+                    }
+                    .description {
+                        padding: 12px 0;
+                        h2,
+                        h3 {
+                            font-size: 22px;
+                            margin-bottom: 12px;
+                            width: 85%; //чтобы на лайк не заехало
+                        }
+                        .description_location,
+                        .card_description,
+                        .time {
+                            margin-bottom: 12px;
+                        }
+                    }
+                }
+            }
+        }
+        .pagination {
+            margin: 30px auto 50px;
+        }
+    }
+}
+@media (min-width: 767px) and (max-width: 1023px) {
+    main {
+        width: 100%;
+        margin: 0 auto;
+
+        .bread_crumbs {
+            width: 85%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            a {
+                display: flex;
+                align-items: center;
+                width: 85%;
+                h1 {
+                    margin: 0;
+                    font-size: 26px;
+                }
+            }
+        }
+
+        .filters_announcement {
+            width: 85%;
+            margin: auto auto 30px;
+            flex-direction: column;
+            gap: 20px;
+            .announcement {
+                width: 100%;
+                .card {
+                    width: 100%;
+                    .image {
+                        img {
+                            width: 265px;
+                        }
+                    }
+                    .description {
+                        h2 {
+                            font-size: 20px;
+                            width: 90%;
+                            margin-bottom: 12px;
+                        }
+                        .description_location,
+                        .card_description {
+                            margin-bottom: 12px;
+                        }
+                        h3 {
+                            margin-bottom: 12px;
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+        .pagination {
+            width: 85%;
+            margin: 30px auto 40px;
+        }
+    }
+}
+@media (min-width: 425px) and (max-width: 767px) {
+    main {
+        width: 100%;
+        .bread_crumbs {
+            width: 93%;
+            margin: 0 auto 16px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            a {
+                display: flex;
+                align-items: center;
+                width: 85%;
+                svg {
+                    display: block;
+                }
+                h1 {
+                    padding: 0;
+                    color: var(--main-black);
+                }
+            }
+        }
+        h1 {
+            width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            font-size: 22px;
+        }
+
+        .filters_announcement {
+            flex-direction: column;
+            width: 93%;
+            align-items: center;
+            .announcement {
+                width: 100%;
+                .card {
+                    flex-direction: column;
+                    width: 100%;
+                    height: 218px;
+                    .image {
+                        display: flex;
+                        overflow-x: scroll;
+                        border-radius: 8px;
+                        gap: 8px;
+                        width: 100%;
+                        height: 100px;
+                        scrollbar-width: none; /* Для Firefox */
+                        -ms-overflow-style: none;
+                        &::-webkit-scrollbar {
+                            overflow: -moz-scrollbars-none;
+                            scrollbar-width: none; // для firefox
+                            width: 0;
+                            height: 0;
+                            display: none;
+                        }
+                        img {
+                            max-width: 116px;
+                            min-width: 116px;
+                            height: 100px;
+                            border-radius: var(--radii);
+                            margin-right: 0;
+                        }
+                    }
+                    .add_to_favorite {
+                        top: 110px;
+                    }
+                    .description {
+                        position: relative;
+                        margin: 8px 0 0;
+                        padding: 0 8px;
+                        height: auto;
+                        h2,
+                        h3 {
+                            font-size: 16px;
+                            margin-bottom: 8px;
+                        }
+                        .description_location {
+                            font-size: 12px;
+                            margin-bottom: 8px;
+                            font-weight: 400;
+                        }
+                        h3 {
+                            font-weight: 600;
+                        }
+                        .card_description {
+                            display: none;
+                        }
+                        .author {
+                            gap: 5px;
+                        }
+                        .time {
+                            position: absolute;
+                            bottom: 8px;
+                            left: 255px;
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        //.pagination {
+        //    width: 93%;
+        //    margin: 20px auto 30px;
+        //}
+    }
+}
+@media (max-width: 424px) {
+    main {
+        width: 100%;
+        .controls {
+            width: 100%;
+            margin-bottom: 0;
+            .controls_wrapper {
+                margin-bottom: 10px;
+                .select_wrapper {
+                    padding: 0;
+                    select {
+                        width: 50%;
+                    }
+                }
+            }
+        }
+
+        .bread_crumbs {
+            width: 100%;
+            margin: 0 auto 16px;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            a {
+                display: flex;
+                align-items: center;
+                width: 85%;
+                svg {
+                    display: flex;
+                    align-items: center;
+                }
+                h1 {
+                    font-size: 18px;
+                    padding: 0;
+                    margin: 0;
+                    color: var(--main-black);
+                }
+            }
+
+            .filter_btn {
+                margin-left: auto;
+            }
+        }
+        .filters_announcement {
+            flex-direction: column;
+            .announcement {
+                width: calc(100% - 30px);
+                margin: 0 15px;
+                .card {
+                    flex-direction: column;
+                    width: 100%;
+                    height: 245px;
+                    .image {
+                        display: flex;
+                        overflow-x: scroll;
+                        border-radius: 8px;
+                        gap: 8px;
+                        width: 100%;
+                        height: 100px;
+                        &::-webkit-scrollbar {
+                            overflow: -moz-scrollbars-none;
+                            scrollbar-width: none; // для firefox
+                            width: 0;
+                            height: 0;
+                        }
+                        img {
+                            max-width: 116px;
+                            min-width: 116px;
+                            height: 100px;
+                            border-radius: var(--radii);
+                            margin-right: 0;
+                        }
+                    }
+                    .add_to_favorite {
+                        top: 110px;
+                    }
+                    .description {
+                        margin: 8px 0 0;
+                        padding: 0 8px;
+                        height: 94px;
+                        h2,
+                        h3 {
+                            font-size: 16px;
+                            margin-bottom: 8px;
+                        }
+                        .description_location {
+                            font-size: 12px;
+                            margin-bottom: 8px;
+                            font-weight: 400;
+                        }
+                        h3 {
+                            font-weight: 600;
+                        }
+                        .card_description {
+                            display: none;
+                            .author {
+                                gap: 10px;
+                            }
+                        }
+                        .author {
+                            gap: 5px;
+                        }
+                        .time {
+                            position: static;
+                            width: 45%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .pagination {
+            width: 93%;
+            margin: 20px auto 30px;
+        }
+    }
+}
+
+@media (max-width: 375px) {
+    main {
+        .bread_crumbs {
+            h1 {
+                font-size: 14px;
+            }
+            .filter_btn {
+                padding: 6px 8px;
+            }
+        }
+        .filters_announcement {
+            .announcement {
+                .card {
+                    .description {
+                        h2,
+                        h3 {
+                            font-size: 14px;
+                        }
+                        .time {
+                            left: 170px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+

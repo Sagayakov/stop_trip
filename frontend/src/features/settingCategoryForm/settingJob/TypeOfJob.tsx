@@ -5,6 +5,7 @@ import { ChoicesType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalCheckboxGroup } from 'entities/universalEntites';
+import styles from 'widgets/settingForm/settingJob/libr/settingJobFilter.module.scss'
 
 interface Props {
     register: UseFormRegister<TypesOfJobs>;
@@ -32,12 +33,13 @@ export const TypeOfJob = ({ register }: Props) => {
 
     return (
         <>
-            <div className="typeOfJob">
+            <div className={styles.typeOfJob}>
                 <h3>{t('filters.job_type')}</h3>
                 <UniversalCheckboxGroup
                     register={register}
                     checkboxValues={typeValues}
                     name="job_type"
+                    className={styles.checkbox_group}
                 />
             </div>
         </>

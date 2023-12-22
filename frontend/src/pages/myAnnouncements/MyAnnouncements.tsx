@@ -11,7 +11,7 @@ export const MyAnnouncements = () => {
     return (
         <>
             <div className={styles.bread_crumbs}>
-                <NavLink to="/">{t('category-page.main-link')}</NavLink>
+                <NavLink to="/">{t('categoryPage-page.main-link')}</NavLink>
                 &nbsp;{` > ${t('modal-logged.adverts')}`}
             </div>
             <h1 className={styles.title}>{t('modal-logged.adverts')}</h1>

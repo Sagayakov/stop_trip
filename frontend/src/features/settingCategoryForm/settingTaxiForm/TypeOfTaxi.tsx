@@ -1,14 +1,11 @@
-import { Control, Controller, UseFormSetValue } from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import {
-    SelectOption,
-    TypeSettingTaxi,
-} from 'widgets/settingForm/settingTaxi/libr/TypeSettingTaxi.ts';
+import { Control, UseFormSetValue } from 'react-hook-form';
+import { TypeSettingTaxi } from 'widgets/settingForm/settingTaxi/libr/TypeSettingTaxi.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import styles from 'widgets/settingForm/settingTaxi/libr/settingTaxiForm.module.scss';
+import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTaxi>;
@@ -16,7 +13,6 @@ interface Props {
 }
 
 export const TypeOfTaxi = ({ control, setValue }: Props) => {
-    const animated = makeAnimated();
     const { data } = useGetFiltersQuery('');
     const [typeValues, setTypeValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
@@ -32,55 +28,19 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
         }
     }, [data]);
 
-    const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
-    ) => {
-        if (selectedOptions) {
-            const optionsArray = Array.isArray(selectedOptions)
-                ? selectedOptions
-                : [selectedOptions];
-            const selectedValues = optionsArray
-                .map((option) => option?.value)
-                .filter(Boolean);
-            setValue('taxi_type', selectedValues);
-        }
-    };
-
     return (
-        <>
-            <div className="typeOfTaxi">
+            <div className={styles.typeOfTaxi}>
                 <h3>{t('filters.taxi_type')}</h3>
-                <Controller
-                    name="taxi_type"
+                <UniversalSelectDropdown
+                    setValue={setValue}
                     control={control}
-                    render={({ field }) => (
-                        <Select
-                            {...field}
-                            classNamePrefix="filterTaxiForm"
-                            id="typeOfTaxi"
-                            components={animated}
-                            placeholder={t('filters.taxi_type')}
-                            closeMenuOnSelect={false}
-                            isMulti={true}
-                            options={typeValues}
-                            onChange={(selectedOptions) => {
-                                handleChange(
-                                    selectedOptions as
-                                        | SelectOption
-                                        | SelectOption[]
-                                        | null
-                                );
-                            }}
-                            value={typeValues.filter(
-                                (option) =>
-                                    field.value?.includes(
-                                        option.value as string
-                                    )
-                            )}
-                        />
-                    )}
+                    name="taxi_type"
+                    prefix="filterForm"
+                    placeholder={t('filters.taxi_type')}
+                    closeMenuOnSelect={false}
+                    isMulti={true}
+                    options={typeValues}
                 />
             </div>
-        </>
     );
 };

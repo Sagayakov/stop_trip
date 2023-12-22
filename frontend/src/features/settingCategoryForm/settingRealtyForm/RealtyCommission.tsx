@@ -1,6 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
@@ -9,9 +10,9 @@ export const RealtyCommission = ({ register }: Props) => {
     const { t } = useTranslation();
 
     return (
-        <div className="realtyComission">
+        <div className={styles.realtyComission}>
             <h3>{t('filters.property_commission')}</h3>
-            <div className="select-realtyComission">
+            <div className={styles.select_realtyComission}>
                 <input
                     type="number"
                     min="0"
@@ -19,7 +20,6 @@ export const RealtyCommission = ({ register }: Props) => {
                     {...register('property_commission.min')}
                 />
                 <input
-                    id="setting-price-input-max"
                     min="0"
                     type="number"
                     placeholder={t('filters.up-to')}

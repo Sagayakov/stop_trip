@@ -5,6 +5,7 @@ import { SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -24,9 +25,9 @@ export const Amenities = ({ setValue, control }: Props) => {
     ) as ChoicesType);
 
     return (
-        <div className="amenities">
+        <div className={styles.amenities}>
             <h3>{t('filters.property_amenities')}</h3>
-            <div className="amenities-setting">
+            <div className={styles.amenities_setting}>
                 {data && (
                     <UniversalSelectDropdown<TypeSettingRealty>
                         control={control}
@@ -35,7 +36,7 @@ export const Amenities = ({ setValue, control }: Props) => {
                         isMulti={true}
                         placeholder={t('filters.property_amenities')}
                         name="property_amenities"
-                        prefix="filterPropertyForm"
+                        prefix="filterForm"
                         options={options.choices}
                     />
                 )}

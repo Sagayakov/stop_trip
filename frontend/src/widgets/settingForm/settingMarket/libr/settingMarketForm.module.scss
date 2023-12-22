@@ -1,0 +1,33 @@
+.filterFoodForm {
+    h3 {
+        margin-bottom: 14px;
+    }
+    .marketCondition {
+        margin-bottom: 24px;
+        .checkbox_group {
+            display: flex;
+            gap: 1rem;
+        }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .filterFoodForm{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        grid-template-areas:
+            'cond .'
+            'submitBtn resetbtn';
+
+        .marketCondition{
+            grid-area: cond;
+        }
+        .reset_setting_form{
+            grid-area: resetbtn;
+        }
+        input[type='submit'] {
+            grid-area: submitBtn;
+        }
+    }
+}

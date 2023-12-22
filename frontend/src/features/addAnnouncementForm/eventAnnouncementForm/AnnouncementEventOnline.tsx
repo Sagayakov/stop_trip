@@ -14,7 +14,7 @@ export const AnnouncementEventOnline = ({ register }: Props) => {
         <div className={styles.ann_field}>
             <h3>{t('filters.is_online')}:</h3>
             <label>
-                <input type="checkbox" {...register('is_online', {})} />
+                <input type="checkbox" {...register('is_online')} />
                 <span>{t('filters.is_online')}</span>
             </label>
             <div className={styles.ann_field_err}></div>

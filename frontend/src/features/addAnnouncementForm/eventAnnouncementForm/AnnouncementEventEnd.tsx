@@ -13,7 +13,7 @@ export const AnnouncementEventEnd = ({ register }: Props) => {
     return (
         <div className={styles.ann_field}>
             <h3>{t('filters.date-end')}:</h3>
-            <input type="date" {...register('end_date', { required: true })} />
+            <input type="date" {...register('end_date')} />
             <div className={styles.ann_field_err}></div>
         </div>
     );

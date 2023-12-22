@@ -8,11 +8,12 @@ import {
 } from 'features/settingCategoryForm/settingJob';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypesOfJobs } from './libr/TypesOfJobs';
-import './libr/settingJobFilter.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getSearchParams } from './libr/getSearchParams.ts'
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
+import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss'
+import styles from './libr/settingJobFilter.module.scss';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -51,15 +52,18 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
     };
 
     return (
-        <section className="filters" onClick={handleClick}>
-            <form className="filterJobForm" onSubmit={handleSubmit(onsubmit)}>
+        <section className={formStyles.filters} onClick={handleClick}>
+            <form
+                className={styles.filterJobForm}
+                onSubmit={handleSubmit(onsubmit)}
+            >
                 <TypeOfJob register={register} />
                 <DurationOfWork control={control} setValue={setValue} />
                 <TypeOfPayment control={control} setValue={setValue} />
                 <PriceOfJob register={register} />
                 <WithExperience register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className="reset-setting-form" onClick={onReset}>
+                <button className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`} onClick={onReset}>
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>

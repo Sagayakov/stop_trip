@@ -3,6 +3,7 @@ import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSe
 import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -15,13 +16,13 @@ export const Prepayment = ({ control, setValue }: Props) => {
 
     return (
         <>
-            <div className="prepayment">
+            <div className={styles.prepayment}>
                 <h3>{t('filters.property_prepayment')}</h3>
                 <UniversalSelectDropdown<TypeSettingRealty>
                     setValue={setValue}
                     control={control}
                     name="property_prepayment"
-                    prefix="filterPropertyForm"
+                    prefix="filterForm"
                     placeholder={t('filters.property_prepayment')}
                     closeMenuOnSelect={false}
                     isMulti={true}

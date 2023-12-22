@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { useEffect, useState } from 'react';
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
 
 interface Props {
     control: Control<TypeSettingTransport, string[]>;
@@ -35,13 +36,13 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
     }, [data]);
 
     return (
-        <div className="bodyType">
+        <div className={styles.bodyType}>
             <h3>{t('filters.transport_body_type')}</h3>
             <UniversalSelectDropdown
                 setValue={setValue}
                 control={control}
                 name="transport_body_type"
-                prefix="filterTransporForm"
+                prefix="filterForm"
                 placeholder={t('filters.transport_body_type')}
                 closeMenuOnSelect={false}
                 isMulti={true}

@@ -5,6 +5,7 @@ import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -31,13 +32,13 @@ export const City = ({ control, setValue }: Props) => {
 
     return (
         <>
-            <div className="propertyCity">
+            <div className={styles.propertyCity}>
                 <h3>{t('filters.property_city')}</h3>
                 <UniversalSelectDropdown<TypeSettingRealty>
                     setValue={setValue}
                     control={control}
                     name="property_city"
-                    prefix="filterPropertyForm"
+                    prefix="filterForm"
                     placeholder={t('filters.property_city')}
                     closeMenuOnSelect={false}
                     isMulti={true}

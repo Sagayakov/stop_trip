@@ -1,0 +1,52 @@
+.filterServiceForm {
+    .houseCall,
+    .servicePrice {
+        h3 {
+            margin-bottom: 14px;
+        }
+        .setting_houseCall,
+        .setting_servicePrice {
+            margin-bottom: 24px;
+            .form_checkbox {
+                cursor: pointer;
+            }
+        }
+    }
+    .servicePrice {
+        .setting_servicePrice {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .filterServiceForm {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            'houseCall price'
+            'btnReset btnSubmit';
+        .houseCall{
+            grid-area: houseCall;
+        }
+        .servicePrice{
+            grid-area: price;
+        }
+        .houseCall,
+        .servicePrice,
+        .reset_setting_form,
+        input[type='submit'] {
+            width: 90%;
+            justify-self: center;
+        }
+        .reset_setting_form {
+            grid-area: btnReset;
+        }
+        input[type='submit'] {
+            grid-area: btnSubmit;
+        }
+    }
+}

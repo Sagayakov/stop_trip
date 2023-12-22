@@ -1,6 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty';
 import { useTranslation } from 'react-i18next';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
@@ -10,17 +11,15 @@ export const TotalArea = ({ register }: Props) => {
     const { t } = useTranslation();
 
     return (
-        <div className="total-area">
+        <div className={styles.total_area}>
             <h3>{t('filters.property_area')}</h3>
-            <div className="total-area-inputs">
+            <div className={styles.total_area_inputs}>
                 <input
-                    id="total-area-input-min"
                     type="number"
                     placeholder={t('filters.from')}
                     {...register('property_area.min')}
                 />
                 <input
-                    id="total-area-input-max"
                     type="number"
                     placeholder={t('filters.up-to')}
                     {...register('property_area.max')}
