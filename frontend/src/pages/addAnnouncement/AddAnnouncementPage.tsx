@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import './libr/selectAddAnnouncement.scss'
+import { useAppSelector } from 'app/store/hooks.ts';
 
 interface Image {
     image: string;
@@ -31,7 +32,8 @@ export const AddAnnouncementPage = () => {
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [descript, setDescript] = useState<string | undefined>();
     const { t } = useTranslation();
-    const [ addAdvert, { isSuccess, isLoading } ] = useAddAdvertMutation();
+    const [ addAdvert, { isSuccess, /*isLoading */} ] = useAddAdvertMutation();
+    const isLoading = useAppSelector((store) => store.setLoading.loading)
 
     const onsubmit = async (data: FormAddAnn) => {
         try {
