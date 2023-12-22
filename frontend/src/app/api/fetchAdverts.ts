@@ -6,11 +6,6 @@ import { FiltersType } from './types/filtersType';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 
 const { accessToken } = getTokensFromStorage();
-const bearer = 'Bearer ' + accessToken;
-const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': bearer
-}
 
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
@@ -36,7 +31,11 @@ export const fetchAdverts = createApi({
             query: (body) => ({
                 url: 'api/advertisements/', // сюда вписать адрес для добавления нового объявления
                 method: 'POST',
-                headers,
+                headers: {
+                    'X-Csrftoken': `${accessToken}`,
+                    'Content-Type': 'application/json',
+                    authorization: ` Bearer ${accessToken}`,
+                },
                 body,
             }),
             invalidatesTags: ['Adverts'],
