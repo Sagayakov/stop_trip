@@ -5,11 +5,13 @@ import {
 } from 'features/settingCategoryForm/settingServices';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeOfServicesForm } from './libr/TypeOfServicesForm';
-import './libr/settingServicesForm.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getSearchParams } from './libr/getSearchParams.ts'
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
+import styles from './libr/settingServicesForm.module.scss';
+import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss'
+
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -39,16 +41,16 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
     };
 
     return (
-        <section className="filters" onClick={handleClick}>
+        <section className={formStyles.filters} onClick={handleClick}>
             <form
-                className="filterServiceForm"
+                className={styles.filterServiceForm}
                 onSubmit={handleSubmit(onsubmit)}
                 autoComplete="off"
             >
                 <HouseCall register={register} />
                 <SettingServicePrice register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className="reset-setting-form" onClick={onReset}>
+                <button className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`} onClick={onReset}>
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>

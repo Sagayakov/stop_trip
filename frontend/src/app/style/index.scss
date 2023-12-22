@@ -73,8 +73,23 @@ input[type="radio"] {
     center center;
     box-shadow: none;
 }
-
+.form_checkbox{
+    display: flex;
+}
 .form_checkbox > span {
+    display: flex;
     align-items: center;
     user-select: none;
 }
+// чтобы стрелочек не было в инпутах
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input[type='number'],
+input[type='number']:hover,
+input[type='number']:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+}
+// чтобы стрелочек не было в инпутах

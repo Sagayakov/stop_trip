@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks.ts';
 import { Pagination } from 'features/pagination';
 import { useRef } from 'react';
+import style from 'pages/categoryPage/style/categoryPage.module.scss'
 
 const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
@@ -23,7 +24,7 @@ const AnyCategory = () => {
     if (!data?.results.length && !isLoading) {
         return (
             <p className="announcement-not-found">
-                {t('category-page.no-adverts')}
+                {t('categoryPage-page.no-adverts')}
             </p>
         );
     }
@@ -35,7 +36,7 @@ const AnyCategory = () => {
     ];
 
     return (
-        <section className="announcement" ref={parentRef}>
+        <section className={style.announcement} ref={parentRef}>
             {isLoading && <LoadingWithBackground />}
             {data?.results.length &&
                 data.results.map((el: AdvertsTypes) => {
@@ -51,14 +52,14 @@ const AnyCategory = () => {
                     }
                     return (
                         <NavLink
-                            className="card"
+                            className={style.card}
                             key={el.id}
                             to={`/${category}/${el.id}/`}
                         >
                             <span onClick={(event) => event.stopPropagation()}>
                                 <Like id={el.id} />
                             </span>
-                            <div className="image">
+                            <div className={style.image}>
                                 {isMobile ? (
                                     <>
                                         {!el.images[0] ? (
@@ -82,25 +83,25 @@ const AnyCategory = () => {
                                     />
                                 )}
                             </div>
-                            <div className="description">
+                            <div className={style.description}>
                                 <h2>{el.title}</h2>
-                                <p className="description-location">
+                                <p className={style.description_location}>
                                     г. Тбилиси, ул. Зеленая, 10
                                 </p>
                                 <h3>
                                     {el.price ? `₹${el.price}` : 'Договорная'}
                                 </h3>
-                                <p className="card-description">
+                                <p className={style.card_description}>
                                     {el.description}
                                 </p>
-                                <div className="author">
+                                <div className={style.author}>
                                     {`${el.owner.full_name[0].toUpperCase()}${el.owner.full_name.slice(
                                         1
                                     )}`}
-                                    <span className="rating-number">4.5</span>
+                                    <span className={style.rating_number}>4.5</span>
                                     <Rating rating={4.5} />
                                 </div>
-                                <p className="time">
+                                <p className={style.time}>
                                     {`
                                         ${day},
                                         ${date.hours}:${date.minutes}

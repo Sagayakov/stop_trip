@@ -15,7 +15,7 @@ export const AnnouncementEventStart = ({ register }: Props) => {
             <h3>{t('filters.date-start')}:</h3>
             <input
                 type="date"
-                {...register('start_date', { required: true })}
+                {...register('start_date', )}
             />
             <div className={styles.ann_field_err}></div>
         </div>

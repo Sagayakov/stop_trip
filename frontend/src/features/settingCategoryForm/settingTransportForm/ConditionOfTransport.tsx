@@ -5,6 +5,7 @@ import { SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
@@ -22,15 +23,15 @@ export const ConditionOfTransport = ({ setValue, control }: Props) => {
     const options = (data?.params.find((el) => el.name === 'transport_condition') as ChoicesType)
 
     return (
-        <div className="condition">
+        <div className={styles.condition}>
             <h3>{t('filters.transport_condition')}</h3>
-            <div className="select-condition">
+            <div className={styles.select_condition}>
                 {data &&
                     <UniversalSelectDropdown<TypeSettingTransport>
                         setValue={setValue}
                         control={control}
                         name="transport_condition"
-                        prefix="filterTransporForm"
+                        prefix="filterForm"
                         placeholder={t('filters.transport_condition')}
                         closeMenuOnSelect={false}
                         isMulti={true}

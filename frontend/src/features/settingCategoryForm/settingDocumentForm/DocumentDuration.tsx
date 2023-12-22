@@ -3,6 +3,7 @@ import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
 import { TypeOfDocumentFilter } from 'widgets/settingForm/settingDocument/libr/TypeOfDocumentFilter.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'widgets/settingForm/settingDocument/libr/settingDocumentForm.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<TypeOfDocumentFilter>;
@@ -23,7 +24,7 @@ export const DocumentDuration = ({ control, setValue }: Props) => {
 
     return (
         <>
-            <div className="documentDuration">
+            <div className={styles.documentDuration}>
                 <h3>{t('filters.document_duration')}</h3>
                 <UniversalSelectDropdown
                     closeMenuOnSelect={false}
@@ -32,7 +33,7 @@ export const DocumentDuration = ({ control, setValue }: Props) => {
                     name="document_duration"
                     options={options}
                     placeholder={t('filters.document_duration')}
-                    prefix="filterDocumentForm"
+                    prefix="filterForm"
                     setValue={setValue}
                     isSearchable={!isMobile}
                 />

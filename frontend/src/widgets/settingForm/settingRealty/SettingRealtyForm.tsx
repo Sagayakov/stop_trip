@@ -22,12 +22,13 @@ import {
 } from 'features/settingCategoryForm/settingRealtyForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeSettingRealty } from './libr/TypeSettingRealty';
-import './libr/settingRealty.scss';
 import { useSearchParams } from 'react-router-dom';
 import { getRealtyQuery } from 'shared/utils/getRealtyQuery.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalButton } from 'entities/universalEntites';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
+import styles from './libr/settingRealty.module.scss';
+import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss'
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -56,9 +57,9 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
     };
 
     return (
-        <section className="filters" onClick={handleClick}>
+        <section className={formStyles.filters} onClick={handleClick}>
             <form
-                className="filter-realty-form"
+                className={styles.filter_realty_form}
                 onSubmit={handleSubmit(onsubmit)}
             >
                 <TypeOfService register={register} />
@@ -82,7 +83,10 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 <Prepayment control={control} setValue={setValue} />
                 <RealtyCommission register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <UniversalButton className="reset-setting-form" onClick={onReset}>
+                <UniversalButton
+                    className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
+                    onClick={onReset}
+                >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </UniversalButton>

@@ -1,7 +1,7 @@
 import { ComponentType } from 'react';
 import { MainPage } from 'pages/main/MainPage.tsx';
 import { categories } from 'shared/const/categories.tsx';
-import { CategoryPage } from 'pages/category/CategoryPage.tsx';
+import { CategoryPage } from 'pages/categoryPage/CategoryPage.tsx';
 import { ActivateAccount } from 'pages/activateAccount/ActivateAccount.tsx';
 import { ResetPassword } from 'pages/resetPassword/ResetPassword.tsx';
 import { AdvertPage } from 'pages/advertPage/AdvertPage.tsx';
@@ -23,7 +23,7 @@ export const publicRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/activate/:uid/:token', component: ActivateAccount },
     { path: '/email/reset/confirm/:uid/:token', component: ResetPassword },
-    { path: '/:category/:id', component: AdvertPage },
+    { path: '/:categoryPage/:id', component: AdvertPage },
     { path: '/404', component: PageNotFound },
     ...categoryRoutes,
 ];
@@ -31,7 +31,7 @@ export const publicRoutes: Route[] = [
 export const privateRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/add-announcement', component: AddAnnouncementPage },
-    { path: '/:category/:id', component: AdvertPage },
+    { path: '/:categoryPage/:id', component: AdvertPage },
     { path: '/404', component: PageNotFound },
     { path: '/my-announcements', component: MyAnnouncements },
     ...categoryRoutes,

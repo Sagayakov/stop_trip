@@ -1,6 +1,7 @@
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
 
 interface Props {
     watch: UseFormWatch<TypeSettingRealty>;
@@ -17,9 +18,9 @@ export const SettingPrice = ({ register, watch }: Props) => {
     };
 
     return (
-        <div className="setting-price">
+        <div className={styles.setting_price}>
             <h3>{t('filters.price')}</h3>
-            <div className="setting-price-announcement">
+            <div className={styles.setting_price_announcement}>
                 <label style={radio === '15000' ? checkedStyle : {}}>
                     <input
                         type="radio"
@@ -37,16 +38,14 @@ export const SettingPrice = ({ register, watch }: Props) => {
                     {`${t('filters.max')} 30 000₹`}
                 </label>
             </div>
-            <div className="setting-price-inputs">
+            <div className={styles.setting_price_inputs}>
                 <input
-                    id="price-input-min"
                     type="number"
                     min="0"
                     placeholder={t('filters.from')}
                     {...register('price.min')}
                 />
                 <input
-                    id="price-input-max"
                     type="number"
                     placeholder={t('filters.up-to')}
                     {...register('price.max')}

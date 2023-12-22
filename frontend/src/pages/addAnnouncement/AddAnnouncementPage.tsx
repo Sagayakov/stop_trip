@@ -32,6 +32,7 @@ export const AddAnnouncementPage = () => {
     const [descript, setDescript] = useState<string | undefined>();
     const { t } = useTranslation();
     const [ addAdvert, { isSuccess, isLoading } ] = useAddAdvertMutation();
+
     const onsubmit = async (data: FormAddAnn) => {
         try {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment

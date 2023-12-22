@@ -5,6 +5,7 @@ import { SelectType, ChoicesType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 import { useEffect, useState } from 'react';
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
@@ -33,13 +34,13 @@ export const MarkOfTransport = ({ setValue, control }: Props) => {
     }, [data]);
 
     return (
-        <div className="mark">
+        <div className={styles.mark}>
             <h3>{t('filters.transport_brand')}</h3>
             <UniversalSelectDropdown
                 setValue={setValue}
                 control={control}
                 name="transport_brand"
-                prefix="filterTransporForm"
+                prefix="filterForm"
                 placeholder={t('filters.choose-brand')}
                 closeMenuOnSelect={true}
                 isMulti={false}

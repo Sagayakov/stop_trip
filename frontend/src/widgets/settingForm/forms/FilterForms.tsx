@@ -13,6 +13,8 @@ import {
 } from './lazyComponents.ts';
 import { SetStateAction } from 'react';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
+import styles from './filtersForm.module.scss'
+import './selectStyles.scss'
 
 interface Props {
     showFilters: boolean;
@@ -36,7 +38,7 @@ export const FilterForms = ({ showFilters, setShowFilters }: Props) => {
 
     return (
         <div
-            className="filter-form"
+            className={styles.filter_form}
             onClick={handleClickFilterForm}
             style={isDesktop ? { display: 'block' } : filterFormStyleMobile}
         >

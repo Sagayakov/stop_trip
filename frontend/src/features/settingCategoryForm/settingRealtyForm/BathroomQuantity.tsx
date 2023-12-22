@@ -1,6 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
@@ -10,9 +11,9 @@ export const BathroomQuantity = ({ register }: Props) => {
     const { t } = useTranslation();
 
     return (
-        <div className="bathroom-quantity">
+        <div className={styles.bathroom_quantity}>
             <h3>{t('filters.property_bathroom_count')}</h3>
-            <div className="setting-rooms-quantity">
+            <div className={styles.setting_rooms_quantity}>
                 <input
                     type="number"
                     min="0"

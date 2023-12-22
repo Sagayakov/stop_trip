@@ -12,7 +12,7 @@ export const ExcursionFood = ({ register }: Props) => {
     return (
         <div className={styles.settingExcursion}>
             <h3>{t('filters.food')}</h3>
-            <label className={styles.formCheckbox}>
+            <label className="form_checkbox">
                 <input type="checkbox" {...register('excursion_food')} />
                 <span>{t('filters.excursion_food')}</span>
             </label>

@@ -31,7 +31,7 @@ export const BreadCrumbs = ({ data }: { data: ProductType }) => {
                 </div>
             ) : (
                 <>
-                    <NavLink to="/">{t('category-page.main-link')}</NavLink>
+                    <NavLink to="/">{t('categoryPage-page.main-link')}</NavLink>
                     <NavLink
                         to={`/${category}/?category=${category}&page=${pageCategory}`}
                     >{`\u00A0>\u00A0${t(`categories.${category}`)}`}</NavLink>

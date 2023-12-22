@@ -10,6 +10,7 @@ import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -41,13 +42,13 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
     }, [data]);
 
     return (
-        <div className="model">
+        <div className={styles.model}>
             <h3>{t('filters.transport_model')}</h3>
             <UniversalSelectDropdown
                 setValue={setValue}
                 control={control}
                 name="transport_model"
-                prefix="filterTransporForm"
+                prefix="filterForm"
                 placeholder={t('filters.transport_model')}
                 closeMenuOnSelect={false}
                 isDisabled={disabled}

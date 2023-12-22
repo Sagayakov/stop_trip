@@ -3,6 +3,7 @@ import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
 import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'widgets/settingForm/settingCurrency/libr/settingCurrencyFilter.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;
@@ -21,7 +22,7 @@ export const ExchangeFor = ({ control, setValue }: Props) => {
     ];
 
     return (
-        <div className="exchangeFor">
+        <div className={styles.exchangeFor}>
             <h3>{t('filters.exchange_for')}</h3>
             <UniversalSelectDropdown<TypeOfCurrencyFilter>
                 closeMenuOnSelect={false}
@@ -30,7 +31,7 @@ export const ExchangeFor = ({ control, setValue }: Props) => {
                 name="exchange_for"
                 options={options}
                 placeholder={t('filters.exchange_for')}
-                prefix="filterCurrencyForm"
+                prefix="filterForm"
                 setValue={setValue}
                 isSearchable={!isMobile}
             />

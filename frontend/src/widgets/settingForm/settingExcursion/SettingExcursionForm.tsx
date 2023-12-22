@@ -5,6 +5,8 @@ import { TypeForExcursionFilter } from './libr/TypeForExcursionFilter';
 import { useTranslation } from 'react-i18next';
 import styles from './libr/settingExcursionFilter.module.scss';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
+import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss'
+
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -31,7 +33,7 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
     }
 
     return (
-        <section className="filters" onClick={handleClick}>
+        <section className={formStyles.filters} onClick={handleClick}>
             <form
                 className={styles.filterExcursionForm}
                 onSubmit={handleSubmit(onSubmit)}
@@ -39,7 +41,7 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
                 <ExcursionFood register={register} />
                 <ExcursionTransfer register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className={styles.resetSettingForm} onClick={onReset}>
+                <button className={formStyles.reset_setting_form} onClick={onReset}>
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>

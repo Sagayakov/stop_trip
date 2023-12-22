@@ -5,6 +5,7 @@ import { SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
@@ -22,15 +23,15 @@ export const DriveType = ({ setValue, control }: Props) => {
     const options = (data?.params.find((el) => el.name === 'transport_drive_type') as ChoicesType)
 
     return (
-        <div className="drive">
+        <div className={styles.drive}>
             <h3>{t('filters.transport_drive_type')}</h3>
-            <div className="select-drive">
+            <div className={styles.select_drive}>
                 {data &&
                     <UniversalSelectDropdown<TypeSettingTransport>
                         setValue={setValue}
                         control={control}
                         name="transport_drive_type"
-                        prefix="filterTransporForm"
+                        prefix="filterForm"
                         placeholder={t('filters.transport_drive_type')}
                         closeMenuOnSelect={false}
                         isMulti={true}

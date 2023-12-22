@@ -2,6 +2,7 @@ import { Control, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
 import { TypeForFoodForm } from 'widgets/settingForm/settingFood/libr/TypeForFoodForm.ts';
 import { useTranslation } from 'react-i18next';
+import styles from 'widgets/settingForm/settingFood/libr/settingFoordForm.module.scss'
 
 interface Props {
     setValue: UseFormSetValue<TypeForFoodForm>;
@@ -20,7 +21,7 @@ export const FoodType = ({ control, setValue }: Props) => {
     ];
 
     return (
-        <div className="foodType">
+        <div className={styles.foodType}>
             <h3>{t('filters.food_type')}</h3>
             <UniversalSelectDropdown<TypeForFoodForm>
                 closeMenuOnSelect={false}
@@ -29,7 +30,7 @@ export const FoodType = ({ control, setValue }: Props) => {
                 name="food_type"
                 options={options}
                 placeholder={t('filters.food_type')}
-                prefix="filterFoodForm"
+                prefix="filterForm"
                 setValue={setValue}
             />
         </div>
