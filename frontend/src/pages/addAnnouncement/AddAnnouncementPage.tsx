@@ -9,7 +9,10 @@ import { useTranslation } from 'react-i18next';
 import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import './libr/selectAddAnnouncement.scss'
-import { useAppSelector } from 'app/store/hooks.ts';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
+import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
+import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFields/SuccessAddAnnouncement.tsx';
 
 interface Image {
     image: string;
@@ -31,32 +34,45 @@ export const AddAnnouncementPage = () => {
     const [selectedImages, setSelectedImages] = useState<Image[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [descript, setDescript] = useState<string | undefined>();
+    const [modalSuccess, setModalSuccess] = useState(false);
     const { t } = useTranslation();
-    const [ addAdvert, { isSuccess, /*isLoading */} ] = useAddAdvertMutation();
+    const [ addAdvert ] = useAddAdvertMutation();
+    const dispatch = useAppDispatch();
     const isLoading = useAppSelector((store) => store.setLoading.loading)
 
     const onsubmit = async (data: FormAddAnn) => {
         try {
+            dispatch(setLoading(true));
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            await addAdvert(data);
-            if(isSuccess){
+            const result = await addAdvert(data);
+            if ('data' in result) {
                 descript && setValue('description', descript);
                 setSelectedImages(undefined);
                 setMarkerPosition(undefined);
                 setDescript(undefined);
                 reset();
                 setValue('category', data.category);
-                scrollToTop()
+                setModalSuccess(true);
             }
+            dispatch(setLoading(false));
         } catch (error){
             console.log(error)
         }
     };
+    const handleClick = () => {
+        setModalSuccess(false)
+        scrollToTop()
+    }
 
     return (
         <>
             {isLoading && <LoadingWithBackground />}
+            {modalSuccess && (
+                <BackgroundModal className={styles.background} callback={handleClick}>
+                    <SuccessAddAnnouncement onClick={handleClick} />
+                </BackgroundModal>
+            )}
             <section className={styles.add_ann}>
                 <form
                     className={styles.add_ann_form}

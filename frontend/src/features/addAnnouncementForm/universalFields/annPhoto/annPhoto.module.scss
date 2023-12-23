@@ -38,6 +38,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             width: 193px;
+            gap: 0.5rem 1rem;
             .loadphoto_btn_view_delete {
                 display: flex;
                 margin-bottom: 8px;
