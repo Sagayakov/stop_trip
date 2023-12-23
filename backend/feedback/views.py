@@ -1,13 +1,15 @@
-from rest_framework import mixins, viewsets, status
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema
+from rest_framework import status
+from rest_framework.mixins import CreateModelMixin
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
 from .serializers import FeedBackCreateSerializer
 
 
 @extend_schema(tags=["Feedback"])
-class FeedbackModelViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class FeedbackModelViewSet(CreateModelMixin, GenericViewSet):
     """Обратная связь"""
 
     permission_classes = [IsAuthenticated]

@@ -8,12 +8,6 @@ class FeedBackAdmin(ModelAdmin):
     list_display = (
         "id",
         "owner",
-        "feedback",
+        "text",
         "date_create",
-    )
-
-    list_display_links = (
-        "id",
-        "owner",
-        "feedback",
     )
