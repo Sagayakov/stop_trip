@@ -1,13 +1,14 @@
-from django_filters.rest_framework import filters, FilterSet
+from django_filters.rest_framework import FilterSet
 
+from common.filters import ChoiceInFilter
 from ..constants import TaxiType, TaxiUnit
 
 
 class TaxiFilter(FilterSet):
     """Фильтры такси."""
 
-    taxi_unit = filters.ChoiceFilter(label="Единица измерения", choices=TaxiUnit.choices)
-    taxi_type = filters.ChoiceFilter(label="Вид такси", choices=TaxiType.choices)
+    taxi_unit = ChoiceInFilter(label="Единица измерения", choices=TaxiUnit.choices)
+    taxi_type = ChoiceInFilter(label="Вид такси", choices=TaxiType.choices)
 
     @classmethod
     def _taxi_filter_specs(cls, queryset) -> list[dict]:
