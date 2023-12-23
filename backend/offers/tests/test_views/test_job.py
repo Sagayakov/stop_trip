@@ -118,6 +118,16 @@ class JobTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(job_set) // 2)
 
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {"job_type": f"{JobType.FULL_TIME.value},{JobType.PART_TIME.value}"},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(job_set))
+
     def test_filter_job_duration(self):
         user = UserFactory()
         job_set = [
@@ -141,6 +151,18 @@ class JobTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["count"], len(job_set) // 2)
+
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "job_duration": f"{JobDurationType.ONE_TIME_TASK.value},{JobDurationType.TEMPORARY.value}"
+                },
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(job_set))
 
     def test_filter_job_payment_type(self):
         user = UserFactory()
@@ -167,6 +189,18 @@ class JobTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["count"], len(job_set) // 2)
+
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "job_payment_type": f"{JobPaymentType.HOURLY_PAYMENT.value},{JobPaymentType.WEEKLY_PAYMENT.value}"
+                },
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(job_set))
 
     def test_filter_job_experience(self):
         user = UserFactory()
