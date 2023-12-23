@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",
     "feedback.apps.FeedbackConfig",
+    "forbidden_words.apps.ForbiddenWordsConfig",
 ]
 
 MIDDLEWARE = [

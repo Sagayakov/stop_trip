@@ -2,7 +2,9 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.exceptions import ValidationError
 
+from forbidden_words.models import ForbiddenWords
 from ..managers import CustomUserManager
 
 
@@ -21,6 +23,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    def clean(self):
+        forbidden_words = ForbiddenWords.get_solo()
+
+        all_words = forbidden_words.russian_words + "," + forbidden_words.english_words
+        all_words = all_words.lower().split(",")
+
+        for word in all_words:
+            if self.full_name.lower() in word:
+                raise ValidationError("Имя пользователя содержит запрещенное слово.")
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        return super()
 
     class Meta:
         verbose_name: str = "Пользователь"
