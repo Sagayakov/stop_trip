@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 type CallbackFunction = () => void;
 interface Props {
     className: string;
     callback: CallbackFunction;
+    children?: ReactNode;
 }
 interface Style {
     width: string;
@@ -13,7 +14,7 @@ interface Style {
     position: "fixed" | "absolute" | "relative" | "static" | "sticky" | undefined;
     zIndex: number;
 }
-export const BackgroundModal = ({ callback, className }: Props) => {
+export const BackgroundModal = ({ callback, className,children }: Props) => {
     const style: Style = {
         width: '100%',
         height: '100%',
@@ -34,5 +35,5 @@ export const BackgroundModal = ({ callback, className }: Props) => {
         };
     }, [callback]);
 
-    return <div className={className} style={style} onClick={callback} />;
+    return <div className={className} style={style} onClick={callback}>{children}</div>;
 };

@@ -225,7 +225,8 @@
         "registration-date": "Registration date:",
         "grade": "grade",
         "grade-added": "Thank you! Your rating has been added!",
-        "grade-register": "Please log in to be able to rate"
+        "grade-register": "Please log in to be able to rate",
+        "advertisement-added": "Advertisement added!"
     },
 
     "activate-page": {

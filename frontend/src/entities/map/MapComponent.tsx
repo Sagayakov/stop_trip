@@ -36,9 +36,8 @@ export const MapComponent = ({ propertyLocation, isSelected, setMarkerPosition }
 
     const handleMapClick = (event: MapBrowserEvent<UIEvent>) => {
         const clickedCoord = (mapRef!.current! as Map).getCoordinateFromPixel(event.pixel);
-        setSelectedCoord( clickedCoord );
+        setSelectedCoord && setSelectedCoord( clickedCoord);
     };
-
     useEffect(() => {
         const map = new Map({
             layers: [
@@ -60,9 +59,7 @@ export const MapComponent = ({ propertyLocation, isSelected, setMarkerPosition }
             ],
             controls: [scaleLineControl, zoomControl],
             view: new View({
-                center: isSelected && selectedCoord
-                    ? [selectedCoord[0], selectedCoord[1]]
-                    : propertyLocation,
+                center: propertyLocation,
                 zoom: zoom,
                 minZoom: 0,
                 maxZoom: 28,
@@ -73,9 +70,8 @@ export const MapComponent = ({ propertyLocation, isSelected, setMarkerPosition }
 
         map.setTarget(mapTargetElement.current || "");
         setMap(map);
-
         setMarkerPosition && selectedCoord &&
-            setMarkerPosition(String(selectedCoord[0]) + ", " + selectedCoord[1]);
+            setMarkerPosition(`${selectedCoord[1]},  ${selectedCoord[0]}`);
 
         return () => map.setTarget("");
     }, [propertyLocation, selectedCoord]);

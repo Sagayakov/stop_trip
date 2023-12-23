@@ -66,6 +66,9 @@ input[type="radio"] {
     background-size: 50% 50%;
     background-color: var(--grey-1);
 }
+input[type="radio"] + span::before{
+    border-radius: 0.75rem;
+}
 
 .form_checkbox > input:checked + span::before {
     background-size: 60%;
@@ -93,3 +96,13 @@ input[type='number']:focus {
     -moz-appearance: textfield;
 }
 // чтобы стрелочек не было в инпутах
+
+main{
+    max-width: 1440px;
+    margin: 0 auto;
+}
+@media (max-width: 1439px){
+     main {
+        width: 100%;
+     }
+}

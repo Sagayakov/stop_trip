@@ -34,7 +34,7 @@ export const fetchAdverts = createApi({
                 headers: {
                     'X-Csrftoken': `${accessToken}`,
                     'Content-Type': 'application/json',
-                    authorization: ` Bearer ${accessToken}`,
+                    authorization: `Bearer ${accessToken}`,
                 },
                 body,
             }),
