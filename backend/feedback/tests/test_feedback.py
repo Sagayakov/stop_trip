@@ -9,7 +9,7 @@ from users.tests.factories import UserFactory
 
 
 @mark.django_db
-class AdvertisementViewSetTest(APITestCase):
+class FeedbackViewSetTest(APITestCase):
     def setUp(self):
         self.list_url: str = reverse("feedback-list")
         self.detail_url = partial(reverse, "feedback-detail")
