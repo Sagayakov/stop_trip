@@ -15,10 +15,8 @@ export const ProposedCurrency = ({ control, setValue }: Props) => {
     const { t } = useTranslation();
 
     const options = [
-        { value: 'EUR', label: 'Евро' },
-        { value: 'RUB', label: 'Рубль' },
-        { value: 'INR', label: 'Рупий' },
-        { value: 'USD', label: 'Доллар' },
+        {value: 'RUB', label: 'Рубль'},
+        {value: 'USD', label: 'Доллар'}
     ];
 
     return (

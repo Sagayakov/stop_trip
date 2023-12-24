@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './pageNotFound.scss';
+import styles from './pageNotFound.module.scss';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 const NotFoundNumbers = lazy(
     () => import('../../entities/notFoundNumbers/NotFoundNumbers')
@@ -15,17 +15,17 @@ export const PageNotFound = () => {
     const { t } = useTranslation();
 
     return (
-        <div className="not-found-wrapper">
+        <div className={styles.not_found_wrapper}>
             <Suspense fallback={<LoadingWithBackground />}>
                 <NotFoundNumbers />
-                <div className="text-info">
-                    <h1 className="info-header">
+                <div className={styles.text_info}>
+                    <h1 className={styles.info_header}>
                         {t('page-not-found.no-page')}
                     </h1>
                     <p>{t('page-not-found.perhaps')}</p>
                 </div>
                 <button
-                    className="button-to-main"
+                    className={styles.button_to_main}
                     onClick={() => navigate('/')}
                 >
                     {t('page-not-found.to-main')}

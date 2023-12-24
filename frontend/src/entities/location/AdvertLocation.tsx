@@ -1,5 +1,5 @@
 import { ProductType } from 'pages/advertPage/libr/types.ts';
-import './advertLocation.scss';
+import styles from './advertLocation.module.scss';
 import { useMemo } from 'react';
 import { MapComponent } from '../map/MapComponent';
 import { useTranslation } from 'react-i18next';
@@ -19,8 +19,8 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
     const { t } = useTranslation();
 
     return (
-        <div className="location">
-            <div className="location-header">{t('advert-page.location')}</div>
+        <div className={styles.location}>
+            <div className={styles.location_header}>{t('advert-page.location')}</div>
             <p>
                 {data.property_city
                     ? `${data.property_city.name}, ${
@@ -29,7 +29,7 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
                       }`
                     : `${t('advert-page.no-address')}`}
             </p>
-            <div className="map-wrapper">
+            <div className={styles.map_wrapper}>
                 {propertyLocation && (
                     <MapComponent propertyLocation={propertyLocation} />
                 )}

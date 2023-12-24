@@ -1,16 +1,16 @@
 .characteristics {
-    .characteristics-header {
+    .characteristics_header {
         font-size: 20px;
         font-weight: 600;
         color: var(--main-black);
     }
-    .characteristics-wrapper {
+    .characteristics_wrapper {
         display: flex;
         justify-content: space-between;
         gap: 1rem;
         width: 100%;
         margin-top: 0.8rem;
-        .characteristics-key {
+        .characteristics_key {
             flex: 1 1 auto;
             p {
                 display: flex;
@@ -27,7 +27,7 @@
                 }
             }
         }
-        .characteristics-value {
+        .characteristics_value {
             width: auto;
             p {
                 font-size: 14px;

@@ -1,5 +1,5 @@
 import { ProductType } from 'pages/advertPage/libr/types.ts';
-import './advertCharacteristics.scss';
+import styles from './advertCharacteristics.module.scss';
 import { GetValuesList } from './utils/getValuesList';
 import { GetKeysList } from './utils/getKeysList';
 import { useTranslation } from 'react-i18next';
@@ -13,13 +13,13 @@ export const AdvertCharacteristics = ({ data }: { data: ProductType }) => {
     return (
         <>
             {keysList.length ? (
-                <div className="characteristics">
-                    <h2 className="characteristics-header">
+                <div className={styles.characteristics}>
+                    <h2 className={styles.characteristics_header}>
                         {t('advert-page.characteristics')}
                     </h2>
-                    <div className="characteristics-wrapper">
-                        <span className="characteristics-key">{keysList}</span>
-                        <span className="characteristics-value">
+                    <div className={styles.characteristics_wrapper}>
+                        <span className={styles.characteristics_key}>{keysList}</span>
+                        <span className={styles.characteristics_value}>
                             {valuesList}
                         </span>
                     </div>

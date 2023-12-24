@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './ActivateAccount.scss';
+import styles from './activateAccount.module.scss';
 import { activate } from './api/activate';
 import { LoaidngWithoutBackground } from 'entities/loading/LoaidngWithoutBackground.tsx';
 import { setIsEnter } from 'features/header/model/modalAuth/reducers/isEnter.ts';
@@ -19,15 +19,15 @@ export const ActivateAccount = () => {
     const { t } = useTranslation();
 
     const activationAcc = async (uid: string, token: string) => {
-        await setLoad(true);
+        setLoad(true);
         const body = {
             uid,
             token,
         };
         const response = await activate(body);
         if (response.ok) {
-            await setSuccess(true);
-            await setLoad(false);
+            setSuccess(true);
+            setLoad(false);
         }
     };
 
@@ -43,16 +43,16 @@ export const ActivateAccount = () => {
 
     return (
         <main>
-            <div className="activate-acc-page">
-                <div className="activate-acc-header">
+            <div className={styles.activate_acc_page}>
+                <div className={styles.activate_acc_header}>
                     <h1>{t('activate-page.activation')}</h1>
                     {success ? `${t('activate-page.activated')}` : ''}
-                    {load && (
-                        <div className="activate-acc-loading">
+                    {load ? (
+                        <div className={styles.activate_acc_loading}>
                             <LoaidngWithoutBackground />
                         </div>
-                    )}
-                    <div className="redirect" onClick={handleRedirect}>
+                    ) : <div></div>}
+                    <div className={styles.redirect} onClick={handleRedirect}>
                         {t('activate-page.back')}
                     </div>
                 </div>

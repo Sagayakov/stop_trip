@@ -1,4 +1,4 @@
-.bread-crumbs {
+.bread_crumbs {
     margin: auto;
     color: var(--grey-3);
     font-family: var(--font-inter);
@@ -10,18 +10,25 @@
 }
 
 @media (max-width: 767px) {
-    .bread-crumbs {
-        .link-category {
+    .bread_crumbs {
+        margin-top: 90px;
+        .link_category {
             display: flex;
             align-items: center;
             cursor: pointer;
         }
     }
 }
+@media (max-width: 600px) {
+    .bread_crumbs{
+        margin-top: 75px;
+    }
+}
 
 @media (max-width: 424px) {
-    .bread-crumbs {
-        .link-category {
+    .bread_crumbs {
+        margin-top: 70px;
+        .link_category {
             h1 {
                 margin: 0;
             }

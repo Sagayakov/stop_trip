@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
 import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
-import './libr/photoSlider.scss';
+import styles from './libr/photoSlider.module.scss';
 import { useParams } from 'react-router-dom';
 import { useGetAdvertByIdQuery } from 'app/api/fetchAdverts.ts';
 import { Like } from 'shared/ui/Like';
@@ -103,14 +103,14 @@ export const PhotoSlider = () => {
 
     return (
         <>
-            <div className="image-wrapper">
+            <div className={styles.image_wrapper}>
                 <div
-                    className="active-image"
+                    className={styles.active_image}
                     onClick={openPhoto}
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
                 >
-                    <div className="arrow-container">
+                    <div className={styles.arrow_container}>
                         <ArrowLeft10x24
                             color="white"
                             handleClickPrev={handleClickPrev}
@@ -122,10 +122,12 @@ export const PhotoSlider = () => {
                         ref={imageRef}
                         onLoad={handleOnLoad}
                         className={
-                            imageWidth > imageHeight ? 'horizontal' : 'vertical'
+                            imageWidth > imageHeight
+                                ? `${styles.horizontal}`
+                                : `${styles.vertical}`
                         }
                     />
-                    <div className="arrow-container">
+                    <div className={styles.arrow_container}>
                         <ArrowRight
                             color="white"
                             handleClickNext={handleClickNext}
@@ -140,24 +142,24 @@ export const PhotoSlider = () => {
                     {imageHeight > imageWidth && (
                         <>
                             <img
-                                className="blur-left"
+                                className={styles.blur_left}
                                 src={image}
                                 alt="Main image"
                             />
                             <img
-                                className="blur-right"
+                                className={styles.blur_right}
                                 src={image}
                                 alt="Main image"
                             />
                         </>
                     )}
                 </div>
-                <div className="image-list">
+                <div className={styles.image_list}>
                     {data &&
                         data.images.map((el, i) => (
                             <img
                                 className={
-                                    activeImage !== i ? 'blurred-image' : ''
+                                    activeImage !== i ? `${styles.blurred_image}` : ''
                                 }
                                 src={
                                     el.image ??

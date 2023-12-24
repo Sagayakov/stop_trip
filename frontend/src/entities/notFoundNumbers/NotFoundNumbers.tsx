@@ -1,10 +1,10 @@
 import { NumberFour } from './NumberFour';
 import { NumberZero } from './NumberZero';
-import './notFoundNumbers.scss';
+import styles from './notFoundNumbers.module.scss';
 
 const NotFoundNumbers = () => {
     return (
-        <div className="numbers">
+        <div className={styles.numbers}>
             <NumberFour />
             <NumberZero />
             <NumberFour />

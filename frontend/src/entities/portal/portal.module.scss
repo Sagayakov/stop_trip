@@ -30,7 +30,7 @@
         min-height: 80vh;
         max-height: 90vh;
     }
-    .close-portal {
+    .close_portal {
         position: absolute;
         top: 5px;
         right: 5px;
@@ -46,7 +46,7 @@
             cursor: pointer;
         }
     }
-    .close-portal svg:hover {
+    .close_portal svg:hover {
         transform: scale(1.2);
     }
     .prev,
