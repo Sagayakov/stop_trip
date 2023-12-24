@@ -27,7 +27,7 @@ export const AnnouncementTransportTranspCategory = ({
                 isMulti={false}
                 name="transport_category"
                 options={optionValues}
-                placeholder={t('filters.choose-categoryPage')}
+                placeholder={t('filters.choose-category')}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />
