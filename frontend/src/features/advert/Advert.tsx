@@ -68,7 +68,7 @@ const Advert = () => {
                                 {t('advert-page.day')}{' '}
                                 <span className="price">
                                     {data.price
-                                        ? `₹${data.price}`
+                                        ? `₹ ${data.price.toLocaleString('ru')}`
                                         : `${t('advert-page.negotiated')}`}
                                 </span>
                             </div>
@@ -128,7 +128,7 @@ const Advert = () => {
                                 {data.price ? `${t('advert-page.day')}` : ''}
                                 <span className="price">
                                     {data.price
-                                        ? `₹${data.price}`
+                                        ? `₹ ${data.price.toLocaleString('ru')}`
                                         : `${t(
                                               'advert-page.price-negotiated'
                                           )}`}
