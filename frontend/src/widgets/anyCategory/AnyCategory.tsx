@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks.ts';
 import { Pagination } from 'features/pagination';
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import style from 'pages/categoryPage/style/categoryPage.module.scss'
 
 const AnyCategory = () => {
@@ -20,6 +21,7 @@ const AnyCategory = () => {
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
     const parentRef = useRef<HTMLElement>(null);
+    const { t } = useTranslation();
 
     if (!data?.results.length && !isLoading) {
         return (
@@ -89,7 +91,7 @@ const AnyCategory = () => {
                                     г. Тбилиси, ул. Зеленая, 10
                                 </p>
                                 <h3>
-                                    {el.price ? `₹${el.price}` : 'Договорная'}
+                                    {el.price ? `₹ ${el.price.toLocaleString('ru')}` : : `${t('advert-page.negotiated')}
                                 </h3>
                                 <p className={style.card_description}>
                                     {el.description}
