@@ -7,7 +7,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -16,16 +15,39 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='FeedBackModel',
+            name="FeedBackModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.CharField(validators=[django.core.validators.MinLengthValidator(10), django.core.validators.MaxLengthValidator(900)], verbose_name='Текст')),
-                ('date_create', models.DateTimeField(auto_now_add=True)),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='feedback', to=settings.AUTH_USER_MODEL, verbose_name='Создатель')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                (
+                    "text",
+                    models.CharField(
+                        validators=[
+                            django.core.validators.MinLengthValidator(10),
+                            django.core.validators.MaxLengthValidator(900),
+                        ],
+                        verbose_name="Текст",
+                    ),
+                ),
+                ("date_create", models.DateTimeField(auto_now_add=True)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="feedback",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Создатель",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Отзыв',
-                'verbose_name_plural': 'Отзывы',
+                "verbose_name": "Отзыв",
+                "verbose_name_plural": "Отзывы",
             },
         ),
     ]
