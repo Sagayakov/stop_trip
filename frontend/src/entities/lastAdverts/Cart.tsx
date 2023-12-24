@@ -64,7 +64,7 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
             <div className={styles.description}>
                 <div className={styles.price}>
                     <p>
-                        {price ? `₹${price}` : `${t('advert-page.negotiated')}`}
+                        {price ? `₹ ${price.toLocaleString('ru')}` : `${t('advert-page.negotiated')}`}
                     </p>
                     <span>
                         <Favorite
