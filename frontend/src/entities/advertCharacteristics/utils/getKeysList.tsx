@@ -2,6 +2,7 @@ import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { Categories } from 'shared/const/categories';
 import { categoryCharacteristicsKeys } from 'shared/const/categoryCharacteristics.ts';
 import { useTranslation } from 'react-i18next';
+import styles from '../advertCharacteristics.module.scss'
 
 type GetListProps = {
     data: ProductType;
@@ -28,7 +29,7 @@ export const GetKeysList = ({ data, category }: GetListProps) => {
                 list.push(
                     <p key={key}>
                         {t('filters.property_amenities')}
-                        <span className="dashes"></span>
+                        <span className={styles.dashes}></span>
                     </p>
                 );
             } else {
@@ -45,7 +46,7 @@ export const GetKeysList = ({ data, category }: GetListProps) => {
                 list.push(
                     <p key={key}>
                         {t(`filters.${key}`)}
-                        <span className="dashes"></span>
+                        <span className={styles.dashes}></span>
                     </p>
                 );
             } else {
@@ -53,9 +54,9 @@ export const GetKeysList = ({ data, category }: GetListProps) => {
             }
         } else {
             list.push(
-                <p key={key} className={key}>
+                <p key={key} className={styles.key}>
                     {t(`filters.${key}`)}
-                    <span className="dashes"></span>
+                    <span className={styles.dashes}></span>
                 </p>
             );
         }

@@ -1,4 +1,4 @@
-import './portal.scss';
+import styles from './portal.module.scss';
 
 type ShadowProps = {
     setIsPortalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,7 +10,7 @@ export const Shadow = ({ setIsPortalOpen }: ShadowProps) => {
     };
 
     return (
-            <div className="shadow" onClick={handleClick}>
+            <div className={styles.shadow} onClick={handleClick}>
                 {/* {!isTablet && !isMobile && (
                     <>
                         <div className="close-portal" onClick={handleClick}>

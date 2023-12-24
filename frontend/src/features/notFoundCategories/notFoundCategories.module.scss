@@ -1,4 +1,4 @@
-.categories_not-found {
+.categories_not_found {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -22,7 +22,7 @@
 }
 
 @media (max-width: 1240px) {
-    .categories_not-found {
+    .categories_not_found {
         .category {
             flex-direction: column;
             gap: 0.5rem;
@@ -37,7 +37,7 @@
 }
 
 @media (max-width: 1023px) {
-    .categories_not-found {
+    .categories_not_found {
         gap: 1rem;
         .category {
             text-align: center;
@@ -49,7 +49,7 @@
 }
 
 @media (max-width: 767px) {
-    .categories_not-found {
+    .categories_not_found {
         .category {
             align-items: flex-start;
             span {
@@ -67,7 +67,7 @@
 }
 
 @media (max-width: 400px) {
-    .categories_not-found {
+    .categories_not_found {
         .category:last-child {
             display: none;
         }

@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
 import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
 import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFields/SuccessAddAnnouncement.tsx';
+import { toast } from 'react-toastify';
 
 interface Image {
     image: string;
@@ -53,11 +54,15 @@ export const AddAnnouncementPage = () => {
                 setDescript(undefined);
                 reset();
                 setValue('category', data.category);
-                setModalSuccess(true);
+                setTimeout(() => {
+                    dispatch(setLoading(false));
+                    setModalSuccess(true);
+                }, 1500)
             }
-            dispatch(setLoading(false));
         } catch (error){
-            console.log(error)
+            console.log(error);
+            dispatch(setLoading(false));
+            toast.error(`${t('errors.add-announcement-error')}`)
         }
     };
     const handleClick = () => {

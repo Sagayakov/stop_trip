@@ -1,5 +1,5 @@
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
-import './portal.scss';
+import styles from './portal.module.scss';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
 import { Close } from 'shared/ui/icons/icons-tools/Close.tsx';
 import { useRef, useState } from 'react';
@@ -63,7 +63,7 @@ export const Portal = ({
     }
     
     return (
-        <div className="portal">
+        <div className={styles.portal}>
             <img
                 src={image}
                 alt="Photo"
@@ -71,18 +71,28 @@ export const Portal = ({
                 onLoad={handleOnLoad}
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
-                className={imageWidth > imageHeight ? 'horizontal' : 'vertical'}
+                className={
+                    imageWidth > imageHeight
+                        ? `${styles.horizontal}`
+                        : `${styles.vertical}`
+                }
             />
-            <div className="close-portal" onClick={handleClick}>
-                <Close color='white' />
+            <div className={styles.close_portal} onClick={handleClick}>
+                <Close color="white" />
             </div>
-            <div className="prev">
-                <ArrowLeft10x24 color='white' handleClickPrev={handleClickPortalPrev} />
+            <div className={styles.prev}>
+                <ArrowLeft10x24
+                    color="white"
+                    handleClickPrev={handleClickPortalPrev}
+                />
             </div>
-            <div className="next">
-                <ArrowRight color='white' handleClickNext={handleClickPortalNext} />
+            <div className={styles.next}>
+                <ArrowRight
+                    color="white"
+                    handleClickNext={handleClickPortalNext}
+                />
             </div>
-            <div className="pages" onClick={handleClick}>
+            <div className={styles.pages} onClick={handleClick}>
                 <span>{`${active}/`}</span>
                 <span>{`${images.length}`}</span>
             </div>

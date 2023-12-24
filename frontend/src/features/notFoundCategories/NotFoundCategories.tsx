@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { categories } from 'shared/const/categories.tsx';
-import './notFoundCategories.scss';
+import styles from './notFoundCategories.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 
@@ -11,7 +11,7 @@ const NotFoundCategories = () => {
     const { t } = useTranslation();
 
     return (
-        <section className="categories_not-found">
+        <section className={styles.categories_not_found}>
             {Object.entries(categories)
                 .slice(0, shownCategoriesNumber)
                 .map((el) => {
@@ -19,7 +19,7 @@ const NotFoundCategories = () => {
                     return (
                         <div
                             key={el[0]}
-                            className={`category ${el[0]}`}
+                            className={`${styles.category} ${el[0]}`}
                             onClick={() => navigate(`/${el[0]}/`)}
                         >
                             <Icon />
