@@ -1,5 +1,5 @@
 import { Like } from 'shared/ui/Like';
-import { Rating } from 'shared/ui/Rating';
+//import { Rating } from 'shared/ui/Rating';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
 import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
@@ -101,7 +101,7 @@ const AnyCategory = () => {
                                         1
                                     )}`}
                                     <span className={style.rating_number}>4.5</span>
-                                    <Rating rating={4.5} />
+                                    {/*<Rating rating={4.5} />*/}
                                 </div>
                                 <p className={style.time}>
                                     {`
