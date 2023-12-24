@@ -8,8 +8,8 @@ class FeedBackCreateSerializer(serializers.ModelSerializer):
     """Сериализатор создания обратной связи"""
 
     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
-    feedback = serializers.CharField(required=True, max_length=900)
+    text = serializers.CharField(required=True, max_length=900)
 
     class Meta:
         model = FeedBackModel
-        fields = ("owner", "feedback")
+        fields = ("owner", "text")

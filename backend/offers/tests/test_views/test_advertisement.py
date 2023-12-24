@@ -40,6 +40,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.list_url: str = reverse("advertisements-list")
         self.detail_url = partial(reverse, "advertisements-detail")
         self.get_filter_params_url: str = reverse("advertisements-get-filter-params")
+        self.my_advertisements_url: str = reverse("advertisements-my-advertisements")
 
     def test_list(self):
         user = UserFactory()
@@ -233,3 +234,18 @@ class AdvertisementViewSetTest(APITestCase):
                 self.assertEqual(len(spec["choices"]), len(MarketCondition.choices))
             else:
                 assert False, f"Add test for spec['name'] = '{spec['name']}'"
+
+    def test_my_advertisements(self):
+        me = UserFactory()
+        my_advertisements = [BaseAdvertisementFactory(owner=me) for _ in range(5)]
+
+        user = UserFactory()
+        advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(5)]
+
+        self.client.force_login(me)
+        with self.assertNumQueries(3):
+            res = self.client.get(self.my_advertisements_url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(my_advertisements))

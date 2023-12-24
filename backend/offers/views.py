@@ -1,5 +1,6 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -41,15 +42,19 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         "list": [AllowAny],
         "retrieve": [AllowAny],
         "get_filter_params": [AllowAny],
+        "my_advertisements": [IsAuthenticated],
     }
     filterset_class = AdvertisementFilter
     pagination_class = PageNumberPagination
-    page_size = 12
 
     def get_queryset(self):
         queryset = Advertisement.objects.filter(is_published=True).select_related("owner")
 
-        if self.action in [self.list.__name__, self.retrieve.__name__]:
+        if self.action in [
+            self.list.__name__,
+            self.retrieve.__name__,
+            self.my_advertisements.__name__,
+        ]:
             queryset = queryset.prefetch_related("images")
 
         if self.action == self.retrieve.__name__:
@@ -79,6 +84,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 CategoryChoices.FOOD: FoodCreateSerializer,
                 CategoryChoices.EXCURSION: ExcursionCreateSerializer,
             }
+
             if category := self.request.data.get("category"):
                 return subcategories_serializers[category]
             else:
@@ -111,3 +117,11 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
         serializer.save()  # todo оптимизация создания M2M связей
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    @action(detail=False, methods=["GET"])
+    def my_advertisements(self, request, *args, **kwargs):
+        """Мои объявления."""
+
+        queryset = self.get_queryset().filter(owner=self.request.user)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
