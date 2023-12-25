@@ -1,7 +1,7 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { Pencil } from 'shared/ui/icons/icons-tools/Pencil.tsx';
-import { getId, HandleSubmitFeedback } from './libr/handlers';
+import { getId } from './libr/handlers';
 import { TypesFeedbackForm } from './libr/typesFeedback';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 import { useState } from 'react';
@@ -34,13 +34,32 @@ export const FeedbackForm = () => {
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
     ) => {
+        const body = JSON.stringify(feedbackData);
+        const url = import.meta.env.VITE_BASE_URL;
         if (accessToken) {
-            const url = import.meta.env.VITE_BASE_URL;
             setLoating(true);
-            setTimeout(() => {
-                HandleSubmitFeedback(url, feedbackData, reset);
-                setLoating(false);
-            }, 2000);
+            try {
+                const response = await fetch(`${url}/api/feedback/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-Csrftoken': `${accessToken}`,
+                        'Content-Type': 'application/json',
+                        authorization: ` Bearer ${accessToken}`,
+                    },
+                    body,
+                });
+                if (!response.ok) {
+                    toast.error(`${t('main-page.toast-wrong')}`);
+                } else {
+                    setTimeout(() => {
+                        setLoating(false);
+                        reset({ text: '' });
+                        toast.success(`${t('main-page.toast-thanks')}`);
+                    }, 2000);
+                }
+            } catch (error) {
+                toast.error(`${t('main-page.toast-wrong')}`);
+            }
         } else {
             toast.error(`${t('main-page.toast-feedback-login')}`);
         }
@@ -54,7 +73,7 @@ export const FeedbackForm = () => {
             </div>
             <form onSubmit={handleSubmit(onsubmit)}>
                 <Controller
-                    name="feedback"
+                    name="text"
                     control={control}
                     rules={{ minLength: 10, maxLength: 900 }}
                     render={({ field }) => (
