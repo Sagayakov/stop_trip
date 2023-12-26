@@ -3,7 +3,7 @@ import { Categories } from 'shared/const/categories.tsx';
 import {
     categoryCharacteristicsKeys,
     categoryCharacteristicsValues,
-} from 'shared/const/categoryCharacteristics';
+} from 'shared/const/categoryCharacteristics.ts';
 import { useTranslation } from 'react-i18next';
 
 type GetListProps = {
