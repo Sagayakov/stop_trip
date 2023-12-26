@@ -62,8 +62,7 @@ input {
         box-shadow: 0 0 20px 0 #00000012;
         background-color: var(--white);
         .close {
-            width: 1px;
-            height: 1px;
+            background: transparent;
             border: none;
             position: absolute;
             top: 16px;
