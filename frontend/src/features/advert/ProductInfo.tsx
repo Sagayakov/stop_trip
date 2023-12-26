@@ -1,5 +1,5 @@
 import { PhotoSlider } from 'entities/photoSlider/PhotoSlider.tsx';
-import { AdvertCharacteristics } from 'entities/advertCharacteristics/AdvertCharacterictics.tsx';
+import { AdvertCharacteristics } from 'entities/advert/advertCharacteristics/AdvertCharacterictics.tsx';
 import { AdvertLocation } from 'entities/location/AdvertLocation.tsx';
 import styles from 'widgets/advert/libr/advert.module.scss';
 import { ProductType } from 'pages/advertPage/libr/types.ts';

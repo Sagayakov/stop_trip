@@ -2,7 +2,7 @@ import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import styles from './portal.module.scss';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
 import { Close } from 'shared/ui/icons/icons-tools/Close.tsx';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
 import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
 
@@ -31,6 +31,11 @@ export const Portal = ({
 
     const handleClick = () => {
         setIsPortalOpen(false);
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+            setIsPortalOpen(false);
+        }
     };
 
     const handleOnLoad = () => {
@@ -61,6 +66,13 @@ export const Portal = ({
         }
         return;
     }
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
     
     return (
         <div className={styles.portal}>

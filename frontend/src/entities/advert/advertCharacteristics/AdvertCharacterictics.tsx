@@ -1,7 +1,7 @@
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import styles from './advertCharacteristics.module.scss';
-import { GetValuesList } from './utils/getValuesList';
-import { GetKeysList } from './utils/getKeysList';
+import { GetValuesList } from './utils/getValuesList.tsx';
+import { GetKeysList } from './utils/getKeysList.tsx';
 import { useTranslation } from 'react-i18next';
 
 export const AdvertCharacteristics = ({ data }: { data: ProductType }) => {

@@ -1,5 +1,5 @@
 import { ProductType } from 'pages/advertPage/libr/types.ts';
-import { Categories } from 'shared/const/categories';
+import { Categories } from 'shared/const/categories.tsx';
 import { categoryCharacteristicsKeys } from 'shared/const/categoryCharacteristics.ts';
 import { useTranslation } from 'react-i18next';
 import styles from '../advertCharacteristics.module.scss'
