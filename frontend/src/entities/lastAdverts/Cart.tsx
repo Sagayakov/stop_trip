@@ -11,7 +11,8 @@ import {
 import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import styles from 'widgets/lastAdverts/libr/LastAdverts.module.scss'
+import styles from 'widgets/lastAdverts/libr/LastAdverts.module.scss';
+import { prettifyPrice } from 'shared/utils/prettifyPrice';
 
 export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
     const {
@@ -52,7 +53,10 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
     };
 
     return (
-        <NavLink className={styles.announcement_cart} to={`/${category}/${id}/`}>
+        <NavLink
+            className={styles.announcement_cart}
+            to={`/${category}/${id}/`}
+        >
             <img
                 src={
                     images[0] === undefined
@@ -64,7 +68,9 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
             <div className={styles.description}>
                 <div className={styles.price}>
                     <p>
-                        {price ? `₹${price}` : `${t('advert-page.negotiated')}`}
+                        {price
+                            ? prettifyPrice(price)
+                            : `${t('advert-page.negotiated')}`}
                     </p>
                     <span>
                         <Favorite
