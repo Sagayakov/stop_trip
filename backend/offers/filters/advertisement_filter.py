@@ -3,6 +3,7 @@ from typing import Union
 from django.db.models import Min, Max
 from django_filters.rest_framework import filters, OrderingFilter
 
+from common.filters import CharInFilter
 from .currency_exchange_filter import CurrencyExchange
 from .document_filter import DocumentFilter
 from .event_filter import EventFilter
@@ -34,6 +35,8 @@ class AdvertisementFilter(
 
     category = filters.ChoiceFilter(label="Категория", choices=CategoryChoices.choices)
     price = filters.RangeFilter(label="Цена")
+    region = filters.CharFilter(label="Регион", field_name="region.slug")
+    city = CharInFilter(label="Город", field_name="city.slug")
 
     order = OrderingFilter(fields=("date_create",), field_labels={"date_create": "Дата создания"})
 
@@ -49,6 +52,26 @@ class AdvertisementFilter(
             ],
         }
         specs.append(category_specs)
+
+        # Регион
+        region_specs = {
+            "name": "region",
+            "choices": [
+                {"value": value, "label": label}
+                for value, label in queryset.values("region__slug", "region__name").distinct()
+            ],
+        }
+        specs.append(region_specs)
+
+        # Город
+        city_specs = {
+            "name": "city",
+            "choices": [
+                {"value": value, "label": label}
+                for value, label in queryset.values("city__slug", "city__name").distinct()
+            ],
+        }
+        specs.append(city_specs)
 
         # Цена
         price_range = queryset.aggregate(min=Min("price"), max=Max("price"))
