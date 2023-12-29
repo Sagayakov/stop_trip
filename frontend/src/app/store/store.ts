@@ -8,7 +8,7 @@ import { setIsResetPasswordModalOpenSlice } from 'features/header/model/modalAut
 import { toggleModalSlice } from 'features/header/model/modalAuth/reducers/toggleModal.ts';
 import { fetchFavorites } from 'app/api/fetchFavorites.ts';
 import { setLangSlice } from 'features/header/model/langsReducer/lang.ts';
-import { setPageMainSlice } from 'features/lastAdverts/model/pageReducer/pageMain';
+import { setPageMainSlice } from 'widgets/lastAdverts/model/pageReducer/pageMain';
 import { setPageCategorySlice } from 'pages/categoryPage/model/pageReducer/pageCategory';
 
 const setupStore = () =>

@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { toggleModalEnter } from 'features/header/model/modalAuth/reducers/toggleModal.ts';
 import { useTranslation } from 'react-i18next';
 
-export const ActivateAccount = () => {
+const ActivateAccount = () => {
     const { uid, token } = useParams();
     const [success, setSuccess] = useState<boolean>(false);
     const [load, setLoad] = useState(true);
@@ -60,3 +60,5 @@ export const ActivateAccount = () => {
         </main>
     );
 };
+
+export default ActivateAccount;

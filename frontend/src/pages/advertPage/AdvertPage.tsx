@@ -6,7 +6,7 @@ import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.ts
 const Advert = lazy(() => import('widgets/advert/Advert'));
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 
-export const AdvertPage = () => {
+const AdvertPage = () => {
     const { id } = useParams();
     const { data } = useGetAdvertByIdQuery(id!);
     const {isMobile} = useMatchMedia();
@@ -20,3 +20,5 @@ export const AdvertPage = () => {
         </Suspense>
     );
 };
+
+export default  AdvertPage;

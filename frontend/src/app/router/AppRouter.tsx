@@ -2,9 +2,10 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from '../layout';
 import { privateRoutes, publicRoutes } from './routes';
 import { useAppSelector } from '../store/hooks';
-import { ActivateAccount } from 'pages/activateAccount/ActivateAccount.tsx';
+import { ActivateAccount } from 'app/router/routes.tsx';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
+import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 
 export const AppRouter = () => {
     const localStorageIsAuth = 'true' === localStorage.getItem('isAuth') ? true : false;
@@ -21,34 +22,36 @@ export const AppRouter = () => {
     }, [lang, i18n]);
 
     return (
-        <Routes>
-            <Route path="/" element={<Layout />}>
-                {routes
-                    .filter((el) => el.component !== ActivateAccount)
-                    .map(({ path, component: Component }) => {
-                        return (
-                            <Route
-                                path={`/${path}/`}
-                                element={<Component />}
-                                key={path}
-                            />
-                        );
-                    })}
-            </Route>
-            <Route path="/">
-                {routes
-                    .filter((el) => el.component === ActivateAccount)
-                    .map(({ path, component: Component }) => {
-                        return (
-                            <Route
-                                path={`/${path}`}
-                                element={<Component />}
-                                key={path}
-                            />
-                        );
-                    })}
-            </Route>
-            <Route path="*" element={<Navigate to="/404" replace />} />
-        </Routes>
+        <Suspense fallback={<LoadingWithBackground />}>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    {routes
+                        .filter((el) => el.component !== ActivateAccount)
+                        .map(({ path, component: Component }) => {
+                            return (
+                                <Route
+                                    path={`/${path}/`}
+                                    element={<Component />}
+                                    key={path}
+                                />
+                            );
+                        })}
+                </Route>
+                <Route path="/">
+                    {routes
+                        .filter((el) => el.component === ActivateAccount)
+                        .map(({ path, component: Component }) => {
+                            return (
+                                <Route
+                                    path={`/${path}`}
+                                    element={<Component />}
+                                    key={path}
+                                />
+                            );
+                        })}
+                </Route>
+                <Route path="*" element={<Navigate to="/404" replace />} />
+            </Routes>
+        </Suspense>
     );
 };

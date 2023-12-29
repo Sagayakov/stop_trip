@@ -24,7 +24,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
 
     const onsubmit: SubmitHandler<TypeForMarketForm> = (data) => {
         const { market_condition } = data;
-        const category = market_condition ? 'categoryPage=market' : '';
+        const category = market_condition ? 'category=market' : '';
         const condition = market_condition ? '&market_condition=' : '';
         let params = '';
         if (market_condition.length === 2) {

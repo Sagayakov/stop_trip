@@ -11,7 +11,7 @@ import {
 import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import styles from 'features/lastAdverts/libr/LastAdverts.module.scss'
+import styles from 'widgets/lastAdverts/libr/LastAdverts.module.scss'
 
 export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
     const {

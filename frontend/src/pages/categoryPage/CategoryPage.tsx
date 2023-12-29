@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { FilterForms } from 'widgets/settingForm/forms/FilterForms.tsx';
 import style from './style/categoryPage.module.scss';
 
-export const CategoryPage = () => {
+const CategoryPage = () => {
     const category = location.pathname.split('/')[1];
     const [showFilters, setShowFilters] = useState<boolean>(false);
     const { isDesktop } = useMatchMedia();
@@ -64,3 +64,5 @@ export const CategoryPage = () => {
         </>
     );
 };
+
+export default CategoryPage;
