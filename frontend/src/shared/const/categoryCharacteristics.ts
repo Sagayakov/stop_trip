@@ -36,6 +36,7 @@ export const categoryCharacteristicsKeys: Record<
         taxi_type: 'Вид такси',
     },
     job: {
+        job_type: 'Тип работы',
         job_duration: 'Продолжительность работы',
         job_payment_type: 'Тип оплаты',
         job_experience: 'С опытом',
@@ -144,20 +145,24 @@ export const categoryCharacteristicsValues: Record<
             business: 'Бизнес',
             station_wagon: 'Универсал',
             minivan: 'Минивэн',
-        }
+        },
     },
     job: {
+        job_type: {
+            full_time: 'Полный день',
+            part_time: 'Неполный день',
+        },
         job_duration: {
-            OneTimeTask: 'Разовое задание',
+            one_time_task: 'Разовое задание',
             temporary: 'Временная работа',
             permanent: 'Постоянная работа',
             other: 'Другое',
         },
         job_payment_type: {
-            hourly_payment: 'Почасовая оплата',
-            daily_payment: 'Ежедневная оплата',
-            weekly_payment: 'Еженедельная оплата',
-            monthly_payment: 'Ежемесячная оплата',
+            hourly_payment: 'Почасовая',
+            daily_payment: 'Ежедневная',
+            weekly_payment: 'Еженедельная',
+            monthly_payment: 'Ежемесячная',
             other: 'Другое',
         },
     },
