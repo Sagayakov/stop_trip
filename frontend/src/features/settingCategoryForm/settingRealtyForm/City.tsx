@@ -5,7 +5,7 @@ import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
-import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -20,9 +20,7 @@ export const City = ({ control, setValue }: Props) => {
     useEffect(() => {
         if (data) {
             const result = (
-                data.params.find(
-                    (el) => el.name === 'property_city'
-                ) as ChoicesType
+                data.params.find((el) => el.name === 'city') as ChoicesType
             ).choices.filter(
                 (el) => (el as SelectType).value && (el as SelectType).label
             );
