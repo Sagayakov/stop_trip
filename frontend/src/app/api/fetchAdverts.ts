@@ -4,6 +4,7 @@ import { url } from 'shared/const/url.ts';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { FiltersType } from './types/filtersType';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
+import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
 
 const { accessToken } = getTokensFromStorage();
 
@@ -46,8 +47,19 @@ export const fetchAdverts = createApi({
         getFilters: build.query<FiltersType, string>({
             query: () => `api/advertisements/get_filter_params/`,
         }),
+        myAnnouncements: build.query<MyAnnouncements[], string>({
+            query: () => ({
+                url: 'api/advertisements/my_advertisements/',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${accessToken}`,
+                }
+            })
+
+        }),
     }),
 });
 
-export const { useGetAdvertsQuery, useGetAdvertByIdQuery, useGetFiltersQuery, useAddAdvertMutation } =
+export const { useGetAdvertsQuery, useGetAdvertByIdQuery, useGetFiltersQuery, useAddAdvertMutation, useMyAnnouncementsQuery } =
     fetchAdverts;
+

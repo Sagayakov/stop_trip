@@ -7,6 +7,11 @@
     position: fixed;
     cursor: pointer;
 }
+.title{
+    width: 100%;
+    margin: 1rem auto;
+    font-size: 28px;
+}
 .bread_crumbs {
     color: var(--grey-3);
     margin: 0 auto 20px;
@@ -40,6 +45,10 @@
         border-radius: 1rem;
         border: none;
         position: relative;
+        & > *{
+            text-decoration: none;
+            color: black;
+        }
         .options {
             position: absolute;
             display: flex;
@@ -49,6 +58,7 @@
             top: 18px;
             right: 19px;
             cursor: pointer;
+            z-index: 10;
             .option {
                 border-radius: 3.5px;
                 width: 7px;
@@ -63,13 +73,11 @@
             font-weight: 700;
             z-index: 10;
             position: absolute;
-            padding: 0 16px 8px;
             background-color: white;
             border-radius: var(--radii);
             top: 18px;
             right: 18px;
             display: grid;
-            gap: 9px;
             grid-template-rows: 1fr 1fr;
             align-items: center;
             input[type='checkbox'] {
@@ -78,6 +86,7 @@
                 opacity: 0;
             }
             .label_option {
+                margin-bottom: 4px;
                 span {
                     display: flex;
                     align-items: center;
@@ -105,10 +114,17 @@
                 box-shadow: none;
             }
             .edit {
-                display: flex;
                 gap: 11px;
-                align-items: center;
                 cursor: pointer;
+            }
+            .edit, .label_option{
+                display: flex;
+                align-items: center;
+                padding: 0.5rem 1rem;
+            }
+            .edit:hover, .label_option:hover{
+                background-color: var(--grey-2);
+                border-radius: var(--radii);
             }
         }
 
@@ -158,6 +174,9 @@
     }
 }
 @media (max-width: 1439px) {
+    .title{
+        width: 85%;
+    }
     .bread_crumbs {
         width: 85%;
         margin: 0 auto;
@@ -194,9 +213,14 @@
     .title {
         width: 85%;
         margin: 15px auto 25px;
+        font-size: 24px;
     }
 }
 @media (max-width: 767px) {
+    .title {
+        width: 85%;
+        margin: 15px 15px 25px;
+    }
     .bread_crumbs {
         width: 100%;
         margin: 0 auto;
@@ -217,6 +241,9 @@
 @media (max-width: 615px) {
     .title {
         padding: 0 15px 15px;
+        margin: 0;
+        width: 100%;
+        font-size: 20px;
     }
     .announcements_list {
         grid-template-columns: repeat(2, 1fr);

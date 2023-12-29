@@ -10,7 +10,7 @@ const NotFoundCategories = lazy(
 );
 import { useTranslation } from 'react-i18next';
 
-export const PageNotFound = () => {
+const PageNotFound = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
@@ -35,3 +35,5 @@ export const PageNotFound = () => {
         </div>
     );
 };
+
+export default PageNotFound;

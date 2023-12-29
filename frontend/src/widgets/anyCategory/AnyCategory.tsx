@@ -24,7 +24,7 @@ const AnyCategory = () => {
     if (!data?.results.length && !isLoading) {
         return (
             <p className="announcement-not-found">
-                {t('categoryPage-page.no-adverts')}
+                {t('category-page.no-adverts')}
             </p>
         );
     }

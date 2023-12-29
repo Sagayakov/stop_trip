@@ -19,7 +19,7 @@ interface Image {
     image: string;
 }
 
-export const AddAnnouncementPage = () => {
+const AddAnnouncementPage = () => {
     const {
         register,
         handleSubmit,
@@ -125,3 +125,5 @@ export const AddAnnouncementPage = () => {
         </>
     );
 };
+
+export default AddAnnouncementPage;

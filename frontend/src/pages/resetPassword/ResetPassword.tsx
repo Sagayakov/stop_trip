@@ -1,6 +1,8 @@
 import { lazy } from 'react';
 const FormConfirmResetPassword = lazy(() => import('features/formResetPassword/FormConfirmResetPassword'));
 
-export const ResetPassword = () => {
+const ResetPassword = () => {
     return <FormConfirmResetPassword />;
 };
+
+export default ResetPassword;

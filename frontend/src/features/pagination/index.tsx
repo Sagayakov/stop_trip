@@ -4,7 +4,7 @@ import { ArrowRight14x7 } from 'shared/ui/icons/icons-tools/ArrowRight14x7.tsx';
 import styles from './libr/pagination.module.scss';
 import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks';
-import { setPageMain } from 'features/lastAdverts/model/pageReducer/pageMain';
+import { setPageMain } from 'widgets/lastAdverts/model/pageReducer/pageMain';
 import { useLocation } from 'react-router-dom';
 import { setPageCategory } from 'pages/categoryPage/model/pageReducer/pageCategory';
 import { beginnigParentScroll } from 'features/pagination/libr/beginnigParentScroll.ts';

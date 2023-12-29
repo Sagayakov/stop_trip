@@ -1,13 +1,14 @@
-import { ComponentType } from 'react';
-import { MainPage } from 'pages/main/MainPage.tsx';
+import { ComponentType, lazy } from 'react';
 import { categories } from 'shared/const/categories.tsx';
-import { CategoryPage } from 'pages/categoryPage/CategoryPage.tsx';
-import { ActivateAccount } from 'pages/activateAccount/ActivateAccount.tsx';
-import { ResetPassword } from 'pages/resetPassword/ResetPassword.tsx';
-import { AdvertPage } from 'pages/advertPage/AdvertPage.tsx';
-import { AddAnnouncementPage } from 'pages/addAnnouncement/AddAnnouncementPage.tsx'
-import { PageNotFound } from 'pages/notFound/PageNotFound.tsx';
-import { MyAnnouncements } from 'pages/myAnnouncements/MyAnnouncements.tsx';
+export const AddAnnouncementPage = lazy(() => import('pages/addAnnouncement/AddAnnouncementPage.tsx'));
+export const ActivateAccount = lazy(() => import('pages/activateAccount/ActivateAccount.tsx'));
+export const AdvertPage = lazy(() => import('pages/advertPage/AdvertPage.tsx'));
+export const CategoryPage = lazy(() => import('pages/categoryPage/CategoryPage.tsx'));
+export const MainPage = lazy(() => import('pages/mainPage/MainPage.tsx'));
+export const MyAnnouncements = lazy(() => import('pages/myAnnouncements/MyAnnouncements.tsx'));
+export const PageNotFound = lazy(() => import('pages/notFound/PageNotFound.tsx'));
+export const ResetPassword = lazy(() => import('pages/resetPassword/ResetPassword.tsx'));
+
 
 interface Route {
     path: string;
@@ -23,7 +24,7 @@ export const publicRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/activate/:uid/:token', component: ActivateAccount },
     { path: '/email/reset/confirm/:uid/:token', component: ResetPassword },
-    { path: '/:categoryPage/:id', component: AdvertPage },
+    { path: '/:category/:id', component: AdvertPage },
     { path: '/404', component: PageNotFound },
     ...categoryRoutes,
 ];
@@ -31,7 +32,7 @@ export const publicRoutes: Route[] = [
 export const privateRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/add-announcement', component: AddAnnouncementPage },
-    { path: '/:categoryPage/:id', component: AdvertPage },
+    { path: '/:category/:id', component: AdvertPage },
     { path: '/404', component: PageNotFound },
     { path: '/my-announcements', component: MyAnnouncements },
     ...categoryRoutes,
