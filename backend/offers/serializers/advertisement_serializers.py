@@ -16,8 +16,6 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
     category = serializers.ChoiceField(choices=CategoryChoices.choices, required=True)
     title = serializers.CharField(required=True, max_length=100)
 
-    # price = serializers.IntegerField(required=True, allow_null=True)
-
     class Meta:
         model = Advertisement
         fields = (

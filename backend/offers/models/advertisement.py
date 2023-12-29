@@ -35,25 +35,31 @@ class Advertisement(
         related_name="advertisements",
         verbose_name="Создатель",
     )
-
     country = models.ForeignKey(
         "countries.Country",
         on_delete=models.CASCADE,
         related_name="advertisement",
         verbose_name="Страна",
+        null=True,
+        blank=True,
     )
     region = models.ForeignKey(
         "countries.Region",
         on_delete=models.CASCADE,
         related_name="advertisement",
         verbose_name="Регион",
+        null=True,
+        blank=True,
     )
     city = models.ForeignKey(
         "countries.City",
         on_delete=models.CASCADE,
         related_name="advertisement",
         verbose_name="Город",
+        null=True,
+        blank=True,
     )
+
     category = models.CharField("Категории", max_length=100, choices=CategoryChoices.choices)
     title = models.CharField("Название", max_length=100)
     price = models.DecimalField("Цена", max_digits=10, decimal_places=2, null=True, blank=True)
@@ -62,7 +68,6 @@ class Advertisement(
     is_published = models.BooleanField("Опубликованно", default=True)
     date_create = models.DateTimeField("Дата создания", auto_now_add=True)
     date_update = models.DateTimeField("Дата редактирования", auto_now=True)
-    # loca = models.CharField("Локация", max_length=128, null=True, blank=True)
     slug = models.SlugField("Слаг", blank=True, null=True, db_index=True, unique=True)
 
     class Meta:
