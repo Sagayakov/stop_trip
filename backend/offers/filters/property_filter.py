@@ -17,8 +17,6 @@ class PropertyFilter(FilterSet):
     property_type_of_service = filters.ChoiceFilter(
         label="Тип услуги", choices=PropertyTypeOfService.choices
     )
-    property_city = CharInFilter(label="Город", field_name="property_city__slug")
-    property_district = filters.CharFilter(label="Район", field_name="property_district__slug")
     property_bathroom_count = filters.NumberFilter(label="Количество санузлов")
     property_bathroom_type = ChoiceInFilter(
         label="Тип санузла", choices=PropertyBathroomType.choices
@@ -60,31 +58,31 @@ class PropertyFilter(FilterSet):
         }
         specs.append(property_type_of_service_specs)
 
-        # Город
-        property_city_specs = {
-            "name": "property_city",
-            "choices": [
-                {"value": value, "label": label}
-                for value, label in queryset.exclude(property_city__isnull=True)
-                .values_list("property_city__slug", "property_city__name")
-                .order_by("property_city__slug")
-                .distinct("property_city__slug")
-            ],
-        }
-        specs.append(property_city_specs)
+        # # Город
+        # property_city_specs = {
+        #     "name": "property_city",
+        #     "choices": [
+        #         {"value": value, "label": label}
+        #         for value, label in queryset.exclude(property_city__isnull=True)
+        #         .values_list("property_city__slug", "property_city__name")
+        #         .order_by("property_city__slug")
+        #         .distinct("property_city__slug")
+        #     ],
+        # }
+        # specs.append(property_city_specs)
 
         # Район
-        property_district_specs = {
-            "name": "property_district",
-            "choices": [
-                {"value": value, "label": label}
-                for value, label in queryset.exclude(property_district__isnull=True)
-                .values_list("property_district__slug", "property_district__name")
-                .order_by("property_district__slug")
-                .distinct("property_district__slug")
-            ],
-        }
-        specs.append(property_district_specs)
+        # property_district_specs = {
+        #     "name": "property_district",
+        #     "choices": [
+        #         {"value": value, "label": label}
+        #         for value, label in queryset.exclude(property_district__isnull=True)
+        #         .values_list("property_district__slug", "property_district__name")
+        #         .order_by("property_district__slug")
+        #         .distinct("property_district__slug")
+        #     ],
+        # }
+        # specs.append(property_district_specs)
 
         # Количество санузлов
         property_bathroom_count_specs = {
@@ -156,7 +154,10 @@ class PropertyFilter(FilterSet):
         property_area_range = queryset.aggregate(min=Min("property_area"), max=Max("property_area"))
         property_area_specs = {
             "name": "price",
-            "range": {"min": property_area_range["min"], "max": property_area_range["max"]},
+            "range": {
+                "min": property_area_range["min"],
+                "max": property_area_range["max"],
+            },
         }
         specs.append(property_area_specs)
 

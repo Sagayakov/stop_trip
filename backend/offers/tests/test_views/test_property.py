@@ -3,7 +3,7 @@ from functools import partial
 from django.urls import reverse
 from pytest import mark
 from rest_framework import status
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 
 from offers.constants import (
     CategoryChoices,
@@ -18,12 +18,17 @@ from offers.constants import (
 from offers.models import Advertisement
 from users.tests.factories import UserFactory
 from ..factories import (
-    PropertyCityFactory,
-    PropertyDistrictFactory,
+    CountryFactory,
+    RegionFactory,
+    CityFactory,
     PropertyAmenityFactory,
     PropertyAdvertisementFactory,
     AdvertisementImageFactory,
 )
+
+
+class ApiClient(APIClient):
+    pass
 
 
 @mark.django_db
@@ -33,17 +38,19 @@ class PropertyTest(APITestCase):
         self.detail_url = partial(reverse, "advertisements-detail")
 
     def test_create_property(self):
-        property_city = PropertyCityFactory(name="Rome")
-        property_district = PropertyDistrictFactory(city=property_city, name="Lazio")
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
         payload = {
             "category": CategoryChoices.PROPERTY.value,
             "title": "test",
             "price": 10_000,
             "coordinates": "35, 35",
-            "property_city": property_city.id,
+            "country": country.id,
+            "region": region.id,
+            "city": city.id,
             "property_type_of_service": PropertyTypeOfService.RENT,
-            "property_district": property_district.id,
             "property_building_max_floor": 15,
             "property_floor": 5,
             "property_bathroom_count": 1,
@@ -63,9 +70,11 @@ class PropertyTest(APITestCase):
         }
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
-        self.client.force_login(user)
+        self.client.force_login(
+            user,
+        )
 
-        with self.assertNumQueries(13):
+        with self.assertNumQueries(14):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -73,22 +82,27 @@ class PropertyTest(APITestCase):
 
         new_advertisement = Advertisement.objects.first()
         self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.country, country)
+        self.assertEqual(new_advertisement.region, region)
+        self.assertEqual(new_advertisement.city, city)
         self.assertEqual(new_advertisement.category, payload["category"])
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
         self.assertEqual(new_advertisement.coordinates, payload["coordinates"])
-        self.assertEqual(new_advertisement.property_city, property_city)
-        self.assertEqual(
-            new_advertisement.property_type_of_service, payload["property_type_of_service"]
-        )
-        self.assertEqual(new_advertisement.property_district, property_district)
 
         self.assertEqual(
-            new_advertisement.property_building_max_floor, payload["property_building_max_floor"]
+            new_advertisement.property_type_of_service,
+            payload["property_type_of_service"],
+        )
+
+        self.assertEqual(
+            new_advertisement.property_building_max_floor,
+            payload["property_building_max_floor"],
         )
         self.assertEqual(new_advertisement.property_floor, payload["property_floor"])
         self.assertEqual(
-            new_advertisement.property_bathroom_count, payload["property_bathroom_count"]
+            new_advertisement.property_bathroom_count,
+            payload["property_bathroom_count"],
         )
         self.assertEqual(
             new_advertisement.property_bathroom_type, payload["property_bathroom_type"]
@@ -102,30 +116,35 @@ class PropertyTest(APITestCase):
         self.assertEqual(new_advertisement.property_house_type, payload["property_house_type"])
         self.assertEqual(new_advertisement.property_has_parking, payload["property_has_parking"])
         self.assertEqual(
-            new_advertisement.property_rental_condition, payload["property_rental_condition"]
+            new_advertisement.property_rental_condition,
+            payload["property_rental_condition"],
         )
         self.assertEqual(new_advertisement.property_prepayment, payload["property_prepayment"])
         self.assertEqual(
-            new_advertisement.property_sleeping_places, payload["property_sleeping_places"]
+            new_advertisement.property_sleeping_places,
+            payload["property_sleeping_places"],
         )
         self.assertEqual(new_advertisement.property_rooms_count, payload["property_rooms_count"])
         self.assertEqual(
-            new_advertisement.property_amenities.count(), len(payload["property_amenities"])
+            new_advertisement.property_amenities.count(),
+            len(payload["property_amenities"]),
         )
         self.assertEqual(new_advertisement.property_commission, payload["property_commission"])
 
     def test_update_property(self):
         user = UserFactory()
-        property_city = PropertyCityFactory(name="Milano")
-        property_district = PropertyDistrictFactory(city=property_city, name="Milano Centrale")
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         advertisement = PropertyAdvertisementFactory(
             owner=user,
             title="property",
             price=1500,
             coordinates="35,35",
-            property_city=property_city,
+            country=country,
+            region=region,
+            city=city,
             property_type_of_service=PropertyTypeOfService.SALE,
-            property_district=property_district,
             property_building_max_floor=14,
             property_floor=4,
             property_bathroom_count=2,
@@ -144,14 +163,17 @@ class PropertyTest(APITestCase):
         )
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
         advertisement.property_amenities.set(property_amenities)
-
+        new_country = CountryFactory(name="Vietnam")
+        new_region = RegionFactory(country=country, name="V1")
+        new_city = CityFactory(region=region, name="Hue")
         payload = {
             "title": "test",
             "price": advertisement.price - 100,
             "coordinates": "38,35",
-            "property_city": property_city.id,
+            "country": new_country.id,
+            "region": new_region.id,
+            "city": new_city.id,
             "property_type_of_service": PropertyTypeOfService.RENT,
-            "property_district": property_district.id,
             "property_building_max_floor": 15,
             "property_floor": 5,
             "property_bathroom_count": 1,
@@ -172,7 +194,7 @@ class PropertyTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(15):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -183,14 +205,17 @@ class PropertyTest(APITestCase):
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
         self.assertEqual(advertisement.coordinates, payload["coordinates"])
-        self.assertEqual(advertisement.property_city, property_city)
+        self.assertEqual(advertisement.country, new_country)
+        self.assertEqual(advertisement.region, new_region)
+        self.assertEqual(advertisement.city, new_city)
+
         self.assertEqual(
             advertisement.property_type_of_service, payload["property_type_of_service"]
         )
-        self.assertEqual(advertisement.property_district, property_district)
 
         self.assertEqual(
-            advertisement.property_building_max_floor, payload["property_building_max_floor"]
+            advertisement.property_building_max_floor,
+            payload["property_building_max_floor"],
         )
         self.assertEqual(advertisement.property_floor, payload["property_floor"])
         self.assertEqual(advertisement.property_bathroom_count, payload["property_bathroom_count"])
@@ -202,7 +227,8 @@ class PropertyTest(APITestCase):
         self.assertEqual(advertisement.property_house_type, payload["property_house_type"])
         self.assertEqual(advertisement.property_has_parking, payload["property_has_parking"])
         self.assertEqual(
-            advertisement.property_rental_condition, payload["property_rental_condition"]
+            advertisement.property_rental_condition,
+            payload["property_rental_condition"],
         )
         self.assertEqual(advertisement.property_prepayment, payload["property_prepayment"])
         self.assertEqual(advertisement.property_commission, payload["property_commission"])
@@ -216,8 +242,11 @@ class PropertyTest(APITestCase):
 
     def test_delete_property(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         advertisement = PropertyAdvertisementFactory(
-            owner=user,
+            owner=user, country=country, city=city, region=region
         )
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
         advertisement.property_amenities.set(property_amenities)
@@ -234,25 +263,22 @@ class PropertyTest(APITestCase):
 
     def test_filter_property_type_of_service(self):
         user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
-                property_type_of_service=[PropertyTypeOfService.SALE, PropertyTypeOfService.RENT][
-                    _ % 2
-                ],
-                property_city=city,
-                property_district=district,
+                property_type_of_service=[
+                    PropertyTypeOfService.SALE,
+                    PropertyTypeOfService.RENT,
+                ][_ % 2],
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=2,
@@ -268,8 +294,6 @@ class PropertyTest(APITestCase):
                 property_sleeping_places=5,
                 property_rooms_count=3,
             )
-            for city in property_cities
-            for district in property_districts
             for _ in range(2)
         ]
 
@@ -283,133 +307,22 @@ class PropertyTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(property_set) // 2)
 
-    def test_filter_property_city(self):
-        user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
-        property_set = [
-            PropertyAdvertisementFactory(
-                owner=user,
-                price=100_000 + _ * 50_000,
-                category=CategoryChoices.PROPERTY.value,
-                coordinates="35,35",
-                property_type_of_service=PropertyTypeOfService.RENT,
-                property_city=city,
-                property_district=district,
-                property_building_max_floor=5,
-                property_floor=4,
-                property_bathroom_count=2,
-                property_bathroom_type=PropertyBathroomType.SEPARATE,
-                property_area=35,
-                property_living_area=50,
-                property_balcony=PropertyBalcony.YES,
-                property_has_furniture=True,
-                property_house_type=PropertyHouseType.BLOCK,
-                property_has_parking=True,
-                property_rental_condition=PropertyRentalCondition.FAMILY,
-                property_prepayment=PropertyPrepayment.TWO_MONTHS,
-                property_sleeping_places=5,
-                property_rooms_count=3,
-            )
-            for city in property_cities
-            for district in property_districts
-            for _ in range(2)
-        ]
-
-        with self.assertNumQueries(3):
-            res = self.client.get(
-                self.list_url,
-                {"property_city": property_cities[0].slug},
-            )
-
-            self.assertEqual(res.status_code, status.HTTP_200_OK)
-        res_json = res.json()
-        self.assertEqual(res_json["count"], len(property_set) // len(property_cities))
-
-        with self.assertNumQueries(3):
-            res = self.client.get(
-                self.list_url,
-                {"property_city": f"{property_cities[0].slug},{property_cities[1].slug}"},
-            )
-
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
-        res_json = res.json()
-        self.assertEqual(res_json["count"], len(property_set) // 2)
-
-    def test_filter_property_district(self):
-        user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
-        property_set = [
-            PropertyAdvertisementFactory(
-                owner=user,
-                price=100_000 + _ * 50_000,
-                category=CategoryChoices.PROPERTY.value,
-                coordinates="35,35",
-                property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=city,
-                property_district=district,
-                property_building_max_floor=5,
-                property_floor=4,
-                property_bathroom_count=2,
-                property_bathroom_type=PropertyBathroomType.SEPARATE,
-                property_area=35,
-                property_living_area=50,
-                property_balcony=PropertyBalcony.YES,
-                property_has_furniture=True,
-                property_house_type=PropertyHouseType.BLOCK,
-                property_has_parking=True,
-                property_rental_condition=PropertyRentalCondition.FAMILY,
-                property_prepayment=PropertyPrepayment.TWO_MONTHS,
-                property_sleeping_places=5,
-                property_rooms_count=3,
-            )
-            for city in property_cities
-            for district in property_districts
-            for _ in range(2)
-        ]
-
-        with self.assertNumQueries(3):
-            res = self.client.get(
-                self.list_url,
-                {"property_district": property_districts[0].slug},
-            )
-
-            self.assertEqual(res.status_code, status.HTTP_200_OK)
-        res_json = res.json()
-        self.assertEqual(res_json["count"], len(property_set) // len(property_districts))
-
     def test_filter_property_bathroom_type(self):
         user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
                 property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=city,
-                property_district=district,
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=2,
@@ -428,8 +341,6 @@ class PropertyTest(APITestCase):
                 property_sleeping_places=5,
                 property_rooms_count=3,
             )
-            for city in property_cities
-            for district in property_districts
             for _ in range(2)
         ]
 
@@ -458,23 +369,19 @@ class PropertyTest(APITestCase):
 
     def test_filter_property_bathroom_count(self):
         user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
                 property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=city,
-                property_district=district,
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=1 + _ * 1,
@@ -490,8 +397,6 @@ class PropertyTest(APITestCase):
                 property_sleeping_places=5,
                 property_rooms_count=3,
             )
-            for city in property_cities
-            for district in property_districts
             for _ in range(2)
         ]
 
@@ -505,23 +410,20 @@ class PropertyTest(APITestCase):
 
     def test_filter_property_house_type(self):
         user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
                 property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=city,
-                property_district=district,
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=2,
@@ -537,8 +439,6 @@ class PropertyTest(APITestCase):
                 property_sleeping_places=5,
                 property_rooms_count=3,
             )
-            for city in property_cities
-            for district in property_districts
             for _ in range(2)
         ]
 
@@ -567,23 +467,19 @@ class PropertyTest(APITestCase):
 
     def test_filter_property_sleeping_places(self):
         user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
                 property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=city,
-                property_district=district,
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=2,
@@ -599,8 +495,6 @@ class PropertyTest(APITestCase):
                 property_sleeping_places=1 + _ * 1,
                 property_rooms_count=3,
             )
-            for city in property_cities
-            for district in property_districts
             for _ in range(2)
         ]
 
@@ -614,23 +508,19 @@ class PropertyTest(APITestCase):
 
     def test_filter_property_rooms_count(self):
         user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
                 property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=city,
-                property_district=district,
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=2,
@@ -646,8 +536,6 @@ class PropertyTest(APITestCase):
                 property_sleeping_places=2,
                 property_rooms_count=2 + _ * 1,
             )
-            for city in property_cities
-            for district in property_districts
             for _ in range(2)
         ]
 
@@ -661,23 +549,20 @@ class PropertyTest(APITestCase):
 
     def test_filter_property_rental_condition(self):
         user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
                 property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=city,
-                property_district=district,
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=2,
@@ -696,8 +581,6 @@ class PropertyTest(APITestCase):
                 property_sleeping_places=5,
                 property_rooms_count=3,
             )
-            for city in property_cities
-            for district in property_districts
             for _ in range(2)
         ]
 
@@ -726,23 +609,20 @@ class PropertyTest(APITestCase):
 
     def test_filter_property_area(self):
         user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
                 property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=city,
-                property_district=district,
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=2,
@@ -761,8 +641,6 @@ class PropertyTest(APITestCase):
                 property_sleeping_places=5,
                 property_rooms_count=3,
             )
-            for city in property_cities
-            for district in property_districts
             for _ in range(58, 60)
         ]
 
@@ -778,14 +656,9 @@ class PropertyTest(APITestCase):
 
     def test_property_has_furniture(self):
         user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
 
         property_amenities = [
             PropertyAmenityFactory(name=name)
@@ -794,12 +667,13 @@ class PropertyTest(APITestCase):
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
                 property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=city,
-                property_district=district,
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=2,
@@ -815,8 +689,6 @@ class PropertyTest(APITestCase):
                 property_sleeping_places=5,
                 property_rooms_count=3,
             ).property_amenities.set(property_amenities)
-            for city in property_cities
-            for district in property_districts
             for _ in range(2)
         ]
 
@@ -829,14 +701,9 @@ class PropertyTest(APITestCase):
 
     def test_property_property_amenities(self):
         user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
 
         property_amenities = [
             PropertyAmenityFactory(name=name)
@@ -845,12 +712,13 @@ class PropertyTest(APITestCase):
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
                 property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=district.city,
-                property_district=district,
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=2,
@@ -866,7 +734,6 @@ class PropertyTest(APITestCase):
                 property_sleeping_places=5,
                 property_rooms_count=3,
             )
-            for district in property_districts
             for _ in range(2)
         ]
         for property in property_set[:-1]:
@@ -885,24 +752,21 @@ class PropertyTest(APITestCase):
 
     def test_filter_property_type(self):
         user = UserFactory()
-        property_cities = [
-            PropertyCityFactory(name=name) for name in ["Tokyo", "Paris", "Istanbul", "London"]
-        ]
-        property_districts = [
-            PropertyDistrictFactory(name=name, city=city)
-            for name in ["1d", "2d", "3d", "4d"]
-            for city in property_cities
-        ]
+        country = CountryFactory()
+        regions = [RegionFactory(country=country) for _ in range(2)]
+        cities = [CityFactory(region=region) for region in regions]
+
         property_set = [
             PropertyAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=city.region,
+                city=city,
                 price=100_000 + _ * 50_000,
                 category=CategoryChoices.PROPERTY.value,
                 coordinates="35,35",
                 property_type=[PropertyType.HOUSE, PropertyType.FLAT][_ % 2],
                 property_type_of_service=PropertyTypeOfService.SALE,
-                property_city=city,
-                property_district=district,
                 property_building_max_floor=5,
                 property_floor=4,
                 property_bathroom_count=2,
@@ -918,8 +782,7 @@ class PropertyTest(APITestCase):
                 property_sleeping_places=5,
                 property_rooms_count=3,
             )
-            for city in property_cities
-            for district in property_districts
+            for city in cities
             for _ in range(2)
         ]
 

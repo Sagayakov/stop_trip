@@ -48,7 +48,9 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     pagination_class = PageNumberPagination
 
     def get_queryset(self):
-        queryset = Advertisement.objects.filter(is_published=True).select_related("owner")
+        queryset = Advertisement.objects.filter(is_published=True).select_related(
+            "owner", "country", "region", "city"
+        )
 
         if self.action in [
             self.list.__name__,
@@ -63,8 +65,6 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 "transport_model",
                 "proposed_currency",
                 "exchange_for",
-                "property_city",
-                "property_district",
             ).prefetch_related("property_amenities")
 
         return queryset

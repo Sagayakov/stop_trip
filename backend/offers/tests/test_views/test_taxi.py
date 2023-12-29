@@ -15,6 +15,9 @@ from users.tests.factories import UserFactory
 from ..factories import (
     AdvertisementImageFactory,
     TaxiAdvertisementFactory,
+    CountryFactory,
+    RegionFactory,
+    CityFactory,
 )
 
 
@@ -25,8 +28,14 @@ class TaxiTest(APITestCase):
         self.detail_url = partial(reverse, "advertisements-detail")
 
     def test_create_taxi(self):
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.TAXI.value,
+            "country": country.id,
+            "region": region.id,
+            "city": city.id,
             "title": "test_taxi",
             "price": 1000,
             "taxi_unit": TaxiUnit.KM.value,
@@ -36,7 +45,7 @@ class TaxiTest(APITestCase):
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(6):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -44,6 +53,9 @@ class TaxiTest(APITestCase):
 
         new_advertisement = Advertisement.objects.first()
         self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.country.id, payload["country"])
+        self.assertEqual(new_advertisement.region.id, payload["region"])
+        self.assertEqual(new_advertisement.city.id, payload["city"])
         self.assertEqual(new_advertisement.category, payload["category"])
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
@@ -52,8 +64,14 @@ class TaxiTest(APITestCase):
 
     def test_update_taxi(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         advertisement = TaxiAdvertisementFactory(
             owner=user,
+            country=country,
+            region=region,
+            city=city,
             title="taxi",
             price=1500,
             taxi_unit=TaxiUnit.KM.value,
@@ -81,8 +99,14 @@ class TaxiTest(APITestCase):
 
     def test_delete_taxi(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         advertisement = TaxiAdvertisementFactory(
             owner=user,
+            country=country,
+            region=region,
+            city=city,
         )
         [AdvertisementImageFactory(advertisement=advertisement) for _ in range(10)]
 
@@ -97,9 +121,15 @@ class TaxiTest(APITestCase):
 
     def test_filter_taxi_unit(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         taxi_set = [
             TaxiAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 taxi_unit=[TaxiUnit.KM, TaxiUnit.ROUTE][_ % 2],
@@ -129,9 +159,15 @@ class TaxiTest(APITestCase):
 
     def test_filter_taxi_type(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         taxi_set = [
             TaxiAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 taxi_unit=TaxiUnit.KM,

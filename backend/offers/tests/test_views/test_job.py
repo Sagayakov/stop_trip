@@ -13,7 +13,12 @@ from offers.constants import (
 )
 from offers.models import Advertisement
 from users.tests.factories import UserFactory
-from ..factories import JobAdvertisementFactory
+from ..factories import (
+    JobAdvertisementFactory,
+    CountryFactory,
+    RegionFactory,
+    CityFactory,
+)
 
 
 @mark.django_db
@@ -23,8 +28,14 @@ class JobTest(APITestCase):
         self.detail_url = partial(reverse, "advertisements-detail")
 
     def test_create_job(self):
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.JOB.value,
+            "country": country.id,
+            "region": region.id,
+            "city": city.id,
             "job_type": JobType.PART_TIME.value,
             "title": "job",
             "price": 10_000,
@@ -37,24 +48,36 @@ class JobTest(APITestCase):
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(6):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
-
         new_advertisement = Advertisement.objects.first()
-
         self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.country, country)
+        self.assertEqual(new_advertisement.region, region)
+        self.assertEqual(new_advertisement.city, city)
         self.assertEqual(new_advertisement.job_type, payload["job_type"])
         self.assertEqual(new_advertisement.job_duration, payload["job_duration"])
         self.assertEqual(new_advertisement.job_experience, payload["job_experience"])
 
     def test_update_job(self):
         user = UserFactory()
-        advertisement = JobAdvertisementFactory(owner=user)
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+        advertisement = JobAdvertisementFactory(
+            owner=user, country=country, region=region, city=city
+        )
+        new_country = CountryFactory()
+        new_region = RegionFactory(country=country)
+        new_city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.JOB.value,
+            "country": new_country.id,
+            "region": new_region.id,
+            "city": new_city.id,
             "title": "job",
             "price": 10_000,
             "job_type": JobType.PART_TIME,
@@ -65,7 +88,7 @@ class JobTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
 
         self.client.force_login(user)
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(9):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -73,6 +96,9 @@ class JobTest(APITestCase):
         advertisement.refresh_from_db()
 
         self.assertEqual(advertisement.owner, user)
+        self.assertEqual(advertisement.country.id, payload["country"])
+        self.assertEqual(advertisement.region.id, payload["region"])
+        self.assertEqual(advertisement.city.id, payload["city"])
         self.assertEqual(advertisement.category, payload["category"])
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
@@ -96,9 +122,15 @@ class JobTest(APITestCase):
 
     def test_filter_job_type(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         job_set = [
             JobAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 job_type=[JobType.FULL_TIME, JobType.PART_TIME][_ % 2],
@@ -130,9 +162,15 @@ class JobTest(APITestCase):
 
     def test_filter_job_duration(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         job_set = [
             JobAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 job_type=JobType.FULL_TIME,
@@ -166,16 +204,23 @@ class JobTest(APITestCase):
 
     def test_filter_job_payment_type(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         job_set = [
             JobAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 job_type=JobType.FULL_TIME,
                 job_duration=JobDurationType.ONE_TIME_TASK,
-                job_payment_type=[JobPaymentType.HOURLY_PAYMENT, JobPaymentType.WEEKLY_PAYMENT][
-                    _ % 2
-                ],
+                job_payment_type=[
+                    JobPaymentType.HOURLY_PAYMENT,
+                    JobPaymentType.WEEKLY_PAYMENT,
+                ][_ % 2],
                 job_experience=True,
             )
             for _ in range(2)
@@ -204,9 +249,15 @@ class JobTest(APITestCase):
 
     def test_filter_job_experience(self):
         user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         job_set = [
             JobAdvertisementFactory(
                 owner=user,
+                country=country,
+                region=region,
+                city=city,
                 category=CategoryChoices.TRANSPORT.value,
                 price=100_000 + _ * 50_000,
                 job_type=JobType.FULL_TIME,
