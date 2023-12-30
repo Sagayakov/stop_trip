@@ -42,10 +42,10 @@ export const PhotoSlider = () => {
         }
     };
 
-    const image =
-        !data || !data.images[activeImage]
+    /*const image =
+         !data || !data.images[activeImage]
             ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
-            : data.images[activeImage].image;
+            :  data?.images[activeImage].image;*/
 
     const handleOnLoad = () => {
         setImageWidth(imageRef.current!.naturalWidth);
@@ -103,75 +103,76 @@ export const PhotoSlider = () => {
 
     return (
         <>
-            <div className={styles.image_wrapper}>
-                <div
-                    className={styles.active_image}
-                    onClick={openPhoto}
-                    onTouchStart={handleTouchStart}
-                    onTouchEnd={handleTouchEnd}
-                >
-                    <div className={styles.arrow_container}>
-                        <ArrowLeft10x24
-                            color="white"
-                            handleClickPrev={handleClickPrev}
+            {data && data.images[0] && (
+                <div className={styles.image_wrapper}>
+                    <div
+                        className={styles.active_image}
+                        onClick={openPhoto}
+                        onTouchStart={handleTouchStart}
+                        onTouchEnd={handleTouchEnd}
+                    >
+                        <div className={styles.arrow_container}>
+                            <ArrowLeft10x24
+                                color="white"
+                                handleClickPrev={handleClickPrev}
+                            />
+                        </div>
+                        <img
+                            src={data.images[activeImage].image}
+                            alt="Main image"
+                            ref={imageRef}
+                            onLoad={handleOnLoad}
+                            className={
+                                imageWidth > imageHeight
+                                    ? `${styles.horizontal}`
+                                    : `${styles.vertical}`
+                            }
                         />
-                    </div>
-                    <img
-                        src={image}
-                        alt="Main image"
-                        ref={imageRef}
-                        onLoad={handleOnLoad}
-                        className={
-                            imageWidth > imageHeight
-                                ? `${styles.horizontal}`
-                                : `${styles.vertical}`
-                        }
-                    />
-                    <div className={styles.arrow_container}>
-                        <ArrowRight
-                            color="white"
-                            handleClickNext={handleClickNext}
+                        <div className={styles.arrow_container}>
+                            <ArrowRight
+                                color="white"
+                                handleClickNext={handleClickNext}
+                            />
+                        </div>
+                        <ShareIcon />
+                        <Like
+                            id={Number(id)}
+                            color="#ff3f25"
+                            strokeColor="#1C1C1E"
                         />
+                        {imageHeight > imageWidth && (
+                            <>
+                                <img
+                                    className={styles.blur_left}
+                                    src={data.images[activeImage].image}
+                                    alt="Main image"
+                                />
+                                <img
+                                    className={styles.blur_right}
+                                    src={data.images[activeImage].image}
+                                    alt="Main image"
+                                />
+                            </>
+                        )}
                     </div>
-                    <ShareIcon />
-                    <Like
-                        id={Number(id)}
-                        color="#ff3f25"
-                        strokeColor="#1C1C1E"
-                    />
-                    {imageHeight > imageWidth && (
-                        <>
-                            <img
-                                className={styles.blur_left}
-                                src={image}
-                                alt="Main image"
-                            />
-                            <img
-                                className={styles.blur_right}
-                                src={image}
-                                alt="Main image"
-                            />
-                        </>
-                    )}
+                    <div className={styles.image_list}>
+                        {data &&
+                            data.images.map((el, i) => (
+                                <img
+                                    className={
+                                        activeImage !== i
+                                            ? `${styles.blurred_image}`
+                                            : ''
+                                    }
+                                    src={el.image}
+                                    onClick={() => setActiveImage(i)}
+                                    key={el.image}
+                                    alt={`image #${i + 1}`}
+                                />
+                            ))}
+                    </div>
                 </div>
-                <div className={styles.image_list}>
-                    {data &&
-                        data.images.map((el, i) => (
-                            <img
-                                className={
-                                    activeImage !== i ? `${styles.blurred_image}` : ''
-                                }
-                                src={
-                                    el.image ??
-                                    '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
-                                }
-                                onClick={() => setActiveImage(i)}
-                                key={el.image}
-                                alt={`image #${i + 1}`}
-                            />
-                        ))}
-                </div>
-            </div>
+            )}
             {isPortalOpen &&
                 data &&
                 data.images &&

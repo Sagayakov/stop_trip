@@ -11,13 +11,13 @@ import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { toast } from 'react-toastify';
 
 interface Props {
-    data: ProductType,
-    date: Date | null
+    data: ProductType;
+    date: Date | null;
 }
 
-export const DesctopAdvert = ({ data, date }: Props) => {
-    const { t } = useTranslation()
-    const { isTablet, isDesktop } = useMatchMedia()
+export const DesktopAdvert = ({ data, date }: Props) => {
+    const { t } = useTranslation();
+    const { isTablet, isDesktop } = useMatchMedia();
 
     const handleClickShowNumber = () => {
         if (data) {
@@ -27,25 +27,20 @@ export const DesctopAdvert = ({ data, date }: Props) => {
 
     return (
         <>
-            <h1 className={styles.announcement_header}>
-                {data.title}
-            </h1>
+            <h1 className={styles.announcement_header}>{data.title}</h1>
             <p>
                 {data.property_city
                     ? `${data.property_city.name}, ${
-                        data.property_district ??
-                        `${t('advert-page.no-district')}`
-                    }`
+                          data.property_district ??
+                          `${t('advert-page.no-district')}`
+                      }`
                     : `${t('advert-page.no-address')}`}
             </p>
             <div className={styles.announcement_info}>
                 <ProductInfo data={data} />
                 <section className={styles.owner_info}>
                     <PriceBlock data={data} />
-                    <AdvertOwner
-                        owner={data.owner}
-                        className={styles.owner}
-                    />
+                    <AdvertOwner owner={data.owner} className={styles.owner} />
                     {isTablet ? (
                         <Link
                             className={styles.call_button}
@@ -75,11 +70,7 @@ export const DesctopAdvert = ({ data, date }: Props) => {
                 </section>
             </div>
             {isDesktop && (
-                <Tooltip
-                    id="my-tooltip"
-                    variant="success"
-                    place="top"
-                />
+                <Tooltip id="my-tooltip" variant="success" place="top" />
             )}
         </>
     );

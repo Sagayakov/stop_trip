@@ -6,14 +6,14 @@ import { getDate } from 'shared/utils/getDate.ts';
 import { useEffect, useState } from 'react';
 import { Date } from './libr/types.ts';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
-import { DesctopAdvert } from 'features/advert/DesctopAdvert.tsx';
+import { DesktopAdvert } from 'features/advert/DesktopAdvert.tsx';
 import { MobileAdvert } from 'features/advert/MobileAdvert.tsx';
 
 const Advert = () => {
     const { id } = useParams();
     const { data } = useGetAdvertByIdQuery(id!);
     const [date, setDate] = useState<Date | null>(null);
-    const { isMobile, } = useMatchMedia();
+    const { isMobile } = useMatchMedia();
 
     useEffect(() => {
         if (data) {
@@ -28,7 +28,7 @@ const Advert = () => {
                 <div className={styles.announcement_wrapper}>
                     <BreadCrumbs data={data} />
                     {!isMobile ? (
-                        <DesctopAdvert data={data} date={date} />
+                        <DesktopAdvert data={data} date={date} />
                     ) : (
                         <MobileAdvert data={data} date={date} />
                     )}
