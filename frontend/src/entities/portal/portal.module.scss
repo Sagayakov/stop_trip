@@ -85,7 +85,7 @@
         background-color: #5c5c5c80;
         border-radius: 8px;
         padding: 6px 12px;
-    
+
         span {
             font-size: 2rem;
         }
@@ -96,7 +96,6 @@
             color: #ebeaea;
         }
     }
-    
 }
 
 @media (max-width: 1440px) {
@@ -125,7 +124,7 @@
         }
         .horizontal {
             max-height: 85vh;
-            min-height: 63vh;
+            min-height: 59vh;
         }
     }
 
@@ -151,7 +150,7 @@
             max-height: 60vh;
             min-height: 45vh;
         }
-        .close-portal {
+        .close_portal {
             width: 26px;
             height: 26px;
             padding: 6px;
@@ -192,7 +191,6 @@
             }
         }
     }
-    
 }
 
 @media (max-width: 600px) {
@@ -226,7 +224,7 @@
     .portal {
         top: 30%;
         .vertical {
-            min-height: 45vh;
+            min-height: 44vh;
         }
         .pages {
             left: 44%;

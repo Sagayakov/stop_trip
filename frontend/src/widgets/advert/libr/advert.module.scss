@@ -193,27 +193,6 @@
                 }
             }
         }
-        .image_wrapper {
-            .active_image {
-                height: 60vw;
-                margin-top: 1rem;
-                .add_to_favorite {
-                    right: 22px;
-                    top: 22px;
-                }
-                .share_icon {
-                    right: 22px;
-                    top: 72px;
-                }
-                & > img {
-                    height: 60vw;
-                }
-                .blur_left,
-                .blur_right {
-                    height: 60vw;
-                }
-            }
-        }
         .announcement_info {
             .product_info {
                 width: 100%;
@@ -221,36 +200,13 @@
         }
     }
 }
+
 @media (max-width: 475px) {
     .announcement_wrapper {
         .bread_crumbs {
             padding: 70px 0 0;
             svg {
                 width: 20px;
-            }
-        }
-        .image_wrapper {
-            .active_image {
-                .add_to_favorite {
-                    width: 25px;
-                    height: 25px;
-                    & > svg {
-                        width: 15px;
-                        height: 15px;
-                    }
-                    right: 10px;
-                    top: 10px;
-                }
-                .share_icon {
-                    width: 25px;
-                    height: 25px;
-                    & > svg {
-                        width: 15px;
-                        height: 15px;
-                    }
-                    right: 10px;
-                    top: 40px;
-                }
             }
         }
     }
