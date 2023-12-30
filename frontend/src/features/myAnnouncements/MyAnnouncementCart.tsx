@@ -29,7 +29,7 @@ export const MyAnnouncementCart = ({
             )}
             <div className={styles.announcement} onClick={(event) => event.stopPropagation()}>
                 <AnnouncementOptions setShowModal={setShowModal}/>
-                {showModal && <ModalOption />}
+                {showModal && <ModalOption id={id!} />}
                 <NavLink to={`/${category}/${id}/`}>
                     {images?.length !== 0 ? (
                         <img alt="announcements img" src={images[0].image} />

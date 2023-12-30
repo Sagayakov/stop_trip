@@ -6,11 +6,19 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     formState: FormState<FormAddAnn>;
+    defaultValue?: number | null;
 }
 
-const AnnouncementPriceField = ({ register, formState }: Props) => {
+const AnnouncementPriceField = ({ register, formState, defaultValue }: Props) => {
     const { errors } = formState;
     const { t } = useTranslation();
+    const getDefaultPrice = () => {
+        if(defaultValue){
+            return defaultValue
+        } else {
+            return t('advert-page.negotiated')
+        }
+    }
 
     return (
         <div className={styles.ann_field}>
@@ -22,6 +30,7 @@ const AnnouncementPriceField = ({ register, formState }: Props) => {
                 type="text"
                 id={styles.ann_field_price}
                 placeholder={t('add-page.price')}
+                defaultValue={getDefaultPrice()}
                 style={
                     errors?.price
                         ? {

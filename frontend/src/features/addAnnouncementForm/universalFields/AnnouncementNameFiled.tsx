@@ -6,9 +6,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     formState: FormState<FormAddAnn>;
+    defaultValue?: string;
 }
 
-const AnnouncementNameField = ({ register, formState }: Props) => {
+const AnnouncementNameField = ({ register, formState, defaultValue }: Props) => {
     const { t } = useTranslation();
     const { errors } = formState;
 
@@ -23,6 +24,7 @@ const AnnouncementNameField = ({ register, formState }: Props) => {
                 minLength={1}
                 maxLength={100}
                 placeholder={t('add-page.title')}
+                defaultValue={defaultValue}
                 style={
                     errors?.title
                         ? {

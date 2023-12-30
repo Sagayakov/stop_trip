@@ -248,6 +248,7 @@
 
     "add-page": {
         "post": "Posting an advert",
+        "edit": "Edit advertisement",
         "category": "Category",
         "choose": "Choose category",
         "choose-please": "Please, choose category",
