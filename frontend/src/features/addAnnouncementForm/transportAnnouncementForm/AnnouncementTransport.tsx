@@ -15,11 +15,13 @@ import {
     AnnouncementTransportTypeOfTransport,
     AnnouncementTransportYear,
 } from './transportFields';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    data?: ProductType;
 }
 
 export const AnnouncementTransport = ({ register, control, setValue }: Props) => {

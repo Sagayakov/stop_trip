@@ -8,10 +8,17 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    defaultValue?: string | null;
 }
-export const AnnouncementTaxiType = ({ control, setValue }: Props) => {
+export const AnnouncementTaxiType = ({ control, setValue, defaultValue }: Props) => {
     const valuesOfTaxiType = taxiValues.valuesofTaxiType;
     const { t } = useTranslation();
+
+    const getDefaultValue = () => {
+        if(defaultValue){
+            return valuesOfTaxiType.find((el) => el.value === defaultValue)
+        }
+    }
 
     return (
         <div className={styles.ann_field}>
@@ -23,6 +30,7 @@ export const AnnouncementTaxiType = ({ control, setValue }: Props) => {
                 name="taxi_type"
                 placeholder={t('filters.taxi_type')}
                 options={valuesOfTaxiType}
+                defaultValue={getDefaultValue()}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

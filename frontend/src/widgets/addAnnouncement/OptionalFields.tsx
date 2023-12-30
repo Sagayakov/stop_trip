@@ -19,24 +19,30 @@ import {
     UseFormWatch,
 } from 'react-hook-form';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     watch: UseFormWatch<FormAddAnn>;
+    data?: ProductType;
 }
 
-const OptionalFields = ({ register, setValue, control, watch }: Props) => {
+const OptionalFields = ({ register, setValue, control, watch, data }: Props) => {
     const category = watch('category');
     const getCategoryValue = (cat: string) => {
+        let result
         if (category) {
-            return category === cat;
+            result = category === cat ? true : false;
+        }else if(data){
+            result = data?.category === cat ? true : false
         }
+        return result
     };
 
     return (
-        <div className={`${styles.optional_fields} ${category && `${styles.visible}`}`}>
+        <div className={`${styles.optional_fields} ${(category || data?.category) && `${styles.visible}`}`}>
             {getCategoryValue('transport') && (
                 <AnnouncementTransport
                     control={control}
@@ -92,6 +98,7 @@ const OptionalFields = ({ register, setValue, control, watch }: Props) => {
                     control={control}
                     setValue={setValue}
                     register={register}
+                    data={data}
                 />
             )}
         </div>

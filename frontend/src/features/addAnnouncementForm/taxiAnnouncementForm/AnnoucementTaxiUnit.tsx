@@ -6,9 +6,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: string | null;
 }
 
-export const AnnouncementTaxiUnit = ({ register }: Props) => {
+export const AnnouncementTaxiUnit = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     const valuesOfTaxiUnit = [
@@ -16,6 +17,11 @@ export const AnnouncementTaxiUnit = ({ register }: Props) => {
         { label: 'Час', value: 'hour' },
         { label: 'Км', value: 'km' },
     ];
+    const getDefaultValue = () => {
+        if(defaultValue){
+            return valuesOfTaxiUnit.find((el) => el.value === defaultValue)
+        }
+    }
 
     return (
         <div className={styles.ann_field}>
@@ -25,6 +31,7 @@ export const AnnouncementTaxiUnit = ({ register }: Props) => {
                 name="taxi_unit"
                 radioValues={valuesOfTaxiUnit}
                 className={styles.radio_group}
+                defaultValue={getDefaultValue()}
             />
             <div className={styles.ann_field_err}></div>
         </div>

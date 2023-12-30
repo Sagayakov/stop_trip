@@ -6,6 +6,7 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+
 }
 export const AnnouncementTransportTypeOfService = ({ register }: Props) => {
     const { t } = useTranslation();

@@ -15,8 +15,6 @@ const AnnouncementPriceField = ({ register, formState, defaultValue }: Props) =>
     const getDefaultPrice = () => {
         if(defaultValue){
             return defaultValue
-        } else {
-            return t('advert-page.negotiated')
         }
     }
 

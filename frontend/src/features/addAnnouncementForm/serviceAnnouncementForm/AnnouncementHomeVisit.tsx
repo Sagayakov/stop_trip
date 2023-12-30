@@ -5,9 +5,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: boolean;
 }
 
-export const AnnouncementHomeVisit = ({ register }: Props) => {
+export const AnnouncementHomeVisit = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -18,6 +19,7 @@ export const AnnouncementHomeVisit = ({ register }: Props) => {
                     type="checkbox"
                     {...register('service_home_visit')}
                     style={{ display: 'none' }}
+                    checked={defaultValue}
                 />
                 <span>{t('filters.service_home_visit')}</span>
             </label>
