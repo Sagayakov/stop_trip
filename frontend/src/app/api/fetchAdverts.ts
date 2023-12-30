@@ -48,11 +48,11 @@ export const fetchAdverts = createApi({
             query: () => `api/advertisements/get_filter_params/`,
         }),
         myAnnouncements: build.query<MyAnnouncements[], string>({
-            query: () => ({
+            query: (token: string) => ({
                 url: 'api/advertisements/my_advertisements/',
                 headers: {
                     'Content-Type': 'application/json',
-                    authorization: `Bearer ${accessToken}`,
+                    'Authorization': `Bearer ${token}`,
                 }
             })
 
