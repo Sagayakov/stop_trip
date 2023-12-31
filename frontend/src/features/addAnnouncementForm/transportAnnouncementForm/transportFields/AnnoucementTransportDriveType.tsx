@@ -7,9 +7,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: string | null | undefined;
 }
 
-export const AnnoucementTransportDriveType = ({ register }: Props) => {
+export const AnnoucementTransportDriveType = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     const driveValue = valuesOfTransportForm.transport_drive_type;
@@ -21,6 +22,7 @@ export const AnnoucementTransportDriveType = ({ register }: Props) => {
                 register={register}
                 name="transport_drive_type"
                 radioValues={driveValue}
+                defaultValue={driveValue.find((el) => el.value === defaultValue)}
                 className={styles.radio_group}
             />
             <div className={styles.ann_field_err}></div>

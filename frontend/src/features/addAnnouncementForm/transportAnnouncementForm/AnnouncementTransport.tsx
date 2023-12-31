@@ -24,34 +24,38 @@ interface Props {
     data?: ProductType;
 }
 
-export const AnnouncementTransport = ({ register, control, setValue }: Props) => {
+export const AnnouncementTransport = ({ register, control, setValue, data }: Props) => {
     return (
         <>
-            <AnnouncementTransportTypeOfService register={register} />
-            <AnnouncementTransportTypeOfTransport register={register} />
+            <AnnouncementTransportTypeOfService register={register} defaultValue={data?.transport_type_of_service} />
+            <AnnouncementTransportTypeOfTransport register={register} defaultValue={data?.transport_type} />
             <AnnouncementTransportTranspCategory
                 control={control}
                 setValue={setValue}
+                defaultValue={data?.transport_category}
             />
-            <AnnouncementTransportMark control={control} setValue={setValue} />
+            <AnnouncementTransportMark control={control} setValue={setValue} defaultValue={data?.transport_brand} />
             <AnnouncementTransportModelOfTransport
                 control={control}
                 setValue={setValue}
+                defaultValue={data?.transport_model}
             />
             <AnnouncementTransportEngineType
                 control={control}
                 setValue={setValue}
+                defaultValue={data?.transport_engine_type}
             />
-            <AnnouncementTransportEngineCapacity register={register} />
-            <AnnoucementTransportDriveType register={register} />
-            <AnnouncementTransportYear register={register} />
-            <AnnouncementTransportTransmission register={register} />
+            <AnnouncementTransportEngineCapacity register={register} defaultValue={data?.transport_engine_volume} />
+            <AnnoucementTransportDriveType register={register} defaultValue={data?.transport_drive_type} />
+            <AnnouncementTransportYear register={register} defaultValue={data?.transport_year_of_production} />
+            <AnnouncementTransportTransmission register={register} defaultValue={data?.transport_transmission_type} />
             <AnnouncementTransportBodyType
                 control={control}
                 setValue={setValue}
+                defaultValue={data?.transport_body_type}
             />
-            <AnnoucementTransportCondition register={register} />
-            <AnnouncementTransportComission register={register} />
+            <AnnoucementTransportCondition register={register} defaultValue={data?.transport_condition} />
+            <AnnouncementTransportComission register={register} defaultValue={data?.transport_commission} />
         </>
     );
 };

@@ -5,8 +5,9 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: number | null | undefined;
 }
-export const AnnouncementTransportComission = ({ register }: Props) => {
+export const AnnouncementTransportComission = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -18,6 +19,7 @@ export const AnnouncementTransportComission = ({ register }: Props) => {
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
                     {...register('transport_commission')}
+                    defaultValue={defaultValue || ''}
                     min={1}
                     placeholder={t('filters.transport_commission')}
                 />

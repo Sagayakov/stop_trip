@@ -5,9 +5,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementEventStart = ({ register }: Props) => {
+export const AnnouncementEventStart = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -16,6 +17,7 @@ export const AnnouncementEventStart = ({ register }: Props) => {
             <input
                 type="date"
                 {...register('start_date', )}
+                defaultValue={defaultValue?.slice(0, 10) || ''}
             />
             <div className={styles.ann_field_err}></div>
         </div>

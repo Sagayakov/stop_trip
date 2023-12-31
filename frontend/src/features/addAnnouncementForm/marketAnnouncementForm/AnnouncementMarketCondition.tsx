@@ -6,14 +6,21 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue: string | undefined;
 }
 
-export const AnnouncementMarketCondition = ({ register }: Props) => {
+export const AnnouncementMarketCondition = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
     const conditionValues = [
         { label: `${t('filters.used')}`, value: 'used' },
         { label: `${t('filters.new')}`, value: 'new' },
     ];
+
+    const getDefaultValue = () => {
+        if(defaultValue){
+            return conditionValues.find((el) => el.value === defaultValue)
+        }
+    }
 
     return (
         <div className={styles.ann_field}>
@@ -22,6 +29,7 @@ export const AnnouncementMarketCondition = ({ register }: Props) => {
                 register={register}
                 name="market_condition"
                 radioValues={conditionValues}
+                defaultValue={getDefaultValue()}
                 className={styles.radio_group}
             />
             <div className={styles.ann_field_err}></div>

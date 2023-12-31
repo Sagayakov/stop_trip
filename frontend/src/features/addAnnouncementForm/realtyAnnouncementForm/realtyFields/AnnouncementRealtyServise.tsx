@@ -6,6 +6,7 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: string | undefined;
 }
 export const AnnouncementRealtyServise = ({ register }: Props) => {
     const { t } = useTranslation();

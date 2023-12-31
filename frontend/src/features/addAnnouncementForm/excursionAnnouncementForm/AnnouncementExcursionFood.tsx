@@ -5,9 +5,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: boolean | undefined;
 }
 
-export const AnnouncementExcursionFood = ({ register }: Props) => {
+export const AnnouncementExcursionFood = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -18,6 +19,7 @@ export const AnnouncementExcursionFood = ({ register }: Props) => {
                     type="checkbox"
                     {...register('excursion_food')}
                     style={{ display: 'none' }}
+                    checked={defaultValue}
                 />
                 <span>{t('filters.excursion_food')}</span>
             </label>

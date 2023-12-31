@@ -8,11 +8,18 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementJobPayment = ({ setValue, control }: Props) => {
+export const AnnouncementJobPayment = ({ setValue, control, defaultValue }: Props) => {
     const paymentValues = jobValues.payment;
     const { t } = useTranslation();
+
+    const getDefaultValue = () => {
+        if(defaultValue){
+            return paymentValues.find((el) => el.value === defaultValue)
+        }
+    }
 
     return (
         <div className={styles.ann_field}>
@@ -23,6 +30,7 @@ export const AnnouncementJobPayment = ({ setValue, control }: Props) => {
                 isMulti={false}
                 name="job_payment_type"
                 options={paymentValues}
+                defaultValue={getDefaultValue()}
                 placeholder={t('filters.job_payment_type')}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}

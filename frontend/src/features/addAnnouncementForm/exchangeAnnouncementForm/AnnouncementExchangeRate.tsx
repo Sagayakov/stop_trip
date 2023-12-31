@@ -5,9 +5,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementExchangeRate = ({ register }: Props) => {
+export const AnnouncementExchangeRate = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -16,6 +17,7 @@ export const AnnouncementExchangeRate = ({ register }: Props) => {
             <input
                 type="text"
                 id={styles.ann_field_price}
+                defaultValue={defaultValue!}
                 placeholder={t('filters.exchange_rate')}
                 {...register('exchange_rate')}
             />

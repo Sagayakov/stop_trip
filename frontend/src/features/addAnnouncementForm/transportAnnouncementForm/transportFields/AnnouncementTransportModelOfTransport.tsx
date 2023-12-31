@@ -4,16 +4,15 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { valuesOfTransportForm } from 'widgets/settingForm/settingTransport/libr/valuesOfTransportForm.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementTransportModelOfTransport = ({
-    setValue,
-    control,
-}: Props) => {
+export const AnnouncementTransportModelOfTransport = ({ setValue, control, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     const optionValues = valuesOfTransportForm.transport_model;
@@ -28,6 +27,7 @@ export const AnnouncementTransportModelOfTransport = ({
                 name="transport_model"
                 options={optionValues}
                 placeholder={t('filters.choose-model')}
+                defaultValue={getDefaultValue(defaultValue, optionValues)}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

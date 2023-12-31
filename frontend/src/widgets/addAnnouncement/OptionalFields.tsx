@@ -34,9 +34,9 @@ const OptionalFields = ({ register, setValue, control, watch, data }: Props) => 
     const getCategoryValue = (cat: string) => {
         let result
         if (category) {
-            result = category === cat ? true : false;
+            result = category === cat;
         }else if(data){
-            result = data?.category === cat ? true : false
+            result = data?.category === cat
         }
         return result
     };
@@ -48,6 +48,7 @@ const OptionalFields = ({ register, setValue, control, watch, data }: Props) => 
                     control={control}
                     register={register}
                     setValue={setValue}
+                    data={data}
                 />
             )}
             {getCategoryValue('property') && (
@@ -55,19 +56,21 @@ const OptionalFields = ({ register, setValue, control, watch, data }: Props) => 
                     control={control}
                     register={register}
                     setValue={setValue}
+                    data={data}//не сделано
                 />
             )}
             {getCategoryValue('document') && (
-                <AnnouncementDoc register={register} />
+                <AnnouncementDoc setValue={setValue} data={data} control={control} />
             )}
             {getCategoryValue('event') && (
-                <AnnouncementEvent register={register} />
+                <AnnouncementEvent register={register} data={data} />
             )}
             {getCategoryValue('food') && (
                 <AnnouncementFood
                     register={register}
                     control={control}
                     setValue={setValue}
+                    data={data}
                 />
             )}
             {getCategoryValue('job') && (
@@ -75,23 +78,25 @@ const OptionalFields = ({ register, setValue, control, watch, data }: Props) => 
                     control={control}
                     register={register}
                     setValue={setValue}
+                    data={data}
                 />
             )}
             {getCategoryValue('excursion') && (
-                <AnnouncementExcursion register={register} />
+                <AnnouncementExcursion register={register} data={data} />
             )}
             {getCategoryValue('market') && (
-                <AnnouncementMarket register={register} />
+                <AnnouncementMarket register={register} data={data} />
             )}
             {getCategoryValue('exchange_rate') && (
                 <AnnouncementExchange
                     control={control}
                     register={register}
                     setValue={setValue}
+                    data={data}
                 />
             )}
             {getCategoryValue('service') && (
-                <AnnouncementService register={register} />
+                <AnnouncementService register={register} data={data} />
             )}
             {getCategoryValue('taxi') && (
                 <AnnouncementTaxi

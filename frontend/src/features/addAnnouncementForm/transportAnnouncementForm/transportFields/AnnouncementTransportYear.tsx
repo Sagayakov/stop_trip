@@ -5,8 +5,9 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: number | null | undefined;
 }
-export const AnnouncementTransportYear = ({ register }: Props) => {
+export const AnnouncementTransportYear = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -17,6 +18,7 @@ export const AnnouncementTransportYear = ({ register }: Props) => {
                     type="text"
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
+                    defaultValue={defaultValue || ''}
                     min={1970}
                     placeholder={t('filters.year')}
                     {...register('transport_year_of_production')}

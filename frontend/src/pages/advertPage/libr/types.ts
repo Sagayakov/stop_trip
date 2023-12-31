@@ -3,6 +3,18 @@ import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
 import { Categories } from 'shared/const/categories.tsx';
 
 export type ProductType = {
+    country: null,
+    region: null,
+    city: null,
+    property_commission: null,
+    document_type: string,
+    document_duration: string,
+    market_condition: string,
+    excursion_food: boolean,
+    excursion_transfer: boolean,
+    food_delivery: boolean,
+    food_establishment: boolean,
+    food_type: string,
     category: Categories;
     date_create: string;
     date_update: string;
@@ -10,7 +22,6 @@ export type ProductType = {
     end_date: null | string;
     exchange_for: null | string;
     exchange_rate: null | string;
-    home_visit: boolean;
     id: number;
     images: LastAdvertsImages[];
     is_online: boolean;
