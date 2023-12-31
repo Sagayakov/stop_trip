@@ -98,10 +98,7 @@ const AddAnnouncementPage = () => {
                             register={register}
                             formState={formState}
                         />
-                        <AnnouncementDescriptionField
-                            descript={descript}
-                            setDescript={setDescript}
-                        />
+                        <AnnouncementDescriptionField descript={descript} setDescript={setDescript} />
                         <OptionalFields
                             control={control}
                             register={register}

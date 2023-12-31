@@ -6,9 +6,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementJobDuration = ({ register }: Props) => {
+export const AnnouncementJobDuration = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     const durationValues = [
@@ -18,12 +19,19 @@ export const AnnouncementJobDuration = ({ register }: Props) => {
         { label: 'Другое', value: 'other' },
     ];
 
+    const getDefaultValue = () => {
+        if(defaultValue){
+            return durationValues.find((el) => el.value === defaultValue)
+        }
+    }
+
     return (
         <div className={styles.ann_field}>
             <h3>{t('filters.job_duration')}:</h3>
             <UniversalRadioGroup
                 name="job_duration"
                 radioValues={durationValues}
+                defaultValue={getDefaultValue()}
                 register={register}
                 className={styles.radio_group}
             />

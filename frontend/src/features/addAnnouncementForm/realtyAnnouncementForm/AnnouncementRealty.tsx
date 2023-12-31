@@ -21,17 +21,19 @@ import {
     AnnouncementRealtySleepingPlaces,
     AnnouncementRealtyTotalArea,
 } from './realtyFields';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    data?: ProductType;
 }
 
-export const AnnouncementRealty = ({ register, control, setValue }: Props) => {
+export const AnnouncementRealty = ({ register, control, setValue, data }: Props) => {
     return (
         <>
-            <AnnouncementRealtyServise register={register} />
+            <AnnouncementRealtyServise register={register} defaultValue={data?.property_type_of_service} />
             <AnnouncementRealtyCity control={control} setValue={setValue} />
             <AnnouncementRealtyDistrict control={control} setValue={setValue} />
             <AnnouncementRealtyHouseType control={control} setValue={setValue} />

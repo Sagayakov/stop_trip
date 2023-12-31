@@ -1,17 +1,20 @@
-import { UseFormRegister } from 'react-hook-form';
+import { Control, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { AnnouncementDocType } from './AnnouncementDocType';
 import { AnnouncementDocValidityPeriod } from './AnnouncementDocValidate';
+import { ProductType } from 'pages/advertPage/libr/types.ts';
 
 interface Props {
-    register: UseFormRegister<FormAddAnn>;
+    control: Control<FormAddAnn, string[]>
+    setValue: UseFormSetValue<FormAddAnn>
+    data?: ProductType;
 }
 
-export const AnnouncementDoc = ({ register }: Props) => {
+export const AnnouncementDoc = ({ data, setValue, control }: Props) => {
     return (
         <>
-            <AnnouncementDocType register={register} />
-            <AnnouncementDocValidityPeriod register={register} />
+            <AnnouncementDocType control={control} setValue={setValue} defaultValue={data?.document_type} />
+            <AnnouncementDocValidityPeriod control={control} setValue={setValue} defaultValue={data?.document_duration} />
         </>
     );
 };
