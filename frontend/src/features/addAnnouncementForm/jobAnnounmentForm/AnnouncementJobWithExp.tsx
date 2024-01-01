@@ -5,9 +5,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: boolean;
 }
 
-export const AnnouncementJobWithExp = ({ register }: Props) => {
+export const AnnouncementJobWithExp = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -17,6 +18,7 @@ export const AnnouncementJobWithExp = ({ register }: Props) => {
                 <input
                     type="checkbox"
                     {...register('job_experience')}
+                    checked={defaultValue}
                     style={{ display: 'none' }}
                 />
                 <span>{t('filters.job_experience')}</span>

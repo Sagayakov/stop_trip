@@ -68,11 +68,11 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
         ) {
             continue;
         } else if (
+            key === 'service_home_visit' ||
             key === 'is_online' ||
             key === 'job_experience' ||
             key === 'property_has_furniture' ||
-            key === 'property_has_parking' ||
-            key === 'service_home_visit'
+            key === 'property_has_parking'
         ) {
             list.push(
                 <div key={key}>

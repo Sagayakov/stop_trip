@@ -50,14 +50,16 @@
             color: black;
         }
         .options {
+            box-sizing: content-box;
             position: absolute;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            top: 8px;
+            right: 9px;
             width: 33px;
-            top: 18px;
-            right: 19px;
             cursor: pointer;
+            padding: 10px;
             z-index: 10;
             .option {
                 border-radius: 3.5px;
@@ -149,19 +151,16 @@
                 font-size: 18px;
                 font-weight: 700;
             }
-            span {
-                margin-bottom: 19px;
-                color: var(--grey-3);
-                font-size: 14px;
-            }
-            .views_and_likes {
+            .date_and_likes {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                width: 65%;
                 font-size: 18px;
                 font-weight: 400;
-                .views,
+                span {
+                    color: var(--grey-3);
+                    font-size: 14px;
+                }
                 .likes {
                     display: flex;
                     align-items: center;
@@ -198,11 +197,6 @@
             img {
                 height: 140px;
             }
-            .description {
-                .views_and_likes {
-                    width: 80%;
-                }
-            }
         }
     }
 }
@@ -219,7 +213,7 @@
 @media (max-width: 767px) {
     .title {
         width: 85%;
-        margin: 15px 15px 25px;
+        margin: 0 15px 25px;
     }
     .bread_crumbs {
         width: 100%;
@@ -229,13 +223,6 @@
 
     .announcements_list {
         width: 93.5%;
-        .announcement {
-            .description {
-                .views_and_likes {
-                    width: 95%;
-                }
-            }
-        }
     }
 }
 @media (max-width: 615px) {
@@ -247,13 +234,6 @@
     }
     .announcements_list {
         grid-template-columns: repeat(2, 1fr);
-        .announcement {
-            .description {
-                .views_and_likes {
-                    width: 80%;
-                }
-            }
-        }
     }
 }
 @media (max-width: 475px) {
@@ -264,18 +244,12 @@
     .announcements_list {
         .announcement {
             .description {
-                .views_and_likes {
+                .date_and_likes {
                     width: max-content;
                     flex-direction: column;
                     gap: 8px;
                     align-items: start;
                     justify-content: space-between;
-                    .likes {
-                        svg {
-                            margin-left: 5px;
-                            margin-right: 15px;
-                        }
-                    }
                 }
             }
         }

@@ -6,9 +6,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementExchangeName = ({ setValue, control }: Props) => {
+export const AnnouncementExchangeName = ({ setValue, control, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     const exchangeNameValues = [
@@ -17,6 +18,11 @@ export const AnnouncementExchangeName = ({ setValue, control }: Props) => {
         { label: 'Рупий', value: 'Рупий' },
         { label: 'Евро', value: 'EUR' },
     ];
+    const getDefaultValue = () => {
+        if(defaultValue){
+            return exchangeNameValues.find((el) => el.value === defaultValue)
+        }
+    }
 
     return (
         <div className={styles.ann_field}>
@@ -28,6 +34,7 @@ export const AnnouncementExchangeName = ({ setValue, control }: Props) => {
                 name="proposed_currency"
                 options={exchangeNameValues}
                 placeholder={t('filters.proposed_currency')}
+                defaultValue={getDefaultValue()}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

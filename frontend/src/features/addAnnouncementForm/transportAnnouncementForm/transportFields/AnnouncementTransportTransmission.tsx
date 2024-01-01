@@ -7,9 +7,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementTransportTransmission = ({ register }: Props) => {
+export const AnnouncementTransportTransmission = ({ register, defaultValue }: Props) => {
     const transmissionValues =
         valuesOfTransportForm.transport_transmission_type;
     const { t } = useTranslation();
@@ -20,6 +21,7 @@ export const AnnouncementTransportTransmission = ({ register }: Props) => {
             <UniversalRadioGroup
                 register={register}
                 name="transport_transmission_type"
+                defaultValue={transmissionValues.find((el) => el.value === defaultValue)}
                 radioValues={transmissionValues}
                 className={styles.radio_group}
             />

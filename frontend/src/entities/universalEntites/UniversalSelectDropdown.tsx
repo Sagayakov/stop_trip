@@ -14,8 +14,8 @@ interface Props<T extends FieldValues> {
     required?: boolean;
     isSearchable?: boolean;
     isClearable?: boolean;
-    defaultValue?: SelectOption
-    isDisabled?: boolean
+    defaultValue?: SelectOption;
+    isDisabled?: boolean;
 }
 interface SelectOption{
     value: string | number | null | boolean
@@ -34,13 +34,14 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
     isSearchable,
     isClearable,
     defaultValue,
-    isDisabled
+    isDisabled,
 }: Props<T>) => {
     const animated = makeAnimated();
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
     ) => {
+        defaultValue = undefined
         if (selectedOptions) {
             const optionsArray = Array.isArray(selectedOptions)
                 ? selectedOptions
@@ -82,9 +83,9 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                                 | null
                         );
                     }}
-                    value={options?.filter((option) =>
-                        field.value?.includes(option.value)
-                    )}
+                    value={defaultValue || (options?.filter(
+                        (option) => field.value?.includes(option.value)
+                    ))}
                 />
             )}
         />

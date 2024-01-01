@@ -3,13 +3,15 @@ import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSele
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementFoodType = ({ setValue, control }: Props) => {
+export const AnnouncementFoodType = ({ setValue, control, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     const options = [
@@ -29,6 +31,7 @@ export const AnnouncementFoodType = ({ setValue, control }: Props) => {
                 isMulti={false}
                 name="food_type"
                 options={options}
+                defaultValue={getDefaultValue(defaultValue, options)}
                 placeholder={t('filters.food_type')}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}

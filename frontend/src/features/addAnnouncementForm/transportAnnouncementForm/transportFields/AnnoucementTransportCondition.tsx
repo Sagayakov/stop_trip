@@ -7,9 +7,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: string | null | undefined;
 }
 
-export const AnnoucementTransportCondition = ({ register }: Props) => {
+export const AnnoucementTransportCondition = ({ register, defaultValue }: Props) => {
     const conditionValue = valuesOfTransportForm.transport_condition;
     const { t } = useTranslation();
 
@@ -20,6 +21,7 @@ export const AnnoucementTransportCondition = ({ register }: Props) => {
                 register={register}
                 name="transport_condition"
                 radioValues={conditionValue}
+                defaultValue={conditionValue.find((el) => el.value === defaultValue)}
                 className={styles.radio_group}
             />
             <div className={styles.ann_field_err}></div>

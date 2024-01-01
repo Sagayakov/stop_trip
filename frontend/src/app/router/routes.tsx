@@ -8,6 +8,7 @@ export const MainPage = lazy(() => import('pages/mainPage/MainPage.tsx'));
 export const MyAnnouncements = lazy(() => import('pages/myAnnouncements/MyAnnouncements.tsx'));
 export const PageNotFound = lazy(() => import('pages/notFound/PageNotFound.tsx'));
 export const ResetPassword = lazy(() => import('pages/resetPassword/ResetPassword.tsx'));
+export const AdvertisementEditing = lazy(() => import('pages/advertisementEditing/AdvertisementEditing.tsx'))
 
 
 interface Route {
@@ -32,6 +33,7 @@ export const publicRoutes: Route[] = [
 export const privateRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/add-announcement', component: AddAnnouncementPage },
+    { path: '/advertisement-editing/:id', component: AdvertisementEditing },
     { path: '/:category/:id', component: AdvertPage },
     { path: '/404', component: PageNotFound },
     { path: '/my-announcements', component: MyAnnouncements },

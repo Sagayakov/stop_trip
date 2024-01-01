@@ -1,20 +1,19 @@
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
-import {
-    FormAddAnn /* SelectOption, */,
-} from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     formState: FormState<FormAddAnn>;
+    defaultValue?: string;
     // categoryList: SelectOption[] | undefined;
 }
 
-const AnnouncementCategoryField = ({ control, setValue, formState }: Props) => {
+const AnnouncementCategoryField = ({ control, setValue, formState, defaultValue }: Props) => {
     const { errors } = formState;
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
@@ -32,6 +31,11 @@ const AnnouncementCategoryField = ({ control, setValue, formState }: Props) => {
         { label: `${t('labels.food')}`, value: 'food' },
         { label: `${t('labels.excursion')}`, value: 'excursion' },
     ];
+    const getDefaultValue = () => {
+        if(defaultValue){
+            return categoryList.find((el) => el.value === defaultValue);
+        }
+    }
 
     return (
         <>
@@ -48,6 +52,7 @@ const AnnouncementCategoryField = ({ control, setValue, formState }: Props) => {
                     options={categoryList}
                     placeholder={t('add-page.choose')}
                     prefix="filterAnnouncementCategory"
+                    defaultValue={getDefaultValue()}
                     setValue={setValue}
                     required={true}
                     isSearchable={!isMobile}

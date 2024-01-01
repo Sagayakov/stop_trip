@@ -5,6 +5,7 @@ import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { FiltersType } from './types/filtersType';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 
 const { accessToken } = getTokensFromStorage();
 
@@ -48,18 +49,30 @@ export const fetchAdverts = createApi({
             query: () => `api/advertisements/get_filter_params/`,
         }),
         myAnnouncements: build.query<MyAnnouncements[], string>({
-            query: () => ({
+            query: (token: string) => ({
                 url: 'api/advertisements/my_advertisements/',
                 headers: {
                     'Content-Type': 'application/json',
-                    authorization: `Bearer ${accessToken}`,
-                }
-            })
-
+                    Authorization: `Bearer ${token}`,
+                },
+            }),
+        }),
+        editAdvert: build.mutation<FormAddAnn, { body: FormAddAnn; addId: number; accessToken: string }>({
+            query: ({ body, addId, accessToken }) => ({
+                url: `api/advertisements/${addId}`,
+                method: 'PUT',
+                headers: {
+                    'X-Csrftoken': `${accessToken}`,
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`,
+                },
+                body,
+            }),
+            invalidatesTags: ['Adverts'],
         }),
     }),
 });
 
-export const { useGetAdvertsQuery, useGetAdvertByIdQuery, useGetFiltersQuery, useAddAdvertMutation, useMyAnnouncementsQuery } =
+export const { useGetAdvertsQuery, useGetAdvertByIdQuery, useGetFiltersQuery, useAddAdvertMutation, useMyAnnouncementsQuery, useEditAdvertMutation } =
     fetchAdverts;
 
