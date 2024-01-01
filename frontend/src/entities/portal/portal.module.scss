@@ -110,8 +110,7 @@
     .portal {
         .horizontal {
             height: unset;
-            max-height: 90vh;
-            min-height: 70vh;
+            width: 100%;
         }
     }
 }
@@ -123,23 +122,21 @@
             margin: 0 auto;
         }
         .horizontal {
-            max-height: 85vh;
-            min-height: 59vh;
+            width: 95%;
         }
-    }
-
-    .close-portal {
-        right: 10px;
-        top: 20px;
-    }
-    .next {
-        right: 10px;
-    }
-    .prev {
-        left: 10px;
-    }
-    .pages {
-        left: 46%;
+        .close_portal {
+            right: 30px;
+            top: 10px;
+        }
+        .next {
+            right: 30px;
+        }
+        .prev {
+            left: 30px;
+        }
+        .pages {
+            left: 46%;
+        }
     }
 }
 
@@ -147,10 +144,10 @@
     .portal {
         top: 50%;
         .horizontal {
-            max-height: 60vh;
-            min-height: 45vh;
+            width: 100%;
         }
         .close_portal {
+            right: 10px;
             width: 26px;
             height: 26px;
             padding: 6px;
@@ -172,10 +169,14 @@
             }
         }
         .next {
+            right: 10px;
             svg {
                 left: -3px;
                 transform: scale(0.9);
             }
+        }
+        .prev {
+            left: 10px;
         }
         .pages {
             z-index: 1100;
