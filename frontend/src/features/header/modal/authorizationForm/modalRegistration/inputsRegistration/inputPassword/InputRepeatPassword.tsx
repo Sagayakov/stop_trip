@@ -8,23 +8,22 @@ import { AuthRegistration } from '../../libr/RegistrationTypes';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import stylesForErrors from 'features/header/modal/modal.module.scss';
-import styles from '../../libr/formRegistration.module.scss'
+import styles from '../../libr/formRegistration.module.scss';
+import { useState } from 'react';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;
     register: UseFormRegister<AuthRegistration>;
-    showPassword: boolean;
-    setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
     getValues: UseFormGetValues<AuthRegistration>;
 }
 
 export const InputRepeatPassword = ({
     errors,
     register,
-    showPassword,
-    setShowPassword,
+
     getValues,
 }: Props) => {
+    const [showPassword, setShowPassword] = useState(false);
     const { t } = useTranslation();
 
     const handleShowPass = () => {
