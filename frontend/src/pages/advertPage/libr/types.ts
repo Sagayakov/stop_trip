@@ -10,7 +10,6 @@ export type ProductType = {
     end_date: null | string;
     exchange_for: null | string;
     exchange_rate: null | string;
-    home_visit: boolean;
     id: number;
     images: LastAdvertsImages[];
     is_online: boolean;

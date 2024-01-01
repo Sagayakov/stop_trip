@@ -68,7 +68,6 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
         ) {
             continue;
         } else if (
-            key === 'home_visit' ||
             key === 'is_online' ||
             key === 'job_experience' ||
             key === 'property_has_furniture' ||
