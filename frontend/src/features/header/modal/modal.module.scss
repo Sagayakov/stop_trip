@@ -143,6 +143,14 @@ input {
     }
 }
 
+@media (max-width: 1023px) {
+    .modal {
+        .modal_wrapper {
+            top: 58px;
+        }
+    }
+}
+
 @media (max-width: 1000px) {
     .modal {
         .modal_wrapper {
