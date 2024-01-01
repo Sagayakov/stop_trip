@@ -29,10 +29,23 @@
         }
         .characteristics_value {
             width: auto;
+            max-width: 30%;
             p {
                 font-size: 14px;
                 color: var(--main-black);
                 line-height: 1.5rem;
+                text-align: right;
+            }
+            & .event_date {
+                display: flex;
+                justify-content: center;
+                gap: 5px;
+                span {
+                    background-color: var(--grey-4);
+                    border-radius: 5px;
+                    padding: 0 5px;
+                    line-height: 1.5rem;
+                }
             }
         }
     }

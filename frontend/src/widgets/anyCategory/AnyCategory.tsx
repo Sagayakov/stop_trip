@@ -1,5 +1,5 @@
 import { Like } from 'shared/ui/Like';
-import { Rating } from 'shared/ui/Rating';
+//import { Rating } from 'shared/ui/Rating';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
 import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
@@ -10,7 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks.ts';
 import { Pagination } from 'features/pagination';
 import { useRef } from 'react';
-import style from 'pages/categoryPage/style/categoryPage.module.scss'
+import style from 'pages/categoryPage/style/categoryPage.module.scss';
+import { prettifyPrice } from 'shared/utils/prettifyPrice';
 
 const AnyCategory = () => {
     const category = location.pathname.split('/')[1];
@@ -30,9 +31,9 @@ const AnyCategory = () => {
     }
 
     const notFoundImg = [
-        "../../../src/entities/lastAdverts/ui/image-not-found.jpg",
-        "../../../src/entities/lastAdverts/ui/image-not-found.jpg",
-        "../../../src/entities/lastAdverts/ui/image-not-found.jpg",
+        '../../../src/entities/lastAdverts/ui/image-not-found.jpg',
+        '../../../src/entities/lastAdverts/ui/image-not-found.jpg',
+        '../../../src/entities/lastAdverts/ui/image-not-found.jpg',
     ];
 
     return (
@@ -62,15 +63,21 @@ const AnyCategory = () => {
                             <div className={style.image}>
                                 {isMobile ? (
                                     <>
-                                        {!el.images[0] ? (
-                                            notFoundImg.map((el, index) =>
-                                                <img src={el} alt="Not found" key={index} />
-                                            )
-                                        ) : (
-                                            el.images.map((item) => (
-                                                <img src={item.image} key={item.image} alt="Not found" />
-                                            ))
-                                        )}
+                                        {!el.images[0]
+                                            ? notFoundImg.map((el, index) => (
+                                                  <img
+                                                      src={el}
+                                                      alt="Not found"
+                                                      key={index}
+                                                  />
+                                              ))
+                                            : el.images.map((item) => (
+                                                  <img
+                                                      src={item.image}
+                                                      key={item.image}
+                                                      alt="Not found"
+                                                  />
+                                              ))}
                                     </>
                                 ) : (
                                     <img
@@ -89,7 +96,9 @@ const AnyCategory = () => {
                                     г. Тбилиси, ул. Зеленая, 10
                                 </p>
                                 <h3>
-                                    {el.price ? `₹${el.price}` : 'Договорная'}
+                                    {el.price
+                                        ? prettifyPrice(el.price)
+                                        : `${t('advert-page.negotiated')}`}
                                 </h3>
                                 <p className={style.card_description}>
                                     {el.description}
@@ -98,8 +107,10 @@ const AnyCategory = () => {
                                     {`${el.owner.full_name[0].toUpperCase()}${el.owner.full_name.slice(
                                         1
                                     )}`}
-                                    <span className={style.rating_number}>4.5</span>
-                                    <Rating rating={4.5} />
+                                    <span className={style.rating_number}>
+                                        4.5
+                                    </span>
+                                    {/* <Rating rating={4.5} /> */}
                                 </div>
                                 <p className={style.time}>
                                     {`

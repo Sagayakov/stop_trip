@@ -5,6 +5,8 @@ import {
     categoryCharacteristicsValues,
 } from 'shared/const/categoryCharacteristics.ts';
 import { useTranslation } from 'react-i18next';
+import { getEventDate } from 'shared/utils/getEventDate';
+import styles from '../advertCharacteristics.module.scss';
 
 type GetListProps = {
     data: ProductType;
@@ -16,17 +18,35 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
 
     const list = [];
 
+    const unInformative = [
+        'id',
+        'images',
+        'is_published',
+        'owner',
+        'city',
+        'region',
+        'country',
+        'property_type_of_service',
+        'property_commission',
+        'transport_type_of_service',
+        'transport_commission',
+        'category',
+        'title',
+        'price',
+        'coordinates',
+        'description',
+        'date_create',
+        'date_update',
+        'slug',
+        'property_city',
+        'property_district',
+        'transport_brand',
+        'transport_model',
+    ];
+
     let key: keyof ProductType;
     for (key in data) {
-        if (
-            key === 'images' ||
-            key === 'is_published' ||
-            data[key] === '' ||
-            key === 'owner' ||
-            key === 'property_city'
-        ) {
-            continue;
-        } else if (key === 'property_amenities') {
+        if (key === 'property_amenities') {
             if (data.property_amenities.length) {
                 list.push(
                     <div key={key}>
@@ -36,6 +56,17 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
             } else {
                 continue;
             }
+        } else if (
+            !data[key] ||
+            data[key] === '' ||
+            unInformative.includes(key) ||
+            key === 'owner' ||
+            key === 'city' ||
+            key === 'property_city' ||
+            key === 'images' ||
+            key === 'is_published'
+        ) {
+            continue;
         } else if (
             key === 'service_home_visit' ||
             key === 'is_online' ||
@@ -49,16 +80,18 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
                 </div>
             );
         } else if (key === 'start_date' || key === 'end_date') {
+            const date = getEventDate(data[key] as string);
             list.push(
-                <div key={key}>
-                    <p>{data[key]}</p>
+                <div key={key} className={styles.event_date}>
+                    <span>{data[key] && date.day}</span>
+                    <span>{data[key] && date.time}</span>
                 </div>
             );
         } else {
             list.push(
                 <div key={key}>
                     {categoryCharacteristicsKeys[category][key] &&
-                        data[key] !== null && (
+                        data[key] && (
                             <p>
                                 {typeof data[key] === 'number'
                                     ? data[key]

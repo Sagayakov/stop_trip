@@ -17,12 +17,23 @@ export const AdvertCharacteristics = ({ data }: { data: ProductType }) => {
                     <h2 className={styles.characteristics_header}>
                         {t('advert-page.characteristics')}
                     </h2>
-                    <div className={styles.characteristics_wrapper}>
-                        <span className={styles.characteristics_key}>{keysList}</span>
-                        <span className={styles.characteristics_value}>
-                            {valuesList}
-                        </span>
-                    </div>
+                    {valuesList.map((el, i) => {
+                        return (
+                            <div
+                                className={styles.characteristics_wrapper}
+                                key={el.key}
+                            >
+                                <span
+                                    className={`${styles.characteristics_key} ${el.key}`}
+                                >
+                                    {keysList[i]}
+                                </span>
+                                <span className={styles.characteristics_value}>
+                                    {el}
+                                </span>
+                            </div>
+                        );
+                    })}
                 </div>
             ) : (
                 <></>
