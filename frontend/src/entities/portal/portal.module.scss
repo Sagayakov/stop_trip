@@ -11,7 +11,7 @@
 }
 
 .portal {
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     z-index: 1002;
@@ -19,21 +19,23 @@
     text-align: center;
     transform: translate(-50%, -50%);
     img {
-        max-width: 100%;
-        margin: 50px auto 0;
+        width: 90%;
+        margin: 20px auto 0;
         border-radius: 16px;
     }
-    .horizontal {
+    /* .horizontal {
         height: 90vh;
-    }
+    } */
     .vertical {
+        width: unset;
+        max-width: 90%;
         min-height: 80vh;
         max-height: 90vh;
     }
     .close_portal {
         position: absolute;
-        top: 5px;
-        right: 5px;
+        top: 30px;
+        right: 70px;
         width: 44px;
         height: 44px;
         background-color: #5c5c5c80;
@@ -53,7 +55,7 @@
     .next {
         position: absolute;
         top: 50%;
-        left: 5px;
+        left: 70px;
         width: 42px;
         height: 42px;
         background-color: #5c5c5c80;
@@ -68,7 +70,7 @@
     }
     .next {
         left: unset;
-        right: 5px;
+        right: 70px;
         padding: 3px 5px;
     }
     .prev svg:hover,
@@ -101,7 +103,19 @@
 @media (max-width: 1440px) {
     .portal {
         .horizontal {
-            height: 85vh;
+            width: 95%;
+            height: unset;
+
+            //height: 78vh;
+        }
+        .close_portal {
+            right: 35px;
+        }
+        .next {
+            right: 35px;
+        }
+        .prev {
+            left: 35px;
         }
     }
 }
@@ -112,6 +126,15 @@
             height: unset;
             width: 100%;
         }
+        .close_portal {
+            right: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+        .prev {
+            left: 10px;
+        }
     }
 }
 
@@ -121,18 +144,18 @@
         img {
             margin: 0 auto;
         }
-        .horizontal {
-            width: 95%;
-        }
+        /* .horizontal {
+            width: 90%;
+        } */
         .close_portal {
-            right: 30px;
+            right: 10px;
             top: 10px;
         }
         .next {
-            right: 30px;
+            right: 10px;
         }
         .prev {
-            left: 30px;
+            left: 10px;
         }
         .pages {
             left: 46%;
@@ -197,9 +220,9 @@
 @media (max-width: 600px) {
     .portal {
         top: 45%;
-        .horizontal {
+        /* .horizontal {
             min-height: 35vh;
-        }
+        } */
         .vertical {
             min-height: 70vh;
         }
@@ -209,14 +232,18 @@
 @media (max-width: 500px) {
     .portal {
         top: 40%;
-        .horizontal {
+        /* .horizontal {
             min-height: 25vh;
-        }
+        } */
         .vertical {
             min-height: 51vh;
         }
         .pages {
             left: 45%;
+        }
+        .prev,
+        .next {
+            top: 45%;
         }
     }
 }
