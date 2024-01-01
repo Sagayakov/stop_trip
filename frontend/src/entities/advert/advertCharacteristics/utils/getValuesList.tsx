@@ -72,7 +72,11 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
             key === 'is_online' ||
             key === 'job_experience' ||
             key === 'property_has_furniture' ||
-            key === 'property_has_parking'
+            key === 'property_has_parking' ||
+            key === 'excursion_food' ||
+            key === 'excursion_transfer' ||
+            key === 'food_delivery' ||
+            key === 'food_establishment'
         ) {
             list.push(
                 <div key={key}>
