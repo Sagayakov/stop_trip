@@ -5,21 +5,16 @@ import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import stylesForErrors from 'features/header/modal/modal.module.scss';
-import styles from '../../libr/formRegistration.module.scss'
+import styles from '../../libr/formRegistration.module.scss';
+import { useState } from 'react';
 
 interface Props {
     errors: FieldErrors<AuthRegistration>;
     register: UseFormRegister<AuthRegistration>;
-    showPassword: boolean;
-    setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const InputPassword = ({
-    errors,
-    register,
-    showPassword,
-    setShowPassword,
-}: Props) => {
+export const InputPassword = ({ errors, register }: Props) => {
+    const [showPassword, setShowPassword] = useState(false);
     const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
     const { t } = useTranslation();
 

@@ -2,12 +2,17 @@
     opacity: 0;
     max-height: 0;
     overflow: scroll;
-    transition: opacity 0.6s ease, max-height 0s linear 0.6s;
+    overflow-x: hidden;
+    transition:
+        opacity 0.6s ease,
+        max-height 0s linear 0.6s;
 
     &.visible {
         opacity: 1;
         max-height: 100vh;
-        transition: opacity 0.6s ease, max-height 1s ease;
+        transition:
+            opacity 0.6s ease,
+            max-height 1s ease;
 
         .modal_wrapper {
             height: 0;
@@ -20,6 +25,10 @@
             }
         }
     }
+}
+
+.modal::-webkit-scrollbar {
+    width: 0;
 }
 
 .modal_wrapper {
@@ -130,6 +139,14 @@ input {
         .modal_wrapper {
             left: 53%;
             width: 40%;
+        }
+    }
+}
+
+@media (max-width: 1023px) {
+    .modal {
+        .modal_wrapper {
+            top: 58px;
         }
     }
 }

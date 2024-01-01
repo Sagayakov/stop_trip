@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { InputCheckbox } from './inputsRegistration/inputCheckbox/InputCheckbox';
@@ -15,14 +14,13 @@ import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
 import { resetErrors } from 'features/header/model/modalAuth/reducers/auth.ts';
 
 export const FormRegistration = () => {
-    const [showPassword, setShowPassword] = useState(false);
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors, isValid },
         getValues,
-        watch
+        watch,
     } = useForm<AuthRegistration>({
         mode: 'all',
     });
@@ -30,12 +28,12 @@ export const FormRegistration = () => {
     const dispatch = useAppDispatch();
 
     const onsubmit: SubmitHandler<AuthRegistration> = async (submitData) => {
-        dispatch(setLoading(true))
+        dispatch(setLoading(true));
         setTimeout(() => {
             submitRegForm(submitData, dispatch, reset);
-            dispatch(setLoading(false))
+            dispatch(setLoading(false));
         }, 1200);
-        dispatch(resetErrors())
+        dispatch(resetErrors());
     };
 
     return (
@@ -47,17 +45,10 @@ export const FormRegistration = () => {
             <InputName errors={errors} register={register} />
             <InputPhone errors={errors} register={register} />
             <InputEmail errors={errors} register={register} watch={watch} />
-            <InputPassword
-                errors={errors}
-                register={register}
-                showPassword={showPassword}
-                setShowPassword={setShowPassword}
-            />
+            <InputPassword errors={errors} register={register} />
             <InputRepeatPassword
                 errors={errors}
                 register={register}
-                showPassword={showPassword}
-                setShowPassword={setShowPassword}
                 getValues={getValues}
             />
             <InputCheckbox register={register} errors={errors} />

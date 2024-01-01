@@ -102,6 +102,7 @@
 
 @media (max-width: 1440px) {
     .portal {
+        top: 55%;
         .horizontal {
             width: 95%;
             height: unset;
@@ -124,22 +125,23 @@
     .portal {
         .horizontal {
             height: unset;
-            width: 100%;
+            width: 95%;
         }
         .close_portal {
-            right: 10px;
+            right: 30px;
         }
         .next {
-            right: 10px;
+            right: 30px;
         }
         .prev {
-            left: 10px;
+            left: 30px;
         }
     }
 }
 
 @media (max-width: 1023px) {
     .portal {
+        top: 60%;
         width: 95%;
         img {
             margin: 0 auto;
@@ -148,14 +150,7 @@
             width: 90%;
         } */
         .close_portal {
-            right: 10px;
             top: 10px;
-        }
-        .next {
-            right: 10px;
-        }
-        .prev {
-            left: 10px;
         }
         .pages {
             left: 46%;
@@ -165,7 +160,6 @@
 
 @media (max-width: 767px) {
     .portal {
-        top: 50%;
         .horizontal {
             width: 100%;
         }
@@ -219,7 +213,7 @@
 
 @media (max-width: 600px) {
     .portal {
-        top: 45%;
+        top: 55%;
         /* .horizontal {
             min-height: 35vh;
         } */
@@ -231,7 +225,7 @@
 
 @media (max-width: 500px) {
     .portal {
-        top: 40%;
+        top: 50%;
         /* .horizontal {
             min-height: 25vh;
         } */
@@ -250,7 +244,7 @@
 
 @media (max-width: 360px) {
     .portal {
-        top: 30%;
+        top: 40%;
         .vertical {
             min-height: 44vh;
         }

@@ -29,7 +29,6 @@
         }
         .characteristics_value {
             width: auto;
-            max-width: 30%;
             p {
                 font-size: 14px;
                 color: var(--main-black);
@@ -45,6 +44,7 @@
                     border-radius: 5px;
                     padding: 0 5px;
                     line-height: 1.5rem;
+                    font-size: 14px;
                 }
             }
         }
