@@ -13,7 +13,9 @@
     opacity: 0;
     height: 0;
     overflow: hidden;
-    transition: opacity 0.7s ease, height 0.7s ease;
+    transition:
+        opacity 0.7s ease,
+        height 0.7s ease;
 
     &.visible-content {
         opacity: 1;
@@ -56,18 +58,28 @@
                 display: flex;
                 align-items: center;
                 margin-bottom: 24px;
-                cursor: pointer;
-                &:hover {
-                    border-radius: 8px;
-                    background-color: var(--grey-1);
-                }
+                cursor: default;
+
                 svg {
                     width: 24px;
                 }
                 .user-option-text {
-                    color: var(--main-black);
+                    color: var(--grey-2);
                     margin: 4px 0px 4px 24px;
                 }
+                .user-option-text.my-ads,
+                .user-option-text.my-favs {
+                    color: var(--main-black);
+                }
+            }
+            .user-option.my-ads,
+            .user-option.my-favs {
+                cursor: pointer;
+            }
+            .user-option.my-ads:hover,
+            .user-option.my-favs:hover {
+                border-radius: 8px;
+                background-color: var(--grey-1);
             }
             .language-auth {
                 margin-left: 40px;
@@ -76,7 +88,7 @@
                 color: var(--grey-2);
             }
         }
-        p {
+        .user-option-logout {
             margin: 48px 40px 0px;
             color: #ff3f25;
             cursor: pointer;
