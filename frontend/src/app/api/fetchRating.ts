@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { url } from 'shared/const/url.ts';
 import Cookies from 'js-cookie';
-import { RatingType } from './types/ratingType';
+import { AddRating, RatingType } from './types/ratingTypes';
 
 export const fetchRating = createApi({
     reducerPath: 'fetchRating',
@@ -15,11 +15,16 @@ export const fetchRating = createApi({
                 credentials: 'include',
             }),
         }),
-        changeRating: build.mutation<{ id: number }, { id: number }>({
-            query: (body) => ({
-                url: 'api/user_rate/change_rate/',
+        changeRating: build.mutation<
+            AddRating,
+            { id: number; body: AddRating }
+        >({
+            query: ({ id, body }) => ({
+                url: `api/user_rate/change_rate/?to_user=${id}`,
                 method: 'POST',
-                headers: { 'X-Csrftoken': `${Cookies.get('access_token')}` },
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('access_token')}`,
+                },
                 body,
             }),
             invalidatesTags: ['Rating'],

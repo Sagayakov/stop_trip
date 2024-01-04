@@ -11,3 +11,8 @@ export type Rating = {
     comment: string;
     date_created: string;
 };
+
+export type AddRating = {
+    rating: number;
+    comment: string;
+};
