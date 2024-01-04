@@ -2,6 +2,7 @@ import { Share } from '../icons/icons-tools/Share';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
+import styles from 'entities/photoSlider/libr/photoSlider.module.scss';
 
 export const ShareIcon = () => {
     const { t } = useTranslation();
@@ -19,7 +20,7 @@ export const ShareIcon = () => {
     };
 
     return (
-        <div className="share-icon" onClick={handleClick}>
+        <div className={styles.share_icon} onClick={handleClick}>
             <Share />
         </div>
     );
