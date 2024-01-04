@@ -46,6 +46,8 @@ services:
     volumes:
       - nginx_cache:/var/lib/nginx/proxy_cache
       - static:/var/www/static/:ro
+      - acme.sh:/acme.sh:delegated
+      - certs:/etc/nginx/certs
     build:
       context: ./nginx
     depends_on:
@@ -73,3 +75,5 @@ volumes:
   postgresdata:
   nginx_cache:
   static:
+  acme.sh:
+  certs:
