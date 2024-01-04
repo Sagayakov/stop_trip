@@ -10,6 +10,7 @@ import { fetchFavorites } from 'app/api/fetchFavorites.ts';
 import { setLangSlice } from 'features/header/model/langsReducer/lang.ts';
 import { setPageMainSlice } from 'widgets/lastAdverts/model/pageReducer/pageMain';
 import { setPageCategorySlice } from 'pages/categoryPage/model/pageReducer/pageCategory';
+import { fetchRating } from 'app/api/fetchRating';
 
 const setupStore = () =>
     configureStore({
@@ -26,6 +27,7 @@ const setupStore = () =>
             setPageCategory: setPageCategorySlice.reducer,
             [fetchAdverts.reducerPath]: fetchAdverts.reducer,
             [fetchFavorites.reducerPath]: fetchFavorites.reducer,
+            [fetchRating.reducerPath]: fetchRating.reducer,
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
