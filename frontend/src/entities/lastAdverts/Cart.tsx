@@ -48,7 +48,7 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
 
             !addToFav ? addFavorite({ id }) : deleteFromFavorites({ id });
         } else {
-            toast.error(`${t('advert-page.toast-favs')}`);
+            toast.error(`${t('main-page.toast-favs')}`);
         }
     };
 

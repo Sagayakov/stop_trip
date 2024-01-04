@@ -8,7 +8,7 @@ import {
 import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import style from 'pages/categoryPage/style/categoryPage.module.scss'
+import style from 'pages/categoryPage/style/categoryPage.module.scss';
 
 type LikeProps = {
     id: number;
@@ -40,7 +40,7 @@ export const Like = ({
 
             !isLike ? addFavorite({ id }) : deleteFromFavorites({ id });
         } else {
-            toast.error(`${t('advert-page.toast-favs')}`);
+            toast.error(`${t('main-page.toast-favs')}`);
         }
     };
 
