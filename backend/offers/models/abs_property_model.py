@@ -12,65 +12,15 @@ from ..constants import (
 )
 
 
-class PropertyCity(models.Model):
-    """Город для недвижимости"""
-
-    name = models.CharField("Название", db_index=True)
-    slug = models.SlugField("Слаг", unique=True, db_index=True)
-
-    class Meta:
-        verbose_name = "Город"
-        verbose_name_plural = "Недвижимость - Города"
-        ordering = ("name",)
-
-    def __str__(self):
-        return self.name
-
-
-class PropertyDistrict(models.Model):
-    """Районы"""
-
-    city = models.ForeignKey(
-        "offers.PropertyCity",
-        on_delete=models.CASCADE,
-        verbose_name="Город",
-        related_name="property_districts",
-    )
-
-    name = models.CharField("Название", db_index=True)
-    slug = models.SlugField("Слаг", unique=True, db_index=True)
-
-    class Meta:
-        verbose_name = "Район"
-        verbose_name_plural = "Недвижимость - Районы"
-        ordering = ("name",)
-
-    def __str__(self):
-        return self.name
-
-
 class AbsProperty(models.Model):
     """Абстрактная модель недвижимости."""
 
-    property_city = models.ForeignKey(
-        "offers.PropertyCity",
-        on_delete=models.CASCADE,
-        verbose_name="Город",
-        related_name="advertisements",
-        null=True,
-        blank=True,
-    )
-    property_district = models.ForeignKey(
-        "offers.PropertyDistrict",
-        on_delete=models.CASCADE,
-        verbose_name="Район",
-        related_name="advertisements",
-        null=True,
-        blank=True,
-    )
-
     property_type = models.CharField(
-        "Тип собственности", max_length=50, choices=PropertyType.choices, null=True, blank=True
+        "Тип собственности",
+        max_length=50,
+        choices=PropertyType.choices,
+        null=True,
+        blank=True,
     )
 
     property_type_of_service = models.CharField(
@@ -99,14 +49,22 @@ class AbsProperty(models.Model):
     )
     property_has_furniture = models.BooleanField(verbose_name="Мебель", default=False)
     property_amenities = models.ManyToManyField(
-        "offers.PropertyAmenity", verbose_name="Удобства", related_name="advertisements", blank=True
+        "offers.PropertyAmenity",
+        verbose_name="Удобства",
+        related_name="advertisements",
+        blank=True,
     )
     property_house_type = models.CharField(
         "Тип дома", max_length=100, choices=PropertyHouseType.choices, blank=True
     )
-    property_has_parking = models.BooleanField(verbose_name="Есть парковка", default=False)
+    property_has_parking = models.BooleanField(
+        verbose_name="Есть парковка", default=False
+    )
     property_rental_condition = models.CharField(
-        "Условия аренды", max_length=100, choices=PropertyRentalCondition.choices, blank=True
+        "Условия аренды",
+        max_length=100,
+        choices=PropertyRentalCondition.choices,
+        blank=True,
     )
     property_prepayment = models.CharField(
         "Предоплата", max_length=50, choices=PropertyPrepayment.choices, blank=True
