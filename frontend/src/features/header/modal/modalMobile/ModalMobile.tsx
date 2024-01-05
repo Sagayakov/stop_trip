@@ -53,29 +53,29 @@ export const ModalMobile = (props: Props) => {
             >
                 <div className="menu">
                     <NavLink
-                        className="user-option"
+                        className="user-option my-ads"
                         to={'/my-announcements'}
                         onClick={() => setShowUserMenu(false)}
                     >
                         <Docs />
-                        <p className="user-option-text">
+                        <p className="user-option-text my-ads">
                             {t('modal-logged.adverts')}
                         </p>
                     </NavLink>
                     <div className="user-option">
-                        <Message color="#1C1C1E" stroke="#1C1C1E" />
+                        <Message color="#bcbcbc" stroke="#bcbcbc" />
                         <p className="user-option-text">
                             {t('modal-logged.messages')}
                         </p>
                     </div>
-                    <div className="user-option">
-                        <Favorite color="white" strokeColor="#1C1C1E" />
-                        <p className="user-option-text">
+                    <div className="user-option my-favs">
+                        <Favorite color="#f9f9f9" strokeColor="#1C1C1E" />
+                        <p className="user-option-text my-favs">
                             {t('modal-logged.favorites')}
                         </p>
                     </div>
                     <div className="user-option">
-                        <Setting color="#1C1C1E" stroke="#1C1C1E" />
+                        <Setting color="#bcbcbc" stroke="#bcbcbc" />
                         <p className="user-option-text">
                             {t('modal-logged.settings')}
                         </p>
@@ -86,7 +86,9 @@ export const ModalMobile = (props: Props) => {
                         </div>
                     )}
                 </div>
-                <p onClick={handleLogout}>{t('modal-logged.logout')}</p>
+                <p onClick={handleLogout} className="user-option-logout">
+                    {t('modal-logged.logout')}
+                </p>
             </div>
         </div>
     );

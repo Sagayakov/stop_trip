@@ -2,8 +2,11 @@ import { toast } from 'react-toastify';
 import { useAppSelector } from 'app/store/hooks.ts';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
+import styles from 'entities/advert/advertOwner/libr/advertOwner.module.scss';
+import { useChangeRatingMutation } from 'app/api/fetchRating';
 
 type StarProps = {
+    userId: number;
     id: number;
     prepareStar: number;
     setPrepareStar: React.Dispatch<React.SetStateAction<number>>;
@@ -14,6 +17,7 @@ type StarProps = {
 };
 
 export const Star = ({
+    userId,
     id,
     prepareStar,
     setPrepareStar,
@@ -23,14 +27,15 @@ export const Star = ({
     setGrades,
 }: StarProps) => {
     const { t } = useTranslation();
-    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const isAuth: boolean = useAppSelector((state) => state.setIsAuth.isAuth);
+    const [changeRating] = useChangeRatingMutation();
 
     const getStarClass = () => {
         let starClass = '';
         if (prepareStar >= id) {
-            starClass = 'hover-star';
+            starClass = styles.hover_star;
         } else if (activeStar >= id) {
-            starClass = 'active-star';
+            starClass = styles.active_star;
         } else {
             starClass = '';
         }
@@ -43,7 +48,8 @@ export const Star = ({
         event.stopPropagation();
         if (isAuth) {
             setActiveStar(id);
-            grades && setGrades && setGrades(grades + 1);
+            grades !== undefined && setGrades && setGrades(grades + 1);
+            changeRating({ id: userId, body: { rating: id, comment: '' } });
             toast.success(`${t('advert-page.grade-added')}`);
         } else {
             toast.error(`${t('advert-page.grade-register')}`);

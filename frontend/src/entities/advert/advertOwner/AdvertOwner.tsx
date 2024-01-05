@@ -38,7 +38,12 @@ export const AdvertOwner = ({ owner, className }: Props) => {
                     <div className={styles.rating_number}>4.5</div>
                 </div>
                 <div className={styles.rating_block}>
-                    <Rating rating={5} grades={grades} setGrades={setGrades} />
+                    <Rating
+                        id={owner.id}
+                        rating={5}
+                        grades={grades}
+                        setGrades={setGrades}
+                    />
                     <span>{`${grades} ${spelling}`}</span>
                 </div>
                 <p>{`${t('advert-page.registration-date')} ${

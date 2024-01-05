@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Star } from '../icons/icons-tools/Star';
 
 type RatingProps = {
+    id: number;
     rating: number;
     grades?: number;
     setGrades?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const Rating = ({ rating, grades, setGrades }: RatingProps) => {
+export const Rating = ({ id, rating, grades, setGrades }: RatingProps) => {
     const [activeStar, setActiveStar] = useState(0);
     const [prepareStar, setPrepareStar] = useState(0);
 
@@ -20,6 +21,7 @@ export const Rating = ({ rating, grades, setGrades }: RatingProps) => {
                 return (
                     <Star
                         key={item}
+                        userId={id}
                         id={i + 1}
                         prepareStar={prepareStar}
                         setPrepareStar={setPrepareStar}

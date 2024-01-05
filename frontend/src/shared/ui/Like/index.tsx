@@ -8,7 +8,7 @@ import {
 import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import style from 'pages/categoryPage/style/categoryPage.module.scss';
+import styles from 'entities/photoSlider/libr/photoSlider.module.scss';
 
 type LikeProps = {
     id: number;
@@ -45,7 +45,7 @@ export const Like = ({
     };
 
     return (
-        <div className={style.add_to_favorite}>
+        <div className={styles.add_to_favorite}>
             <Favorite
                 color={isLike && isAuth ? color : 'transparent'}
                 strokeColor={isLike && isAuth ? 'transparent' : strokeColor}

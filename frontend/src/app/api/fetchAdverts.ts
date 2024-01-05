@@ -57,14 +57,17 @@ export const fetchAdverts = createApi({
                 },
             }),
         }),
-        editAdvert: build.mutation<FormAddAnn, { body: FormAddAnn; addId: number; accessToken: string }>({
+        editAdvert: build.mutation<
+            FormAddAnn,
+            { body: FormAddAnn; addId: number; accessToken: string }
+        >({
             query: ({ body, addId, accessToken }) => ({
                 url: `api/advertisements/${addId}`,
                 method: 'PUT',
                 headers: {
                     'X-Csrftoken': `${accessToken}`,
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
                 body,
             }),
@@ -73,6 +76,11 @@ export const fetchAdverts = createApi({
     }),
 });
 
-export const { useGetAdvertsQuery, useGetAdvertByIdQuery, useGetFiltersQuery, useAddAdvertMutation, useMyAnnouncementsQuery, useEditAdvertMutation } =
-    fetchAdverts;
-
+export const {
+    useGetAdvertsQuery,
+    useGetAdvertByIdQuery,
+    useGetFiltersQuery,
+    useAddAdvertMutation,
+    useMyAnnouncementsQuery,
+    useEditAdvertMutation,
+} = fetchAdverts;
