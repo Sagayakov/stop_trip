@@ -142,7 +142,7 @@
 @media (max-width: 1023px) {
     .portal {
         top: 60%;
-        width: 95%;
+        width: 85%;
         img {
             margin: 0 auto;
         }
@@ -160,6 +160,7 @@
 
 @media (max-width: 767px) {
     .portal {
+        width: 95%;
         .horizontal {
             width: 100%;
         }
