@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .advertisement_serializers import AdvertisementCreateSerializer
-from ..models import Advertisement, PropertyAmenity, PropertyDistrict, PropertyCity
+from ..models import Advertisement, PropertyAmenity
 
 
 class PropertyAmenitySerializer(serializers.ModelSerializer):

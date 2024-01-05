@@ -9,7 +9,6 @@ from ..constants import (
     PropertyRentalCondition,
     PropertyType,
 )
-from ..models import PropertyCity
 
 
 class PropertyFilter(FilterSet):

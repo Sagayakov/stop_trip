@@ -38,8 +38,7 @@ from offers.models import (
     TransportModel,
     AdvertisementImage,
     Currency,
-    PropertyCity,
-    PropertyDistrict,
+
 )
 from countries.models import (
     Country,
