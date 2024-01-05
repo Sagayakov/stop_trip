@@ -32,7 +32,8 @@ const setupStore = () =>
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
                 .concat(fetchAdverts.middleware)
-                .concat(fetchFavorites.middleware), //getDefaultMiddleWare это функция, которая вернет массив, и в этот массив мы добавляем еще миддлвееры которые лежат в goodsApi
+                .concat(fetchFavorites.middleware)
+                .concat(fetchRating.middleware), //getDefaultMiddleWare это функция, которая вернет массив, и в этот массив мы добавляем еще миддлвееры которые лежат в goodsApi
     });
 
 export const store = setupStore();
