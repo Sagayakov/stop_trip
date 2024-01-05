@@ -2,16 +2,17 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from '../layout';
 import { privateRoutes, publicRoutes } from './routes';
 import { useAppSelector } from '../store/hooks';
-import { ActivateAccount } from 'app/router/routes.tsx';
 import { useTranslation } from 'react-i18next';
 import { Suspense, useEffect } from 'react';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { ActivateAccount } from './components';
 
 export const AppRouter = () => {
-    const localStorageIsAuth = 'true' === localStorage.getItem('isAuth') ? true : false;
+    const localStorageIsAuth =
+        'true' === localStorage.getItem('isAuth') ? true : false;
     //Изначально в редаксе isAuth="false". Если мы находились в приватном роутинге (и этой страницы не было в публичном), то при перезагрузке страницы перебрасывает на 404
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
-    const routes = (localStorageIsAuth || isAuth) ? privateRoutes : publicRoutes;
+    const routes = localStorageIsAuth || isAuth ? privateRoutes : publicRoutes;
 
     const lang = useAppSelector((state) => state.setLang.lang);
     const { i18n } = useTranslation();

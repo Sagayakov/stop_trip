@@ -8,12 +8,21 @@ export const fetchRating = createApi({
     tagTypes: ['Rating'],
     baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
     endpoints: (build) => ({
-        getRating: build.query<RatingType, string>({
-            query: () => ({
-                url: 'api/user_rate/',
+        getRating: build.query<RatingType, number | string>({
+            query: (page = '') => ({
+                url: `api/user_rate/${page ? `?page=${page}` : ''}`,
                 method: 'GET',
                 credentials: 'include',
             }),
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.results.map(() => ({
+                              type: 'Rating' as const,
+                          })),
+                          { type: 'Rating', id: 'LIST' },
+                      ]
+                    : [{ type: 'Rating', id: 'LIST' }],
         }),
         changeRating: build.mutation<
             AddRating,

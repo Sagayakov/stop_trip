@@ -1,15 +1,17 @@
-import { ComponentType, lazy } from 'react';
+import { ComponentType } from 'react';
 import { categories } from 'shared/const/categories.tsx';
-export const AddAnnouncementPage = lazy(() => import('pages/addAnnouncement/AddAnnouncementPage.tsx'));
-export const ActivateAccount = lazy(() => import('pages/activateAccount/ActivateAccount.tsx'));
-export const AdvertPage = lazy(() => import('pages/advertPage/AdvertPage.tsx'));
-export const CategoryPage = lazy(() => import('pages/categoryPage/CategoryPage.tsx'));
-export const MainPage = lazy(() => import('pages/mainPage/MainPage.tsx'));
-export const MyAnnouncements = lazy(() => import('pages/myAnnouncements/MyAnnouncements.tsx'));
-export const PageNotFound = lazy(() => import('pages/notFound/PageNotFound.tsx'));
-export const ResetPassword = lazy(() => import('pages/resetPassword/ResetPassword.tsx'));
-export const AdvertisementEditing = lazy(() => import('pages/advertisementEditing/AdvertisementEditing.tsx'))
-
+import {
+    ActivateAccount,
+    AddAnnouncementPage,
+    AdvertPage,
+    AdvertisementEditing,
+    CategoryPage,
+    FavoritesPage,
+    MainPage,
+    MyAnnouncements,
+    PageNotFound,
+    ResetPassword,
+} from './components';
 
 interface Route {
     path: string;
@@ -37,5 +39,6 @@ export const privateRoutes: Route[] = [
     { path: '/:category/:id', component: AdvertPage },
     { path: '/404', component: PageNotFound },
     { path: '/my-announcements', component: MyAnnouncements },
+    { path: '/favorites', component: FavoritesPage },
     ...categoryRoutes,
 ];
