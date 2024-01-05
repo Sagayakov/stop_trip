@@ -27,7 +27,7 @@ const AnyCategory = () => {
             {isLoading && <LoadingWithBackground />}
             {data?.results.length &&
                 data.results.map((el: AdvertsTypes) => (
-                    <CategoryAdvert el={el} />
+                    <CategoryAdvert el={el} key={el.id} />
                 ))}{' '}
             <Pagination data={data} parentRef={parentRef} />
         </section>
