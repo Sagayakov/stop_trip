@@ -1,6 +1,5 @@
 from django.db import models
 from location_field.models.plain import PlainLocationField
-from PIL import Image
 from .abs_event_model import AbsEvent
 from .abs_exchange_rate_model import AbsExchangeRate
 from .abs_job_model import AbsJob
@@ -61,9 +60,13 @@ class Advertisement(
         blank=True,
     )
 
-    category = models.CharField("Категории", max_length=100, choices=CategoryChoices.choices)
+    category = models.CharField(
+        "Категории", max_length=100, choices=CategoryChoices.choices
+    )
     title = models.CharField("Название", max_length=100)
-    price = models.DecimalField("Цена", max_digits=10, decimal_places=2, null=True, blank=True)
+    price = models.DecimalField(
+        "Цена", max_digits=10, decimal_places=2, null=True, blank=True
+    )
     coordinates = PlainLocationField(verbose_name="Координаты", blank=True)
     description = models.TextField("Описание", max_length=1000, null=True, blank=True)
     is_published = models.BooleanField("Опубликованно", default=True)
@@ -110,13 +113,3 @@ class AdvertisementImage(models.Model):
 
     def __str__(self):
         return f"Объявление - {self.advertisement.title}, #{self.pk}"
-
-    # def save(self):
-    #     super().save()
-    #
-    #     img = Image.open(self.image.path)
-    #
-    #     if img.height > 400 or img.width > 400:
-    #         output_size = (400, 400)
-    #         img.thumbnail(output_size)
-    #         img.save(self.image.path)
