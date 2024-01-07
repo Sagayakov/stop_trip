@@ -7,7 +7,7 @@
     position: fixed;
     cursor: pointer;
 }
-.title{
+.title {
     width: 100%;
     margin: 1rem auto;
     font-size: 28px;
@@ -45,7 +45,7 @@
         border-radius: 1rem;
         border: none;
         position: relative;
-        & > *{
+        & > * {
             text-decoration: none;
             color: black;
         }
@@ -119,12 +119,14 @@
                 gap: 11px;
                 cursor: pointer;
             }
-            .edit, .label_option{
+            .edit,
+            .label_option {
                 display: flex;
                 align-items: center;
                 padding: 0.5rem 1rem;
             }
-            .edit:hover, .label_option:hover{
+            .edit:hover,
+            .label_option:hover {
                 background-color: var(--grey-2);
                 border-radius: var(--radii);
             }
@@ -173,7 +175,7 @@
     }
 }
 @media (max-width: 1439px) {
-    .title{
+    .title {
         width: 85%;
     }
     .bread_crumbs {

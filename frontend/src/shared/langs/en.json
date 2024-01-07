@@ -286,7 +286,12 @@
         "edit": "Edit",
         "noAnnouncements": "You don't have any announcements yet :("
     },
+
     "errors": {
         "add-announcement-error": "Something went wrong, please try again"
+    },
+
+    "favorites": {
+        "no-favorites": "You don't have any favorites yet"
     }
 }

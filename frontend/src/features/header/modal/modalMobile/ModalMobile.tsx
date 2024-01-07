@@ -68,12 +68,16 @@ export const ModalMobile = (props: Props) => {
                             {t('modal-logged.messages')}
                         </p>
                     </div>
-                    <div className="user-option my-favs">
-                        <Favorite color="#f9f9f9" strokeColor="#1C1C1E" />
+                    <NavLink
+                        className="user-option my-favs"
+                        to={'/favorites'}
+                        onClick={() => setShowUserMenu(false)}
+                    >
+                        <Favorite color="#f9f9f9" strokeColor="#1F6FDE" />
                         <p className="user-option-text my-favs">
                             {t('modal-logged.favorites')}
                         </p>
-                    </div>
+                    </NavLink>
                     <div className="user-option">
                         <Setting color="#bcbcbc" stroke="#bcbcbc" />
                         <p className="user-option-text">
