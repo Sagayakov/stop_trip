@@ -8,22 +8,16 @@ export const fetchFavorites = createApi({
     tagTypes: ['Favorites'],
     baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
     endpoints: (build) => ({
-        getFavorites: build.query<LastAdvertsTypes, string>({
-            query: () => ({
-                url: 'api/favorites/',
+        getFavorites: build.query<LastAdvertsTypes, number | string>({
+            query: (page = '') => ({
+                url: `api/favorites/${page ? `?page=${page}` : ''}`,
                 method: 'GET',
                 credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${Cookies.get('access_token')}`,
+                },
             }),
-            providesTags: (result) =>
-                result
-                    ? [
-                          ...result.results.map(({ id }) => ({
-                              type: 'Favorites' as const,
-                              id,
-                          })),
-                          { type: 'Favorites', id: 'LIST' },
-                      ]
-                    : [{ type: 'Favorites', id: 'LIST' }],
         }),
         addFavorite: build.mutation<{ id: number }, { id: number }>({
             query: (body) => ({

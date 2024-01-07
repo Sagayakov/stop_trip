@@ -30,12 +30,18 @@ h1 {
     font-weight: 700;
 }
 
+.category_content_wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
 .filters_announcement {
     display: flex;
     justify-content: space-between;
     max-width: 1240px;
     width: 100%;
-    margin: 0 auto 40px;
+    margin: 0 auto 30px;
     gap: 16px;
     position: relative; //чтобы темный фон открытых фильтров был на всю высоту родителя
 
@@ -199,7 +205,7 @@ h1 {
 
     .filters_announcement {
         width: 85%;
-        margin: auto auto 50px;
+        margin: auto auto 30px;
 
         .announcement {
             width: calc(70% - 16px);

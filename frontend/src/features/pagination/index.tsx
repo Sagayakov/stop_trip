@@ -7,14 +7,14 @@ import { useAppDispatch, useAppSelector } from 'app/store/hooks';
 import { setPageMain } from 'widgets/lastAdverts/model/pageReducer/pageMain';
 import { useLocation } from 'react-router-dom';
 import { setPageCategory } from 'pages/categoryPage/model/pageReducer/pageCategory';
-import { beginnigParentScroll } from 'features/pagination/libr/beginnigParentScroll.ts';
+import { beginningParentScroll } from 'features/pagination/libr/beginningParentScroll';
 
 interface Props {
     data: LastAdvertsTypes | undefined;
-    parentRef: RefObject<HTMLElement> |  RefObject<HTMLDivElement>
+    parentRef: RefObject<HTMLElement> | RefObject<HTMLDivElement>;
 }
 
-export const Pagination = ({ data, parentRef  }: Props) => {
+export const Pagination = ({ data, parentRef }: Props) => {
     const pageMain = useAppSelector((state) => state.setPageMain.pageMain);
     const pageCategory = useAppSelector(
         (state) => state.setPageCategory.pageCategory
@@ -40,7 +40,7 @@ export const Pagination = ({ data, parentRef  }: Props) => {
                 dispatch(setPageCategory(pageCategory - 1));
             }
         }
-        beginnigParentScroll(parentRef)
+        beginningParentScroll(parentRef);
     };
 
     const handleClickNext = () => {
@@ -53,16 +53,17 @@ export const Pagination = ({ data, parentRef  }: Props) => {
                 dispatch(setPageCategory(pageCategory + 1));
             }
         }
-        beginnigParentScroll(parentRef)
+        beginningParentScroll(parentRef);
     };
 
     const handleClickNumber = (page: number) => {
         pathname === '/'
             ? dispatch(setPageMain(page))
             : dispatch(setPageCategory(page));
-        beginnigParentScroll(parentRef)
-    }
+        beginningParentScroll(parentRef);
+    };
 
+    const pageToChange = pathname === '/' ? pageMain : pageCategory;
 
     return (
         <div className={styles.pagination}>
@@ -74,24 +75,80 @@ export const Pagination = ({ data, parentRef  }: Props) => {
                 }}
                 handleClickPrev={handleClickPrev}
             />
-            {new Array(pages)
-                .fill(1)
-                .map((el, i) => el + i)
-                .map((el) => {
-                    return (
+            {pages <= 5 ? (
+                new Array(pages)
+                    .fill(1)
+                    .map((el, i) => el + i)
+                    .map((el) => {
+                        return (
+                            <span
+                                className={
+                                    pageMain === el
+                                        ? `${styles.page_number} ${styles.active}`
+                                        : `${styles.page_number}`
+                                }
+                                key={el}
+                                onClick={() => handleClickNumber(el)}
+                            >
+                                {el}
+                            </span>
+                        );
+                    })
+            ) : (
+                <>
+                    {pageToChange > 1 && (
                         <span
-                            className={
-                                pageMain === el
-                                    ? `${styles.page_number} ${styles.active}`
-                                    : `${styles.page_number}`
-                            }
-                            key={el}
-                            onClick={() => handleClickNumber(el)}
+                            className={`${styles.page_number}`}
+                            onClick={() => handleClickNumber(1)}
                         >
-                            {el}
+                            1
                         </span>
-                    );
-                })}
+                    )}
+                    {pageToChange > 3 && (
+                        <span
+                            className={styles.dots}
+                            onClick={() => handleClickNumber(pageToChange - 1)}
+                        >
+                            ...
+                        </span>
+                    )}
+                    {pageToChange - 1 > 1 && (
+                        <span
+                            className={`${styles.page_number}`}
+                            onClick={() => handleClickNumber(pageToChange - 1)}
+                        >
+                            {pageToChange - 1}
+                        </span>
+                    )}
+                    <span className={`${styles.page_number} ${styles.active}`}>
+                        {pageToChange}
+                    </span>
+                    {pageToChange + 1 < pages && (
+                        <span
+                            className={`${styles.page_number}`}
+                            onClick={() => handleClickNumber(pageToChange + 1)}
+                        >
+                            {pageToChange + 1}
+                        </span>
+                    )}
+                    {pages - pageToChange > 2 && (
+                        <span
+                            className={styles.dots}
+                            onClick={() => handleClickNumber(pageToChange + 1)}
+                        >
+                            ...
+                        </span>
+                    )}
+                    {pageToChange !== pages && (
+                        <span
+                            className={`${styles.page_number}`}
+                            onClick={() => handleClickNumber(pages)}
+                        >
+                            {pages}
+                        </span>
+                    )}
+                </>
+            )}
             <ArrowRight14x7
                 color={data && data.next ? '#1C1C1E' : '#BCBCBC'}
                 style={{

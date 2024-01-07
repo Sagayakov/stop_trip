@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import { useState } from 'react';
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { useAppSelector } from 'app/store/hooks.ts';
@@ -41,7 +40,6 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
     };
 
     const oninput = (event: React.FormEvent<HTMLInputElement>) => {
-        // eslint-disable-next-line prefer-const
         event.currentTarget.value = event.currentTarget.value.toLowerCase();
         let inputText = event.currentTarget.value;
         const atIndex = inputText.indexOf('@');

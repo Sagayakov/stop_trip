@@ -3,7 +3,7 @@ import { ProductInfo } from 'features/advert/ProductInfo.tsx';
 import { PriceBlock } from 'entities/advert';
 import { AdvertOwner } from 'entities/advert/advertOwner/AdvertOwner.tsx';
 import { Link } from 'react-router-dom';
-import { Tooltip } from 'react-tooltip';
+//import { Tooltip } from 'react-tooltip';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { Date } from 'widgets/advert/libr/types.ts';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +17,7 @@ interface Props {
 
 export const DesktopAdvert = ({ data, date }: Props) => {
     const { t } = useTranslation();
-    const { isTablet, isDesktop } = useMatchMedia();
+    const { isTablet } = useMatchMedia();
 
     const handleClickShowNumber = () => {
         if (data) {
@@ -52,8 +52,8 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                         <button
                             className={styles.call_button}
                             onClick={handleClickShowNumber}
-                            data-tooltip-id="my-tooltip"
-                            data-tooltip-content={`${data.owner.phone}`}
+                            /* data-tooltip-id="my-tooltip"
+                            data-tooltip-content={`${data.owner.phone}`} */
                         >
                             {t('advert-page.show-number')}
                         </button>
@@ -69,9 +69,9 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                     )}
                 </section>
             </div>
-            {isDesktop && (
+            {/* {isDesktop && (
                 <Tooltip id="my-tooltip" variant="success" place="top" />
-            )}
+            )} */}
         </>
     );
 };

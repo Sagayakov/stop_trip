@@ -3,11 +3,12 @@
 import {
     useAddFavoriteMutation,
     useDeleteFromFavoritesMutation,
+    useGetFavoritesQuery,
 } from 'app/api/fetchFavorites';
 import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes';
 import { useMatchMedia } from 'app/hooks/useMatchMedia';
 import { useAppSelector } from 'app/store/hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Favorite } from 'shared/ui/icons/icons-tools/Favorite';
@@ -23,6 +24,7 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
     const lang = useAppSelector((state) => state.setLang.lang);
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
     const [addToFav, setAddToFav] = useState(false);
+    const { data } = useGetFavoritesQuery('');
     const [addFavorite] = useAddFavoriteMutation();
     const [deleteFromFavorites] = useDeleteFromFavoritesMutation();
     const { t } = useTranslation();
@@ -47,6 +49,11 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
             toast.error(`${t('main-page.toast-favs')}`);
         }
     };
+
+    useEffect(() => {
+        const target = data?.results.find((el) => el.id === id);
+        isAuth && setAddToFav(!!target);
+    }, [data, id, isAuth]);
 
     const date = getDate(el.date_create);
     const { dayToDisplay } = date;

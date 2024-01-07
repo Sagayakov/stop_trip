@@ -40,6 +40,8 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
         'slug',
         'property_city',
         'property_district',
+        'transport_type',
+        'transport_category',
         'transport_brand',
         'transport_model',
     ];

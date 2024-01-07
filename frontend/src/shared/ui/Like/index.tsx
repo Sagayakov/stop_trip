@@ -38,7 +38,9 @@ export const Like = ({
         if (isAuth) {
             setIsLike(!isLike);
 
-            !isLike ? addFavorite({ id }) : deleteFromFavorites({ id });
+            isLike === false
+                ? addFavorite({ id })
+                : deleteFromFavorites({ id });
         } else {
             toast.error(`${t('main-page.toast-favs')}`);
         }
