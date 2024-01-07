@@ -20,4 +20,10 @@
         cursor: unset;
         color: #ffffff;
     }
+    .dots {
+        font-family: var(--font-inter);
+        font-size: 20px;
+        color: var(--grey-3);
+        cursor: pointer;
+    }
 }
