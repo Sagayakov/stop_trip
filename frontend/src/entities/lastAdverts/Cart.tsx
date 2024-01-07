@@ -11,7 +11,7 @@ import {
 import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import styles from 'widgets/lastAdverts/libr/LastAdverts.module.scss';
+import styles from './libr/cart.module.scss';
 import { prettifyPrice } from 'shared/utils/prettifyPrice';
 
 export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
