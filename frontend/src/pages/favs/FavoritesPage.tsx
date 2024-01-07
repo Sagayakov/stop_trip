@@ -3,7 +3,7 @@ import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
 import { NavLink } from 'react-router-dom';
 import styles from './libr/favorites.module.scss';
 import { useTranslation } from 'react-i18next';
-import { FavCart } from 'features/favCart/FavCart';
+import { Cart } from 'entities/lastAdverts/Cart';
 
 const FavoritesPage = () => {
     const { data, isLoading } = useGetFavoritesQuery('');
@@ -20,7 +20,7 @@ const FavoritesPage = () => {
             {data && data.results.length ? (
                 <div className={styles.fav_list}>
                     {data.results.map((el) => (
-                        <FavCart key={el.id} {...el} />
+                        <Cart key={el.id} cart={el} />
                     ))}
                 </div>
             ) : (

@@ -13,16 +13,11 @@ export const fetchRating = createApi({
                 url: `api/user_rate/${page ? `?page=${page}` : ''}`,
                 method: 'GET',
                 credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${Cookies.get('access_token')}`,
+                },
             }),
-            providesTags: (result) =>
-                result
-                    ? [
-                          ...result.results.map(() => ({
-                              type: 'Rating' as const,
-                          })),
-                          { type: 'Rating', id: 'LIST' },
-                      ]
-                    : [{ type: 'Rating', id: 'LIST' }],
         }),
         changeRating: build.mutation<
             AddRating,

@@ -7,7 +7,16 @@ export interface LastAdvertsTypes {
 
 export interface AdvertsTypes {
     id: number;
-    category?: string;
+    category: string;
+    country: {
+        name: string | null;
+    };
+    region: {
+        name: string | null;
+    };
+    city: {
+        name: string | null;
+    };
     title: string;
     price: number;
     description?: string;
