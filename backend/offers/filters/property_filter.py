@@ -245,7 +245,8 @@ class PropertyFilter(FilterSet):
 
         # Удобства
         facets["property_amenities"] = (
-            queryset.values_list("property_amenities__slug", flat=True)
+            queryset.exclude(property_amenities__isnull=True)
+            .values_list("property_amenities__slug", flat=True)
             .order_by("property_amenities__slug")
             .distinct("property_amenities__slug")
         )
