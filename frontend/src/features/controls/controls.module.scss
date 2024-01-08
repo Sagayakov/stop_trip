@@ -70,8 +70,9 @@
                 border: none;
                 -webkit-appearance: none;
                 //для firefox
-                background: white url('../../shared/ui/icons/down.svg') no-repeat right 30%;
-                background-size: 20%;
+                /* background: white url('../../shared/ui/icons/down.svg')
+                    no-repeat right 30%;
+                background-size: 20%; */
             }
             #arrow_down {
                 position: absolute;
@@ -140,7 +141,7 @@
         }
     }
 }
-@media (max-width: 767px){
+@media (max-width: 767px) {
     .button_all_categories {
         margin-left: auto;
         margin-top: 12px;
