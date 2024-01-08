@@ -89,6 +89,8 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
     city = CitySerializer(read_only=True)
     property_amenities = AdvertisementPropertyAmenitySerializer(many=True, required=False)
     owner = UserSerializer(read_only=True)
+    proposed_currency = serializers.ReadOnlyField(source="proposed_currency.short_name")
+    exchange_for = serializers.ReadOnlyField(source="exchange_for.short_name")
 
     class Meta:
         model = Advertisement
