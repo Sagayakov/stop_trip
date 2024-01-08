@@ -8,7 +8,7 @@ interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue?: string | undefined;
 }
-export const AnnouncementRealtyServise = ({ register }: Props) => {
+export const AnnouncementRealtyServise = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     const radioValues = [
@@ -24,6 +24,7 @@ export const AnnouncementRealtyServise = ({ register }: Props) => {
                 radioValues={radioValues}
                 register={register}
                 className={styles.radio_group}
+                defaultValue={radioValues.find((el) => el.value === defaultValue)}
             />
             <div className={styles.ann_field_err}></div>
         </div>

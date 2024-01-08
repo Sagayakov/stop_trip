@@ -3,11 +3,9 @@ import { LastAdvertsTypes } from './types/lastAdvertsTypes';
 import { url } from 'shared/const/url.ts';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { FiltersType } from './types/filtersType';
-import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 
-const { accessToken } = getTokensFromStorage();
 
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
@@ -29,14 +27,13 @@ export const fetchAdverts = createApi({
                       ]
                     : [{ type: 'Adverts', id: 'LIST' }],
         }),
-        addAdvert: build.mutation<ProductType, ProductType>({
-            query: (body) => ({
+        addAdvert: build.mutation<ProductType, { body: FormAddAnn, token: string }>({
+            query: ({ body, token }) => ({
                 url: 'api/advertisements/', // сюда вписать адрес для добавления нового объявления
                 method: 'POST',
                 headers: {
-                    'X-Csrftoken': `${accessToken}`,
                     'Content-Type': 'application/json',
-                    authorization: `Bearer ${accessToken}`,
+                    'Authorization': `Bearer ${token}`,
                 },
                 body,
             }),
@@ -53,7 +50,7 @@ export const fetchAdverts = createApi({
                 url: 'api/advertisements/my_advertisements/',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
+                    'Authorization': `Bearer ${token}`,
                 },
             }),
         }),
@@ -65,13 +62,11 @@ export const fetchAdverts = createApi({
                 url: `api/advertisements/${addId}`,
                 method: 'PUT',
                 headers: {
-                    'X-Csrftoken': `${accessToken}`,
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${accessToken}`,
+                    'Authorization': `Bearer ${accessToken}`,
                 },
                 body,
             }),
-            invalidatesTags: ['Adverts'],
         }),
     }),
 });

@@ -4,15 +4,18 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    defaultValue?: string | null | undefined;
 }
 
 export const AnnouncementRealtyRentalCondition = ({
     setValue,
     control,
+    defaultValue
 }: Props) => {
     const optionValues = valuesOfPropertyForm.property_rental_condition;
     const { t } = useTranslation();
@@ -27,6 +30,7 @@ export const AnnouncementRealtyRentalCondition = ({
                 name="property_rental_condition"
                 options={optionValues}
                 placeholder={t('filters.property_rental_condition')}
+                defaultValue={getDefaultValue(defaultValue, optionValues)}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

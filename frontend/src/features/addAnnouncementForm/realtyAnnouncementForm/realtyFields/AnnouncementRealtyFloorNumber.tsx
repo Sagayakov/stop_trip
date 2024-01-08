@@ -5,8 +5,9 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: number | null | undefined;
 }
-export const AnnouncementRealtyFloorNumber = ({ register }: Props) => {
+export const AnnouncementRealtyFloorNumber = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -18,6 +19,7 @@ export const AnnouncementRealtyFloorNumber = ({ register }: Props) => {
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
                     min={0}
+                    defaultValue={defaultValue || ''}
                     placeholder={t('filters.property_floor')}
                     {...register('property_floor')}
                 />

@@ -5,8 +5,9 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: string | null | undefined;
 }
-export const AnnouncementRealtyTotalArea = ({ register }: Props) => {
+export const AnnouncementRealtyTotalArea = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -18,6 +19,7 @@ export const AnnouncementRealtyTotalArea = ({ register }: Props) => {
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
                     min={0}
+                    defaultValue={defaultValue || ''}
                     placeholder={t('filters.area')}
                     {...register('property_area')}
                 />

@@ -5,8 +5,9 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: string | null | undefined;
 }
-export const AnnouncementRealtyComission = ({ register }: Props) => {
+export const AnnouncementRealtyComission = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -19,6 +20,7 @@ export const AnnouncementRealtyComission = ({ register }: Props) => {
                     autoComplete="off"
                     {...register('property_commission')}
                     min={1}
+                    defaultValue={defaultValue || ''}
                     placeholder={t('filters.from')}
                 />
             </div>

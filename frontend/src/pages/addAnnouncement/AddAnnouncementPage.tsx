@@ -9,11 +9,10 @@ import { useTranslation } from 'react-i18next';
 import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import './libr/selectAddAnnouncement.scss'
-import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
-import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
 import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
 import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFields/SuccessAddAnnouncement.tsx';
 import { toast } from 'react-toastify';
+import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 
 interface Image {
     image: string;
@@ -37,16 +36,12 @@ const AddAnnouncementPage = () => {
     const [descript, setDescript] = useState<string | undefined>();
     const [modalSuccess, setModalSuccess] = useState(false);
     const { t } = useTranslation();
-    const [ addAdvert ] = useAddAdvertMutation();
-    const dispatch = useAppDispatch();
-    const isLoading = useAppSelector((store) => store.setLoading.loading)
+    const [ addAdvert, { isLoading } ] = useAddAdvertMutation();
+    const { accessToken } = getTokensFromStorage();
 
     const onsubmit = async (data: FormAddAnn) => {
         try {
-            dispatch(setLoading(true));
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            const result = await addAdvert(data);
+            const result = await addAdvert({ body: data, token: accessToken });
             if ('data' in result) {
                 descript && setValue('description', descript);
                 setSelectedImages(undefined);
@@ -54,14 +49,10 @@ const AddAnnouncementPage = () => {
                 setDescript(undefined);
                 reset();
                 setValue('category', data.category);
-                setTimeout(() => {
-                    dispatch(setLoading(false));
-                    setModalSuccess(true);
-                }, 1500)
+                setModalSuccess(true);
             }
         } catch (error){
             console.log(error);
-            dispatch(setLoading(false));
             toast.error(`${t('errors.add-announcement-error')}`)
         }
     };
