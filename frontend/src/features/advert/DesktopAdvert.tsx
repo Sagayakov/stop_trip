@@ -29,11 +29,10 @@ export const DesktopAdvert = ({ data, date }: Props) => {
         <>
             <h1 className={styles.announcement_header}>{data.title}</h1>
             <p>
-                {data.property_city
-                    ? `${data.property_city.name}, ${
-                          data.property_district ??
-                          `${t('advert-page.no-district')}`
-                      }`
+                {data.city
+                    ? `${data.country?.name || ''}, ${
+                          data.region?.name || ''
+                      }, ${data.city?.name || ''}`
                     : `${t('advert-page.no-address')}`}
             </p>
             <div className={styles.announcement_info}>

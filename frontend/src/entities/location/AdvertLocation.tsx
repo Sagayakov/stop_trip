@@ -20,13 +20,14 @@ export const AdvertLocation = ({ data }: AdvertLocationProps) => {
 
     return (
         <div className={styles.location}>
-            <div className={styles.location_header}>{t('advert-page.location')}</div>
+            <div className={styles.location_header}>
+                {t('advert-page.location')}
+            </div>
             <p>
-                {data.property_city
-                    ? `${data.property_city.name}, ${
-                          data.property_district ??
-                          `${t('advert-page.no-district')}`
-                      }`
+                {data.city
+                    ? `${data.country?.name || ''}, ${
+                          data.region?.name || ''
+                      }, ${data.city?.name || ''}`
                     : `${t('advert-page.no-address')}`}
             </p>
             <div className={styles.map_wrapper}>

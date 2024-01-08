@@ -36,12 +36,12 @@ export type ProductType = {
     property_bathroom_count: null | number;
     property_bathroom_type: string;
     property_building_max_floor: null | number;
-    country: string | null;
+    country: { name: string } | null;
     property_city: { name: string } | null;
     city: { name: string } | null;
     coordinates: string;
     property_district: string | null;
-    region: string | null;
+    region: { name: string } | null;
     property_floor: null | number;
     property_has_furniture: boolean;
     property_has_parking: boolean;
