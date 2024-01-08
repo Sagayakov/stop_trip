@@ -66,7 +66,8 @@ class AdvertisementFilter(
             "name": "region",
             "choices": [
                 {"value": value, "label": label}
-                for value, label in queryset.values_list("region__slug", "region__name")
+                for value, label in queryset.exclude(region__isnull=True)
+                .values_list("region__slug", "region__name")
                 .order_by("region__slug", "region__name")
                 .distinct("region__slug", "region__name")
             ],
@@ -78,7 +79,8 @@ class AdvertisementFilter(
             "name": "city",
             "choices": [
                 {"value": value, "label": label}
-                for value, label in queryset.values_list("city__slug", "city__name")
+                for value, label in queryset.exclude(city__isnull=True)
+                .values_list("city__slug", "city__name")
                 .order_by("city__slug", "city__name")
                 .distinct("city__slug", "city__name")
             ],
