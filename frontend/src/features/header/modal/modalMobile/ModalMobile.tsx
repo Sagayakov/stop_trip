@@ -7,7 +7,6 @@ import { Message } from 'shared/ui/icons/icons-tools/Message.tsx';
 import { Setting } from 'shared/ui/icons/icons-tools/Setting.tsx';
 import './modalMobile.scss';
 import { clearTokensFromCookies } from 'app/cookie/cookieAuth.ts';
-import { useEffect, useState } from 'react';
 import { Langs } from 'entities/langs';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
@@ -23,18 +22,8 @@ interface Props {
 export const ModalMobile = (props: Props) => {
     const { showUserMenu, setShowUserMenu } = props;
     const dispatch: Dispatch = useAppDispatch();
-    const [width, setWidth] = useState<number>(window.innerWidth);
     const { t } = useTranslation();
-    const { isDesktop } = useMatchMedia();
-
-    useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    const { isDesktop, isMobile } = useMatchMedia();
 
     const handleLogout = () => {
         dispatch(setIsAuth(false));
@@ -96,11 +85,7 @@ export const ModalMobile = (props: Props) => {
                             {t('modal-logged.settings')}
                         </p>
                     </div>
-                    {width < 767 && (
-                        <div className="language-auth">
-                            <Langs />
-                        </div>
-                    )}
+                    {isMobile && <Langs />}
                 </div>
                 <p onClick={handleLogout} className="user-option-logout">
                     {t('modal-logged.logout')}

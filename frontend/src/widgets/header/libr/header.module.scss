@@ -52,42 +52,7 @@ header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            .language {
-                display: flex;
-                justify-content: space-between;
-                font-size: 12px;
-                font-family: var(--font-inter);
-                background-color: #f5f3f3;
-                border-radius: 8px;
-                border: none;
-                text-align: center;
-                .language_ru {
-                    width: 50%;
-                    font-weight: 700;
-                    height: 36px;
-                    color: var(--grey-3);
-                    border-radius: 8px 0 0 8px;
-                    background-color: #f5f3f3;
-                    padding: 9px 11px;
-                    cursor: pointer;
-                    border: none;
-                }
-                .language_eng {
-                    font-weight: 700;
-                    width: 50%;
-                    height: 36px;
-                    color: var(--grey-3);
-                    border-radius: 0 8px 8px 0;
-                    padding: 9px 14px 9px 9px;
-                    background-color: #f5f3f3;
-                    cursor: pointer;
-                    border: none;
-                }
-                .lang_active {
-                    background-color: #f0f0f0;
-                    color: var(--main-blue);
-                }
-            }
+
             .auth_button {
                 width: 197px;
                 height: 44px;
@@ -163,15 +128,6 @@ header {
             }
             .addAdvert {
                 height: 35px;
-            }
-            .language_auth {
-                .language {
-                    .language_ru,
-                    .language_eng {
-                        height: 25px;
-                        line-height: 8px;
-                    }
-                }
             }
             .auth_button {
                 height: 35px;

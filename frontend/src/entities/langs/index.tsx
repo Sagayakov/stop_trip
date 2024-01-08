@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { setLang } from 'features/header/model/langsReducer/lang.ts';
-import styles from 'widgets/header/libr/header.module.scss'
+import styles from './libr/langs.module.scss';
 import { UniversalButton } from 'entities/universalEntites';
 
 export const Langs = () => {
