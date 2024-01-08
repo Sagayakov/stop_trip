@@ -38,12 +38,18 @@ class TaxiFilter(FilterSet):
 
         # Единица измерения
         facets["taxi_unit"] = (
-            queryset.exclude(taxi_unit__isnull=True).values_list("taxi_unit", flat=True).distinct()
+            queryset.exclude(taxi_unit__isnull=True)
+            .values_list("taxi_unit", flat=True)
+            .order_by("taxi_unit")
+            .distinct("taxi_unit")
         )
 
         # Вид такси
         facets["taxi_type"] = (
-            queryset.exclude(taxi_type__isnull=True).values_list("taxi_type", flat=True).distinct()
+            queryset.exclude(taxi_type__isnull=True)
+            .values_list("taxi_type", flat=True)
+            .order_by("taxi_type")
+            .distinct("taxi_type")
         )
 
         return facets

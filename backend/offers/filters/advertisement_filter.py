@@ -105,10 +105,20 @@ class AdvertisementFilter(
         facets["category"] = queryset.values_list("category", flat=True).distinct()
 
         # Регион
-        facets["region"] = queryset.values_list("region__slug", flat=True).distinct()
+        facets["region"] = (
+            queryset.exclude(region__isnull=True)
+            .values_list("region__slug", flat=True)
+            .order_by("region__slug")
+            .distinct("region__slug")
+        )
 
         # Город
-        facets["city"] = queryset.values_list("city__slug", flat=True).distinct()
+        facets["city"] = (
+            queryset.exclude(city__isnull=True)
+            .values_list("city__slug", flat=True)
+            .order_by("city__slug")
+            .distinct("city__slug")
+        )
 
         # Цена
         price_range = queryset.aggregate(min=Min("price"), max=Max("price"))

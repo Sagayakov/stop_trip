@@ -30,7 +30,10 @@ class EventFilter(FilterSet):
 
         # Онлайн
         facets["is_online"] = (
-            queryset.exclude(is_online__isnull=True).values_list("is_online", flat=True).distinct()
+            queryset.exclude(is_online__isnull=True)
+            .values_list("is_online", flat=True)
+            .order_by("is_online")
+            .distinct("is_online")
         )
 
         return facets

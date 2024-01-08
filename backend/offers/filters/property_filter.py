@@ -166,35 +166,40 @@ class PropertyFilter(FilterSet):
         facets["property_type"] = (
             queryset.exclude(property_type__isnull=True)
             .values_list("property_type", flat=True)
-            .distinct()
+            .order_by("property_type")
+            .distinct("property_type")
         )
 
         # Тип услуги
         facets["property_type_of_service"] = (
             queryset.exclude(property_type_of_service__isnull=True)
             .values_list("property_type_of_service", flat=True)
-            .distinct()
+            .order_by("property_type_of_service")
+            .distinct("property_type_of_service")
         )
 
         # Количество санузлов
         facets["property_bathroom_count"] = (
             queryset.exclude(property_bathroom_count__isnull=True)
             .values_list("property_bathroom_count", flat=True)
-            .distinct()
+            .order_by("property_bathroom_count")
+            .distinct("property_bathroom_count")
         )
 
         # Тип санузла
         facets["property_bathroom_type"] = (
             queryset.exclude(property_bathroom_type__isnull=True)
             .values_list("property_bathroom_type", flat=True)
-            .distinct()
+            .order_by("property_bathroom_type")
+            .distinct("property_bathroom_type")
         )
 
         # Тип дома
         facets["property_house_type"] = (
             queryset.exclude(property_house_type__isnull=True)
             .values_list("property_house_type", flat=True)
-            .distinct()
+            .order_by("property_house_type")
+            .distinct("property_house_type")
         )
 
         # Количество спальных мест
@@ -219,7 +224,8 @@ class PropertyFilter(FilterSet):
         facets["property_rental_condition"] = (
             queryset.exclude(property_rental_condition__isnull=True)
             .values_list("property_rental_condition", flat=True)
-            .distinct()
+            .order_by("property_rental_condition")
+            .distinct("property_rental_condition")
         )
 
         # Общая площадь
@@ -233,12 +239,15 @@ class PropertyFilter(FilterSet):
         facets["property_has_furniture"] = (
             queryset.exclude(property_has_furniture__isnull=True)
             .values_list("property_has_furniture", flat=True)
-            .distinct()
+            .order_by("property_has_furniture")
+            .distinct("property_has_furniture")
         )
 
         # Удобства
-        facets["property_amenities"] = queryset.values_list(
-            "property_amenities__slug", flat=True
-        ).distinct()
+        facets["property_amenities"] = (
+            queryset.values_list("property_amenities__slug", flat=True)
+            .order_by("property_amenities__slug")
+            .distinct("property_amenities__slug")
+        )
 
         return facets

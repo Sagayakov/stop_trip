@@ -42,14 +42,16 @@ class DocumentFilter(FilterSet):
         facets["document_type"] = (
             queryset.exclude(document_type__isnull=True)
             .values_list("document_type", flat=True)
-            .distinct()
+            .order_by("document_type")
+            .distinct("document_type")
         )
 
         # Срок действия
         facets["document_duration"] = (
             queryset.exclude(document_duration__isnull=True)
             .values_list("document_duration", flat=True)
-            .distinct()
+            .order_by("document_duration")
+            .distinct("document_duration")
         )
 
         return facets

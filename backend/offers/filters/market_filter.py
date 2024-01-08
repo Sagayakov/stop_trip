@@ -33,7 +33,8 @@ class MarketFilter(FilterSet):
         facets["market_condition"] = (
             queryset.exclude(market_condition__isnull=True)
             .values_list("market_condition", flat=True)
-            .distinct()
+            .order_by("market_condition")
+            .distinct("market_condition")
         )
 
         return facets

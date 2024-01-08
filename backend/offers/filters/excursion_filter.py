@@ -37,14 +37,16 @@ class ExcursionFilter(FilterSet):
         facets["excursion_food"] = (
             queryset.exclude(excursion_food__isnull=True)
             .values_list("excursion_food", flat=True)
-            .distinct()
+            .order_by("excursion_food")
+            .distinct("excursion_food")
         )
 
         # Трансфер
         facets["excursion_transfer"] = (
             queryset.exclude(excursion_transfer__isnull=True)
             .values_list("excursion_transfer", flat=True)
-            .distinct()
+            .order_by("excursion_transfer")
+            .distinct("excursion_transfer")
         )
 
         return facets

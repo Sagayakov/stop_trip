@@ -29,7 +29,8 @@ class ServiceFilter(FilterSet):
         facets["service_home_visit"] = (
             queryset.exclude(service_home_visit__isnull=True)
             .values_list("service_home_visit", flat=True)
-            .distinct()
+            .order_by("service_home_visit")
+            .distinct("service_home_visit")
         )
 
         return facets

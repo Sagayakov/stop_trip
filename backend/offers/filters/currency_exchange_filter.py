@@ -48,18 +48,19 @@ class CurrencyExchange(FilterSet):
         facets: dict[str, Union[list, dict]] = {}
 
         # Предлагаемая валюта
-
         facets["proposed_currency"] = (
             queryset.exclude(proposed_currency__isnull=True)
             .values_list("proposed_currency", flat=True)
-            .distinct()
+            .order_by("proposed_currency")
+            .distinct("proposed_currency")
         )
 
         # Обмен на
         facets["exchange_for"] = (
             queryset.exclude(exchange_for__isnull=True)
             .values_list("exchange_for", flat=True)
-            .distinct()
+            .order_by("exchange_for")
+            .distinct("exchange_for")
         )
 
         return facets

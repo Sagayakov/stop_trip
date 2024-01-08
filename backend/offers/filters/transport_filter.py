@@ -195,49 +195,56 @@ class TransportFilter(FilterSet):
         facets["transport_type_of_service"] = (
             queryset.exclude(transport_type_of_service__isnull=True)
             .values_list("transport_type_of_service", flat=True)
-            .distinct()
+            .order_by("transport_type_of_service")
+            .distinct("transport_type_of_service")
         )
 
         # Тип транспорта
         facets["transport_type"] = (
             queryset.exclude(transport_type__isnull=True)
             .values_list("transport_type_of_service", flat=True)
-            .distinct()
+            .order_by("transport_type_of_service")
+            .distinct("transport_type_of_service")
         )
 
         # Категория транспорта
         facets["transport_category"] = (
             queryset.exclude(transport_category__isnull=True)
             .values_list("transport_category", flat=True)
-            .distinct()
+            .order_by("transport_category")
+            .distinct("transport_category")
         )
 
         # Марка транспорта
         facets["transport_brand"] = (
             queryset.exclude(transport_brand__isnull=True)
-            .values_list("transport_brand", flat=True)
-            .distinct()
+            .values_list("transport_brand__slug", flat=True)
+            .order_by("transport_brand__slug")
+            .distinct("transport_brand__slug")
         )
 
         # Модель транспорта
         facets["transport_model"] = (
             queryset.exclude(transport_model__isnull=True)
-            .values_list("transport_model", flat=True)
-            .distinct()
+            .values_list("transport_model__slug", flat=True)
+            .order_by("transport_model__slug")
+            .distinct("transport_model__slug")
         )
 
         # Тип двигателя
         facets["transport_engine_type"] = (
             queryset.exclude(transport_engine_type__isnull=True)
             .values_list("transport_engine_type", flat=True)
-            .distinct()
+            .order_by("transport_engine_type")
+            .distinct("transport_engine_type")
         )
 
         # Вид привода
         facets["transport_drive_type"] = (
             queryset.exclude(transport_drive_type__isnull=True)
             .values_list("transport_drive_type", flat=True)
-            .distinct()
+            .order_by("transport_drive_type")
+            .distinct("transport_drive_type")
         )
 
         # Объём двигателя
@@ -262,21 +269,24 @@ class TransportFilter(FilterSet):
         facets["transport_transmission_type"] = (
             queryset.exclude(transport_transmission_type__isnull=True)
             .values_list("transport_transmission_type", flat=True)
-            .distinct()
+            .order_by("transport_transmission_type")
+            .distinct("transport_transmission_type")
         )
 
         # Тип кузова
         facets["transport_body_type"] = (
             queryset.exclude(transport_body_type__isnull=True)
             .values_list("transport_body_type", flat=True)
-            .distinct()
+            .order_by("transport_body_type")
+            .distinct("transport_body_type")
         )
 
         # Состояние транспорта
         facets["transport_condition"] = (
             queryset.exclude(transport_condition__isnull=True)
             .values_list("transport_condition", flat=True)
-            .distinct()
+            .order_by("transport_condition")
+            .distinct("transport_condition")
         )
 
         # Комиссия

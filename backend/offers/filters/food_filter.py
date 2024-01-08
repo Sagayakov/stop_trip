@@ -48,19 +48,24 @@ class FoodFilter(FilterSet):
         facets["food_delivery"] = (
             queryset.exclude(food_delivery__isnull=True)
             .values_list("food_delivery", flat=True)
-            .distinct()
+            .order_by("food_delivery")
+            .distinct("food_delivery")
         )
 
         # Ресторан/кафе
         facets["food_establishment"] = (
             queryset.exclude(food_establishment__isnull=True)
             .values_list("food_establishment", flat=True)
-            .distinct()
+            .order_by("food_establishment")
+            .distinct("food_establishment")
         )
 
         # Тип еды
         facets["food_type"] = (
-            queryset.exclude(food_type__isnull=True).values_list("food_type", flat=True).distinct()
+            queryset.exclude(food_type__isnull=True)
+            .values_list("food_type", flat=True)
+            .order_by("food_type")
+            .distinct("food_type")
         )
 
         return facets
