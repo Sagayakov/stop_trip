@@ -58,6 +58,12 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
             } else {
                 continue;
             }
+        } else if (key === 'exchange_for' || key === 'proposed_currency') {
+            list.push(
+                <div key={key}>
+                    <p>{data[key]}</p>
+                </div>
+            );
         } else if (
             !data[key] ||
             data[key] === '' ||

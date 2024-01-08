@@ -107,7 +107,7 @@ export const categoryCharacteristicsValues: Record<
             separate: 'Раздельный',
         },
         property_balcony: {
-            yes: 'Есть',
+            yes: 'Да',
             no: 'Нет',
             loggia: 'Лоджия',
         },
