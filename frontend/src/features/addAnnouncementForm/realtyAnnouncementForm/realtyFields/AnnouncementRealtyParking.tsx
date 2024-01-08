@@ -5,8 +5,9 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: boolean | null | undefined;
 }
-export const AnnouncementRealtyParking = ({ register }: Props) => {
+export const AnnouncementRealtyParking = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -18,6 +19,7 @@ export const AnnouncementRealtyParking = ({ register }: Props) => {
                         type="radio"
                         {...register('property_has_parking')}
                         style={{ display: 'none' }}
+                        checked={defaultValue || false}
                     />
                     <span>{t('filters.property_has_parking')}</span>
                 </label>

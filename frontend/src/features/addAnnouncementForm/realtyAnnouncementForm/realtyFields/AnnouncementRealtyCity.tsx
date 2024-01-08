@@ -5,13 +5,15 @@ import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/val
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    defaultValue?: { name: string; } | null | undefined;
 }
 
-export const AnnouncementRealtyCity = ({ setValue, control }: Props) => {
+export const AnnouncementRealtyCity = ({ setValue, control, defaultValue }: Props) => {
     const { isMobile } = useMatchMedia();
     const optionValues = valuesOfPropertyForm.property_city;
     const { t } = useTranslation();
@@ -27,6 +29,7 @@ export const AnnouncementRealtyCity = ({ setValue, control }: Props) => {
                 options={optionValues}
                 placeholder={t('filters.choose-city')}
                 prefix="filterAnnouncementCategory"
+                defaultValue={getDefaultValue(defaultValue?.name, optionValues)}
                 setValue={setValue}
                 isSearchable={!isMobile}
             />

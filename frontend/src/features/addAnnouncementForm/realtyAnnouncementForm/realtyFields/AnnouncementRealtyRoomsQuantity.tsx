@@ -6,9 +6,10 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: number | null | undefined;
 }
 
-export const AnnouncementRealtyRoomsQuantity = ({ register }: Props) => {
+export const AnnouncementRealtyRoomsQuantity = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     const optionValues = [
@@ -25,6 +26,7 @@ export const AnnouncementRealtyRoomsQuantity = ({ register }: Props) => {
                     radioValues={optionValues}
                     name="property_rooms_count"
                     register={register}
+                    defaultValue={optionValues.find((el) => el.value === String(defaultValue))}
                     className={styles.radio_group}
                 />
             </div>

@@ -7,13 +7,18 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: Amenity[] | undefined;
+}
+type Amenity = {
+    name: string
 }
 
-export const AnnouncementRealtyAmenities = ({ register }: Props) => {
+export const AnnouncementRealtyAmenities = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     const optionValues = valuesOfPropertyForm.property_amenities;
-
+    const val = defaultValue?.map((el) => el.name)
+    // console.log(val)
     return (
         <div className={styles.ann_field}>
             <h3>{t('filters.property_amenities')}</h3>
@@ -21,6 +26,7 @@ export const AnnouncementRealtyAmenities = ({ register }: Props) => {
                 checkboxValues={optionValues}
                 name="property_amenities"
                 register={register}
+                defaultValue={val}
                 className={styles.checkbox_group}
             />
             <div className={styles.ann_field_err}></div>
