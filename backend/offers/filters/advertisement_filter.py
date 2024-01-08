@@ -102,7 +102,9 @@ class AdvertisementFilter(
         facets: dict[str, Union[list, dict]] = {}
 
         # Категория
-        facets["category"] = queryset.values_list("category", flat=True).distinct()
+        facets["category"] = (
+            queryset.values_list("category", flat=True).order_by("category").distinct("category")
+        )
 
         # Регион
         facets["region"] = (
