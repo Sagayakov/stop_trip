@@ -13,7 +13,7 @@ export const GetDateOfCreating = (str: string) => {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) - 1);
 
     if (day < 10) day = '0' + day;
-    if (month < 10) month = '0' + month;
+    if (month < 10) month = '0' + (month + 1);
     if (hours < 10) hours = '0' + hours;
     if (minutes < 10) minutes = '0' + minutes;
 
@@ -27,6 +27,6 @@ export const GetDateOfCreating = (str: string) => {
                 lang === 'ru' ? 'Вчера' : 'Yesterday'
             }, ${hours}:${minutes}`;
         default:
-            return `${day}.${Number(month) + 1}.${year}`;
+            return `${day}.${month}.${year}`;
     }
 };
