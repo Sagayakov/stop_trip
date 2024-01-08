@@ -58,34 +58,33 @@
                 display: flex;
                 align-items: center;
                 margin-bottom: 24px;
-                cursor: default;
+                cursor: pointer;
 
                 svg {
                     width: 24px;
                 }
+                .user-option-text,
                 .user-option-text {
-                    color: var(--grey-2);
                     margin: 4px 0px 4px 24px;
-                }
-                .user-option-text.my-ads,
-                .user-option-text.my-favs {
                     color: var(--main-black);
                 }
+                .user-option-text.my-messages {
+                    color: var(--grey-2);
+                }
             }
-            .user-option.my-ads,
-            .user-option.my-favs {
-                cursor: pointer;
-            }
-            .user-option.my-ads:hover,
-            .user-option.my-favs:hover {
+            .user-option:hover,
+            .user-option:hover {
                 border-radius: 8px;
                 background-color: var(--grey-1);
             }
-            .language-auth {
-                margin-left: 40px;
+            .user-option.my-messages:hover {
+                background-color: transparent;
             }
             .user-option:active {
                 color: var(--grey-2);
+            }
+            .language-auth {
+                margin-left: 40px;
             }
         }
         .user-option-logout {

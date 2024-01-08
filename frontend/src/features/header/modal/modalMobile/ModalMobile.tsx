@@ -11,6 +11,9 @@ import { useEffect, useState } from 'react';
 import { Langs } from 'entities/langs';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
+import { useMatchMedia } from 'app/hooks/useMatchMedia';
+import { toast } from 'react-toastify';
+import { Tooltip } from 'react-tooltip';
 
 interface Props {
     showUserMenu: boolean;
@@ -22,6 +25,7 @@ export const ModalMobile = (props: Props) => {
     const dispatch: Dispatch = useAppDispatch();
     const [width, setWidth] = useState<number>(window.innerWidth);
     const { t } = useTranslation();
+    const { isDesktop } = useMatchMedia();
 
     useEffect(() => {
         const handleResize = () => setWidth(window.innerWidth);
@@ -40,6 +44,9 @@ export const ModalMobile = (props: Props) => {
         localStorage.removeItem('isAuth');
     };
 
+    const handleClickMessages = () =>
+        !isDesktop && toast.warn(`${t('main-page.messages-tooltip')}`);
+
     return (
         <div
             className={`modal-mobile ${showUserMenu ? 'visible' : ''}`}
@@ -53,33 +60,38 @@ export const ModalMobile = (props: Props) => {
             >
                 <div className="menu">
                     <NavLink
-                        className="user-option my-ads"
+                        className="user-option"
                         to={'/my-announcements'}
                         onClick={() => setShowUserMenu(false)}
                     >
                         <Docs />
-                        <p className="user-option-text my-ads">
+                        <p className="user-option-text">
                             {t('modal-logged.adverts')}
                         </p>
                     </NavLink>
-                    <div className="user-option">
+                    <div
+                        className="user-option my-messages"
+                        onClick={handleClickMessages}
+                        data-tooltip-id="modal-tooltip"
+                        data-tooltip-content={t('main-page.messages-tooltip')}
+                    >
                         <Message color="#bcbcbc" stroke="#bcbcbc" />
-                        <p className="user-option-text">
+                        <p className="user-option-text my-messages">
                             {t('modal-logged.messages')}
                         </p>
                     </div>
                     <NavLink
-                        className="user-option my-favs"
+                        className="user-option"
                         to={'/favorites'}
                         onClick={() => setShowUserMenu(false)}
                     >
                         <Favorite color="#f9f9f9" strokeColor="#1F6FDE" />
-                        <p className="user-option-text my-favs">
+                        <p className="user-option-text">
                             {t('modal-logged.favorites')}
                         </p>
                     </NavLink>
                     <div className="user-option">
-                        <Setting color="#bcbcbc" stroke="#bcbcbc" />
+                        <Setting color="#1F6FDE" stroke="#1F6FDE" />
                         <p className="user-option-text">
                             {t('modal-logged.settings')}
                         </p>
@@ -94,6 +106,15 @@ export const ModalMobile = (props: Props) => {
                     {t('modal-logged.logout')}
                 </p>
             </div>
+            {isDesktop && (
+                <Tooltip
+                    id="modal-tooltip"
+                    variant="warning"
+                    place="top"
+                    opacity={1}
+                    style={{ zIndex: '10', fontFamily: 'Inter' }}
+                />
+            )}
         </div>
     );
 };
