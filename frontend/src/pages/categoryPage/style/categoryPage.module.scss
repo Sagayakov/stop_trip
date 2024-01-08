@@ -218,11 +218,14 @@ h1 {
                 }
                 .description {
                     padding: 12px 0;
-                    h2,
-                    h3 {
+                    h2 {
                         font-size: 22px;
                         margin-bottom: 12px;
                         width: 85%; //чтобы на лайк не заехало
+                    }
+                    h3 {
+                        font-size: 22px;
+                        margin-bottom: 12px;
                     }
                     .description_location,
                     .card_description,

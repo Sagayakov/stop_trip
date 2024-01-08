@@ -110,9 +110,13 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
             </div>
             <div className={style.description}>
                 <h2>{el.title}</h2>
-                <p className={style.description_location}>
-                    г. Тбилиси, ул. Зеленая, 10
-                </p>
+                {el.city && (
+                    <p className={style.description_location}>
+                        {`${el.country?.name || ''}, ${
+                            el.region?.name || ''
+                        }, ${el.city?.name || ''}`}
+                    </p>
+                )}
                 <h3>
                     {el.price
                         ? prettifyPrice(el.price)
