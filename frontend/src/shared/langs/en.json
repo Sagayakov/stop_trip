@@ -19,7 +19,8 @@
         "toast-wrong": "Something went wrong, please try again!",
         "toast-thanks": "Thanks for your feedback!",
         "toast-copied": "Copied!",
-        "toast-error": "An error occurred while copying text: "
+        "toast-error": "An error occurred while copying text: ",
+        "messages-tooltip": "Messaging feature is in development"
     },
 
     "categories": {

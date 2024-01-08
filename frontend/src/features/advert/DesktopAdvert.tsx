@@ -3,7 +3,7 @@ import { ProductInfo } from 'features/advert/ProductInfo.tsx';
 import { PriceBlock } from 'entities/advert';
 import { AdvertOwner } from 'entities/advert/advertOwner/AdvertOwner.tsx';
 import { Link } from 'react-router-dom';
-//import { Tooltip } from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { Date } from 'widgets/advert/libr/types.ts';
 import { useTranslation } from 'react-i18next';
@@ -17,13 +17,16 @@ interface Props {
 
 export const DesktopAdvert = ({ data, date }: Props) => {
     const { t } = useTranslation();
-    const { isTablet } = useMatchMedia();
+    const { isTablet, isDesktop } = useMatchMedia();
 
     const handleClickShowNumber = () => {
         if (data) {
             toast.success(`${data.owner.phone}`);
         }
     };
+
+    const handleClickWrite = () =>
+        isTablet && toast.warn(`${t('main-page.messages-tooltip')}`);
 
     return (
         <>
@@ -51,13 +54,16 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                         <button
                             className={styles.call_button}
                             onClick={handleClickShowNumber}
-                            /* data-tooltip-id="my-tooltip"
-                            data-tooltip-content={`${data.owner.phone}`} */
                         >
                             {t('advert-page.show-number')}
                         </button>
                     )}
-                    <button className={styles.write_button}>
+                    <button
+                        className={styles.write_button}
+                        data-tooltip-id="messages-tooltip"
+                        data-tooltip-content={t('main-page.messages-tooltip')}
+                        onClick={handleClickWrite}
+                    >
                         {t('advert-page.write')}
                     </button>
                     {date && (
@@ -68,9 +74,15 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                     )}
                 </section>
             </div>
-            {/* {isDesktop && (
-                <Tooltip id="my-tooltip" variant="success" place="top" />
-            )} */}
+            {isDesktop && (
+                <Tooltip
+                    id="messages-tooltip"
+                    variant="warning"
+                    place="bottom"
+                    opacity={1}
+                    style={{ zIndex: '5', fontFamily: 'Inter' }}
+                />
+            )}
         </>
     );
 };

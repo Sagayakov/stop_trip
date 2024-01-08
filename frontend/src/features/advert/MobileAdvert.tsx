@@ -7,33 +7,35 @@ import { ProductInfo } from 'features/advert/ProductInfo.tsx';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { useTranslation } from 'react-i18next';
 import { Date } from 'widgets/advert/libr/types.ts';
+import { toast } from 'react-toastify';
 
 interface Props {
-    data: ProductType,
-    date: Date | null
+    data: ProductType;
+    date: Date | null;
 }
 export const MobileAdvert = ({ data, date }: Props) => {
-    const { t } = useTranslation()
+    const { t } = useTranslation();
+    const handleClickWrite = () =>
+        toast.warn(`${t('main-page.messages-tooltip')}`);
+
     return (
         <>
             <PhotoSlider />
             <div className={styles.announcement_info}>
                 <section className={styles.owner_info}>
                     <PriceBlock data={data} />
-                    <h1 className={styles.full_title}>
-                        {data.title}
-                    </h1>
-                    <AdvertOwner
-                        owner={data.owner}
-                        className={styles.owner}
-                    />
+                    <h1 className={styles.full_title}>{data.title}</h1>
+                    <AdvertOwner owner={data.owner} className={styles.owner} />
                     <Link
                         className={styles.call_button}
                         to={`tel:${data.owner.phone}`}
                     >
                         {t('advert-page.call')}
                     </Link>
-                    <button className={styles.write_button}>
+                    <button
+                        className={styles.write_button}
+                        onClick={handleClickWrite}
+                    >
                         {t('advert-page.write')}
                     </button>
                     {date && (
