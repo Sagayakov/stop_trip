@@ -42,6 +42,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         "list": [AllowAny],
         "retrieve": [AllowAny],
         "get_filter_params": [AllowAny],
+        "get_available_filtered_params": [AllowAny],
         "my_advertisements": [IsAuthenticated],
     }
     filterset_class = AdvertisementFilter
