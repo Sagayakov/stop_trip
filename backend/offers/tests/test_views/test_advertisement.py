@@ -275,7 +275,7 @@ class AdvertisementViewSetTest(APITestCase):
                 assert False, f"Add test for spec['name'] = '{spec['name']}'"
 
     def test_get_available_filtered_params(self):
-        with self.assertNumQueries(48):
+        with self.assertNumQueries(47):
             res = self.client.get(self.get_available_filtered_params_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
