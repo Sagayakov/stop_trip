@@ -108,7 +108,7 @@ class GetFilterParams:
     def get_available_filtered_params(self, request):
         """Эндпоинт для получения доступных (после всех фильтраций) значений фильтра."""
 
-        filtered_queryset = self.filterset_class(self.get_queryset()).qs
+        filtered_queryset = self.filterset_class(request.GET, self.get_queryset()).qs
         filtered_params = self.filterset_class.get_available_filtered_params(
             queryset=filtered_queryset
         )
