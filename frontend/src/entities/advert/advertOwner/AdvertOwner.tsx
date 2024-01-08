@@ -6,6 +6,7 @@ import { Owner } from 'app/api/types/lastAdvertsTypes.ts';
 import { getDate } from 'shared/utils/getDate.ts';
 import { getUserIcon } from 'shared/utils/userIcon/getUserIcon.ts';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from 'app/store/hooks.ts';
 
 interface Props {
     owner: Owner;
@@ -15,12 +16,24 @@ interface Props {
 export const AdvertOwner = ({ owner, className }: Props) => {
     const [grades, setGrades] = useState(0); //изменить 0 на значение, которое будет отдавать бэк по юзеру
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     const { firstLetters, lettersColor, bgColor } = getUserIcon(
         owner.full_name
     );
 
     const spelling = useGradeSpelling(grades);
+
+    const date = getDate(owner.date_joined);
+    const { dayToDisplay } = date;
+    let day = dayToDisplay;
+
+    if (dayToDisplay === 'Сегодня') {
+        day = lang === 'ru' ? 'Сегодня' : 'Today';
+    }
+    if (dayToDisplay === 'Вчера') {
+        day = lang === 'ru' ? 'Вчера' : 'Yesterday';
+    }
 
     return (
         <div className={`${styles.owner} ${className}`}>
@@ -46,9 +59,7 @@ export const AdvertOwner = ({ owner, className }: Props) => {
                     />
                     <span>{`${grades} ${spelling}`}</span>
                 </div>
-                <p>{`${t('advert-page.registration-date')} ${
-                    getDate(owner.date_joined).dayToDisplay
-                }`}</p>
+                <p>{`${t('advert-page.registration-date')} ${day}`}</p>
             </div>
         </div>
     );
