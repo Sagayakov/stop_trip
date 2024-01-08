@@ -56,7 +56,7 @@ const OptionalFields = ({ register, setValue, control, watch, data }: Props) => 
                     control={control}
                     register={register}
                     setValue={setValue}
-                    data={data}//не сделано
+                    data={data}
                 />
             )}
             {getCategoryValue('document') && (

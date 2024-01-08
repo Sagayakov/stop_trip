@@ -14,7 +14,7 @@ const AnnouncementPriceField = ({ register, formState, defaultValue }: Props) =>
     const { t } = useTranslation();
     const getDefaultPrice = () => {
         if(defaultValue){
-            return defaultValue
+            return defaultValue.toString().slice(0, -3)
         }
     }
 

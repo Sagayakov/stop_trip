@@ -5,8 +5,9 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    defaultValue?: number | null | undefined;
 }
-export const AnnouncementRealtySleepingPlaces = ({ register }: Props) => {
+export const AnnouncementRealtySleepingPlaces = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -18,6 +19,7 @@ export const AnnouncementRealtySleepingPlaces = ({ register }: Props) => {
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
                     min={0}
+                    defaultValue={defaultValue || ''}
                     placeholder={t('filters.count')}
                     {...register('property_sleeping_places')}
                 />

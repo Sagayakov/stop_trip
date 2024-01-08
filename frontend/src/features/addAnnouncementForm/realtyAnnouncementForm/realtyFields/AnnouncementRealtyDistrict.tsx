@@ -4,13 +4,15 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementRealtyDistrict = ({ setValue, control }: Props) => {
+export const AnnouncementRealtyDistrict = ({ setValue, control, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     const optionValues = valuesOfPropertyForm.property_district;
@@ -25,6 +27,7 @@ export const AnnouncementRealtyDistrict = ({ setValue, control }: Props) => {
                 name="property_district"
                 options={optionValues}
                 placeholder={t('filters.choose-district')}
+                defaultValue={getDefaultValue(defaultValue, optionValues)}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

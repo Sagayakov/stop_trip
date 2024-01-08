@@ -38,7 +38,7 @@ const AdvertisementEditing = () => {
     const path = useLocation().pathname.split('/');
     const id = path[path.length - 1];
     const { data: dataAdvert, isLoading } = useGetAdvertByIdQuery(id);
-    const [editAdvert, { isLoading: isSendLoading, isSuccess }] = useEditAdvertMutation();
+    const [editAdvert, { isLoading: isSendLoading }] = useEditAdvertMutation();
     const [descript, setDescript] = useState<string | undefined>(
         dataAdvert?.description
     );
@@ -74,11 +74,11 @@ const AdvertisementEditing = () => {
     if (!isLoading && ownerId && ownerId !== dataAdvert?.owner.id) {
         navigate({ pathname: '/404' }); //если прошла загрузка, мы получили id хозяина объявления и он не равен нашему id, то отправляем на 404
     }
-
+    console.log(markerPosition)
     const onsubmit = async (data: FormAddAnn) => {
         try{
-            const body = data;
-            await editAdvert({ body, addId, accessToken });
+            const res = await editAdvert({ body: data, addId, accessToken });
+            res && toast.success(t('advert-page.advertisement-added'))
             scrollToTop();
         } catch (errors){
             console.log(errors)
@@ -88,7 +88,6 @@ const AdvertisementEditing = () => {
 
     return (
         <>
-            {isSuccess && toast.success(t('advert-page.advertisement-added'))}
             <section className={styles.add_ann}>
                 <h1>{t('add-page.edit')}</h1>
                 <form

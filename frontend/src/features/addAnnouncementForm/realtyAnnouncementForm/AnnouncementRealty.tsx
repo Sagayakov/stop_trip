@@ -34,24 +34,24 @@ export const AnnouncementRealty = ({ register, control, setValue, data }: Props)
     return (
         <>
             <AnnouncementRealtyServise register={register} defaultValue={data?.property_type_of_service} />
-            <AnnouncementRealtyCity control={control} setValue={setValue} />
-            <AnnouncementRealtyDistrict control={control} setValue={setValue} />
-            <AnnouncementRealtyHouseType control={control} setValue={setValue} />
-            <AnnouncementRealtyPrepayment control={control} setValue={setValue} />
-            <AnnouncementRealtyRentalCondition control={control} setValue={setValue} />
-            <AnnouncementRealtyFloorsQuantity register={register} />
-            <AnnouncementRealtyFloorNumber register={register} />
-            <AnnouncementRealtyTotalArea register={register} />
-            <AnnouncementRealtyLivingArea register={register} />
-            <AnnouncementRealtyRoomsQuantity register={register} />
-            <AnnouncementRealtySleepingPlaces register={register} />
-            <AnnouncementRealtyHasFurniture register={register} />
-            <AnnouncementRealtyParking register={register} />
-            <AnnouncementRealtyBalcony register={register} />
-            <AnnouncementRealtyBathroomQuantity register={register} />
-            <AnnouncementRealtyBathroomType register={register} />
-            <AnnouncementRealtyAmenities register={register}/>
-            <AnnouncementRealtyComission register={register} />
+            <AnnouncementRealtyCity control={control} setValue={setValue} defaultValue={data?.city} />
+            <AnnouncementRealtyDistrict control={control} setValue={setValue} defaultValue={data?.property_district} />
+            <AnnouncementRealtyHouseType control={control} setValue={setValue} defaultValue={data?.property_house_type} />
+            <AnnouncementRealtyPrepayment control={control} setValue={setValue} defaultValue={data?.property_prepayment} />
+            <AnnouncementRealtyRentalCondition control={control} setValue={setValue} defaultValue={data?.property_rental_condition} />
+            <AnnouncementRealtyFloorsQuantity register={register} defaultValue={data?.property_building_max_floor} />
+            <AnnouncementRealtyFloorNumber register={register} defaultValue={data?.property_floor} />
+            <AnnouncementRealtyTotalArea register={register} defaultValue={data?.property_area} />
+            <AnnouncementRealtyLivingArea register={register} defaultValue={data?.property_living_area} />
+            <AnnouncementRealtyRoomsQuantity register={register} defaultValue={data?.property_rooms_count} />
+            <AnnouncementRealtySleepingPlaces register={register} defaultValue={data?.property_sleeping_places} />
+            <AnnouncementRealtyHasFurniture register={register} defaultValue={data?.property_has_furniture} />
+            <AnnouncementRealtyParking register={register} defaultValue={data?.property_has_parking} />
+            <AnnouncementRealtyBalcony register={register} defaultValue={data?.property_balcony} />
+            <AnnouncementRealtyBathroomQuantity register={register} defaultValue={data?.property_bathroom_count} />
+            <AnnouncementRealtyBathroomType register={register} defaultValue={data?.property_bathroom_type} />
+            <AnnouncementRealtyAmenities register={register} defaultValue={data?.property_amenities} />
+            <AnnouncementRealtyComission register={register} defaultValue={data?.property_commission} />
         </>
     );
 };

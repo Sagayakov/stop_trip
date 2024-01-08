@@ -34,6 +34,9 @@ h1 {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    & > :last-child {
+        margin: auto auto 0 !important; //прижимаем пагинацию к низу, даже если нет объявлений
+    }
 }
 
 .filters_announcement {
@@ -50,9 +53,6 @@ h1 {
         flex-direction: column;
         gap: 16px;
         width: 75%;
-        & > :last-child {
-            margin: auto auto 0 !important;
-        }
 
         .card {
             position: relative;
@@ -237,7 +237,7 @@ h1 {
         margin: 30px auto 50px;
     }
 }
-@media (min-width: 767px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
     .bread_crumbs {
         width: 85%;
         margin: 0 auto 30px;
