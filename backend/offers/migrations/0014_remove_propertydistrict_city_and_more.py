@@ -4,28 +4,27 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('offers', '0013_advertisement_city_advertisement_country_and_more'),
+        ("offers", "0013_advertisement_city_advertisement_country_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='propertydistrict',
-            name='city',
+            model_name="propertydistrict",
+            name="city",
         ),
         migrations.RemoveField(
-            model_name='advertisement',
-            name='property_city',
+            model_name="advertisement",
+            name="property_city",
         ),
         migrations.RemoveField(
-            model_name='advertisement',
-            name='property_district',
+            model_name="advertisement",
+            name="property_district",
         ),
         migrations.DeleteModel(
-            name='PropertyCity',
+            name="PropertyCity",
         ),
         migrations.DeleteModel(
-            name='PropertyDistrict',
+            name="PropertyDistrict",
         ),
     ]

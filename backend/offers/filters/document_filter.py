@@ -1,3 +1,5 @@
+from typing import Union
+
 from django_filters.rest_framework import filters, FilterSet
 
 from common.filters import ChoiceInFilter
@@ -29,4 +31,25 @@ class DocumentFilter(FilterSet):
             ],
         }
         specs.append(document_duration_specs)
+
         return specs
+
+    @classmethod
+    def _document_filtered_facets(cls, queryset) -> dict[str, list]:
+        facets: dict[str, Union[list, dict]] = {}
+
+        # Тип документа
+        facets["document_type"] = (
+            queryset.exclude(document_type__isnull=True)
+            .values_list("document_type", flat=True)
+            .distinct()
+        )
+
+        # Срок действия
+        facets["document_duration"] = (
+            queryset.exclude(document_duration__isnull=True)
+            .values_list("document_duration", flat=True)
+            .distinct()
+        )
+
+        return facets

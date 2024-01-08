@@ -72,7 +72,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     def get_serializer_class(self):
         if self.action == self.create.__name__:
             subcategories_serializers = {
-                CategoryChoices.PROPERTY.value: PropertyCreateSerializer,
+                CategoryChoices.PROPERTY: PropertyCreateSerializer,
                 CategoryChoices.TRANSPORT: TransportCreateSerializer,
                 CategoryChoices.JOB: JobCreateSerializer,
                 CategoryChoices.SERVICE: ServiceCreateSerializer,

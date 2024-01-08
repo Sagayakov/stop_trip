@@ -1,3 +1,5 @@
+from typing import Union
+
 from django_filters.rest_framework import filters, FilterSet
 
 
@@ -40,3 +42,24 @@ class CurrencyExchange(FilterSet):
         specs.append(exchange_for_specs)
 
         return specs
+
+    @classmethod
+    def _currency_exchange_filtered_facets(cls, queryset) -> dict[str, list]:
+        facets: dict[str, Union[list, dict]] = {}
+
+        # Предлагаемая валюта
+
+        facets["proposed_currency"] = (
+            queryset.exclude(proposed_currency__isnull=True)
+            .values_list("proposed_currency", flat=True)
+            .distinct()
+        )
+
+        # Обмен на
+        facets["exchange_for"] = (
+            queryset.exclude(exchange_for__isnull=True)
+            .values_list("exchange_for", flat=True)
+            .distinct()
+        )
+
+        return facets

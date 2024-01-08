@@ -1,3 +1,5 @@
+from typing import Union
+
 from django_filters.rest_framework import filters, FilterSet
 
 
@@ -21,3 +23,14 @@ class EventFilter(FilterSet):
         specs.append(is_online_specs)
 
         return specs
+
+    @classmethod
+    def _event_filtered_facets(cls, queryset) -> dict[str, list]:
+        facets: dict[str, Union[list, dict]] = {}
+
+        # Онлайн
+        facets["is_online"] = (
+            queryset.exclude(is_online__isnull=True).values_list("is_online", flat=True).distinct()
+        )
+
+        return facets

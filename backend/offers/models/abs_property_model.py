@@ -57,9 +57,7 @@ class AbsProperty(models.Model):
     property_house_type = models.CharField(
         "Тип дома", max_length=100, choices=PropertyHouseType.choices, blank=True
     )
-    property_has_parking = models.BooleanField(
-        verbose_name="Есть парковка", default=False
-    )
+    property_has_parking = models.BooleanField(verbose_name="Есть парковка", default=False)
     property_rental_condition = models.CharField(
         "Условия аренды",
         max_length=100,

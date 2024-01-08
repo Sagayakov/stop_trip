@@ -1,3 +1,5 @@
+from typing import Union
+
 from django.db.models import Min, Max
 from django_filters.rest_framework import filters, FilterSet
 
@@ -12,9 +14,7 @@ from ..constants import (
 
 
 class PropertyFilter(FilterSet):
-    property_type = ChoiceInFilter(
-        label="Тип собственности", choices=PropertyType.choices
-    )
+    property_type = ChoiceInFilter(label="Тип собственности", choices=PropertyType.choices)
     property_type_of_service = filters.ChoiceFilter(
         label="Тип услуги", choices=PropertyTypeOfService.choices
     )
@@ -22,9 +22,7 @@ class PropertyFilter(FilterSet):
     property_bathroom_type = ChoiceInFilter(
         label="Тип санузла", choices=PropertyBathroomType.choices
     )
-    property_house_type = ChoiceInFilter(
-        label="Тип дома", choices=PropertyHouseType.choices
-    )
+    property_house_type = ChoiceInFilter(label="Тип дома", choices=PropertyHouseType.choices)
     property_sleeping_places = filters.NumberFilter(label="Количество спальных мест")
     property_rooms_count = filters.NumberFilter(label="Количество комнат")
     property_rental_condition = ChoiceInFilter(
@@ -32,9 +30,7 @@ class PropertyFilter(FilterSet):
     )
     property_area = filters.RangeFilter(label="Общая площадь")
     property_has_furniture = filters.BooleanFilter(label="Мебель")
-    property_amenities = CharInFilter(
-        label="Удобства", method="filter_property_amenities"
-    )
+    property_amenities = CharInFilter(label="Удобства", method="filter_property_amenities")
 
     @staticmethod
     def filter_property_amenities(queryset, name, value):
@@ -50,10 +46,7 @@ class PropertyFilter(FilterSet):
         # Тип собственности
         property_type_specs = {
             "name": "property_type",
-            "choices": [
-                {"value": value, "label": label}
-                for value, label in PropertyType.choices
-            ],
+            "choices": [{"value": value, "label": label} for value, label in PropertyType.choices],
         }
         specs.append(property_type_specs)
 
@@ -61,46 +54,17 @@ class PropertyFilter(FilterSet):
         property_type_of_service_specs = {
             "name": "property_type_of_service",
             "choices": [
-                {"value": value, "label": label}
-                for value, label in PropertyTypeOfService.choices
+                {"value": value, "label": label} for value, label in PropertyTypeOfService.choices
             ],
         }
         specs.append(property_type_of_service_specs)
-
-        # # Город
-        # property_city_specs = {
-        #     "name": "property_city",
-        #     "choices": [
-        #         {"value": value, "label": label}
-        #         for value, label in queryset.exclude(property_city__isnull=True)
-        #         .values_list("property_city__slug", "property_city__name")
-        #         .order_by("property_city__slug")
-        #         .distinct("property_city__slug")
-        #     ],
-        # }
-        # specs.append(property_city_specs)
-
-        # Район
-        # property_district_specs = {
-        #     "name": "property_district",
-        #     "choices": [
-        #         {"value": value, "label": label}
-        #         for value, label in queryset.exclude(property_district__isnull=True)
-        #         .values_list("property_district__slug", "property_district__name")
-        #         .order_by("property_district__slug")
-        #         .distinct("property_district__slug")
-        #     ],
-        # }
-        # specs.append(property_district_specs)
 
         # Количество санузлов
         property_bathroom_count_specs = {
             "name": "property_bathroom_count",
             "choices": [
                 {"value": value, "label": label}
-                for value, label in queryset.exclude(
-                    property_bathroom_count__isnull=True
-                )
+                for value, label in queryset.exclude(property_bathroom_count__isnull=True)
                 .values_list("property_bathroom_count", "property_bathroom_count")
                 .order_by("property_bathroom_count")
                 .distinct("property_bathroom_count")
@@ -112,8 +76,7 @@ class PropertyFilter(FilterSet):
         property_bathroom_type_specs = {
             "name": "property_bathroom_type",
             "choices": [
-                {"value": value, "label": label}
-                for value, label in PropertyBathroomType.choices
+                {"value": value, "label": label} for value, label in PropertyBathroomType.choices
             ],
         }
         specs.append(property_bathroom_type_specs)
@@ -122,8 +85,7 @@ class PropertyFilter(FilterSet):
         property_house_type_specs = {
             "name": "property_house_type",
             "choices": [
-                {"value": value, "label": label}
-                for value, label in PropertyHouseType.choices
+                {"value": value, "label": label} for value, label in PropertyHouseType.choices
             ],
         }
         specs.append(property_house_type_specs)
@@ -158,18 +120,15 @@ class PropertyFilter(FilterSet):
         property_rental_condition_specs = {
             "name": "property_rental_condition",
             "choices": [
-                {"value": value, "label": label}
-                for value, label in PropertyRentalCondition.choices
+                {"value": value, "label": label} for value, label in PropertyRentalCondition.choices
             ],
         }
         specs.append(property_rental_condition_specs)
 
         # Общая площадь
-        property_area_range = queryset.aggregate(
-            min=Min("property_area"), max=Max("property_area")
-        )
+        property_area_range = queryset.aggregate(min=Min("property_area"), max=Max("property_area"))
         property_area_specs = {
-            "name": "price",
+            "name": "property_area",
             "range": {
                 "min": property_area_range["min"],
                 "max": property_area_range["max"],
@@ -198,3 +157,88 @@ class PropertyFilter(FilterSet):
         specs.append(property_amenities_specs)
 
         return specs
+
+    @classmethod
+    def _property_filtered_facets(cls, queryset) -> dict[str, list]:
+        facets: dict[str, Union[list, dict]] = {}
+
+        # Тип собственности
+        facets["property_type"] = (
+            queryset.exclude(property_type__isnull=True)
+            .values_list("property_type", flat=True)
+            .distinct()
+        )
+
+        # Тип услуги
+        facets["property_type_of_service"] = (
+            queryset.exclude(property_type_of_service__isnull=True)
+            .values_list("property_type_of_service", flat=True)
+            .distinct()
+        )
+
+        # Количество санузлов
+        facets["property_bathroom_count"] = (
+            queryset.exclude(property_bathroom_count__isnull=True)
+            .values_list("property_bathroom_count", flat=True)
+            .distinct()
+        )
+
+        # Тип санузла
+        facets["property_bathroom_type"] = (
+            queryset.exclude(property_bathroom_type__isnull=True)
+            .values_list("property_bathroom_type", flat=True)
+            .distinct()
+        )
+
+        # Тип дома
+        facets["property_house_type"] = (
+            queryset.exclude(property_house_type__isnull=True)
+            .values_list("property_house_type", flat=True)
+            .distinct()
+        )
+
+        # Количество спальных мест
+        property_sleeping_places_range = queryset.aggregate(
+            min=Min("property_sleeping_places"), max=Max("property_sleeping_places")
+        )
+        facets["property_sleeping_places"] = {
+            "min": property_sleeping_places_range["min"],
+            "max": property_sleeping_places_range["max"],
+        }
+
+        # Количество комнат
+        property_rooms_count_range = queryset.aggregate(
+            min=Min("property_rooms_count"), max=Max("property_rooms_count")
+        )
+        facets["property_rooms_count"] = {
+            "min": property_rooms_count_range["min"],
+            "max": property_rooms_count_range["max"],
+        }
+
+        # Условия аренды
+        facets["property_rental_condition"] = (
+            queryset.exclude(property_rental_condition__isnull=True)
+            .values_list("property_rental_condition", flat=True)
+            .distinct()
+        )
+
+        # Общая площадь
+        property_area_range = queryset.aggregate(min=Min("property_area"), max=Max("property_area"))
+        facets["property_area"] = {
+            "min": property_area_range["min"],
+            "max": property_area_range["max"],
+        }
+
+        # Мебель
+        facets["property_has_furniture"] = (
+            queryset.exclude(property_has_furniture__isnull=True)
+            .values_list("property_has_furniture", flat=True)
+            .distinct()
+        )
+
+        # Удобства
+        facets["property_amenities"] = queryset.values_list(
+            "property_amenities__slug", flat=True
+        ).distinct()
+
+        return facets

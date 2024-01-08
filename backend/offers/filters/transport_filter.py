@@ -1,3 +1,5 @@
+from typing import Union
+
 from django.db.models import Min, Max
 from django_filters.rest_framework import filters, FilterSet
 from common.filters import CharInFilter, ChoiceInFilter
@@ -184,3 +186,106 @@ class TransportFilter(FilterSet):
         specs.append(transport_commission_specs)
 
         return specs
+
+    @classmethod
+    def _transport_filtered_facets(cls, queryset) -> dict[str, list]:
+        facets: dict[str, Union[list, dict]] = {}
+
+        # Тип услуги
+        facets["transport_type_of_service"] = (
+            queryset.exclude(transport_type_of_service__isnull=True)
+            .values_list("transport_type_of_service", flat=True)
+            .distinct()
+        )
+
+        # Тип транспорта
+        facets["transport_type"] = (
+            queryset.exclude(transport_type__isnull=True)
+            .values_list("transport_type_of_service", flat=True)
+            .distinct()
+        )
+
+        # Категория транспорта
+        facets["transport_category"] = (
+            queryset.exclude(transport_category__isnull=True)
+            .values_list("transport_category", flat=True)
+            .distinct()
+        )
+
+        # Марка транспорта
+        facets["transport_brand"] = (
+            queryset.exclude(transport_brand__isnull=True)
+            .values_list("transport_brand", flat=True)
+            .distinct()
+        )
+
+        # Модель транспорта
+        facets["transport_model"] = (
+            queryset.exclude(transport_model__isnull=True)
+            .values_list("transport_model", flat=True)
+            .distinct()
+        )
+
+        # Тип двигателя
+        facets["transport_engine_type"] = (
+            queryset.exclude(transport_engine_type__isnull=True)
+            .values_list("transport_engine_type", flat=True)
+            .distinct()
+        )
+
+        # Вид привода
+        facets["transport_drive_type"] = (
+            queryset.exclude(transport_drive_type__isnull=True)
+            .values_list("transport_drive_type", flat=True)
+            .distinct()
+        )
+
+        # Объём двигателя
+        transport_engine_volume_range = queryset.aggregate(
+            min=Min("transport_engine_volume"), max=Max("transport_engine_volume")
+        )
+        facets["transport_engine_volume"] = {
+            "min": transport_engine_volume_range["min"],
+            "max": transport_engine_volume_range["max"],
+        }
+
+        # Год производства
+        transport_year_of_production_range = queryset.aggregate(
+            min=Min("transport_year_of_production"), max=Max("transport_year_of_production")
+        )
+        facets["transport_year_of_production"] = {
+            "min": transport_year_of_production_range["min"],
+            "max": transport_year_of_production_range["max"],
+        }
+
+        # Тип коробки передач
+        facets["transport_transmission_type"] = (
+            queryset.exclude(transport_transmission_type__isnull=True)
+            .values_list("transport_transmission_type", flat=True)
+            .distinct()
+        )
+
+        # Тип кузова
+        facets["transport_body_type"] = (
+            queryset.exclude(transport_body_type__isnull=True)
+            .values_list("transport_body_type", flat=True)
+            .distinct()
+        )
+
+        # Состояние транспорта
+        facets["transport_condition"] = (
+            queryset.exclude(transport_condition__isnull=True)
+            .values_list("transport_condition", flat=True)
+            .distinct()
+        )
+
+        # Комиссия
+        transport_commission_range = queryset.aggregate(
+            min=Min("transport_commission"), max=Max("transport_commission")
+        )
+        facets["transport_commission"] = {
+            "min": transport_commission_range["min"],
+            "max": transport_commission_range["max"],
+        }
+
+        return facets

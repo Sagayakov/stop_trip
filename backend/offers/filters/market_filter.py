@@ -1,3 +1,5 @@
+from typing import Union
+
 from django_filters.rest_framework import filters, FilterSet
 
 from offers.constants import MarketCondition
@@ -20,4 +22,18 @@ class MarketFilter(FilterSet):
             ],
         }
         specs.append(market_condition_specs)
+
         return specs
+
+    @classmethod
+    def _market_filtered_facets(cls, queryset) -> dict[str, list]:
+        facets: dict[str, Union[list, dict]] = {}
+
+        # Состояние
+        facets["market_condition"] = (
+            queryset.exclude(market_condition__isnull=True)
+            .values_list("market_condition", flat=True)
+            .distinct()
+        )
+
+        return facets

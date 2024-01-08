@@ -40,6 +40,9 @@ class AdvertisementViewSetTest(APITestCase):
         self.list_url: str = reverse("advertisements-list")
         self.detail_url = partial(reverse, "advertisements-detail")
         self.get_filter_params_url: str = reverse("advertisements-get-filter-params")
+        self.get_available_filtered_params_url: str = reverse(
+            "advertisements-get-available-filtered-params"
+        )
         self.my_advertisements_url: str = reverse("advertisements-my-advertisements")
 
     def test_list(self):
@@ -69,6 +72,21 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["id"], advertisements[0].id)
+
+    def test_my_advertisements(self):
+        me = UserFactory()
+        my_advertisements = [BaseAdvertisementFactory(owner=me) for _ in range(5)]
+
+        user = UserFactory()
+        advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(5)]
+
+        self.client.force_login(me)
+        with self.assertNumQueries(3):
+            res = self.client.get(self.my_advertisements_url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(my_advertisements))
 
     def test_filter_category(self):
         user = UserFactory()
@@ -115,6 +133,24 @@ class AdvertisementViewSetTest(APITestCase):
             res = self.client.get(
                 self.list_url,
                 {"order": "-date_create"},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(advertisements))
+        self.assertEqual(res_json["results"][0]["id"], advertisements[-1].id)
+        self.assertEqual(res_json["results"][-1]["id"], advertisements[0].id)
+
+    def test_filter_order_price(self):
+        user = UserFactory()
+        advertisements = [
+            BaseAdvertisementFactory(owner=user, price=1_000_000 + _) for _ in range(3)
+        ]
+
+        with self.assertNumQueries(3):
+            res = self.client.get(
+                self.list_url,
+                {"order": "-price"},
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -224,9 +260,9 @@ class AdvertisementViewSetTest(APITestCase):
                 self.assertEqual(len(spec["choices"]), len(FoodType.choices))
             # documents
             elif spec["name"] == "document_type":
-                self.assertTrue(len(spec["choices"]), len(DocumentType.choices))
+                self.assertEqual(len(spec["choices"]), len(DocumentType.choices))
             elif spec["name"] == "document_duration":
-                self.assertTrue(len(spec["choices"]), len(DocumentDuration.choices))
+                self.assertEqual(len(spec["choices"]), len(DocumentDuration.choices))
             # excursion
             elif spec["name"] == "excursion_food":
                 self.assertEqual(len(spec["choices"]), len([True, False]))
@@ -238,17 +274,122 @@ class AdvertisementViewSetTest(APITestCase):
             else:
                 assert False, f"Add test for spec['name'] = '{spec['name']}'"
 
-    def test_my_advertisements(self):
-        me = UserFactory()
-        my_advertisements = [BaseAdvertisementFactory(owner=me) for _ in range(5)]
-
-        user = UserFactory()
-        advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(5)]
-
-        self.client.force_login(me)
-        with self.assertNumQueries(3):
-            res = self.client.get(self.my_advertisements_url)
+    def test_get_available_filtered_params(self):
+        with self.assertNumQueries(48):
+            res = self.client.get(self.get_available_filtered_params_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(my_advertisements))
+
+        for facet, available_params in res_json["available_params"].items():
+            # advertisement
+            if facet == "category":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "region":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "city":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "price":
+                self.assertEqual(len(available_params), 2)
+                self.assertTrue(all([param in available_params.keys() for param in ["min", "max"]]))
+            # event
+            elif facet == "is_online":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "job_type":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "job_duration":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "job_payment_type":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "job_experience":
+                self.assertEqual(len(available_params), 0)
+            # property
+            elif facet == "property_type":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "property_type_of_service":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "property_bathroom_count":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "property_bathroom_type":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "property_house_type":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "property_sleeping_places":
+                self.assertTrue(len(available_params))
+            elif facet == "property_rooms_count":
+                self.assertEqual(len(available_params), 2)
+                self.assertTrue(all([param in available_params.keys() for param in ["min", "max"]]))
+            elif facet == "property_rental_condition":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "property_area":
+                self.assertEqual(len(available_params), 2)
+                self.assertTrue(all([param in available_params.keys() for param in ["min", "max"]]))
+            elif facet == "property_has_furniture":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "property_amenities":
+                self.assertEqual(len(available_params), 0)
+            # service
+            elif facet == "service_home_visit":
+                self.assertEqual(len(available_params), 0)
+            # taxi
+            elif facet == "taxi_unit":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "taxi_type":
+                self.assertEqual(len(available_params), 0)
+            # transport
+            elif facet == "transport_type_of_service":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "transport_type":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "transport_category":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "transport_brand":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "transport_model":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "transport_engine_type":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "transport_drive_type":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "transport_engine_volume":
+                self.assertEqual(len(available_params), 2)
+                self.assertTrue(all([param in available_params.keys() for param in ["min", "max"]]))
+            elif facet == "transport_year_of_production":
+                self.assertEqual(len(available_params), 2)
+                self.assertTrue(all([param in available_params.keys() for param in ["min", "max"]]))
+            elif facet == "transport_transmission_type":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "transport_body_type":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "transport_condition":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "transport_commission":
+                self.assertEqual(len(available_params), 2)
+                self.assertTrue(all([param in available_params.keys() for param in ["min", "max"]]))
+            # exchange
+            elif facet == "proposed_currency":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "exchange_for":
+                self.assertEqual(len(available_params), 0)
+            # food
+            elif facet == "food_delivery":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "food_establishment":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "food_type":
+                self.assertEqual(len(available_params), 0)
+            # documents
+            elif facet == "document_type":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "document_duration":
+                self.assertEqual(len(available_params), 0)
+            # excursion
+            elif facet == "excursion_food":
+                self.assertEqual(len(available_params), 0)
+            elif facet == "excursion_transfer":
+                self.assertEqual(len(available_params), 0)
+            # market
+            elif facet == "market_condition":
+                self.assertEqual(len(available_params), 0)
+            else:
+                assert False, f"Add test for facet = '{facet}'"

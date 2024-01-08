@@ -1,3 +1,5 @@
+from typing import Union
+
 from django_filters.rest_framework import FilterSet
 
 from common.filters import ChoiceInFilter
@@ -29,3 +31,19 @@ class TaxiFilter(FilterSet):
         specs.append(taxi_type_specs)
 
         return specs
+
+    @classmethod
+    def _taxi_filtered_facets(cls, queryset) -> dict[str, list]:
+        facets: dict[str, Union[list, dict]] = {}
+
+        # Единица измерения
+        facets["taxi_unit"] = (
+            queryset.exclude(taxi_unit__isnull=True).values_list("taxi_unit", flat=True).distinct()
+        )
+
+        # Вид такси
+        facets["taxi_type"] = (
+            queryset.exclude(taxi_type__isnull=True).values_list("taxi_type", flat=True).distinct()
+        )
+
+        return facets

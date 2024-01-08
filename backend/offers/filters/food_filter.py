@@ -1,3 +1,5 @@
+from typing import Union
+
 from django_filters.rest_framework import filters, FilterSet
 
 from common.filters import ChoiceInFilter
@@ -35,4 +37,30 @@ class FoodFilter(FilterSet):
             "choices": [{"value": value, "label": label} for value, label in FoodType.choices],
         }
         specs.append(food_type_specs)
+
         return specs
+
+    @classmethod
+    def _food_filtered_facets(cls, queryset) -> dict[str, list]:
+        facets: dict[str, Union[list, dict]] = {}
+
+        # Доставка на дом
+        facets["food_delivery"] = (
+            queryset.exclude(food_delivery__isnull=True)
+            .values_list("food_delivery", flat=True)
+            .distinct()
+        )
+
+        # Ресторан/кафе
+        facets["food_establishment"] = (
+            queryset.exclude(food_establishment__isnull=True)
+            .values_list("food_establishment", flat=True)
+            .distinct()
+        )
+
+        # Тип еды
+        facets["food_type"] = (
+            queryset.exclude(food_type__isnull=True).values_list("food_type", flat=True).distinct()
+        )
+
+        return facets
