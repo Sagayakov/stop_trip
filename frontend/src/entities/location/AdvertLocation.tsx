@@ -11,8 +11,8 @@ type AdvertLocationProps = {
 export const AdvertLocation = ({ data }: AdvertLocationProps) => {
     const propertyLocation = useMemo(
         () => [
-            Number(data.coordinates.split(',')[0]),
             Number(data.coordinates.split(',')[1]),
+            Number(data.coordinates.split(',')[0]),
         ],
         [data.coordinates]
     );

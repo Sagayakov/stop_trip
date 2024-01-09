@@ -251,6 +251,8 @@
         "post": "Posting an advert",
         "edit": "Edit advertisement",
         "category": "Category",
+        "region": "Region",
+        "city": "City",
         "choose": "Choose category",
         "choose-please": "Please, choose category",
         "advert-title": "Advert title",

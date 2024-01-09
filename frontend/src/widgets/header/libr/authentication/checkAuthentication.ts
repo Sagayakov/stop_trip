@@ -47,5 +47,24 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
             console.log(error);
         }
     }
+    if(!accessToken && refreshToken){
+        try {
+            const response = await fetch(`${url}/api/auth/jwt/refresh/`, {
+                method: 'POST',
+                headers: headersConfig,
+                body: JSON.stringify({ refresh: refreshToken }),
+            });
+            if(response.ok){
+                const data = await response.json();
+                dispatch(setIsAuth(true))
+                localStorage.setItem('isAuth', 'true')
+                saveTokensAuthToCookie(data.access);
+            }else {
+                localStorage.removeItem('isAuth')
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 };

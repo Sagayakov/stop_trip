@@ -9,7 +9,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
-    tagTypes: ['Adverts'],
+    tagTypes: ['Adverts', 'MyAnnouncements'],
     baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
     endpoints: (build) => ({
         getAdverts: build.query<LastAdvertsTypes, string>({
@@ -53,6 +53,7 @@ export const fetchAdverts = createApi({
                     'Authorization': `Bearer ${token}`,
                 },
             }),
+            providesTags: ['MyAnnouncements'],
         }),
         editAdvert: build.mutation<
             FormAddAnn,
@@ -67,6 +68,7 @@ export const fetchAdverts = createApi({
                 },
                 body,
             }),
+            invalidatesTags: ['MyAnnouncements'],
         }),
     }),
 });

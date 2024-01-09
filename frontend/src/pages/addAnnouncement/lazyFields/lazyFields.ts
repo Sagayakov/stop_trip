@@ -39,3 +39,9 @@ export const AnnouncementLocationField = lazy(
 export const OptionalFields = lazy(
     () => import('widgets/addAnnouncement/OptionalFields')
 );
+export const AnnouncementRegion = lazy(
+    () => import('features/addAnnouncementForm/universalFields/AnnouncementRegion.tsx')
+)
+export const AnnouncementCity = lazy(
+    () => import('features/addAnnouncementForm/universalFields/AnnouncementCity.tsx')
+)

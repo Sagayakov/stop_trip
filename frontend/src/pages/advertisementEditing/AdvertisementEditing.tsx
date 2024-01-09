@@ -9,11 +9,11 @@ import {
 } from 'app/api/fetchAdverts.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
-    AnnouncementCategoryField,
+    AnnouncementCategoryField, AnnouncementCity,
     AnnouncementDescriptionField,
     AnnouncementLocationField,
     AnnouncementNameField,
-    AnnouncementPriceField,
+    AnnouncementPriceField, AnnouncementRegion,
     OptionalFields,
 } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
 import { useEffect, useState } from 'react';
@@ -74,8 +74,9 @@ const AdvertisementEditing = () => {
     if (!isLoading && ownerId && ownerId !== dataAdvert?.owner.id) {
         navigate({ pathname: '/404' }); //если прошла загрузка, мы получили id хозяина объявления и он не равен нашему id, то отправляем на 404
     }
-    console.log(markerPosition)
+
     const onsubmit = async (data: FormAddAnn) => {
+        setValue('country.name', 'Индия');
         try{
             const res = await editAdvert({ body: data, addId, accessToken });
             res && toast.success(t('advert-page.advertisement-added'))
@@ -85,6 +86,10 @@ const AdvertisementEditing = () => {
             toast.error(`${t('errors.add-announcement-error')}`)
         }
     };
+
+    useEffect(() => {
+        dataAdvert && setMarkerPosition(dataAdvert.coordinates)
+    }, [dataAdvert]);
 
     return (
         <>
@@ -104,6 +109,8 @@ const AdvertisementEditing = () => {
                                 formState={formState}
                                 defaultValue={dataAdvert.category}
                             />
+                            <AnnouncementRegion setValue={setValue} control={control} defaultValue={dataAdvert.region} />
+                            <AnnouncementCity setValue={setValue} control={control} defaultValue={dataAdvert.city} />
                             <AnnouncementNameField
                                 register={register}
                                 formState={formState}
