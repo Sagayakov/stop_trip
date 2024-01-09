@@ -5,6 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from common.utils import generate_image_file
 from offers.constants import (
     CategoryChoices,
     DocumentType,
@@ -30,6 +31,7 @@ class DocumentTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
             "category": CategoryChoices.DOCUMENT.value,
             "country": country.id,
@@ -39,13 +41,14 @@ class DocumentTest(APITestCase):
             "price": 1_000,
             "document_type": DocumentType.C_FORM,
             "document_duration": DocumentDuration.QUARTER,
+            "images": payload_images,
         }
 
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(7):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -59,6 +62,7 @@ class DocumentTest(APITestCase):
         self.assertEqual(new_advertisement.price, payload["price"])
         self.assertEqual(new_advertisement.document_type, payload["document_type"])
         self.assertEqual(new_advertisement.document_duration, payload["document_duration"])
+        self.assertEqual(new_advertisement.images.count(), len(payload_images))
 
     def test_update_document(self):
         user = UserFactory()
@@ -85,7 +89,7 @@ class DocumentTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(9):
+        with self.assertNumQueries(10):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)

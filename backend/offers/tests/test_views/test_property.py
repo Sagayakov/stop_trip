@@ -5,6 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 
+from common.utils import generate_image_file
 from offers.constants import (
     CategoryChoices,
     PropertyTypeOfService,
@@ -42,6 +43,7 @@ class PropertyTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
             "category": CategoryChoices.PROPERTY.value,
             "title": "test",
@@ -67,6 +69,7 @@ class PropertyTest(APITestCase):
             "property_sleeping_places": 3,
             "property_rooms_count": 4,
             "property_commission": 500,
+            "images": payload_images,
         }
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
@@ -74,7 +77,7 @@ class PropertyTest(APITestCase):
             user,
         )
 
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(10):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -130,6 +133,7 @@ class PropertyTest(APITestCase):
             len(payload["property_amenities"]),
         )
         self.assertEqual(new_advertisement.property_commission, payload["property_commission"])
+        self.assertEqual(new_advertisement.images.count(), len(payload_images))
 
     def test_update_property(self):
         user = UserFactory()
@@ -194,7 +198,7 @@ class PropertyTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(15):
+        with self.assertNumQueries(11):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -238,6 +242,12 @@ class PropertyTest(APITestCase):
         self.assertEqual(advertisement.property_rooms_count, payload["property_rooms_count"])
         self.assertEqual(
             advertisement.property_amenities.count(), len(payload["property_amenities"])
+        )
+        self.assertTrue(
+            all(
+                payload_am in [amenity.id for amenity in advertisement.property_amenities.all()]
+                for payload_am in payload["property_amenities"]
+            )
         )
 
     def test_delete_property(self):

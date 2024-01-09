@@ -5,6 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from common.utils import generate_image_file
 from offers.constants import CategoryChoices
 from offers.models import Advertisement
 from users.tests.factories import UserFactory
@@ -29,6 +30,7 @@ class ExchangeRateTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         exchange_for = CurrencyFactory()
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
             "category": CategoryChoices.EXCHANGE_RATE.value,
             "country": country.id,
@@ -38,13 +40,14 @@ class ExchangeRateTest(APITestCase):
             "proposed_currency": proposed_currency.id,
             "exchange_for": exchange_for.id,
             "exchange_rate": 2.15,
+            "images": payload_images,
         }
 
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(8):
+        with self.assertNumQueries(9):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -60,6 +63,7 @@ class ExchangeRateTest(APITestCase):
         self.assertEqual(new_advertisement.proposed_currency, proposed_currency)
         self.assertEqual(new_advertisement.exchange_for, exchange_for)
         self.assertEqual(new_advertisement.exchange_rate, payload["exchange_rate"])
+        self.assertEqual(new_advertisement.images.count(), len(payload_images))
 
     def test_update_exchange_rate(self):
         user = UserFactory()
@@ -94,7 +98,7 @@ class ExchangeRateTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(12):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)

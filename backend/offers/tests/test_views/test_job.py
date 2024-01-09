@@ -5,6 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from common.utils import generate_image_file
 from offers.constants import (
     CategoryChoices,
     JobType,
@@ -31,6 +32,7 @@ class JobTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
             "category": CategoryChoices.JOB.value,
             "country": country.id,
@@ -42,13 +44,14 @@ class JobTest(APITestCase):
             "job_duration": JobDurationType.TEMPORARY,
             "job_payment_type": JobPaymentType.MONTHLY_PAYMENT.value,
             "job_experience": True,
+            "images": payload_images,
         }
 
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(7):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -61,6 +64,7 @@ class JobTest(APITestCase):
         self.assertEqual(new_advertisement.job_type, payload["job_type"])
         self.assertEqual(new_advertisement.job_duration, payload["job_duration"])
         self.assertEqual(new_advertisement.job_experience, payload["job_experience"])
+        self.assertEqual(new_advertisement.images.count(), len(payload_images))
 
     def test_update_job(self):
         user = UserFactory()
@@ -88,7 +92,7 @@ class JobTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
 
         self.client.force_login(user)
-        with self.assertNumQueries(9):
+        with self.assertNumQueries(10):
             res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)

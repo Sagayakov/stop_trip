@@ -19,6 +19,7 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertisement
         fields = (
+            "owner",
             "category",
             "country",
             "region",
@@ -28,6 +29,16 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
             "description",
             "coordinates",
         )
+
+    def create(self, validated_data):
+        images = validated_data.pop("images", [])
+        advertisement = super().create(validated_data)
+        images_list: list[AdvertisementImage] = []
+        if images:
+            for image in images:
+                images_list.append(AdvertisementImage(advertisement=advertisement, image=image))
+            AdvertisementImage.objects.bulk_create(images_list)
+        return advertisement
 
 
 class AdvertisementImageSerializer(serializers.ModelSerializer):
@@ -106,7 +117,6 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     city = serializers.PrimaryKeyRelatedField(queryset=City.objects.all(), required=False)
     category = serializers.CharField(required=False)
     title = serializers.CharField(required=False)
-    # price = serializers.IntegerField(required=False)
 
     class Meta:
         model = Advertisement
@@ -116,3 +126,14 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
             "date_update",
             "slug",
         )
+
+    def update(self, instance, validated_data):
+        images = validated_data.pop("images", [])
+        advertisement = super().update(instance, validated_data)
+        advertisement.images.all().delete()
+        images_list: list[AdvertisementImage] = []
+        if images:
+            for image in images:
+                images_list.append(AdvertisementImage(advertisement=advertisement, image=image))
+            AdvertisementImage.objects.bulk_create(images_list)
+        return advertisement
