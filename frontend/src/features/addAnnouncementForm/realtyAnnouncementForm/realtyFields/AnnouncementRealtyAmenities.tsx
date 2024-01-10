@@ -17,8 +17,8 @@ export const AnnouncementRealtyAmenities = ({ register, defaultValue }: Props) =
     const { t } = useTranslation();
 
     const optionValues = valuesOfPropertyForm.property_amenities;
-    const val = defaultValue?.map((el) => el.name)
-    // console.log(val)
+    const val = defaultValue?.map((el) => el.name.toLowerCase())
+
     return (
         <div className={styles.ann_field}>
             <h3>{t('filters.property_amenities')}</h3>

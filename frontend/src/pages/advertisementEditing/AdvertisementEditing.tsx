@@ -9,11 +9,11 @@ import {
 } from 'app/api/fetchAdverts.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
-    AnnouncementCategoryField,
+    AnnouncementCategoryField, AnnouncementCity,
     AnnouncementDescriptionField,
     AnnouncementLocationField,
     AnnouncementNameField,
-    AnnouncementPriceField,
+    AnnouncementPriceField, AnnouncementRegion,
     OptionalFields,
 } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
 import { useEffect, useState } from 'react';
@@ -22,6 +22,8 @@ import { getTokensFromStorage } from 'widgets/header/libr/authentication/getToke
 import { AnnouncementSubmitButton } from 'entities/addAnnouncementForm/universalFields';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { toast } from 'react-toastify';
+import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
+import { useAppDispatch } from 'app/store/hooks.ts';
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
     const {
@@ -35,6 +37,8 @@ const AdvertisementEditing = () => {
     } = useForm<FormAddAnn>({
         reValidateMode: 'onBlur',
     });
+    const dispatch = useAppDispatch();
+
     const path = useLocation().pathname.split('/');
     const id = path[path.length - 1];
     const { data: dataAdvert, isLoading } = useGetAdvertByIdQuery(id);
@@ -46,12 +50,14 @@ const AdvertisementEditing = () => {
         dataAdvert?.coordinates
     );
     const [ownerId, setOwnerId] = useState<number | undefined>(undefined);
-    const { accessToken } = getTokensFromStorage();
+    const { refreshToken } = getTokensFromStorage();
     const addId = dataAdvert ? dataAdvert.id : 0;
     const navigate = useNavigate();
 
     useEffect(() => {
         const url = import.meta.env.VITE_BASE_URL;
+        getAccessTokenWithRefresh(dispatch, refreshToken);//сначала дожидаемся новый accessToken
+        const { accessToken } = getTokensFromStorage();
         const getOwnerId = async (token: string) => {
             try {
                 const response = await fetch(`${url}/api/auth/users/me/`, {
@@ -74,8 +80,12 @@ const AdvertisementEditing = () => {
     if (!isLoading && ownerId && ownerId !== dataAdvert?.owner.id) {
         navigate({ pathname: '/404' }); //если прошла загрузка, мы получили id хозяина объявления и он не равен нашему id, то отправляем на 404
     }
-    console.log(markerPosition)
+
     const onsubmit = async (data: FormAddAnn) => {
+        // setValue('country', 'Индия');
+        // const
+        await getAccessTokenWithRefresh(dispatch, refreshToken);//сначала дожидаемся новый accessToken, затем шлем пост запрос
+        const { accessToken } = getTokensFromStorage();
         try{
             const res = await editAdvert({ body: data, addId, accessToken });
             res && toast.success(t('advert-page.advertisement-added'))
@@ -85,6 +95,10 @@ const AdvertisementEditing = () => {
             toast.error(`${t('errors.add-announcement-error')}`)
         }
     };
+
+    useEffect(() => {
+        dataAdvert && setMarkerPosition(dataAdvert.coordinates)
+    }, [dataAdvert]);
 
     return (
         <>
@@ -104,6 +118,8 @@ const AdvertisementEditing = () => {
                                 formState={formState}
                                 defaultValue={dataAdvert.category}
                             />
+                            <AnnouncementRegion setValue={setValue} control={control} defaultValue={dataAdvert.region} />
+                            <AnnouncementCity setValue={setValue} control={control} defaultValue={dataAdvert.city} />
                             <AnnouncementNameField
                                 register={register}
                                 formState={formState}

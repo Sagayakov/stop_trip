@@ -1,7 +1,16 @@
 import { Suspense, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AnnouncementSubmitButton } from 'entities/addAnnouncementForm/universalFields';
-import { AnnouncementCategoryField, AnnouncementPhotoField, AnnouncementNameField, AnnouncementLocationField, AnnouncementPriceField, AnnouncementDescriptionField, OptionalFields } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
+import {
+    AnnouncementCategoryField,
+    AnnouncementPhotoField,
+    AnnouncementNameField,
+    AnnouncementLocationField,
+    AnnouncementPriceField,
+    AnnouncementDescriptionField,
+    OptionalFields,
+    AnnouncementRegion, AnnouncementCity,
+} from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
 import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import styles from './libr/addAnnouncement.module.scss';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
@@ -13,6 +22,8 @@ import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
 import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFields/SuccessAddAnnouncement.tsx';
 import { toast } from 'react-toastify';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
+import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
+import { useAppDispatch } from 'app/store/hooks.ts';
 
 interface Image {
     image: string;
@@ -30,6 +41,7 @@ const AddAnnouncementPage = () => {
     } = useForm<FormAddAnn>({
         reValidateMode: 'onBlur',
     });
+    const dispatch = useAppDispatch();
 
     const [selectedImages, setSelectedImages] = useState<Image[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
@@ -37,9 +49,13 @@ const AddAnnouncementPage = () => {
     const [modalSuccess, setModalSuccess] = useState(false);
     const { t } = useTranslation();
     const [ addAdvert, { isLoading } ] = useAddAdvertMutation();
-    const { accessToken } = getTokensFromStorage();
-
+    const { refreshToken } = getTokensFromStorage();
     const onsubmit = async (data: FormAddAnn) => {
+        setValue('country', 1);
+        setValue('region', 1);
+        console.log(data)
+        await getAccessTokenWithRefresh(dispatch, refreshToken)//сначала дожидаемся новый accessToken, затем шлем пост запрос
+        const { accessToken } = getTokensFromStorage();
         try {
             const result = await addAdvert({ body: data, token: accessToken });
             if ('data' in result) {
@@ -81,6 +97,8 @@ const AddAnnouncementPage = () => {
                             setValue={setValue}
                             formState={formState}
                         />
+                        <AnnouncementRegion setValue={setValue} control={control} />
+                        <AnnouncementCity setValue={setValue} control={control} />
                         <AnnouncementNameField
                             register={register}
                             formState={formState}

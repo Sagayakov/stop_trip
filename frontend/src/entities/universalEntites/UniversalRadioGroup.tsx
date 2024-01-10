@@ -7,9 +7,9 @@ interface Props<T extends FieldValues> {
     className?: string;
     defaultValue?: Values;
 }
-interface Values{
-    label: string | number
-    value: string | number
+interface Values {
+    label: string | number;
+    value: string | number;
 }
 
 export const UniversalRadioGroup = <T extends FieldValues>({
@@ -17,13 +17,19 @@ export const UniversalRadioGroup = <T extends FieldValues>({
     register,
     name,
     className,
-    defaultValue
+    defaultValue,
 }: Props<T>) => {
+
     return (
         <div className={`radio_group ${className}`}>
             {radioValues.map((el) => (
                 <label className="form_checkbox" key={el.label}>
-                    <input type="radio" value={el.value} {...register(name)} checked={Boolean(defaultValue?.value)} />
+                    <input
+                        type="radio"
+                        value={el.value}
+                        {...register(name)}
+                        checked={Boolean(defaultValue?.value) || undefined}
+                    />
                     <span>{el.label}</span>
                 </label>
             ))}
