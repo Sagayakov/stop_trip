@@ -32,9 +32,9 @@ class DocumentTest(APITestCase):
         city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.DOCUMENT.value,
-            "country": country.id,
-            "region": region.id,
-            "city": city.id,
+            "country": country.slug,
+            "region": region.slug,
+            "city": city.slug,
             "title": "document",
             "price": 1_000,
             "document_type": DocumentType.C_FORM,
@@ -55,6 +55,9 @@ class DocumentTest(APITestCase):
 
         self.assertEqual(new_advertisement.owner, user)
         self.assertEqual(new_advertisement.category, payload["category"])
+        self.assertEqual(new_advertisement.country, country)
+        self.assertEqual(new_advertisement.region, region)
+        self.assertEqual(new_advertisement.city, city)
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
         self.assertEqual(new_advertisement.document_type, payload["document_type"])
@@ -73,9 +76,9 @@ class DocumentTest(APITestCase):
         new_city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.DOCUMENT.value,
-            "country": new_country.id,
-            "region": new_region.id,
-            "city": new_city.id,
+            "country": new_country.slug,
+            "region": new_region.slug,
+            "city": new_city.slug,
             "title": "document_new",
             "price": 10_000,
             "document_type": DocumentType.C_FORM,
@@ -86,7 +89,9 @@ class DocumentTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(9):
-            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+            res = self.client.put(
+                self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
+            )
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -111,7 +116,7 @@ class DocumentTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(5):
-            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+            res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)

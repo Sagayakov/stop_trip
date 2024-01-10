@@ -30,9 +30,9 @@ class EventTest(APITestCase):
         city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.EVENT.value,
-            "country": country.id,
-            "region": region.id,
-            "city": city.id,
+            "country": country.slug,
+            "region": region.slug,
+            "city": city.slug,
             "title": "event",
             "price": 12_000,
             "start_date": str(now() + datetime.timedelta(days=2)),
@@ -71,9 +71,9 @@ class EventTest(APITestCase):
         new_city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.EVENT.value,
-            "country": new_country.id,
-            "region": new_region.id,
-            "city": new_city.id,
+            "country": new_country.slug,
+            "region": new_region.slug,
+            "city": new_city.slug,
             "title": "event_test",
             "price": 13_000,
             "start_date": str(now() + datetime.timedelta(days=2)),
@@ -84,18 +84,23 @@ class EventTest(APITestCase):
 
         self.client.force_login(user)
         with self.assertNumQueries(9):
-            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+            res = self.client.put(
+                self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
+            )
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
         new_advertisement = Advertisement.objects.first()
         advertisement.refresh_from_db()
         self.assertEqual(advertisement.owner, user)
-        self.assertEqual(new_advertisement.country.id, payload["country"])
-        self.assertEqual(new_advertisement.region.id, payload["region"])
-        self.assertEqual(new_advertisement.city.id, payload["city"])
+        self.assertEqual(new_advertisement.country.slug, payload["country"])
+        self.assertEqual(new_advertisement.region.slug, payload["region"])
+        self.assertEqual(new_advertisement.city.slug, payload["city"])
         self.assertEqual(new_advertisement.title, payload["title"])
+        self.assertEqual(str(new_advertisement.start_date), payload["start_date"])
+        self.assertEqual(str(new_advertisement.end_date), payload["end_date"])
         self.assertEqual(new_advertisement.price, payload["price"])
+        self.assertEqual(new_advertisement.is_online, payload["is_online"])
 
     def test_delete_event(self):
         user = UserFactory()
@@ -105,7 +110,7 @@ class EventTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(5):
-            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+            res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)

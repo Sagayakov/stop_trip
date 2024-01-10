@@ -47,9 +47,9 @@ class PropertyTest(APITestCase):
             "title": "test",
             "price": 10_000,
             "coordinates": "35, 35",
-            "country": country.id,
-            "region": region.id,
-            "city": city.id,
+            "country": country.slug,
+            "region": region.slug,
+            "city": city.slug,
             "property_type_of_service": PropertyTypeOfService.RENT,
             "property_building_max_floor": 15,
             "property_floor": 5,
@@ -170,9 +170,9 @@ class PropertyTest(APITestCase):
             "title": "test",
             "price": advertisement.price - 100,
             "coordinates": "38,35",
-            "country": new_country.id,
-            "region": new_region.id,
-            "city": new_city.id,
+            "country": new_country.slug,
+            "region": new_region.slug,
+            "city": new_city.slug,
             "property_type_of_service": PropertyTypeOfService.RENT,
             "property_building_max_floor": 15,
             "property_floor": 5,
@@ -195,7 +195,9 @@ class PropertyTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(15):
-            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+            res = self.client.put(
+                self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
+            )
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -256,7 +258,7 @@ class PropertyTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(5):
-            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+            res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)

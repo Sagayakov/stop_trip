@@ -47,6 +47,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     }
     filterset_class = AdvertisementFilter
     pagination_class = PageNumberPagination
+    lookup_field = "slug"
 
     def get_queryset(self):
         queryset = Advertisement.objects.filter(is_published=True).select_related(

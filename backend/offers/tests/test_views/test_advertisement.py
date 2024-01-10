@@ -67,11 +67,11 @@ class AdvertisementViewSetTest(APITestCase):
         ]
 
         with self.assertNumQueries(3):
-            res = self.client.get(self.detail_url(kwargs={"pk": advertisements[0].id}))
+            res = self.client.get(self.detail_url(kwargs={"slug": advertisements[0].slug}))
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(res_json["id"], advertisements[0].id)
+        self.assertEqual(res_json["slug"], advertisements[0].slug)
 
     def test_my_advertisements(self):
         me = UserFactory()

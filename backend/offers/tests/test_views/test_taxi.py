@@ -33,9 +33,9 @@ class TaxiTest(APITestCase):
         city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.TAXI.value,
-            "country": country.id,
-            "region": region.id,
-            "city": city.id,
+            "country": country.slug,
+            "region": region.slug,
+            "city": city.slug,
             "title": "test_taxi",
             "price": 1000,
             "taxi_unit": TaxiUnit.KM.value,
@@ -53,9 +53,9 @@ class TaxiTest(APITestCase):
 
         new_advertisement = Advertisement.objects.first()
         self.assertEqual(new_advertisement.owner, user)
-        self.assertEqual(new_advertisement.country.id, payload["country"])
-        self.assertEqual(new_advertisement.region.id, payload["region"])
-        self.assertEqual(new_advertisement.city.id, payload["city"])
+        self.assertEqual(new_advertisement.country.slug, payload["country"])
+        self.assertEqual(new_advertisement.region.slug, payload["region"])
+        self.assertEqual(new_advertisement.city.slug, payload["city"])
         self.assertEqual(new_advertisement.category, payload["category"])
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
@@ -72,7 +72,6 @@ class TaxiTest(APITestCase):
             country=country,
             region=region,
             city=city,
-            title="taxi",
             price=1500,
             taxi_unit=TaxiUnit.KM.value,
             taxi_type=TaxiType.ECONOMY.value,
@@ -80,6 +79,7 @@ class TaxiTest(APITestCase):
 
         payload = {
             "price": 3000,
+            "title": "taxi",
             "taxi_unit": TaxiUnit.ROUTE.value,
             "taxi_type": TaxiType.COMFORT.value,
         }
@@ -87,12 +87,17 @@ class TaxiTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(6):
-            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+            res = self.client.put(
+                self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
+            )
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
         advertisement.refresh_from_db()
-
+        self.assertEqual(advertisement.country, country)
+        self.assertEqual(advertisement.region, region)
+        self.assertEqual(advertisement.city, city)
+        self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
         self.assertEqual(advertisement.taxi_unit, payload["taxi_unit"])
         self.assertEqual(advertisement.taxi_type, payload["taxi_type"])
@@ -114,7 +119,7 @@ class TaxiTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(5):
-            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+            res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)
