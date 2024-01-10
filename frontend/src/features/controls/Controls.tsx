@@ -10,7 +10,7 @@ import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 
 const Controls = () => {
     const [showModal, setShowModal] = useState(false);
-    const { isMobile } = useMatchMedia()
+    const { isMobile } = useMatchMedia();
 
     return (
         <div className={styles.controls}>
@@ -21,8 +21,12 @@ const Controls = () => {
                         setShowModal={setShowModal}
                     />
                 )}
-                <Input />
-                <SelectGeo />
+                {!isMobile && (
+                    <>
+                        <Input />
+                        <SelectGeo />
+                    </>
+                )}
                 <ModalWindow
                     showModal={showModal}
                     setShowModal={setShowModal}

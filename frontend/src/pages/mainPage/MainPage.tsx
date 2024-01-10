@@ -4,7 +4,9 @@ import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.ts
 import { LoaidngWithoutBackground } from 'entities/loading/LoaidngWithoutBackground.tsx';
 const Controls = lazy(() => import('../../features/controls/Controls'));
 const LastAdverts = lazy(() => import('widgets/lastAdverts/LastAdverts'));
-const PopularCategories = lazy(() => import('../../features/popularCategories/PopularCategories'));
+const PopularCategories = lazy(
+    () => import('../../features/popularCategories/PopularCategories')
+);
 
 const MainPage = () => {
     const load = useAppSelector((state) => state.setLoading.loading);

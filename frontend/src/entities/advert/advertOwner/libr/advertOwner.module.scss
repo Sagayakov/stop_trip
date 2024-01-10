@@ -11,7 +11,10 @@
         width: 25%;
         aspect-ratio: 1/1;
         border-radius: 8px;
+        background-color: #e4f0d0;
+        font-family: var(--font-inter);
         font-size: 2rem;
+        color: var(--main-black);
     }
     .owner_characteristics {
         display: flex;
@@ -71,8 +74,12 @@
         }
     }
 }
-@media (max-width: 767px){
-    .user_icon{
-        min-width: 0;
+
+@media (max-width: 767px) {
+    .owner {
+        .user_icon {
+            min-width: 0;
+            width: 87px;
+        }
     }
 }

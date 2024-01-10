@@ -18,9 +18,7 @@ export const AdvertOwner = ({ owner, className }: Props) => {
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
 
-    const { firstLetters, lettersColor, bgColor } = getUserIcon(
-        owner.full_name
-    );
+    const { firstLetters } = getUserIcon(owner.full_name);
 
     const spelling = useGradeSpelling(grades);
 
@@ -37,12 +35,7 @@ export const AdvertOwner = ({ owner, className }: Props) => {
 
     return (
         <div className={`${styles.owner} ${className}`}>
-            <span
-                className={styles.user_icon}
-                style={{ color: lettersColor, backgroundColor: bgColor }}
-            >
-                {firstLetters}
-            </span>
+            <span className={styles.user_icon}>{firstLetters}</span>
             <div className={styles.owner_characteristics}>
                 <div>
                     <p>{`${owner.full_name[0].toUpperCase()}${owner.full_name.slice(

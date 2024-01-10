@@ -15,7 +15,7 @@ export const Layout = () => {
                 </main>
             </Suspense>
             <Footer />
-            <ToastContainer />
+            <ToastContainer autoClose={10000} />
         </>
     );
 };

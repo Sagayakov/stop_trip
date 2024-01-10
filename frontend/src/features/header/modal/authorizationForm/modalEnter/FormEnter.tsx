@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
-import { Google } from 'shared/ui/icons/icons-tools/Google.tsx';
-import { Vk } from 'shared/ui/icons/icons-tools/Vk.tsx';
+//import { Google } from 'shared/ui/icons/icons-tools/Google.tsx';
+//import { Vk } from 'shared/ui/icons/icons-tools/Vk.tsx';
 //import { CheckboxRememberMe } from './inputsEnter/CheckboxRememberMe';
 import { InputSubmit } from './inputsEnter/InputSubmit.tsx';
 import { InputEmail } from './inputsEnter/inputEmail/InputEmail.tsx';
@@ -64,7 +64,7 @@ export const FormEnter = () => {
             </div>
             {/* <CheckboxRememberMe register={register} /> */}
             <InputSubmit isValid={isValid} />
-            <div className={styles.enter_with}>
+            {/* <div className={styles.enter_with}>
                 {t('modal-login.login-help')}
                 <div className={styles.google}>
                     <Google />
@@ -72,7 +72,7 @@ export const FormEnter = () => {
                 <div className={styles.vk}>
                     <Vk />
                 </div>
-            </div>
+            </div> */}
         </form>
     );
 };
