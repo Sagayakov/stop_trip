@@ -12,7 +12,7 @@ interface Props {
 
 const AnnouncementRegion = ({ control, setValue, defaultValue }: Props) => {
     const { t } = useTranslation();
-    const options = [{ value: 'goa', label: 'Гоа' }];
+    const options = [{ value: 1, label: 'Гоа' }];
 
     return (
         <div className={styles.ann_field}>
@@ -23,13 +23,14 @@ const AnnouncementRegion = ({ control, setValue, defaultValue }: Props) => {
             <UniversalSelectDropdown<FormAddAnn>
                 setValue={setValue}
                 control={control}
-                name="region.name"
+                name="region"
                 prefix="filterAnnouncementCategory"
                 placeholder={t('add-page.region')}
                 closeMenuOnSelect={true}
                 isMulti={false}
                 options={options}
-                defaultValue={options.find((el) => el.label === defaultValue?.name)}
+                defaultValue={options[0]}
+                // defaultValue={options.find((el) => el.label === defaultValue?.name)}
             />
             <div className={styles.ann_field_err}></div>
         </div>

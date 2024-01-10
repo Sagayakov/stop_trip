@@ -9,7 +9,7 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
     const url = import.meta.env.VITE_BASE_URL;
     const headersConfig = {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Accept': 'application/json',
     };
     if(accessToken){
         try {

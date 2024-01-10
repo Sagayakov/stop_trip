@@ -15,13 +15,15 @@ import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import styles from './libr/addAnnouncement.module.scss';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
-import { useAddAdvertMutation, useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import './libr/selectAddAnnouncement.scss'
 import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
 import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFields/SuccessAddAnnouncement.tsx';
 import { toast } from 'react-toastify';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
+import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
+import { useAppDispatch } from 'app/store/hooks.ts';
 
 interface Image {
     image: string;
@@ -39,6 +41,7 @@ const AddAnnouncementPage = () => {
     } = useForm<FormAddAnn>({
         reValidateMode: 'onBlur',
     });
+    const dispatch = useAppDispatch();
 
     const [selectedImages, setSelectedImages] = useState<Image[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
@@ -46,11 +49,13 @@ const AddAnnouncementPage = () => {
     const [modalSuccess, setModalSuccess] = useState(false);
     const { t } = useTranslation();
     const [ addAdvert, { isLoading } ] = useAddAdvertMutation();
-    const { accessToken } = getTokensFromStorage();
-    const {data} = useGetFiltersQuery('')
-    console.log(data)
+    const { refreshToken } = getTokensFromStorage();
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 1);
+        setValue('region', 1);
+        console.log(data)
+        await getAccessTokenWithRefresh(dispatch, refreshToken)//сначала дожидаемся новый accessToken, затем шлем пост запрос
+        const { accessToken } = getTokensFromStorage();
         try {
             const result = await addAdvert({ body: data, token: accessToken });
             if ('data' in result) {
