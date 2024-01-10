@@ -1,8 +1,4 @@
-import {
-    FieldValues,
-    Path,
-    UseFormRegister,
-} from 'react-hook-form';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 interface Props<T extends FieldValues> {
     register: UseFormRegister<T>;
@@ -11,14 +7,18 @@ interface Props<T extends FieldValues> {
     className?: string;
     defaultValue?: string[];
 }
-interface Options{
-    value: string | number
-    label: string | number
+interface Options {
+    value: string | number;
+    label: string | number;
 }
 
-
-export const UniversalCheckboxGroup = <T extends FieldValues>({ checkboxValues, register, name, className, defaultValue }: Props<T>) => {
-
+export const UniversalCheckboxGroup = <T extends FieldValues>({
+    checkboxValues,
+    register,
+    name,
+    className,
+    defaultValue,
+}: Props<T>) => {
     return (
         <div className={`checkbox_group ${className}`}>
             {checkboxValues.map((el) => (
@@ -27,8 +27,7 @@ export const UniversalCheckboxGroup = <T extends FieldValues>({ checkboxValues, 
                         type="checkbox"
                         value={el.value}
                         {...register(name)}
-                        checked={(defaultValue?.includes(String(el.value))) || false}
-                        // checked={Boolean(defaultValue)}
+                        checked={defaultValue?.includes((el.label as string).toLowerCase())}
                     />
                     <span>{el.label}</span>
                 </label>

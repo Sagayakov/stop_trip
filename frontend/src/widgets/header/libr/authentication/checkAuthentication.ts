@@ -9,7 +9,7 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
     const url = import.meta.env.VITE_BASE_URL;
     const headersConfig = {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Accept': 'application/json',
     };
     if(accessToken){
         try {
@@ -29,6 +29,25 @@ export const checkAuthentication = async (dispatch: Dispatch) => {
         }
     }
     if(!accessToken && isAuth && refreshToken){
+        try {
+            const response = await fetch(`${url}/api/auth/jwt/refresh/`, {
+                method: 'POST',
+                headers: headersConfig,
+                body: JSON.stringify({ refresh: refreshToken }),
+            });
+            if(response.ok){
+                const data = await response.json();
+                dispatch(setIsAuth(true))
+                localStorage.setItem('isAuth', 'true')
+                saveTokensAuthToCookie(data.access);
+            }else {
+                localStorage.removeItem('isAuth')
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    if(!accessToken && refreshToken){
         try {
             const response = await fetch(`${url}/api/auth/jwt/refresh/`, {
                 method: 'POST',

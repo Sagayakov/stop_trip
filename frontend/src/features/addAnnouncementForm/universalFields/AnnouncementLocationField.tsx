@@ -26,7 +26,14 @@ const AnnouncementLocationField = ({
             setValue('coordinates', `${latitude}, ${longitude}`);
         }
     }, [markerPosition]);
-
+    const defaultCoordinates = () => {
+        if(markerPosition){
+            const arr = markerPosition?.split(',');
+            const latitude = Number(arr[1]);
+            const longitude = Number(arr[0]);
+            return [latitude, longitude]
+        }
+    }
     return (
         <div className={styles.ann_field}>
             <h3>
@@ -34,7 +41,7 @@ const AnnouncementLocationField = ({
             </h3>
             <div className={styles.map_wrapper}>
                 <MapComponent
-                    propertyLocation={[73.821235, 15.483506]}
+                    propertyLocation={defaultCoordinates() || [73.821235, 15.483506]}
                     isSelected={true}
                     setMarkerPosition={setMarkerPosition}
                 />
