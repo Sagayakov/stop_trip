@@ -42,10 +42,10 @@ export const PhotoSlider = () => {
         }
     };
 
-    /*const image =
-         !data || !data.images[activeImage]
+    const image =
+        !data || !data.images[activeImage]
             ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
-            :  data?.images[activeImage].image;*/
+            : data?.images[activeImage].image;
 
     const handleOnLoad = () => {
         setImageWidth(imageRef.current!.naturalWidth);
@@ -103,44 +103,54 @@ export const PhotoSlider = () => {
 
     return (
         <>
-            {data && data.images[0] && (
+            {data && (
                 <div className={styles.image_wrapper}>
                     <div
-                        className={styles.active_image}
+                        className={
+                            !data.images.length
+                                ? styles.active_no_image
+                                : styles.active_image
+                        }
                         onClick={openPhoto}
                         onTouchStart={handleTouchStart}
                         onTouchEnd={handleTouchEnd}
                     >
-                        <div className={styles.arrow_container}>
-                            <ArrowLeft10x24
-                                color="white"
-                                handleClickPrev={handleClickPrev}
-                            />
-                        </div>
+                        {!!data.images.length && (
+                            <div className={styles.arrow_container}>
+                                <ArrowLeft10x24
+                                    color="white"
+                                    handleClickPrev={handleClickPrev}
+                                />
+                            </div>
+                        )}
                         <img
-                            src={data.images[activeImage].image}
+                            src={image}
                             alt="Main image"
                             ref={imageRef}
                             onLoad={handleOnLoad}
                             className={
-                                imageWidth > imageHeight
-                                    ? `${styles.horizontal}`
-                                    : `${styles.vertical}`
+                                !data.images.length
+                                    ? styles.no_image
+                                    : imageWidth > imageHeight
+                                      ? `${styles.horizontal}`
+                                      : `${styles.vertical}`
                             }
                         />
-                        <div className={styles.arrow_container}>
-                            <ArrowRight
-                                color="white"
-                                handleClickNext={handleClickNext}
-                            />
-                        </div>
+                        {!!data.images.length && (
+                            <div className={styles.arrow_container}>
+                                <ArrowRight
+                                    color="white"
+                                    handleClickNext={handleClickNext}
+                                />
+                            </div>
+                        )}
                         <ShareIcon />
                         <Like
                             id={Number(id)}
                             color="#ff3f25"
                             strokeColor="#1C1C1E"
                         />
-                        {imageHeight > imageWidth && (
+                        {!!data.images.length && imageHeight > imageWidth && (
                             <>
                                 <img
                                     className={styles.blur_left}
