@@ -82,7 +82,7 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
             "description",
             "images",
             "date_create",
-            # "slug",
+            "slug",
             "owner",
         )
 
