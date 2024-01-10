@@ -8,14 +8,21 @@ interface Props {
 }
 export const PriceBlock = ({ data }: Props) => {
     const { t } = useTranslation();
+    const { category, proposed_currency, exchange_for, exchange_rate, price } =
+        data;
 
     return (
         <>
             <div className={styles.price_block}>
+                {category === 'exchange_rate' && (
+                    <span>{`${proposed_currency}/${exchange_for}`}</span>
+                )}
                 <span className={styles.price}>
-                    {data.price
-                        ? prettifyPrice(data.price)
-                        : `${t('advert-page.price-negotiated')}`}
+                    {category === 'exchange_rate' && exchange_rate
+                        ? exchange_rate
+                        : price
+                          ? prettifyPrice(price)
+                          : `${t('advert-page.price-negotiated')}`}
                 </span>
             </div>
         </>

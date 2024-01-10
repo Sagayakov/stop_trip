@@ -93,6 +93,39 @@
             right: 50px;
         }
     }
+    .active_no_image {
+        position: relative;
+        height: 20vh;
+        display: flex;
+        justify-content: center;
+        .share_icon,
+        .add_to_favorite {
+            position: absolute;
+            z-index: 4;
+            top: 10px;
+            right: 10px;
+            width: 35px;
+            height: 35px;
+            box-shadow: 0px 6px 8px 0px #00000024;
+            border-radius: 4px;
+            background-color: #ffffff65;
+            cursor: pointer;
+            svg {
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                width: 24px;
+                height: 24px;
+            }
+        }
+        .share_icon {
+            right: 50px;
+        }
+    }
+    .no_image {
+        height: 20vh;
+        border-radius: 8px;
+    }
     .image_list {
         display: flex;
         flex-wrap: wrap;

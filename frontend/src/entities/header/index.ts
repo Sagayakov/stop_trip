@@ -1,2 +1,2 @@
-export { LangAuthBlockMobile } from './LangAuthBlockMobile.tsx'
-export { LangAuthBlockDesctop } from './LangAuthBlockDesctop.tsx'
+export { LangAuthBlockMobile } from './LangAuthBlockMobile.tsx';
+export { LangAuthBlockDesktop } from './LangAuthBlockDesktop.tsx';

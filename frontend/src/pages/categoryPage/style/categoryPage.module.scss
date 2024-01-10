@@ -192,6 +192,7 @@ h1 {
     margin: 30px auto 60px;
     text-align: center;
 }
+
 @media (min-width: 1024px) and (max-width: 1439px) {
     .bread_crumbs {
         width: 85%;
@@ -217,11 +218,12 @@ h1 {
                     }
                 }
                 .description {
-                    padding: 12px 0;
+                    width: 100%;
+                    padding: 12px 2.5rem 0 0;
                     h2 {
                         font-size: 22px;
                         margin-bottom: 12px;
-                        width: 85%; //чтобы на лайк не заехало
+                        width: 100%;
                     }
                     h3 {
                         font-size: 22px;
@@ -240,6 +242,7 @@ h1 {
         margin: 30px auto 50px;
     }
 }
+
 @media (min-width: 768px) and (max-width: 1023px) {
     .bread_crumbs {
         width: 85%;
@@ -272,9 +275,11 @@ h1 {
                     }
                 }
                 .description {
+                    width: 100%;
+                    padding-right: 2.5rem;
                     h2 {
                         font-size: 20px;
-                        width: 90%;
+                        width: 100%;
                         margin-bottom: 12px;
                     }
                     .description_location,
@@ -294,6 +299,7 @@ h1 {
         margin: 30px auto 40px;
     }
 }
+
 @media (min-width: 425px) and (max-width: 767px) {
     .bread_crumbs {
         width: 93%;
@@ -361,7 +367,8 @@ h1 {
                 .description {
                     position: relative;
                     margin: 8px 0 0;
-                    padding: 0 8px;
+                    padding: 0 2.5rem 0 0;
+                    width: 100%;
                     height: auto;
                     h2,
                     h3 {
@@ -393,6 +400,7 @@ h1 {
         }
     }
 }
+
 @media (max-width: 424px) {
     .controls {
         width: 100%;
@@ -469,7 +477,7 @@ h1 {
                 }
                 .description {
                     margin: 8px 0 0;
-                    padding: 0 8px;
+                    padding: 0 2.5rem 0 0;
                     height: 94px;
                     h2,
                     h3 {

@@ -65,9 +65,11 @@ export const Header = () => {
                     }
                 >
                     <Plus color="white" />
-                    {window.innerWidth >= 425
+                    {window.innerWidth >= 550
                         ? `${t('main-page.post-advert')}`
-                        : `${t('main-page.publish')}`}
+                        : window.innerWidth >= 424
+                          ? `${t('main-page.publish')}`
+                          : ''}
                 </UniversalButton>
                 <LangAuthBlock />
                 {isAddModalOpen && (

@@ -120,7 +120,7 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
                 <h3>
                     {el.price
                         ? prettifyPrice(el.price)
-                        : `${t('advert-page.negotiated')}`}
+                        : `${t('advert-page.price-negotiated')}`}
                 </h3>
                 <p className={style.card_description}>{el.description}</p>
                 <div className={style.author}>

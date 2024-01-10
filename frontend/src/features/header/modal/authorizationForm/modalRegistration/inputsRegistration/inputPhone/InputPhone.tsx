@@ -11,7 +11,8 @@ interface Props {
 
 export const InputPhone = ({ errors, register }: Props) => {
     const phoneErrors = useAppSelector(
-        (state) => state.setIsAuth.errorRegistration?.phone[0])
+        (state) => state.setIsAuth.errorRegistration?.phone[0]
+    );
     const { t } = useTranslation();
 
     return (
@@ -20,7 +21,8 @@ export const InputPhone = ({ errors, register }: Props) => {
                 {...register('phone', {
                     required: true,
                     minLength: 5,
-                    pattern: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$/,
+                    pattern:
+                        /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$/,
                 })}
                 placeholder={t('modal-registration.phone')}
                 style={{

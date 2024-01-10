@@ -36,7 +36,7 @@ export const InputPassword = ({ errors, register }: Props) => {
                         minLength: 8,
                         maxLength: 22,
                         pattern:
-                            /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])(?!.*\s)[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,22}/,
+                            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])(?!.*\s)[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,22}/,
                     })}
                     onCopy={(event) => handleCopy(event)}
                     placeholder={t('modal-login.password')}

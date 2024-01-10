@@ -63,7 +63,7 @@ const AdvertisementEditing = () => {
                 const response = await fetch(`${url}/api/auth/users/me/`, {
                     method: 'GET',
                     headers: {
-                        "Authorization": `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 });
                 if (response.status === 200) {
@@ -86,13 +86,13 @@ const AdvertisementEditing = () => {
         // const
         await getAccessTokenWithRefresh(dispatch, refreshToken);//сначала дожидаемся новый accessToken, затем шлем пост запрос
         const { accessToken } = getTokensFromStorage();
-        try{
+        try {
             const res = await editAdvert({ body: data, addId, accessToken });
-            res && toast.success(t('advert-page.advertisement-added'))
+            res && toast.success(t('advert-page.advertisement-added'));
             scrollToTop();
-        } catch (errors){
-            console.log(errors)
-            toast.error(`${t('errors.add-announcement-error')}`)
+        } catch (errors) {
+            console.log(errors);
+            toast.error(`${t('errors.add-announcement-error')}`);
         }
     };
 
@@ -107,6 +107,7 @@ const AdvertisementEditing = () => {
                 <form
                     className={styles.add_ann_form}
                     onSubmit={handleSubmit(onsubmit)}
+                    id="form-edit-announcement"
                 >
                     {isLoading && ownerId && <LoadingWithBackground />}
                     {isSendLoading && <LoadingWithBackground />}

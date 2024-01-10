@@ -23,7 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { UniversalButton } from 'entities/universalEntites';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingTransportForm.module.scss';
-import formStyle from 'widgets/settingForm/forms/filtersForm.module.scss'
+import formStyle from 'widgets/settingForm/forms/filtersForm.module.scss';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -44,12 +44,12 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
         const filters = getTransportQuery(data);
         setSearchParams(`category=transport${filters}`);
         setShowFilters(false);
-        scrollToTop()
+        scrollToTop();
     };
 
     const onReset = () => {
         reset();
-        scrollToTop()
+        scrollToTop();
     };
 
     return (
@@ -58,6 +58,7 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 className={styles.filter_transport_form}
                 onSubmit={handleSubmit(onsubmit)}
                 autoComplete="off"
+                id="form-setting-transport"
             >
                 <TypeOfService register={register} />
                 <TypeOfTransport register={register} watch={watch} />

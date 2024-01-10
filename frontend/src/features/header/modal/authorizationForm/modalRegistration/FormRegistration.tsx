@@ -41,6 +41,7 @@ export const FormRegistration = () => {
             className={styles.form_registration}
             onSubmit={handleSubmit(onsubmit)}
             autoComplete="false"
+            id="form-registration"
         >
             <InputName errors={errors} register={register} />
             <InputPhone errors={errors} register={register} />

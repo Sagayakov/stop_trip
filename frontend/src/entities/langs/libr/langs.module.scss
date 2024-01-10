@@ -39,7 +39,6 @@
     .language {
         .language_ru,
         .language_eng {
-            height: 25px;
             line-height: 8px;
         }
     }
@@ -47,7 +46,20 @@
 
 @media (max-width: 767px) {
     .language {
-        width: 100px;
-        margin-left: 40px;
+        display: block;
+
+        //width: 100px;
+        //margin-left: 40px;
+        .language_ru,
+        .language_eng {
+            width: 100%;
+            height: 30px;
+            border-radius: 8px;
+            padding: 5px 9px;
+            color: var(--main-blue);
+        }
+        .lang_active {
+            display: none;
+        }
     }
 }

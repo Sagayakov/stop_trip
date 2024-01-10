@@ -105,6 +105,7 @@
         }
     }
 }
+
 @media (max-width: 921px) {
     .popular_categories {
         .popular_categories_wrapper {
@@ -122,6 +123,7 @@
         }
     }
 }
+
 @media (max-width: 767px) {
     .popular_categories {
         width: 100%;
@@ -199,6 +201,18 @@
                 }
                 .service {
                     min-width: 84px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 615px) {
+    .popular_categories {
+        .popular_categories_wrapper {
+            .categories_titles {
+                h3 {
+                    font-size: 16px;
                 }
             }
         }

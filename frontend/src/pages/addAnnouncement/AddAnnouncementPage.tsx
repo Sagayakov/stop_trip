@@ -17,7 +17,7 @@ import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
 import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
-import './libr/selectAddAnnouncement.scss'
+import './libr/selectAddAnnouncement.scss';
 import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
 import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFields/SuccessAddAnnouncement.tsx';
 import { toast } from 'react-toastify';
@@ -50,6 +50,7 @@ const AddAnnouncementPage = () => {
     const { t } = useTranslation();
     const [ addAdvert, { isLoading } ] = useAddAdvertMutation();
     const { refreshToken } = getTokensFromStorage();
+  
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 1);
         setValue('region', 1);
@@ -67,21 +68,24 @@ const AddAnnouncementPage = () => {
                 setValue('category', data.category);
                 setModalSuccess(true);
             }
-        } catch (error){
+        } catch (error) {
             console.log(error);
-            toast.error(`${t('errors.add-announcement-error')}`)
+            toast.error(`${t('errors.add-announcement-error')}`);
         }
     };
     const handleClick = () => {
-        setModalSuccess(false)
-        scrollToTop()
-    }
+        setModalSuccess(false);
+        scrollToTop();
+    };
 
     return (
         <>
             {isLoading && <LoadingWithBackground />}
             {modalSuccess && (
-                <BackgroundModal className={styles.background} callback={handleClick}>
+                <BackgroundModal
+                    className={styles.background}
+                    callback={handleClick}
+                >
                     <SuccessAddAnnouncement onClick={handleClick} />
                 </BackgroundModal>
             )}
@@ -89,6 +93,7 @@ const AddAnnouncementPage = () => {
                 <form
                     className={styles.add_ann_form}
                     onSubmit={handleSubmit(onsubmit)}
+                    id="form-add-announcement"
                 >
                     <Suspense fallback={<LoadingWithBackground />}>
                         <h1>{t('add-page.post')}</h1>
@@ -107,7 +112,10 @@ const AddAnnouncementPage = () => {
                             register={register}
                             formState={formState}
                         />
-                        <AnnouncementDescriptionField descript={descript} setDescript={setDescript} />
+                        <AnnouncementDescriptionField
+                            descript={descript}
+                            setDescript={setDescript}
+                        />
                         <OptionalFields
                             control={control}
                             register={register}

@@ -1,4 +1,4 @@
-import { LangAuthBlockDesctop, LangAuthBlockMobile } from 'entities/header';
+import { LangAuthBlockDesktop, LangAuthBlockMobile } from 'entities/header';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { ModalMobile } from 'features/header/modal/modalMobile/ModalMobile.tsx';
 import { useState } from 'react';
@@ -16,7 +16,7 @@ export const LangAuthBlock = () => {
                     setShowUserMenu={setShowUserMenu}
                 />
             ) : (
-                <LangAuthBlockDesctop
+                <LangAuthBlockDesktop
                     showUserMenu={showUserMenu}
                     setShowUserMenu={setShowUserMenu}
                 />

@@ -71,7 +71,7 @@ export const FeedbackForm = () => {
                 <Pencil color="#02C66E" />
                 <p>{t('main-page.suggestions')}</p>
             </div>
-            <form onSubmit={handleSubmit(onsubmit)}>
+            <form onSubmit={handleSubmit(onsubmit)} id="form-feedback">
                 <Controller
                     name="text"
                     control={control}

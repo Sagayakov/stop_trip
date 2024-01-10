@@ -1,3 +1,4 @@
+import { useMatchMedia } from 'app/hooks/useMatchMedia';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { url } from 'shared/const/url.ts';
 
@@ -8,6 +9,7 @@ type LogoProps = {
 export const LogoHeader = ({ isFooter }: LogoProps) => {
     const pathname = useLocation().pathname;
     const navigate = useNavigate();
+    const { isMobile } = useMatchMedia();
 
     const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
         if (isFooter && pathname === '/') {
@@ -32,8 +34,8 @@ export const LogoHeader = ({ isFooter }: LogoProps) => {
             style={{ cursor: 'pointer' }}
             id="logo"
             width="134"
-            height="40"
-            viewBox="0 0 134 40"
+            height={!isMobile ? '40' : window.innerWidth >= 474 ? '35' : '30'}
+            viewBox={window.innerWidth >= 474 ? '0 0 134 40' : '0 0 170 40'}
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={handleClick}

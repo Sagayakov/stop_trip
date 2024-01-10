@@ -116,6 +116,7 @@
         }
     }
 }
+
 @media (max-width: 1023px) {
     .controls {
         width: 100%;
@@ -142,11 +143,12 @@
         }
     }
 }
+
 @media (max-width: 767px) {
     .button_all_categories {
         margin-left: auto;
         margin-top: 12px;
-        width: 82%;
+        //width: 82%;
         height: 24px;
         border: none;
         background: none;
@@ -164,10 +166,10 @@
 @media (min-width: 475px) and (max-width: 767px) {
     .controls {
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 0;
         .controls_wrapper {
             width: 93%;
-            margin: 0 auto 20px;
+            margin: 0 auto 10px;
             display: grid;
             grid-template-areas:
                 'input input'
@@ -192,8 +194,9 @@
                 border: 1px solid var(--main-blue);
             }
             .select_wrapper {
+                gap: 1rem;
                 border: none;
-                width: 90%;
+                width: 100%;
                 padding-left: 0;
                 p {
                     width: 125px;

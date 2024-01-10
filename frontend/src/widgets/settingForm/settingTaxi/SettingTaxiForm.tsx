@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { getSearchParams } from 'widgets/settingForm/settingTaxi/libr/getSearchParams.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingTaxiForm.module.scss';
-import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss'
+import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -30,15 +30,15 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
 
     const onsubmit: SubmitHandler<TypeSettingTaxi> = (data) => {
         const { taxi_unit, taxi_type, price } = data;
-        const filters = getSearchParams(taxi_type, taxi_unit, price)
+        const filters = getSearchParams(taxi_type, taxi_unit, price);
         setSearchParams(`category=taxi${filters}`);
-        scrollToTop()
+        scrollToTop();
         setShowFilters(false);
     };
 
     const onReset = () => {
         reset();
-        scrollToTop()
+        scrollToTop();
     };
 
     return (
@@ -47,12 +47,16 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 className={styles.filterTaxiForm}
                 onSubmit={handleSubmit(onsubmit)}
                 autoComplete="off"
+                id="form-setting-taxi"
             >
                 <UnitOfMeasurement register={register} />
                 <TypeOfTaxi control={control} setValue={setValue} />
                 <SettingTaxiPrice register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`} onClick={onReset}>
+                <button
+                    className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
+                    onClick={onReset}
+                >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>
