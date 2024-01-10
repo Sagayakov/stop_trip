@@ -22,17 +22,14 @@ export const Modal = () => {
         return `${styles.modal} ${visible}`;
     };
     const handleClose = () => {
-        dispatch(toggleModalEnter(false))
+        dispatch(toggleModalEnter(false));
         setTimeout(() => {
-            dispatch(setIsResetPasswordModalOpen(false))
-        },500)//без таймаута сначала появляется окно с входом
-    }
+            dispatch(setIsResetPasswordModalOpen(false));
+        }, 500); //без таймаута сначала появляется окно с входом
+    };
 
     return (
-        <div
-            className={classNameForModalBackground()}
-            onClick={handleClose}
-        >
+        <div className={classNameForModalBackground()} onClick={handleClose}>
             <div
                 className={styles.modal_wrapper}
                 onClick={(event) => event.stopPropagation()}

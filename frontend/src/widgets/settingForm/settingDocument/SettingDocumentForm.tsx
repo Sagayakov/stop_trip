@@ -10,7 +10,7 @@ import { searchParamsForDocument } from './libr/searchParamsForDocument';
 import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingDocumentForm.module.scss';
-import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss'
+import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -50,11 +50,15 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
             <form
                 className={styles.filterDocumentForm}
                 onSubmit={handleSubmit(onsubmit)}
+                id="form-setting-document"
             >
                 <DocumentType control={control} setValue={setValue} />
                 <DocumentDuration control={control} setValue={setValue} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className={formStyles.reset_setting_form} onClick={onReset}>
+                <button
+                    className={formStyles.reset_setting_form}
+                    onClick={onReset}
+                >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>

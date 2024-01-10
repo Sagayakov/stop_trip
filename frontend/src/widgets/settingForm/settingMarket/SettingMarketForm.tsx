@@ -4,7 +4,7 @@ import { MarketCondition } from 'features/settingCategoryForm/settingMarketForm'
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForMarketForm } from './libr/TypeForMarketForm';
 import styles from './libr/settingMarketForm.module.scss';
-import stylesForm from 'widgets/settingForm/forms/filtersForm.module.scss'
+import stylesForm from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 
@@ -44,10 +44,17 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
 
     return (
         <section className={stylesForm.filters} onClick={handleClick}>
-            <form className={styles.filterFoodForm} onSubmit={handleSubmit(onsubmit)}>
+            <form
+                className={styles.filterFoodForm}
+                onSubmit={handleSubmit(onsubmit)}
+                id="form-setting-market"
+            >
                 <MarketCondition register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`} onClick={onReset}>
+                <button
+                    className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`}
+                    onClick={onReset}
+                >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>

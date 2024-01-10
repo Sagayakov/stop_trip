@@ -1,8 +1,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import styles from 'features/header/modal/modal.module.scss'
-import disableStyle from 'features/header/modal/authorizationForm/modalEnter/libr/formEnter.module.scss'
+import styles from 'features/header/modal/modal.module.scss';
+import disableStyle from 'features/header/modal/authorizationForm/modalEnter/libr/formEnter.module.scss';
 import { handleFetchResetPassword } from 'features/header/modal/authorizationForm/modalResetPassword/libr/handleFetchResetPassword.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
 interface Email {
@@ -10,7 +10,9 @@ interface Email {
 }
 
 export const ResetPasswordForm = () => {
-    const { register, handleSubmit, formState, } = useForm<Email>({mode: 'onChange'});
+    const { register, handleSubmit, formState } = useForm<Email>({
+        mode: 'onChange',
+    });
     const { errors, isValid } = formState;
     const [success, setSuccess] = useState(false);
     const dispatch = useAppDispatch();
@@ -18,7 +20,7 @@ export const ResetPasswordForm = () => {
 
     const onsubmit: SubmitHandler<Email> = async (data) => {
         const { email } = data;
-        await handleFetchResetPassword(email, setSuccess, dispatch)
+        await handleFetchResetPassword(email, setSuccess, dispatch);
     };
 
     return (
@@ -27,7 +29,10 @@ export const ResetPasswordForm = () => {
             {success ? (
                 <h3>{t('modal-reset.email-sent')}</h3>
             ) : (
-                <form onSubmit={handleSubmit(onsubmit)}>
+                <form
+                    onSubmit={handleSubmit(onsubmit)}
+                    id="form-reset-password"
+                >
                     <input
                         {...register('email', {
                             required: true,
@@ -49,7 +54,7 @@ export const ResetPasswordForm = () => {
                                 style={{
                                     color: '#FF3F25',
                                     fontSize: '13px',
-                                    marginTop: 0
+                                    marginTop: 0,
                                 }}
                             >
                                 {t('modal-login.correct-email')}
@@ -65,5 +70,5 @@ export const ResetPasswordForm = () => {
                 </form>
             )}
         </div>
-    )
-}
+    );
+};

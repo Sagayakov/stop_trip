@@ -7,7 +7,7 @@ import { Message } from 'shared/ui/icons/icons-tools/Message.tsx';
 import { Setting } from 'shared/ui/icons/icons-tools/Setting.tsx';
 import './modalMobile.scss';
 import { clearTokensFromCookies } from 'app/cookie/cookieAuth.ts';
-import { Langs } from 'entities/langs';
+//import { Langs } from 'entities/langs';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { useMatchMedia } from 'app/hooks/useMatchMedia';
@@ -23,7 +23,7 @@ export const ModalMobile = (props: Props) => {
     const { showUserMenu, setShowUserMenu } = props;
     const dispatch: Dispatch = useAppDispatch();
     const { t } = useTranslation();
-    const { isDesktop, isMobile } = useMatchMedia();
+    const { isDesktop } = useMatchMedia();
 
     const handleLogout = () => {
         dispatch(setIsAuth(false));
@@ -85,7 +85,7 @@ export const ModalMobile = (props: Props) => {
                             {t('modal-logged.settings')}
                         </p>
                     </div>
-                    {isMobile && <Langs />}
+                    {/* {isMobile && <Langs />} */}
                 </div>
                 <p onClick={handleLogout} className="user-option-logout">
                     {t('modal-logged.logout')}

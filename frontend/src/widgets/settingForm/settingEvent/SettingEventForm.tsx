@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { getSearchParams } from './libr/getSearchParams.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingEventFilter.module.scss';
-import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss'
+import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -32,12 +32,12 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
         const filters = getSearchParams(end_date, start_date, is_online, price);
         setSearchParams(`category=event${filters}`);
         setShowFilters(false);
-        scrollToTop()
+        scrollToTop();
     };
 
     const onReset = () => {
         reset();
-        scrollToTop()
+        scrollToTop();
     };
 
     return (
@@ -45,13 +45,17 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
             <form
                 className={styles.filterEventForm}
                 onSubmit={handleSubmit(onsubmit)}
+                id="form-setting-event"
             >
                 <DateOfStartEvent register={register} />
                 <DateOfEndEvent register={register} />
                 <EventPrice register={register} />
                 <IsOnlineEvent register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`} onClick={onReset}>
+                <button
+                    className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
+                    onClick={onReset}
+                >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>

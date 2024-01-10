@@ -191,8 +191,9 @@
                 border: 1px solid var(--main-blue);
             }
             .select_wrapper {
+                gap: 1rem;
                 border: none;
-                width: 90%;
+                width: 100%;
                 padding-left: 0;
                 p {
                     width: 125px;

@@ -29,7 +29,7 @@ export const Langs = () => {
                 }
                 onClick={handleClick}
             >
-                ENG
+                EN
             </UniversalButton>
         </div>
     );

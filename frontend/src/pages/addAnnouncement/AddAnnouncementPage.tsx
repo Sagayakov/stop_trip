@@ -1,14 +1,22 @@
 import { Suspense, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AnnouncementSubmitButton } from 'entities/addAnnouncementForm/universalFields';
-import { AnnouncementCategoryField, AnnouncementPhotoField, AnnouncementNameField, AnnouncementLocationField, AnnouncementPriceField, AnnouncementDescriptionField, OptionalFields } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
+import {
+    AnnouncementCategoryField,
+    AnnouncementPhotoField,
+    AnnouncementNameField,
+    AnnouncementLocationField,
+    AnnouncementPriceField,
+    AnnouncementDescriptionField,
+    OptionalFields,
+} from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
 import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import styles from './libr/addAnnouncement.module.scss';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
 import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
-import './libr/selectAddAnnouncement.scss'
+import './libr/selectAddAnnouncement.scss';
 import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
 import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFields/SuccessAddAnnouncement.tsx';
 import { toast } from 'react-toastify';
@@ -36,7 +44,7 @@ const AddAnnouncementPage = () => {
     const [descript, setDescript] = useState<string | undefined>();
     const [modalSuccess, setModalSuccess] = useState(false);
     const { t } = useTranslation();
-    const [ addAdvert, { isLoading } ] = useAddAdvertMutation();
+    const [addAdvert, { isLoading }] = useAddAdvertMutation();
     const { accessToken } = getTokensFromStorage();
 
     const onsubmit = async (data: FormAddAnn) => {
@@ -51,21 +59,24 @@ const AddAnnouncementPage = () => {
                 setValue('category', data.category);
                 setModalSuccess(true);
             }
-        } catch (error){
+        } catch (error) {
             console.log(error);
-            toast.error(`${t('errors.add-announcement-error')}`)
+            toast.error(`${t('errors.add-announcement-error')}`);
         }
     };
     const handleClick = () => {
-        setModalSuccess(false)
-        scrollToTop()
-    }
+        setModalSuccess(false);
+        scrollToTop();
+    };
 
     return (
         <>
             {isLoading && <LoadingWithBackground />}
             {modalSuccess && (
-                <BackgroundModal className={styles.background} callback={handleClick}>
+                <BackgroundModal
+                    className={styles.background}
+                    callback={handleClick}
+                >
                     <SuccessAddAnnouncement onClick={handleClick} />
                 </BackgroundModal>
             )}
@@ -73,6 +84,7 @@ const AddAnnouncementPage = () => {
                 <form
                     className={styles.add_ann_form}
                     onSubmit={handleSubmit(onsubmit)}
+                    id="form-add-announcement"
                 >
                     <Suspense fallback={<LoadingWithBackground />}>
                         <h1>{t('add-page.post')}</h1>
@@ -89,7 +101,10 @@ const AddAnnouncementPage = () => {
                             register={register}
                             formState={formState}
                         />
-                        <AnnouncementDescriptionField descript={descript} setDescript={setDescript} />
+                        <AnnouncementDescriptionField
+                            descript={descript}
+                            setDescript={setDescript}
+                        />
                         <OptionalFields
                             control={control}
                             register={register}

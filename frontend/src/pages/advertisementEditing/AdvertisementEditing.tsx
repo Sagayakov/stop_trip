@@ -57,7 +57,7 @@ const AdvertisementEditing = () => {
                 const response = await fetch(`${url}/api/auth/users/me/`, {
                     method: 'GET',
                     headers: {
-                        "Authorization": `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 });
                 if (response.status === 200) {
@@ -74,15 +74,15 @@ const AdvertisementEditing = () => {
     if (!isLoading && ownerId && ownerId !== dataAdvert?.owner.id) {
         navigate({ pathname: '/404' }); //если прошла загрузка, мы получили id хозяина объявления и он не равен нашему id, то отправляем на 404
     }
-    console.log(markerPosition)
+    console.log(markerPosition);
     const onsubmit = async (data: FormAddAnn) => {
-        try{
+        try {
             const res = await editAdvert({ body: data, addId, accessToken });
-            res && toast.success(t('advert-page.advertisement-added'))
+            res && toast.success(t('advert-page.advertisement-added'));
             scrollToTop();
-        } catch (errors){
-            console.log(errors)
-            toast.error(`${t('errors.add-announcement-error')}`)
+        } catch (errors) {
+            console.log(errors);
+            toast.error(`${t('errors.add-announcement-error')}`);
         }
     };
 
@@ -93,6 +93,7 @@ const AdvertisementEditing = () => {
                 <form
                     className={styles.add_ann_form}
                     onSubmit={handleSubmit(onsubmit)}
+                    id="form-edit-announcement"
                 >
                     {isLoading && ownerId && <LoadingWithBackground />}
                     {isSendLoading && <LoadingWithBackground />}

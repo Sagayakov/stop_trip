@@ -47,6 +47,7 @@ export const FormEnter = () => {
             className={styles.form_enter}
             onSubmit={handleSubmit(onsubmit)}
             autoComplete="false"
+            id="form-enter"
         >
             <InputEmail errors={errors} control={control} />
             <InputPassword
@@ -55,7 +56,10 @@ export const FormEnter = () => {
                 setTogglePass={setTogglePass}
                 control={control}
             />
-            <div className={styles.forget_password} onClick={openResetPasswordModal}>
+            <div
+                className={styles.forget_password}
+                onClick={openResetPasswordModal}
+            >
                 {t('modal-login.forgot')}
             </div>
             {/* <CheckboxRememberMe register={register} /> */}

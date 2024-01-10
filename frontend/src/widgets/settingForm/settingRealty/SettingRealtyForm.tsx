@@ -18,7 +18,8 @@ import {
     Prepayment,
     LivingSpace,
     HasParking,
-    Floor, PropertyType,
+    Floor,
+    PropertyType,
 } from 'features/settingCategoryForm/settingRealtyForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeSettingRealty } from './libr/TypeSettingRealty';
@@ -28,7 +29,7 @@ import { useTranslation } from 'react-i18next';
 import { UniversalButton } from 'entities/universalEntites';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingRealty.module.scss';
-import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss'
+import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -45,7 +46,6 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
     const { register, handleSubmit, reset, watch, setValue, control } =
         useForm<TypeSettingRealty>();
 
-
     const onsubmit: SubmitHandler<TypeSettingRealty> = (data) => {
         const filters = getRealtyQuery(data);
         setSearchParams(`category=property${filters}`);
@@ -61,6 +61,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
             <form
                 className={styles.filter_realty_form}
                 onSubmit={handleSubmit(onsubmit)}
+                id="form-setting-property"
             >
                 <TypeOfService register={register} />
                 <City control={control} setValue={setValue} />

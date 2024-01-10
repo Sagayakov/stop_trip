@@ -10,8 +10,8 @@ import { TypeOfCurrencyFilter } from './libr/TypeOfCurrencyFilter';
 import { searchParamsForExchange } from './libr/searchParamsForExchange';
 import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop';
-import styles from 'widgets/settingForm/forms/filtersForm.module.scss'
-import formStyles from './libr/settingCurrencyFilter.module.scss'
+import styles from 'widgets/settingForm/forms/filtersForm.module.scss';
+import formStyles from './libr/settingCurrencyFilter.module.scss';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -49,12 +49,16 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
             <form
                 className={formStyles.filterCurrencyForm}
                 onSubmit={handleSubmit(onSubmit)}
+                id="form-setting-currency"
             >
                 <ProposedCurrency control={control} setValue={setValue} />
                 <ExchangeFor control={control} setValue={setValue} />
                 <ExchangeRate register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`} onClick={onReset}>
+                <button
+                    className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
+                    onClick={onReset}
+                >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>

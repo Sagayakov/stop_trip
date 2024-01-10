@@ -10,9 +10,9 @@ import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypesOfJobs } from './libr/TypesOfJobs';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getSearchParams } from './libr/getSearchParams.ts'
+import { getSearchParams } from './libr/getSearchParams.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
-import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss'
+import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import styles from './libr/settingJobFilter.module.scss';
 
 interface Props {
@@ -39,16 +39,22 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
             price,
         } = data;
 
-        const filters = getSearchParams(job_type, job_payment_type, job_experience, job_duration, price)
+        const filters = getSearchParams(
+            job_type,
+            job_payment_type,
+            job_experience,
+            job_duration,
+            price
+        );
         setSearchParams(`category=job${filters}`);
 
         setShowFilters(false);
-        scrollToTop()
+        scrollToTop();
     };
 
     const onReset = () => {
         reset();
-        scrollToTop()
+        scrollToTop();
     };
 
     return (
@@ -56,6 +62,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
             <form
                 className={styles.filterJobForm}
                 onSubmit={handleSubmit(onsubmit)}
+                id="form-setting-job"
             >
                 <TypeOfJob register={register} />
                 <DurationOfWork control={control} setValue={setValue} />
@@ -63,7 +70,10 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
                 <PriceOfJob register={register} />
                 <WithExperience register={register} />
                 <input type="submit" value={t('filters.apply')} />
-                <button className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`} onClick={onReset}>
+                <button
+                    className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
+                    onClick={onReset}
+                >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
                 </button>
