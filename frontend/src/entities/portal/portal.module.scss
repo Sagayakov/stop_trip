@@ -212,6 +212,16 @@
     }
 }
 
+@media screen and (orientation: landscape) {
+    .portal {
+        top: 65%;
+        width: 95%;
+        .horizontal {
+            width: 65%;
+        }
+    }
+}
+
 @media (max-width: 600px) {
     .portal {
         top: 55%;
