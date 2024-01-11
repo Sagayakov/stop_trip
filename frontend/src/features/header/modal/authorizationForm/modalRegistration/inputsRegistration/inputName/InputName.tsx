@@ -1,4 +1,4 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 import { useTranslation } from 'react-i18next';
 import styles from 'features/header/modal/modal.module.scss';
@@ -6,10 +6,13 @@ import styles from 'features/header/modal/modal.module.scss';
 interface Props {
     errors: FieldErrors<AuthRegistration>;
     register: UseFormRegister<AuthRegistration>;
+    watch: UseFormWatch<AuthRegistration>;
 }
 
-export const InputName = ({ register, errors }: Props) => {
+export const InputName = ({ register, errors, watch }: Props) => {
     const { t } = useTranslation();
+    const username = watch('userName');
+    const handleBlur = () => localStorage.setItem('username', username);
 
     return (
         <>
@@ -21,6 +24,8 @@ export const InputName = ({ register, errors }: Props) => {
                     minLength: 2,
                     maxLength: 50,
                 })}
+                defaultValue={localStorage.getItem('username') || ''}
+                onBlur={handleBlur}
                 placeholder={t('modal-registration.user-name')}
                 style={{
                     border: `1px solid ${

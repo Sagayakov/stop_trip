@@ -31,8 +31,12 @@ export const FormRegistration = () => {
         dispatch(setLoading(true));
         setTimeout(() => {
             submitRegForm(submitData, dispatch, reset);
+            localStorage.removeItem('username');
+            localStorage.removeItem('phonenumber');
+            localStorage.removeItem('emailRegistration');
+            localStorage.removeItem('emailEnter');
             dispatch(setLoading(false));
-        }, 1200);
+        }, 1000);
         dispatch(resetErrors());
     };
 
@@ -43,8 +47,8 @@ export const FormRegistration = () => {
             autoComplete="false"
             id="form-registration"
         >
-            <InputName errors={errors} register={register} />
-            <InputPhone errors={errors} register={register} />
+            <InputName errors={errors} register={register} watch={watch} />
+            <InputPhone errors={errors} register={register} watch={watch} />
             <InputEmail errors={errors} register={register} watch={watch} />
             <InputPassword errors={errors} register={register} />
             <InputRepeatPassword
