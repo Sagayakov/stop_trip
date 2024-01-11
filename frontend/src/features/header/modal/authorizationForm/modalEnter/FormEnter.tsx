@@ -22,6 +22,7 @@ export const FormEnter = () => {
         handleSubmit,
         reset,
         control,
+        watch,
     } = useForm<AuthData>({
         mode: 'onBlur',
     });
@@ -35,6 +36,10 @@ export const FormEnter = () => {
         if (enterError !== null) {
             dispatch(resetErrors());
         }
+        localStorage.removeItem('username');
+        localStorage.removeItem('phonenumber');
+        localStorage.removeItem('emailEnter');
+        localStorage.removeItem('emailRegistration');
         dispatch(setLoading(false));
     };
 
@@ -49,7 +54,7 @@ export const FormEnter = () => {
             autoComplete="false"
             id="form-enter"
         >
-            <InputEmail errors={errors} control={control} />
+            <InputEmail errors={errors} control={control} watch={watch} />
             <InputPassword
                 errors={errors}
                 togglePass={togglePass}

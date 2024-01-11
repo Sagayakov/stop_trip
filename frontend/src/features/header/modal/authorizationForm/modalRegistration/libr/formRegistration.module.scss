@@ -30,6 +30,11 @@
     .form_checkbox > span > p {
         font-size: 13px;
     }
+    .form_checkbox{
+        input[type="checkbox"]{
+            padding: 0 !important; //чтобы не сдвигался блок "принимаю соглашения" в сафари
+        }
+    }
 
     .submit {
         margin-top: 24px;

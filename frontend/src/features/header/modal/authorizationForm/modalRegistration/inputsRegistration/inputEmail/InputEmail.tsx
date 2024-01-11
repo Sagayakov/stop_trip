@@ -23,6 +23,8 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
     const [startEndError, setStartEndError] = useState(false);
     const allLength = watch('email');
 
+    const handleBlur = () => localStorage.setItem('emailRegistration', allLength);
+
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
 
@@ -127,6 +129,8 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
                 type="email"
                 placeholder="Email"
                 autoComplete="username"
+                defaultValue={localStorage.getItem('emailRegistration') || ''}
+                onBlur={handleBlur}
                 onInput={(event) => oninput(event)}
                 style={{
                     border: `1px solid ${

@@ -1,13 +1,17 @@
+import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
+
 interface Props {
     handleClick?: () => void;
     stroke: string
 }
 
 export const Person = ({ handleClick, stroke }: Props) => {
+    const { isMobile } = useMatchMedia();
     return (
         <svg
             onClick={handleClick}
-            width="80%"
+            width={isMobile ? "40%" : "80%"}//чтобы в сафари на телефоне не съезжало
+            // width="80%"
             height="80%"
             viewBox="0 0 25 25"
             fill="none"
