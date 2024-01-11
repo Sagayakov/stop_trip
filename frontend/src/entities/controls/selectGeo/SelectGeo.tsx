@@ -12,7 +12,7 @@ export const SelectGeo = () => {
     return (
         <div className={styles.select_wrapper}>
             {!isMobile ? (
-                <MapIcon color="#1F6FDE" />
+                <MapIcon color="#8f8f8f" />
             ) : (
                 <p>{t('main-page.in-city')}</p>
             )}

@@ -7,10 +7,12 @@ import { Tooltip } from 'react-tooltip';
 
 export const Input = () => {
     const { t } = useTranslation();
-    const { isTablet, isDesktop } = useMatchMedia();
+    const { isDesktop } = useMatchMedia();
 
     const handleClick = () =>
-        isTablet && toast.warn(`${t('main-page.search-tooltip')}`);
+        toast.warn(`${t('main-page.search-tooltip')}`);
+        // isTablet && toast.warn(`${t('main-page.search-tooltip')}`);
+
 
     return (
         <div
@@ -20,7 +22,7 @@ export const Input = () => {
             data-tooltip-content={t('main-page.search-tooltip')}
         >
             <Find />
-            <input placeholder={t('main-page.find')} />
+            <input placeholder={t('main-page.find')} disabled />
             {isDesktop && (
                 <Tooltip
                     id="search-tooltip"
