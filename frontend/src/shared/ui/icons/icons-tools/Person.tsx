@@ -7,7 +7,7 @@ export const Person = ({ handleClick, stroke }: Props) => {
     return (
         <svg
             onClick={handleClick}
-            width="80%"
+            width="40%"//80%
             height="80%"
             viewBox="0 0 25 25"
             fill="none"

@@ -9,10 +9,13 @@ import { getTokensFromStorage } from 'widgets/header/libr/authentication/getToke
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/footer/footer.module.scss';
 import { InputTypeSubmit } from 'entities/universalEntites';
+import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
+import { useAppDispatch } from 'app/store/hooks.ts';
 
 export const FeedbackForm = () => {
-    const [loading, setLoating] = useState(false);
-    const { accessToken } = getTokensFromStorage();
+    const [loading, setLoading] = useState(false);
+    const dispatch = useAppDispatch();
+    const { refreshToken } = getTokensFromStorage();
     const { t } = useTranslation();
 
     const {
@@ -34,17 +37,18 @@ export const FeedbackForm = () => {
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
     ) => {
+        getAccessTokenWithRefresh(dispatch, refreshToken); //сначала обновляем accessToken
+        const { accessToken } = getTokensFromStorage();
         const body = JSON.stringify(feedbackData);
         const url = import.meta.env.VITE_BASE_URL;
         if (accessToken) {
-            setLoating(true);
+            setLoading(true);
             try {
                 const response = await fetch(`${url}/api/feedback/`, {
                     method: 'POST',
                     headers: {
-                        'X-Csrftoken': `${accessToken}`,
                         'Content-Type': 'application/json',
-                        authorization: ` Bearer ${accessToken}`,
+                        'Authorization': `Bearer ${accessToken}`,
                     },
                     body,
                 });
@@ -52,7 +56,7 @@ export const FeedbackForm = () => {
                     toast.error(`${t('main-page.toast-wrong')}`);
                 } else {
                     setTimeout(() => {
-                        setLoating(false);
+                        setLoading(false);
                         reset({ text: '' });
                         toast.success(`${t('main-page.toast-thanks')}`);
                     }, 2000);
