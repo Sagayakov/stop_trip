@@ -11,6 +11,7 @@ import {
     MyAnnouncements,
     PageNotFound,
     ResetPassword,
+    MySettings
 } from './components';
 
 interface Route {
@@ -40,5 +41,6 @@ export const privateRoutes: Route[] = [
     { path: '/404', component: PageNotFound },
     { path: '/my-announcements', component: MyAnnouncements },
     { path: '/favorites', component: FavoritesPage },
+    { path: '/my-settings', component: MySettings },
     ...categoryRoutes,
 ];

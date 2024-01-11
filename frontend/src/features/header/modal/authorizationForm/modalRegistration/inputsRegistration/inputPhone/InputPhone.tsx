@@ -17,7 +17,7 @@ export const InputPhone = ({ errors, register, watch }: Props) => {
     const { t } = useTranslation();
 
     const phoneNumber = watch('phone');
-    const handleBlur = () => localStorage.setItem('phonenumber', String(phoneNumber));
+    const handleBlur = () => sessionStorage.setItem('phonenumber', String(phoneNumber));
 
     return (
         <>
@@ -29,7 +29,7 @@ export const InputPhone = ({ errors, register, watch }: Props) => {
                         /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$/,
                 })}
                 placeholder={t('modal-registration.phone')}
-                defaultValue={Number(localStorage.getItem('phonenumber')) || ''}
+                defaultValue={Number(sessionStorage.getItem('phonenumber')) || ''}
                 onBlur={handleBlur}
                 style={{
                     border: `1px solid ${

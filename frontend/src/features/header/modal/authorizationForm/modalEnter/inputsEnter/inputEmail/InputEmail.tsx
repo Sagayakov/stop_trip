@@ -15,14 +15,14 @@ export const InputEmail = ({ errors, control, watch }: Props) => {
     const { t } = useTranslation();
 
     const email = watch('email');
-    const handleBlur = () => localStorage.setItem("emailEnter", email);
+    const handleBlur = () => sessionStorage.setItem("emailEnter", email);
 
     return (
         <>
             <Controller
                 name="email"
                 control={control}
-                defaultValue={localStorage.getItem('emailEnter') || ''}
+                defaultValue={sessionStorage.getItem('emailEnter') || ''}
                 rules={{
                     required: true,
                     pattern:

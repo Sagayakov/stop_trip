@@ -1,0 +1,197 @@
+.my_setting {
+    width: 1240px;
+    margin: 0 auto 80px;
+    .title {
+        width: 100%;
+        margin: 1rem 0;
+        font-size: 28px;
+    }
+    .bread_crumbs {
+        color: var(--grey-3);
+        margin: 0 0 20px;
+        max-width: 1240px;
+        padding-top: 130px;
+        a {
+            text-decoration: none;
+            color: var(--grey-3);
+        }
+    }
+    .setting_form {
+        padding-top: 1rem;
+        .input_wrapper{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            input{
+                border: 1px solid var(--grey-3);
+            }
+            .errors{
+                height: 18px;
+                color: red;
+                font-size: 14px;
+            }
+        }
+        .button_wrapper {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+
+            input[type='submit'] {
+                width: 60%;
+                height: 48px;
+                padding: 12px 20px;
+                border-radius: var(--radii);
+                border: none;
+                color: white;
+                background-color: var(--main-blue);
+                font-family: var(--font-lato);
+                font-weight: 600;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                cursor: pointer;
+            }
+
+            .goBack {
+                width: 30%;
+                padding: 12px 20px;
+                color: var(--main-blue);
+                font-family: var(--font-lato);
+                font-weight: 700;
+                background-color: white;
+                border-radius: var(--radii);
+                border: 1px solid var(--main-blue);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                height: 48px;
+            }
+        }
+    }
+}
+@media (max-width: 1439px) {
+    .my_setting {
+        width: 85%;
+        margin: 0 auto 40px;
+        .title {
+            width: 85%;
+        }
+        .bread_crumbs {
+            width: 85%;
+            margin: 0;
+            padding-top: 130px;
+        }
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .my_setting {
+        .bread_crumbs {
+            padding-top: 110px;
+        }
+        .title {
+            width: 85%;
+            margin: 15px 0 0;
+            font-size: 24px;
+        }
+        .setting_form {
+            .input_wrapper{
+                width: 70%;
+            }
+            .button_wrapper {
+                width: 70%;
+                input[type='submit'],
+                .goBack {
+                    width: 50%;
+                }
+                .goBack {
+                    width: 35%;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 767px) {
+    .my_setting {
+        padding-top: 70px;
+        margin: 0 auto 40px;
+        width: 93.5%;
+        .title,
+        .bread_crumbs {
+            width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        .title {
+            padding: 0 15px;
+        }
+        .setting_form {
+            padding: 1rem 15px 0;
+            .input_wrapper{
+                width: 100%;
+            }
+            .button_wrapper {
+                width: 100%;
+                margin-top: 12px;
+                display: flex;
+                gap: 1.5rem;
+                input[type='submit'],
+                .goBack {
+                    width: 65%;
+                }
+
+                .goBack {
+                    width: 30%;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 475px) {
+    .my_setting {
+        padding-top: 50px;
+        .setting_form {
+            .button_wrapper {
+                width: 100%;
+                margin-top: 20px;
+                flex-direction: column;
+                gap: 1rem;
+                input[type='submit'],
+                .goBack {
+                    width: 100%;
+                    font-size: 13px;
+                    padding: 12px;
+                }
+
+                .goBack {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 425px) {
+    .my_setting {
+        .title {
+            width: 100%;
+            margin: 0 auto 16px;
+            padding: 0 15px;
+            font-size: 22px;
+        }
+    }
+}
+@media (max-width: 400px) {
+    .my_setting {
+        .setting_form {
+            .button_wrapper {
+                width: 100%;
+                input[type='submit'],
+                .goBack {
+                    font-size: 13px;
+                    padding: 8px;
+                }
+            }
+        }
+    }
+}
