@@ -36,10 +36,10 @@ export const FormEnter = () => {
         if (enterError !== null) {
             dispatch(resetErrors());
         }
-        localStorage.removeItem('username');
-        localStorage.removeItem('phonenumber');
-        localStorage.removeItem('emailEnter');
-        localStorage.removeItem('emailRegistration');
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('phonenumber');
+        sessionStorage.removeItem('emailEnter');
+        sessionStorage.removeItem('emailRegistration');
         dispatch(setLoading(false));
     };
 

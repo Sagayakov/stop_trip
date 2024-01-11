@@ -297,5 +297,9 @@
 
     "favorites": {
         "no-favorites": "You don't have any favorites yet"
+    },
+
+    "my-settings": {
+        "setting": "Settings"
     }
 }

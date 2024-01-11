@@ -79,12 +79,16 @@ export const ModalMobile = (props: Props) => {
                             {t('modal-logged.favorites')}
                         </p>
                     </NavLink>
-                    <div className="user-option">
+                    <NavLink
+                        to={'/my-settings'}
+                        className="user-option"
+                        onClick={() => setShowUserMenu(false)}
+                    >
                         <Setting color="#1F6FDE" stroke="#1F6FDE" />
                         <p className="user-option-text">
                             {t('modal-logged.settings')}
                         </p>
-                    </div>
+                    </NavLink>
                     {/* {isMobile && <Langs />} */}
                 </div>
                 <p onClick={handleLogout} className="user-option-logout">

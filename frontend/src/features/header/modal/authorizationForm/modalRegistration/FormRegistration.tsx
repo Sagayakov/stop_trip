@@ -31,10 +31,10 @@ export const FormRegistration = () => {
         dispatch(setLoading(true));
         setTimeout(() => {
             submitRegForm(submitData, dispatch, reset);
-            localStorage.removeItem('username');
-            localStorage.removeItem('phonenumber');
-            localStorage.removeItem('emailRegistration');
-            localStorage.removeItem('emailEnter');
+            sessionStorage.removeItem('username');
+            sessionStorage.removeItem('phonenumber');
+            sessionStorage.removeItem('emailRegistration');
+            sessionStorage.removeItem('emailEnter');
             dispatch(setLoading(false));
         }, 1000);
         dispatch(resetErrors());

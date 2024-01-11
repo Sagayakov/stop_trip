@@ -297,5 +297,9 @@
 
     "favorites": {
         "no-favorites": "У вас пока нет избранных объявлений"
+    },
+
+    "my-settings": {
+        "setting": "Настройки"
     }
 }

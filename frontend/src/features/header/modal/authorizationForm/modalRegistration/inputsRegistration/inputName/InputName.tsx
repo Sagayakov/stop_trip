@@ -12,7 +12,7 @@ interface Props {
 export const InputName = ({ register, errors, watch }: Props) => {
     const { t } = useTranslation();
     const username = watch('userName');
-    const handleBlur = () => localStorage.setItem('username', username);
+    const handleBlur = () => sessionStorage.setItem('username', username);
 
     return (
         <>
@@ -24,7 +24,7 @@ export const InputName = ({ register, errors, watch }: Props) => {
                     minLength: 2,
                     maxLength: 50,
                 })}
-                defaultValue={localStorage.getItem('username') || ''}
+                defaultValue={sessionStorage.getItem('username') || ''}
                 onBlur={handleBlur}
                 placeholder={t('modal-registration.user-name')}
                 style={{
