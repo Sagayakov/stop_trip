@@ -1,6 +1,6 @@
 import { BreadCrumbs } from 'widgets/breadCrumbs/BreadCrumbs.tsx';
 import styles from './libr/advert.module.scss';
-import { useGetAdvertByIdQuery } from 'app/api/fetchAdverts.ts';
+import { useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
 import { useParams } from 'react-router-dom';
 import { getDate } from 'shared/utils/getDate.ts';
 import { useEffect, useState } from 'react';
@@ -10,8 +10,8 @@ import { DesktopAdvert } from 'features/advert/DesktopAdvert.tsx';
 import { MobileAdvert } from 'features/advert/MobileAdvert.tsx';
 
 const Advert = () => {
-    const { id } = useParams();
-    const { data } = useGetAdvertByIdQuery(id!);
+    const { slug } = useParams();
+    const { data } = useGetAdvertBySlugQuery(slug!);
     const [date, setDate] = useState<Date | null>(null);
     const { isMobile } = useMatchMedia();
 

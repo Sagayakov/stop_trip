@@ -11,7 +11,7 @@ import {
     MyAnnouncements,
     PageNotFound,
     ResetPassword,
-    MySettings
+    MySettings,
 } from './components';
 
 interface Route {
@@ -28,7 +28,7 @@ export const publicRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/activate/:uid/:token', component: ActivateAccount },
     { path: '/email/reset/confirm/:uid/:token', component: ResetPassword },
-    { path: '/:category/:id', component: AdvertPage },
+    { path: '/:category/:slug', component: AdvertPage },
     { path: '/404', component: PageNotFound },
     ...categoryRoutes,
 ];
@@ -36,8 +36,8 @@ export const publicRoutes: Route[] = [
 export const privateRoutes: Route[] = [
     { path: '/', component: MainPage },
     { path: '/add-announcement', component: AddAnnouncementPage },
-    { path: '/advertisement-editing/:id', component: AdvertisementEditing },
-    { path: '/:category/:id', component: AdvertPage },
+    { path: '/advertisement-editing/:slug', component: AdvertisementEditing },
+    { path: '/:category/:slug', component: AdvertPage },
     { path: '/404', component: PageNotFound },
     { path: '/my-announcements', component: MyAnnouncements },
     { path: '/favorites', component: FavoritesPage },

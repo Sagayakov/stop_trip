@@ -32,10 +32,16 @@
             color: var(--main-blue);
             letter-spacing: 1px;
             p {
+                display: flex;
+                align-items: flex-end;
+                gap: 0.5rem;
                 width: 87%;
                 margin-bottom: 10px;
+                .currency_rate {
+                    color: var(--main-black);
+                }
             }
-            span {
+            .fav_absolute {
                 position: absolute;
                 right: 0;
             }

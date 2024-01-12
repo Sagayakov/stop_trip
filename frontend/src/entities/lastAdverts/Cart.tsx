@@ -23,6 +23,10 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
         category,
         date_create: dateCreate,
         owner,
+        slug,
+        exchange_rate,
+        exchange_for,
+        proposed_currency,
     } = cart;
     const { data } = useGetFavoritesQuery('');
     const [addFavorite] = useAddFavoriteMutation();
@@ -55,7 +59,7 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
     return (
         <NavLink
             className={styles.announcement_cart}
-            to={`/${category}/${id}/`}
+            to={`/${category}/${slug}/`}
         >
             <img
                 src={
@@ -68,11 +72,21 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
             <div className={styles.description}>
                 <div className={styles.price}>
                     <p>
-                        {price
-                            ? prettifyPrice(price)
-                            : `${t('advert-page.negotiated')}`}
+                        {category === 'exchange_rate' &&
+                            proposed_currency &&
+                            exchange_for &&
+                            exchange_rate && (
+                                <span
+                                    className={styles.currency_rate}
+                                >{`${proposed_currency}/${exchange_for} `}</span>
+                            )}
+                        {category === 'exchange_rate' && exchange_rate
+                            ? exchange_rate
+                            : price
+                              ? prettifyPrice(price)
+                              : `${t('advert-page.price-negotiated')}`}
                     </p>
-                    <span>
+                    <span className={styles.fav_absolute}>
                         <Favorite
                             color={style.color}
                             strokeColor={style.strokeColor}

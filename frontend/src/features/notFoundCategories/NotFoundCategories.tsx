@@ -19,7 +19,7 @@ const NotFoundCategories = () => {
                     return (
                         <div
                             key={el[0]}
-                            className={`${styles.category} ${el[0]}`}
+                            className={`${styles.category} ${styles[el[0]]}`}
                             onClick={() => navigate(`/${el[0]}/`)}
                         >
                             <Icon />

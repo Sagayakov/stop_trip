@@ -111,6 +111,9 @@ h1 {
                     color: var(--main-blue);
                     letter-spacing: 3px;
                     margin-bottom: 16px;
+                    .currency_rate {
+                        color: var(--main-black);
+                    }
                 }
                 .card_description {
                     font-size: 14px;

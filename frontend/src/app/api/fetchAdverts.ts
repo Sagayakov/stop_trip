@@ -6,7 +6,6 @@ import { FiltersType } from './types/filtersType';
 import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 
-
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
     tagTypes: ['Adverts', 'MyAnnouncements'],
@@ -27,20 +26,23 @@ export const fetchAdverts = createApi({
                       ]
                     : [{ type: 'Adverts', id: 'LIST' }],
         }),
-        addAdvert: build.mutation<ProductType, { body: FormAddAnn, token: string }>({
+        addAdvert: build.mutation<
+            ProductType,
+            { body: FormAddAnn; token: string }
+        >({
             query: ({ body, token }) => ({
                 url: 'api/advertisements/', // сюда вписать адрес для добавления нового объявления
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
                 body,
             }),
             invalidatesTags: ['Adverts'],
         }),
-        getAdvertById: build.query<ProductType, string>({
-            query: (id) => `api/advertisements/${id}/`,
+        getAdvertBySlug: build.query<ProductType, string>({
+            query: (slug) => `api/advertisements/${slug}/`,
         }),
         getFilters: build.query<FiltersType, string>({
             query: () => `api/advertisements/get_filter_params/`,
@@ -50,21 +52,21 @@ export const fetchAdverts = createApi({
                 url: 'api/advertisements/my_advertisements/',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
             }),
             providesTags: ['MyAnnouncements'],
         }),
         editAdvert: build.mutation<
             FormAddAnn,
-            { body: FormAddAnn; addId: number; accessToken: string }
+            { body: FormAddAnn; addSlug: string; accessToken: string }
         >({
-            query: ({ body, addId, accessToken }) => ({
-                url: `api/advertisements/${addId}`,
+            query: ({ body, addSlug, accessToken }) => ({
+                url: `api/advertisements/${addSlug}`,
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
                 body,
             }),
@@ -75,7 +77,7 @@ export const fetchAdverts = createApi({
 
 export const {
     useGetAdvertsQuery,
-    useGetAdvertByIdQuery,
+    useGetAdvertBySlugQuery,
     useGetFiltersQuery,
     useAddAdvertMutation,
     useMyAnnouncementsQuery,

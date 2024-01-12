@@ -6,6 +6,7 @@ export interface MyAnnouncements {
     images: Images[] | [];
     date_create: string;
     owner?: Owner;
+    slug: string | null;
 }
 export interface Owner {
     id: number;
@@ -15,5 +16,5 @@ export interface Owner {
     date_joined: string;
 }
 interface Images {
-    image: string
+    image: string;
 }

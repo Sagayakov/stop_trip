@@ -3,10 +3,10 @@ import { Pencil } from 'shared/ui/icons/icons-tools/Pencil.tsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-interface Props{
-    id: number
+interface Props {
+    slug: string;
 }
-export const ModalOption = ({ id }: Props) => {
+export const ModalOption = ({ slug }: Props) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ export const ModalOption = ({ id }: Props) => {
             </label>
             <div
                 className={styles.edit}
-                onClick={() => navigate(`/advertisement-editing/${id}`)}
+                onClick={() => navigate(`/advertisement-editing/${slug}`)}
             >
                 <Pencil color="#000000" />
                 {t('myAnnouncements.edit')}
