@@ -59,7 +59,7 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
     return (
         <NavLink
             className={styles.announcement_cart}
-            to={`/${category}/${id}/`}
+            to={`/${category}/${slug}/`}
         >
             <img
                 src={
@@ -72,11 +72,14 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
             <div className={styles.description}>
                 <div className={styles.price}>
                     <p>
-                        {category === 'exchange_rate' && (
-                            <span
-                                className={styles.currency_rate}
-                            >{`${proposed_currency}/${exchange_for} `}</span>
-                        )}
+                        {category === 'exchange_rate' &&
+                            proposed_currency &&
+                            exchange_for &&
+                            exchange_rate && (
+                                <span
+                                    className={styles.currency_rate}
+                                >{`${proposed_currency}/${exchange_for} `}</span>
+                            )}
                         {category === 'exchange_rate' && exchange_rate
                             ? exchange_rate
                             : price

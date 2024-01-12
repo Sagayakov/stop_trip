@@ -18,8 +18,16 @@ import style from 'pages/categoryPage/style/categoryPage.module.scss';
 import { useTranslation } from 'react-i18next';
 
 export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
-    const { id } = el;
-    const category = location.pathname.split('/')[1];
+    const {
+        id,
+        category,
+        slug,
+        exchange_rate,
+        exchange_for,
+        proposed_currency,
+        date_create,
+        images,
+    } = el;
     const { isMobile } = useMatchMedia();
     const lang = useAppSelector((state) => state.setLang.lang);
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
@@ -55,7 +63,7 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
         isAuth && setAddToFav(!!target);
     }, [data, id, isAuth]);
 
-    const date = getDate(el.date_create);
+    const date = getDate(date_create);
     const { dayToDisplay } = date;
     let day = dayToDisplay;
 
@@ -67,11 +75,7 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
     }
 
     return (
-        <NavLink
-            className={style.card}
-            key={el.id}
-            to={`/${category}/${el.id}/`}
-        >
+        <NavLink className={style.card} key={id} to={`/${category}/${slug}/`}>
             <span
                 onClick={(event) => event.stopPropagation()}
                 className={style.add_to_favorite}
@@ -85,11 +89,11 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
             <div className={style.image}>
                 {isMobile ? (
                     <>
-                        {!el.images[0]
+                        {!images[0]
                             ? notFoundImg.map((el, index) => (
                                   <img src={el} alt="Not found" key={index} />
                               ))
-                            : el.images.map((item) => (
+                            : images.map((item) => (
                                   <img
                                       src={item.image}
                                       key={item.image}
@@ -100,9 +104,9 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
                 ) : (
                     <img
                         src={
-                            !el.images[0]
+                            !images[0]
                                 ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
-                                : el.images[0].image
+                                : images[0].image
                         }
                         alt="Not found"
                     />
@@ -118,9 +122,19 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
                     </p>
                 )}
                 <h3>
-                    {el.price
-                        ? prettifyPrice(el.price)
-                        : `${t('advert-page.price-negotiated')}`}
+                    {category === 'exchange_rate' &&
+                        proposed_currency &&
+                        exchange_for &&
+                        exchange_rate && (
+                            <span
+                                className={style.currency_rate}
+                            >{`${proposed_currency}/${exchange_for} `}</span>
+                        )}
+                    {category === 'exchange_rate' && exchange_rate
+                        ? exchange_rate
+                        : el.price
+                          ? prettifyPrice(el.price)
+                          : `${t('advert-page.price-negotiated')}`}
                 </h3>
                 <p className={style.card_description}>{el.description}</p>
                 <div className={style.author}>
