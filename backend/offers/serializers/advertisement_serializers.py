@@ -68,6 +68,8 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
     country = CountrySerializer(read_only=True)
     region = RegionSerializer(read_only=True)
     city = CitySerializer(read_only=True)
+    proposed_currency = serializers.ReadOnlyField(source="proposed_currency.short_name")
+    exchange_for = serializers.ReadOnlyField(source="exchange_for.short_name")
 
     class Meta:
         model = Advertisement
@@ -84,6 +86,9 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
             "date_create",
             "slug",
             "owner",
+            "proposed_currency",
+            "exchange_for",
+            "exchange_rate",
         )
 
 

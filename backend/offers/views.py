@@ -51,7 +51,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
     def get_queryset(self):
         queryset = Advertisement.objects.filter(is_published=True).select_related(
-            "owner", "country", "region", "city"
+            "owner", "country", "region", "city", "proposed_currency", "exchange_for"
         )
 
         if self.action in [
