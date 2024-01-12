@@ -43,9 +43,9 @@ class TransportTest(APITestCase):
         transport_model = TransportModelFactory(name="A7", brand=transport_brand)
         payload = {
             "category": CategoryChoices.TRANSPORT.value,
-            "country": country.id,
-            "region": region.id,
-            "city": city.id,
+            "country": country.slug,
+            "region": region.slug,
+            "city": city.slug,
             "title": "test_transport",
             "price": 100_000,
             "coordinates": "35,56",
@@ -152,9 +152,9 @@ class TransportTest(APITestCase):
             "category": CategoryChoices.TRANSPORT.value,
             "title": "test_transport_new",
             "price": 120_000,
-            "country": new_country.id,
-            "region": new_region.id,
-            "city": new_city.id,
+            "country": new_country.slug,
+            "region": new_region.slug,
+            "city": new_city.slug,
             "transport_type_of_service": TransportTypeOfService.SALE,
             "transport_type": TransportType.GROUND,
             "transport_category": TransportCategory.CAR,
@@ -174,7 +174,9 @@ class TransportTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(11):
-            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+            res = self.client.put(
+                self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
+            )
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -228,7 +230,7 @@ class TransportTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(5):
-            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+            res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)

@@ -28,9 +28,9 @@ class ServiceTest(APITestCase):
         city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.SERVICE.value,
-            "country": country.id,
-            "region": region.id,
-            "city": city.id,
+            "country": country.slug,
+            "region": region.slug,
+            "city": city.slug,
             "title": "service",
             "price": 10_000,
             "service_home_visit": False,
@@ -49,6 +49,9 @@ class ServiceTest(APITestCase):
         new_advertisement = Advertisement.objects.first()
 
         self.assertEqual(new_advertisement.owner, user)
+        self.assertEqual(new_advertisement.country.slug, payload["country"])
+        self.assertEqual(new_advertisement.region.slug, payload["region"])
+        self.assertEqual(new_advertisement.city.slug, payload["city"])
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
         self.assertEqual(new_advertisement.service_home_visit, payload["service_home_visit"])
@@ -69,9 +72,9 @@ class ServiceTest(APITestCase):
         new_city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.SERVICE.value,
-            "country": new_country.id,
-            "region": new_region.id,
-            "city": new_city.id,
+            "country": new_country.slug,
+            "region": new_region.slug,
+            "city": new_city.slug,
             "title": "service",
             "price": 10_000,
             "service_home_visit": True,
@@ -81,7 +84,9 @@ class ServiceTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(9):
-            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+            res = self.client.put(
+                self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
+            )
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -89,11 +94,12 @@ class ServiceTest(APITestCase):
 
         self.assertEqual(advertisement.owner, user)
         self.assertEqual(advertisement.category, payload["category"])
-        self.assertEqual(advertisement.country.id, payload["country"])
-        self.assertEqual(advertisement.region.id, payload["region"])
-        self.assertEqual(advertisement.city.id, payload["city"])
+        self.assertEqual(advertisement.country.slug, payload["country"])
+        self.assertEqual(advertisement.region.slug, payload["region"])
+        self.assertEqual(advertisement.city.slug, payload["city"])
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
+        self.assertEqual(advertisement.service_home_visit, payload["service_home_visit"])
 
     def test_delete_service(self):
         user = UserFactory()
@@ -102,7 +108,7 @@ class ServiceTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(5):
-            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+            res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)

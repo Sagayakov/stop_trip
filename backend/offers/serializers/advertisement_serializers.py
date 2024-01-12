@@ -10,9 +10,15 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
     """Сериализатор создания объявления."""
 
     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
-    country = serializers.PrimaryKeyRelatedField(queryset=Country.objects.all(), required=True)
-    region = serializers.PrimaryKeyRelatedField(queryset=Region.objects.all(), required=True)
-    city = serializers.PrimaryKeyRelatedField(queryset=City.objects.all(), required=True)
+    country = serializers.SlugRelatedField(
+        queryset=Country.objects.all(), slug_field="slug", required=True
+    )
+    region = serializers.SlugRelatedField(
+        queryset=Region.objects.all(), slug_field="slug", required=True
+    )
+    city = serializers.SlugRelatedField(
+        queryset=City.objects.all(), slug_field="slug", required=True
+    )
     category = serializers.ChoiceField(choices=CategoryChoices.choices, required=True)
     title = serializers.CharField(required=True, max_length=100)
 
@@ -76,6 +82,7 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
             "description",
             "images",
             "date_create",
+            "slug",
             "owner",
         )
 
@@ -101,9 +108,15 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     """Сериализатор обновления объявления."""
 
     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
-    country = serializers.PrimaryKeyRelatedField(queryset=Country.objects.all(), required=False)
-    region = serializers.PrimaryKeyRelatedField(queryset=Region.objects.all(), required=False)
-    city = serializers.PrimaryKeyRelatedField(queryset=City.objects.all(), required=False)
+    country = serializers.SlugRelatedField(
+        queryset=Country.objects.all(), slug_field="slug", required=False
+    )
+    region = serializers.SlugRelatedField(
+        queryset=Region.objects.all(), slug_field="slug", required=False
+    )
+    city = serializers.SlugRelatedField(
+        queryset=City.objects.all(), slug_field="slug", required=False
+    )
     category = serializers.CharField(required=False)
     title = serializers.CharField(required=False)
     # price = serializers.IntegerField(required=False)

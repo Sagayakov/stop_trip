@@ -33,9 +33,9 @@ class JobTest(APITestCase):
         city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.JOB.value,
-            "country": country.id,
-            "region": region.id,
-            "city": city.id,
+            "country": country.slug,
+            "region": region.slug,
+            "city": city.slug,
             "job_type": JobType.PART_TIME.value,
             "title": "job",
             "price": 10_000,
@@ -75,9 +75,9 @@ class JobTest(APITestCase):
         new_city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.JOB.value,
-            "country": new_country.id,
-            "region": new_region.id,
-            "city": new_city.id,
+            "country": new_country.slug,
+            "region": new_region.slug,
+            "city": new_city.slug,
             "title": "job",
             "price": 10_000,
             "job_type": JobType.PART_TIME,
@@ -89,16 +89,18 @@ class JobTest(APITestCase):
 
         self.client.force_login(user)
         with self.assertNumQueries(9):
-            res = self.client.put(self.detail_url(kwargs={"pk": advertisement.id}), data=payload)
+            res = self.client.put(
+                self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
+            )
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Advertisement.objects.count(), 1)
         advertisement.refresh_from_db()
 
         self.assertEqual(advertisement.owner, user)
-        self.assertEqual(advertisement.country.id, payload["country"])
-        self.assertEqual(advertisement.region.id, payload["region"])
-        self.assertEqual(advertisement.city.id, payload["city"])
+        self.assertEqual(advertisement.country.slug, payload["country"])
+        self.assertEqual(advertisement.region.slug, payload["region"])
+        self.assertEqual(advertisement.city.slug, payload["city"])
         self.assertEqual(advertisement.category, payload["category"])
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
@@ -115,7 +117,7 @@ class JobTest(APITestCase):
         self.client.force_login(user)
 
         with self.assertNumQueries(5):
-            res = self.client.delete(self.detail_url(kwargs={"pk": advertisement.id}))
+            res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Advertisement.objects.count(), 0)
