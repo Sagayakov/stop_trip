@@ -19,7 +19,7 @@
 
     &.visible-content {
         opacity: 1;
-        height: 370px;
+        height: auto;
     }
 }
 @media (max-width: 767px) {
@@ -88,7 +88,7 @@
             }
         }
         .user-option-logout {
-            margin: 48px 40px 0px;
+            margin: 25px 40px 0px;
             color: #ff3f25;
             cursor: pointer;
         }

@@ -3,16 +3,16 @@ import { setIsAuth } from 'features/header/model/modalAuth/reducers/auth.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { Docs } from 'shared/ui/icons/category/Docs.tsx';
 import { Favorite } from 'shared/ui/icons/icons-tools/Favorite.tsx';
-import { Message } from 'shared/ui/icons/icons-tools/Message.tsx';
+//import { Message } from 'shared/ui/icons/icons-tools/Message.tsx';
 import { Setting } from 'shared/ui/icons/icons-tools/Setting.tsx';
 import './modalMobile.scss';
 import { clearTokensFromCookies } from 'app/cookie/cookieAuth.ts';
 //import { Langs } from 'entities/langs';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-import { useMatchMedia } from 'app/hooks/useMatchMedia';
-import { toast } from 'react-toastify';
-import { Tooltip } from 'react-tooltip';
+//import { useMatchMedia } from 'app/hooks/useMatchMedia';
+//import { toast } from 'react-toastify';
+//import { Tooltip } from 'react-tooltip';
 
 interface Props {
     showUserMenu: boolean;
@@ -23,7 +23,7 @@ export const ModalMobile = (props: Props) => {
     const { showUserMenu, setShowUserMenu } = props;
     const dispatch: Dispatch = useAppDispatch();
     const { t } = useTranslation();
-    const { isDesktop } = useMatchMedia();
+    //const { isDesktop } = useMatchMedia();
 
     const handleLogout = () => {
         dispatch(setIsAuth(false));
@@ -33,8 +33,8 @@ export const ModalMobile = (props: Props) => {
         localStorage.removeItem('isAuth');
     };
 
-    const handleClickMessages = () =>
-        !isDesktop && toast.warn(`${t('main-page.messages-tooltip')}`);
+    /* const handleClickMessages = () =>
+        !isDesktop && toast.warn(`${t('main-page.messages-tooltip')}`); */
 
     return (
         <div
@@ -58,7 +58,7 @@ export const ModalMobile = (props: Props) => {
                             {t('modal-logged.adverts')}
                         </p>
                     </NavLink>
-                    <div
+                    {/* <div
                         className="user-option my-messages"
                         onClick={handleClickMessages}
                         data-tooltip-id="modal-tooltip"
@@ -68,7 +68,7 @@ export const ModalMobile = (props: Props) => {
                         <p className="user-option-text my-messages">
                             {t('modal-logged.messages')}
                         </p>
-                    </div>
+                    </div> */}
                     <NavLink
                         className="user-option"
                         to={'/favorites'}
@@ -95,7 +95,7 @@ export const ModalMobile = (props: Props) => {
                     {t('modal-logged.logout')}
                 </p>
             </div>
-            {isDesktop && (
+            {/* {isDesktop && (
                 <Tooltip
                     id="modal-tooltip"
                     variant="warning"
@@ -103,7 +103,7 @@ export const ModalMobile = (props: Props) => {
                     opacity={1}
                     style={{ zIndex: '10', fontFamily: 'Inter' }}
                 />
-            )}
+            )} */}
         </div>
     );
 };
