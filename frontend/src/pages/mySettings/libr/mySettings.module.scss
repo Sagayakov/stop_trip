@@ -1,3 +1,6 @@
+input{
+    border: 1px solid var(--grey-3);
+}
 .my_setting {
     width: 1240px;
     margin: 0 auto 80px;
@@ -18,15 +21,39 @@
     }
     .setting_form {
         padding-top: 1rem;
+        p{
+            font-size: 22px;
+            margin-bottom: 1rem;
+            b{
+                font-size: 22px;
+            }
+        }
         .input_wrapper{
             display: flex;
             flex-direction: column;
             width: 50%;
-            input{
-                border: 1px solid var(--grey-3);
+            h2{
+                margin: 1.5rem 0 1rem;
+                font-size: 24px;
             }
+            .password_div {
+                position: relative;
+                #eye {
+                    width: 2rem;
+                    height: 2rem;
+                    cursor: pointer;
+                    position: absolute;
+                    top: 32px;
+                    right: 24px;
+                    .eye {
+                        top: 0;
+                        left: 0;
+                    }
+                }
+            }
+
             .errors{
-                height: 18px;
+                min-height: 18px;
                 color: red;
                 font-size: 14px;
             }
@@ -129,6 +156,11 @@
             padding: 1rem 15px 0;
             .input_wrapper{
                 width: 100%;
+                .password_div{
+                    #eye{
+                        top: 22px;
+                    }
+                }
             }
             .button_wrapper {
                 width: 100%;
@@ -178,6 +210,15 @@
             margin: 0 auto 16px;
             padding: 0 15px;
             font-size: 22px;
+        }
+        .setting_form{
+            .input_wrapper{
+                .password_div{
+                    #eye{
+                        top: 32px;
+                    }
+                }
+            }
         }
     }
 }

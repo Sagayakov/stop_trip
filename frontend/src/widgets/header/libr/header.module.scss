@@ -52,7 +52,8 @@ header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 30%;
+            width: auto;
+            //width: 30%;
 
             .auth_button {
                 width: 197px;

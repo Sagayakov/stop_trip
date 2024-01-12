@@ -1,0 +1,5 @@
+export { MySettingName } from './mySettingFormFields/MySettingName.tsx'
+export { MySettingPhone } from './mySettingFormFields/MySettingPhone.tsx'
+export { MySettingCurrentPassword } from './mySettingFormFields/MySettingCurrentPassword.tsx'
+export { MySettingNewPassword } from './mySettingFormFields/MySettingNewPassword.tsx'
+export { MySettingReNewPassword } from './mySettingFormFields/MySettingReNewPassword.tsx'
