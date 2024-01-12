@@ -11,6 +11,7 @@ import { setLangSlice } from 'features/header/model/langsReducer/lang.ts';
 import { setPageMainSlice } from 'widgets/lastAdverts/model/pageReducer/pageMain';
 import { setPageCategorySlice } from 'pages/categoryPage/model/pageReducer/pageCategory';
 import { fetchRating } from 'app/api/fetchRating';
+import { fetchUser } from 'app/api/fetchUser.ts';
 
 const setupStore = () =>
     configureStore({
@@ -28,12 +29,15 @@ const setupStore = () =>
             [fetchAdverts.reducerPath]: fetchAdverts.reducer,
             [fetchFavorites.reducerPath]: fetchFavorites.reducer,
             [fetchRating.reducerPath]: fetchRating.reducer,
+            [fetchUser.reducerPath]: fetchUser.reducer,
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
+                .concat(fetchUser.middleware)
                 .concat(fetchAdverts.middleware)
                 .concat(fetchFavorites.middleware)
                 .concat(fetchRating.middleware), //getDefaultMiddleWare это функция, которая вернет массив, и в этот массив мы добавляем еще миддлвееры которые лежат в goodsApi
+
     });
 
 export const store = setupStore();
