@@ -3,7 +3,7 @@ import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
 import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
 import styles from './libr/photoSlider.module.scss';
 import { useParams } from 'react-router-dom';
-import { useGetAdvertByIdQuery } from 'app/api/fetchAdverts.ts';
+import { useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
 import { Like } from 'shared/ui/Like';
 import { ShareIcon } from 'shared/ui/shareIcon';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
@@ -12,8 +12,8 @@ import { Portal } from 'entities/portal/Portal.tsx';
 import { Shadow } from 'entities/portal/Shadow.tsx';
 
 export const PhotoSlider = () => {
-    const { id } = useParams();
-    const { data } = useGetAdvertByIdQuery(id!);
+    const { slug } = useParams();
+    const { data } = useGetAdvertBySlugQuery(slug!);
     const [activeImage, setActiveImage] = useState(0);
     const [imageWidth, setImageWidth] = useState<number>(0);
     const [imageHeight, setImageHeight] = useState<number>(0);
@@ -146,7 +146,7 @@ export const PhotoSlider = () => {
                         )}
                         <ShareIcon />
                         <Like
-                            id={Number(id)}
+                            id={Number(data.id)}
                             color="#ff3f25"
                             strokeColor="#1C1C1E"
                         />

@@ -5,15 +5,17 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useTranslation } from 'react-i18next';
 import {
     useEditAdvertMutation,
-    useGetAdvertByIdQuery,
+    useGetAdvertBySlugQuery,
 } from 'app/api/fetchAdverts.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
-    AnnouncementCategoryField, AnnouncementCity,
+    AnnouncementCategoryField,
+    AnnouncementCity,
     AnnouncementDescriptionField,
     AnnouncementLocationField,
     AnnouncementNameField,
-    AnnouncementPriceField, AnnouncementRegion,
+    AnnouncementPriceField,
+    AnnouncementRegion,
     OptionalFields,
 } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
 import { useEffect, useState } from 'react';
@@ -40,8 +42,8 @@ const AdvertisementEditing = () => {
     const dispatch = useAppDispatch();
 
     const path = useLocation().pathname.split('/');
-    const id = path[path.length - 1];
-    const { data: dataAdvert, isLoading } = useGetAdvertByIdQuery(id);
+    const slug = path[path.length - 1];
+    const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery(slug);
     const [editAdvert, { isLoading: isSendLoading }] = useEditAdvertMutation();
     const [descript, setDescript] = useState<string | undefined>(
         dataAdvert?.description
@@ -56,7 +58,7 @@ const AdvertisementEditing = () => {
 
     useEffect(() => {
         const url = import.meta.env.VITE_BASE_URL;
-        getAccessTokenWithRefresh(dispatch, refreshToken);//сначала дожидаемся новый accessToken
+        getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken
         const { accessToken } = getTokensFromStorage();
         const getOwnerId = async (token: string) => {
             try {
@@ -84,7 +86,7 @@ const AdvertisementEditing = () => {
     const onsubmit = async (data: FormAddAnn) => {
         // setValue('country', 'Индия');
         // const
-        await getAccessTokenWithRefresh(dispatch, refreshToken);//сначала дожидаемся новый accessToken, затем шлем пост запрос
+        await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
         const { accessToken } = getTokensFromStorage();
         try {
             const res = await editAdvert({ body: data, addId, accessToken });
@@ -97,7 +99,7 @@ const AdvertisementEditing = () => {
     };
 
     useEffect(() => {
-        dataAdvert && setMarkerPosition(dataAdvert.coordinates)
+        dataAdvert && setMarkerPosition(dataAdvert.coordinates);
     }, [dataAdvert]);
 
     return (
@@ -119,8 +121,16 @@ const AdvertisementEditing = () => {
                                 formState={formState}
                                 defaultValue={dataAdvert.category}
                             />
-                            <AnnouncementRegion setValue={setValue} control={control} defaultValue={dataAdvert.region} />
-                            <AnnouncementCity setValue={setValue} control={control} defaultValue={dataAdvert.city} />
+                            <AnnouncementRegion
+                                setValue={setValue}
+                                control={control}
+                                defaultValue={dataAdvert.region}
+                            />
+                            <AnnouncementCity
+                                setValue={setValue}
+                                control={control}
+                                defaultValue={dataAdvert.city}
+                            />
                             <AnnouncementNameField
                                 register={register}
                                 formState={formState}
