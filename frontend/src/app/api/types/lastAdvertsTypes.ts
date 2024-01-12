@@ -23,6 +23,10 @@ export interface AdvertsTypes {
     images: LastAdvertsImages[];
     date_create: string;
     owner: Owner;
+    slug: string;
+    exchange_rate: number | null;
+    proposed_currency?: string | null;
+    exchange_for?: string | null;
 }
 
 export interface LastAdvertsImages {
