@@ -1,7 +1,7 @@
 .numbers {
     display: flex;
     justify-content: space-between;
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
     padding-top: 8rem;
     .number_four,
@@ -91,6 +91,7 @@
 
 @media (max-width: 1440px) {
     .numbers {
+        width: 70%;
         .number_four,
         .number_zero {
             .image_block,
