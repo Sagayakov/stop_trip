@@ -59,10 +59,10 @@ export const fetchAdverts = createApi({
         }),
         editAdvert: build.mutation<
             FormAddAnn,
-            { body: FormAddAnn; addId: number; accessToken: string }
+            { body: FormAddAnn; addSlug: string; accessToken: string }
         >({
-            query: ({ body, addId, accessToken }) => ({
-                url: `api/advertisements/${addId}`,
+            query: ({ body, addSlug, accessToken }) => ({
+                url: `api/advertisements/${addSlug}`,
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

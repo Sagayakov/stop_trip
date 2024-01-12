@@ -26,6 +26,7 @@ import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { toast } from 'react-toastify';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
+
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
     const {
@@ -53,7 +54,7 @@ const AdvertisementEditing = () => {
     );
     const [ownerId, setOwnerId] = useState<number | undefined>(undefined);
     const { refreshToken } = getTokensFromStorage();
-    const addId = dataAdvert ? dataAdvert.id : 0;
+    const addSlug = dataAdvert ? dataAdvert.slug : '';
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -89,7 +90,7 @@ const AdvertisementEditing = () => {
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
         const { accessToken } = getTokensFromStorage();
         try {
-            const res = await editAdvert({ body: data, addId, accessToken });
+            const res = await editAdvert({ body: data, addSlug, accessToken });
             res && toast.success(t('advert-page.advertisement-added'));
             scrollToTop();
         } catch (errors) {
