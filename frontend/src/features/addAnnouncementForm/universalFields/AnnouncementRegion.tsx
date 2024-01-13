@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -10,9 +11,13 @@ interface Props {
     defaultValue?: { name: string; } | null
 }
 
-const AnnouncementRegion = ({ control, setValue, defaultValue }: Props) => {
+const AnnouncementRegion = ({ control, setValue }: Props) => {
     const { t } = useTranslation();
-    const options = [{ value: 1, label: 'Гоа' }];
+    const options = [{ value: 'goa', label: 'Гоа' }];
+
+    useEffect(() => {
+        setValue('region', "goa");
+    }, []);
 
     return (
         <div className={styles.ann_field}>

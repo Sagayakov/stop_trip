@@ -27,9 +27,7 @@ const AnnouncementNameField = ({ register, formState, defaultValue }: Props) => 
                 defaultValue={defaultValue}
                 style={
                     errors?.title
-                        ? {
-                              border: '1px solid red',
-                          }
+                        ? { border: '1px solid red' }
                         : {}
                 }
                 {...register('title', { required: true })}

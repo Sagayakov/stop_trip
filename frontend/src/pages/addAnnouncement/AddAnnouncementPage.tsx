@@ -9,7 +9,7 @@ import {
     AnnouncementPriceField,
     AnnouncementDescriptionField,
     OptionalFields,
-    AnnouncementRegion, AnnouncementCity,
+    AnnouncementRegion, AnnouncementCity, AnnouncementCountry,
 } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
 import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import styles from './libr/addAnnouncement.module.scss';
@@ -52,9 +52,6 @@ const AddAnnouncementPage = () => {
     const { refreshToken } = getTokensFromStorage();
   
     const onsubmit = async (data: FormAddAnn) => {
-        setValue('country', 1);
-        setValue('region', 1);
-        console.log(data)
         await getAccessTokenWithRefresh(dispatch, refreshToken)//сначала дожидаемся новый accessToken, затем шлем пост запрос
         const { accessToken } = getTokensFromStorage();
         try {
@@ -102,6 +99,7 @@ const AddAnnouncementPage = () => {
                             setValue={setValue}
                             formState={formState}
                         />
+                        <AnnouncementCountry setValue={setValue} control={control} />
                         <AnnouncementRegion setValue={setValue} control={control} />
                         <AnnouncementCity setValue={setValue} control={control} />
                         <AnnouncementNameField
