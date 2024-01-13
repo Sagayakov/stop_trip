@@ -29,7 +29,7 @@ export const InputPhone = ({ errors, register, watch }: Props) => {
                         /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$/,
                 })}
                 placeholder={t('modal-registration.phone')}
-                defaultValue={Number(sessionStorage.getItem('phonenumber')) || ''}
+                defaultValue={sessionStorage.getItem('phonenumber') || ''}
                 onBlur={handleBlur}
                 style={{
                     border: `1px solid ${
