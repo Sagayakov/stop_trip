@@ -5,11 +5,9 @@ export interface FormAddAnn {
     description: string;
     images: Image[];
     coordinates: string;
-    country: number | null;
-    // country: { name: string } | null;
-    region: number | null;
-    // region: { name: string } | null;
-    city: { name: string } | null;
+    country: string;
+    region: string;
+    city: string;
     //документы
     document_type: string;
     document_duration: string;

@@ -13,6 +13,14 @@ export const InputName = ({ register, errors, watch }: Props) => {
     const { t } = useTranslation();
     const username = watch('userName');
     const handleBlur = () => sessionStorage.setItem('username', username);
+    const getDefaultValue = () => {
+        const name = sessionStorage.getItem('username');
+        if(name === undefined || name === null){
+            return '';
+        } else {
+            return name
+        }
+    }
 
     return (
         <>
@@ -24,7 +32,7 @@ export const InputName = ({ register, errors, watch }: Props) => {
                     minLength: 2,
                     maxLength: 50,
                 })}
-                defaultValue={sessionStorage.getItem('username') || ''}
+                defaultValue={getDefaultValue()}
                 onBlur={handleBlur}
                 placeholder={t('modal-registration.user-name')}
                 style={{

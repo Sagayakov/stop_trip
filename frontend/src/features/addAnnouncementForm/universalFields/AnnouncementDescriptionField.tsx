@@ -9,7 +9,6 @@ interface Props {
 
 const AnnouncementDescriptionField = ({ descript, setDescript, defaultValue }: Props) => {
     const { t } = useTranslation();
-    console.log()
     return (
         <div className={styles.ann_field}>
             <h3>{`${t('add-page.description')}:`}</h3>

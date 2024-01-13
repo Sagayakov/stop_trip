@@ -42,4 +42,4 @@ export const fetchUser = createApi({
     }),
 });
 
-export const { useGetUserQuery, useSetUserMutation, useSetPasswordMutation } = fetchUser;
+export const { useGetUserQuery, useSetUserMutation, useSetPasswordMutation, useLazyGetUserQuery } = fetchUser;

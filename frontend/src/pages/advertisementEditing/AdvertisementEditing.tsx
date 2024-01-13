@@ -18,7 +18,7 @@ import {
     AnnouncementRegion,
     OptionalFields,
 } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { AnnouncementSubmitButton } from 'entities/addAnnouncementForm/universalFields';
@@ -26,13 +26,13 @@ import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { toast } from 'react-toastify';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
+import { useGetUserQuery } from 'app/api/fetchUser.ts';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
     const {
         register,
         handleSubmit,
-        // reset,
         control,
         setValue,
         formState,
@@ -44,49 +44,31 @@ const AdvertisementEditing = () => {
 
     const path = useLocation().pathname.split('/');
     const slug = path[path.length - 1];
+
     const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery(slug);
+    const { accessToken } = getTokensFromStorage();
+    const { data: user } = useGetUserQuery(accessToken);
+
     const [editAdvert, { isLoading: isSendLoading }] = useEditAdvertMutation();
-    const [descript, setDescript] = useState<string | undefined>(
-        dataAdvert?.description
-    );
+    const [descript, setDescript] = useState<string | undefined>(dataAdvert?.description);
     const [markerPosition, setMarkerPosition] = useState<string | undefined>(
         dataAdvert?.coordinates
     );
-    const [ownerId, setOwnerId] = useState<number | undefined>(undefined);
-    const { refreshToken } = getTokensFromStorage();
+
     const addSlug = dataAdvert ? dataAdvert.slug : '';
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const url = import.meta.env.VITE_BASE_URL;
-        getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken
-        const { accessToken } = getTokensFromStorage();
-        const getOwnerId = async (token: string) => {
-            try {
-                const response = await fetch(`${url}/api/auth/users/me/`, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                if (response.status === 200) {
-                    const data = await response.json();
-                    setOwnerId(data.id);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getOwnerId(accessToken);
-    }, []);
+    useLayoutEffect(() => {
+        const { refreshToken } = getTokensFromStorage();
+        getAccessTokenWithRefresh(dispatch, refreshToken); //перед отрисовкой получаем новый accessToken
+    }, [dispatch]);
 
-    if (!isLoading && ownerId && ownerId !== dataAdvert?.owner.id) {
+    if (!isLoading && user && user.id !== dataAdvert?.owner.id) {
         navigate({ pathname: '/404' }); //если прошла загрузка, мы получили id хозяина объявления и он не равен нашему id, то отправляем на 404
     }
 
     const onsubmit = async (data: FormAddAnn) => {
-        // setValue('country', 'Индия');
-        // const
+        const { refreshToken } = getTokensFromStorage();
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
         const { accessToken } = getTokensFromStorage();
         try {
@@ -112,7 +94,7 @@ const AdvertisementEditing = () => {
                     onSubmit={handleSubmit(onsubmit)}
                     id="form-edit-announcement"
                 >
-                    {isLoading && ownerId && <LoadingWithBackground />}
+                    {isLoading && user?.id && <LoadingWithBackground />}
                     {isSendLoading && <LoadingWithBackground />}
                     {dataAdvert && (
                         <>
@@ -163,7 +145,6 @@ const AdvertisementEditing = () => {
                         </>
                     )}
                     <AnnouncementSubmitButton />
-                    {/*<input type="submit" />*/}
                 </form>
             </section>
         </>

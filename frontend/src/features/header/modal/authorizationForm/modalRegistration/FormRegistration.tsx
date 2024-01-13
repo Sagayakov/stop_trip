@@ -28,6 +28,7 @@ export const FormRegistration = () => {
     const dispatch = useAppDispatch();
 
     const onsubmit: SubmitHandler<AuthRegistration> = async (submitData) => {
+        console.log(submitData);
         dispatch(setLoading(true));
         setTimeout(() => {
             submitRegForm(submitData, dispatch, reset);

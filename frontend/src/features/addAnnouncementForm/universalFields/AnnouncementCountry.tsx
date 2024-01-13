@@ -3,40 +3,43 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { Control, UseFormSetValue } from 'react-hook-form';
+import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
-    defaultValue?: {name: string} | null | undefined
+    defaultValue?: { name: string; } | null
 }
 
-const AnnouncementCity = ({ control, setValue, defaultValue }: Props) => {
+const AnnouncementCountry = ({ control, setValue,  }: Props) => {
     const { t } = useTranslation();
-    const options = [
-        { value: 'arambol', label: 'Арамболь' },
-        { value: 'mandrem', label: 'Мандрем' },
-        { value: 'panzhim', label: 'Панжим' },
-    ];
+    const options = [{ value: 'india', label: 'Индия' }];
+
+    useEffect(() => {
+        setValue('country', "india");
+    }, []);
 
     return (
         <div className={styles.ann_field}>
             <h3>
-                {t('add-page.city')}
+                {t('add-page.region')}
                 <span>*</span>:
             </h3>
             <UniversalSelectDropdown<FormAddAnn>
                 setValue={setValue}
                 control={control}
-                name="city"
+                name="country"
                 prefix="filterAnnouncementCategory"
-                placeholder={t('add-page.city')}
+                placeholder={t('add-page.region')}
                 closeMenuOnSelect={true}
                 isMulti={false}
                 options={options}
-                defaultValue={options.find((el) => el.label === defaultValue?.name)}
+                defaultValue={options[0]}
+                isDisabled={true}
+                // defaultValue={options.find((el) => el.label === defaultValue?.name)}
             />
             <div className={styles.ann_field_err}></div>
         </div>
     );
 };
-export default AnnouncementCity;
+export default AnnouncementCountry;

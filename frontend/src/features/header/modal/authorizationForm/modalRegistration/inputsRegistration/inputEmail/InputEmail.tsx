@@ -22,8 +22,14 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
     const [twoPoints, setTwoPoints] = useState(false);
     const [startEndError, setStartEndError] = useState(false);
     const allLength = watch('email');
-
-    const handleBlur = () => sessionStorage.setItem('emailRegistration', allLength);
+    const getDefaultValue = () => {
+        const email = sessionStorage.getItem('emailRegistration');
+        if(email === undefined || email === null){
+            return '';
+        } else {
+            return email
+        }
+    }
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
@@ -47,6 +53,8 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
         const atIndex = inputText.indexOf('@');
         const firstPart = inputText.slice(0, atIndex);
         const domainPart = inputText.slice(atIndex + 1);
+
+        sessionStorage.setItem('emailRegistration', inputText);
 
         if (firstPart.length >= 64 || firstPart.length < 1) {
             setEmailDomeinLengthError(true);
@@ -129,8 +137,7 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
                 type="email"
                 placeholder="Email"
                 autoComplete="username"
-                defaultValue={sessionStorage.getItem('emailRegistration') || ''}
-                onBlur={handleBlur}
+                defaultValue={getDefaultValue()}
                 onInput={(event) => oninput(event)}
                 style={{
                     border: `1px solid ${

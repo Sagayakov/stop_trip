@@ -45,3 +45,6 @@ export const AnnouncementRegion = lazy(
 export const AnnouncementCity = lazy(
     () => import('features/addAnnouncementForm/universalFields/AnnouncementCity.tsx')
 )
+export const AnnouncementCountry = lazy(
+    () => import('features/addAnnouncementForm/universalFields/AnnouncementCountry.tsx')
+)
