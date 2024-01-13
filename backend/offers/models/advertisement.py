@@ -63,21 +63,15 @@ class Advertisement(
         # ]
 
     def clean(self):
-        forbidden_words = ForbiddenWords.get_solo()
+        """Проверяет, содержит ли название объявления запрещенные слова."""
+        forbidden_words = ForbiddenWords.objects.first()
 
-        all_words = forbidden_words.russian_words + "," + forbidden_words.english_words
-        all_words = all_words.lower().split(",")
+        if forbidden_words:
+            all_words = forbidden_words.russian_words + forbidden_words.english_words
 
-        for word in all_words:
-            if self.title.lower() in word:
-                raise ValidationError("Имя пользователя содержит запрещенное слово.")
-
-    def save(self, *args, **kwargs):
-        self.clean()
-        return super()
-
-    def __str__(self):
-        return f"Объявление: {self.title}. Владелец: {self.owner}"
+            for word in all_words:
+                if word.lower() in self.title.lower():
+                    raise ValidationError("Название объявления содержит запрещенное слово.")
 
 
 class AdvertisementImage(models.Model):

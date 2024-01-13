@@ -25,18 +25,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def clean(self):
-        forbidden_words = ForbiddenWords.get_solo()
+        """Проверяет, содержит ли поле full_name запрещенные слова."""
+        forbidden_words = ForbiddenWords.objects.first()
 
-        all_words = forbidden_words.russian_words + "," + forbidden_words.english_words
-        all_words = all_words.lower().split(",")
+        if forbidden_words:
+            all_words = forbidden_words.russian_words + forbidden_words.english_words
 
-        for word in all_words:
-            if self.full_name.lower() in word:
-                raise ValidationError("Имя пользователя содержит запрещенное слово.")
-
-    def save(self, *args, **kwargs):
-        self.clean()
-        return super()
+            for word in all_words:
+                if word.lower() in self.full_name.lower():
+                    raise ValidationError("Имя пользователя содержит запрещенное слово.")
 
     class Meta:
         verbose_name: str = "Пользователь"

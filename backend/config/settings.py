@@ -51,10 +51,10 @@ INSTALLED_APPS = [
     "location_field.apps.DefaultConfig",
     "storages",
     # apps
+    "forbidden_words.apps.ForbiddenWordsConfig",
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",
     "feedback.apps.FeedbackConfig",
-    "forbidden_words.apps.ForbiddenWordsConfig",
 ]
 
 MIDDLEWARE = [
