@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.pagination import PageNumberPagination
+from slugify import slugify
 
 from common.filters import GetFilterParams
 from users.models import User
@@ -109,6 +110,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
+        serializer.validated_data["slug"] = slugify(request.data["title"])
         serializer.save()  # todo оптимизация создания M2M связей
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -117,6 +119,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = self.get_serializer(instance, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
+        serializer.validated_data["slug"] = slugify(request.data["title"])
         serializer.save()  # todo оптимизация создания M2M связей
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 

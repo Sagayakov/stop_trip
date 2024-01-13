@@ -44,7 +44,7 @@ class ExchangeRateTest(APITestCase):
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(8):
+        with self.assertNumQueries(9):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -87,6 +87,7 @@ class ExchangeRateTest(APITestCase):
             "country": new_country.slug,
             "region": new_region.slug,
             "city": new_city.slug,
+            "title": "new_title",
             "proposed_currency": proposed_currency[1].id,
             "exchange_for": exchange_for[1].id,
             "exchange_rate": 2.15,
@@ -94,7 +95,7 @@ class ExchangeRateTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(12):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -105,6 +106,7 @@ class ExchangeRateTest(APITestCase):
         self.assertEqual(advertisement.country.slug, payload["country"])
         self.assertEqual(advertisement.region.slug, payload["region"])
         self.assertEqual(advertisement.city.slug, payload["city"])
+        self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.proposed_currency, proposed_currency[1])
         self.assertEqual(advertisement.exchange_for, exchange_for[1])
         self.assertEqual(advertisement.exchange_rate, payload["exchange_rate"])

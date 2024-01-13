@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "location_field.apps.DefaultConfig",
     "storages",
+    "autoslug",
     # apps
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",

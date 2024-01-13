@@ -1,4 +1,5 @@
 from django.db import models
+from autoslug import AutoSlugField
 from location_field.models.plain import PlainLocationField
 from .abs_event_model import AbsEvent
 from .abs_exchange_rate_model import AbsExchangeRate
@@ -68,7 +69,7 @@ class Advertisement(
     is_published = models.BooleanField("Опубликованно", default=True)
     date_create = models.DateTimeField("Дата создания", auto_now_add=True)
     date_update = models.DateTimeField("Дата редактирования", auto_now=True)
-    slug = models.SlugField("Слаг", blank=True, null=True, db_index=True, unique=True)
+    slug = AutoSlugField(unique=True, db_index=True)
 
     class Meta:
         verbose_name = "Объявление"
