@@ -39,8 +39,6 @@ export interface FormAddAnn {
     taxi_unit: string;
     taxi_type: string;
     //недвижимость
-    property_city: string;
-    property_district: string;
     property_type_of_service: string;
     property_building_max_floor: number;
     property_floor: number;

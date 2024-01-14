@@ -4,6 +4,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
+import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -36,6 +37,12 @@ const AnnouncementCategoryField = ({ control, setValue, formState, defaultValue 
             return categoryList.find((el) => el.value === defaultValue);
         }
     }
+
+    useEffect(() => {
+        if(defaultValue){
+            setValue('category', getDefaultValue()!.value)
+        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+    }, []);
 
     return (
         <>

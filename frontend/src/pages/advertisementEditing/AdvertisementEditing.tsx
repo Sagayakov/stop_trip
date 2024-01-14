@@ -42,6 +42,8 @@ const AdvertisementEditing = () => {
     });
     const dispatch = useAppDispatch();
 
+    const category = watch('category');
+
     const path = useLocation().pathname.split('/');
     const slug = path[path.length - 1];
 
@@ -50,7 +52,6 @@ const AdvertisementEditing = () => {
     const { data: user } = useGetUserQuery(accessToken);
 
     const [editAdvert, { isLoading: isSendLoading }] = useEditAdvertMutation();
-    const [descript, setDescript] = useState<string | undefined>(dataAdvert?.description);
     const [markerPosition, setMarkerPosition] = useState<string | undefined>(
         dataAdvert?.coordinates
     );
@@ -83,7 +84,8 @@ const AdvertisementEditing = () => {
 
     useEffect(() => {
         dataAdvert && setMarkerPosition(dataAdvert.coordinates);
-    }, [dataAdvert]);
+        setValue('country', 'india');
+    }, [dataAdvert, setValue]);
 
     return (
         <>
@@ -119,15 +121,17 @@ const AdvertisementEditing = () => {
                                 formState={formState}
                                 defaultValue={dataAdvert.title}
                             />
-                            <AnnouncementPriceField
+                            {category !== "exchange_rate" && <AnnouncementPriceField
                                 register={register}
                                 formState={formState}
                                 defaultValue={dataAdvert.price}
-                            />
+                                watch={watch}
+                            />}
                             <AnnouncementDescriptionField
-                                descript={descript}
-                                setDescript={setDescript}
+                                // descript={descript}
+                                // setDescript={setDescript}
                                 defaultValue={dataAdvert.description}
+                                control={control}
                             />
                             <OptionalFields
                                 control={control}

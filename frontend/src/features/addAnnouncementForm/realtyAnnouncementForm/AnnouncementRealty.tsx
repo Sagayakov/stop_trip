@@ -5,9 +5,7 @@ import {
     AnnouncementRealtyBalcony,
     AnnouncementRealtyBathroomQuantity,
     AnnouncementRealtyBathroomType,
-    AnnouncementRealtyCity,
     AnnouncementRealtyComission,
-    AnnouncementRealtyDistrict,
     AnnouncementRealtyFloorNumber,
     AnnouncementRealtyFloorsQuantity,
     AnnouncementRealtyHasFurniture,
@@ -34,8 +32,6 @@ export const AnnouncementRealty = ({ register, control, setValue, data }: Props)
     return (
         <>
             <AnnouncementRealtyServise register={register} defaultValue={data?.property_type_of_service} />
-            <AnnouncementRealtyCity control={control} setValue={setValue} defaultValue={data?.city} />
-            <AnnouncementRealtyDistrict control={control} setValue={setValue} defaultValue={data?.property_district} />
             <AnnouncementRealtyHouseType control={control} setValue={setValue} defaultValue={data?.property_house_type} />
             <AnnouncementRealtyPrepayment control={control} setValue={setValue} defaultValue={data?.property_prepayment} />
             <AnnouncementRealtyRentalCondition control={control} setValue={setValue} defaultValue={data?.property_rental_condition} />

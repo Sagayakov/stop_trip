@@ -7,7 +7,7 @@ import { ProductInfo } from 'features/advert/ProductInfo.tsx';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { useTranslation } from 'react-i18next';
 import { Date } from 'widgets/advert/libr/types.ts';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 interface Props {
     data: ProductType;
@@ -15,8 +15,8 @@ interface Props {
 }
 export const MobileAdvert = ({ data, date }: Props) => {
     const { t } = useTranslation();
-    const handleClickWrite = () =>
-        toast.warn(`${t('main-page.messages-tooltip')}`);
+    // const handleClickWrite = () =>
+    //     toast.warn(`${t('main-page.messages-tooltip')}`);
 
     return (
         <>
@@ -32,12 +32,12 @@ export const MobileAdvert = ({ data, date }: Props) => {
                     >
                         {t('advert-page.call')}
                     </Link>
-                    <button
-                        className={styles.write_button}
-                        onClick={handleClickWrite}
-                    >
-                        {t('advert-page.write')}
-                    </button>
+                    {/*<button*/}
+                    {/*    className={styles.write_button}*/}
+                    {/*    onClick={handleClickWrite}*/}
+                    {/*>*/}
+                    {/*    {t('advert-page.write')}*/}
+                    {/*</button>*/}
                     {date && (
                         <p className={styles.public_date}>
                             {t('advert-page.published')}{' '}

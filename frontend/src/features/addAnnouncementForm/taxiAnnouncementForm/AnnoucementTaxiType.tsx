@@ -4,6 +4,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { taxiValues } from './taxiValues';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -19,6 +20,11 @@ export const AnnouncementTaxiType = ({ control, setValue, defaultValue }: Props)
             return valuesOfTaxiType.find((el) => el.value === defaultValue)
         }
     }
+    useEffect(() => {
+        if(defaultValue){
+            setValue('taxi_type', getDefaultValue()!.value)
+        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+    }, []);
 
     return (
         <div className={styles.ann_field}>
