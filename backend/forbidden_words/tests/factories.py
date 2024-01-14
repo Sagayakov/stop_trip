@@ -11,9 +11,10 @@ class ForbiddenWordsFactory(factory.django.DjangoModelFactory):
         model = ForbiddenWords
 
     @classmethod
-    def _create(cls, model_class, *args, **kwargs):
+    def _create(cls, model_class: ForbiddenWords, *args, **kwargs):
         if model_class.objects.exists():
             return model_class.objects.first()
-        obj = super()._create(model_class, *args, **kwargs)
+
+        obj = model_class(*args, **kwargs)
         obj.save()
         return obj
