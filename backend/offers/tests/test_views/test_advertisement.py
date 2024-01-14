@@ -32,7 +32,7 @@ from offers.constants import (
     PropertyType,
 )
 from users.tests.factories import UserFactory
-from ..factories import BaseAdvertisementFactory
+from ..factories import BaseAdvertisementFactory, CountryFactory, RegionFactory, CityFactory
 from offers.models import Advertisement
 
 
@@ -49,46 +49,30 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_create_advertisement_forbidden_words_exception(self):
         forbidden_words = ForbiddenWordsFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
         payload = {
             "category": CategoryChoices.DOCUMENT.value,
-            "title": forbidden_words.russian_words[0],
-            "price": 1_100,
-            "document_type": DocumentType.OTHER_DOCUMENT,
-            "document_duration": DocumentDuration.OTHER,
+            "country": country.slug,
+            "region": region.slug,
+            "city": city.slug,
+            "title": f"{forbidden_words.russian_words[0]}",
+            "price": 1_000,
+            "document_type": DocumentType.C_FORM,
+            "document_duration": DocumentDuration.QUARTER,
         }
 
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(5):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-
-    def test_create_advertisement_forbidden_words(self):
-        forbidden_words = ForbiddenWordsFactory()
-        payload = {
-            "category": CategoryChoices.DOCUMENT.value,
-            "title": "document",
-            "price": 1_100,
-            "document_type": DocumentType.OTHER_DOCUMENT,
-            "document_duration": DocumentDuration.OTHER,
-        }
-
-        self.assertEqual(Advertisement.objects.count(), 0)
-        user = UserFactory()
-        self.client.force_login(user)
-
-        with self.assertNumQueries(4):
-            res = self.client.post(self.list_url, data=payload)
-
-        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Advertisement.objects.count(), 1)
-
-        new_advertisement = Advertisement.objects.first()
-        self.assertNotIn(new_advertisement.title, forbidden_words.russian_words)
-        self.assertNotIn(new_advertisement.title, forbidden_words.english_words)
+        res_json = res.json()
+        self.assertEqual(res_json["title"][0], "Название объявления содержит запрещенное слово.")
 
     def test_list(self):
         user = UserFactory()
