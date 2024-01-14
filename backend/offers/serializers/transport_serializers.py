@@ -30,22 +30,9 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
         queryset=TransportModel.objects.all(),
         required=True,
     )
-    transport_engine_type = serializers.ChoiceField(
-        choices=TransportEngineType.choices, required=True
-    )
-    transport_drive_type = serializers.ChoiceField(
-        choices=TransportDriveType.choices, required=True
-    )
-    transport_engine_volume = serializers.IntegerField(required=True, allow_null=False)
-    transport_year_of_production = serializers.IntegerField(required=True, allow_null=False)
     transport_transmission_type = serializers.ChoiceField(
-        choices=TransportTransmissionType.choices,
-        required=True,
+        required=True, choices=TransportTransmissionType.choices
     )
-    transport_body_type = serializers.ChoiceField(choices=TransportBodyType.choices, required=True)
-    transport_condition = serializers.ChoiceField(choices=TransportCondition.choices, required=True)
-    transport_passengers_quality = serializers.IntegerField(required=True, allow_null=False)
-    transport_commission = serializers.IntegerField(required=True, allow_null=False)
 
     class Meta:
         model = Advertisement

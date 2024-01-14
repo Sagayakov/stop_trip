@@ -50,6 +50,7 @@ class PropertyTest(APITestCase):
             "country": country.slug,
             "region": region.slug,
             "city": city.slug,
+            "property_type": PropertyType.HOUSE,
             "property_type_of_service": PropertyTypeOfService.RENT,
             "property_building_max_floor": 15,
             "property_floor": 5,
@@ -89,7 +90,7 @@ class PropertyTest(APITestCase):
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
         self.assertEqual(new_advertisement.coordinates, payload["coordinates"])
-
+        self.assertEqual(new_advertisement.property_type, payload["property_type"])
         self.assertEqual(
             new_advertisement.property_type_of_service,
             payload["property_type_of_service"],
@@ -144,6 +145,7 @@ class PropertyTest(APITestCase):
             country=country,
             region=region,
             city=city,
+            property_type=PropertyType.FLAT,
             property_type_of_service=PropertyTypeOfService.SALE,
             property_building_max_floor=14,
             property_floor=4,
@@ -173,6 +175,7 @@ class PropertyTest(APITestCase):
             "country": new_country.slug,
             "region": new_region.slug,
             "city": new_city.slug,
+            "property_type": PropertyType.COMMERCIAL,
             "property_type_of_service": PropertyTypeOfService.RENT,
             "property_building_max_floor": 15,
             "property_floor": 5,
@@ -210,7 +213,7 @@ class PropertyTest(APITestCase):
         self.assertEqual(advertisement.country, new_country)
         self.assertEqual(advertisement.region, new_region)
         self.assertEqual(advertisement.city, new_city)
-
+        self.assertEqual(advertisement.property_type, payload["property_type"])
         self.assertEqual(
             advertisement.property_type_of_service, payload["property_type_of_service"]
         )

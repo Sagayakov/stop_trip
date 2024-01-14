@@ -18,27 +18,16 @@ class PropertyAmenitySerializer(serializers.ModelSerializer):
 class PropertyCreateSerializer(AdvertisementCreateSerializer):
     """Сериализатор создания объекта недвижимости."""
 
+    property_type = serializers.CharField(required=True)
     property_type_of_service = serializers.CharField(required=True)
-    property_building_max_floor = serializers.IntegerField(required=True)
     property_floor = serializers.IntegerField(required=True)
-    property_bathroom_count = serializers.IntegerField(required=True)
-    property_bathroom_type = serializers.CharField(required=True)
-    property_area = serializers.IntegerField(required=True)
-    property_living_area = serializers.IntegerField(required=True)
-    property_balcony = serializers.CharField(required=True)
     property_has_furniture = serializers.BooleanField(required=True)
-    property_house_type = serializers.CharField(required=True)
-    property_has_parking = serializers.BooleanField(required=True)
-    property_rental_condition = serializers.CharField(required=True)
-    property_prepayment = serializers.CharField(required=True)
-    property_sleeping_places = serializers.IntegerField(required=True)
     property_rooms_count = serializers.IntegerField(required=True)
-    property_commission = serializers.IntegerField(required=True)
-    # todo дописать для создания с удобствами
 
     class Meta:
         model = Advertisement
         fields = AdvertisementCreateSerializer.Meta.fields + (
+            "property_type",
             "property_type_of_service",
             "property_building_max_floor",
             "property_floor",

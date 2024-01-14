@@ -13,7 +13,7 @@ class AdvertisementImageInline(StackedInline):
 class AdvertisementAdmin(ModelAdmin):
     inlines = (AdvertisementImageInline,)
     prepopulated_fields = {
-        "slug": ("title", "price", "owner"),
+        "slug": ("title", "owner"),
     }
     fieldsets = (
         (
@@ -61,6 +61,7 @@ class AdvertisementAdmin(ModelAdmin):
             {
                 "classes": ("collapse",),
                 "fields": (
+                    "property_type",
                     "property_type_of_service",
                     "property_building_max_floor",
                     "property_floor",
