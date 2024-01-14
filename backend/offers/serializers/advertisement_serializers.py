@@ -9,7 +9,7 @@ from countries.serializers import CountrySerializer, RegionSerializer, CitySeria
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
     """Сериализатор создания объявления."""
 
-    owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
     country = serializers.SlugRelatedField(
         queryset=Country.objects.all(), slug_field="slug", required=True
     )

@@ -9,11 +9,9 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.pagination import PageNumberPagination
 from slugify import slugify
 
 from common.filters import GetFilterParams
-from users.models import User
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
 from .models import Advertisement, PropertyAmenity
