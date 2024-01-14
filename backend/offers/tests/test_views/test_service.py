@@ -5,6 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from common.utils import generate_image_file
 from offers.constants import CategoryChoices
 from offers.models import Advertisement
 from users.tests.factories import UserFactory
@@ -26,6 +27,7 @@ class ServiceTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
             "category": CategoryChoices.SERVICE.value,
             "country": country.slug,
@@ -34,13 +36,14 @@ class ServiceTest(APITestCase):
             "title": "service",
             "price": 10_000,
             "service_home_visit": False,
+            "images": payload_images,
         }
 
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(8):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -55,6 +58,7 @@ class ServiceTest(APITestCase):
         self.assertEqual(new_advertisement.title, payload["title"])
         self.assertEqual(new_advertisement.price, payload["price"])
         self.assertEqual(new_advertisement.service_home_visit, payload["service_home_visit"])
+        self.assertEqual(new_advertisement.images.count(), len(payload_images))
 
     def test_update_service(self):
         user = UserFactory()
@@ -83,7 +87,7 @@ class ServiceTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(10):
+        with self.assertNumQueries(11):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )

@@ -1,9 +1,11 @@
+from copy import deepcopy
 from uuid import uuid4
 
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -14,7 +16,7 @@ from common.filters import GetFilterParams
 from users.models import User
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
-from .models import Advertisement
+from .models import Advertisement, PropertyAmenity
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
     PropertyCreateSerializer,
@@ -109,20 +111,40 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         return [permission() for permission in self.permission_classes]
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        request_data = deepcopy(request.data)
+        request_data["owner"] = self.request.user.id
+        images = request_data.pop("images", [])
+        property_amenities = request_data.pop("property_amenities", [])
+        serializer = self.get_serializer(data=request_data)
         serializer.is_valid(raise_exception=True)
-        serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
+        serializer.validated_data["images"] = images
         serializer.validated_data["slug"] = slugify(request.data["title"] + str(uuid4()))
-        serializer.save()  # todo оптимизация создания M2M связей
+        if property_amenities:
+            serializer.validated_data["property_amenities"] = (
+                PropertyAmenity.objects.filter(id__in=property_amenities)
+                .values_list("id", flat=True)
+                .distinct()
+            )
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, *args, **kwargs):
+        request_data = deepcopy(request.data)
+        request_data["owner"] = self.request.user.id
+        images = request_data.pop("images", [])
+        property_amenities = request_data.pop("property_amenities", [])
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data)
+        serializer = self.get_serializer(instance, data=request_data)
         serializer.is_valid(raise_exception=True)
-        serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
+        serializer.validated_data["images"] = images
         serializer.validated_data["slug"] = slugify(request.data["title"] + str(uuid4()))
-        serializer.save()  # todo оптимизация создания M2M связей
+        if property_amenities:
+            serializer.validated_data["property_amenities"] = (
+                PropertyAmenity.objects.filter(id__in=property_amenities)
+                .values_list("id", flat=True)
+                .distinct()
+            )
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(detail=False, methods=["GET"])

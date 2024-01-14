@@ -5,6 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from common.utils import generate_image_file
 from offers.constants import CategoryChoices, FoodType
 from offers.models import Advertisement
 from users.tests.factories import UserFactory
@@ -26,6 +27,7 @@ class FoodTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
             "category": CategoryChoices.FOOD.value,
             "country": country.slug,
@@ -36,13 +38,14 @@ class FoodTest(APITestCase):
             "food_delivery": True,
             "food_establishment": True,
             "food_type": FoodType.READY_FOOD,
+            "images": payload_images,
         }
 
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(8):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -60,6 +63,7 @@ class FoodTest(APITestCase):
         self.assertEqual(new_advertisement.food_delivery, payload["food_delivery"])
         self.assertEqual(new_advertisement.food_establishment, payload["food_establishment"])
         self.assertEqual(new_advertisement.food_type, payload["food_type"])
+        self.assertEqual(new_advertisement.images.count(), len(payload_images))
 
     def test_update_food(self):
         user = UserFactory()
@@ -87,7 +91,7 @@ class FoodTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(10):
+        with self.assertNumQueries(11):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
