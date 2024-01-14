@@ -3,6 +3,7 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { Control, UseFormSetValue } from 'react-hook-form';
+import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -17,6 +18,13 @@ const AnnouncementCity = ({ control, setValue, defaultValue }: Props) => {
         { value: 'mandrem', label: 'Мандрем' },
         { value: 'panzhim', label: 'Панжим' },
     ];
+
+    useEffect(() => {
+        if(defaultValue){
+            const defaultCity = options.find((el) => el.label === defaultValue.name);
+            setValue('city', defaultCity!.value);
+        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+    }, []);
 
     return (
         <div className={styles.ann_field}>

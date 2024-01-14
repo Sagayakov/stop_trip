@@ -16,10 +16,10 @@ export const AnnouncementRealtyParking = ({ register, defaultValue }: Props) => 
             <div className={styles.radio_group}>
                 <label>
                     <input
-                        type="radio"
+                        type="checkbox"
                         {...register('property_has_parking')}
                         style={{ display: 'none' }}
-                        checked={defaultValue || false}
+                        checked={defaultValue || undefined}
                     />
                     <span>{t('filters.property_has_parking')}</span>
                 </label>

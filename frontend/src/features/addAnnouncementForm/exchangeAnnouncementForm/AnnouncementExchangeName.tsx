@@ -3,6 +3,7 @@ import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSele
 import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import { useEffect } from 'react';
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
@@ -23,6 +24,11 @@ export const AnnouncementExchangeName = ({ setValue, control, defaultValue }: Pr
             return exchangeNameValues.find((el) => el.value === defaultValue)
         }
     }
+    useEffect(() => {
+        if(defaultValue){
+            setValue('proposed_currency', getDefaultValue()!.value)
+        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+    }, []);
 
     return (
         <div className={styles.ann_field}>

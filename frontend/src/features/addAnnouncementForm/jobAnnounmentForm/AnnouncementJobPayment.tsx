@@ -4,6 +4,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { jobValues } from './libr/jobValues';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -20,6 +21,11 @@ export const AnnouncementJobPayment = ({ setValue, control, defaultValue }: Prop
             return paymentValues.find((el) => el.value === defaultValue)
         }
     }
+    useEffect(() => {
+        if(defaultValue){
+            setValue('job_payment_type', getDefaultValue()!.value)
+        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+    }, []);
 
     return (
         <div className={styles.ann_field}>

@@ -228,7 +228,10 @@
         "grade": "grade",
         "grade-added": "Thank you! Your rating has been added!",
         "grade-register": "Please log in to be able to rate",
-        "advertisement-added": "Advertisement added!"
+        "advertisement-added": "Advertisement added!",
+        "taxi-route": "Route",
+        "taxi-hour": "Hour",
+        "taxi-km": "Km"
     },
 
     "activate-page": {

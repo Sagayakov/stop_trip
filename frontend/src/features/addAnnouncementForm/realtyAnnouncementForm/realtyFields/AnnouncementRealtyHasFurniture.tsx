@@ -16,10 +16,10 @@ export const AnnouncementRealtyHasFurniture = ({ register, defaultValue }: Props
             <div className={styles.radio_group}>
                 <label>
                     <input
-                        type="radio"
+                        type="checkbox"
                         {...register('property_has_furniture')}
                         value="true"
-                        checked={defaultValue || false}
+                        checked={defaultValue || undefined}
                         style={{ display: 'none' }}
                     />
                     <span>{t('filters.property_has_furniture')}</span>

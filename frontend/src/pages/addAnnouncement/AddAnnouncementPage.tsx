@@ -45,11 +45,11 @@ const AddAnnouncementPage = () => {
 
     const [selectedImages, setSelectedImages] = useState<Image[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
-    const [descript, setDescript] = useState<string | undefined>();
     const [modalSuccess, setModalSuccess] = useState(false);
     const { t } = useTranslation();
     const [ addAdvert, { isLoading } ] = useAddAdvertMutation();
     const { refreshToken } = getTokensFromStorage();
+    const category = watch('category');
   
     const onsubmit = async (data: FormAddAnn) => {
         await getAccessTokenWithRefresh(dispatch, refreshToken)//сначала дожидаемся новый accessToken, затем шлем пост запрос
@@ -57,10 +57,8 @@ const AddAnnouncementPage = () => {
         try {
             const result = await addAdvert({ body: data, token: accessToken });
             if ('data' in result) {
-                descript && setValue('description', descript);
                 setSelectedImages(undefined);
                 setMarkerPosition(undefined);
-                setDescript(undefined);
                 reset();
                 setValue('category', data.category);
                 setModalSuccess(true);
@@ -106,14 +104,12 @@ const AddAnnouncementPage = () => {
                             register={register}
                             formState={formState}
                         />
-                        <AnnouncementPriceField
+                        {category !== "exchange_rate" && <AnnouncementPriceField
                             register={register}
                             formState={formState}
-                        />
-                        <AnnouncementDescriptionField
-                            descript={descript}
-                            setDescript={setDescript}
-                        />
+                            watch={watch}
+                        />}
+                        <AnnouncementDescriptionField control={control} />
                         <OptionalFields
                             control={control}
                             register={register}

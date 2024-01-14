@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
+import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -24,6 +25,12 @@ export const AnnouncementDocType = ({
         { value: 'exit-permit', label: 'Продление выезда' },
         { value: 'other', label: 'Другое' },
     ];
+
+    useEffect(() => {
+        if(defaultValue){
+            setValue('document_type', String(getDefaultValue(defaultValue, options)!.value))
+        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+    }, []);
 
     return (
         <div className={styles.ann_field}>

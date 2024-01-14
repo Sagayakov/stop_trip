@@ -1,6 +1,4 @@
 export { AnnouncementRealtyServise } from './AnnouncementRealtyServise'
-export { AnnouncementRealtyCity } from './AnnouncementRealtyCity'
-export { AnnouncementRealtyDistrict } from './AnnouncementRealtyDistrict'
 export { AnnouncementRealtyFloorsQuantity } from './AnnouncementRealtyFloorsQuantity'
 export { AnnouncementRealtyFloorNumber } from './AnnouncementRealtyFloorNumber'
 export { AnnouncementRealtyHouseType } from './AnnouncementRealtyHouseType';

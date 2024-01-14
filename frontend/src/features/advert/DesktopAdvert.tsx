@@ -25,8 +25,8 @@ export const DesktopAdvert = ({ data, date }: Props) => {
         }
     };
 
-    const handleClickWrite = () =>
-        isTablet && toast.warn(`${t('main-page.messages-tooltip')}`);
+    // const handleClickWrite = () =>
+    //     isTablet && toast.warn(`${t('main-page.messages-tooltip')}`);
 
     return (
         <>
@@ -58,14 +58,14 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                             {t('advert-page.show-number')}
                         </button>
                     )}
-                    <button
-                        className={styles.write_button}
-                        data-tooltip-id="messages-tooltip"
-                        data-tooltip-content={t('main-page.messages-tooltip')}
-                        onClick={handleClickWrite}
-                    >
-                        {t('advert-page.write')}
-                    </button>
+                    {/*<button*/}
+                    {/*    className={styles.write_button}*/}
+                    {/*    data-tooltip-id="messages-tooltip"*/}
+                    {/*    data-tooltip-content={t('main-page.messages-tooltip')}*/}
+                    {/*    onClick={handleClickWrite}*/}
+                    {/*>*/}
+                    {/*    {t('advert-page.write')}*/}
+                    {/*</button>*/}
                     {date && (
                         <p className={styles.public_date}>
                             {t('advert-page.published')}{' '}
