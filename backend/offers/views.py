@@ -12,7 +12,7 @@ from rest_framework.viewsets import ModelViewSet
 from common.filters import GetFilterParams
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
-from .models import Advertisement
+from .models import Advertisement, PropertyAmenity
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
     PropertyCreateSerializer,
@@ -109,12 +109,16 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         request_data = deepcopy(request.data)
         request_data["owner"] = self.request.user.id
         images = request_data.pop("images", [])
-        property_amenities = request_data.pop("property_amenities", [])  # TODO костыль
+        property_amenities = request_data.pop("property_amenities", [])
         serializer = self.get_serializer(data=request_data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["images"] = images
         if property_amenities:
-            serializer.validated_data["property_amenities"] = property_amenities
+            serializer.validated_data["property_amenities"] = (
+                PropertyAmenity.objects.filter(id__in=property_amenities)
+                .values_list("id", flat=True)
+                .distinct()
+            )
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -122,13 +126,17 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         request_data = deepcopy(request.data)
         request_data["owner"] = self.request.user.id
         images = request_data.pop("images", [])
-        property_amenities = request_data.pop("property_amenities", [])  # TODO костыль
+        property_amenities = request_data.pop("property_amenities", [])
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request_data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["images"] = images
         if property_amenities:
-            serializer.validated_data["property_amenities"] = property_amenities
+            serializer.validated_data["property_amenities"] = (
+                PropertyAmenity.objects.filter(id__in=property_amenities)
+                .values_list("id", flat=True)
+                .distinct()
+            )
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
