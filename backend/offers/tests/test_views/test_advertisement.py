@@ -5,6 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from forbidden_words.tests.factories import ForbiddenWordsFactory
 from offers.constants import (
     CategoryChoices,
     TransportCondition,
@@ -32,6 +33,7 @@ from offers.constants import (
 )
 from users.tests.factories import UserFactory
 from ..factories import BaseAdvertisementFactory
+from offers.models import Advertisement
 
 
 @mark.django_db
@@ -44,6 +46,49 @@ class AdvertisementViewSetTest(APITestCase):
             "advertisements-get-available-filtered-params"
         )
         self.my_advertisements_url: str = reverse("advertisements-my-advertisements")
+
+    def test_create_advertisement_forbidden_words_exception(self):
+        forbidden_words = ForbiddenWordsFactory()
+        payload = {
+            "category": CategoryChoices.DOCUMENT.value,
+            "title": forbidden_words.russian_words[0],
+            "price": 1_100,
+            "document_type": DocumentType.OTHER_DOCUMENT,
+            "document_duration": DocumentDuration.OTHER,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 0)
+        user = UserFactory()
+        self.client.force_login(user)
+
+        with self.assertNumQueries(2):
+            res = self.client.post(self.list_url, data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_advertisement_forbidden_words(self):
+        forbidden_words = ForbiddenWordsFactory()
+        payload = {
+            "category": CategoryChoices.DOCUMENT.value,
+            "title": "document",
+            "price": 1_100,
+            "document_type": DocumentType.OTHER_DOCUMENT,
+            "document_duration": DocumentDuration.OTHER,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 0)
+        user = UserFactory()
+        self.client.force_login(user)
+
+        with self.assertNumQueries(4):
+            res = self.client.post(self.list_url, data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+
+        new_advertisement = Advertisement.objects.first()
+        self.assertNotIn(new_advertisement.title, forbidden_words.russian_words)
+        self.assertNotIn(new_advertisement.title, forbidden_words.english_words)
 
     def test_list(self):
         user = UserFactory()

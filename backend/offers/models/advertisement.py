@@ -1,6 +1,9 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from autoslug import AutoSlugField
 from location_field.models.plain import PlainLocationField
+
+from forbidden_words.models import ForbiddenWords
 from .abs_event_model import AbsEvent
 from .abs_exchange_rate_model import AbsExchangeRate
 from .abs_job_model import AbsJob
@@ -75,6 +78,17 @@ class Advertisement(
         verbose_name = "Объявление"
         verbose_name_plural = "Объявления"
         ordering = ("-date_create",)
+
+    def clean(self):
+        """Проверяет, содержит ли название объявления запрещенные слова."""
+        forbidden_words = ForbiddenWords.objects.first()
+
+        if forbidden_words:
+            all_words = forbidden_words.russian_words + forbidden_words.english_words
+
+            for word in all_words:
+                if word.lower() in self.title.lower():
+                    raise ValidationError("Название объявления содержит запрещенное слово.")
 
     def __str__(self):
         return f"Объявление: {self.title}. Владелец: {self.owner}"

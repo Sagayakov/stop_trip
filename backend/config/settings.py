@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "storages",
     "autoslug",
     # apps
+    "forbidden_words.apps.ForbiddenWordsConfig",
     "offers.apps.OfferConfig",
     "users.apps.UserConfig",
     "feedback.apps.FeedbackConfig",

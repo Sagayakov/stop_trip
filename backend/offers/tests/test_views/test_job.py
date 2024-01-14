@@ -51,7 +51,7 @@ class JobTest(APITestCase):
         user = UserFactory()
         self.client.force_login(user)
 
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(8):
             res = self.client.post(self.list_url, data=payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)

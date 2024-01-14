@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from forbidden_words.models import ForbiddenWords
 from users.models import User
 from ..constants import CategoryChoices
 from ..models import Advertisement, AdvertisementImage, PropertyAmenity
@@ -45,6 +46,22 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
                 images_list.append(AdvertisementImage(advertisement=advertisement, image=image))
             AdvertisementImage.objects.bulk_create(images_list)
         return advertisement
+
+    @staticmethod
+    def validate_title(value):
+        """Проверяет, содержит ли название объявления запрещенные слова."""
+        forbidden_words = ForbiddenWords.objects.first()
+
+        if forbidden_words:
+            all_words = forbidden_words.russian_words + forbidden_words.english_words
+
+            for word in all_words:
+                if word.lower() in value.lower():
+                    raise serializers.ValidationError(
+                        "Название объявления содержит запрещенное слово."
+                    )
+
+        return value
 
 
 class AdvertisementImageSerializer(serializers.ModelSerializer):
