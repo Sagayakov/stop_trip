@@ -73,6 +73,9 @@ class Advertisement(
                 if word.lower() in self.title.lower():
                     raise ValidationError("Название объявления содержит запрещенное слово.")
 
+    def __str__(self):
+        return f"Объявление: {self.title}. Владелец: {self.owner}"
+
 
 class AdvertisementImage(models.Model):
     """Фото объявлений."""

@@ -14,7 +14,7 @@ class ForbiddenWords(SingletonModel):
     )
 
     class Meta:
-        verbose_name = "Запрещенны слова"
+        verbose_name = verbose_name_plural = "Запрещенны слова"
 
     def __str__(self):
-        return f"Русские слова: {self.russian_words}. Английские слова: {self.english_words}"
+        return self._meta.verbose_name

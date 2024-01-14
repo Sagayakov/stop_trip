@@ -17,17 +17,3 @@ class UserSerializer(UserCreateSerializer):
             "password",
             "full_name",
         )
-
-    # @staticmethod
-    # def validate_full_name(value):
-    #     """Проверяет, содержит ли поле full_name запрещенные слова."""
-    #     forbidden_words = ForbiddenWords.objects.first()
-    #
-    #     if forbidden_words:
-    #         all_words = forbidden_words.russian_words + forbidden_words.english_words
-    #
-    #         for word in all_words:
-    #             if word.lower() in value.lower():
-    #                 raise serializers.ValidationError("Имя содержит запрещенное слово.")
-    #
-    #     return value

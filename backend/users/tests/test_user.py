@@ -16,6 +16,6 @@ class UserTest(APITestCase):
             "phone": "1234567890",
         }
 
-        res = self.client.post("/api/users/", user_data)
+        res = self.client.post("/api/auth/users/", user_data)
 
-        self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
