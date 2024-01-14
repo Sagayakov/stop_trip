@@ -1,5 +1,4 @@
 from django.db import models
-from location_field.models.plain import PlainLocationField
 
 from ..constants import (
     PropertyTypeOfService,
