@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.decorators import action
@@ -110,7 +112,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
-        serializer.validated_data["slug"] = slugify(request.data["title"])
+        serializer.validated_data["slug"] = slugify(request.data["title"] + str(uuid4()))
         serializer.save()  # todo оптимизация создания M2M связей
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -119,7 +121,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = self.get_serializer(instance, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["owner"] = User.objects.get(id=self.request.user.id)
-        serializer.validated_data["slug"] = slugify(request.data["title"])
+        serializer.validated_data["slug"] = slugify(request.data["title"] + str(uuid4()))
         serializer.save()  # todo оптимизация создания M2M связей
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 

@@ -124,7 +124,6 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     )
     category = serializers.CharField(required=False)
     title = serializers.CharField(required=False)
-    # price = serializers.IntegerField(required=False)
 
     class Meta:
         model = Advertisement
