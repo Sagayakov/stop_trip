@@ -110,7 +110,6 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
     def create(self, request, *args, **kwargs):
         request_data = deepcopy(request.data)
-        request_data["owner"] = self.request.user.id
         images = request_data.pop("images", [])
         property_amenities = request_data.pop("property_amenities", [])
         serializer = self.get_serializer(data=request_data)
@@ -128,7 +127,6 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
     def update(self, request, *args, **kwargs):
         request_data = deepcopy(request.data)
-        request_data["owner"] = self.request.user.id
         images = request_data.pop("images", [])
         property_amenities = request_data.pop("property_amenities", [])
         instance = self.get_object()
