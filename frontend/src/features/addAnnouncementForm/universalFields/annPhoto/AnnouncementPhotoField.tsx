@@ -8,15 +8,13 @@ import { LoadPhotoBtn } from 'features/addAnnouncementForm/universalFields/annPh
 import { LoadPhotoIcons } from 'features/addAnnouncementForm/universalFields/annPhoto/annPhotoField/LoadPhotoIcons.tsx';
 
 interface Props {
-    selectedImages: File | undefined;
+    selectedImages: File[] | undefined;
     setSelectedImages: React.Dispatch<
-        React.SetStateAction<File | undefined>
+        React.SetStateAction<File[] | undefined>
     >;
     setValue: UseFormSetValue<FormAddAnn>;
 }
-// interface Image {
-//     image: string;
-// }
+
 
 const AnnouncementPhotoField = ({
     selectedImages,
@@ -26,13 +24,13 @@ const AnnouncementPhotoField = ({
     const inputRef = useRef<HTMLInputElement>(null);
     const { t } = useTranslation();
 
-    // const removeImage = (index: number) => {
-    //     if (selectedImages) {
-    //         const newImages = [...selectedImages];
-    //         newImages.splice(index, 1);
-    //         setSelectedImages(newImages);
-    //     }
-    // };
+    const removeImage = (index: number) => {
+        if (selectedImages) {
+            const newImages = [...selectedImages];
+            newImages.splice(index, 1);
+            setSelectedImages(newImages);
+        }
+    };
 
     useEffect(() => {
         if (selectedImages) {
@@ -49,33 +47,22 @@ const AnnouncementPhotoField = ({
                         inputRef={inputRef}
                         setSelectedImages={setSelectedImages}
                     />
-                    {selectedImages &&
+                    {selectedImages && selectedImages.length > 0 && (
                         <div className={styles.loadphoto_btn_view_list}>
-                            <div
-                                className={styles.loadphoto_btn_view_delete}
-                                // onClick={() => removeImage(index)}
-                            >
-                                <p>{selectedImages.name}</p>
-                                <span>&#x2716;</span>
-                            </div>
-                        </div>
-                    }
-                    {/*{selectedImages && selectedImages.length > 0 && (*/}
-                    {/*    <div className={styles.loadphoto_btn_view_list}>*/}
-                    {/*         {selectedImages.map((image, index) => (*/}
-                    {/*                 <div*/}
-                    {/*                     key={index}*/}
-                    {/*                     className={*/}
-                    {/*                         styles.loadphoto_btn_view_delete*/}
-                    {/*                     }*/}
-                    {/*                     onClick={() => removeImage(index)}*/}
-                    {/*                 >*/}
-                    {/*                     <p>{image.name}</p>*/}
-                    {/*                     <span>&#x2716;</span>*/}
-                    {/*                 </div>*/}
-                    {/*             ))}*/}
-                    {/*     </div>*/}
-                    {/* )}*/}
+                             {selectedImages.map((image, index) => (
+                                     <div
+                                         key={index}
+                                         className={
+                                             styles.loadphoto_btn_view_delete
+                                         }
+                                         onClick={() => removeImage(index)}
+                                     >
+                                         <p>{image.name}</p>
+                                         <span>&#x2716;</span>
+                                     </div>
+                                 ))}
+                         </div>
+                     )}
                 </div>
                 <LoadPhotoIcons selectedImages={selectedImages} />
                 <div className={styles.loadphoto_counter}>

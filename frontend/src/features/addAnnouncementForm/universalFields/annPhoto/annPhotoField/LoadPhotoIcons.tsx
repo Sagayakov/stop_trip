@@ -2,11 +2,9 @@ import { LoadPhotoAlternative } from 'shared/ui/icons/loadPhoto';
 import styles from '../annPhoto.module.scss'
 
 interface Props {
-    selectedImages: File | undefined;
+    selectedImages: File[] | undefined;
 }
-// interface Image {
-//     image: string;
-// }
+
 
 export const LoadPhotoIcons = ({ selectedImages }: Props) => {
     const getFillColor = () => {

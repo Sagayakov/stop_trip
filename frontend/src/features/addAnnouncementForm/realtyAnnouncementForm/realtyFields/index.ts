@@ -15,3 +15,4 @@ export { AnnouncementRealtyBathroomType } from './AnnouncementRealtyBathroomType
 export { AnnouncementRealtyBathroomQuantity } from './AnnouncementRealtyBathroomQuantity'
 export { AnnouncementRealtyAmenities } from './AnnouncementRealtyAmenities'
 export { AnnouncementRealtyComission } from './AnnouncementRealtyComission';
+export { AnnouncementPropertyType } from './AnnouncementPropertyType'

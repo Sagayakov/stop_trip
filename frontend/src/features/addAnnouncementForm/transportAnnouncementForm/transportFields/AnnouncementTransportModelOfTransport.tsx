@@ -1,7 +1,6 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { valuesOfTransportForm } from 'widgets/settingForm/settingTransport/libr/valuesOfTransportForm.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
@@ -15,7 +14,11 @@ interface Props {
 export const AnnouncementTransportModelOfTransport = ({ setValue, control, defaultValue }: Props) => {
     const { t } = useTranslation();
 
-    const optionValues = valuesOfTransportForm.transport_model;
+    const optionValues = [
+        {value: '3', label: '3'},
+        {value: 'land-cruizer', label: 'Land Cruizer'},
+        {value: 'tdm-850', label: 'TDM-850'},
+    ];
 
     return (
         <div className={styles.ann_field}>

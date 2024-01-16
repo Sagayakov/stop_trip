@@ -3,7 +3,7 @@ export interface FormAddAnn {
     title?: string;
     price?: number;
     description?: string;
-    images?: File;
+    images?: File[];
     coordinates?: string;
     country?: string;
     region?: string;
@@ -40,6 +40,7 @@ export interface FormAddAnn {
     taxi_type?: string;
     //недвижимость
     property_type_of_service?: string;
+    property_type?: string;
     property_building_max_floor?: number;
     property_floor?: number;
     property_bathroom_count?: number;
@@ -73,9 +74,7 @@ export interface FormAddAnn {
     transport_vin?: string;
     transport_commission?: number;
 }
-// interface Image {
-//     image: string;
-// }
+
 export interface SelectOption {
     // value: string| number | null;
     // label: string| number | null;

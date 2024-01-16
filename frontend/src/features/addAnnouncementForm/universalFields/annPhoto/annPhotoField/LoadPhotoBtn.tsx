@@ -6,26 +6,17 @@ import styles from '../annPhoto.module.scss'
 interface Props{
     inputRef: RefObject<HTMLInputElement>
     setSelectedImages: React.Dispatch<
-        React.SetStateAction<File | undefined>
+        React.SetStateAction<File[] | undefined>
     >;
 }
-// interface Image {
-//     image: string;
-// }
+
 export const LoadPhotoBtn = ({ inputRef, setSelectedImages }:Props) => {
     const { t } = useTranslation();
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = event.target.files
         if (fileList) {
-            console.log(event.target.files)
-            setSelectedImages(fileList[0])
-            // const filesArray = Array.from(event.target.files).map((el) => ({
-            //     image: el.name,
-            // }));
-            // setSelectedImages((prevValue) => {
-            //     return prevValue ? [...prevValue, ...filesArray] : filesArray;
-            // });
+            setSelectedImages([...fileList])
         }
     };
 
