@@ -59,12 +59,6 @@ export const PriceBlock = ({ data }: Props) => {
                     {/*      ? prettifyPrice(price)*/}
                     {/*      : `${t('advert-page.price-negotiated')}`}*/}
                     {viewPrice()}
-
-                    {category === 'exchange_rate' && exchange_rate
-                        ? exchange_rate
-                        : price
-                          ? prettifyPrice(price)
-                          : `${t('advert-page.price-negotiated')}`}
                 </span>
             </div>
         </>

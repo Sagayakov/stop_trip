@@ -21,7 +21,7 @@ jest.mock('react-i18next', () => ({
 }));
 
 describe('App', () => {
-    test('should render main link', () => {
+    test('should render main page', () => {
         const useTranslationSpy = useTranslation;
         const tSpy = jest.fn((str) => str);
         (useTranslationSpy as jest.Mock).mockReturnValue({

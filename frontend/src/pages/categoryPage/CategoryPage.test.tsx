@@ -26,7 +26,7 @@ const testCases = Object.entries(categories).map((el) => ({
 
 describe('Category route', () => {
     test.each(testCases)(
-        'should render category page',
+        'should render category page for each category from test table',
         ({ category, expected }) => {
             const useTranslationSpy = useTranslation;
             const tSpy = jest.fn((str) => str);

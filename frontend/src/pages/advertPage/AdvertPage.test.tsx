@@ -9,6 +9,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { useTranslation } from 'react-i18next';
 import { publicRoutes } from 'app/router/routes';
+import { url } from 'shared/const/url';
 import { categories } from 'shared/const/categories';
 
 beforeEach((): void => {
@@ -21,13 +22,12 @@ jest.mock('react-i18next', () => ({
 
 const testCases = Object.entries(categories).map((el) => ({
     category: el[0],
-    expected: el[1].description,
 }));
 
 describe('Product route', () => {
     test.each(testCases)(
-        'should render product page',
-        ({ category, expected }) => {
+        'should render product page for each category from test table',
+        async ({ category }) => {
             const useTranslationSpy = useTranslation;
             const tSpy = jest.fn((str) => str);
             (useTranslationSpy as jest.Mock).mockReturnValue({
@@ -37,25 +37,34 @@ describe('Product route', () => {
                 },
             });
 
-            ((route = `/${category}/?category=${category}&page=1`) => {
-                window.history.pushState({}, 'Category page', route);
-                return {
-                    user: userEvent.setup(),
-                    ...render(
-                        <RouterProvider
-                            router={createBrowserRouter(publicRoutes)}
-                        />
-                    ),
-                };
-            })();
+            const { results } = await (
+                await fetch(
+                    `${
+                        url || 'https://stoptrip.com'
+                    }/api/advertisements/${category}/?category=${category}&page=1`
+                )
+            ).json();
 
-            waitFor(() => {
-                const ruLangBtn = screen.getByTestId('test-russian');
-                userEvent.click(ruLangBtn);
+            if (results) {
+                const { slug, title } = results[0];
 
-                const categoryHeader = screen.getByRole('h1');
-                expect(categoryHeader).toHaveTextContent(expected);
-            });
+                ((route = `/${category}/${slug}`) => {
+                    window.history.pushState({}, 'Product page', route);
+                    return {
+                        user: userEvent.setup(),
+                        ...render(
+                            <RouterProvider
+                                router={createBrowserRouter(publicRoutes)}
+                            />
+                        ),
+                    };
+                })();
+
+                waitFor(() => {
+                    const categoryHeader = screen.getByRole('h1');
+                    expect(categoryHeader).toHaveTextContent(title);
+                });
+            }
         }
     );
 });
