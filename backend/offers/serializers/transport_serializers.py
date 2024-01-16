@@ -5,11 +5,7 @@ from ..constants import (
     TransportTypeOfService,
     TransportType,
     TransportCategory,
-    TransportEngineType,
-    TransportDriveType,
     TransportTransmissionType,
-    TransportBodyType,
-    TransportCondition,
 )
 from ..models import TransportBrand, TransportModel, Advertisement
 
@@ -22,12 +18,14 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
     )
     transport_type = serializers.ChoiceField(choices=TransportType.choices, required=True)
     transport_category = serializers.ChoiceField(choices=TransportCategory.choices, required=True)
-    transport_brand = serializers.PrimaryKeyRelatedField(
+    transport_brand = serializers.SlugRelatedField(
         queryset=TransportBrand.objects.all(),
+        slug_field="slug",
         required=True,
     )
-    transport_model = serializers.PrimaryKeyRelatedField(
+    transport_model = serializers.SlugRelatedField(
         queryset=TransportModel.objects.all(),
+        slug_field="slug",
         required=True,
     )
     transport_transmission_type = serializers.ChoiceField(

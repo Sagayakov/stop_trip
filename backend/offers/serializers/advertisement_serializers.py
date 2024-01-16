@@ -2,7 +2,14 @@ from rest_framework import serializers
 from forbidden_words.models import ForbiddenWords
 from users.models import User
 from ..constants import CategoryChoices
-from ..models import Advertisement, AdvertisementImage, PropertyAmenity
+from ..models import (
+    Advertisement,
+    AdvertisementImage,
+    PropertyAmenity,
+    TransportBrand,
+    TransportModel,
+    Currency,
+)
 from countries.models import Country, Region, City
 from countries.serializers import CountrySerializer, RegionSerializer, CitySerializer
 
@@ -152,6 +159,31 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     )
     category = serializers.CharField(required=False)
     title = serializers.CharField(required=False)
+
+    # для транспорта
+    transport_brand = serializers.SlugRelatedField(
+        queryset=TransportBrand.objects.all(),
+        slug_field="slug",
+        required=False,
+    )
+    transport_model = serializers.SlugRelatedField(
+        queryset=TransportModel.objects.all(),
+        slug_field="slug",
+        required=False,
+    )
+
+    # для валют
+    proposed_currency = serializers.SlugRelatedField(
+        queryset=Currency.objects.all(), slug_field="short_name", required=False
+    )
+    exchange_for = serializers.SlugRelatedField(
+        slug_field="short_name", queryset=Currency.objects.all(), required=False
+    )
+
+    # для удобств недвижимости
+    property_amenities = serializers.SlugRelatedField(
+        queryset=PropertyAmenity.objects.all(), slug_field="slug", required=False, many=True
+    )
 
     class Meta:
         model = Advertisement

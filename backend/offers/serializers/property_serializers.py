@@ -23,6 +23,9 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
     property_floor = serializers.IntegerField(required=True)
     property_has_furniture = serializers.BooleanField(required=True)
     property_rooms_count = serializers.IntegerField(required=True)
+    property_amenities = serializers.SlugRelatedField(
+        queryset=PropertyAmenity.objects.all(), slug_field="slug", required=False, many=True
+    )
 
     class Meta:
         model = Advertisement

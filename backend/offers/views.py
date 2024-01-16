@@ -1,5 +1,4 @@
 from copy import deepcopy
-from uuid import uuid4
 
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
@@ -115,10 +114,10 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = self.get_serializer(data=request_data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["images"] = images
-        serializer.validated_data["slug"] = slugify(request.data["title"] + str(uuid4()))
+        serializer.validated_data["slug"] = slugify(request.data["title"])
         if property_amenities:
             serializer.validated_data["property_amenities"] = (
-                PropertyAmenity.objects.filter(id__in=property_amenities)
+                PropertyAmenity.objects.filter(slug__in=property_amenities)
                 .values_list("id", flat=True)
                 .distinct()
             )
@@ -133,10 +132,10 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = self.get_serializer(instance, data=request_data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["images"] = images
-        serializer.validated_data["slug"] = slugify(request.data["title"] + str(uuid4()))
+        serializer.validated_data["slug"] = slugify(request.data["title"])
         if property_amenities:
             serializer.validated_data["property_amenities"] = (
-                PropertyAmenity.objects.filter(id__in=property_amenities)
+                PropertyAmenity.objects.filter(slug__in=property_amenities)
                 .values_list("id", flat=True)
                 .distinct()
             )

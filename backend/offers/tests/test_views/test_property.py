@@ -62,7 +62,7 @@ class PropertyTest(APITestCase):
             "property_living_area": 30,
             "property_balcony": PropertyBalcony.YES,
             "property_has_furniture": True,
-            "property_amenities": [amenity.id for amenity in property_amenities[:5]],
+            "property_amenities": [amenity.slug for amenity in property_amenities[:5]],
             "property_house_type": PropertyHouseType.BLOCK,
             "property_has_parking": True,
             "property_rental_condition": PropertyRentalCondition.FAMILY,
@@ -189,7 +189,7 @@ class PropertyTest(APITestCase):
             "property_living_area": 30,
             "property_balcony": PropertyBalcony.YES,
             "property_has_furniture": True,
-            "property_amenities": [amenity.id for amenity in property_amenities[:5]],
+            "property_amenities": [amenity.slug for amenity in property_amenities[:5]],
             "property_house_type": PropertyHouseType.BLOCK,
             "property_has_parking": True,
             "property_rental_condition": PropertyRentalCondition.FAMILY,
@@ -249,7 +249,7 @@ class PropertyTest(APITestCase):
         )
         self.assertTrue(
             all(
-                payload_am in [amenity.id for amenity in advertisement.property_amenities.all()]
+                payload_am in [amenity.slug for amenity in advertisement.property_amenities.all()]
                 for payload_am in payload["property_amenities"]
             )
         )

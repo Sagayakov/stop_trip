@@ -37,8 +37,8 @@ class ExchangeRateTest(APITestCase):
             "region": region.slug,
             "city": city.slug,
             "title": "test_exchange_rate",
-            "proposed_currency": proposed_currency.id,
-            "exchange_for": exchange_for.id,
+            "proposed_currency": proposed_currency.short_name,
+            "exchange_for": exchange_for.short_name,
             "exchange_rate": 2.15,
             "images": payload_images,
         }
@@ -92,8 +92,8 @@ class ExchangeRateTest(APITestCase):
             "region": new_region.slug,
             "city": new_city.slug,
             "title": "new_title",
-            "proposed_currency": proposed_currency[1].id,
-            "exchange_for": exchange_for[1].id,
+            "proposed_currency": proposed_currency[1].short_name,
+            "exchange_for": exchange_for[1].short_name,
             "exchange_rate": 2.15,
         }
         self.assertEqual(Advertisement.objects.count(), 1)
