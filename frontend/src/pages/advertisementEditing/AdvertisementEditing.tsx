@@ -10,7 +10,7 @@ import {
     AnnouncementCity,
     AnnouncementDescriptionField,
     AnnouncementLocationField,
-    AnnouncementNameField,
+    AnnouncementNameField, AnnouncementPhotoField,
     AnnouncementPriceField,
     AnnouncementRegion,
     OptionalFields,
@@ -28,16 +28,10 @@ import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
-    const {
-        register,
-        handleSubmit,
-        control,
-        setValue,
-        formState,
-        watch,
-    } = useForm<FormAddAnn>({
-        reValidateMode: 'onBlur',
-    });
+    const { register, handleSubmit, control, setValue, formState, watch } =
+        useForm<FormAddAnn>({
+            reValidateMode: 'onBlur',
+        });
     const dispatch = useAppDispatch();
 
     const category = watch('category');
@@ -53,6 +47,8 @@ const AdvertisementEditing = () => {
     const [markerPosition, setMarkerPosition] = useState<string | undefined>(
         dataAdvert?.coordinates
     );
+    const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
+
     const addSlug = dataAdvert ? dataAdvert.slug : '';
     const navigate = useNavigate();
 
@@ -67,7 +63,7 @@ const AdvertisementEditing = () => {
 
     const onsubmit = async (data: FormAddAnn) => {
         dispatch(setLoading(true));
-        await getAccessTokenWithRefresh(dispatch, refreshToken)//сначала дожидаемся новый accessToken, затем шлем пост запрос
+        await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
 
         const formData = new FormData();
         Object.entries(data).forEach(([field, value]) => {
@@ -83,8 +79,8 @@ const AdvertisementEditing = () => {
                 default:
                     // Добавляем остальные поля
                     console.log(`${field}: ${typeof value}`);
-                    if(value === undefined || value === null){
-                        break;//иначе присваивается 'undefined' если поле не заполнено
+                    if (value === undefined || value === null) {
+                        break; //иначе присваивается 'undefined' если поле не заполнено
                     }
                     formData.append(field, value);
                     break;
@@ -93,14 +89,17 @@ const AdvertisementEditing = () => {
 
         try {
             const { accessToken } = getTokensFromStorage();
-            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/advertisements/${addSlug}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                },
-                body: formData,
-            })
-            if(response.ok){
+            const response = await fetch(
+                `${import.meta.env.VITE_BASE_URL}/api/advertisements/${addSlug}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                    body: formData,
+                }
+            );
+            if (response.ok) {
                 dispatch(setLoading(false));
                 scrollToTop();
             } else {
@@ -108,27 +107,42 @@ const AdvertisementEditing = () => {
                 toast.error(`${t('errors.add-announcement-error')}`);
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
             dispatch(setLoading(false));
             toast.error(`${t('errors.add-announcement-error')}`);
         }
+    };
 
-        // const { refreshToken } = getTokensFromStorage();
-        // await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
-        // const { accessToken } = getTokensFromStorage();
-        // try {
-        //     const res = await editAdvert({ body: data, addSlug, accessToken });
-        //     res && toast.success(t('advert-page.advertisement-added'));
-        //     scrollToTop();
-        // } catch (errors) {
-        //     console.log(errors);
-        //     toast.error(`${t('errors.add-announcement-error')}`);
-        // }
+    const getImg = async () => {
+        if (dataAdvert?.images) {
+            try {
+                let index = 1;
+                for (const link of dataAdvert.images) {
+                    const response = await fetch(link.image);
+                    const imageBlob = await response.blob();
+                    // Создаем File из Blob
+                    const imageFile = new File(
+                        [imageBlob],
+                        `image_${index}`,
+                        { type: imageBlob.type }
+                    );
+                    index++;
+                    if (selectedImages && selectedImages.length > 0) {
+                        setSelectedImages([...selectedImages, imageFile]);
+                    } else {
+                        setSelectedImages([imageFile]);
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
     };
 
     useEffect(() => {
         dataAdvert && setMarkerPosition(dataAdvert.coordinates);
         setValue('country', 'india');
+        getImg();
     }, [dataAdvert, setValue]);
 
     return (
@@ -165,12 +179,14 @@ const AdvertisementEditing = () => {
                                 formState={formState}
                                 defaultValue={dataAdvert.title}
                             />
-                            {category !== "exchange_rate" && <AnnouncementPriceField
-                                register={register}
-                                formState={formState}
-                                defaultValue={dataAdvert.price}
-                                watch={watch}
-                            />}
+                            {category !== 'exchange_rate' && (
+                                <AnnouncementPriceField
+                                    register={register}
+                                    formState={formState}
+                                    defaultValue={dataAdvert.price}
+                                    watch={watch}
+                                />
+                            )}
                             <AnnouncementDescriptionField
                                 // descript={descript}
                                 // setDescript={setDescript}
@@ -184,7 +200,11 @@ const AdvertisementEditing = () => {
                                 watch={watch}
                                 data={dataAdvert}
                             />
-                            {/*photo*/}
+                            <AnnouncementPhotoField
+                                selectedImages={selectedImages}
+                                setSelectedImages={setSelectedImages}
+                                setValue={setValue}
+                            />
                             <AnnouncementLocationField
                                 setValue={setValue}
                                 markerPosition={markerPosition}
