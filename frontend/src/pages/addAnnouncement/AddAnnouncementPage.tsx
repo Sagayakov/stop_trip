@@ -139,7 +139,6 @@ const AddAnnouncementPage = () => {
                             setValue={setValue}
                             control={control}
                         />
-
                         <AnnouncementRegion
                             setValue={setValue}
                             control={control}
