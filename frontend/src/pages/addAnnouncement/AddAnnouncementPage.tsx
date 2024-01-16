@@ -15,7 +15,7 @@ import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import styles from './libr/addAnnouncement.module.scss';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
-import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
+// import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import './libr/selectAddAnnouncement.scss';
 import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
@@ -25,9 +25,9 @@ import { getTokensFromStorage } from 'widgets/header/libr/authentication/getToke
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
 
-interface Image {
-    image: string;
-}
+// interface Image {
+//     image: string;
+// }
 
 const AddAnnouncementPage = () => {
     const {
@@ -43,30 +43,58 @@ const AddAnnouncementPage = () => {
     });
     const dispatch = useAppDispatch();
 
-    const [selectedImages, setSelectedImages] = useState<Image[] | undefined>();
+    const [selectedImages, setSelectedImages] = useState<File | undefined>();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [modalSuccess, setModalSuccess] = useState(false);
     const { t } = useTranslation();
-    const [ addAdvert, { isLoading } ] = useAddAdvertMutation();
+    // const [ addAdvert, { isLoading } ] = useAddAdvertMutation();
     const { refreshToken } = getTokensFromStorage();
     const category = watch('category');
-  
     const onsubmit = async (data: FormAddAnn) => {
+        console.log(data)
         await getAccessTokenWithRefresh(dispatch, refreshToken)//сначала дожидаемся новый accessToken, затем шлем пост запрос
-        const { accessToken } = getTokensFromStorage();
+        const dataFiledsTuple = Object.entries(data);
+        const formData = new FormData();
+        dataFiledsTuple.forEach((field) => {
+            if(field[1]){
+                formData.append(field[0], field[1]);
+            }
+        })
         try {
-            const result = await addAdvert({ body: data, token: accessToken });
-            if ('data' in result) {
+            const { accessToken } = getTokensFromStorage();
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/advertisements/`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                },
+                body: formData,
+            })
+            if(response.ok){
                 setSelectedImages(undefined);
                 setMarkerPosition(undefined);
                 reset();
                 setValue('category', data.category);
                 setModalSuccess(true);
+            } else {
+                toast.error(`${t('errors.add-announcement-error')}`);
             }
         } catch (error) {
-            console.log(error);
+            console.log(error)
             toast.error(`${t('errors.add-announcement-error')}`);
         }
+        // try {
+        //     const result = await addAdvert({ body: data, token: accessToken });
+        //     if ('data' in result) {
+        //         setSelectedImages(undefined);
+        //         setMarkerPosition(undefined);
+        //         reset();
+        //         setValue('category', data.category);
+        //         setModalSuccess(true);
+        //     }
+        // } catch (error) {
+        //     console.log(error);
+        //     toast.error(`${t('errors.add-announcement-error')}`);
+        // }
     };
     const handleClick = () => {
         setModalSuccess(false);
@@ -75,7 +103,7 @@ const AddAnnouncementPage = () => {
 
     return (
         <>
-            {isLoading && <LoadingWithBackground />}
+            {/*{isLoading && <LoadingWithBackground />}*/}
             {modalSuccess && (
                 <BackgroundModal
                     className={styles.background}

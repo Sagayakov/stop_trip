@@ -2,17 +2,23 @@ import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
-    defaultValue?: {name: string} | null | undefined
+    defaultValue?: { name: string } | null | undefined;
+    formState?: FormState<FormAddAnn>;
 }
 
-const AnnouncementCity = ({ control, setValue, defaultValue }: Props) => {
+const AnnouncementCity = ({
+    control,
+    setValue,
+    defaultValue,
+}: Props) => {
     const { t } = useTranslation();
+
     const options = [
         { value: 'arambol', label: 'Арамболь' },
         { value: 'mandrem', label: 'Мандрем' },
@@ -20,10 +26,12 @@ const AnnouncementCity = ({ control, setValue, defaultValue }: Props) => {
     ];
 
     useEffect(() => {
-        if(defaultValue){
-            const defaultCity = options.find((el) => el.label === defaultValue.name);
+        if (defaultValue) {
+            const defaultCity = options.find(
+                (el) => el.label === defaultValue.name
+            );
             setValue('city', defaultCity!.value);
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (
@@ -41,7 +49,10 @@ const AnnouncementCity = ({ control, setValue, defaultValue }: Props) => {
                 closeMenuOnSelect={true}
                 isMulti={false}
                 options={options}
-                defaultValue={options.find((el) => el.label === defaultValue?.name)}
+                required={true}
+                defaultValue={options.find(
+                    (el) => el.label === defaultValue?.name
+                )}
             />
             <div className={styles.ann_field_err}></div>
         </div>
