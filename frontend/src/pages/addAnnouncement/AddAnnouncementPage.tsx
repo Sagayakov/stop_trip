@@ -15,7 +15,6 @@ import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import styles from './libr/addAnnouncement.module.scss';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
-// import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import './libr/selectAddAnnouncement.scss';
 import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
@@ -103,6 +102,9 @@ const AddAnnouncementPage = () => {
         setModalSuccess(false);
         scrollToTop();
     };
+    const sendButtonDisabled = () => {
+        return selectedImages && selectedImages.length > 10
+    }
 
     return (
         <>
@@ -157,7 +159,7 @@ const AddAnnouncementPage = () => {
                             markerPosition={markerPosition}
                             setMarkerPosition={setMarkerPosition}
                         />
-                        <AnnouncementSubmitButton />
+                        <AnnouncementSubmitButton isDisabled={sendButtonDisabled()} />
                     </Suspense>
                 </form>
             </section>

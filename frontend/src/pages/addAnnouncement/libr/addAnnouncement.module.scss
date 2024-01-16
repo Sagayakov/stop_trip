@@ -151,6 +151,9 @@
                 overflow-wrap: break-word;
                 cursor: pointer;
             }
+            input[type='submit']:disabled{
+                background-color: var(--grey-3);
+            }
             .goBack {
                 width: 30%;
                 padding: 12px 20px;
