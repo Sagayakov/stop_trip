@@ -7,7 +7,7 @@ import '@testing-library/jest-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import { useTranslation } from 'react-i18next';
+//import { useTranslation } from 'react-i18next';
 import { publicRoutes } from 'app/router/routes';
 import { url } from 'shared/const/url';
 import { categories } from 'shared/const/categories';
@@ -16,9 +16,9 @@ beforeEach((): void => {
     fetchMock.resetMocks();
 });
 
-jest.mock('react-i18next', () => ({
+/* jest.mock('react-i18next', () => ({
     useTranslation: jest.fn(),
-}));
+})); */
 
 const testCases = Object.entries(categories).map((el) => ({
     category: el[0],
@@ -28,14 +28,14 @@ describe('Product route', () => {
     test.each(testCases)(
         'should render product page for each category from test table',
         async ({ category }) => {
-            const useTranslationSpy = useTranslation;
+            /* const useTranslationSpy = useTranslation;
             const tSpy = jest.fn((str) => str);
             (useTranslationSpy as jest.Mock).mockReturnValue({
                 t: tSpy,
                 i18n: {
                     changeLanguage: () => new Promise(() => {}),
                 },
-            });
+            }); */
 
             const { results } = await (
                 await fetch(
@@ -61,8 +61,8 @@ describe('Product route', () => {
                 })();
 
                 waitFor(() => {
-                    const categoryHeader = screen.getByRole('h1');
-                    expect(categoryHeader).toHaveTextContent(title);
+                    const productHeader = screen.getByRole('h1');
+                    expect(productHeader).toHaveTextContent(title);
                 });
             }
         }
