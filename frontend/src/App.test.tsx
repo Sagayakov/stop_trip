@@ -8,9 +8,9 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from 'app/store/store';
-import userEvent from '@testing-library/user-event';
 import { AppRouter } from 'app/router/AppRouter';
 import { useTranslation } from 'react-i18next';
+import { localStorageMock } from 'shared/mocks/localStorage.mock';
 
 beforeEach((): void => {
     fetchMock.resetMocks();
@@ -19,6 +19,8 @@ beforeEach((): void => {
 jest.mock('react-i18next', () => ({
     useTranslation: jest.fn(),
 }));
+
+localStorageMock().setItemMock('lang', 'en');
 
 describe('App', () => {
     test('should render main page', () => {
@@ -40,9 +42,6 @@ describe('App', () => {
                 </Provider>
             );
         });
-
-        const enLangBtn = screen.getByTestId('test-english');
-        userEvent.click(enLangBtn);
 
         waitFor(() => {
             const popularCategoriesHeader =

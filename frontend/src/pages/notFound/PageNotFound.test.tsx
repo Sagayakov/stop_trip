@@ -7,28 +7,17 @@ import '@testing-library/jest-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import { useTranslation } from 'react-i18next';
 import { publicRoutes } from 'app/router/routes';
+import { localStorageMock } from 'shared/mocks/localStorage.mock';
 
 beforeEach((): void => {
     fetchMock.resetMocks();
 });
 
-jest.mock('react-i18next', () => ({
-    useTranslation: jest.fn(),
-}));
+localStorageMock().setItemMock('lang', 'en');
 
 describe('404 route', () => {
     test('should render Not found page', () => {
-        const useTranslationSpy = useTranslation;
-        const tSpy = jest.fn((str) => str);
-        (useTranslationSpy as jest.Mock).mockReturnValue({
-            t: tSpy,
-            i18n: {
-                changeLanguage: () => new Promise(() => {}),
-            },
-        });
-
         ((route = `/non-existent-route`) => {
             window.history.pushState({}, 'Not found page', route);
             return {
@@ -42,9 +31,6 @@ describe('404 route', () => {
         })();
 
         waitFor(() => {
-            const enLangBtn = screen.getByTestId('test-english');
-            userEvent.click(enLangBtn);
-
             const notFoundHeader = screen.getByText(/there is no such page/i);
             expect(notFoundHeader).toBeInTheDocument();
             expect(window.location.pathname).toEqual('/404');
