@@ -2,12 +2,12 @@
  * @jest-environment jsdom
  */
 import fetchMock from 'jest-fetch-mock';
-import './shared/mocks/matchMedia.mock';
+import 'shared/mocks/matchMedia.mock';
 import '@testing-library/jest-dom';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from './app/store/store';
+import { store } from 'app/store/store';
 import userEvent from '@testing-library/user-event';
 import { AppRouter } from 'app/router/AppRouter';
 import { useTranslation } from 'react-i18next';

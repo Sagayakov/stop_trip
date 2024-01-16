@@ -72,7 +72,9 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
             key === 'city' ||
             key === 'property_city' ||
             key === 'images' ||
-            key === 'is_published'
+            key === 'is_published' ||
+            key === 'country' ||
+            key === 'region'
         ) {
             continue;
         } else if (

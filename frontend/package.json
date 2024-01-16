@@ -8,7 +8,7 @@
         "build": "tsc && vite build",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
-        "test": "jest --watchAll --coverage"
+        "test": "jest --watchAll --coverage --maxWorkers 2"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.5",
