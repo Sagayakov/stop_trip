@@ -35,6 +35,9 @@ const MySettings = () => {
     }, [dispatch]);
 
     const onsubmit: SubmitHandler<SettingTypes> = async (data: SettingTypes) => {
+        const { refreshToken } = getTokensFromStorage();
+        getAccessTokenWithRefresh(dispatch, refreshToken);
+        const { accessToken: token } = getTokensFromStorage();
         let success = false;
         if (data.current_password && data.new_password && data.re_new_password) {
             const body = {
@@ -42,7 +45,7 @@ const MySettings = () => {
                 new_password: data.new_password,
                 re_new_password: data.re_new_password,
             };
-            const res = await setPassword({ body, token: accessToken });
+            const res = await setPassword({ body, token: token });
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             if(!res?.error) {
@@ -50,7 +53,7 @@ const MySettings = () => {
             }
         }
         if ((data.phone || data.full_name) && (data.phone !== userData?.phone || data.full_name !== userData?.full_name)) {
-            const res = await setUser({ body: data, token: accessToken });
+            const res = await setUser({ body: data, token: token });
             if(res) success = true;
         }
         success && toast.success(t('my-settings.success'));
