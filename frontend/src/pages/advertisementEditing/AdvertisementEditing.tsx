@@ -10,7 +10,8 @@ import {
     AnnouncementCity,
     AnnouncementDescriptionField,
     AnnouncementLocationField,
-    AnnouncementNameField, AnnouncementPhotoField,
+    AnnouncementNameField,
+    AnnouncementPhotoField,
     AnnouncementPriceField,
     AnnouncementRegion,
     OptionalFields,
@@ -24,7 +25,7 @@ import { toast } from 'react-toastify';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
-import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
+import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
@@ -90,7 +91,9 @@ const AdvertisementEditing = () => {
         try {
             const { accessToken } = getTokensFromStorage();
             const response = await fetch(
-                `${import.meta.env.VITE_BASE_URL}/api/advertisements/${addSlug}`,
+                `${
+                    import.meta.env.VITE_BASE_URL
+                }/api/advertisements/${addSlug}`,
                 {
                     method: 'PUT',
                     headers: {
@@ -121,11 +124,9 @@ const AdvertisementEditing = () => {
                     const response = await fetch(link.image);
                     const imageBlob = await response.blob();
                     // Создаем File из Blob
-                    const imageFile = new File(
-                        [imageBlob],
-                        `image_${index}`,
-                        { type: imageBlob.type }
-                    );
+                    const imageFile = new File([imageBlob], `image_${index}`, {
+                        type: imageBlob.type,
+                    });
                     index++;
                     if (selectedImages && selectedImages.length > 0) {
                         setSelectedImages([...selectedImages, imageFile]);

@@ -3,12 +3,8 @@ import { Control, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { jobValues } from './libr/jobValues';
 import { useTranslation } from 'react-i18next';
-<<<<<<< HEAD
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
-import { useEffect } from 'react';
-=======
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
->>>>>>> 927a42b (fix: resolve conflicts)
+import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -28,16 +24,12 @@ export const AnnouncementJobPayment = ({
         if (defaultValue) {
             return paymentValues.find((el) => el.value === defaultValue);
         }
-<<<<<<< HEAD
-    }
-    useEffect(() => {
-        if(defaultValue){
-            setValue('job_payment_type', getDefaultValue()!.value)
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
-    }, []);
-=======
     };
->>>>>>> 927a42b (fix: resolve conflicts)
+    useEffect(() => {
+        if (defaultValue) {
+            setValue('job_payment_type', getDefaultValue()!.value);
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+    }, []);
 
     return (
         <div className={styles.ann_field}>

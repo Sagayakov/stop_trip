@@ -8,14 +8,10 @@ import { useState } from 'react';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/footer/footer.module.scss';
-<<<<<<< HEAD
-import { InputTypeSubmit } from 'entities/universalEntites';
+import { InputTypeSubmit } from 'entity/universalEntites';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
-=======
-import { InputTypeSubmit } from 'entity/universalEntites/InputTypeSubmit.tsx';
 import { url } from 'shared/const/url';
->>>>>>> f31783f (feat: add test environment & 1st test)
 
 export const FeedbackForm = () => {
     const [loading, setLoading] = useState(false);
@@ -53,7 +49,7 @@ export const FeedbackForm = () => {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`,
+                        Authorization: `Bearer ${accessToken}`,
                     },
                     body,
                 });
