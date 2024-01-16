@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { setLang } from 'features/header/model/langsReducer/lang.ts';
 import styles from './libr/langs.module.scss';
-import { UniversalButton } from 'entities/universalEntites';
+import { UniversalButton } from 'entity/universalEntites';
 
 export const Langs = () => {
     const lang = useAppSelector((state) => state.setLang.lang);
@@ -21,16 +21,17 @@ export const Langs = () => {
             >
                 RU
             </UniversalButton>
-            <UniversalButton
+            <button
                 className={
                     lang === 'en'
                         ? `${styles.language_eng} ${styles.lang_active}`
                         : `${styles.language_eng}`
                 }
                 onClick={handleClick}
+                data-testid="test-english"
             >
                 EN
-            </UniversalButton>
+            </button>
         </div>
     );
 };

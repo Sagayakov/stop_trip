@@ -1,6 +1,6 @@
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useTranslation } from 'react-i18next';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useEffect } from 'react';
@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
-    defaultValue?: { name: string; } | null
+    defaultValue?: { name: string } | null;
 }
 
 const AnnouncementRegion = ({ control, setValue }: Props) => {

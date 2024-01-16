@@ -20,7 +20,7 @@ import { TypeSettingTransport } from './libr/TypeSettingTransport';
 import { useSearchParams } from 'react-router-dom';
 import { getTransportQuery } from 'shared/utils/getTransportQuery.ts';
 import { useTranslation } from 'react-i18next';
-import { UniversalButton } from 'entities/universalEntites';
+import { UniversalButton } from 'entity/universalEntites';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingTransportForm.module.scss';
 import formStyle from 'widgets/settingForm/forms/filtersForm.module.scss';

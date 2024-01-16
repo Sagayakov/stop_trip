@@ -1,17 +1,17 @@
 import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
 import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
-import { Cart } from 'entities/lastAdverts';
-// import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { Cart } from 'entity/lastAdverts';
+// import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { Pagination } from 'features/pagination';
 import styles from './libr/LastAdverts.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks.ts';
 import { Suspense, useRef } from 'react';
-import { LoaidngWithoutBackground } from 'entities/loading/LoaidngWithoutBackground.tsx';
+import { LoaidngWithoutBackground } from 'entity/loading/LoaidngWithoutBackground.tsx';
 
 const LastAdverts = () => {
     const pageMain = useAppSelector((state) => state.setPageMain.pageMain);
-    const { data, /* isLoading */ } = useGetAdvertsQuery(`?page=${pageMain}`);
+    const { data /* isLoading */ } = useGetAdvertsQuery(`?page=${pageMain}`);
     const { t } = useTranslation();
     const parentRef = useRef<HTMLDivElement>(null);
 

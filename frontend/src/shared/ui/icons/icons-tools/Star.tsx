@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import { useAppSelector } from 'app/store/hooks.ts';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
-import styles from 'entities/advert/advertOwner/libr/advertOwner.module.scss';
+import styles from 'entity/advert/advertOwner/libr/advertOwner.module.scss';
 import { useChangeRatingMutation } from 'app/api/fetchRating';
 
 type StarProps = {

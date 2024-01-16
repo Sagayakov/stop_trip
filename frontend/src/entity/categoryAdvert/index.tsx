@@ -38,9 +38,9 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
     const { t } = useTranslation();
 
     const notFoundImg = [
-        '../../../src/entities/lastAdverts/ui/image-not-found.jpg',
-        '../../../src/entities/lastAdverts/ui/image-not-found.jpg',
-        '../../../src/entities/lastAdverts/ui/image-not-found.jpg',
+        '../../../src/entity/lastAdverts/ui/image-not-found.jpg',
+        '../../../src/entity/lastAdverts/ui/image-not-found.jpg',
+        '../../../src/entity/lastAdverts/ui/image-not-found.jpg',
     ];
 
     const styleFav = {
@@ -104,9 +104,15 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
                 ) : (
                     <img
                         src={
+<<<<<<< HEAD:frontend/src/entities/categoryAdvert/index.tsx
                             !images[0]
                                 ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
                                 : images[0].image
+=======
+                            !el.images[0]
+                                ? '../../../src/entity/lastAdverts/ui/image-not-found.jpg'
+                                : el.images[0].image
+>>>>>>> f31783f (feat: add test environment & 1st test):frontend/src/entity/categoryAdvert/index.tsx
                         }
                         alt="Not found"
                     />

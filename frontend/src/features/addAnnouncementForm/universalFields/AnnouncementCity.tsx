@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { useEffect } from 'react';
@@ -12,11 +12,7 @@ interface Props {
     formState?: FormState<FormAddAnn>;
 }
 
-const AnnouncementCity = ({
-    control,
-    setValue,
-    defaultValue,
-}: Props) => {
+const AnnouncementCity = ({ control, setValue, defaultValue }: Props) => {
     const { t } = useTranslation();
 
     const options = [

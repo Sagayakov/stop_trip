@@ -1,9 +1,9 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { taxiValues } from './taxiValues';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useEffect } from 'react';
 
 interface Props {
@@ -11,19 +11,23 @@ interface Props {
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null;
 }
-export const AnnouncementTaxiType = ({ control, setValue, defaultValue }: Props) => {
+export const AnnouncementTaxiType = ({
+    control,
+    setValue,
+    defaultValue,
+}: Props) => {
     const valuesOfTaxiType = taxiValues.valuesofTaxiType;
     const { t } = useTranslation();
 
     const getDefaultValue = () => {
-        if(defaultValue){
-            return valuesOfTaxiType.find((el) => el.value === defaultValue)
+        if (defaultValue) {
+            return valuesOfTaxiType.find((el) => el.value === defaultValue);
         }
-    }
+    };
     useEffect(() => {
-        if(defaultValue){
-            setValue('taxi_type', getDefaultValue()!.value)
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+        if (defaultValue) {
+            setValue('taxi_type', getDefaultValue()!.value);
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (

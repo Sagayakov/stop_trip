@@ -1,5 +1,5 @@
 import { ColorRing } from 'react-loader-spinner';
-import './LoadingWithBackground.scss'
+import './LoadingWithBackground.scss';
 
 export const LoadingWithBackground = () => {
     return (

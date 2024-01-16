@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { MapComponent } from 'entities/map/MapComponent.tsx';
+import { MapComponent } from 'entity/map/MapComponent.tsx';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -19,7 +19,7 @@ const AnnouncementLocationField = ({
     const { t } = useTranslation();
 
     useEffect(() => {
-        if(markerPosition){
+        if (markerPosition) {
             const arr = markerPosition?.split(',');
             const latitude = arr[0];
             const longitude = arr[1];
@@ -27,21 +27,21 @@ const AnnouncementLocationField = ({
         }
     }, [markerPosition]);
     const defaultCoordinates = () => {
-        if(markerPosition){
+        if (markerPosition) {
             const arr = markerPosition?.split(',');
             const latitude = Number(arr[1]);
             const longitude = Number(arr[0]);
-            return [latitude, longitude]
+            return [latitude, longitude];
         }
-    }
+    };
     return (
         <div className={styles.ann_field}>
-            <h3>
-                {`${t('add-page.location')}:`}
-            </h3>
+            <h3>{`${t('add-page.location')}:`}</h3>
             <div className={styles.map_wrapper}>
                 <MapComponent
-                    propertyLocation={defaultCoordinates() || [73.821235, 15.483506]}
+                    propertyLocation={
+                        defaultCoordinates() || [73.821235, 15.483506]
+                    }
                     isSelected={true}
                     setMarkerPosition={setMarkerPosition}
                 />

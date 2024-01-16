@@ -12,16 +12,22 @@ import { Point } from 'ol/geom';
 import ScaleLineControl from 'ol/control/ScaleLine';
 import { Zoom } from 'ol/control';
 import { Coordinate } from 'ol/coordinate';
-import stylesAddAnnouncement from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
-import stylesAnnouncementPage from 'entities/location/advertLocation.module.scss'
+import stylesAddAnnouncement from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
+import stylesAnnouncementPage from 'entity/location/advertLocation.module.scss';
 
 type MapProps = {
     propertyLocation: number[];
     isSelected?: boolean;
-    setMarkerPosition?: (value: React.SetStateAction<string | undefined>) => void;
+    setMarkerPosition?: (
+        value: React.SetStateAction<string | undefined>
+    ) => void;
 };
 
-export const MapComponent = ({ propertyLocation, isSelected, setMarkerPosition }: MapProps) => {
+export const MapComponent = ({
+    propertyLocation,
+    isSelected,
+    setMarkerPosition,
+}: MapProps) => {
     useGeographic();
 
     const mapTargetElement = useRef<HTMLDivElement>(null);
@@ -29,15 +35,17 @@ export const MapComponent = ({ propertyLocation, isSelected, setMarkerPosition }
 
     const mapRef = useRef<Map>();
     mapRef.current = map;
-    const [ selectedCoord , setSelectedCoord ] = useState<Coordinate>();
-    const [ zoom , setZoom ] = useState<number | undefined>(10);
+    const [selectedCoord, setSelectedCoord] = useState<Coordinate>();
+    const [zoom, setZoom] = useState<number | undefined>(10);
 
     const scaleLineControl = new ScaleLineControl();
     const zoomControl = new Zoom({});
 
     const handleMapClick = (event: MapBrowserEvent<UIEvent>) => {
-        const clickedCoord = (mapRef!.current! as Map).getCoordinateFromPixel(event.pixel);
-        setSelectedCoord && setSelectedCoord( clickedCoord);
+        const clickedCoord = (mapRef!.current! as Map).getCoordinateFromPixel(
+            event.pixel
+        );
+        setSelectedCoord && setSelectedCoord(clickedCoord);
     };
     useEffect(() => {
         const map = new Map({
@@ -46,17 +54,20 @@ export const MapComponent = ({ propertyLocation, isSelected, setMarkerPosition }
                 new VectorLayer({
                     source: new VectorSource({
                         features: [
-                            new Feature(new Point(isSelected && selectedCoord
-                                ? [selectedCoord[0], selectedCoord[1]]
-                                : propertyLocation
-                            ))
+                            new Feature(
+                                new Point(
+                                    isSelected && selectedCoord
+                                        ? [selectedCoord[0], selectedCoord[1]]
+                                        : propertyLocation
+                                )
+                            ),
                         ],
                     }),
                     style: {
-                      'circle-radius': 10,
-                      'circle-fill-color': '#1f6fde',
+                        'circle-radius': 10,
+                        'circle-fill-color': '#1f6fde',
                     },
-                  }),
+                }),
             ],
             controls: [scaleLineControl, zoomControl],
             view: new View({
@@ -69,12 +80,13 @@ export const MapComponent = ({ propertyLocation, isSelected, setMarkerPosition }
 
         isSelected && map.on('click', handleMapClick);
 
-        map.setTarget(mapTargetElement.current || "");
+        map.setTarget(mapTargetElement.current || '');
         setMap(map);
-        setMarkerPosition && selectedCoord &&
+        setMarkerPosition &&
+            selectedCoord &&
             setMarkerPosition(`${selectedCoord[1]},  ${selectedCoord[0]}`);
 
-        return () => map.setTarget("");
+        return () => map.setTarget('');
     }, [propertyLocation, selectedCoord]);
 
     const handleWheel = () => {
@@ -82,13 +94,13 @@ export const MapComponent = ({ propertyLocation, isSelected, setMarkerPosition }
             const actualZoom = map.getView().getZoom();
             setZoom(actualZoom);
         }
-    }
+    };
 
     return (
         <div
             ref={mapTargetElement}
             className={`${stylesAddAnnouncement.map} ${stylesAnnouncementPage.map}`}
-            onWheel={handleWheel}>
-        </div>
+            onWheel={handleWheel}
+        ></div>
     );
 };

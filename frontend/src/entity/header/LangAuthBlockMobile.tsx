@@ -2,7 +2,7 @@ import { Person } from 'shared/ui/icons/icons-tools/Person.tsx';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { toggleModalEnter } from 'features/header/model/modalAuth/reducers/toggleModal.ts';
 import { Dispatch } from 'redux';
-import { Langs } from 'entities/langs';
+import { Langs } from 'entity/langs';
 import styles from 'widgets/header/libr/header.module.scss';
 
 interface Props {

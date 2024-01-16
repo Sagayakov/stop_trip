@@ -4,8 +4,8 @@ import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
-import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -20,9 +20,9 @@ export const Amenities = ({ setValue, control }: Props) => {
     const { data } = useGetFiltersQuery('');
     const { t } = useTranslation();
 
-    const options = (data?.params.find(
+    const options = data?.params.find(
         (el) => el.name === 'property_amenities'
-    ) as ChoicesType);
+    ) as ChoicesType;
 
     return (
         <div className={styles.amenities}>

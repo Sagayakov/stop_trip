@@ -11,7 +11,7 @@ import styles from './libr/formEnter.module.scss';
 import { AuthData } from './libr/EnterType.ts';
 import { submitEntForm } from './libr/submitEntForm.ts';
 import { setIsResetPasswordModalOpen } from 'features/header/model/modalAuth/reducers/isResetPasswordModalOpen.ts';
-import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
+import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { resetErrors } from 'features/header/model/modalAuth/reducers/auth.ts';
 import { useTranslation } from 'react-i18next';
 

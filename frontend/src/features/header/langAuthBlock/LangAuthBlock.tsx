@@ -1,4 +1,4 @@
-import { LangAuthBlockDesktop, LangAuthBlockMobile } from 'entities/header';
+import { LangAuthBlockDesktop, LangAuthBlockMobile } from 'entity/header';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { ModalMobile } from 'features/header/modal/modalMobile/ModalMobile.tsx';
 import { useState } from 'react';

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { fetchAdverts } from 'app/api/fetchAdverts.ts';
-import setLoadingSlice from '../../entities/loading/model/setLoadingSlice';
+import setLoadingSlice from '../../entity/loading/model/setLoadingSlice';
 import { setIsAuthSlice } from 'features/header/model/modalAuth/reducers/auth.ts';
 import { setIsCheckMailModalOpenSlice } from 'features/header/model/modalAuth/reducers/isCheckMailModalOpen.ts';
 import { setIsEnterSlice } from 'features/header/model/modalAuth/reducers/isEnter.ts';

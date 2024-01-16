@@ -1,8 +1,8 @@
-import { UniversalCheckboxGroup } from 'entities/universalEntites';
+import { UniversalCheckboxGroup } from 'entity/universalEntites';
 import { UseFormRegister } from 'react-hook-form';
 import { TypeForMarketForm } from 'widgets/settingForm/settingMarket/libr/TypeForMarketForm.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'widgets/settingForm/settingMarket/libr/settingMarketForm.module.scss'
+import styles from 'widgets/settingForm/settingMarket/libr/settingMarketForm.module.scss';
 
 interface Props {
     register: UseFormRegister<TypeForMarketForm>;

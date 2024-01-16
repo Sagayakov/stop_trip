@@ -1,9 +1,9 @@
 import { Suspense, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './pageNotFound.module.scss';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 const NotFoundNumbers = lazy(
-    () => import('../../entities/notFoundNumbers/NotFoundNumbers')
+    () => import('../../entity/notFoundNumbers/NotFoundNumbers')
 );
 const NotFoundCategories = lazy(
     () => import('../../features/notFoundCategories/NotFoundCategories')

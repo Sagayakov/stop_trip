@@ -8,8 +8,8 @@ import { Like } from 'shared/ui/Like';
 import { ShareIcon } from 'shared/ui/shareIcon';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { createPortal } from 'react-dom';
-import { Portal } from 'entities/portal/Portal.tsx';
-import { Shadow } from 'entities/portal/Shadow.tsx';
+import { Portal } from 'entity/portal/Portal.tsx';
+import { Shadow } from 'entity/portal/Shadow.tsx';
 
 export const PhotoSlider = () => {
     const { slug } = useParams();
@@ -44,7 +44,7 @@ export const PhotoSlider = () => {
 
     const image =
         !data || !data.images[activeImage]
-            ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
+            ? '../../../src/entity/lastAdverts/ui/image-not-found.jpg'
             : data?.images[activeImage].image;
 
     const handleOnLoad = () => {

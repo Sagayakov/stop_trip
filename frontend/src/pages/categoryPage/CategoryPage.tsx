@@ -7,7 +7,7 @@ export const AnyCategory = lazy(
 export const Controls = lazy(() => import('features/controls/Controls'));
 import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
 import { HorizontalMixer } from 'shared/ui/icons/icons-tools/HorizontalMixer.tsx';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { useTranslation } from 'react-i18next';
 import { FilterForms } from 'widgets/settingForm/forms/FilterForms.tsx';
 import style from './style/categoryPage.module.scss';

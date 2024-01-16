@@ -8,8 +8,8 @@ import { confimResetPassword } from './api/confirmResetPassword';
 import { NavLink, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { Dispatch } from '@reduxjs/toolkit';
-import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/resetPassword/resetPassword.module.scss';
 

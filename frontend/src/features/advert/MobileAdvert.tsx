@@ -1,7 +1,7 @@
-import { PhotoSlider } from 'entities/photoSlider/PhotoSlider.tsx';
+import { PhotoSlider } from 'entity/photoSlider/PhotoSlider.tsx';
 import styles from 'widgets/advert/libr/advert.module.scss';
-import { PriceBlock } from 'entities/advert';
-import { AdvertOwner } from 'entities/advert/advertOwner/AdvertOwner.tsx';
+import { PriceBlock } from 'entity/advert';
+import { AdvertOwner } from 'entity/advert/advertOwner/AdvertOwner.tsx';
 import { Link } from 'react-router-dom';
 import { ProductInfo } from 'features/advert/ProductInfo.tsx';
 import { ProductType } from 'pages/advertPage/libr/types.ts';

@@ -1,11 +1,11 @@
-import { Langs } from 'entities/langs';
+import { Langs } from 'entity/langs';
 import { Person } from 'shared/ui/icons/icons-tools/Person.tsx';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { Dispatch } from 'redux';
 import { toggleModalEnter } from 'features/header/model/modalAuth/reducers/toggleModal.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/header/libr/header.module.scss';
-import { UniversalButton } from 'entities/universalEntites';
+import { UniversalButton } from 'entity/universalEntites';
 interface Props {
     showUserMenu: boolean;
     setShowUserMenu: React.Dispatch<React.SetStateAction<boolean>>;

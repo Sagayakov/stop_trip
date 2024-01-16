@@ -2,8 +2,9 @@ import { LogoHeader } from 'shared/ui/icons/icons-tools/LogoHeader.tsx';
 import { Telegram } from 'shared/ui/icons/contacts/Telegram.tsx';
 import { WhatsApp } from 'shared/ui/icons/contacts/WhatsApp.tsx';
 import { Facebook } from 'shared/ui/icons/contacts/Facebook.tsx';
-import styles from 'widgets/footer/footer.module.scss'
-export const FooterBottomDesctop = () => {
+import styles from 'widgets/footer/footer.module.scss';
+
+export const FooterBottomDesktop = () => {
     return (
         <div className={styles.footer_bot}>
             <LogoHeader isFooter={true} />
@@ -17,4 +18,4 @@ export const FooterBottomDesctop = () => {
             </div>
         </div>
     );
-}
+};

@@ -1,12 +1,12 @@
 import styles from 'pages/myAnnouncements/libr/myAnnouncements.module.scss';
 import { useState } from 'react';
 import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
-import imgNotFound from 'entities/lastAdverts/ui/image-not-found.jpg';
+import imgNotFound from 'entity/lastAdverts/ui/image-not-found.jpg';
 import {
     AnnouncementOptions,
     ModalOption,
     MyAnnouncementDescription,
-} from 'entities/myAnnouncements';
+} from 'entity/myAnnouncements';
 import { NavLink } from 'react-router-dom';
 
 export const MyAnnouncementCart = ({

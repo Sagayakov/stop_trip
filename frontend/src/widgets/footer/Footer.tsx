@@ -2,7 +2,8 @@ import { FeedbackForm } from 'features/footer';
 import { LogoHeader } from 'shared/ui/icons/icons-tools/LogoHeader.tsx';
 import styles from './footer.module.scss';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
-import { FooterBottomDesctop, FooterBottomMobile } from 'entities/footer';
+import { FooterBottomDesktop } from 'entity/footer/FooterBottomDesktop.tsx';
+import { FooterBottomMobile } from 'entity/footer/FooterBottomMobile.tsx';
 
 export const Footer = () => {
     const { isMobile } = useMatchMedia();
@@ -17,7 +18,7 @@ export const Footer = () => {
                 <div className={styles.hr}>
                     <hr />
                 </div>
-                {isMobile && <FooterBottomDesctop />}
+                {isMobile && <FooterBottomDesktop />}
                 {!isMobile && <FooterBottomMobile />}
             </div>
         </footer>

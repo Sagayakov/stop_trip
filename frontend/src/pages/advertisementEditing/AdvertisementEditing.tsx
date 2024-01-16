@@ -16,9 +16,9 @@ import {
     OptionalFields,
 } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
-import { AnnouncementSubmitButton } from 'entities/addAnnouncementForm/universalFields';
+import { AnnouncementSubmitButton } from 'entity/addAnnouncementForm/universalFields';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { toast } from 'react-toastify';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';

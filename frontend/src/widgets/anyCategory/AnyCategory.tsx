@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom';
 import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
 import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { useTranslation } from 'react-i18next';
 import style from 'pages/categoryPage/style/categoryPage.module.scss';
-import { CategoryAdvert } from 'entities/categoryAdvert';
+import { CategoryAdvert } from 'entity/categoryAdvert';
 
 const AnyCategory = () => {
     const queryParam = useLocation().search;

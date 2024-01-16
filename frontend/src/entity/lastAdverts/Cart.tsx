@@ -64,7 +64,7 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
             <img
                 src={
                     images[0] === undefined
-                        ? '../../../src/entities/lastAdverts/ui/image-not-found.jpg'
+                        ? '../../../src/entity/lastAdverts/ui/image-not-found.jpg'
                         : images[0].image
                 }
                 alt="img"

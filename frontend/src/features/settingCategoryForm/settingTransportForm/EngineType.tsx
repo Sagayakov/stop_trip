@@ -3,16 +3,16 @@ import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { useEffect, useState } from 'react';
-import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
 
 interface Props {
     control: Control<TypeSettingTransport, string[]>;
     setValue: UseFormSetValue<TypeSettingTransport>;
 }
-interface ChoicesType{
+interface ChoicesType {
     name: keyof ProductType;
     choices: SelectType[];
 }

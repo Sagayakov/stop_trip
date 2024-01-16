@@ -4,7 +4,7 @@ import { privateRoutes, publicRoutes } from './routes';
 import { useAppSelector } from '../store/hooks';
 import { useTranslation } from 'react-i18next';
 import { Suspense, useEffect } from 'react';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { ActivateAccount } from './components';
 
 export const AppRouter = () => {

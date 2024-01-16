@@ -1,15 +1,18 @@
 import { UseFormRegister } from 'react-hook-form';
-import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup';
+import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue: string | undefined;
 }
 
-export const AnnouncementMarketCondition = ({ register, defaultValue }: Props) => {
+export const AnnouncementMarketCondition = ({
+    register,
+    defaultValue,
+}: Props) => {
     const { t } = useTranslation();
     const conditionValues = [
         { label: `${t('filters.used')}`, value: 'used' },
@@ -17,10 +20,10 @@ export const AnnouncementMarketCondition = ({ register, defaultValue }: Props) =
     ];
 
     const getDefaultValue = () => {
-        if(defaultValue){
-            return conditionValues.find((el) => el.value === defaultValue)
+        if (defaultValue) {
+            return conditionValues.find((el) => el.value === defaultValue);
         }
-    }
+    };
 
     return (
         <div className={styles.ann_field}>
