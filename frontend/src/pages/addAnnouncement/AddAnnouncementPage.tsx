@@ -15,7 +15,6 @@ import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import styles from './libr/addAnnouncement.module.scss';
 import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
-import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import './libr/selectAddAnnouncement.scss';
 import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
@@ -23,11 +22,8 @@ import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFi
 import { toast } from 'react-toastify';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
-import { useAppDispatch } from 'app/store/hooks.ts';
-
-interface Image {
-    image: string;
-}
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
 
 const AddAnnouncementPage = () => {
     const {
@@ -43,28 +39,62 @@ const AddAnnouncementPage = () => {
     });
     const dispatch = useAppDispatch();
 
-    const [selectedImages, setSelectedImages] = useState<Image[] | undefined>();
+    const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [modalSuccess, setModalSuccess] = useState(false);
+    const isLoading = useAppSelector((state) => state.setLoading.loading);
     const { t } = useTranslation();
-    const [ addAdvert, { isLoading } ] = useAddAdvertMutation();
+
     const { refreshToken } = getTokensFromStorage();
     const category = watch('category');
-  
     const onsubmit = async (data: FormAddAnn) => {
+        dispatch(setLoading(true));
         await getAccessTokenWithRefresh(dispatch, refreshToken)//сначала дожидаемся новый accessToken, затем шлем пост запрос
-        const { accessToken } = getTokensFromStorage();
+        const formData = new FormData();
+        Object.entries(data).forEach(([field, value]) => {
+            switch (field) {
+                case 'images':
+                    // Если это поле с изображениями, добавляем каждый файл поочередно
+                    if (value instanceof Array && value[0] instanceof File) {
+                        value.forEach((file, index) => {
+                            formData.append('images', file, `image_${index}`);
+                        });
+                    }
+                    break;
+                default:
+                    // Добавляем остальные поля
+                    console.log(`${field}: ${typeof value}`);
+                    if(value === undefined || value === null){
+                        break;//иначе присваивается 'undefined' если поле не заполнено
+                    }
+                    formData.append(field, value);
+                    break;
+            }
+        });
+
         try {
-            const result = await addAdvert({ body: data, token: accessToken });
-            if ('data' in result) {
+            const { accessToken } = getTokensFromStorage();
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/advertisements/`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                },
+                body: formData,
+            })
+            if(response.ok){
                 setSelectedImages(undefined);
                 setMarkerPosition(undefined);
                 reset();
                 setValue('category', data.category);
+                dispatch(setLoading(false));
                 setModalSuccess(true);
+            } else {
+                dispatch(setLoading(false));
+                toast.error(`${t('errors.add-announcement-error')}`);
             }
         } catch (error) {
-            console.log(error);
+            console.log(error)
+            dispatch(setLoading(false));
             toast.error(`${t('errors.add-announcement-error')}`);
         }
     };
@@ -72,6 +102,9 @@ const AddAnnouncementPage = () => {
         setModalSuccess(false);
         scrollToTop();
     };
+    const sendButtonDisabled = () => {
+        return selectedImages && selectedImages.length > 10
+    }
 
     return (
         <>
@@ -126,7 +159,7 @@ const AddAnnouncementPage = () => {
                             markerPosition={markerPosition}
                             setMarkerPosition={setMarkerPosition}
                         />
-                        <AnnouncementSubmitButton />
+                        <AnnouncementSubmitButton isDisabled={sendButtonDisabled()} />
                     </Suspense>
                 </form>
             </section>

@@ -3,10 +3,7 @@ import 'pages/addAnnouncement/libr/selectAddAnnouncement.scss';
 import { useForm } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import {
-    useEditAdvertMutation,
-    useGetAdvertBySlugQuery,
-} from 'app/api/fetchAdverts.ts';
+import { useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
     AnnouncementCategoryField,
@@ -25,8 +22,9 @@ import { AnnouncementSubmitButton } from 'entities/addAnnouncementForm/universal
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { toast } from 'react-toastify';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
-import { useAppDispatch } from 'app/store/hooks.ts';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
+import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
@@ -48,14 +46,13 @@ const AdvertisementEditing = () => {
     const slug = path[path.length - 1];
 
     const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery(slug);
-    const { accessToken } = getTokensFromStorage();
+    const { accessToken, refreshToken } = getTokensFromStorage();
     const { data: user } = useGetUserQuery(accessToken);
-
-    const [editAdvert, { isLoading: isSendLoading }] = useEditAdvertMutation();
+    const isLoadingEdit = useAppSelector((state) => state.setLoading.loading);
+    // const [editAdvert, { isLoading: isSendLoading }] = useEditAdvertMutation();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>(
         dataAdvert?.coordinates
     );
-
     const addSlug = dataAdvert ? dataAdvert.slug : '';
     const navigate = useNavigate();
 
@@ -69,17 +66,64 @@ const AdvertisementEditing = () => {
     }
 
     const onsubmit = async (data: FormAddAnn) => {
-        const { refreshToken } = getTokensFromStorage();
-        await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
-        const { accessToken } = getTokensFromStorage();
+        dispatch(setLoading(true));
+        await getAccessTokenWithRefresh(dispatch, refreshToken)//сначала дожидаемся новый accessToken, затем шлем пост запрос
+
+        const formData = new FormData();
+        Object.entries(data).forEach(([field, value]) => {
+            switch (field) {
+                case 'images':
+                    // Если это поле с изображениями, добавляем каждый файл поочередно
+                    if (value instanceof Array && value[0] instanceof File) {
+                        value.forEach((file, index) => {
+                            formData.append('images', file, `image_${index}`);
+                        });
+                    }
+                    break;
+                default:
+                    // Добавляем остальные поля
+                    console.log(`${field}: ${typeof value}`);
+                    if(value === undefined || value === null){
+                        break;//иначе присваивается 'undefined' если поле не заполнено
+                    }
+                    formData.append(field, value);
+                    break;
+            }
+        });
+
         try {
-            const res = await editAdvert({ body: data, addSlug, accessToken });
-            res && toast.success(t('advert-page.advertisement-added'));
-            scrollToTop();
-        } catch (errors) {
-            console.log(errors);
+            const { accessToken } = getTokensFromStorage();
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/advertisements/${addSlug}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                },
+                body: formData,
+            })
+            if(response.ok){
+                dispatch(setLoading(false));
+                scrollToTop();
+            } else {
+                dispatch(setLoading(false));
+                toast.error(`${t('errors.add-announcement-error')}`);
+            }
+        } catch (error) {
+            console.log(error)
+            dispatch(setLoading(false));
             toast.error(`${t('errors.add-announcement-error')}`);
         }
+
+        // const { refreshToken } = getTokensFromStorage();
+        // await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
+        // const { accessToken } = getTokensFromStorage();
+        // try {
+        //     const res = await editAdvert({ body: data, addSlug, accessToken });
+        //     res && toast.success(t('advert-page.advertisement-added'));
+        //     scrollToTop();
+        // } catch (errors) {
+        //     console.log(errors);
+        //     toast.error(`${t('errors.add-announcement-error')}`);
+        // }
     };
 
     useEffect(() => {
@@ -97,7 +141,7 @@ const AdvertisementEditing = () => {
                     id="form-edit-announcement"
                 >
                     {isLoading && user?.id && <LoadingWithBackground />}
-                    {isSendLoading && <LoadingWithBackground />}
+                    {isLoadingEdit && <LoadingWithBackground />}
                     {dataAdvert && (
                         <>
                             <AnnouncementCategoryField

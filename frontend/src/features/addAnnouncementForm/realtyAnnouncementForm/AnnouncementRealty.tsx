@@ -1,6 +1,7 @@
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import {
+    AnnouncementPropertyType,
     AnnouncementRealtyAmenities,
     AnnouncementRealtyBalcony,
     AnnouncementRealtyBathroomQuantity,
@@ -32,6 +33,7 @@ export const AnnouncementRealty = ({ register, control, setValue, data }: Props)
     return (
         <>
             <AnnouncementRealtyServise register={register} defaultValue={data?.property_type_of_service} />
+            <AnnouncementPropertyType setValue={setValue} control={control} defaultValue={data?.property_type} />
             <AnnouncementRealtyHouseType control={control} setValue={setValue} defaultValue={data?.property_house_type} />
             <AnnouncementRealtyPrepayment control={control} setValue={setValue} defaultValue={data?.property_prepayment} />
             <AnnouncementRealtyRentalCondition control={control} setValue={setValue} defaultValue={data?.property_rental_condition} />

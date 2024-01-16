@@ -36,12 +36,12 @@ export const MySettingForm = (props: Props) => {
     const {
         control,
         watch,
-        formState: { errors },
+        formState,
         isLoadingPassword,
         isLoadingMutation,
         passwordErrors,
     } = props;
-
+    const { errors } = formState;
     const { t } = useTranslation();
     const { accessToken } = getTokensFromStorage();
     const { data, isLoading } = useGetUserQuery(accessToken);
@@ -56,7 +56,7 @@ export const MySettingForm = (props: Props) => {
             {(isLoading || isLoadingMutation || isLoadingPassword) && (
                 <LoadingWithBackground />
             )}
-            {!data && <h1>lox</h1>}
+            {!data && <h1>Нет данных</h1>}
             {data && (
                 <>
                     <p>
@@ -64,7 +64,7 @@ export const MySettingForm = (props: Props) => {
                     </p>
                     <div className={styles.input_wrapper}>
                         <MySettingName control={control} data={data} />
-                        <MySettingPhone control={control} data={data} />
+                        <MySettingPhone control={control} data={data} errors={errors} />
                     </div>
                     <div className={styles.input_wrapper}>
                         <h2>Смена пароля</h2>

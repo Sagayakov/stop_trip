@@ -35,6 +35,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
     isClearable,
     defaultValue,
     isDisabled,
+    required
 }: Props<T>) => {
     const animated = makeAnimated();
 
@@ -72,6 +73,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                     isMulti={isMulti}
                     isClearable={isClearable}
                     options={options}
+                    required={required}
                     defaultValue={defaultValue}
                     isDisabled={isDisabled}
                     isSearchable={isSearchable}
