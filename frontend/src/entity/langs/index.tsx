@@ -21,7 +21,6 @@ export const Langs = () => {
             >
                 RU
             </button>
-
             <button
                 className={
                     lang === 'en'
