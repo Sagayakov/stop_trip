@@ -25,6 +25,7 @@ export const AnnouncementJobPayment = ({
             return paymentValues.find((el) => el.value === defaultValue);
         }
     };
+
     useEffect(() => {
         if (defaultValue) {
             setValue('job_payment_type', getDefaultValue()!.value);

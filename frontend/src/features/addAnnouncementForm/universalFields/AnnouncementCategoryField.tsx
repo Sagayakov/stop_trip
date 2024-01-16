@@ -44,9 +44,9 @@ const AnnouncementCategoryField = ({
     };
 
     useEffect(() => {
-        if(defaultValue){
-            setValue('category', getDefaultValue()!.value)
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+        if (defaultValue) {
+            setValue('category', getDefaultValue()!.value);
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (

@@ -25,6 +25,7 @@ export const AnnouncementExchangeFor = ({
             return exchangeForValues.find((el) => el.value === defaultValue);
         }
     };
+
     useEffect(() => {
         if (defaultValue) {
             setValue('exchange_for', getDefaultValue()!.value);

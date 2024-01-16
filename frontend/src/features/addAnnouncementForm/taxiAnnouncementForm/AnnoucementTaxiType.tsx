@@ -24,6 +24,7 @@ export const AnnouncementTaxiType = ({
             return valuesOfTaxiType.find((el) => el.value === defaultValue);
         }
     };
+
     useEffect(() => {
         if (defaultValue) {
             setValue('taxi_type', getDefaultValue()!.value);

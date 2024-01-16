@@ -139,6 +139,7 @@ const AddAnnouncementPage = () => {
                             setValue={setValue}
                             control={control}
                         />
+
                         <AnnouncementRegion
                             setValue={setValue}
                             control={control}
@@ -147,7 +148,6 @@ const AddAnnouncementPage = () => {
                             setValue={setValue}
                             control={control}
                         />
-
                         <AnnouncementNameField
                             register={register}
                             formState={formState}

@@ -29,6 +29,7 @@ export const AnnouncementExchangeName = ({
             return exchangeNameValues.find((el) => el.value === defaultValue);
         }
     };
+
     useEffect(() => {
         if (defaultValue) {
             setValue('proposed_currency', getDefaultValue()!.value);
