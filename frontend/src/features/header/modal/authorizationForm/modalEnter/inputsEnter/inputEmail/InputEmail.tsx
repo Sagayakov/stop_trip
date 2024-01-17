@@ -1,6 +1,11 @@
-import { Control, Controller, FieldErrors, UseFormWatch } from 'react-hook-form';
+import {
+    Control,
+    Controller,
+    FieldErrors,
+    UseFormWatch,
+} from 'react-hook-form';
 import { useAppSelector } from 'app/store/hooks.ts';
-import styleForError from 'features/header/modal/modal.module.scss'
+import styleForError from 'features/header/modal/modal.module.scss';
 import { AuthData } from '../../libr/EnterType.ts';
 import { useTranslation } from 'react-i18next';
 
@@ -15,7 +20,7 @@ export const InputEmail = ({ errors, control, watch }: Props) => {
     const { t } = useTranslation();
 
     const email = watch('email');
-    const handleBlur = () => sessionStorage.setItem("emailEnter", email);
+    const handleBlur = () => sessionStorage.setItem('emailEnter', email);
 
     return (
         <>
@@ -38,7 +43,9 @@ export const InputEmail = ({ errors, control, watch }: Props) => {
                         onBlur={handleBlur}
                         style={{
                             border: `1px solid ${
-                                errors?.email || errorEnter ? '#FF3F25' : '#DCDCDC'
+                                errors?.email || errorEnter
+                                    ? '#FF3F25'
+                                    : '#DCDCDC'
                             }`,
                         }}
                     />

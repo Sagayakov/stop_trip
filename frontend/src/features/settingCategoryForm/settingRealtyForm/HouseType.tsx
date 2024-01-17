@@ -1,11 +1,11 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import {    TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
+import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
-import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;

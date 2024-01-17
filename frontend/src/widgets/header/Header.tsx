@@ -12,7 +12,7 @@ import { getTokensFromStorage } from './libr/authentication/getTokensFromStorage
 import { handleScroll } from './libr/eventListeners/handleScroll';
 import { ModalCheckEmail } from 'features/header/modal/modalCheckEmail/ModalCheckEmail.tsx';
 import { useTranslation } from 'react-i18next';
-import { UniversalButton } from 'entities/universalEntites';
+import { UniversalButton } from 'entity/universalEntites';
 import { LangAuthBlock } from 'features/header/langAuthBlock/LangAuthBlock.tsx';
 
 export const Header = () => {

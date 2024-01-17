@@ -1,6 +1,6 @@
-import { PhotoSlider } from 'entities/photoSlider/PhotoSlider.tsx';
-import { AdvertCharacteristics } from 'entities/advert/advertCharacteristics/AdvertCharacterictics.tsx';
-import { AdvertLocation } from 'entities/location/AdvertLocation.tsx';
+import { PhotoSlider } from 'entity/photoSlider/PhotoSlider.tsx';
+import { AdvertCharacteristics } from 'entity/advert/advertCharacteristics/AdvertCharacterictics.tsx';
+import { AdvertLocation } from 'entity/location/AdvertLocation.tsx';
 import styles from 'widgets/advert/libr/advert.module.scss';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { useTranslation } from 'react-i18next';
@@ -10,8 +10,8 @@ interface Props {
     data: ProductType;
 }
 export const ProductInfo = ({ data }: Props) => {
-    const { t } = useTranslation()
-    const { isMobile } = useMatchMedia()
+    const { t } = useTranslation();
+    const { isMobile } = useMatchMedia();
     return (
         <section className={styles.product_info}>
             {!isMobile && <PhotoSlider />}

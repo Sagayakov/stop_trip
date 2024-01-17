@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 const Controls = lazy(() => import('../../features/controls/Controls'));
 import { useParams } from 'react-router-dom';
 import { useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 const Advert = lazy(() => import('widgets/advert/Advert'));
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 

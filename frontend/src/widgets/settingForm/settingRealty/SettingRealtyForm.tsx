@@ -26,7 +26,7 @@ import { TypeSettingRealty } from './libr/TypeSettingRealty';
 import { useSearchParams } from 'react-router-dom';
 import { getRealtyQuery } from 'shared/utils/getRealtyQuery.ts';
 import { useTranslation } from 'react-i18next';
-import { UniversalButton } from 'entities/universalEntites';
+import { UniversalButton } from 'entity/universalEntites';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingRealty.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';

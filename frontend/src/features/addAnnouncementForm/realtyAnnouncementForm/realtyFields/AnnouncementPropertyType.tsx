@@ -4,7 +4,7 @@ import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -12,21 +12,28 @@ interface Props {
     defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementPropertyType = ({ setValue, control, defaultValue }: Props) => {
+export const AnnouncementPropertyType = ({
+    setValue,
+    control,
+    defaultValue,
+}: Props) => {
     const { t } = useTranslation();
     const optionValues = [
-        {value: 'flat', label: 'Квартира'},
-        {value: 'house', label: 'Дом'},
-        {value: 'room', label: 'Комната'},
-        {value: 'bed_place', label: 'Кровать'},
-        {value: 'parking', label: 'Парковочное место'},
-        {value: 'commercial', label: 'Коммерческое помещение'},
-    ]
+        { value: 'flat', label: 'Квартира' },
+        { value: 'house', label: 'Дом' },
+        { value: 'room', label: 'Комната' },
+        { value: 'bed_place', label: 'Кровать' },
+        { value: 'parking', label: 'Парковочное место' },
+        { value: 'commercial', label: 'Коммерческое помещение' },
+    ];
 
     useEffect(() => {
-        if(defaultValue){
-            setValue('property_house_type', String(getDefaultValue(defaultValue, optionValues)!.value))
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+        if (defaultValue) {
+            setValue(
+                'property_house_type',
+                String(getDefaultValue(defaultValue, optionValues)!.value)
+            );
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (

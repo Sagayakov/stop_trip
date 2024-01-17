@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import styles from '../libr/formEnter.module.scss'
+import styles from '../libr/formEnter.module.scss';
 
 interface Props {
     isValid: boolean;
@@ -14,6 +14,7 @@ export const InputSubmit = ({ isValid }: Props) => {
             className={styles.submit}
             value={t('modal-login.enter')}
             disabled={!isValid}
+            data-testid="enter-button"
         />
     );
 };

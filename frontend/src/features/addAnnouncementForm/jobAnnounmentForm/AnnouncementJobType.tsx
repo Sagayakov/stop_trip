@@ -1,8 +1,8 @@
 import { UseFormRegister } from 'react-hook-form';
-import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup';
+import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { categorySubTypesDictionary } from 'shared/const/categorySubTypesDictionary.ts';
 
 interface Props {
@@ -19,10 +19,10 @@ export const AnnouncementJobType = ({ register, defaultValue }: Props) => {
     ];
 
     const getDefaultValue = () => {
-        if(defaultValue){
-            return jobTypeValues.find((el) => el.value === defaultValue)
+        if (defaultValue) {
+            return jobTypeValues.find((el) => el.value === defaultValue);
         }
-    }
+    };
 
     return (
         <div className={styles.ann_field}>

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './libr/myAnnouncements.module.scss';
 import { useMyAnnouncementsQuery } from 'app/api/fetchAdverts.ts';
 import { MyAnnouncementCart } from 'features/myAnnouncements/MyAnnouncementCart.tsx';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 
 const MyAnnouncements = () => {

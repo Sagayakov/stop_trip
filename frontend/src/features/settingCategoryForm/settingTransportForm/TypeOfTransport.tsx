@@ -2,9 +2,9 @@ import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useTranslation } from 'react-i18next';
-import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup.tsx';
+import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup.tsx';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
-import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -14,9 +14,9 @@ interface ChoicesType {
     name: keyof ProductType;
     choices: Values[];
 }
-interface Values{
-    label: string | number
-    value: string | number
+interface Values {
+    label: string | number;
+    value: string | number;
 }
 export const TypeOfTransport = ({ register }: Props) => {
     const { data } = useGetFiltersQuery('');

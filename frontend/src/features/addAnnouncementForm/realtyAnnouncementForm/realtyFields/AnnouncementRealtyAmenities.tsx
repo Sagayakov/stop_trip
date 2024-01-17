@@ -1,23 +1,26 @@
-import { UniversalCheckboxGroup } from 'entities/universalEntites';
+import { UniversalCheckboxGroup } from 'entity/universalEntites';
 import { UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue?: Amenity[] | undefined;
 }
 type Amenity = {
-    name: string
-}
+    name: string;
+};
 
-export const AnnouncementRealtyAmenities = ({ register, defaultValue }: Props) => {
+export const AnnouncementRealtyAmenities = ({
+    register,
+    defaultValue,
+}: Props) => {
     const { t } = useTranslation();
 
     const optionValues = valuesOfPropertyForm.property_amenities;
-    const val = defaultValue?.map((el) => el.name.toLowerCase())
+    const val = defaultValue?.map((el) => el.name.toLowerCase());
 
     return (
         <div className={styles.ann_field}>

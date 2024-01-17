@@ -1,9 +1,9 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 import { useEffect } from 'react';
 
@@ -13,7 +13,11 @@ interface Props {
     defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementRealtyHouseType = ({ setValue, control, defaultValue }: Props) => {
+export const AnnouncementRealtyHouseType = ({
+    setValue,
+    control,
+    defaultValue,
+}: Props) => {
     const optionValues = valuesOfPropertyForm.property_house_type;
     const { t } = useTranslation();
 

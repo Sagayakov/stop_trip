@@ -1,7 +1,7 @@
 import styles from 'widgets/advert/libr/advert.module.scss';
 import { ProductInfo } from 'features/advert/ProductInfo.tsx';
-import { PriceBlock } from 'entities/advert';
-import { AdvertOwner } from 'entities/advert/advertOwner/AdvertOwner.tsx';
+import { PriceBlock } from 'entity/advert';
+import { AdvertOwner } from 'entity/advert/advertOwner/AdvertOwner.tsx';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import { ProductType } from 'pages/advertPage/libr/types.ts';

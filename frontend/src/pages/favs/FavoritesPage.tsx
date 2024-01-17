@@ -1,9 +1,9 @@
 import { useGetFavoritesQuery } from 'app/api/fetchFavorites';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground';
 import { NavLink } from 'react-router-dom';
 import styles from './libr/favorites.module.scss';
 import { useTranslation } from 'react-i18next';
-import { Cart } from 'entities/lastAdverts/Cart';
+import { Cart } from 'entity/lastAdverts/Cart';
 
 const FavoritesPage = () => {
     const { data, isLoading } = useGetFavoritesQuery('');

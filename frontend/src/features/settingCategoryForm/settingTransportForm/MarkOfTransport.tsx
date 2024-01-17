@@ -3,15 +3,14 @@ import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { SelectType, ChoicesType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { useEffect, useState } from 'react';
-import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
     control: Control<TypeSettingTransport, string[]>;
 }
-
 
 export const MarkOfTransport = ({ setValue, control }: Props) => {
     const { data } = useGetFiltersQuery('');

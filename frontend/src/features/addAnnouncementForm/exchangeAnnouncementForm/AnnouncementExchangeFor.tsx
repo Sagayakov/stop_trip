@@ -1,9 +1,9 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { exchangeValues } from './libr/exchangeValues';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useEffect } from 'react';
 
 interface Props {
@@ -12,19 +12,24 @@ interface Props {
     defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementExchangeFor = ({ setValue, control, defaultValue }: Props) => {
+export const AnnouncementExchangeFor = ({
+    setValue,
+    control,
+    defaultValue,
+}: Props) => {
     const exchangeForValues = exchangeValues.exchangeFor;
     const { t } = useTranslation();
 
     const getDefaultValue = () => {
-        if(defaultValue){
-            return exchangeForValues.find((el) => el.value === defaultValue)
+        if (defaultValue) {
+            return exchangeForValues.find((el) => el.value === defaultValue);
         }
-    }
+    };
+
     useEffect(() => {
-        if(defaultValue){
-            setValue('exchange_for', getDefaultValue()!.value)
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+        if (defaultValue) {
+            setValue('exchange_for', getDefaultValue()!.value);
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (

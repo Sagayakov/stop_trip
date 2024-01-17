@@ -5,7 +5,7 @@ import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingTaxi/libr/settingTaxiForm.module.scss';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTaxi>;
@@ -29,18 +29,18 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
     }, [data]);
 
     return (
-            <div className={styles.typeOfTaxi}>
-                <h3>{t('filters.taxi_type')}</h3>
-                <UniversalSelectDropdown
-                    setValue={setValue}
-                    control={control}
-                    name="taxi_type"
-                    prefix="filterForm"
-                    placeholder={t('filters.taxi_type')}
-                    closeMenuOnSelect={false}
-                    isMulti={true}
-                    options={typeValues}
-                />
-            </div>
+        <div className={styles.typeOfTaxi}>
+            <h3>{t('filters.taxi_type')}</h3>
+            <UniversalSelectDropdown
+                setValue={setValue}
+                control={control}
+                name="taxi_type"
+                prefix="filterForm"
+                placeholder={t('filters.taxi_type')}
+                closeMenuOnSelect={false}
+                isMulti={true}
+                options={typeValues}
+            />
+        </div>
     );
 };

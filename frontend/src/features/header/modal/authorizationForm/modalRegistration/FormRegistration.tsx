@@ -10,7 +10,7 @@ import { InputSubmit } from './inputsRegistration/inputSubmit/InputSubmit';
 import styles from './libr/formRegistration.module.scss';
 import { AuthRegistration } from './libr/RegistrationTypes';
 import { submitRegForm } from './libr/onSubmitRegForm';
-import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
+import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { resetErrors } from 'features/header/model/modalAuth/reducers/auth.ts';
 
 export const FormRegistration = () => {

@@ -1,15 +1,18 @@
 import { UseFormRegister } from 'react-hook-form';
-import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup';
+import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue?: number | null | undefined;
 }
 
-export const AnnouncementRealtyRoomsQuantity = ({ register, defaultValue }: Props) => {
+export const AnnouncementRealtyRoomsQuantity = ({
+    register,
+    defaultValue,
+}: Props) => {
     const { t } = useTranslation();
 
     const optionValues = [
@@ -26,7 +29,9 @@ export const AnnouncementRealtyRoomsQuantity = ({ register, defaultValue }: Prop
                     radioValues={optionValues}
                     name="property_rooms_count"
                     register={register}
-                    defaultValue={optionValues.find((el) => el.value === String(defaultValue))}
+                    defaultValue={optionValues.find(
+                        (el) => el.value === String(defaultValue)
+                    )}
                     className={styles.radio_group}
                 />
             </div>

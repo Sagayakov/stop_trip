@@ -4,15 +4,15 @@ import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { ChoicesType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UniversalCheckboxGroup } from 'entities/universalEntites';
-import styles from 'widgets/settingForm/settingJob/libr/settingJobFilter.module.scss'
+import { UniversalCheckboxGroup } from 'entity/universalEntites';
+import styles from 'widgets/settingForm/settingJob/libr/settingJobFilter.module.scss';
 
 interface Props {
     register: UseFormRegister<TypesOfJobs>;
 }
-interface Options{
-    value: string | number
-    label: string | number
+interface Options {
+    value: string | number;
+    label: string | number;
 }
 
 export const TypeOfJob = ({ register }: Props) => {

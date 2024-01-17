@@ -3,15 +3,15 @@ import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
-import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
     control: Control<TypeSettingTransport, string[]>;
 }
-interface ChoicesType{
+interface ChoicesType {
     name: keyof ProductType;
     choices: SelectType[];
 }
@@ -20,13 +20,15 @@ export const TransmissionType = ({ setValue, control }: Props) => {
     const { data } = useGetFiltersQuery('');
     const { t } = useTranslation();
 
-    const options = (data?.params.find((el) => el.name === 'transport_transmission_type') as ChoicesType)
+    const options = data?.params.find(
+        (el) => el.name === 'transport_transmission_type'
+    ) as ChoicesType;
 
     return (
         <div className={styles.transmissionType}>
             <h3>{t('filters.transport_transmission_type')}</h3>
             <div className={styles.select_transmissionType}>
-                {data &&
+                {data && (
                     <UniversalSelectDropdown<TypeSettingTransport>
                         setValue={setValue}
                         control={control}
@@ -37,7 +39,7 @@ export const TransmissionType = ({ setValue, control }: Props) => {
                         isMulti={true}
                         options={options.choices}
                     />
-                }
+                )}
             </div>
         </div>
     );

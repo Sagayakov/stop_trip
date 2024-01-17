@@ -1,4 +1,4 @@
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import styles from 'pages/mySettings/libr/mySettings.module.scss';
 import { Control, FieldPath, FormState, UseFormWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,7 @@ import {
     MySettingName,
     MySettingNewPassword,
     MySettingPhone,
-    MySettingReNewPassword
+    MySettingReNewPassword,
 } from 'features/mySetting';
 
 interface Props {
@@ -64,7 +64,11 @@ export const MySettingForm = (props: Props) => {
                     </p>
                     <div className={styles.input_wrapper}>
                         <MySettingName control={control} data={data} />
-                        <MySettingPhone control={control} data={data} errors={errors} />
+                        <MySettingPhone
+                            control={control}
+                            data={data}
+                            errors={errors}
+                        />
                     </div>
                     <div className={styles.input_wrapper}>
                         <h2>Смена пароля</h2>

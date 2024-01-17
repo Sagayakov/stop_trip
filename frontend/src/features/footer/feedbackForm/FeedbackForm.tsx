@@ -3,14 +3,15 @@ import { toast } from 'react-toastify';
 import { Pencil } from 'shared/ui/icons/icons-tools/Pencil.tsx';
 import { getId } from './libr/handlers';
 import { TypesFeedbackForm } from './libr/typesFeedback';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { useState } from 'react';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/footer/footer.module.scss';
-import { InputTypeSubmit } from 'entities/universalEntites';
+import { InputTypeSubmit } from 'entity/universalEntites';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
+import { url } from 'shared/const/url';
 
 export const FeedbackForm = () => {
     const [loading, setLoading] = useState(false);
@@ -32,7 +33,7 @@ export const FeedbackForm = () => {
         }
     };
 
-    const onFocusGetId = () => getId(import.meta.env.VITE_BASE_URL, setValue);
+    const onFocusGetId = () => getId(url!, setValue);
 
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
@@ -40,7 +41,7 @@ export const FeedbackForm = () => {
         getAccessTokenWithRefresh(dispatch, refreshToken); //сначала обновляем accessToken
         const { accessToken } = getTokensFromStorage();
         const body = JSON.stringify(feedbackData);
-        const url = import.meta.env.VITE_BASE_URL;
+
         if (accessToken) {
             setLoading(true);
             try {
@@ -48,7 +49,7 @@ export const FeedbackForm = () => {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`,
+                        Authorization: `Bearer ${accessToken}`,
                     },
                     body,
                 });
