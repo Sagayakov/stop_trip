@@ -126,12 +126,14 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
     def update(self, request, *args, **kwargs):
         request_data = deepcopy(request.data)
-        images = request_data.pop("images", [])
+        upload_images = request_data.pop("upload_images", [])
+        delete_images = request_data.pop("delete_images", [])
         property_amenities = request_data.pop("property_amenities", [])
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request_data)
         serializer.is_valid(raise_exception=True)
-        serializer.validated_data["images"] = images
+        serializer.validated_data["upload_images"] = upload_images
+        serializer.validated_data["delete_images"] = delete_images
         serializer.validated_data["slug"] = slugify(request.data["title"])
         if property_amenities:
             serializer.validated_data["property_amenities"] = (

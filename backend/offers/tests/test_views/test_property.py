@@ -169,9 +169,14 @@ class PropertyTest(APITestCase):
         )
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
         advertisement.property_amenities.set(property_amenities)
+        advertisement_images = [
+            AdvertisementImageFactory(advertisement=advertisement) for _ in range(5)
+        ]
+
         new_country = CountryFactory(name="Vietnam")
         new_region = RegionFactory(country=country, name="V1")
         new_city = CityFactory(region=region, name="Hue")
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
             "title": "test",
             "price": advertisement.price - 100,
@@ -197,11 +202,16 @@ class PropertyTest(APITestCase):
             "property_commission": 1500,
             "property_sleeping_places": 3,
             "property_rooms_count": 4,
+            "delete_images": [
+                advertisement_image.id for advertisement_image in advertisement_images[3:]
+            ],
+            "upload_images": payload_images,
         }
+
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(13):
+        with self.assertNumQueries(14):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -253,6 +263,10 @@ class PropertyTest(APITestCase):
                 for payload_am in payload["property_amenities"]
             )
         )
+        self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
+        new_images_ids = advertisement.images.values_list("id", flat=True)
+        for image in advertisement_images[3:]:
+            self.assertTrue(image.id not in new_images_ids)
 
     def test_delete_property(self):
         user = UserFactory()

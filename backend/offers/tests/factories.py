@@ -140,6 +140,7 @@ class PropertyAmenityFactory(factory.django.DjangoModelFactory):
 class TaxiAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по такси."""
 
+    category = CategoryChoices.TAXI.value
     taxi_unit = fuzzy.FuzzyChoice(choices=TaxiUnit.values)
     taxi_type = fuzzy.FuzzyChoice(choices=TaxiType.values)
 
@@ -168,6 +169,7 @@ class TransportModelFactory(factory.django.DjangoModelFactory):
 class TransportAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по транспорту."""
 
+    category = CategoryChoices.TRANSPORT.value
     transport_type_of_service = fuzzy.FuzzyChoice(choices=TransportTypeOfService.values)
     transport_type = fuzzy.FuzzyChoice(choices=TransportType.values)
     transport_category = fuzzy.FuzzyChoice(choices=TransportCategory.values)
@@ -189,12 +191,14 @@ class TransportAdvertisementFactory(BaseAdvertisementFactory):
 class ServiceAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по услугам."""
 
+    category = CategoryChoices.SERVICE.value
     service_home_visit = True
 
 
 class EventAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по мероприятиям."""
 
+    category = CategoryChoices.EVENT.value
     start_date = now() + datetime.timedelta(days=1)
     end_date = now() + datetime.timedelta(days=4)
     is_online = False
@@ -203,6 +207,7 @@ class EventAdvertisementFactory(BaseAdvertisementFactory):
 class JobAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по работе."""
 
+    category = CategoryChoices.JOB.value
     job_type = fuzzy.FuzzyChoice(choices=JobType.values)
     job_duration = fuzzy.FuzzyChoice(choices=JobDurationType.values)
     job_payment_type = fuzzy.FuzzyChoice(choices=JobPaymentType.values)
@@ -230,6 +235,7 @@ class CurrencyFactory(factory.django.DjangoModelFactory):
 class ExchangeAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по валютным парам."""
 
+    category = CategoryChoices.EXCHANGE_RATE.value
     proposed_currency = factory.SubFactory(CurrencyFactory)
     exchange_for = factory.SubFactory(CurrencyFactory)
     exchange_rate = factory.Faker("pyfloat")
@@ -238,12 +244,14 @@ class ExchangeAdvertisementFactory(BaseAdvertisementFactory):
 class MarketAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по купли-продаже"""
 
+    category = CategoryChoices.MARKET.value
     market_condition = fuzzy.FuzzyChoice(choices=MarketCondition.values)
 
 
 class DocumentAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по документам"""
 
+    category = CategoryChoices.DOCUMENT.value
     document_type = fuzzy.FuzzyChoice(choices=DocumentType)
     document_duration = fuzzy.FuzzyChoice(choices=DocumentDuration)
 
@@ -251,6 +259,7 @@ class DocumentAdvertisementFactory(BaseAdvertisementFactory):
 class FoodAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по еде"""
 
+    category = CategoryChoices.FOOD.value
     food_delivery = True
     food_establishment = False
     food_type = fuzzy.FuzzyChoice(choices=FoodType)
@@ -259,5 +268,6 @@ class FoodAdvertisementFactory(BaseAdvertisementFactory):
 class ExcursionAdvertisementFactory(BaseAdvertisementFactory):
     """Фабрика объявлений по экскурсиям"""
 
+    category = CategoryChoices.EXCURSION.value
     excursion_food = True
     excursion_transfer = False

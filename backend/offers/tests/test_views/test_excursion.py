@@ -14,6 +14,7 @@ from ..factories import (
     CountryFactory,
     RegionFactory,
     CityFactory,
+    AdvertisementImageFactory,
 )
 
 
@@ -71,11 +72,15 @@ class ExcursionTest(APITestCase):
         advertisement = ExcursionAdvertisementFactory(
             owner=user, country=country, region=region, city=city
         )
+        advertisement_images = [
+            AdvertisementImageFactory(advertisement=advertisement) for _ in range(5)
+        ]
+
         new_country = CountryFactory()
         new_region = RegionFactory(country=country)
         new_city = CityFactory(region=region)
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
-            "category": CategoryChoices.DOCUMENT.value,
             "title": "excursion_new",
             "country": new_country.slug,
             "region": new_region.slug,
@@ -83,12 +88,16 @@ class ExcursionTest(APITestCase):
             "price": 10_000,
             "excursion_food": True,
             "excursion_transfer": False,
+            "delete_images": [
+                advertisement_image.id for advertisement_image in advertisement_images[3:]
+            ],
+            "upload_images": payload_images,
         }
 
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(12):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -101,11 +110,14 @@ class ExcursionTest(APITestCase):
         self.assertEqual(advertisement.country.slug, payload["country"])
         self.assertEqual(advertisement.region.slug, payload["region"])
         self.assertEqual(advertisement.city.slug, payload["city"])
-        self.assertEqual(advertisement.category, payload["category"])
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
         self.assertEqual(advertisement.excursion_food, payload["excursion_food"])
         self.assertEqual(advertisement.excursion_transfer, payload["excursion_transfer"])
+        self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
+        new_images_ids = advertisement.images.values_list("id", flat=True)
+        for image in advertisement_images[3:]:
+            self.assertTrue(image.id not in new_images_ids)
 
     def test_delete_excursion(self):
         user = UserFactory()

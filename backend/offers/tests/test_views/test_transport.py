@@ -147,13 +147,16 @@ class TransportTest(APITestCase):
             transport_passengers_quality=5,
             transport_commission=100,
         )
+        advertisement_images = [
+            AdvertisementImageFactory(advertisement=advertisement) for _ in range(5)
+        ]
 
         new_transport_model = TransportModelFactory(name="RS7")
         new_country = CountryFactory(name="Vietnam")
         new_region = RegionFactory(country=country, name="V1")
         new_city = CityFactory(region=region, name="Hue")
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
-            "category": CategoryChoices.TRANSPORT.value,
             "title": "test_transport_new",
             "price": 120_000,
             "country": new_country.slug,
@@ -173,11 +176,15 @@ class TransportTest(APITestCase):
             "transport_condition": TransportCondition.USED,
             "transport_passengers_quality": 4,
             "transport_commission": 1_000,
+            "delete_images": [
+                advertisement_image.id for advertisement_image in advertisement_images[3:]
+            ],
+            "upload_images": payload_images,
         }
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(13):
+        with self.assertNumQueries(14):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -190,7 +197,6 @@ class TransportTest(APITestCase):
         self.assertEqual(advertisement.country, new_country)
         self.assertEqual(advertisement.region, new_region)
         self.assertEqual(advertisement.city, new_city)
-        self.assertEqual(advertisement.category, payload["category"])
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
         self.assertEqual(
@@ -219,6 +225,10 @@ class TransportTest(APITestCase):
             payload["transport_passengers_quality"],
         )
         self.assertEqual(advertisement.transport_commission, payload["transport_commission"])
+        self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
+        new_images_ids = advertisement.images.values_list("id", flat=True)
+        for image in advertisement_images[3:]:
+            self.assertTrue(image.id not in new_images_ids)
 
     def test_delete_transport(self):
         user = UserFactory()
