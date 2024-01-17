@@ -4,7 +4,7 @@
 import fetchMock from 'jest-fetch-mock';
 import 'shared/mocks/matchMedia.mock';
 import '@testing-library/jest-dom';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { publicRoutes } from 'app/router/routes';
@@ -44,10 +44,8 @@ describe('Product route', () => {
                     };
                 })();
 
-                waitFor(() => {
-                    const productHeader = screen.getByRole('h1');
-                    expect(productHeader).toHaveTextContent(title);
-                });
+                const productHeader = screen.getByRole('h1');
+                expect(productHeader).toHaveTextContent(title);
             }
         }
     );

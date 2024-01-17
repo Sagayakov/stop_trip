@@ -1,1 +1,1 @@
-export const url = process.env.VITE_BASE_URL;
+export const url = process.env.VITE_BASE_URL || 'https://stoptrip.com';
