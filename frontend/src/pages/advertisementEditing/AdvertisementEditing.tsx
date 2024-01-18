@@ -26,6 +26,7 @@ import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefres
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
+import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
@@ -49,6 +50,7 @@ const AdvertisementEditing = () => {
         dataAdvert?.coordinates
     );
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
+    const [editImages, setEditImages] = useState<LastAdvertsImages[] | undefined>(dataAdvert?.images)
 
     const addSlug = dataAdvert ? dataAdvert.slug : '';
     const navigate = useNavigate();
@@ -69,17 +71,16 @@ const AdvertisementEditing = () => {
         const formData = new FormData();
         Object.entries(data).forEach(([field, value]) => {
             switch (field) {
-                case 'images':
-                    // Если это поле с изображениями, добавляем каждый файл поочередно
+                case 'upload_images':
+                    // Если это поле с новыми изображениями, добавляем каждый файл поочередно
                     if (value instanceof Array && value[0] instanceof File) {
                         value.forEach((file, index) => {
-                            formData.append('images', file, `image_${index}`);
+                            formData.append('upload_images', file, `image_${index}`);
                         });
                     }
                     break;
                 default:
                     // Добавляем остальные поля
-                    console.log(`${field}: ${typeof value}`);
                     if (value === undefined || value === null) {
                         break; //иначе присваивается 'undefined' если поле не заполнено
                     }
@@ -91,9 +92,7 @@ const AdvertisementEditing = () => {
         try {
             const { accessToken } = getTokensFromStorage();
             const response = await fetch(
-                `${
-                    import.meta.env.VITE_BASE_URL
-                }/api/advertisements/${addSlug}`,
+                `${import.meta.env.VITE_BASE_URL}/api/advertisements/${addSlug}`,
                 {
                     method: 'PUT',
                     headers: {
@@ -116,34 +115,16 @@ const AdvertisementEditing = () => {
         }
     };
 
-    const getImg = async () => {
-        if (dataAdvert?.images) {
-            try {
-                let index = 1;
-                for (const link of dataAdvert.images) {
-                    const response = await fetch(link.image);
-                    const imageBlob = await response.blob();
-                    // Создаем File из Blob
-                    const imageFile = new File([imageBlob], `image_${index}`, {
-                        type: imageBlob.type,
-                    });
-                    index++;
-                    if (selectedImages && selectedImages.length > 0) {
-                        setSelectedImages([...selectedImages, imageFile]);
-                    } else {
-                        setSelectedImages([imageFile]);
-                    }
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    };
-
     useEffect(() => {
         dataAdvert && setMarkerPosition(dataAdvert.coordinates);
         setValue('country', 'india');
-        getImg();
+        dataAdvert?.slug && setValue('slug', dataAdvert?.slug);
+        dataAdvert?.images && setEditImages(dataAdvert.images)
+        return () => {
+            setEditImages(undefined);
+            setSelectedImages(undefined);
+            setMarkerPosition(undefined);
+        }
     }, [dataAdvert, setValue]);
 
     return (
@@ -205,6 +186,9 @@ const AdvertisementEditing = () => {
                                 selectedImages={selectedImages}
                                 setSelectedImages={setSelectedImages}
                                 setValue={setValue}
+                                // images={dataAdvert?.images}
+                                setEditImages={setEditImages}
+                                editImages={editImages}
                             />
                             <AnnouncementLocationField
                                 setValue={setValue}
