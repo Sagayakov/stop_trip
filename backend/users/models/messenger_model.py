@@ -36,8 +36,8 @@ class UsersMessengers(models.Model):
     link_to_user = models.CharField("Ссылка на юзера")
 
     class Meta:
-        verbose_name = "Мессенджер"
-        verbose_name_plural = "Мессенджеры"
+        verbose_name = "Мессенджер юзера"
+        verbose_name_plural = "Мессенджеры юзера"
         ordering = ("messenger",)
 
     def __str__(self):
