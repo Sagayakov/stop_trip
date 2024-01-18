@@ -16,11 +16,12 @@ export const AnnouncementRealtyRoomsQuantity = ({
     const { t } = useTranslation();
 
     const optionValues = [
-        { value: '1', label: '1' },
-        { value: '2', label: '2' },
-        { value: '3', label: '3' },
-        { value: '4', label: '4' },
+        { value: 1, label: 1 },
+        { value: 2, label: 2 },
+        { value: 3, label: 3 },
+        { value: 4, label: 4 },
     ];
+
     return (
         <div className={styles.ann_field}>
             <h3>{t('filters.property_rooms_count')}</h3>
@@ -30,8 +31,7 @@ export const AnnouncementRealtyRoomsQuantity = ({
                     name="property_rooms_count"
                     register={register}
                     defaultValue={optionValues.find(
-                        (el) => el.value === String(defaultValue)
-                    )}
+                        (el) => el.value === defaultValue) || undefined}
                     className={styles.radio_group}
                 />
             </div>

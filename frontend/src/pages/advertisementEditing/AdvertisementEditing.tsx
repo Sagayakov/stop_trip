@@ -84,6 +84,9 @@ const AdvertisementEditing = () => {
                     if (value === undefined || value === null) {
                         break; //иначе присваивается 'undefined' если поле не заполнено
                     }
+                    if(Array.isArray(value)){
+                        value.forEach((val) => formData.append(field, val))
+                    }
                     formData.append(field, value);
                     break;
             }
@@ -96,13 +99,15 @@ const AdvertisementEditing = () => {
                 {
                     method: 'PUT',
                     headers: {
-                        Authorization: `Bearer ${accessToken}`,
+                        "Authorization": `Bearer ${accessToken}`,
+                        "X-Csrftoken": `${accessToken}`,
                     },
                     body: formData,
                 }
             );
             if (response.ok) {
                 dispatch(setLoading(false));
+                toast.success(`${t('add-page.edit-success')}`)
                 scrollToTop();
             } else {
                 dispatch(setLoading(false));

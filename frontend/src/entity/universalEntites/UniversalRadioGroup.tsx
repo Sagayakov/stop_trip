@@ -28,7 +28,7 @@ export const UniversalRadioGroup = <T extends FieldValues>({
                         type="radio"
                         value={el.value}
                         {...register(name)}
-                        checked={Boolean(defaultValue?.value) || undefined}
+                        checked={(defaultValue?.value === el.value) || undefined}
                     />
                     <span>{el.label}</span>
                 </label>

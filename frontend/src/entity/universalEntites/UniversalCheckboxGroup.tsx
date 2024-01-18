@@ -5,7 +5,7 @@ interface Props<T extends FieldValues> {
     checkboxValues: Options[];
     name: Path<T>;
     className?: string;
-    defaultValue?: string[];
+    defaultValue?:  Options[];
 }
 interface Options {
     value: string | number;
@@ -19,6 +19,7 @@ export const UniversalCheckboxGroup = <T extends FieldValues>({
     className,
     defaultValue,
 }: Props<T>) => {
+
     return (
         <div className={`checkbox_group ${className}`}>
             {checkboxValues.map((el) => (
@@ -27,7 +28,9 @@ export const UniversalCheckboxGroup = <T extends FieldValues>({
                         type="checkbox"
                         value={el.value}
                         {...register(name)}
-                        checked={defaultValue?.includes((el.label as string).toLowerCase())}
+                        checked={Boolean(defaultValue?.find((defVal) => defVal.label === el.label)) || undefined}
+                        // checked={defaultValue?.forEach((defVal) => defVal.label === el.label) || undefined}
+                        // checked={defaultValue?.includes((el.label as string).toLowerCase())}
                     />
                     <span>{el.label}</span>
                 </label>
