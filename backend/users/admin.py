@@ -1,8 +1,8 @@
-from django.contrib.admin import register
+from django.contrib.admin import register, ModelAdmin
 from django.contrib.auth.admin import UserAdmin as Admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import User
+from .models import User, Messengers, UsersMessengers
 
 
 @register(User)
@@ -14,7 +14,7 @@ class UserAdmin(Admin):
         "is_active",
     )
     fieldsets = (
-        (None, {"fields": ("full_name", "email", "phone", "password")}),
+        (None, {"fields": ("full_name", "email", "phone", "password", "messenger")}),
         (_("Permissions"), {"fields": ("is_staff", "is_active", "groups", "user_permissions")}),
     )
     add_fieldsets = (
@@ -32,9 +32,20 @@ class UserAdmin(Admin):
                     "is_active",
                     "groups",
                     "user_permissions",
+                    "messenger",
                 ),
             },
         ),
     )
     search_fields = ("email",)
     ordering = ("email",)
+
+
+@register(Messengers)
+class MessengersAdmin(ModelAdmin):
+    pass
+
+
+@register(UsersMessengers)
+class UserMessengersAdmin(ModelAdmin):
+    pass

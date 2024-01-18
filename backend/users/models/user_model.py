@@ -15,6 +15,23 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
+    # messenger = models.ManyToManyField(
+    #     "users.UsersMessengers",
+    #     verbose_name="Мессенджер",
+    #     related_name="messengers",
+    #     blank=True,
+    # )
+
+    # только одно поле
+    messenger = models.ForeignKey(
+        "users.Messengers",
+        on_delete=models.CASCADE,
+        related_name="messenger",
+        verbose_name="Мессенджер",
+        null=True,
+        blank=True,
+    )
+    link_to_user = models.CharField("Ссылка на юзера")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["full_name", "phone"]
