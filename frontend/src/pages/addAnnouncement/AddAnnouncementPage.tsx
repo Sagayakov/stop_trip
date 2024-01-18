@@ -65,10 +65,16 @@ const AddAnnouncementPage = () => {
                     break;
                 default:
                     // Добавляем остальные поля
-                    console.log(`${field}: ${typeof value}`);
                     if (value === undefined || value === null) {
                         break; //иначе присваивается 'undefined' если поле не заполнено
                     }
+                    if(Array.isArray(value)){
+                        value.forEach((val) => {
+                            formData.append(`${field}`, val);
+                        });
+                    //     value.forEach((val) => formData.append(field, val))
+                    }
+
                     formData.append(field, value);
                     break;
             }
@@ -81,7 +87,8 @@ const AddAnnouncementPage = () => {
                 {
                     method: 'POST',
                     headers: {
-                        Authorization: `Bearer ${accessToken}`,
+                        "Authorization": `Bearer ${accessToken}`,
+                        "X-Csrftoken": `${accessToken}`,
                     },
                     body: formData,
                 }

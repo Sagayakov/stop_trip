@@ -176,7 +176,7 @@ export const PhotoSlider = () => {
                                     }
                                     src={el.image}
                                     onClick={() => setActiveImage(i)}
-                                    key={el.image}
+                                    key={el.id}
                                     alt={`image #${i + 1}`}
                                 />
                             ))}

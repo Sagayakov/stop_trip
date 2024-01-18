@@ -3,11 +3,15 @@ export interface FormAddAnn {
     title?: string;
     price?: number;
     description?: string;
-    images?: File[];
     coordinates?: string;
     country?: string;
     region?: string;
     city?: string;
+    slug?: string;
+    //фото
+    images?: File[];
+    upload_images?: File[];
+    delete_images?: number[];
     //документы
     document_type?: string;
     document_duration?: string;
@@ -57,6 +61,8 @@ export interface FormAddAnn {
     property_sleeping_places?: number;
     property_rooms_count?: number;
     property_commission?: number;
+    property_city?: string[];
+    property_district?: string[];
     //транспорт
     transport_type_of_service?: string;
     transport_type?: string;

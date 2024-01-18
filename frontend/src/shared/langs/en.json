@@ -271,7 +271,8 @@
         "uploaded": "Uploaded",
         "please-select": "Please, select no more than 10 photos",
         "location": "Location",
-        "back": "Back"
+        "back": "Back",
+        "edit-success": "Announcement successfully edited"
     },
 
     "labels": {

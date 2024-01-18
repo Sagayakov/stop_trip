@@ -30,6 +30,7 @@ export interface AdvertsTypes {
 }
 
 export interface LastAdvertsImages {
+    id: number;
     image: string;
 }
 
