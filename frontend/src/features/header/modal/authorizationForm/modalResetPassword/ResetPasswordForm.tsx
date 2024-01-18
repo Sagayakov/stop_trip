@@ -25,7 +25,7 @@ export const ResetPasswordForm = () => {
     const [emailDomainLength, setEmailDomainLength] = useState(false);
     const [twoPoints, setTwoPoints] = useState(false);
     const [startEndError, setStartEndError] = useState(false);
-    const [startsWithDotError, setStartsWithDotError] = useState(false);
+    const [bordersWithDotError, setBordersWithDotError] = useState(false);
 
     const oninput = (event: React.FormEvent<HTMLInputElement>) => {
         event.currentTarget.value = event.currentTarget.value.toLowerCase();
@@ -44,7 +44,9 @@ export const ResetPasswordForm = () => {
         );
         setEmailDomainLength(inputText.length > 128 || inputText.length < 10);
         setTwoPoints(firstPart.includes('..') || domainPart.includes('..'));
-        setStartsWithDotError(firstPart.startsWith('.'));
+        setBordersWithDotError(
+            firstPart.startsWith('.') || firstPart.endsWith('.')
+        );
 
         const firstSymbol = domainPart.charAt(0);
         const lastSymbol = domainPart.charAt(domainPart.length - 1);
@@ -85,7 +87,7 @@ export const ResetPasswordForm = () => {
             emailDomainLengthError ||
             twoPoints ||
             startEndError ||
-            startsWithDotError
+            bordersWithDotError
         );
     };
 
@@ -131,7 +133,7 @@ export const ResetPasswordForm = () => {
                         }}
                     />
                     <div className={styles.input_error}>
-                        {(errors?.email || startsWithDotError) && (
+                        {(errors?.email || bordersWithDotError) && (
                             <p
                                 style={{
                                     color: '#FF3F25',
@@ -187,7 +189,7 @@ export const ResetPasswordForm = () => {
                             emailDomainLengthError ||
                             twoPoints ||
                             startEndError ||
-                            startsWithDotError
+                            bordersWithDotError
                         }
                     />
                 </form>
