@@ -12,6 +12,7 @@
     }
     &:disabled {
         background-color: var(--grey-2) !important;
+        cursor: default !important;
     }
 }
 .form_enter {

@@ -10,17 +10,93 @@ interface Email {
 }
 
 export const ResetPasswordForm = () => {
-    const { register, handleSubmit, formState } = useForm<Email>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isValid },
+    } = useForm<Email>({
         mode: 'onChange',
     });
-    const { errors, isValid } = formState;
     const [success, setSuccess] = useState(false);
     const dispatch = useAppDispatch();
     const { t } = useTranslation();
 
+    const [emailDomainLengthError, setEmailDomainLengthError] = useState(false);
+    const [emailDomainLength, setEmailDomainLength] = useState(false);
+    const [twoPoints, setTwoPoints] = useState(false);
+    const [startEndError, setStartEndError] = useState(false);
+
+    const oninput = (event: React.FormEvent<HTMLInputElement>) => {
+        event.currentTarget.value = event.currentTarget.value.toLowerCase();
+        let inputText = event.currentTarget.value;
+        const atIndex = inputText.indexOf('@');
+        const firstPart = inputText.slice(0, atIndex);
+        const domainPart = inputText.slice(atIndex + 1);
+
+        sessionStorage.setItem('emailRegistration', inputText);
+
+        setEmailDomainLengthError(
+            firstPart.length >= 64 ||
+                firstPart.length < 1 ||
+                domainPart.length >= 64 ||
+                atIndex === -1
+        );
+        setEmailDomainLength(inputText.length > 128 || inputText.length < 10);
+        setTwoPoints(firstPart.includes('..') || domainPart.includes('..'));
+
+        const firstSymbol = domainPart.charAt(0);
+        const lastSymbol = domainPart.charAt(domainPart.length - 1);
+        const symbolBeforeDot = domainPart[domainPart.lastIndexOf('.') - 1];
+        const symbolAfterDot = domainPart[domainPart.lastIndexOf('.') + 1];
+
+        const isDigitOrHyphen = (char: string) =>
+            !isNaN(parseInt(char, 10)) || char === '-';
+
+        setStartEndError(
+            isDigitOrHyphen(firstSymbol) ||
+                isDigitOrHyphen(lastSymbol) ||
+                isDigitOrHyphen(symbolBeforeDot) ||
+                isDigitOrHyphen(symbolAfterDot)
+        );
+
+        const cyrillicRegex = /[а-яА-ЯёЁ]/g;
+
+        if (cyrillicRegex.test(inputText)) {
+            inputText = inputText.replace(cyrillicRegex, '');
+            event.currentTarget.value = inputText;
+        }
+
+        if (atIndex > -1) {
+            const domainPartLowerCase = domainPart.toLowerCase();
+            if (domainPart !== domainPartLowerCase || domainPart.length > 63) {
+                event.currentTarget.value =
+                    inputText.slice(0, atIndex + 1) +
+                    domainPartLowerCase.slice(0, 63);
+            }
+        }
+    };
+
+    const borderError = () => {
+        return (
+            errors.email ||
+            emailDomainLength ||
+            emailDomainLengthError ||
+            twoPoints ||
+            startEndError
+        );
+    };
+
     const onsubmit: SubmitHandler<Email> = async (data) => {
         const { email } = data;
-        await handleFetchResetPassword(email, setSuccess, dispatch);
+        if (
+            !errors.email &&
+            !emailDomainLength &&
+            !emailDomainLengthError &&
+            !twoPoints &&
+            !startEndError
+        ) {
+            await handleFetchResetPassword(email, setSuccess, dispatch);
+        }
     };
 
     return (
@@ -39,12 +115,15 @@ export const ResetPasswordForm = () => {
                             pattern:
                                 /^(?!.*\.{2})[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]{2,}(?:\.[a-z]{2,})+$/i,
                             minLength: 10,
+                            maxLength: 128,
                         })}
+                        type="email"
                         placeholder="Email"
                         autoComplete="username"
+                        onInput={(event) => oninput(event)}
                         style={{
                             border: `1px solid ${
-                                errors?.email ? '#FF3F25' : '#DCDCDC'
+                                borderError() ? '#FF3F25' : '#DCDCDC'
                             }`,
                         }}
                     />
@@ -60,12 +139,52 @@ export const ResetPasswordForm = () => {
                                 {t('modal-login.correct-email')}
                             </p>
                         )}
+                        {(emailDomainLengthError || emailDomainLength) && (
+                            <p
+                                style={{
+                                    color: '#FF3F25',
+                                    fontSize: '13px',
+                                    marginTop: 0,
+                                }}
+                            >
+                                {t('modal-registration.email-length')}
+                            </p>
+                        )}
+                        {twoPoints && (
+                            <p
+                                style={{
+                                    color: '#FF3F25',
+                                    fontSize: '13px',
+                                    marginTop: 0,
+                                }}
+                            >
+                                {t('modal-registration.two-dots')}
+                            </p>
+                        )}
+                        {startEndError && (
+                            <p
+                                style={{
+                                    color: '#FF3F25',
+                                    fontSize: '13px',
+                                    marginTop: 0,
+                                }}
+                            >
+                                {t('modal-registration.digit')}
+                            </p>
+                        )}
                     </div>
                     <input
                         type="submit"
                         value={t('modal-reset.send')}
                         className={disableStyle.submit}
-                        disabled={!isValid}
+                        disabled={
+                            !isValid ||
+                            !!errors.email ||
+                            emailDomainLength ||
+                            emailDomainLengthError ||
+                            twoPoints ||
+                            startEndError
+                        }
                     />
                 </form>
             )}

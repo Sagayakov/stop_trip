@@ -24,12 +24,12 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
     const allLength = watch('email');
     const getDefaultValue = () => {
         const email = sessionStorage.getItem('emailRegistration');
-        if(email === undefined || email === null){
+        if (email === undefined || email === null) {
             return '';
         } else {
-            return email
+            return email;
         }
-    }
+    };
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
