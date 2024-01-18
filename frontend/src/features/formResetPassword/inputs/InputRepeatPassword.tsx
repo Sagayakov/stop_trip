@@ -2,24 +2,23 @@ import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { Eye } from 'shared/ui/icons/icons-tools/Eye.tsx';
 import { ResetPasswordType } from '../libr/types';
 import { useTranslation } from 'react-i18next';
-import styleForInput from 'pages/resetPassword/resetPassword.module.scss'
+import styleForInput from 'pages/resetPassword/resetPassword.module.scss';
+import { useState } from 'react';
 
 interface Props {
     errors: FieldErrors<ResetPasswordType>;
     register: UseFormRegister<ResetPasswordType>;
     watch: UseFormWatch<ResetPasswordType>;
-    showPassword: boolean;
-    setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const InputRepeatPassword = ({
     errors,
     register,
-    showPassword,
+
     watch,
-    setShowPassword,
 }: Props) => {
     const { t } = useTranslation();
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleShowPass = () => {
         setShowPassword(!showPassword);
@@ -34,7 +33,8 @@ export const InputRepeatPassword = ({
                 <input
                     {...register('repeat_password', {
                         required: true,
-                        minLength: 5,
+                        minLength: 8,
+                        maxLength: 22,
                     })}
                     placeholder={t('reset-page.repeat')}
                     autoComplete="new-password"
