@@ -69,8 +69,8 @@ const AddAnnouncementPage = () => {
                         break; //иначе присваивается 'undefined' если поле не заполнено
                     }
                     if(Array.isArray(value)){
-                        value.forEach((val, index) => {
-                            formData.append(`${field}[${index}]`, val);
+                        value.forEach((val) => {
+                            formData.append(`${field}`, val);
                         });
                     //     value.forEach((val) => formData.append(field, val))
                     }
