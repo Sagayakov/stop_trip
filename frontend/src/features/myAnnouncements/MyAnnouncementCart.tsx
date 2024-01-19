@@ -42,7 +42,8 @@ export const MyAnnouncementCart = ({
     date_create,
     slug,
     category,
-    refetch
+    refetch,
+    is_published
 }: Props) => {
     const [showModal, setShowModal] = useState(false);
 
@@ -60,7 +61,7 @@ export const MyAnnouncementCart = ({
             >
                 <AnnouncementOptions setShowModal={setShowModal} />
                 {showModal && (
-                    <ModalOption slug={slug!} setShowModal={setShowModal} refetch={refetch} />
+                    <ModalOption slug={slug!} setShowModal={setShowModal} refetch={refetch} is_published={is_published} />
                 )}
                 <NavLink to={`/${category}/${slug}/`}>
                     {images?.length !== 0 ? (

@@ -1,4 +1,4 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AnnouncementSubmitButton } from 'entity/addAnnouncementForm/universalFields';
 import {
@@ -24,8 +24,10 @@ import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFi
 import { toast } from 'react-toastify';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
-import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { useAppDispatch,/* useAppSelector*/ } from 'app/store/hooks.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
+import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
+import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 
 const AddAnnouncementPage = () => {
     const {
@@ -44,66 +46,69 @@ const AddAnnouncementPage = () => {
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [modalSuccess, setModalSuccess] = useState(false);
-    const isLoading = useAppSelector((state) => state.setLoading.loading);
+    // const isLoading = useAppSelector((state) => state.setLoading.loading);
     const { t } = useTranslation();
     const { refreshToken } = getTokensFromStorage();
     const category = watch('category');
 
+    const [addAdvert, {isSuccess, isError, isLoading}] = useAddAdvertMutation();
+
     const onsubmit = async (data: FormAddAnn) => {
         dispatch(setLoading(true));
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
-        const formData = new FormData();
-        Object.entries(data).forEach(([field, value]) => {
-            switch (field) {
-                case 'images':
-                    // Если это поле с изображениями, добавляем каждый файл поочередно
-                    if (value instanceof Array && value[0] instanceof File) {
-                        value.forEach((file, index) => {
-                            formData.append('images', file, `image_${index}`);
-                        });
-                    }
-                    break;
-                default:
-                    // Добавляем остальные поля
-                    if (value === undefined || value === null) {
-                        break; //иначе присваивается 'undefined' если поле не заполнено
-                    }
-                    if(Array.isArray(value)){
-                        value.forEach((val) => {
-                            formData.append(`${field}`, val);
-                        });
-                    //     value.forEach((val) => formData.append(field, val))
-                    }
-
-                    formData.append(field, value);
-                    break;
-            }
-        });
+        const formData = createFormDataObjectForSendAnnouncement(data, 'images');
+        // const formData = new FormData();
+        // Object.entries(data).forEach(([field, value]) => {
+        //     switch (field) {
+        //         case 'images':
+        //             // Если это поле с изображениями, добавляем каждый файл поочередно
+        //             if (value instanceof Array && value[0] instanceof File) {
+        //                 value.forEach((file, index) => {
+        //                     formData.append('images', file, `image_${index}`);
+        //                 });
+        //             }
+        //             break;
+        //         default:
+        //             // Добавляем остальные поля
+        //             if (value === undefined || value === null) {
+        //                 break; //иначе присваивается 'undefined' если поле не заполнено
+        //             }
+        //             if(Array.isArray(value)){
+        //                 value.forEach((val) => {
+        //                     formData.append(`${field}`, val);
+        //                 });
+        //             }
+        //
+        //             formData.append(field, value);
+        //             break;
+        //     }
+        // });
 
         try {
             const { accessToken } = getTokensFromStorage();
-            const response = await fetch(
-                `${import.meta.env.VITE_BASE_URL}/api/advertisements/`,
-                {
-                    method: 'POST',
-                    headers: {
-                        "Authorization": `Bearer ${accessToken}`,
-                        "X-Csrftoken": `${accessToken}`,
-                    },
-                    body: formData,
-                }
-            );
-            if (response.ok) {
-                setSelectedImages(undefined);
-                setMarkerPosition(undefined);
-                reset();
-                setValue('category', data.category);
-                dispatch(setLoading(false));
-                setModalSuccess(true);
-            } else {
-                dispatch(setLoading(false));
-                toast.error(`${t('errors.add-announcement-error')}`);
-            }
+            await addAdvert({body: formData as FormAddAnn, token: accessToken})
+            // const response = await fetch(
+            //     `${import.meta.env.VITE_BASE_URL}/api/advertisements/`,
+            //     {
+            //         method: 'POST',
+            //         headers: {
+            //             "Authorization": `Bearer ${accessToken}`,
+            //             "X-Csrftoken": `${accessToken}`,
+            //         },
+            //         body: formData,
+            //     }
+            // );
+            // if (response.ok) {
+            //     setSelectedImages(undefined);
+            //     setMarkerPosition(undefined);
+            //     reset();
+            //     setValue('category', data.category);
+            //     dispatch(setLoading(false));
+            //     setModalSuccess(true);
+            // } else {
+            //     dispatch(setLoading(false));
+            //     toast.error(`${t('errors.add-announcement-error')}`);
+            // }
         } catch (error) {
             console.log(error);
             dispatch(setLoading(false));
@@ -117,6 +122,16 @@ const AddAnnouncementPage = () => {
     const sendButtonDisabled = () => {
         return selectedImages && selectedImages.length > 10;
     };
+    useEffect(() => {
+        if(isSuccess){
+            setModalSuccess(true);
+            setSelectedImages(undefined);
+            setMarkerPosition(undefined);
+            reset();
+            // setValue('category', data.category);
+        }
+        if(isError) toast.error(`${t('errors.add-announcement-error')}`);
+    }, [isSuccess, isError]);
 
     return (
         <>

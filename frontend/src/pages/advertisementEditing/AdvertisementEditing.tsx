@@ -27,6 +27,7 @@ import { useAppDispatch } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
+import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
@@ -66,34 +67,35 @@ const AdvertisementEditing = () => {
     const onsubmit = async (data: FormAddAnn) => {
         dispatch(setLoading(true));
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
-
-        const formData = new FormData();
-        Object.entries(data).forEach(([field, value]) => {
-            switch (field) {
-                case 'upload_images':
-                    // Если это поле с новыми изображениями, добавляем каждый файл поочередно
-                    if (value instanceof Array && value[0] instanceof File) {
-                        value.forEach((file, index) => {
-                            formData.append('upload_images', file, `image_${index}`);
-                        });
-                    }
-                    break;
-                default:
-                    // Добавляем остальные поля
-                    if (value === undefined || value === null) {
-                        break; //иначе присваивается 'undefined' если поле не заполнено
-                    }
-                    if(Array.isArray(value)){
-                        value.forEach((val) => formData.append(field, val))
-                    }
-                    formData.append(field, value);
-                    break;
-            }
-        });
+        const formData = createFormDataObjectForSendAnnouncement(data, 'upload_images');
+        // const formData = new FormData();
+        // Object.entries(data).forEach(([field, value]) => {
+        //     switch (field) {
+        //         case 'upload_images':
+        //             // Если это поле с новыми изображениями, добавляем каждый файл поочередно
+        //             if (value instanceof Array && value[0] instanceof File) {
+        //                 value.forEach((file, index) => {
+        //                     formData.append('upload_images', file, `image_${index}`);
+        //                 });
+        //             }
+        //             break;
+        //         default:
+        //             // Добавляем остальные поля
+        //             if (value === undefined || value === null) {
+        //                 break; //иначе присваивается 'undefined' если поле не заполнено
+        //             }
+        //             if(Array.isArray(value)){
+        //                 value.forEach((val) => formData.append(field, val))
+        //             }
+        //             formData.append(field, value);
+        //             break;
+        //     }
+        // });
 
         try {
             const { accessToken } = getTokensFromStorage();
             await editAdvert({body: formData as FormAddAnn, addSlug, accessToken})
+            dispatch(setLoading(false));
         } catch (error) {
             console.log(error);
             dispatch(setLoading(false));
@@ -131,7 +133,7 @@ const AdvertisementEditing = () => {
                     id="form-edit-announcement"
                 >
                     {isLoading && user?.id && <LoadingWithBackground />}
-                    {isSendLoading && <LoadingWithBackground />}
+                    {(isSendLoading || isLoading) && <LoadingWithBackground />}
                     {dataAdvert && (
                         <>
                             {(path[1] !== "advertisement-editing") && <AnnouncementCategoryField

@@ -22,6 +22,7 @@ import { useEffect } from 'react';
 interface Props {
     slug: string;
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+    is_published: boolean;
     refetch: () => QueryActionCreatorResult<
         QueryDefinition<
             string,
@@ -38,7 +39,7 @@ interface Props {
         >
     >;
 }
-export const ModalOption = ({ slug, setShowModal, refetch }: Props) => {
+export const ModalOption = ({ slug, setShowModal, refetch, is_published }: Props) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [deleteAnn, { isLoading, isSuccess, isError }] = useDeleteAnnouncemetMutation();
@@ -64,10 +65,10 @@ export const ModalOption = ({ slug, setShowModal, refetch }: Props) => {
 
     useEffect(() => {
         if (isSuccess) {
-            toast.success('myAnnouncements.success-delete');
+            toast.success(t('myAnnouncements.success-delete'));
         }
         if (isError) {
-            toast.error(`${t('errors.add-announcement-error')}`);
+            toast.error(t('errors.add-announcement-error'));
         }
     }, [isSuccess, isError]);
 
@@ -76,7 +77,7 @@ export const ModalOption = ({ slug, setShowModal, refetch }: Props) => {
             {isLoading && <LoadingWithBackground />}
             <div className={styles.modal_option}>
                 <label className={styles.label_option}>
-                    <input type="checkbox" />
+                    <input type="checkbox" checked={is_published} />
                     <span>{t('myAnnouncements.published')}</span>
                 </label>
                 <div
