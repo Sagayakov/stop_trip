@@ -276,7 +276,7 @@ DJOSER = {
     "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
     "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": [f"http://{SITE_HOST}:8000/google"],
     "SERIALIZERS": {
-        "user_create": "accounts.serializers.UserCreateSerializer",  # custom serializer
+        "user_create": "users.serializers.UserDjoserSerializer",  # custom serializer
         "user": "djoser.serializers.UserSerializer",
         "current_user": "djoser.serializers.UserSerializer",
         "user_delete": "djoser.serializers.UserSerializer",

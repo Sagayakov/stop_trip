@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from copy import deepcopy
 
 from drf_spectacular.utils import extend_schema
@@ -14,6 +15,7 @@ from common.filters import GetFilterParams
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
 from .models import Advertisement, PropertyAmenity
+from users.models import User, Rate
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
     PropertyCreateSerializer,
@@ -52,8 +54,12 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     lookup_field = "slug"
 
     def get_queryset(self):
-        queryset = Advertisement.objects.filter(is_published=True).select_related(
-            "owner", "country", "region", "city", "proposed_currency", "exchange_for"
+        queryset = (
+            Advertisement.objects.filter(is_published=True)
+            .select_related(
+                "country", "region", "city", "proposed_currency", "exchange_for"
+            )
+            .prefetch_related(Prefetch("owner", User.objects.annotate_rating()))
         )
 
         if self.action in [
@@ -104,7 +110,10 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
     def get_permissions(self):
         if self.action in self.custom_permission_classes.keys():
-            return [permission() for permission in self.custom_permission_classes[self.action]]
+            return [
+                permission()
+                for permission in self.custom_permission_classes[self.action]
+            ]
         return [permission() for permission in self.permission_classes]
 
     def create(self, request, *args, **kwargs):
