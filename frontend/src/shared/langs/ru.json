@@ -293,7 +293,10 @@
     "myAnnouncements": {
         "published": "Публикация",
         "edit": "Редактировать",
-        "noAnnouncements": "У вас пока нет объявлений :("
+        "noAnnouncements": "У вас пока нет объявлений :(",
+        "delete": "Удалить",
+        "confirm-delete": "Вы действительно хотите удалить объявление?",
+        "success-delete": "Объявление успешно удалено"
     },
 
     "errors": {

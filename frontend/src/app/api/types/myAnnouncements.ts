@@ -7,6 +7,7 @@ export interface MyAnnouncements {
     date_create: string;
     owner?: Owner;
     slug: string | null;
+    is_published: boolean;
 }
 export interface Owner {
     id: number;
@@ -17,4 +18,5 @@ export interface Owner {
 }
 interface Images {
     image: string;
+    id: number;
 }

@@ -34,7 +34,7 @@ export const fetchAdverts = createApi({
                 url: 'api/advertisements/', // сюда вписать адрес для добавления нового объявления
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
                 body,
@@ -57,6 +57,19 @@ export const fetchAdverts = createApi({
             }),
             providesTags: ['MyAnnouncements'],
         }),
+        deleteAnnouncemet: build.mutation<
+            null,
+            { token: string; slug: string }
+        >({
+            query: ({ token, slug }) => ({
+                url: `api/advertisements/${slug}`,
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "X-Csrftoken": `${token}`,
+                },
+            }),
+        }),
         editAdvert: build.mutation<
             FormAddAnn,
             { body: FormAddAnn; addSlug: string; accessToken: string }
@@ -65,8 +78,9 @@ export const fetchAdverts = createApi({
                 url: `api/advertisements/${addSlug}`,
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/json',
                     Authorization: `Bearer ${accessToken}`,
+                    "X-Csrftoken": `${accessToken}`,
                 },
                 body,
             }),
@@ -82,4 +96,5 @@ export const {
     useAddAdvertMutation,
     useMyAnnouncementsQuery,
     useEditAdvertMutation,
+    useDeleteAnnouncemetMutation
 } = fetchAdverts;
