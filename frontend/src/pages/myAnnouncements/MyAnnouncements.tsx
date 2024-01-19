@@ -9,7 +9,7 @@ import { getTokensFromStorage } from 'widgets/header/libr/authentication/getToke
 const MyAnnouncements = () => {
     const { t } = useTranslation();
     const { accessToken } = getTokensFromStorage();
-    const { data, isLoading } = useMyAnnouncementsQuery(accessToken);
+    const { data, isLoading, refetch } = useMyAnnouncementsQuery(accessToken);
 
     return (
         <>
@@ -22,7 +22,7 @@ const MyAnnouncements = () => {
             {data ? (
                 <div className={styles.announcements_list}>
                     {data?.map((el) => (
-                        <MyAnnouncementCart key={el.id} {...el} />
+                        <MyAnnouncementCart key={el.id} {...el} refetch={refetch} />
                     ))}
                 </div>
             ) : (

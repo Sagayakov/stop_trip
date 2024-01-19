@@ -8,6 +8,32 @@ import {
     MyAnnouncementDescription,
 } from 'entity/myAnnouncements';
 import { NavLink } from 'react-router-dom';
+import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
+import {
+    BaseQueryFn,
+    FetchArgs,
+    FetchBaseQueryError,
+    FetchBaseQueryMeta,
+    QueryDefinition,
+} from '@reduxjs/toolkit/query';
+
+interface Props extends MyAnnouncements {
+    refetch: () => QueryActionCreatorResult<
+        QueryDefinition<
+            string,
+            BaseQueryFn<
+                string | FetchArgs,
+                unknown,
+                FetchBaseQueryError,
+                object,
+                FetchBaseQueryMeta
+            >,
+            'Adverts' | 'MyAnnouncements',
+            MyAnnouncements[],
+            'fetchAdverts'
+        >
+    >;
+}
 
 export const MyAnnouncementCart = ({
     images,
@@ -16,7 +42,8 @@ export const MyAnnouncementCart = ({
     date_create,
     slug,
     category,
-}: MyAnnouncements) => {
+    refetch
+}: Props) => {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -32,7 +59,9 @@ export const MyAnnouncementCart = ({
                 onClick={(event) => event.stopPropagation()}
             >
                 <AnnouncementOptions setShowModal={setShowModal} />
-                {showModal && <ModalOption slug={slug!} />}
+                {showModal && (
+                    <ModalOption slug={slug!} setShowModal={setShowModal} refetch={refetch} />
+                )}
                 <NavLink to={`/${category}/${slug}/`}>
                     {images?.length !== 0 ? (
                         <img alt="announcements img" src={images[0].image} />

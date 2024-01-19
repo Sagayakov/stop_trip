@@ -293,7 +293,10 @@
     "myAnnouncements": {
         "published": "Published",
         "edit": "Edit",
-        "noAnnouncements": "You don't have any announcements yet :("
+        "noAnnouncements": "You don't have any announcements yet :(",
+        "delete": "Delete",
+        "confirm-delete": "Do you really want to delete the ad?",
+        "success-delete": "The ad has been successfully deleted"
     },
 
     "errors": {
