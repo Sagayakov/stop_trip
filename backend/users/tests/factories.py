@@ -5,7 +5,6 @@ from django.utils.timezone import now
 
 from ..models import User, Rate
 
-
 class UserFactory(factory.django.DjangoModelFactory):
     """Фабрика пользователей."""
 

@@ -29,4 +29,5 @@ class Rate(models.Model):
     class Meta:
         verbose_name = "Отзыв"
         verbose_name_plural = "отзывы"
+        unique_together = ("from_user", "to_user")
         ordering = ("-date_updated",)
