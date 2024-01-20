@@ -1,4 +1,9 @@
-import { Control, Controller, FieldErrors } from 'react-hook-form';
+import {
+    Control,
+    Controller,
+    FieldErrors,
+    UseFormWatch,
+} from 'react-hook-form';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/mySettings/libr/mySettings.module.scss';
@@ -9,11 +14,20 @@ interface Props {
     control: Control<SettingTypes, string>;
     errors: FieldErrors<SettingTypes>;
     handleCopy: (event: React.ClipboardEvent<HTMLInputElement>) => void;
+    watch: UseFormWatch<SettingTypes>;
 }
 
-export const MySettingNewPassword = ({ control, errors, handleCopy }: Props) => {
+export const MySettingNewPassword = ({
+    control,
+    errors,
+    handleCopy,
+    watch,
+}: Props) => {
     const { t } = useTranslation();
     const [showNewPassword, setShowNewPassword] = useState(false);
+    const newPassword = watch('new_password');
+    const currentPassword = watch('current_password');
+
     return (
         <div className={styles.password_div}>
             <h3>{t('my-settings.new-password')}:</h3>
@@ -29,21 +43,16 @@ export const MySettingNewPassword = ({ control, errors, handleCopy }: Props) => 
                 render={({ field }) => (
                     <input
                         {...field}
-                        type={
-                            showNewPassword
-                                ? 'text'
-                                : 'password'
-                        }
-                        placeholder={t(
-                            'my-settings.new-password'
-                        )}
+                        type={showNewPassword ? 'text' : 'password'}
+                        placeholder={t('my-settings.new-password')}
                         onCopy={(event) => handleCopy(event)}
                         autoComplete="new_password"
                         minLength={8}
                         maxLength={22}
                         style={{
                             border: `1px solid ${
-                                errors?.new_password
+                                errors?.new_password ||
+                                newPassword === currentPassword
                                     ? '#FF3F25'
                                     : '#8f8f8f'
                             }`,
@@ -53,15 +62,14 @@ export const MySettingNewPassword = ({ control, errors, handleCopy }: Props) => 
             />
             <div
                 id={styles.eye}
-                onClick={() =>
-                    setShowNewPassword(!showNewPassword)
-                }
+                onClick={() => setShowNewPassword(!showNewPassword)}
             >
                 <Eye />
             </div>
             <div className={styles.errors}>
-                {errors.new_password &&
-                    errors.new_password.message}
+                {errors.new_password && errors.new_password.message}
+                {newPassword === currentPassword &&
+                    t('my-settings.same-password')}
             </div>
         </div>
     );

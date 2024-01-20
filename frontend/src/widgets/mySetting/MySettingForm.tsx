@@ -82,6 +82,7 @@ export const MySettingForm = (props: Props) => {
                             control={control}
                             errors={errors}
                             handleCopy={handleCopy}
+                            watch={watch}
                         />
                         <MySettingReNewPassword
                             control={control}

@@ -1,4 +1,9 @@
-import { Control, Controller, FieldErrors, UseFormWatch } from 'react-hook-form';
+import {
+    Control,
+    Controller,
+    FieldErrors,
+    UseFormWatch,
+} from 'react-hook-form';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/mySettings/libr/mySettings.module.scss';
@@ -12,11 +17,17 @@ interface Props {
     watch: UseFormWatch<SettingTypes>;
 }
 
-export const MySettingReNewPassword = ({ errors, handleCopy, watch, control }: Props) => {
+export const MySettingReNewPassword = ({
+    errors,
+    handleCopy,
+    watch,
+    control,
+}: Props) => {
     const { t } = useTranslation();
     const newPassword = watch('new_password');
     const reNewPassword = watch('re_new_password');
     const [showReNewPassword, setShowReNewPassword] = useState(false);
+
     return (
         <div className={styles.password_div}>
             <h3>{t('my-settings.re-new-password')}:</h3>
@@ -26,14 +37,8 @@ export const MySettingReNewPassword = ({ errors, handleCopy, watch, control }: P
                 render={({ field }) => (
                     <input
                         {...field}
-                        type={
-                            showReNewPassword
-                                ? 'text'
-                                : 'password'
-                        }
-                        placeholder={t(
-                            'my-settings.re-new-password'
-                        )}
+                        type={showReNewPassword ? 'text' : 'password'}
+                        placeholder={t('my-settings.re-new-password')}
                         onCopy={(event) => handleCopy(event)}
                         autoComplete="re_new_password"
                         style={{
@@ -49,15 +54,12 @@ export const MySettingReNewPassword = ({ errors, handleCopy, watch, control }: P
             />
             <div
                 id={styles.eye}
-                onClick={() =>
-                    setShowReNewPassword(!showReNewPassword)
-                }
+                onClick={() => setShowReNewPassword(!showReNewPassword)}
             >
                 <Eye />
             </div>
             <div className={styles.errors}>
-                {(errors?.re_new_password ||
-                        newPassword !== reNewPassword) &&
+                {(errors?.re_new_password || newPassword !== reNewPassword) &&
                     t('modal-registration.mismatch')}
             </div>
         </div>
