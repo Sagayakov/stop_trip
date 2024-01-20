@@ -56,11 +56,11 @@ export const MySettingForm = (props: Props) => {
             {(isLoading || isLoadingMutation || isLoadingPassword) && (
                 <LoadingWithBackground />
             )}
-            {!data && <h1>Нет данных</h1>}
+            {!data && <h1>{t('my-settings.no-data')}</h1>}
             {data && (
                 <>
                     <p>
-                        Ваш почтовый адрес: <b>{data.email}</b>
+                        {t('my-settings.mail-address')}: <b>{data.email}</b>
                     </p>
                     <div className={styles.input_wrapper}>
                         <MySettingName control={control} data={data} />
@@ -71,7 +71,7 @@ export const MySettingForm = (props: Props) => {
                         />
                     </div>
                     <div className={styles.input_wrapper}>
-                        <h2>Смена пароля</h2>
+                        <h2>{t('my-settings.password-change')}</h2>
                         <MySettingCurrentPassword
                             control={control}
                             errors={errors}

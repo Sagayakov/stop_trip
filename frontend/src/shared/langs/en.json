@@ -315,6 +315,9 @@
         "current-password": "Enter the current password",
         "new-password": "Enter a new password",
         "re-new-password": "Repeat a new password",
-        "password-success": "Password successfully changed"
+        "password-success": "Password successfully changed",
+        "no-data": "No data",
+        "mail-address": "Your e-mail address",
+        "password-change": "Password change"
     }
 }

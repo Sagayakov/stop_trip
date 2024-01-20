@@ -315,6 +315,9 @@
         "current-password": "Введите текущий пароль",
         "new-password": "Введите новый пароль",
         "re-new-password": "Повторите новый пароль",
-        "password-success": "Пароль успешно изменен"
+        "password-success": "Пароль успешно изменен",
+        "no-data": "Нет данных",
+        "mail-address": "Адрес Вашей электронной почты",
+        "password-change": "Смена пароля"
     }
 }
