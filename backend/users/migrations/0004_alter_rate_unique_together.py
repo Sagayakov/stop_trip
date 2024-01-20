@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0003_alter_rate_options_alter_rate_comment'),
+        ("users", "0003_alter_rate_options_alter_rate_comment"),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='rate',
-            unique_together={('from_user', 'to_user')},
+            name="rate",
+            unique_together={("from_user", "to_user")},
         ),
     ]

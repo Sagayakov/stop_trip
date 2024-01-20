@@ -56,9 +56,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     def get_queryset(self):
         queryset = (
             Advertisement.objects.filter(is_published=True)
-            .select_related(
-                "country", "region", "city", "proposed_currency", "exchange_for"
-            )
+            .select_related("country", "region", "city", "proposed_currency", "exchange_for")
             .prefetch_related(Prefetch("owner", User.objects.annotate_rating()))
         )
 
@@ -110,10 +108,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
     def get_permissions(self):
         if self.action in self.custom_permission_classes.keys():
-            return [
-                permission()
-                for permission in self.custom_permission_classes[self.action]
-            ]
+            return [permission() for permission in self.custom_permission_classes[self.action]]
         return [permission() for permission in self.permission_classes]
 
     def create(self, request, *args, **kwargs):
