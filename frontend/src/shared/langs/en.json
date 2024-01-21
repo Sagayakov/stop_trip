@@ -322,7 +322,8 @@
         "mail-address": "Your e-mail address",
         "password-change": "Password change",
         "same-password": "The new password must be different from the old one",
-        "equal-new-password": "The new password must be different from the old password"
+        "equal-new-password": "The new password must be different from the old password",
+        "correct-name": "Enter correct name"
     },
     "feedback": {
         "feedback-message": "10 to 900 characters"

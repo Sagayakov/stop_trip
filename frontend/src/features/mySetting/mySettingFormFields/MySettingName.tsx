@@ -1,4 +1,4 @@
-import { Control, Controller } from 'react-hook-form';
+import { Control, Controller, FieldErrors } from 'react-hook-form';
 import styles from 'pages/mySettings/libr/mySettings.module.scss';
 import { useTranslation } from 'react-i18next';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
@@ -9,7 +9,8 @@ import { SerializedError } from '@reduxjs/toolkit';
 interface Props {
     control: Control<SettingTypes, string>;
     data: User;
-    errors: FetchBaseQueryError | SerializedError | undefined;
+    errors: FieldErrors<SettingTypes>;
+    mutationErrors: FetchBaseQueryError | SerializedError | undefined;
 }
 
 export const MySettingName = ({ control, data, errors }: Props) => {
@@ -25,7 +26,8 @@ export const MySettingName = ({ control, data, errors }: Props) => {
                 rules={{
                     required: t('modal-registration.min-name-length'),
                     pattern: {
-                        value: /^[\w\s-а-яА-ЯёЁ]+$/i,
+                        value: /^[a-zA-Zа-яА-ЯёЁ][\w-a-zA-Zа-яА-ЯёЁ_\s]{1,50}$/i,
+                        //value: /^([\w\s-а-яА-ЯёЁ]{2,50})+$/i,
                         message: t('modal-registration.wildcars-name'),
                     },
                     minLength: {
@@ -41,16 +43,30 @@ export const MySettingName = ({ control, data, errors }: Props) => {
                     <input
                         {...field}
                         placeholder={t('modal-registration.user-name')}
-                        style={errors && { border: '1px solid #ff2d55' }}
+                        style={
+                            errors.full_name /*  || mutationErrors */ && {
+                                border: '1px solid #FF3F25',
+                            }
+                        }
                     />
                 )}
             />
             <div className={styles.errors}>
-                {errors && (
+                {errors?.full_name && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        {t('modal-registration.user-name')}
+                        {errors?.full_name && errors.full_name.message}
                     </p>
                 )}
+                {/* {mutationErrors && (
+                    <p
+                        style={{
+                            color: '#FF3F25',
+                            fontSize: '13px',
+                        }}
+                    >
+                        {t('my-settings.correct-name')}
+                    </p>
+                )} */}
             </div>
         </>
     );
