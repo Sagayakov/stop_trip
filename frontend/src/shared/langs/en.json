@@ -52,7 +52,9 @@
     "modal-registration": {
         "registration": "Registration",
         "user-name": "Enter your name",
+        "min-name-length": "Minimum 2 characters",
         "not-more-50": "No more than 50 characters",
+        "wildcars-name": "enter a name without wildcards",
         "phone": "Phone number",
         "correct-number": "Enter correct phone number",
         "email-exists": "A user with this email already exists",
@@ -315,6 +317,10 @@
         "current-password": "Enter the current password",
         "new-password": "Enter a new password",
         "re-new-password": "Repeat a new password",
-        "password-success": "Password successfully changed"
+        "password-success": "Password successfully changed",
+        "equal-new-password": "The new password must be different from the old password"
+    },
+    "feedback": {
+        "feedback-message": "10 to 900 characters"
     }
 }

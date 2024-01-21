@@ -52,7 +52,9 @@
     "modal-registration": {
         "registration": "Регистрация",
         "user-name": "Введите ваше имя",
+        "min-name-length": "Минимум 2 символа",
         "not-more-50": "Не более 50 символов",
+        "wildcars-name": "Введите имя без спецсимволов",
         "phone": "Номер телефона",
         "correct-number": "Введите корректный номер телефона",
         "email-exists": "Пользователь с такой почтой уже существует",
@@ -315,6 +317,10 @@
         "current-password": "Введите текущий пароль",
         "new-password": "Введите новый пароль",
         "re-new-password": "Повторите новый пароль",
-        "password-success": "Пароль успешно изменен"
+        "password-success": "Пароль успешно изменен",
+        "equal-new-password": "Новый пароль должен отличаться от старого"
+    },
+    "feedback": {
+        "feedback-message": "От 10 до 900 символов"
     }
 }

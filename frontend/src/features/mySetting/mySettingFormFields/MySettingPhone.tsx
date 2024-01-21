@@ -9,6 +9,8 @@ import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
 import { User } from 'app/api/types/user.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/mySettings/libr/mySettings.module.scss';
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 interface Props {
     control: Control<SettingTypes, string>;
@@ -16,10 +18,19 @@ interface Props {
     errors: Partial<FieldErrorsImpl<DeepRequired<SettingTypes>>> & {
         root?: Record<string, GlobalError> & GlobalError;
     };
+    updateError: FetchBaseQueryError | SerializedError | undefined;
 }
 
-export const MySettingPhone = ({ data, control, errors }: Props) => {
+export const MySettingPhone = ({ data, control, errors, updateError }: Props) => {
     const { t } = useTranslation();
+    const borderColor = () => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        if(errors?.phone || updateError?.data.phone){
+            return '#FF3F25'
+        }//если код 400 и ошибка в номере телефона, то покрасим в красный
+        return '#DCDCDC'
+    }
     return (
         <>
             <h3>{t('my-settings.phone')}:</h3>
@@ -37,9 +48,7 @@ export const MySettingPhone = ({ data, control, errors }: Props) => {
                         {...field}
                         placeholder={t('modal-registration.phone')}
                         style={{
-                            border: `1px solid ${
-                                errors?.phone ? '#FF3F25' : '#DCDCDC'
-                            }`,
+                            border: `1px solid ${borderColor()}`,
                         }}
                     />
                 )}

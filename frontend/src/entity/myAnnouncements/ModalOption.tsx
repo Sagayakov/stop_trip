@@ -16,13 +16,13 @@ import {
     FetchBaseQueryMeta,
     QueryDefinition,
 } from '@reduxjs/toolkit/query';
-import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
+import { MyAnnouncements, ChangePublished } from 'app/api/types/myAnnouncements.ts';
 import { useEffect } from 'react';
 
-interface Props {
-    slug: string;
+interface Props extends MyAnnouncements{
+    // slug: string;
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-    is_published: boolean;
+    // is_published: boolean;
     refetch: () => QueryActionCreatorResult<
         QueryDefinition<
             string,
@@ -39,7 +39,8 @@ interface Props {
         >
     >;
 }
-export const ModalOption = ({ slug, setShowModal, refetch, is_published }: Props) => {
+export const ModalOption = (data: Props) => {
+    const { slug, setShowModal, refetch, is_published, description, exchange_rate, category, images, price, title  } = data;
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [deleteAnn, { isLoading, isSuccess, isError }] = useDeleteAnnouncemetMutation();
@@ -51,7 +52,7 @@ export const ModalOption = ({ slug, setShowModal, refetch, is_published }: Props
             try{
                 await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
                 const { accessToken } = getTokensFromStorage();
-                await deleteAnn({ token: accessToken , slug });
+                await deleteAnn({ token: accessToken , slug: slug as string });
                 refetch();
                 setShowModal(false);
             }catch (error) {
@@ -62,7 +63,31 @@ export const ModalOption = ({ slug, setShowModal, refetch, is_published }: Props
             setShowModal(false);
         }
     }
-
+    const isPublishedChange = async() => {
+        const body: ChangePublished = {
+            category: category as string,
+            title,
+            price,
+            description,
+            images,
+            slug: slug as string,
+            exchange_rate,
+            is_published: !is_published,
+        }
+        await getAccessTokenWithRefresh(dispatch, refreshToken);
+        const { accessToken } = getTokensFromStorage();
+        const response = await fetch(`https://stoptrip.com/api/advertisements/${slug}/`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${accessToken}`,
+                "X-Csrftoken": `${accessToken}`,
+            },
+            body: JSON.stringify(body),
+        })
+        const data = await response.json();
+        console.log(data)
+    }
     useEffect(() => {
         if (isSuccess) {
             toast.success(t('myAnnouncements.success-delete'));
@@ -77,7 +102,7 @@ export const ModalOption = ({ slug, setShowModal, refetch, is_published }: Props
             {isLoading && <LoadingWithBackground />}
             <div className={styles.modal_option}>
                 <label className={styles.label_option}>
-                    <input type="checkbox" checked={is_published} />
+                    <input type="checkbox" checked={is_published} onChange={isPublishedChange} />
                     <span>{t('myAnnouncements.published')}</span>
                 </label>
                 <div

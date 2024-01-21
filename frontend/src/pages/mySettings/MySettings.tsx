@@ -20,9 +20,10 @@ const MySettings = () => {
     const { handleSubmit, control, formState, watch, clearErrors } = useForm<SettingTypes>({
         mode: 'all',
     });
+    const { errors } = formState;
     const dispatch = useAppDispatch();
     const { accessToken } = getTokensFromStorage();
-    const [setUser, { isLoading: isLoadingMutation }] = useSetUserMutation();
+    const [setUser, { isLoading: isLoadingMutation, error: updateError, isSuccess: isUpdateUserSuccess }] = useSetUserMutation();
     const [
         setPassword,
         { isLoading: isLoadingPassword, error: passwordErrors },
@@ -38,8 +39,7 @@ const MySettings = () => {
         const { refreshToken } = getTokensFromStorage();
         getAccessTokenWithRefresh(dispatch, refreshToken);
         const { accessToken: token } = getTokensFromStorage();
-        let success = false;
-        if (data.current_password && data.new_password && data.re_new_password) {
+        if (data.current_password && data.new_password && data.re_new_password && (data.new_password !== data.current_password)) {
             const body = {
                 current_password: data.current_password,
                 new_password: data.new_password,
@@ -48,21 +48,37 @@ const MySettings = () => {
             const res = await setPassword({ body, token: token });
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            if(!res?.error) {
+            if(!res?.error){//если 400, то вернется объект с полем error
                 toast.success(t('my-settings.password-success'));
             }
         }
+        if(data.new_password === data.current_password){
+            toast.error(t('my-settings.equal-new-password'))
+        }
         if ((data.phone || data.full_name) && (data.phone !== userData?.phone || data.full_name !== userData?.full_name)) {
             const res = await setUser({ body: data, token: token });
-            if(res) success = true;
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            if(res.error){//если 400, то вернется объект с полем error
+                toast.error(t('errors.add-announcement-error'));
+            }
         }
-        success && toast.success(t('my-settings.success'));
     };
+    const disabled = () => {
+        if(errors.full_name || errors.phone || errors.re_new_password || errors.new_password || errors.current_password){
+            return true
+        }
+        return false
+    }
+
     useEffect(() => {
         if(passwordErrors){
             toast.error(t('errors.add-announcement-error'));
         }
-    }, [passwordErrors]);
+        if(isUpdateUserSuccess){
+            toast.success(t('my-settings.success'));
+        }
+    }, [passwordErrors, isUpdateUserSuccess, t,]);
 
     return (
         <section className={styles.my_setting}>
@@ -83,9 +99,10 @@ const MySettings = () => {
                     isLoadingMutation={isLoadingMutation}
                     passwordErrors={passwordErrors}
                     clearErrors={clearErrors}
+                    updateError={updateError}
                 />
                 <div className={styles.button_wrapper}>
-                    <input type="submit" value={t('myAnnouncements.edit')} />
+                    <input type="submit" value={t('myAnnouncements.edit')} disabled={disabled()} />
                     <button className={styles.goBack}>
                         {t('add-page.back')}
                     </button>
