@@ -70,6 +70,10 @@ const MySettings = () => {
         }
     };
 
+    const newPassword = watch('new_password');
+    const currentPassword = watch('current_password');
+    const reNewPassword = watch('re_new_password');
+
     return (
         <section className={styles.my_setting}>
             <div className={styles.bread_crumbs}>
@@ -94,7 +98,11 @@ const MySettings = () => {
                     <input
                         type="submit"
                         value={t('myAnnouncements.edit')}
-                        disabled={!isValid}
+                        disabled={
+                            !isValid ||
+                            newPassword === currentPassword ||
+                            newPassword !== reNewPassword
+                        }
                     />
                     <button className={styles.goBack}>
                         {t('add-page.back')}
