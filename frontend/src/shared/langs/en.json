@@ -64,7 +64,7 @@
         "two-dots": "You cannot enter two points in a row",
         "digit": "The domain part cannot have a number at the beginning or end\nor dash",
         "password-short": "The password is too short. Minimum length is 8 characters.",
-        "password-correct": "Password must be between 8 and 22 characters (EN), capital letter, number and special character are mandatory.",
+        "password-correct": "Password must be between 8 and 22 characters (EN), lowercase and uppercase letter, digit and special character are mandatory.",
         "repeat": "Repeat password",
         "mismatch": "Password mismatch",
         "accept": "I accept the terms of the",
