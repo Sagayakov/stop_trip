@@ -12,7 +12,7 @@ interface Props {
     errors: FetchBaseQueryError | SerializedError | undefined;
 }
 
-export const MySettingPhone = ({ data, control, errors, updateError }: Props) => {
+export const MySettingPhone = ({ data, control, errors }: Props) => {
     const { t } = useTranslation();
 
     return (

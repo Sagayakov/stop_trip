@@ -17,10 +17,9 @@ import { MySettingForm } from 'widgets/mySetting/MySettingForm.tsx';
 
 const MySettings = () => {
     const { t } = useTranslation();
-    const { handleSubmit, control, formState, watch, clearErrors } =
-        useForm<SettingTypes>({
-            mode: 'all',
-        });
+    const { handleSubmit, control, formState, watch } = useForm<SettingTypes>({
+        mode: 'all',
+    });
     const { isValid } = formState;
     const dispatch = useAppDispatch();
     const { accessToken } = getTokensFromStorage();
@@ -90,8 +89,6 @@ const MySettings = () => {
                     isLoadingMutation={response.isLoading}
                     mutationErrors={response.error}
                     passwordErrors={responsePassword.error}
-                    clearErrors={clearErrors}
-                    updateError={updateError}
                 />
                 <div className={styles.button_wrapper}>
                     <input
