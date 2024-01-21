@@ -57,58 +57,9 @@ const AddAnnouncementPage = () => {
         dispatch(setLoading(true));
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
         const formData = createFormDataObjectForSendAnnouncement(data, 'images');
-        // const formData = new FormData();
-        // Object.entries(data).forEach(([field, value]) => {
-        //     switch (field) {
-        //         case 'images':
-        //             // Если это поле с изображениями, добавляем каждый файл поочередно
-        //             if (value instanceof Array && value[0] instanceof File) {
-        //                 value.forEach((file, index) => {
-        //                     formData.append('images', file, `image_${index}`);
-        //                 });
-        //             }
-        //             break;
-        //         default:
-        //             // Добавляем остальные поля
-        //             if (value === undefined || value === null) {
-        //                 break; //иначе присваивается 'undefined' если поле не заполнено
-        //             }
-        //             if(Array.isArray(value)){
-        //                 value.forEach((val) => {
-        //                     formData.append(`${field}`, val);
-        //                 });
-        //             }
-        //
-        //             formData.append(field, value);
-        //             break;
-        //     }
-        // });
-
         try {
             const { accessToken } = getTokensFromStorage();
             await addAdvert({body: formData as FormAddAnn, token: accessToken})
-            // const response = await fetch(
-            //     `${import.meta.env.VITE_BASE_URL}/api/advertisements/`,
-            //     {
-            //         method: 'POST',
-            //         headers: {
-            //             "Authorization": `Bearer ${accessToken}`,
-            //             "X-Csrftoken": `${accessToken}`,
-            //         },
-            //         body: formData,
-            //     }
-            // );
-            // if (response.ok) {
-            //     setSelectedImages(undefined);
-            //     setMarkerPosition(undefined);
-            //     reset();
-            //     setValue('category', data.category);
-            //     dispatch(setLoading(false));
-            //     setModalSuccess(true);
-            // } else {
-            //     dispatch(setLoading(false));
-            //     toast.error(`${t('errors.add-announcement-error')}`);
-            // }
         } catch (error) {
             console.log(error);
             dispatch(setLoading(false));
@@ -128,10 +79,9 @@ const AddAnnouncementPage = () => {
             setSelectedImages(undefined);
             setMarkerPosition(undefined);
             reset();
-            // setValue('category', data.category);
         }
         if(isError) toast.error(`${t('errors.add-announcement-error')}`);
-    }, [isSuccess, isError]);
+    }, [isSuccess, isError, reset, t]);
 
     return (
         <>

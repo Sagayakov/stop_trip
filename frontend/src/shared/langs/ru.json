@@ -163,7 +163,7 @@
         "choose-model": "Выберите модель",
         "transport_engine_type": "Тип двигателя",
         "transport_engine_volume": "Объём двигателя",
-        "volume": "Объём (1-2.7)",
+        "volume": "1.0-2.7",
         "transport_drive_type": "Привод",
         "transport_year_of_production": "Год производства",
         "year": "Год",

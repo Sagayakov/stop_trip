@@ -163,7 +163,7 @@
         "choose-model": "Choose model",
         "transport_engine_type": "Engine type",
         "transport_engine_volume": "Engine capacity",
-        "volume": "Volume (1-2.7)",
+        "volume": "1.0-2.7",
         "transport_drive_type": "Drive type",
         "transport_year_of_production": "Year of production",
         "year": "Year",
