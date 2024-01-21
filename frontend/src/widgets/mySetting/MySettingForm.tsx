@@ -30,6 +30,7 @@ interface Props {
             | `root.${string}`
             | 'root'
     ) => void;
+    updateError: FetchBaseQueryError | SerializedError | undefined;
 }
 
 export const MySettingForm = (props: Props) => {
@@ -40,6 +41,7 @@ export const MySettingForm = (props: Props) => {
         isLoadingPassword,
         isLoadingMutation,
         passwordErrors,
+        updateError
     } = props;
     const { errors } = formState;
     const { t } = useTranslation();
@@ -63,11 +65,16 @@ export const MySettingForm = (props: Props) => {
                         Ваш почтовый адрес: <b>{data.email}</b>
                     </p>
                     <div className={styles.input_wrapper}>
-                        <MySettingName control={control} data={data} />
+                        <MySettingName
+                            control={control}
+                            data={data}
+                            errors={errors}
+                        />
                         <MySettingPhone
                             control={control}
                             data={data}
                             errors={errors}
+                            updateError={updateError}
                         />
                     </div>
                     <div className={styles.input_wrapper}>

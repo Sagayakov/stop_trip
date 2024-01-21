@@ -10,7 +10,7 @@ const MyAnnouncements = () => {
     const { t } = useTranslation();
     const { accessToken } = getTokensFromStorage();
     const { data, isLoading, refetch } = useMyAnnouncementsQuery(accessToken);
-
+    console.log(data);
     return (
         <>
             {isLoading && <LoadingWithBackground />}

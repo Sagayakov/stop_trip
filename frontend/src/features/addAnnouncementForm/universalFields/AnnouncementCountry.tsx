@@ -17,7 +17,7 @@ const AnnouncementCountry = ({ control, setValue }: Props) => {
 
     useEffect(() => {
         setValue('country', 'india');
-    }, []);
+    }, [setValue]);
 
     return (
         <div className={styles.ann_field}>
