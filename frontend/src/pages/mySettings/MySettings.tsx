@@ -100,7 +100,9 @@ const MySettings = () => {
                         value={t('myAnnouncements.edit')}
                         disabled={
                             !isValid ||
-                            newPassword === currentPassword ||
+                            (newPassword &&
+                                currentPassword &&
+                                newPassword === currentPassword) ||
                             newPassword !== reNewPassword
                         }
                     />

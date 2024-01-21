@@ -61,12 +61,14 @@ export const MySettingForm = (props: Props) => {
                         <MySettingName
                             control={control}
                             data={data}
-                            errors={mutationErrors}
+                            errors={errors}
+                            mutationErrors={mutationErrors}
                         />
                         <MySettingPhone
                             control={control}
                             data={data}
-                            errors={mutationErrors}
+                            errors={errors}
+                            mutationErrors={mutationErrors}
                         />
                     </div>
                     <div className={styles.input_wrapper}>
