@@ -13,12 +13,7 @@ interface Props {
     mutationErrors: FetchBaseQueryError | SerializedError | undefined;
 }
 
-export const MySettingName = ({
-    control,
-    data,
-    errors,
-    mutationErrors,
-}: Props) => {
+export const MySettingName = ({ control, data, errors }: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -49,7 +44,7 @@ export const MySettingName = ({
                         {...field}
                         placeholder={t('modal-registration.user-name')}
                         style={
-                            (errors.full_name || mutationErrors) && {
+                            errors.full_name /*  || mutationErrors */ && {
                                 border: '1px solid #FF3F25',
                             }
                         }
@@ -62,7 +57,7 @@ export const MySettingName = ({
                         {errors?.full_name && errors.full_name.message}
                     </p>
                 )}
-                {mutationErrors && (
+                {/* {mutationErrors && (
                     <p
                         style={{
                             color: '#FF3F25',
@@ -71,7 +66,7 @@ export const MySettingName = ({
                     >
                         {t('my-settings.correct-name')}
                     </p>
-                )}
+                )} */}
             </div>
         </>
     );
