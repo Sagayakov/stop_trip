@@ -52,7 +52,7 @@ export const MySettingNewPassword = ({
                         style={{
                             border: `1px solid ${
                                 errors?.new_password ||
-                                newPassword === currentPassword
+                                (newPassword && newPassword === currentPassword)
                                     ? '#FF3F25'
                                     : '#8f8f8f'
                             }`,
@@ -68,7 +68,8 @@ export const MySettingNewPassword = ({
             </div>
             <div className={styles.errors}>
                 {errors.new_password && errors.new_password.message}
-                {newPassword === currentPassword &&
+                {newPassword &&
+                    newPassword === currentPassword &&
                     t('my-settings.same-password')}
             </div>
         </div>

@@ -22,6 +22,7 @@ interface Props {
     formState: FormState<SettingTypes>;
     isLoadingPassword: boolean;
     isLoadingMutation: boolean;
+    mutationErrors: FetchBaseQueryError | SerializedError | undefined;
     passwordErrors: FetchBaseQueryError | SerializedError | undefined;
     clearErrors: (
         name?:
@@ -39,6 +40,7 @@ export const MySettingForm = (props: Props) => {
         formState,
         isLoadingPassword,
         isLoadingMutation,
+        mutationErrors,
         passwordErrors,
     } = props;
     const { errors } = formState;
@@ -63,11 +65,15 @@ export const MySettingForm = (props: Props) => {
                         {t('my-settings.mail-address')}: <b>{data.email}</b>
                     </p>
                     <div className={styles.input_wrapper}>
-                        <MySettingName control={control} data={data} />
+                        <MySettingName
+                            control={control}
+                            data={data}
+                            errors={mutationErrors}
+                        />
                         <MySettingPhone
                             control={control}
                             data={data}
-                            errors={errors}
+                            errors={mutationErrors}
                         />
                     </div>
                     <div className={styles.input_wrapper}>

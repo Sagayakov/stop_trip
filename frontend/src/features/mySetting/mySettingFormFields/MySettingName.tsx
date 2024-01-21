@@ -3,14 +3,18 @@ import styles from 'pages/mySettings/libr/mySettings.module.scss';
 import { useTranslation } from 'react-i18next';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
 import { User } from 'app/api/types/user.ts';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import { SerializedError } from '@reduxjs/toolkit';
 
 interface Props {
     control: Control<SettingTypes, string>;
     data: User;
+    errors: FetchBaseQueryError | SerializedError | undefined;
 }
 
-export const MySettingName = ({ control, data }: Props) => {
+export const MySettingName = ({ control, data, errors }: Props) => {
     const { t } = useTranslation();
+
     return (
         <>
             <h3>{t('my-settings.name')}:</h3>
@@ -21,13 +25,17 @@ export const MySettingName = ({ control, data }: Props) => {
                 render={({ field }) => (
                     <input
                         {...field}
-                        placeholder={t(
-                            'modal-registration.user-name'
-                        )}
+                        placeholder={t('modal-registration.user-name')}
                     />
                 )}
             />
-            <div className={styles.errors}></div>
+            <div className={styles.errors}>
+                {errors && (
+                    <p style={{ color: '#FF3F25', fontSize: '13px' }}>
+                        {t('modal-registration.user-name')}
+                    </p>
+                )}
+            </div>
         </>
     );
 };

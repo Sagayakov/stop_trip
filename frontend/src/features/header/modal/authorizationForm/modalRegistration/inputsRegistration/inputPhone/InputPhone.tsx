@@ -17,7 +17,8 @@ export const InputPhone = ({ errors, register, watch }: Props) => {
     const { t } = useTranslation();
 
     const phoneNumber = watch('phone');
-    const handleBlur = () => sessionStorage.setItem('phonenumber', String(phoneNumber));
+    const handleBlur = () =>
+        sessionStorage.setItem('phonenumber', String(phoneNumber));
 
     return (
         <>
@@ -26,7 +27,7 @@ export const InputPhone = ({ errors, register, watch }: Props) => {
                     required: true,
                     minLength: 5,
                     pattern:
-                        /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$/,
+                        /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,15}(\s*)?$/,
                 })}
                 placeholder={t('modal-registration.phone')}
                 defaultValue={sessionStorage.getItem('phonenumber') || ''}

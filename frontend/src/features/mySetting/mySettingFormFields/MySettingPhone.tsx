@@ -1,25 +1,20 @@
-import {
-    Control,
-    Controller,
-    DeepRequired,
-    FieldErrorsImpl,
-    GlobalError,
-} from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
 import { User } from 'app/api/types/user.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/mySettings/libr/mySettings.module.scss';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import { SerializedError } from '@reduxjs/toolkit';
 
 interface Props {
     control: Control<SettingTypes, string>;
     data: User;
-    errors: Partial<FieldErrorsImpl<DeepRequired<SettingTypes>>> & {
-        root?: Record<string, GlobalError> & GlobalError;
-    };
+    errors: FetchBaseQueryError | SerializedError | undefined;
 }
 
 export const MySettingPhone = ({ data, control, errors }: Props) => {
     const { t } = useTranslation();
+
     return (
         <>
             <h3>{t('my-settings.phone')}:</h3>
@@ -28,9 +23,10 @@ export const MySettingPhone = ({ data, control, errors }: Props) => {
                 control={control}
                 defaultValue={data.phone || ''}
                 rules={{
+                    required: true,
                     minLength: 5,
                     pattern:
-                        /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$/,
+                        /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,15}(\s*)?$/,
                 }}
                 render={({ field }) => (
                     <input
@@ -38,14 +34,14 @@ export const MySettingPhone = ({ data, control, errors }: Props) => {
                         placeholder={t('modal-registration.phone')}
                         style={{
                             border: `1px solid ${
-                                errors?.phone ? '#FF3F25' : '#DCDCDC'
+                                errors ? '#FF3F25' : '#DCDCDC'
                             }`,
                         }}
                     />
                 )}
             />
             <div className={styles.errors}>
-                {errors?.phone && (
+                {errors && (
                     <p style={{ color: '#FF3F25', fontSize: '13px' }}>
                         {t('modal-registration.correct-number')}
                     </p>
