@@ -318,6 +318,10 @@
         "new-password": "Enter a new password",
         "re-new-password": "Repeat a new password",
         "password-success": "Password successfully changed",
+        "no-data": "No data",
+        "mail-address": "Your e-mail address",
+        "password-change": "Password change",
+        "same-password": "The new password must be different from the old one"
         "equal-new-password": "The new password must be different from the old password"
     },
     "feedback": {

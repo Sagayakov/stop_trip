@@ -4,10 +4,15 @@ import { NavLink } from 'react-router-dom';
 import styles from './libr/favorites.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Cart } from 'entity/lastAdverts/Cart';
+import { useEffect } from 'react';
 
 const FavoritesPage = () => {
-    const { data, isLoading } = useGetFavoritesQuery('');
+    const { data, isLoading, refetch } = useGetFavoritesQuery('');
     const { t } = useTranslation();
+
+    useEffect(() => {
+        refetch();
+    }, [refetch, data]);
 
     return (
         <>

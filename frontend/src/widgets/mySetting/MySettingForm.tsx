@@ -22,6 +22,7 @@ interface Props {
     formState: FormState<SettingTypes>;
     isLoadingPassword: boolean;
     isLoadingMutation: boolean;
+    mutationErrors: FetchBaseQueryError | SerializedError | undefined;
     passwordErrors: FetchBaseQueryError | SerializedError | undefined;
     clearErrors: (
         name?:
@@ -40,6 +41,7 @@ export const MySettingForm = (props: Props) => {
         formState,
         isLoadingPassword,
         isLoadingMutation,
+        mutationErrors,
         passwordErrors,
         updateError
     } = props;
@@ -58,27 +60,26 @@ export const MySettingForm = (props: Props) => {
             {(isLoading || isLoadingMutation || isLoadingPassword) && (
                 <LoadingWithBackground />
             )}
-            {!data && <h1>Нет данных</h1>}
+            {!data && <h1>{t('my-settings.no-data')}</h1>}
             {data && (
                 <>
                     <p>
-                        Ваш почтовый адрес: <b>{data.email}</b>
+                        {t('my-settings.mail-address')}: <b>{data.email}</b>
                     </p>
                     <div className={styles.input_wrapper}>
                         <MySettingName
                             control={control}
                             data={data}
-                            errors={errors}
+                            errors={mutationErrors}
                         />
                         <MySettingPhone
                             control={control}
                             data={data}
-                            errors={errors}
-                            updateError={updateError}
+                            errors={mutationErrors}
                         />
                     </div>
                     <div className={styles.input_wrapper}>
-                        <h2>Смена пароля</h2>
+                        <h2>{t('my-settings.password-change')}</h2>
                         <MySettingCurrentPassword
                             control={control}
                             errors={errors}
@@ -89,6 +90,7 @@ export const MySettingForm = (props: Props) => {
                             control={control}
                             errors={errors}
                             handleCopy={handleCopy}
+                            watch={watch}
                         />
                         <MySettingReNewPassword
                             control={control}
