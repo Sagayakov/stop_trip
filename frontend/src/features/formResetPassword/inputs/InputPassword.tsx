@@ -3,22 +3,17 @@ import { Eye } from 'shared/ui/icons/icons-tools/Eye.tsx';
 import { ResetPasswordType } from '../libr/types';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import styleForInput from 'pages/resetPassword/resetPassword.module.scss'
+import styleForInput from 'pages/resetPassword/resetPassword.module.scss';
+import { useState } from 'react';
 
 interface Props {
     errors: FieldErrors<ResetPasswordType>;
     register: UseFormRegister<ResetPasswordType>;
-    showPassword: boolean;
-    setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const InputPassword = ({
-    errors,
-    register,
-    showPassword,
-    setShowPassword,
-}: Props) => {
+export const InputPassword = ({ errors, register }: Props) => {
     const { t } = useTranslation();
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleShowPass = () => {
         setShowPassword(!showPassword);
@@ -39,7 +34,7 @@ export const InputPassword = ({
                         minLength: 8,
                         maxLength: 22,
                         pattern:
-                            /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])(?!.*\s)[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,22}/,
+                            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])(?!.*\s)[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,22}/,
                     })}
                     onCopy={(event) => handleCopy(event)}
                     placeholder={t('reset-page.password-new')}

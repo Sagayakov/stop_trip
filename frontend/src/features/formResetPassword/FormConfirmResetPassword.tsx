@@ -14,7 +14,6 @@ import { useTranslation } from 'react-i18next';
 import styles from 'pages/resetPassword/resetPassword.module.scss';
 
 const FormConfirmResetPassword = () => {
-    const [showPassword, setShowPassword] = useState(false);
     const {
         register,
         handleSubmit,
@@ -55,20 +54,13 @@ const FormConfirmResetPassword = () => {
                     autoComplete="false"
                     id="form-confirm-reset-password"
                 >
-                    <InputPassword
-                        errors={errors}
-                        register={register}
-                        showPassword={showPassword}
-                        setShowPassword={setShowPassword}
-                    />
+                    <InputPassword errors={errors} register={register} />
                     <InputRepeatPassword
                         errors={errors}
                         register={register}
-                        showPassword={showPassword}
-                        setShowPassword={setShowPassword}
                         watch={watch}
                     />
-                    <InputSubmit isValid={isValid} />
+                    <InputSubmit isValid={isValid} watch={watch} />
                 </form>
             ) : (
                 <div className={styles.reset_success}>

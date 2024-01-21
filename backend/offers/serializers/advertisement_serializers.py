@@ -127,6 +127,7 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
             "proposed_currency",
             "exchange_for",
             "exchange_rate",
+            "is_published",
         )
 
 
