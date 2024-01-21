@@ -128,7 +128,7 @@ class EventTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(6):
             res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
@@ -150,7 +150,7 @@ class EventTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(6):
             res = self.client.get(
                 self.list_url,
                 {"start_date": str(start_date)},
@@ -176,7 +176,7 @@ class EventTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(6):
             res = self.client.get(
                 self.list_url,
                 {"end_date": str(end_date)},
@@ -188,15 +188,11 @@ class EventTest(APITestCase):
 
     def test_filter_event_is_online(self):
         user = UserFactory()
-        # start_date = "2023-11-06 00:00:00"
-        # end_date = "2023-11-07 00:00:00"
         events_set = [
             EventAdvertisementFactory(
                 owner=user,
                 category=CategoryChoices.EVENT.value,
                 price=100_000 + _ * 50_000,
-                # start_date=start_date,
-                # end_date=end_date,
                 is_online=[True, False][_ % 2],
                 start_date="2023-12-5 00:00:00",
                 end_date="2023-12-5 00:00:00",
@@ -204,7 +200,7 @@ class EventTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(5):
             res = self.client.get(
                 self.list_url,
                 {"is_online": True},

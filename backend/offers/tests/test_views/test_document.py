@@ -131,7 +131,7 @@ class DocumentTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(6):
             res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
@@ -150,7 +150,7 @@ class DocumentTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(5):
             res = self.client.get(
                 self.list_url,
                 {"document_type": DocumentType.C_FORM.value},
@@ -160,7 +160,7 @@ class DocumentTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(document_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(6):
             res = self.client.get(
                 self.list_url,
                 {
@@ -188,7 +188,7 @@ class DocumentTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(5):
             res = self.client.get(
                 self.list_url,
                 {"document_duration": DocumentDuration.QUARTER.value},
@@ -198,7 +198,7 @@ class DocumentTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(document_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(6):
             res = self.client.get(
                 self.list_url,
                 {

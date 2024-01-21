@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from forbidden_words.models import ForbiddenWords
 from users.models import User
+from users.serializers import UserSerializer
 from ..constants import CategoryChoices
 from ..models import (
     Advertisement,
@@ -88,14 +89,6 @@ class AdvertisementPropertyAmenitySerializer(serializers.ModelSerializer):
     class Meta:
         model = PropertyAmenity
         fields = ("name", "slug")
-
-
-class UserSerializer(serializers.ModelSerializer):
-    """Сериализатор вывода юзера в объявлении."""
-
-    class Meta:
-        model = User
-        fields = ("id", "full_name", "phone", "email", "date_joined")
 
 
 class AdvertisementListSerializer(serializers.ModelSerializer):

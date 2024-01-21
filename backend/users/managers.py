@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from forbidden_words.models import ForbiddenWords
+from django.db.models import Avg, Count
 
 
 class CustomUserManager(BaseUserManager):
@@ -36,3 +37,8 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_("Superuser must have is_superuser=True."))
 
         return self.create_user(email, password, **extra_fields)
+
+    def annotate_rating(self):
+        return self.annotate(
+            avg_rating=Avg("to_user__rating", default=0), rating_num=Count("to_user__rating")
+        )
