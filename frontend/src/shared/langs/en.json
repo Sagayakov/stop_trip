@@ -321,7 +321,7 @@
         "no-data": "No data",
         "mail-address": "Your e-mail address",
         "password-change": "Password change",
-        "same-password": "The new password must be different from the old one"
+        "same-password": "The new password must be different from the old one",
         "equal-new-password": "The new password must be different from the old password"
     },
     "feedback": {

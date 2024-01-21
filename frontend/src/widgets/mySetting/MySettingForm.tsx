@@ -1,6 +1,6 @@
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import styles from 'pages/mySettings/libr/mySettings.module.scss';
-import { Control, FieldPath, FormState, UseFormWatch } from 'react-hook-form';
+import { Control, FormState, UseFormWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
@@ -24,14 +24,6 @@ interface Props {
     isLoadingMutation: boolean;
     mutationErrors: FetchBaseQueryError | SerializedError | undefined;
     passwordErrors: FetchBaseQueryError | SerializedError | undefined;
-    clearErrors: (
-        name?:
-            | FieldPath<SettingTypes>
-            | FieldPath<SettingTypes>[]
-            | `root.${string}`
-            | 'root'
-    ) => void;
-    updateError: FetchBaseQueryError | SerializedError | undefined;
 }
 
 export const MySettingForm = (props: Props) => {
@@ -43,7 +35,6 @@ export const MySettingForm = (props: Props) => {
         isLoadingMutation,
         mutationErrors,
         passwordErrors,
-        updateError
     } = props;
     const { errors } = formState;
     const { t } = useTranslation();

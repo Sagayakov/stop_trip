@@ -1,4 +1,4 @@
-import { Control, Controller, DeepRequired, FieldErrorsImpl, GlobalError } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import styles from 'pages/mySettings/libr/mySettings.module.scss';
 import { useTranslation } from 'react-i18next';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
@@ -30,7 +30,7 @@ export const MySettingName = ({ control, data, errors }: Props) => {
                     },
                     minLength: {
                         value: 2,
-                        message: t('modal-registration.min-name-length')
+                        message: t('modal-registration.min-name-length'),
                     },
                     maxLength: {
                         value: 50,
@@ -41,7 +41,7 @@ export const MySettingName = ({ control, data, errors }: Props) => {
                     <input
                         {...field}
                         placeholder={t('modal-registration.user-name')}
-                        style={errors && {border: '1px solid #ff2d55'}}
+                        style={errors && { border: '1px solid #ff2d55' }}
                     />
                 )}
             />
