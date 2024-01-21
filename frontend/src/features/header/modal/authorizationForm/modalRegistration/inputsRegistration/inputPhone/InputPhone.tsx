@@ -12,7 +12,7 @@ interface Props {
 
 export const InputPhone = ({ errors, register, watch }: Props) => {
     const phoneErrors = useAppSelector(
-        (state) => state.setIsAuth.errorRegistration?.phone[0]
+        (state) => state.setIsAuth.errorRegistration?.phone
     );
     const { t } = useTranslation();
 

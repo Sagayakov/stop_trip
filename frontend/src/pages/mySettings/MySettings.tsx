@@ -91,6 +91,7 @@ const MySettings = () => {
                     mutationErrors={response.error}
                     passwordErrors={responsePassword.error}
                     clearErrors={clearErrors}
+                    updateError={updateError}
                 />
                 <div className={styles.button_wrapper}>
                     <input

@@ -13,13 +13,13 @@ export const AnnouncementExchangeRate = ({ register, defaultValue }: Props) => {
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.exchange_rate')}:</h3>
+            <h3>{t('filters.exchange_rate')}<span>*</span>:</h3>
             <input
                 type="text"
                 id={styles.ann_field_price}
                 defaultValue={defaultValue!}
                 placeholder={t('filters.exchange_rate')}
-                {...register('exchange_rate')}
+                {...register('exchange_rate', { required: true })}
             />
             <div className={styles.ann_field_err}></div>
         </div>

@@ -35,16 +35,16 @@ interface Props extends MyAnnouncements {
     >;
 }
 
-export const MyAnnouncementCart = ({
-    images,
-    price,
-    title,
-    date_create,
-    slug,
-    category,
-    refetch,
-    is_published
-}: Props) => {
+export const MyAnnouncementCart = (data: Props) => {
+    const {
+        images,
+        price,
+        title,
+        date_create,
+        slug,
+        category,
+        refetch,
+    } = data;
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -61,7 +61,7 @@ export const MyAnnouncementCart = ({
             >
                 <AnnouncementOptions setShowModal={setShowModal} />
                 {showModal && (
-                    <ModalOption slug={slug!} setShowModal={setShowModal} refetch={refetch} is_published={is_published} />
+                    <ModalOption {...data} setShowModal={setShowModal} refetch={refetch} />
                 )}
                 <NavLink to={`/${category}/${slug}/`}>
                     {images?.length !== 0 ? (
