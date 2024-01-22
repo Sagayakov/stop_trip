@@ -6,6 +6,9 @@
     height: 100vh;
 
     .activate_acc_header {
+        h1{
+            font-size: 26px;
+        }
         display: grid;
         grid-template-rows: repeat(4, 1fr);
         gap: 2rem;

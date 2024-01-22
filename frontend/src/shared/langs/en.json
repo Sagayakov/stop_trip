@@ -258,6 +258,7 @@
         "post": "Posting an advert",
         "edit": "Edit advertisement",
         "category": "Category",
+        "country": "Country",
         "region": "Region",
         "city": "City",
         "choose": "Choose category",
@@ -274,7 +275,8 @@
         "please-select": "Please, select no more than 10 photos",
         "location": "Location",
         "back": "Back",
-        "edit-success": "Announcement successfully edited"
+        "edit-success": "Announcement successfully edited",
+        "required": "Required field"
     },
 
     "labels": {

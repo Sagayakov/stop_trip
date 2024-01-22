@@ -24,7 +24,7 @@ import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFi
 import { toast } from 'react-toastify';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
-import { useAppDispatch,/* useAppSelector*/ } from 'app/store/hooks.ts';
+import { useAppDispatch } from 'app/store/hooks.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
 import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
@@ -46,7 +46,6 @@ const AddAnnouncementPage = () => {
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [modalSuccess, setModalSuccess] = useState(false);
-    // const isLoading = useAppSelector((state) => state.setLoading.loading);
     const { t } = useTranslation();
     const { refreshToken } = getTokensFromStorage();
     const category = watch('category');
@@ -54,6 +53,9 @@ const AddAnnouncementPage = () => {
     const [addAdvert, {isSuccess, isError, isLoading}] = useAddAdvertMutation();
 
     const onsubmit = async (data: FormAddAnn) => {
+        console.log(data);
+        setValue('country', 'india');
+        setValue('region', "goa");
         dispatch(setLoading(true));
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
         const formData = createFormDataObjectForSendAnnouncement(data, 'images');
@@ -81,7 +83,9 @@ const AddAnnouncementPage = () => {
             reset();
         }
         if(isError) toast.error(`${t('errors.add-announcement-error')}`);
-    }, [isSuccess, isError, reset, t]);
+        setValue('country', 'india');
+        setValue('region', "goa");
+    }, [isSuccess, isError, reset, t, setValue]);
 
     return (
         <>
@@ -136,6 +140,7 @@ const AddAnnouncementPage = () => {
                             register={register}
                             setValue={setValue}
                             watch={watch}
+                            formState={formState}
                         />
                         <AnnouncementPhotoField
                             selectedImages={selectedImages}

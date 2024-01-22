@@ -13,8 +13,15 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import styles from './libr/cart.module.scss';
 import { prettifyPrice } from 'shared/utils/prettifyPrice';
+import { handleClickByAnnouncementCard } from 'shared/eCommercy/handleClickByAnnouncementCard.ts';
+import { pushAddToFavourite } from 'shared/eCommercy/pushAddToFavourite.ts';
+import { pushRemoveFromFavourite } from 'shared/eCommercy/pushRemoveFromFavourite.ts';
 
-export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
+interface Props extends AdvertsTypes{
+    index: number;
+}
+
+export const Cart = (cart: Props) => {
     const {
         price,
         title,
@@ -27,6 +34,7 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
         exchange_rate,
         exchange_for,
         proposed_currency,
+        index,
     } = cart;
     const { data } = useGetFavoritesQuery('');
     const [addFavorite] = useAddFavoriteMutation();
@@ -50,7 +58,27 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
         if (isAuth) {
             setAddToFav(!addToFav);
 
-            !addToFav ? addFavorite({ id }) : deleteFromFavorites({ id });
+            if(!addToFav){
+                addFavorite({ id })
+                pushAddToFavourite({
+                    id,
+                    index,
+                    title,
+                    category,
+                    price,
+                    listDescription: "Последние объявления"
+                });//добавляем в яндекс метрику "добавление в избранное"
+            }else{
+                deleteFromFavorites({ id })
+                pushRemoveFromFavourite({
+                    id,
+                    index,
+                    title,
+                    category,
+                    price,
+                    listDescription: "Последние объявления"
+                })//добавляем в яндекс метрику "удаление из избранного"
+            }
         } else {
             toast.error(`${t('main-page.toast-favs')}`);
         }
@@ -60,6 +88,14 @@ export const Cart = ({ cart }: { cart: AdvertsTypes }) => {
         <NavLink
             className={styles.announcement_cart}
             to={`/${category}/${slug}/`}
+            onClick={() => handleClickByAnnouncementCard({
+                id,
+                index,
+                title,
+                category,
+                price,
+                listDescription: "Последние объявления"
+            })}//добавляем в яндекс метрику клик по товару
         >
             <img
                 src={

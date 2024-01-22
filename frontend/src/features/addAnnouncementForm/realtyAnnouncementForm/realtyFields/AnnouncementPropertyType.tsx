@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
@@ -10,12 +10,14 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
+    formState: FormState<FormAddAnn>;
 }
 
 export const AnnouncementPropertyType = ({
     setValue,
     control,
     defaultValue,
+    formState
 }: Props) => {
     const { t } = useTranslation();
     const optionValues = [
@@ -38,7 +40,7 @@ export const AnnouncementPropertyType = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.property-type')}</h3>
+            <h3>{t('filters.property-type')}<span>*</span>:</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}
@@ -49,8 +51,9 @@ export const AnnouncementPropertyType = ({
                 defaultValue={getDefaultValue(defaultValue, optionValues)}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
+                requiredFiled={true}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>{formState?.errors?.property_type?.message}</div>
         </div>
     );
 };

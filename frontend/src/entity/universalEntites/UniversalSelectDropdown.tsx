@@ -1,6 +1,7 @@
 import { Control, Controller, FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import { useTranslation } from 'react-i18next';
 
 interface Props<T extends FieldValues> {
     setValue: UseFormSetValue<T>;
@@ -11,7 +12,7 @@ interface Props<T extends FieldValues> {
     closeMenuOnSelect: boolean;
     isMulti: boolean;
     options: SelectOption[] | undefined;
-    required?: boolean;
+    requiredFiled?: boolean;
     isSearchable?: boolean;
     isClearable?: boolean;
     defaultValue?: SelectOption;
@@ -35,9 +36,10 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
     isClearable,
     defaultValue,
     isDisabled,
-    required
+    requiredFiled,
 }: Props<T>) => {
     const animated = makeAnimated();
+    const { t } = useTranslation();
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null
@@ -62,6 +64,12 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
         <Controller
             name={name}
             control={control}
+            rules={{
+                required: {
+                    value: requiredFiled || false,
+                    message: t('add-page.required')
+                }
+            }}
             render={({ field }) => (
                 <Select
                     {...field}
@@ -73,7 +81,6 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                     isMulti={isMulti}
                     isClearable={isClearable}
                     options={options}
-                    required={required}
                     defaultValue={defaultValue}
                     isDisabled={isDisabled}
                     isSearchable={isSearchable}

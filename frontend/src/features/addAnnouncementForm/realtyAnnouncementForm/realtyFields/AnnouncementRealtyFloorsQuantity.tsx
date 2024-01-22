@@ -12,7 +12,7 @@ export const AnnouncementRealtyFloorsQuantity = ({ register, defaultValue }: Pro
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.property_building_max_floor')}</h3>
+            <h3>{t('filters.property_building_max_floor')}:</h3>
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"
