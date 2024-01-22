@@ -5,6 +5,7 @@ import styles from './libr/favorites.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Cart } from 'entity/lastAdverts/Cart';
 import { useEffect } from 'react';
+import { pushViewListWithDataResults } from 'shared/eCommercy/pushViewListWithDataResults.ts';
 
 const FavoritesPage = () => {
     const { data, isLoading, refetch } = useGetFavoritesQuery('');
@@ -12,6 +13,7 @@ const FavoritesPage = () => {
 
     useEffect(() => {
         refetch();
+        pushViewListWithDataResults(data, "Избранные")
     }, [refetch, data]);
 
     return (
@@ -24,8 +26,8 @@ const FavoritesPage = () => {
             <h1 className={styles.title}>{t('modal-logged.favorites')}</h1>
             {data && data.results.length ? (
                 <div className={styles.fav_list}>
-                    {data.results.map((el) => (
-                        <Cart key={el.id} cart={el} />
+                    {data.results.map((el, index: number) => (
+                        <Cart key={el.id} {...el} index={index} />
                     ))}
                 </div>
             ) : (

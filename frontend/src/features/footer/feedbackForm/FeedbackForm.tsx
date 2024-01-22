@@ -26,11 +26,11 @@ export const FeedbackForm = () => {
         control,
         reset,
         setValue,
-        formState: { isValid, touchedFields },
+        formState: { isValid },
     } = useForm<TypesFeedbackForm>();
 
     const onFocusGetId = async () => {
-        if(!userInfo){//получаем id юзера
+        if(!userInfo && (localStorage.getItem('isAuth') === "true")){//получаем id юзера
             await getAccessTokenWithRefresh(dispatch, refreshToken);
             const { accessToken } = getTokensFromStorage();
             await getUserId(accessToken);
@@ -41,6 +41,9 @@ export const FeedbackForm = () => {
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
     ) => {
+        if(feedbackData.text.length > 900 || feedbackData.text.length < 10){
+            return toast.error(t('feedback.feedback-message'));
+        }
         if(!userInfo) await onFocusGetId()//еще раз проверяем что у нас есть id юзера
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала обновляем accessToken
         const { accessToken } = getTokensFromStorage();
@@ -74,9 +77,7 @@ export const FeedbackForm = () => {
 
     useEffect(() => {
         userInfo?.id && setValue('owner', userInfo.id)
-        !isValid && touchedFields.text && toast.error(t('main-page.toast-feedback'));
-        //если мы "потрогали" поле и оно не проходит, то показываем ошибку
-    }, [userInfo, setValue, touchedFields, isValid, t]);
+    }, [userInfo, setValue]);
 
     return (
         <div className={styles.feedback}>
@@ -94,9 +95,11 @@ export const FeedbackForm = () => {
                             message: t('feedback.feedback-message'),
                         },
                         maxLength: {
-                            value: 901,
+                            value: 900,
                             message: t('feedback.feedback-message'),
-                        }
+                        },
+                        onChange: (event) => (event.target.value.length > 900 &&
+                            toast.error(t('feedback.feedback-message')))
                     }}
                     render={({ field }) => (
                         <textarea

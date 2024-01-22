@@ -16,8 +16,13 @@ import { getDate } from 'shared/utils/getDate';
 import { prettifyPrice } from 'shared/utils/prettifyPrice';
 import style from 'pages/categoryPage/style/categoryPage.module.scss';
 import { useTranslation } from 'react-i18next';
+import { pushAddToFavourite } from 'shared/eCommercy/pushAddToFavourite.ts';
+import { pushRemoveFromFavourite } from 'shared/eCommercy/pushRemoveFromFavourite.ts';
 
-export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
+interface Props extends AdvertsTypes{
+    index: number;
+}
+export const CategoryAdvert = (el: Props) => {
     const {
         id,
         category,
@@ -27,6 +32,9 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
         proposed_currency,
         date_create,
         images,
+        index,
+        title,
+        price
     } = el;
     const { isMobile } = useMatchMedia();
     const lang = useAppSelector((state) => state.setLang.lang);
@@ -52,7 +60,27 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
         if (isAuth) {
             setAddToFav(!addToFav);
 
-            !addToFav ? addFavorite({ id }) : deleteFromFavorites({ id });
+            if(!addToFav){
+                addFavorite({ id })
+                pushAddToFavourite({
+                    id,
+                    index,
+                    title,
+                    category,
+                    price,
+                    listDescription: "Категория товаров",
+                })//добавляем в яндекс метрику "добавление в избранное"
+            } else{
+                deleteFromFavorites({ id });
+                pushRemoveFromFavourite({
+                    id,
+                    index,
+                    title,
+                    category,
+                    price,
+                    listDescription: "Категория товаров",
+                })//добавляем в яндекс метрику "удаление из избранного"
+            }
         } else {
             toast.error(`${t('main-page.toast-favs')}`);
         }
@@ -74,8 +102,28 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
         day = lang === 'ru' ? 'Вчера' : 'Yesterday';
     }
 
+    const handleClick = () => {
+        window.dataLayer.push({//добавляем данные о клике на товар
+            "ecommerce": {
+                "currencyCode": "RUB",
+                "click": {
+                    "products": [
+                        {
+                            "id": Number(id),
+                            "name": title,
+                            "price": Number(price),
+                            "category": category,
+                            "list": "Последние объявления",
+                            "position": Number(index + 1)
+                        }
+                    ]
+                }
+            }
+        })
+    }
+
     return (
-        <NavLink className={style.card} key={id} to={`/${category}/${slug}/`}>
+        <NavLink className={style.card} key={id} to={`/${category}/${slug}/`} onClick={handleClick}>
             <span
                 onClick={(event) => event.stopPropagation()}
                 className={style.add_to_favorite}
