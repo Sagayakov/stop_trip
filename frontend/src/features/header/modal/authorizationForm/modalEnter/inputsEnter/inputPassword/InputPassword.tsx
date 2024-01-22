@@ -3,7 +3,7 @@ import { Control, Controller, FieldErrors } from 'react-hook-form';
 import { useAppSelector } from 'app/store/hooks.ts';
 import { Eye } from 'shared/ui/icons/icons-tools/Eye.tsx';
 import styles from '../../libr/formEnter.module.scss';
-import styleForError from 'features/header/modal/modal.module.scss'
+import styleForError from 'features/header/modal/modal.module.scss';
 import { AuthData } from '../../libr/EnterType.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -40,8 +40,14 @@ export const InputPassword = ({
             <Controller
                 name="password"
                 control={control}
-                defaultValue=''
-                rules={{ required: true }}
+                defaultValue=""
+                rules={{
+                    required: true,
+                    minLength: 8,
+                    maxLength: 22,
+                    pattern:
+                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])(?!.*\s)[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,22}/,
+                }}
                 render={({ field }) => (
                     <input
                         {...field}

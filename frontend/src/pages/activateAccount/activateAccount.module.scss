@@ -1,12 +1,18 @@
-.activate_acc_page {
+.main_activate {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 100vh;
+}
+
+.activate_acc_page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 
     .activate_acc_header {
-        h1{
+        h1 {
             font-size: 26px;
         }
         display: grid;

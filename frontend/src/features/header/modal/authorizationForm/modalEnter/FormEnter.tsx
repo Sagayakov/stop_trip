@@ -24,11 +24,13 @@ export const FormEnter = () => {
         control,
         watch,
     } = useForm<AuthData>({
-        mode: 'onBlur',
+        mode: 'all',
     });
     const dispatch = useAppDispatch();
     const enterError = useAppSelector((state) => state.setIsAuth.errorEnter);
     const { t } = useTranslation();
+    const [lengthError, setLengthError] = useState(false);
+    const [dotError, setDotError] = useState(false);
 
     const onsubmit: SubmitHandler<AuthData> = async (submitData) => {
         dispatch(setLoading(true));
@@ -54,7 +56,15 @@ export const FormEnter = () => {
             autoComplete="false"
             id="form-enter"
         >
-            <InputEmail errors={errors} control={control} watch={watch} />
+            <InputEmail
+                errors={errors}
+                control={control}
+                watch={watch}
+                lengthError={lengthError}
+                setLengthError={setLengthError}
+                dotError={dotError}
+                setDotError={setDotError}
+            />
             <InputPassword
                 errors={errors}
                 togglePass={togglePass}
@@ -68,7 +78,7 @@ export const FormEnter = () => {
                 {t('modal-login.forgot')}
             </div>
             {/* <CheckboxRememberMe register={register} /> */}
-            <InputSubmit isValid={isValid} />
+            <InputSubmit isValid={isValid && !lengthError && !dotError} />
             {/* <div className={styles.enter_with}>
                 {t('modal-login.login-help')}
                 <div className={styles.google}>

@@ -42,7 +42,7 @@ const ActivateAccount = () => {
     };
 
     return (
-        <main>
+        <main className={styles.main_activate}>
             <div className={styles.activate_acc_page}>
                 <div className={styles.activate_acc_header}>
                     <h1>{t('activate-page.activation')}</h1>
