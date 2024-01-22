@@ -21,7 +21,7 @@ export const AnnouncementRealtyBathroomType = ({
     ];
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.property_bathroom_type')}</h3>
+            <h3>{t('filters.property_bathroom_type')}:</h3>
             <div className={styles.radio_group}>
                 <UniversalRadioGroup
                     name="property_bathroom_type"

@@ -45,7 +45,7 @@ const AnnouncementCity = ({ control, setValue, defaultValue }: Props) => {
                 closeMenuOnSelect={true}
                 isMulti={false}
                 options={options}
-                required={true}
+                requiredFiled={true}
                 defaultValue={options.find(
                     (el) => el.label === defaultValue?.name
                 )}

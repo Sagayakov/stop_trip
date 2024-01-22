@@ -12,7 +12,7 @@ export const AnnouncementRealtyBathroomQuantity = ({ register, defaultValue }: P
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.property_bathroom_count')}</h3>
+            <h3>{t('filters.property_bathroom_count')}:</h3>
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"

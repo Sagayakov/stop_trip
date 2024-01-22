@@ -29,7 +29,7 @@ export const AnnouncementRealtyRentalCondition = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.property_rental_condition')}</h3>
+            <h3>{t('filters.property_rental_condition')}:</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}

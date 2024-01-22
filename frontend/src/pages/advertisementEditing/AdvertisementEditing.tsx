@@ -66,32 +66,10 @@ const AdvertisementEditing = () => {
 
     const onsubmit = async (data: FormAddAnn) => {
         dispatch(setLoading(true));
+        setValue('country', 'india');
+        setValue('region', "goa");
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
         const formData = createFormDataObjectForSendAnnouncement(data, 'upload_images');
-        // const formData = new FormData();
-        // Object.entries(data).forEach(([field, value]) => {
-        //     switch (field) {
-        //         case 'upload_images':
-        //             // Если это поле с новыми изображениями, добавляем каждый файл поочередно
-        //             if (value instanceof Array && value[0] instanceof File) {
-        //                 value.forEach((file, index) => {
-        //                     formData.append('upload_images', file, `image_${index}`);
-        //                 });
-        //             }
-        //             break;
-        //         default:
-        //             // Добавляем остальные поля
-        //             if (value === undefined || value === null) {
-        //                 break; //иначе присваивается 'undefined' если поле не заполнено
-        //             }
-        //             if(Array.isArray(value)){
-        //                 value.forEach((val) => formData.append(field, val))
-        //             }
-        //             formData.append(field, value);
-        //             break;
-        //     }
-        // });
-
         try {
             const { accessToken } = getTokensFromStorage();
             await editAdvert({body: formData as FormAddAnn, addSlug, accessToken})
@@ -105,7 +83,6 @@ const AdvertisementEditing = () => {
 
     useEffect(() => {
         dataAdvert && setMarkerPosition(dataAdvert.coordinates);
-        setValue('country', 'india');
         dataAdvert?.slug && setValue('slug', dataAdvert?.slug);
         dataAdvert?.images && setEditImages(dataAdvert.images)
         if(path[1] !== "advertisement-editing") setValue('category', dataAdvert?.category)
@@ -121,7 +98,7 @@ const AdvertisementEditing = () => {
             setSelectedImages(undefined);
             setMarkerPosition(undefined);
         }
-    }, [dataAdvert, setValue, isSuccess, isSendError]);
+    }, [dataAdvert, setValue, isSuccess, isSendError, t, path]);
 
     return (
         <>
@@ -175,6 +152,7 @@ const AdvertisementEditing = () => {
                                 setValue={setValue}
                                 watch={watch}
                                 data={dataAdvert}
+                                formState={formState}
                             />
                             <AnnouncementPhotoField
                                 selectedImages={selectedImages}

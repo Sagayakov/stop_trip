@@ -22,7 +22,7 @@ export const AnnouncementRealtyBalcony = ({
     ];
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.property_balcony')}</h3>
+            <h3>{t('filters.property_balcony')}:</h3>
             <UniversalRadioGroup
                 name="property_balcony"
                 radioValues={optionValues}
