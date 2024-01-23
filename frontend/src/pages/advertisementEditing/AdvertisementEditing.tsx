@@ -123,11 +123,13 @@ const AdvertisementEditing = () => {
                                 setValue={setValue}
                                 control={control}
                                 defaultValue={dataAdvert.region}
+                                formState={formState}
                             />
                             <AnnouncementCity
                                 setValue={setValue}
                                 control={control}
                                 defaultValue={dataAdvert.city}
+                                formState={formState}
                             />
                             <AnnouncementNameField
                                 register={register}
