@@ -26,7 +26,7 @@ export const FeedbackForm = () => {
         control,
         reset,
         setValue,
-        formState: { isValid },
+        formState: { isValid, touchedFields },
     } = useForm<TypesFeedbackForm>();
 
     const onFocusGetId = async () => {
@@ -36,7 +36,6 @@ export const FeedbackForm = () => {
             await getUserId(accessToken);
         }
     }
-
 
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
@@ -90,6 +89,7 @@ export const FeedbackForm = () => {
                     name="text"
                     control={control}
                     rules={{
+                        required: true,
                         minLength: {
                             value: 10,
                             message: t('feedback.feedback-message'),
@@ -105,14 +105,14 @@ export const FeedbackForm = () => {
                         <textarea
                             {...field}
                             placeholder={t('main-page.enter-text')}
-                            style={!isValid ? {border: '1px solid #ff2d55'} : {}}
+                            style={(!isValid && touchedFields.text) ? {border: '1px solid #ff2d55'} : {}}
                             onFocus={onFocusGetId}
                             onChange={(event) => field.onChange(event.target.value)}
                         />
                     )}
                 />
                 <InputTypeSubmit
-                    disabled={!isValid}
+                    disabled={isValid}
                     value={t('main-page.send')}
                     style={{ backgroundColor: isValid ? '#02c66e' : 'gray' }}
                 />

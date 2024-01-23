@@ -54,7 +54,7 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
         const firstPart = inputText.slice(0, atIndex);
         const domainPart = inputText.slice(atIndex + 1);
 
-        sessionStorage.setItem('emailRegistration', inputText);
+        if(allLength.length !== 0 ) sessionStorage.setItem('emailRegistration', inputText);
 
         if (firstPart.length >= 64 || firstPart.length < 1) {
             setEmailDomeinLengthError(true);

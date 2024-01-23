@@ -12,7 +12,9 @@ interface Props {
 export const InputName = ({ register, errors, watch }: Props) => {
     const { t } = useTranslation();
     const username = watch('userName');
-    const handleBlur = () => sessionStorage.setItem('username', username);
+    const handleBlur = () => {
+        if(username.length !== 0 ) sessionStorage.setItem('username', username);
+    }
     const getDefaultValue = () => {
         const name = sessionStorage.getItem('username');
         if(name === undefined || name === null){
