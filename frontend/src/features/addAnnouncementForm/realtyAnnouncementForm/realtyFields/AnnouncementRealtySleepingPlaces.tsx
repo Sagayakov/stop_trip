@@ -12,7 +12,7 @@ export const AnnouncementRealtySleepingPlaces = ({ register, defaultValue }: Pro
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.property_sleeping_places')}</h3>
+            <h3>{t('filters.property_sleeping_places')}:</h3>
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"

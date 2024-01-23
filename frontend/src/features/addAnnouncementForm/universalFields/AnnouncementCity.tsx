@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { useEffect } from 'react';
@@ -9,14 +9,10 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: { name: string } | null | undefined;
-    formState?: FormState<FormAddAnn>;
+    formState: FormState<FormAddAnn>;
 }
 
-const AnnouncementCity = ({
-    control,
-    setValue,
-    defaultValue,
-}: Props) => {
+const AnnouncementCity = ({ control, setValue, defaultValue, formState }: Props) => {
     const { t } = useTranslation();
 
     const options = [
@@ -49,12 +45,12 @@ const AnnouncementCity = ({
                 closeMenuOnSelect={true}
                 isMulti={false}
                 options={options}
-                required={true}
+                requiredFiled={true}
                 defaultValue={options.find(
                     (el) => el.label === defaultValue?.name
                 )}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>{formState?.errors?.city?.message}</div>
         </div>
     );
 };

@@ -3,28 +3,31 @@ import 'pages/addAnnouncement/libr/selectAddAnnouncement.scss';
 import { useForm } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import { useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
+import { useEditAdvertMutation, useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
     AnnouncementCategoryField,
     AnnouncementCity,
     AnnouncementDescriptionField,
     AnnouncementLocationField,
-    AnnouncementNameField, AnnouncementPhotoField,
+    AnnouncementNameField,
+    AnnouncementPhotoField,
     AnnouncementPriceField,
     AnnouncementRegion,
     OptionalFields,
 } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
-import { AnnouncementSubmitButton } from 'entities/addAnnouncementForm/universalFields';
+import { AnnouncementSubmitButton } from 'entity/addAnnouncementForm/universalFields';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { toast } from 'react-toastify';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
-import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { useAppDispatch } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
-import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
+import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
+import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
+import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
@@ -42,12 +45,12 @@ const AdvertisementEditing = () => {
     const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery(slug);
     const { accessToken, refreshToken } = getTokensFromStorage();
     const { data: user } = useGetUserQuery(accessToken);
-    const isLoadingEdit = useAppSelector((state) => state.setLoading.loading);
-    // const [editAdvert, { isLoading: isSendLoading }] = useEditAdvertMutation();
+    const [editAdvert, { isLoading: isSendLoading, isSuccess, isError: isSendError }] = useEditAdvertMutation();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>(
         dataAdvert?.coordinates
     );
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
+    const [editImages, setEditImages] = useState<LastAdvertsImages[] | undefined>(dataAdvert?.images)
 
     const addSlug = dataAdvert ? dataAdvert.slug : '';
     const navigate = useNavigate();
@@ -63,49 +66,14 @@ const AdvertisementEditing = () => {
 
     const onsubmit = async (data: FormAddAnn) => {
         dispatch(setLoading(true));
+        setValue('country', 'india');
+        setValue('region', "goa");
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
-
-        const formData = new FormData();
-        Object.entries(data).forEach(([field, value]) => {
-            switch (field) {
-                case 'images':
-                    // Если это поле с изображениями, добавляем каждый файл поочередно
-                    if (value instanceof Array && value[0] instanceof File) {
-                        value.forEach((file, index) => {
-                            formData.append('images', file, `image_${index}`);
-                        });
-                    }
-                    break;
-                default:
-                    // Добавляем остальные поля
-                    console.log(`${field}: ${typeof value}`);
-                    if (value === undefined || value === null) {
-                        break; //иначе присваивается 'undefined' если поле не заполнено
-                    }
-                    formData.append(field, value);
-                    break;
-            }
-        });
-
+        const formData = createFormDataObjectForSendAnnouncement(data, 'upload_images');
         try {
             const { accessToken } = getTokensFromStorage();
-            const response = await fetch(
-                `${import.meta.env.VITE_BASE_URL}/api/advertisements/${addSlug}`,
-                {
-                    method: 'PUT',
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                    body: formData,
-                }
-            );
-            if (response.ok) {
-                dispatch(setLoading(false));
-                scrollToTop();
-            } else {
-                dispatch(setLoading(false));
-                toast.error(`${t('errors.add-announcement-error')}`);
-            }
+            await editAdvert({body: formData as FormAddAnn, addSlug, accessToken})
+            dispatch(setLoading(false));
         } catch (error) {
             console.log(error);
             dispatch(setLoading(false));
@@ -113,37 +81,24 @@ const AdvertisementEditing = () => {
         }
     };
 
-    const getImg = async () => {
-        if (dataAdvert?.images) {
-            try {
-                let index = 1;
-                for (const link of dataAdvert.images) {
-                    const response = await fetch(link.image);
-                    const imageBlob = await response.blob();
-                    // Создаем File из Blob
-                    const imageFile = new File(
-                        [imageBlob],
-                        `image_${index}`,
-                        { type: imageBlob.type }
-                    );
-                    index++;
-                    if (selectedImages && selectedImages.length > 0) {
-                        setSelectedImages([...selectedImages, imageFile]);
-                    } else {
-                        setSelectedImages([imageFile]);
-                    }
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    };
-
     useEffect(() => {
         dataAdvert && setMarkerPosition(dataAdvert.coordinates);
-        setValue('country', 'india');
-        getImg();
-    }, [dataAdvert, setValue]);
+        dataAdvert?.slug && setValue('slug', dataAdvert?.slug);
+        dataAdvert?.images && setEditImages(dataAdvert.images)
+        if(path[1] !== "advertisement-editing") setValue('category', dataAdvert?.category)
+        if(isSuccess){
+            toast.success(`${t('add-page.edit-success')}`)
+            scrollToTop();
+        }
+        if(isSendError){
+            toast.error(`${t('errors.add-announcement-error')}`);
+        }
+        return () => {
+            setEditImages(undefined);
+            setSelectedImages(undefined);
+            setMarkerPosition(undefined);
+        }
+    }, [dataAdvert, setValue, isSuccess, isSendError, t, path]);
 
     return (
         <>
@@ -155,24 +110,26 @@ const AdvertisementEditing = () => {
                     id="form-edit-announcement"
                 >
                     {isLoading && user?.id && <LoadingWithBackground />}
-                    {isLoadingEdit && <LoadingWithBackground />}
+                    {(isSendLoading || isLoading) && <LoadingWithBackground />}
                     {dataAdvert && (
                         <>
-                            <AnnouncementCategoryField
+                            {(path[1] !== "advertisement-editing") && <AnnouncementCategoryField
                                 setValue={setValue}
                                 control={control}
                                 formState={formState}
                                 defaultValue={dataAdvert.category}
-                            />
+                            />}
                             <AnnouncementRegion
                                 setValue={setValue}
                                 control={control}
                                 defaultValue={dataAdvert.region}
+                                formState={formState}
                             />
                             <AnnouncementCity
                                 setValue={setValue}
                                 control={control}
                                 defaultValue={dataAdvert.city}
+                                formState={formState}
                             />
                             <AnnouncementNameField
                                 register={register}
@@ -188,8 +145,6 @@ const AdvertisementEditing = () => {
                                 />
                             )}
                             <AnnouncementDescriptionField
-                                // descript={descript}
-                                // setDescript={setDescript}
                                 defaultValue={dataAdvert.description}
                                 control={control}
                             />
@@ -199,11 +154,15 @@ const AdvertisementEditing = () => {
                                 setValue={setValue}
                                 watch={watch}
                                 data={dataAdvert}
+                                formState={formState}
                             />
                             <AnnouncementPhotoField
                                 selectedImages={selectedImages}
                                 setSelectedImages={setSelectedImages}
                                 setValue={setValue}
+                                // images={dataAdvert?.images}
+                                setEditImages={setEditImages}
+                                editImages={editImages}
                             />
                             <AnnouncementLocationField
                                 setValue={setValue}

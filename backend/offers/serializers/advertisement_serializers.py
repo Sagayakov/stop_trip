@@ -77,7 +77,10 @@ class AdvertisementImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AdvertisementImage
-        fields = ("image",)
+        fields = (
+            "id",
+            "image",
+        )
 
 
 class AdvertisementPropertyAmenitySerializer(serializers.ModelSerializer):
@@ -134,6 +137,7 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
             "proposed_currency",
             "exchange_for",
             "exchange_rate",
+            "is_published",
         )
 
 
@@ -205,12 +209,14 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
         )
 
     def update(self, instance, validated_data):
-        images = validated_data.pop("images", [])
+        upload_images = validated_data.pop("upload_images", [])
+        delete_images = validated_data.pop("delete_images", [])
         advertisement = super().update(instance, validated_data)
-        advertisement.images.all().delete()
         images_list: list[AdvertisementImage] = []
-        if images:
-            for image in images:
+        if delete_images:
+            AdvertisementImage.objects.filter(advertisement=instance, id__in=delete_images).delete()
+        if upload_images:
+            for image in upload_images:
                 images_list.append(AdvertisementImage(advertisement=advertisement, image=image))
             AdvertisementImage.objects.bulk_create(images_list)
         return advertisement

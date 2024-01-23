@@ -1,9 +1,9 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { Control, FormState, UseFormSetValue } from 'react-hook-form';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { valuesOfTransportForm } from 'widgets/settingForm/settingTransport/libr/valuesOfTransportForm.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 import { useEffect } from 'react';
 
@@ -11,12 +11,14 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
+    formState: FormState<FormAddAnn>;
 }
 
 export const AnnouncementTransportTranspCategory = ({
     setValue,
     control,
-    defaultValue
+    defaultValue,
+    formState
 }: Props) => {
     const { t } = useTranslation();
 
@@ -30,7 +32,7 @@ export const AnnouncementTransportTranspCategory = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_category')}</h3>
+            <h3>{t('filters.transport_category')}<span>*</span>:</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}
@@ -41,8 +43,9 @@ export const AnnouncementTransportTranspCategory = ({
                 defaultValue={getDefaultValue(defaultValue, optionValues)}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
+                requiredFiled={true}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>{formState?.errors?.transport_category?.message}</div>
         </div>
     );
 };

@@ -14,10 +14,10 @@ const queries = [
 ];
 
 export const useMatchMedia = (): MatchMediaResult => {
-    if (typeof window === 'undefined'){
+    if (typeof window === 'undefined') {
         return { isMobile: false, isTablet: false, isDesktop: false };
     }
-    const mediaQueryLists = queries.map((el) => matchMedia(el));
+    const mediaQueryLists = queries.map((el) => window.matchMedia(el));
 
     const getValues = () => mediaQueryLists.map((el) => el.matches);
 

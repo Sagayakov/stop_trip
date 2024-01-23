@@ -1,7 +1,7 @@
 import styles from 'widgets/advert/libr/advert.module.scss';
 import { ProductInfo } from 'features/advert/ProductInfo.tsx';
-import { PriceBlock } from 'entities/advert';
-import { AdvertOwner } from 'entities/advert/advertOwner/AdvertOwner.tsx';
+import { PriceBlock } from 'entity/advert';
+import { AdvertOwner } from 'entity/advert/advertOwner/AdvertOwner.tsx';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
@@ -9,6 +9,7 @@ import { Date } from 'widgets/advert/libr/types.ts';
 import { useTranslation } from 'react-i18next';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { toast } from 'react-toastify';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     data: ProductType;
@@ -18,6 +19,7 @@ interface Props {
 export const DesktopAdvert = ({ data, date }: Props) => {
     const { t } = useTranslation();
     const { isTablet, isDesktop } = useMatchMedia();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     const handleClickShowNumber = () => {
         if (data) {
@@ -27,6 +29,16 @@ export const DesktopAdvert = ({ data, date }: Props) => {
 
     // const handleClickWrite = () =>
     //     isTablet && toast.warn(`${t('main-page.messages-tooltip')}`);
+
+    let day = date?.dayToDisplay;
+    if (date) {
+        if (date.dayToDisplay === 'Сегодня') {
+            day = lang === 'ru' ? 'Сегодня' : 'Today';
+        }
+        if (date.dayToDisplay === 'Вчера') {
+            day = lang === 'ru' ? 'Вчера' : 'Yesterday';
+        }
+    }
 
     return (
         <>
@@ -69,7 +81,7 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                     {date && (
                         <p className={styles.public_date}>
                             {t('advert-page.published')}{' '}
-                            <span>{`${date.dayToDisplay}, ${date.hours}:${date.minutes}`}</span>
+                            <span>{`${day}, ${date.hours}:${date.minutes}`}</span>
                         </p>
                     )}
                 </section>

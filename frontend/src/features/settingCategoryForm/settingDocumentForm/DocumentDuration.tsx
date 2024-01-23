@@ -1,9 +1,9 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { TypeOfDocumentFilter } from 'widgets/settingForm/settingDocument/libr/TypeOfDocumentFilter.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'widgets/settingForm/settingDocument/libr/settingDocumentForm.module.scss'
+import styles from 'widgets/settingForm/settingDocument/libr/settingDocumentForm.module.scss';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfDocumentFilter>;

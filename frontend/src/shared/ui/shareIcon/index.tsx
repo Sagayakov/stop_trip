@@ -2,7 +2,7 @@ import { Share } from '../icons/icons-tools/Share';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
-import styles from 'entities/photoSlider/libr/photoSlider.module.scss';
+import styles from 'entity/photoSlider/libr/photoSlider.module.scss';
 
 export const ShareIcon = () => {
     const { t } = useTranslation();

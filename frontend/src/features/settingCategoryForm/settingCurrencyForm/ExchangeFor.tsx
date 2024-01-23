@@ -1,9 +1,9 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'widgets/settingForm/settingCurrency/libr/settingCurrencyFilter.module.scss'
+import styles from 'widgets/settingForm/settingCurrency/libr/settingCurrencyFilter.module.scss';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;

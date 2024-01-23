@@ -1,4 +1,4 @@
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
@@ -11,10 +11,14 @@ interface Props {
     control: Control<FormAddAnn, string[]>;
     formState: FormState<FormAddAnn>;
     defaultValue?: string;
-    // categoryList: SelectOption[] | undefined;
 }
 
-const AnnouncementCategoryField = ({ control, setValue, formState, defaultValue }: Props) => {
+const AnnouncementCategoryField = ({
+    control,
+    setValue,
+    formState,
+    defaultValue,
+}: Props) => {
     const { errors } = formState;
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
@@ -33,15 +37,15 @@ const AnnouncementCategoryField = ({ control, setValue, formState, defaultValue 
         { label: `${t('labels.excursion')}`, value: 'excursion' },
     ];
     const getDefaultValue = () => {
-        if(defaultValue){
+        if (defaultValue) {
             return categoryList.find((el) => el.value === defaultValue);
         }
-    }
+    };
 
     useEffect(() => {
-        if(defaultValue){
-            setValue('category', getDefaultValue()!.value)
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+        if (defaultValue) {
+            setValue('category', getDefaultValue()!.value);
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (
@@ -61,7 +65,7 @@ const AnnouncementCategoryField = ({ control, setValue, formState, defaultValue 
                     prefix="filterAnnouncementCategory"
                     defaultValue={getDefaultValue()}
                     setValue={setValue}
-                    required={true}
+                    requiredFiled={true}
                     isSearchable={!isMobile}
                 />
                 <div className={styles.ann_field_err}>

@@ -3,16 +3,17 @@
         "target": "ES2020",
         "useDefineForClassFields": true,
         "lib": ["ES2020", "DOM", "DOM.Iterable"],
-        "module": "ESNext",
+        "module": "es2022",
         "skipLibCheck": true,
 
         /* Bundler mode */
-        "moduleResolution": "bundler",
+        "moduleResolution": "Node",
         "allowImportingTsExtensions": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react-jsx",
+        "esModuleInterop": true,
 
         /* Linting */
         "strict": true,
@@ -22,13 +23,13 @@
         "baseUrl": "src",
         "paths": {
             "app/*": ["app/*"],
-            "entities/*": ["entities/*"],
+            "entity/*": ["entity/*"],
             "features/*": ["features/*"],
             "pages/*": ["pages/*"],
             "shared/*": ["shared/*"],
-            "widgets/*": ["widgets/*"],
+            "widgets/*": ["widgets/*"]
         }
     },
-    "include": ["src"],
+    "include": ["src", "setupTests.ts"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }

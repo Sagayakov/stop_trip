@@ -18,6 +18,7 @@ export const fetchFavorites = createApi({
                     Authorization: `Bearer ${Cookies.get('access_token')}`,
                 },
             }),
+            providesTags: ['Favorites'],
         }),
         addFavorite: build.mutation<{ id: number }, { id: number }>({
             query: (body) => ({

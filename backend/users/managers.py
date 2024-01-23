@@ -1,10 +1,15 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
+
 from forbidden_words.models import ForbiddenWords
+from .queryset import UserQuerySet
 
 
 class CustomUserManager(BaseUserManager):
     """Менеджер пользователей."""
+
+    def get_queryset(self):
+        return UserQuerySet(model=self.model, using=self._db, hints=self._hints)
 
     def create_user(self, email, password, **extra_fields):
         if not email:

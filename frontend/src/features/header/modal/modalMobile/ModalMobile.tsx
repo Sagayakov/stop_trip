@@ -7,7 +7,7 @@ import { Favorite } from 'shared/ui/icons/icons-tools/Favorite.tsx';
 import { Setting } from 'shared/ui/icons/icons-tools/Setting.tsx';
 import './modalMobile.scss';
 import { clearTokensFromCookies } from 'app/cookie/cookieAuth.ts';
-//import { Langs } from 'entities/langs';
+//import { Langs } from 'entity/langs';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 //import { useMatchMedia } from 'app/hooks/useMatchMedia';

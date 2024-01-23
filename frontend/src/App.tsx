@@ -4,6 +4,11 @@ import { store } from './app/store/store';
 import { BrowserRouter } from 'react-router-dom';
 import '../i18next';
 
+declare global {
+    interface Window {
+        dataLayer: unknown[];
+    }
+}
 function App() {
     return (
         <Provider store={store}>

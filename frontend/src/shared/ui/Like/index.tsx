@@ -8,7 +8,7 @@ import {
 import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import styles from 'entities/photoSlider/libr/photoSlider.module.scss';
+import styles from 'entity/photoSlider/libr/photoSlider.module.scss';
 
 type LikeProps = {
     id: number;

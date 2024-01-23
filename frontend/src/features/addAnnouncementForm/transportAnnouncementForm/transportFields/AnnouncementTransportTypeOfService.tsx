@@ -1,14 +1,19 @@
-import { UseFormRegister } from 'react-hook-form';
-import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup';
+import { FormState, UseFormRegister } from 'react-hook-form';
+import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue?: string | null | undefined;
+    formState: FormState<FormAddAnn>;
 }
-export const AnnouncementTransportTypeOfService = ({ register, defaultValue }: Props) => {
+export const AnnouncementTransportTypeOfService = ({
+    register,
+    defaultValue,
+    formState
+}: Props) => {
     const { t } = useTranslation();
 
     const radioValues = [
@@ -18,15 +23,18 @@ export const AnnouncementTransportTypeOfService = ({ register, defaultValue }: P
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_type_of_service')}</h3>
+            <h3>{t('filters.transport_type_of_service')}<span>*</span>:</h3>
             <UniversalRadioGroup
                 register={register}
                 name="transport_type_of_service"
                 radioValues={radioValues}
-                defaultValue={radioValues.find((el) => el.value === defaultValue)}
+                defaultValue={radioValues.find(
+                    (el) => el.value === defaultValue
+                )}
                 className={styles.radio_group}
+                requiredField={true}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>{formState?.errors?.transport_type_of_service?.message}</div>
         </div>
     );
 };

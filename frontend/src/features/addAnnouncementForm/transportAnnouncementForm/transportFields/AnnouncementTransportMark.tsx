@@ -1,17 +1,23 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { Control, FormState, UseFormSetValue } from 'react-hook-form';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
+    formState: FormState<FormAddAnn>;
 }
 
-export const AnnouncementTransportMark = ({ setValue, control, defaultValue }: Props) => {
+export const AnnouncementTransportMark = ({
+    setValue,
+    control,
+    defaultValue,
+    formState
+}: Props) => {
     const { t } = useTranslation();
     const optionValues = [
         {value: 'bmw', label: 'BMW'},
@@ -21,7 +27,7 @@ export const AnnouncementTransportMark = ({ setValue, control, defaultValue }: P
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_brand')}</h3>
+            <h3>{t('filters.transport_brand')}<span>*</span>:</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}
@@ -32,8 +38,9 @@ export const AnnouncementTransportMark = ({ setValue, control, defaultValue }: P
                 defaultValue={getDefaultValue(defaultValue, optionValues)}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
+                requiredFiled={true}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>{formState?.errors?.transport_brand?.message}</div>
         </div>
     );
 };

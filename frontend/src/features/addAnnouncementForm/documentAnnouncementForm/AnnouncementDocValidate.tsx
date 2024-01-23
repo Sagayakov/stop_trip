@@ -1,8 +1,8 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown.tsx';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 import { useEffect } from 'react';
 
@@ -10,12 +10,14 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
+    formState: FormState<FormAddAnn>;
 }
 
 export const AnnouncementDocValidityPeriod = ({
     control,
     setValue,
     defaultValue,
+    formState
 }: Props) => {
     const { t } = useTranslation();
     const options = [
@@ -33,7 +35,7 @@ export const AnnouncementDocValidityPeriod = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.document_duration')}:</h3>
+            <h3>{t('filters.document_duration')}<span>*</span>:</h3>
             <UniversalSelectDropdown
                 setValue={setValue}
                 control={control}
@@ -44,8 +46,9 @@ export const AnnouncementDocValidityPeriod = ({
                 isMulti={false}
                 defaultValue={getDefaultValue(defaultValue, options)}
                 options={options}
+                requiredFiled={true}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>{formState?.errors?.document_duration?.message}</div>
         </div>
     );
 };

@@ -1,6 +1,6 @@
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import styles from 'pages/mySettings/libr/mySettings.module.scss';
-import { Control, FieldPath, FormState, UseFormWatch } from 'react-hook-form';
+import { Control, FormState, UseFormWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
@@ -13,7 +13,7 @@ import {
     MySettingName,
     MySettingNewPassword,
     MySettingPhone,
-    MySettingReNewPassword
+    MySettingReNewPassword,
 } from 'features/mySetting';
 
 interface Props {
@@ -22,14 +22,8 @@ interface Props {
     formState: FormState<SettingTypes>;
     isLoadingPassword: boolean;
     isLoadingMutation: boolean;
+    mutationErrors: FetchBaseQueryError | SerializedError | undefined;
     passwordErrors: FetchBaseQueryError | SerializedError | undefined;
-    clearErrors: (
-        name?:
-            | FieldPath<SettingTypes>
-            | FieldPath<SettingTypes>[]
-            | `root.${string}`
-            | 'root'
-    ) => void;
 }
 
 export const MySettingForm = (props: Props) => {
@@ -39,6 +33,7 @@ export const MySettingForm = (props: Props) => {
         formState,
         isLoadingPassword,
         isLoadingMutation,
+        mutationErrors,
         passwordErrors,
     } = props;
     const { errors } = formState;
@@ -56,18 +51,28 @@ export const MySettingForm = (props: Props) => {
             {(isLoading || isLoadingMutation || isLoadingPassword) && (
                 <LoadingWithBackground />
             )}
-            {!data && <h1>Нет данных</h1>}
+            {!data && <h1>{t('my-settings.no-data')}</h1>}
             {data && (
                 <>
                     <p>
-                        Ваш почтовый адрес: <b>{data.email}</b>
+                        {t('my-settings.mail-address')}: <b>{data.email}</b>
                     </p>
                     <div className={styles.input_wrapper}>
-                        <MySettingName control={control} data={data} />
-                        <MySettingPhone control={control} data={data} errors={errors} />
+                        <MySettingName
+                            control={control}
+                            data={data}
+                            errors={errors}
+                            mutationErrors={mutationErrors}
+                        />
+                        <MySettingPhone
+                            control={control}
+                            data={data}
+                            errors={errors}
+                            mutationErrors={mutationErrors}
+                        />
                     </div>
                     <div className={styles.input_wrapper}>
-                        <h2>Смена пароля</h2>
+                        <h2>{t('my-settings.password-change')}</h2>
                         <MySettingCurrentPassword
                             control={control}
                             errors={errors}
@@ -78,6 +83,7 @@ export const MySettingForm = (props: Props) => {
                             control={control}
                             errors={errors}
                             handleCopy={handleCopy}
+                            watch={watch}
                         />
                         <MySettingReNewPassword
                             control={control}

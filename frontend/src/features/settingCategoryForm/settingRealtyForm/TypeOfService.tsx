@@ -4,8 +4,8 @@ import { UseFormRegister } from 'react-hook-form';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { ChoicesType } from 'app/api/types/filtersType.ts';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
-import { UniversalRadioGroup } from 'entities/universalEntites/UniversalRadioGroup.tsx';
-import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
+import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup.tsx';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;

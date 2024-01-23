@@ -14,6 +14,7 @@ from ..factories import (
     CountryFactory,
     RegionFactory,
     CityFactory,
+    AdvertisementImageFactory,
 )
 
 
@@ -71,23 +72,31 @@ class ServiceTest(APITestCase):
             region=region,
             city=city,
         )
+        advertisement_images = [
+            AdvertisementImageFactory(advertisement=advertisement) for _ in range(5)
+        ]
+
         new_country = CountryFactory()
         new_region = RegionFactory(country=country)
         new_city = CityFactory(region=region)
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
-            "category": CategoryChoices.SERVICE.value,
             "country": new_country.slug,
             "region": new_region.slug,
             "city": new_city.slug,
             "title": "service",
             "price": 10_000,
             "service_home_visit": True,
+            "delete_images": [
+                advertisement_image.id for advertisement_image in advertisement_images[3:]
+            ],
+            "upload_images": payload_images,
         }
 
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(13):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -97,13 +106,16 @@ class ServiceTest(APITestCase):
         advertisement.refresh_from_db()
 
         self.assertEqual(advertisement.owner, user)
-        self.assertEqual(advertisement.category, payload["category"])
         self.assertEqual(advertisement.country.slug, payload["country"])
         self.assertEqual(advertisement.region.slug, payload["region"])
         self.assertEqual(advertisement.city.slug, payload["city"])
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
         self.assertEqual(advertisement.service_home_visit, payload["service_home_visit"])
+        self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
+        new_images_ids = advertisement.images.values_list("id", flat=True)
+        for image in advertisement_images[3:]:
+            self.assertTrue(image.id not in new_images_ids)
 
     def test_delete_service(self):
         user = UserFactory()
@@ -111,7 +123,7 @@ class ServiceTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(6):
             res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
@@ -134,7 +146,7 @@ class ServiceTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"service_home_visit": True},

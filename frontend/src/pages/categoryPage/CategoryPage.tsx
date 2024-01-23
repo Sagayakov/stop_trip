@@ -1,4 +1,4 @@
-import { lazy, Suspense, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 export const AnyCategory = lazy(
@@ -7,7 +7,7 @@ export const AnyCategory = lazy(
 export const Controls = lazy(() => import('features/controls/Controls'));
 import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
 import { HorizontalMixer } from 'shared/ui/icons/icons-tools/HorizontalMixer.tsx';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { useTranslation } from 'react-i18next';
 import { FilterForms } from 'widgets/settingForm/forms/FilterForms.tsx';
 import style from './style/categoryPage.module.scss';
@@ -27,6 +27,11 @@ const CategoryPage = () => {
         display: `${isDesktop ? 'none' : 'flex'}`,
         backgroundColor: `${showFilters ? '#CDE1FF' : '#EBF3FF'}`,
     };
+
+    useEffect(() => {
+        const path = window.location.pathname.slice(1, -1);
+        sessionStorage.setItem('prevLocation', path);//для условия для яндекс метрики
+    }, [])
 
     return (
         <>

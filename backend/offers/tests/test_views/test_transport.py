@@ -147,13 +147,16 @@ class TransportTest(APITestCase):
             transport_passengers_quality=5,
             transport_commission=100,
         )
+        advertisement_images = [
+            AdvertisementImageFactory(advertisement=advertisement) for _ in range(5)
+        ]
 
         new_transport_model = TransportModelFactory(name="RS7")
         new_country = CountryFactory(name="Vietnam")
         new_region = RegionFactory(country=country, name="V1")
         new_city = CityFactory(region=region, name="Hue")
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
-            "category": CategoryChoices.TRANSPORT.value,
             "title": "test_transport_new",
             "price": 120_000,
             "country": new_country.slug,
@@ -173,11 +176,15 @@ class TransportTest(APITestCase):
             "transport_condition": TransportCondition.USED,
             "transport_passengers_quality": 4,
             "transport_commission": 1_000,
+            "delete_images": [
+                advertisement_image.id for advertisement_image in advertisement_images[3:]
+            ],
+            "upload_images": payload_images,
         }
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(13):
+        with self.assertNumQueries(15):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -190,7 +197,6 @@ class TransportTest(APITestCase):
         self.assertEqual(advertisement.country, new_country)
         self.assertEqual(advertisement.region, new_region)
         self.assertEqual(advertisement.city, new_city)
-        self.assertEqual(advertisement.category, payload["category"])
         self.assertEqual(advertisement.title, payload["title"])
         self.assertEqual(advertisement.price, payload["price"])
         self.assertEqual(
@@ -219,6 +225,10 @@ class TransportTest(APITestCase):
             payload["transport_passengers_quality"],
         )
         self.assertEqual(advertisement.transport_commission, payload["transport_commission"])
+        self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
+        new_images_ids = advertisement.images.values_list("id", flat=True)
+        for image in advertisement_images[3:]:
+            self.assertTrue(image.id not in new_images_ids)
 
     def test_delete_transport(self):
         user = UserFactory()
@@ -233,7 +243,7 @@ class TransportTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(6):
             res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
@@ -283,7 +293,7 @@ class TransportTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"transport_type_of_service": TransportTypeOfService.SALE.value},
@@ -337,7 +347,7 @@ class TransportTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"transport_type": [TransportType.GROUND.value, TransportType.WATER.value]},
@@ -391,7 +401,7 @@ class TransportTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"transport_category": TransportCategory.MOTORCYCLE.value},
@@ -401,7 +411,7 @@ class TransportTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -454,7 +464,7 @@ class TransportTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"transport_brand": transport_brands[0].slug},
@@ -506,7 +516,7 @@ class TransportTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 f"{self.list_url}?transport_model={transport_models[0].slug},{transport_models[1].slug}"
             )
@@ -559,7 +569,7 @@ class TransportTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"transport_engine_type": TransportEngineType.FUEL.value},
@@ -569,7 +579,7 @@ class TransportTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -625,7 +635,7 @@ class TransportTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"transport_drive_type": TransportDriveType.ALL_WHEEL.value},
@@ -635,7 +645,7 @@ class TransportTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -676,7 +686,7 @@ class TransportTest(APITestCase):
             for _ in list([float(i / 10) for i in range(10, 100)])
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -715,7 +725,7 @@ class TransportTest(APITestCase):
             for _ in list(range(2000, 2022))
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -772,7 +782,7 @@ class TransportTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -784,7 +794,7 @@ class TransportTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -841,7 +851,7 @@ class TransportTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -853,7 +863,7 @@ class TransportTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -906,7 +916,7 @@ class TransportTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"transport_condition": TransportCondition.USED.value},
@@ -916,7 +926,7 @@ class TransportTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(transport_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -957,7 +967,7 @@ class TransportTest(APITestCase):
             for _ in range(5)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {

@@ -1,16 +1,17 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { Pencil } from 'shared/ui/icons/icons-tools/Pencil.tsx';
-import { getId } from './libr/handlers';
 import { TypesFeedbackForm } from './libr/typesFeedback';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground.tsx';
-import { useState } from 'react';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
+import { useEffect, useState } from 'react';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/footer/footer.module.scss';
-import { InputTypeSubmit } from 'entities/universalEntites';
+import { InputTypeSubmit } from 'entity/universalEntites';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
+import { url } from 'shared/const/url';
+import { useLazyGetUserQuery } from 'app/api/fetchUser.ts';
 
 export const FeedbackForm = () => {
     const [loading, setLoading] = useState(false);
@@ -18,29 +19,35 @@ export const FeedbackForm = () => {
     const { refreshToken } = getTokensFromStorage();
     const { t } = useTranslation();
 
+    const [getUserId, { data: userInfo }] = useLazyGetUserQuery();
+
     const {
         handleSubmit,
         control,
         reset,
         setValue,
-        formState: { isValid },
+        formState: { isValid, touchedFields },
     } = useForm<TypesFeedbackForm>();
 
-    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        if (event.currentTarget.value.length >= 900) {
-            toast.error(`${t('main-page.toast-feedback')}`);
+    const onFocusGetId = async () => {
+        if(!userInfo && (localStorage.getItem('isAuth') === "true")){//получаем id юзера
+            await getAccessTokenWithRefresh(dispatch, refreshToken);
+            const { accessToken } = getTokensFromStorage();
+            await getUserId(accessToken);
         }
-    };
-
-    const onFocusGetId = () => getId(import.meta.env.VITE_BASE_URL, setValue);
+    }
 
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
     ) => {
-        getAccessTokenWithRefresh(dispatch, refreshToken); //сначала обновляем accessToken
+        if(feedbackData.text.length > 900 || feedbackData.text.length < 10){
+            return toast.error(t('feedback.feedback-message'));
+        }
+        if(!userInfo) await onFocusGetId()//еще раз проверяем что у нас есть id юзера
+        await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала обновляем accessToken
         const { accessToken } = getTokensFromStorage();
         const body = JSON.stringify(feedbackData);
-        const url = import.meta.env.VITE_BASE_URL;
+
         if (accessToken) {
             setLoading(true);
             try {
@@ -48,26 +55,28 @@ export const FeedbackForm = () => {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`,
+                        Authorization: `Bearer ${accessToken}`,
                     },
                     body,
                 });
                 if (!response.ok) {
                     toast.error(`${t('main-page.toast-wrong')}`);
                 } else {
-                    setTimeout(() => {
-                        setLoading(false);
-                        reset({ text: '' });
-                        toast.success(`${t('main-page.toast-thanks')}`);
-                    }, 2000);
+                    reset({ text: '' });
+                    toast.success(`${t('main-page.toast-thanks')}`);
                 }
             } catch (error) {
                 toast.error(`${t('main-page.toast-wrong')}`);
             }
+            setLoading(false);
         } else {
             toast.error(`${t('main-page.toast-feedback-login')}`);
         }
     };
+
+    useEffect(() => {
+        userInfo?.id && setValue('owner', userInfo.id)
+    }, [userInfo, setValue]);
 
     return (
         <div className={styles.feedback}>
@@ -79,23 +88,31 @@ export const FeedbackForm = () => {
                 <Controller
                     name="text"
                     control={control}
-                    rules={{ minLength: 10, maxLength: 900 }}
+                    rules={{
+                        required: true,
+                        minLength: {
+                            value: 10,
+                            message: t('feedback.feedback-message'),
+                        },
+                        maxLength: {
+                            value: 900,
+                            message: t('feedback.feedback-message'),
+                        },
+                        onChange: (event) => (event.target.value.length > 900 &&
+                            toast.error(t('feedback.feedback-message')))
+                    }}
                     render={({ field }) => (
                         <textarea
                             {...field}
                             placeholder={t('main-page.enter-text')}
-                            minLength={10}
-                            maxLength={900}
+                            style={(!isValid && touchedFields.text) ? {border: '1px solid #ff2d55'} : {}}
                             onFocus={onFocusGetId}
-                            onChange={(event) => {
-                                field.onChange(event.target.value);
-                                handleChange(event);
-                            }}
+                            onChange={(event) => field.onChange(event.target.value)}
                         />
                     )}
                 />
                 <InputTypeSubmit
-                    disabled={!isValid}
+                    disabled={isValid}
                     value={t('main-page.send')}
                     style={{ backgroundColor: isValid ? '#02c66e' : 'gray' }}
                 />

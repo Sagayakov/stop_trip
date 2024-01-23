@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './activateAccount.module.scss';
 import { activate } from './api/activate';
-import { LoaidngWithoutBackground } from 'entities/loading/LoaidngWithoutBackground.tsx';
+import { LoaidngWithoutBackground } from 'entity/loading/LoaidngWithoutBackground.tsx';
 import { setIsEnter } from 'features/header/model/modalAuth/reducers/isEnter.ts';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { toggleModalEnter } from 'features/header/model/modalAuth/reducers/toggleModal.ts';
@@ -42,7 +42,7 @@ const ActivateAccount = () => {
     };
 
     return (
-        <main>
+        <main className={styles.main_activate}>
             <div className={styles.activate_acc_page}>
                 <div className={styles.activate_acc_header}>
                     <h1>{t('activate-page.activation')}</h1>
@@ -51,7 +51,9 @@ const ActivateAccount = () => {
                         <div className={styles.activate_acc_loading}>
                             <LoaidngWithoutBackground />
                         </div>
-                    ) : <div></div>}
+                    ) : (
+                        <div></div>
+                    )}
                     <div className={styles.redirect} onClick={handleRedirect}>
                         {t('activate-page.back')}
                     </div>

@@ -1,5 +1,6 @@
 from copy import deepcopy
 
+from django.db.models import Prefetch
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.decorators import action
@@ -11,6 +12,7 @@ from rest_framework.viewsets import ModelViewSet
 from slugify import slugify
 
 from common.filters import GetFilterParams
+from users.models import User
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
 from .models import Advertisement, PropertyAmenity
@@ -52,8 +54,18 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     lookup_field = "slug"
 
     def get_queryset(self):
-        queryset = Advertisement.objects.filter(is_published=True).select_related(
-            "owner", "country", "region", "city", "proposed_currency", "exchange_for"
+        queryset = (
+            Advertisement.objects.filter(is_published=True)
+            .select_related("country", "region", "city", "proposed_currency", "exchange_for")
+            .prefetch_related(
+                Prefetch(
+                    "owner",
+                    User.objects.all()
+                    .annotate_avg_rating()
+                    .annotate_rating_num()
+                    .annotate_my_rating(self.request.user.id),
+                )
+            )
         )
 
         if self.action in [
@@ -126,12 +138,14 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
     def update(self, request, *args, **kwargs):
         request_data = deepcopy(request.data)
-        images = request_data.pop("images", [])
+        upload_images = request_data.pop("upload_images", [])
+        delete_images = request_data.pop("delete_images", [])
         property_amenities = request_data.pop("property_amenities", [])
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request_data)
         serializer.is_valid(raise_exception=True)
-        serializer.validated_data["images"] = images
+        serializer.validated_data["upload_images"] = upload_images
+        serializer.validated_data["delete_images"] = delete_images
         serializer.validated_data["slug"] = slugify(request.data["title"])
         if property_amenities:
             serializer.validated_data["property_amenities"] = (

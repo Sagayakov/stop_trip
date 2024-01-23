@@ -81,7 +81,7 @@ class AdvertisementViewSetTest(APITestCase):
             for category in CategoryChoices.values
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(self.list_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -95,7 +95,7 @@ class AdvertisementViewSetTest(APITestCase):
             for category in CategoryChoices.values
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(self.detail_url(kwargs={"slug": advertisements[0].slug}))
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -110,7 +110,7 @@ class AdvertisementViewSetTest(APITestCase):
         advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(5)]
 
         self.client.force_login(me)
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(self.my_advertisements_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -124,7 +124,7 @@ class AdvertisementViewSetTest(APITestCase):
             for category in CategoryChoices.values
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"category": CategoryChoices.TRANSPORT},
@@ -141,7 +141,7 @@ class AdvertisementViewSetTest(APITestCase):
             for _ in [i * 100_000 for i in range(1, 10)]
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -158,7 +158,7 @@ class AdvertisementViewSetTest(APITestCase):
         user = UserFactory()
         advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(3)]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"order": "-date_create"},
@@ -176,7 +176,7 @@ class AdvertisementViewSetTest(APITestCase):
             BaseAdvertisementFactory(owner=user, price=1_000_000 + _) for _ in range(3)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"order": "-price"},

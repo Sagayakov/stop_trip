@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AllCategories, ModalWindow } from 'entities/controls';
+import { AllCategories, ModalWindow } from 'entity/controls';
 import { categories } from 'shared/const/categories.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';

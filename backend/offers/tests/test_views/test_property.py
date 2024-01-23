@@ -169,9 +169,14 @@ class PropertyTest(APITestCase):
         )
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
         advertisement.property_amenities.set(property_amenities)
+        advertisement_images = [
+            AdvertisementImageFactory(advertisement=advertisement) for _ in range(5)
+        ]
+
         new_country = CountryFactory(name="Vietnam")
         new_region = RegionFactory(country=country, name="V1")
         new_city = CityFactory(region=region, name="Hue")
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
             "title": "test",
             "price": advertisement.price - 100,
@@ -197,11 +202,16 @@ class PropertyTest(APITestCase):
             "property_commission": 1500,
             "property_sleeping_places": 3,
             "property_rooms_count": 4,
+            "delete_images": [
+                advertisement_image.id for advertisement_image in advertisement_images[3:]
+            ],
+            "upload_images": payload_images,
         }
+
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(13):
+        with self.assertNumQueries(15):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -253,6 +263,10 @@ class PropertyTest(APITestCase):
                 for payload_am in payload["property_amenities"]
             )
         )
+        self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
+        new_images_ids = advertisement.images.values_list("id", flat=True)
+        for image in advertisement_images[3:]:
+            self.assertTrue(image.id not in new_images_ids)
 
     def test_delete_property(self):
         user = UserFactory()
@@ -269,7 +283,7 @@ class PropertyTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(6):
             res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
@@ -311,7 +325,7 @@ class PropertyTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"property_type_of_service": PropertyTypeOfService.SALE.value},
@@ -358,7 +372,7 @@ class PropertyTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"property_bathroom_type": PropertyBathroomType.COMBINED.value},
@@ -368,7 +382,7 @@ class PropertyTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(property_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -414,7 +428,7 @@ class PropertyTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(self.list_url, {"property_bathroom_count": 2})
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -456,7 +470,7 @@ class PropertyTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"property_house_type": PropertyHouseType.BLOCK.value},
@@ -466,7 +480,7 @@ class PropertyTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(property_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -512,7 +526,7 @@ class PropertyTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(self.list_url, {"property_sleeping_places": 2})
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -553,7 +567,7 @@ class PropertyTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(self.list_url, {"property_rooms_count": 2})
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -598,7 +612,7 @@ class PropertyTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"property_rental_condition": PropertyRentalCondition.FAMILY.value},
@@ -608,7 +622,7 @@ class PropertyTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(property_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {
@@ -658,7 +672,7 @@ class PropertyTest(APITestCase):
             for _ in range(58, 60)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"property_area_min": 59, "property_area_max": 60},
@@ -706,7 +720,7 @@ class PropertyTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(self.list_url, {"property_has_furniture": True})
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -754,7 +768,7 @@ class PropertyTest(APITestCase):
             property.property_amenities.set(property_amenities[:-1])
         property_set[-1].property_amenities.set(property_amenities)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 f"{self.list_url}?property_amenities={property_amenities[-2].slug},{property_amenities[-1].slug}"
             )
@@ -800,7 +814,7 @@ class PropertyTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"property_type": PropertyType.HOUSE.value},
@@ -810,7 +824,7 @@ class PropertyTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(property_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"property_type": f"{PropertyType.HOUSE.value},{PropertyType.FLAT}"},

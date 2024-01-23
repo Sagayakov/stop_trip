@@ -14,6 +14,7 @@ from ..factories import (
     CountryFactory,
     RegionFactory,
     CityFactory,
+    AdvertisementImageFactory,
 )
 
 
@@ -73,11 +74,15 @@ class FoodTest(APITestCase):
         advertisement = FoodAdvertisementFactory(
             owner=user, country=country, region=region, city=city
         )
+        advertisement_images = [
+            AdvertisementImageFactory(advertisement=advertisement) for _ in range(5)
+        ]
+
         new_country = CountryFactory()
         new_region = RegionFactory(country=country)
         new_city = CityFactory(region=region)
+        payload_images = [generate_image_file() for _ in range(5)]
         payload = {
-            "category": CategoryChoices.FOOD.value,
             "title": "food",
             "country": new_country.slug,
             "region": new_region.slug,
@@ -86,12 +91,16 @@ class FoodTest(APITestCase):
             "food_delivery": True,
             "food_establishment": True,
             "food_type": FoodType.READY_FOOD,
+            "delete_images": [
+                advertisement_image.id for advertisement_image in advertisement_images[3:]
+            ],
+            "upload_images": payload_images,
         }
 
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(13):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -101,7 +110,6 @@ class FoodTest(APITestCase):
         advertisement.refresh_from_db()
 
         self.assertEqual(advertisement.owner, user)
-        self.assertEqual(advertisement.category, payload["category"])
         self.assertEqual(advertisement.country.slug, payload["country"])
         self.assertEqual(advertisement.region.slug, payload["region"])
         self.assertEqual(advertisement.city.slug, payload["city"])
@@ -110,6 +118,10 @@ class FoodTest(APITestCase):
         self.assertEqual(advertisement.food_delivery, payload["food_delivery"])
         self.assertEqual(advertisement.food_establishment, payload["food_establishment"])
         self.assertEqual(advertisement.food_type, payload["food_type"])
+        self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
+        new_images_ids = advertisement.images.values_list("id", flat=True)
+        for image in advertisement_images[3:]:
+            self.assertTrue(image.id not in new_images_ids)
 
     def test_delete_food(self):
         user = UserFactory()
@@ -119,7 +131,7 @@ class FoodTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(6):
             res = self.client.delete(self.detail_url(kwargs={"slug": advertisement.slug}))
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
@@ -138,7 +150,7 @@ class FoodTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"food_delivery": True},
@@ -161,7 +173,7 @@ class FoodTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"food_establishment": True},
@@ -184,7 +196,7 @@ class FoodTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"food_type": FoodType.READY_FOOD.value},
@@ -194,7 +206,7 @@ class FoodTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(food_set) // 2)
 
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"food_type": f"{FoodType.READY_FOOD.value},{FoodType.NON_VEG_FOOD.value}"},

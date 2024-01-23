@@ -1,6 +1,6 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { AnnouncementSubmitButton } from 'entities/addAnnouncementForm/universalFields';
+import { AnnouncementSubmitButton } from 'entity/addAnnouncementForm/universalFields';
 import {
     AnnouncementCategoryField,
     AnnouncementPhotoField,
@@ -9,11 +9,13 @@ import {
     AnnouncementPriceField,
     AnnouncementDescriptionField,
     OptionalFields,
-    AnnouncementRegion, AnnouncementCity, AnnouncementCountry,
+    AnnouncementRegion,
+    AnnouncementCity,
+    AnnouncementCountry,
 } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
 import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import styles from './libr/addAnnouncement.module.scss';
-import { LoadingWithBackground } from 'entities/loading/LoadingWithBackground';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import './libr/selectAddAnnouncement.scss';
@@ -22,8 +24,10 @@ import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFi
 import { toast } from 'react-toastify';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
-import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
-import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
+import { useAppDispatch } from 'app/store/hooks.ts';
+import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
+import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
+import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 
 const AddAnnouncementPage = () => {
     const {
@@ -42,58 +46,24 @@ const AddAnnouncementPage = () => {
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [modalSuccess, setModalSuccess] = useState(false);
-    const isLoading = useAppSelector((state) => state.setLoading.loading);
     const { t } = useTranslation();
-
     const { refreshToken } = getTokensFromStorage();
     const category = watch('category');
-    const onsubmit = async (data: FormAddAnn) => {
-        dispatch(setLoading(true));
-        await getAccessTokenWithRefresh(dispatch, refreshToken)//сначала дожидаемся новый accessToken, затем шлем пост запрос
-        const formData = new FormData();
-        Object.entries(data).forEach(([field, value]) => {
-            switch (field) {
-                case 'images':
-                    // Если это поле с изображениями, добавляем каждый файл поочередно
-                    if (value instanceof Array && value[0] instanceof File) {
-                        value.forEach((file, index) => {
-                            formData.append('images', file, `image_${index}`);
-                        });
-                    }
-                    break;
-                default:
-                    // Добавляем остальные поля
-                    console.log(`${field}: ${typeof value}`);
-                    if(value === undefined || value === null){
-                        break;//иначе присваивается 'undefined' если поле не заполнено
-                    }
-                    formData.append(field, value);
-                    break;
-            }
-        });
 
+    const [addAdvert, {isSuccess, isError, isLoading}] = useAddAdvertMutation();
+
+    const onsubmit = async (data: FormAddAnn) => {
+        console.log(data);
+        setValue('country', 'india');
+        setValue('region', "goa");
+        dispatch(setLoading(true));
+        await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
+        const formData = createFormDataObjectForSendAnnouncement(data, 'images');
         try {
             const { accessToken } = getTokensFromStorage();
-            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/advertisements/`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                },
-                body: formData,
-            })
-            if(response.ok){
-                setSelectedImages(undefined);
-                setMarkerPosition(undefined);
-                reset();
-                setValue('category', data.category);
-                dispatch(setLoading(false));
-                setModalSuccess(true);
-            } else {
-                dispatch(setLoading(false));
-                toast.error(`${t('errors.add-announcement-error')}`);
-            }
+            await addAdvert({body: formData as FormAddAnn, token: accessToken})
         } catch (error) {
-            console.log(error)
+            console.log(error);
             dispatch(setLoading(false));
             toast.error(`${t('errors.add-announcement-error')}`);
         }
@@ -103,8 +73,19 @@ const AddAnnouncementPage = () => {
         scrollToTop();
     };
     const sendButtonDisabled = () => {
-        return selectedImages && selectedImages.length > 10
-    }
+        return selectedImages && selectedImages.length > 10;
+    };
+    useEffect(() => {
+        if(isSuccess){
+            setModalSuccess(true);
+            setSelectedImages(undefined);
+            setMarkerPosition(undefined);
+            reset();
+        }
+        if(isError) toast.error(`${t('errors.add-announcement-error')}`);
+        setValue('country', 'india');
+        setValue('region', "goa");
+    }, [isSuccess, isError, reset, t, setValue]);
 
     return (
         <>
@@ -130,24 +111,38 @@ const AddAnnouncementPage = () => {
                             setValue={setValue}
                             formState={formState}
                         />
-                        <AnnouncementCountry setValue={setValue} control={control} />
-                        <AnnouncementRegion setValue={setValue} control={control} />
-                        <AnnouncementCity setValue={setValue} control={control} />
+                        <AnnouncementCountry
+                            setValue={setValue}
+                            control={control}
+                        />
+                        <AnnouncementRegion
+                            setValue={setValue}
+                            control={control}
+                            formState={formState}
+                        />
+                        <AnnouncementCity
+                            setValue={setValue}
+                            control={control}
+                            formState={formState}
+                        />
                         <AnnouncementNameField
                             register={register}
                             formState={formState}
                         />
-                        {category !== "exchange_rate" && <AnnouncementPriceField
-                            register={register}
-                            formState={formState}
-                            watch={watch}
-                        />}
+                        {category !== 'exchange_rate' && (
+                            <AnnouncementPriceField
+                                register={register}
+                                formState={formState}
+                                watch={watch}
+                            />
+                        )}
                         <AnnouncementDescriptionField control={control} />
                         <OptionalFields
                             control={control}
                             register={register}
                             setValue={setValue}
                             watch={watch}
+                            formState={formState}
                         />
                         <AnnouncementPhotoField
                             selectedImages={selectedImages}
@@ -159,7 +154,9 @@ const AddAnnouncementPage = () => {
                             markerPosition={markerPosition}
                             setMarkerPosition={setMarkerPosition}
                         />
-                        <AnnouncementSubmitButton isDisabled={sendButtonDisabled()} />
+                        <AnnouncementSubmitButton
+                            isDisabled={sendButtonDisabled()}
+                        />
                     </Suspense>
                 </form>
             </section>

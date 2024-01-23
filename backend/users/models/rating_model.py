@@ -9,10 +9,13 @@ class Rate(models.Model):
         "users.User",
         on_delete=models.CASCADE,
         verbose_name="От пользователя",
-        related_name="from_user",
+        related_name="rating_from_users",
     )
     to_user = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE, verbose_name="Пользователю", related_name="to_user"
+        "users.User",
+        on_delete=models.CASCADE,
+        verbose_name="Пользователю",
+        related_name="rating_to_users",
     )
 
     rating = models.PositiveIntegerField(
@@ -29,4 +32,5 @@ class Rate(models.Model):
     class Meta:
         verbose_name = "Отзыв"
         verbose_name_plural = "отзывы"
+        unique_together = ("from_user", "to_user")
         ordering = ("-date_updated",)

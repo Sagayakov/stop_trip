@@ -1,9 +1,8 @@
-import { setLoading } from 'entities/loading/model/setLoadingSlice.ts';
+import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { SetStateAction } from 'react';
 import { Dispatch } from 'redux';
+import { url } from 'shared/const/url';
 
-
-const url = import.meta.env.VITE_BASE_URL;
 export const handleFetchResetPassword = async (
     email: string,
     setSuccess: React.Dispatch<SetStateAction<boolean>>,

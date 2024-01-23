@@ -66,7 +66,7 @@
                 width: 7px;
                 height: 7px;
                 background-color: white;
-                box-shadow: 0 6px 8px 0 #00000014;
+                box-shadow: 0 0 6px 1.5px rgba(0, 0, 0, 0.6);
             }
         }
 
@@ -80,7 +80,7 @@
             top: 18px;
             right: 18px;
             display: grid;
-            grid-template-rows: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
             align-items: center;
             input[type='checkbox'] {
                 width: 1px;
@@ -120,15 +120,24 @@
                 cursor: pointer;
             }
             .edit,
-            .label_option {
+            .label_option,
+            .delete{
                 display: flex;
                 align-items: center;
                 padding: 0.5rem 1rem;
             }
             .edit:hover,
-            .label_option:hover {
+            .label_option:hover,
+            .delete:hover{
                 background-color: var(--grey-2);
                 border-radius: var(--radii);
+            }
+            .delete{
+                span{
+                    margin: 0 1rem 0 3px;
+                }
+                color: var(--error);
+                cursor: pointer;
             }
         }
 

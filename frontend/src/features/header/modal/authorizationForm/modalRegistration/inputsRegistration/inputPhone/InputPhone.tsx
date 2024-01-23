@@ -12,12 +12,17 @@ interface Props {
 
 export const InputPhone = ({ errors, register, watch }: Props) => {
     const phoneErrors = useAppSelector(
-        (state) => state.setIsAuth.errorRegistration?.phone[0]
+        (state) => state.setIsAuth.errorRegistration?.phone
     );
     const { t } = useTranslation();
 
     const phoneNumber = watch('phone');
-    const handleBlur = () => sessionStorage.setItem('phonenumber', String(phoneNumber));
+
+    const handleBlur = () => {
+        if(phoneNumber && String(phoneNumber).length !== 0 ){
+            sessionStorage.setItem('phonenumber', String(phoneNumber));
+        }
+    }
 
     return (
         <>
@@ -26,7 +31,7 @@ export const InputPhone = ({ errors, register, watch }: Props) => {
                     required: true,
                     minLength: 5,
                     pattern:
-                        /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$/,
+                        /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,15}(\s*)?$/,
                 })}
                 placeholder={t('modal-registration.phone')}
                 defaultValue={sessionStorage.getItem('phonenumber') || ''}

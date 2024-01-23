@@ -1,9 +1,9 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { UniversalSelectDropdown } from 'entities/universalEntites/UniversalSelectDropdown';
+import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { valuesOfTransportForm } from 'widgets/settingForm/settingTransport/libr/valuesOfTransportForm.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 
 interface Props {
@@ -12,13 +12,17 @@ interface Props {
     defaultValue?: string | null | undefined;
 }
 
-export const AnnouncementTransportBodyType = ({ setValue, control, defaultValue }: Props) => {
+export const AnnouncementTransportBodyType = ({
+    setValue,
+    control,
+    defaultValue,
+}: Props) => {
     const optionValues = valuesOfTransportForm.transport_body_type;
     const { t } = useTranslation();
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_body_type')}</h3>
+            <h3>{t('filters.transport_body_type')}:</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}

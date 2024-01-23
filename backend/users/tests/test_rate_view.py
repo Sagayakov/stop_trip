@@ -3,8 +3,8 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from users.tests.factories import UserFactory, RateFactory
 from users.models import Rate
+from users.tests.factories import UserFactory, RateFactory
 
 
 @mark.django_db
