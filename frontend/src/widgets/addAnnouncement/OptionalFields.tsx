@@ -91,6 +91,7 @@ const OptionalFields = ({
                     control={control}
                     setValue={setValue}
                     data={data}
+                    formState={formState}
                 />
             )}
             {getCategoryValue('job') && (
@@ -103,7 +104,7 @@ const OptionalFields = ({
                 />
             )}
             {getCategoryValue('excursion') && (
-                <AnnouncementExcursion register={register} data={data} />
+                <AnnouncementExcursion register={register} data={data} formState={formState} />
             )}
             {getCategoryValue('market') && (
                 <AnnouncementMarket register={register} data={data} formState={formState} />
@@ -118,7 +119,7 @@ const OptionalFields = ({
                 />
             )}
             {getCategoryValue('service') && (
-                <AnnouncementService register={register} data={data} />
+                <AnnouncementService register={register} data={data} formState={formState} />
             )}
             {getCategoryValue('taxi') && (
                 <AnnouncementTaxi

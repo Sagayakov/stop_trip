@@ -30,7 +30,7 @@ export const AnnouncementTransportEngineType = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_engine_type')}</h3>
+            <h3>{t('filters.transport_engine_type')}:</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}

@@ -42,6 +42,7 @@ export const AnnouncementExchange = ({
             <AnnouncementExchangeRate
                 register={register}
                 defaultValue={data?.exchange_rate}
+                formState={formState}
             />
         </>
     );
