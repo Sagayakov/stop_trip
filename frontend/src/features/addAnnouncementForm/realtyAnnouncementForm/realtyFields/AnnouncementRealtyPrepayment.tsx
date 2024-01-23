@@ -29,7 +29,7 @@ export const AnnouncementRealtyPrepayment = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.property_prepayment')}</h3>
+            <h3>{t('filters.property_prepayment')}:</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}

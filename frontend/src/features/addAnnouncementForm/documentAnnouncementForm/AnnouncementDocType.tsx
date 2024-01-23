@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
@@ -10,12 +10,14 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
+    formState: FormState<FormAddAnn>;
 }
 
 export const AnnouncementDocType = ({
     setValue,
     control,
     defaultValue,
+    formState
 }: Props) => {
     const { t } = useTranslation();
     const options = [
@@ -34,7 +36,7 @@ export const AnnouncementDocType = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.document_type')}:</h3>
+            <h3>{t('filters.document_type')}<span>*</span>:</h3>
             <UniversalSelectDropdown
                 setValue={setValue}
                 control={control}
@@ -45,8 +47,9 @@ export const AnnouncementDocType = ({
                 isMulti={false}
                 options={options}
                 defaultValue={getDefaultValue(defaultValue, options)}
+                requiredFiled={true}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>{formState?.errors?.document_type?.message}</div>
         </div>
     );
 };

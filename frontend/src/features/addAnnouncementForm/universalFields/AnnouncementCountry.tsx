@@ -3,7 +3,6 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -15,14 +14,10 @@ const AnnouncementCountry = ({ control, setValue }: Props) => {
     const { t } = useTranslation();
     const options = [{ value: 'india', label: 'Индия' }];
 
-    useEffect(() => {
-        setValue('country', 'india');
-    }, []);
-
     return (
         <div className={styles.ann_field}>
             <h3>
-                {t('add-page.region')}
+                {t('add-page.country')}
                 <span>*</span>:
             </h3>
             <UniversalSelectDropdown<FormAddAnn>
@@ -30,7 +25,7 @@ const AnnouncementCountry = ({ control, setValue }: Props) => {
                 control={control}
                 name="country"
                 prefix="filterAnnouncementCategory"
-                placeholder={t('add-page.region')}
+                placeholder={t('add-page.country')}
                 closeMenuOnSelect={true}
                 isMulti={false}
                 options={options}

@@ -1,5 +1,5 @@
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { jobValues } from './libr/jobValues';
 import { useTranslation } from 'react-i18next';
@@ -10,12 +10,14 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
+    formState: FormState<FormAddAnn>;
 }
 
 export const AnnouncementJobPayment = ({
     setValue,
     control,
     defaultValue,
+    formState
 }: Props) => {
     const paymentValues = jobValues.payment;
     const { t } = useTranslation();
@@ -34,7 +36,7 @@ export const AnnouncementJobPayment = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.job_payment_type')}:</h3>
+            <h3>{t('filters.job_payment_type')}<span>*</span>:</h3>
             <UniversalSelectDropdown
                 closeMenuOnSelect={true}
                 control={control}
@@ -45,8 +47,9 @@ export const AnnouncementJobPayment = ({
                 placeholder={t('filters.job_payment_type')}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
+                requiredFiled={true}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>{formState?.errors?.job_payment_type?.message}</div>
         </div>
     );
 };

@@ -52,7 +52,9 @@
     "modal-registration": {
         "registration": "Registration",
         "user-name": "Enter your name",
+        "min-name-length": "Minimum 2 characters",
         "not-more-50": "No more than 50 characters",
+        "wildcars-name": "enter a name without wildcards",
         "phone": "Phone number",
         "correct-number": "Enter correct phone number",
         "email-exists": "A user with this email already exists",
@@ -62,7 +64,7 @@
         "two-dots": "You cannot enter two points in a row",
         "digit": "The domain part cannot have a number at the beginning or end\nor dash",
         "password-short": "The password is too short. Minimum length is 8 characters.",
-        "password-correct": "The password must be from 8 to 22 characters (EN), capital and lowercase letters, numbers and special characters are required.",
+        "password-correct": "Password must be between 8 and 22 characters (EN), lowercase and uppercase letters, digit and special character are mandatory.",
         "repeat": "Repeat password",
         "mismatch": "Password mismatch",
         "accept": "I accept the terms of the",
@@ -161,7 +163,7 @@
         "choose-model": "Choose model",
         "transport_engine_type": "Engine type",
         "transport_engine_volume": "Engine capacity",
-        "volume": "Volume (1-2.7)",
+        "volume": "1.0-2.7",
         "transport_drive_type": "Drive type",
         "transport_year_of_production": "Year of production",
         "year": "Year",
@@ -256,6 +258,7 @@
         "post": "Posting an advert",
         "edit": "Edit advertisement",
         "category": "Category",
+        "country": "Country",
         "region": "Region",
         "city": "City",
         "choose": "Choose category",
@@ -272,7 +275,8 @@
         "please-select": "Please, select no more than 10 photos",
         "location": "Location",
         "back": "Back",
-        "edit-success": "Announcement successfully edited"
+        "edit-success": "Announcement successfully edited",
+        "required": "Required field"
     },
 
     "labels": {
@@ -315,6 +319,15 @@
         "current-password": "Enter the current password",
         "new-password": "Enter a new password",
         "re-new-password": "Repeat a new password",
-        "password-success": "Password successfully changed"
+        "password-success": "Password successfully changed",
+        "no-data": "No data",
+        "mail-address": "Your e-mail address",
+        "password-change": "Password change",
+        "same-password": "The new password must be different from the old one",
+        "equal-new-password": "The new password must be different from the old password",
+        "correct-name": "Enter correct name"
+    },
+    "feedback": {
+        "feedback-message": "10 to 900 characters"
     }
 }

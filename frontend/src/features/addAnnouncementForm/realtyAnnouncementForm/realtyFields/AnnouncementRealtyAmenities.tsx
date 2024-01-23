@@ -41,7 +41,7 @@ export const AnnouncementRealtyAmenities = ({
     })
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.property_amenities')}</h3>
+            <h3>{t('filters.property_amenities')}:</h3>
             <UniversalCheckboxGroup
                 checkboxValues={optionValues}
                 name="property_amenities"

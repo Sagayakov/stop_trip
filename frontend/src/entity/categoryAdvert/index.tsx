@@ -16,8 +16,15 @@ import { getDate } from 'shared/utils/getDate';
 import { prettifyPrice } from 'shared/utils/prettifyPrice';
 import style from 'pages/categoryPage/style/categoryPage.module.scss';
 import { useTranslation } from 'react-i18next';
+import { pushAddToFavourite } from 'shared/eCommercy/pushAddToFavourite.ts';
+import { pushRemoveFromFavourite } from 'shared/eCommercy/pushRemoveFromFavourite.ts';
+import { getPrevLocation } from 'shared/eCommercy/getPrevLocation.ts';
+import { handleClickByAnnouncementCard } from 'shared/eCommercy/handleClickByAnnouncementCard.ts';
 
-export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
+interface Props extends AdvertsTypes{
+    index: number;
+}
+export const CategoryAdvert = (el: Props) => {
     const {
         id,
         category,
@@ -27,6 +34,9 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
         proposed_currency,
         date_create,
         images,
+        index,
+        title,
+        price
     } = el;
     const { isMobile } = useMatchMedia();
     const lang = useAppSelector((state) => state.setLang.lang);
@@ -52,7 +62,27 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
         if (isAuth) {
             setAddToFav(!addToFav);
 
-            !addToFav ? addFavorite({ id }) : deleteFromFavorites({ id });
+            if(!addToFav){
+                addFavorite({ id })
+                pushAddToFavourite({
+                    id,
+                    index,
+                    title,
+                    category,
+                    price,
+                    listDescription: getPrevLocation(),
+                })//добавляем в яндекс метрику "добавление в избранное"
+            } else{
+                deleteFromFavorites({ id });
+                pushRemoveFromFavourite({
+                    id,
+                    index,
+                    title,
+                    category,
+                    price,
+                    listDescription: getPrevLocation(),
+                })//добавляем в яндекс метрику "удаление из избранного"
+            }
         } else {
             toast.error(`${t('main-page.toast-favs')}`);
         }
@@ -75,7 +105,19 @@ export const CategoryAdvert = ({ el }: { el: AdvertsTypes }) => {
     }
 
     return (
-        <NavLink className={style.card} key={id} to={`/${category}/${slug}/`}>
+        <NavLink
+            className={style.card}
+            key={id}
+            to={`/${category}/${slug}/`}
+            onClick={() => handleClickByAnnouncementCard({
+                id,
+                index,
+                title,
+                category,
+                price,
+                listDescription: getPrevLocation()
+            })}//добаляем в яндекс метрику клик по товару
+        >
             <span
                 onClick={(event) => event.stopPropagation()}
                 className={style.add_to_favorite}

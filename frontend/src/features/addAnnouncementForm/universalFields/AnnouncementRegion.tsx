@@ -1,23 +1,19 @@
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: { name: string } | null;
+    formState: FormState<FormAddAnn>;
 }
 
-const AnnouncementRegion = ({ control, setValue }: Props) => {
+const AnnouncementRegion = ({ control, setValue, formState }: Props) => {
     const { t } = useTranslation();
     const options = [{ value: 'goa', label: 'Гоа' }];
-
-    useEffect(() => {
-        setValue('region', "goa");
-    }, []);
 
     return (
         <div className={styles.ann_field}>
@@ -35,9 +31,10 @@ const AnnouncementRegion = ({ control, setValue }: Props) => {
                 isMulti={false}
                 options={options}
                 defaultValue={options[0]}
-                // defaultValue={options.find((el) => el.label === defaultValue?.name)}
+                isDisabled={true}//убрать, когда будет не только Гоа
+                requiredFiled={true}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>{formState?.errors?.region?.message}</div>
         </div>
     );
 };

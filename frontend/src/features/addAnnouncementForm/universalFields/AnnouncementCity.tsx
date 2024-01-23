@@ -9,10 +9,10 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: { name: string } | null | undefined;
-    formState?: FormState<FormAddAnn>;
+    formState: FormState<FormAddAnn>;
 }
 
-const AnnouncementCity = ({ control, setValue, defaultValue }: Props) => {
+const AnnouncementCity = ({ control, setValue, defaultValue, formState }: Props) => {
     const { t } = useTranslation();
 
     const options = [
@@ -45,12 +45,12 @@ const AnnouncementCity = ({ control, setValue, defaultValue }: Props) => {
                 closeMenuOnSelect={true}
                 isMulti={false}
                 options={options}
-                required={true}
+                requiredFiled={true}
                 defaultValue={options.find(
                     (el) => el.label === defaultValue?.name
                 )}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>{formState?.errors?.city?.message}</div>
         </div>
     );
 };

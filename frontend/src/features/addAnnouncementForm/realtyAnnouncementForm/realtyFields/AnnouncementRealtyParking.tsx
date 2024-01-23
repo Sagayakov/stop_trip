@@ -12,7 +12,7 @@ export const AnnouncementRealtyParking = ({ register, defaultValue }: Props) => 
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.with-parking')}</h3>
+            <h3>{t('filters.with-parking')}:</h3>
             <div className={styles.radio_group}>
                 <label>
                     <input

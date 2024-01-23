@@ -19,7 +19,7 @@ export const AnnoucementTransportCondition = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_condition')}</h3>
+            <h3>{t('filters.transport_condition')}:</h3>
             <UniversalRadioGroup
                 register={register}
                 name="transport_condition"

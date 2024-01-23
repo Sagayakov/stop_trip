@@ -1,4 +1,4 @@
-import { lazy, Suspense, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 export const AnyCategory = lazy(
@@ -27,6 +27,11 @@ const CategoryPage = () => {
         display: `${isDesktop ? 'none' : 'flex'}`,
         backgroundColor: `${showFilters ? '#CDE1FF' : '#EBF3FF'}`,
     };
+
+    useEffect(() => {
+        const path = window.location.pathname.slice(1, -1);
+        sessionStorage.setItem('prevLocation', path);//для условия для яндекс метрики
+    }, [])
 
     return (
         <>

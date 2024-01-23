@@ -6,6 +6,7 @@ import { url } from 'shared/const/url';
 
 export const fetchUser = createApi({
     reducerPath: 'fetchUser',
+    tagTypes: ['User'],
     baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
     endpoints: (build) => ({
         getUser: build.query<User, string>({
@@ -16,6 +17,7 @@ export const fetchUser = createApi({
                     Authorization: `Bearer ${token}`,
                 },
             }),
+            providesTags: ['User'],
         }),
         setUser: build.mutation<User, { body: SettingTypes; token: string }>({
             query: ({ body, token }) => ({
@@ -27,6 +29,7 @@ export const fetchUser = createApi({
                 },
                 body,
             }),
+            invalidatesTags: ['User'],
         }),
         setPassword: build.mutation<
             ChangePassword,
@@ -41,6 +44,7 @@ export const fetchUser = createApi({
                 },
                 body,
             }),
+            invalidatesTags: ['User'],
         }),
     }),
 });

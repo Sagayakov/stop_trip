@@ -11,7 +11,6 @@ interface Props {
     control: Control<FormAddAnn, string[]>;
     formState: FormState<FormAddAnn>;
     defaultValue?: string;
-    // categoryList: SelectOption[] | undefined;
 }
 
 const AnnouncementCategoryField = ({
@@ -66,7 +65,7 @@ const AnnouncementCategoryField = ({
                     prefix="filterAnnouncementCategory"
                     defaultValue={getDefaultValue()}
                     setValue={setValue}
-                    required={true}
+                    requiredFiled={true}
                     isSearchable={!isMobile}
                 />
                 <div className={styles.ann_field_err}>

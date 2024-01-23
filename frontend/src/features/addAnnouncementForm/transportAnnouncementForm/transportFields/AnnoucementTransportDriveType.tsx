@@ -20,7 +20,7 @@ export const AnnoucementTransportDriveType = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_drive_type')}</h3>
+            <h3>{t('filters.transport_drive_type')}:</h3>
             <UniversalRadioGroup
                 register={register}
                 name="transport_drive_type"

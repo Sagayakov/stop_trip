@@ -1,4 +1,4 @@
-import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { Control, FormState, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { AnnouncementFoodDelivery } from './AnnouncementFoodDelivery';
 import { AnnouncementFoodEsteblishment } from './AnnouncementFoodEstablishment';
@@ -11,14 +11,15 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     data?: ProductType;
+    formState: FormState<FormAddAnn>;
 }
 
-export const AnnouncementFood = ({ register, control, setValue, data }: Props) => {
+export const AnnouncementFood = ({ register, control, setValue, data, formState }: Props) => {
     return (
         <>
             <AnnouncementFoodType control={control} setValue={setValue} defaultValue={data?.food_type} />
-            <AnnouncementFoodDelivery register={register} defaultValue={data?.food_delivery} />
-            <AnnouncementFoodEsteblishment register={register} defaultValue={data?.food_establishment} />
+            <AnnouncementFoodDelivery register={register} defaultValue={data?.food_delivery} formState={formState} />
+            <AnnouncementFoodEsteblishment register={register} defaultValue={data?.food_establishment} formState={formState} />
         </>
     );
 };

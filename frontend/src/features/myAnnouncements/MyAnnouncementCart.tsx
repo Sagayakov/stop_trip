@@ -16,6 +16,7 @@ import {
     FetchBaseQueryMeta,
     QueryDefinition,
 } from '@reduxjs/toolkit/query';
+import { handleClickByAnnouncementCard } from 'shared/eCommercy/handleClickByAnnouncementCard.ts';
 
 interface Props extends MyAnnouncements {
     refetch: () => QueryActionCreatorResult<
@@ -33,18 +34,21 @@ interface Props extends MyAnnouncements {
             'fetchAdverts'
         >
     >;
+    index: number;
 }
 
-export const MyAnnouncementCart = ({
-    images,
-    price,
-    title,
-    date_create,
-    slug,
-    category,
-    refetch,
-    is_published
-}: Props) => {
+export const MyAnnouncementCart = (data: Props) => {
+    const {
+        images,
+        price,
+        title,
+        date_create,
+        slug,
+        category,
+        refetch,
+        id,
+        index,
+    } = data;
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -61,9 +65,16 @@ export const MyAnnouncementCart = ({
             >
                 <AnnouncementOptions setShowModal={setShowModal} />
                 {showModal && (
-                    <ModalOption slug={slug!} setShowModal={setShowModal} refetch={refetch} is_published={is_published} />
+                    <ModalOption {...data} setShowModal={setShowModal} refetch={refetch} />
                 )}
-                <NavLink to={`/${category}/${slug}/`}>
+                <NavLink to={`/${category}/${slug}/`} onClick={() => handleClickByAnnouncementCard({
+                    id: id!,
+                    index,
+                    title,
+                    category: category!,
+                    price,
+                    listDescription: "Мои объявления",//добавляем в яндекс метрику клик по товару
+                })}>
                     {images?.length !== 0 ? (
                         <img alt="announcements img" src={images[0].image} />
                     ) : (
