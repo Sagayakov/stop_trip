@@ -45,8 +45,6 @@ export const InputPassword = ({
                     required: true,
                     minLength: 8,
                     maxLength: 22,
-                    pattern:
-                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~])(?!.*\s)[0-9a-zA-Z!"#$%&'()*+,-./\\:;<=>?@[\]^_`{|}~]{8,22}/,
                 }}
                 render={({ field }) => (
                     <input

@@ -17,8 +17,12 @@ export const InputPhone = ({ errors, register, watch }: Props) => {
     const { t } = useTranslation();
 
     const phoneNumber = watch('phone');
-    const handleBlur = () =>
-        sessionStorage.setItem('phonenumber', String(phoneNumber));
+
+    const handleBlur = () => {
+        if(phoneNumber && String(phoneNumber).length !== 0 ){
+            sessionStorage.setItem('phonenumber', String(phoneNumber));
+        }
+    }
 
     return (
         <>

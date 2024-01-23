@@ -33,7 +33,9 @@ export const InputEmail = ({
     const { t } = useTranslation();
 
     const email = watch('email');
-    const handleBlur = () => sessionStorage.setItem('emailEnter', email);
+    const handleBlur = () => {
+        if(email.length !== 0 )sessionStorage.setItem('emailEnter', email);
+    }
 
     const oninput = (event: React.FormEvent<HTMLInputElement>) => {
         event.currentTarget.value = event.currentTarget.value.toLowerCase();

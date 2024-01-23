@@ -118,10 +118,12 @@ const AddAnnouncementPage = () => {
                         <AnnouncementRegion
                             setValue={setValue}
                             control={control}
+                            formState={formState}
                         />
                         <AnnouncementCity
                             setValue={setValue}
                             control={control}
+                            formState={formState}
                         />
                         <AnnouncementNameField
                             register={register}

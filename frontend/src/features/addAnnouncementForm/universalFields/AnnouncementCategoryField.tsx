@@ -11,7 +11,6 @@ interface Props {
     control: Control<FormAddAnn, string[]>;
     formState: FormState<FormAddAnn>;
     defaultValue?: string;
-    // categoryList: SelectOption[] | undefined;
 }
 
 const AnnouncementCategoryField = ({
