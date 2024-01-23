@@ -16,6 +16,7 @@ import { prettifyPrice } from 'shared/utils/prettifyPrice';
 import { handleClickByAnnouncementCard } from 'shared/eCommercy/handleClickByAnnouncementCard.ts';
 import { pushAddToFavourite } from 'shared/eCommercy/pushAddToFavourite.ts';
 import { pushRemoveFromFavourite } from 'shared/eCommercy/pushRemoveFromFavourite.ts';
+import { getPrevLocation } from 'shared/eCommercy/getPrevLocation.ts';
 
 interface Props extends AdvertsTypes{
     index: number;
@@ -66,7 +67,7 @@ export const Cart = (cart: Props) => {
                     title,
                     category,
                     price,
-                    listDescription: "Последние объявления"
+                    listDescription: getPrevLocation()
                 });//добавляем в яндекс метрику "добавление в избранное"
             }else{
                 deleteFromFavorites({ id })
@@ -76,7 +77,7 @@ export const Cart = (cart: Props) => {
                     title,
                     category,
                     price,
-                    listDescription: "Последние объявления"
+                    listDescription: getPrevLocation()
                 })//добавляем в яндекс метрику "удаление из избранного"
             }
         } else {
@@ -94,7 +95,7 @@ export const Cart = (cart: Props) => {
                 title,
                 category,
                 price,
-                listDescription: "Последние объявления"
+                listDescription: getPrevLocation()
             })}//добавляем в яндекс метрику клик по товару
         >
             <img

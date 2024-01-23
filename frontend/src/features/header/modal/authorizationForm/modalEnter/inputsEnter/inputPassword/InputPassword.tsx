@@ -43,7 +43,6 @@ export const InputPassword = ({
                 defaultValue=""
                 rules={{
                     required: true,
-                    minLength: 8,
                     maxLength: 22,
                 }}
                 render={({ field }) => (
