@@ -12,7 +12,7 @@ export const AnnouncementTransportEngineCapacity = ({ register, defaultValue }: 
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_engine_volume')}</h3>
+            <h3>{t('filters.transport_engine_volume')}:</h3>
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"

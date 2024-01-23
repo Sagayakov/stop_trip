@@ -47,6 +47,7 @@ export const AnnouncementJob = ({
             <AnnouncementJobWithExp
                 register={register}
                 defaultValue={data?.job_experience}
+                formState={formState}
             />
         </>
     );

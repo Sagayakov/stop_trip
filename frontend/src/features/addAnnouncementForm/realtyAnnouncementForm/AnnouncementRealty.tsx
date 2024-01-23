@@ -99,6 +99,7 @@ export const AnnouncementRealty = ({
             <AnnouncementRealtyHasFurniture
                 register={register}
                 defaultValue={data?.property_has_furniture}
+                formState={formState}
             />
             <AnnouncementRealtyParking
                 register={register}
