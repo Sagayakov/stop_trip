@@ -100,7 +100,7 @@ class FoodTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(12):
+        with self.assertNumQueries(13):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -150,7 +150,7 @@ class FoodTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"food_delivery": True},
@@ -173,7 +173,7 @@ class FoodTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"food_establishment": True},
@@ -196,7 +196,7 @@ class FoodTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"food_type": FoodType.READY_FOOD.value},
@@ -206,7 +206,7 @@ class FoodTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(food_set) // 2)
 
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"food_type": f"{FoodType.READY_FOOD.value},{FoodType.NON_VEG_FOOD.value}"},

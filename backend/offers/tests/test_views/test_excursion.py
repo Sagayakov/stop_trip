@@ -97,7 +97,7 @@ class ExcursionTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(12):
+        with self.assertNumQueries(13):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -147,7 +147,7 @@ class ExcursionTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(4):
             res = self.client.get(self.list_url, {"excursion_food": True})
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -168,7 +168,7 @@ class ExcursionTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(4):
             res = self.client.get(self.list_url, {"excursion_transfer": True})
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)

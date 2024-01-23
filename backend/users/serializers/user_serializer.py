@@ -23,8 +23,8 @@ class UserSerializer(serializers.ModelSerializer):
     """Сериализатор вывода юзера в объявлении."""
 
     avg_rating = serializers.FloatField()
-    rating_num = serializers.FloatField()
-    my_rate = serializers.SerializerMethodField()
+    rating_num = serializers.IntegerField()
+    my_rating = serializers.IntegerField()
 
     class Meta:
         model = User
@@ -36,13 +36,5 @@ class UserSerializer(serializers.ModelSerializer):
             "date_joined",
             "avg_rating",
             "rating_num",
-            "my_rate",
+            "my_rating",
         )
-
-    def get_my_rate(self, user):
-        try:
-            from_user = self.context["request"].user
-            my_rating = Rate.objects.get(from_user=from_user.pk, to_user=user.pk).rating
-        except Rate.DoesNotExist:
-            my_rating = None
-        return my_rating

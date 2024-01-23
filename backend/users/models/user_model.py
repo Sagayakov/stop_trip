@@ -1,8 +1,8 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
-from django.core.exceptions import ValidationError
 
 from forbidden_words.models import ForbiddenWords
 from ..managers import CustomUserManager

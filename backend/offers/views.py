@@ -57,7 +57,15 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         queryset = (
             Advertisement.objects.filter(is_published=True)
             .select_related("country", "region", "city", "proposed_currency", "exchange_for")
-            .prefetch_related(Prefetch("owner", User.objects.annotate_rating()))
+            .prefetch_related(
+                Prefetch(
+                    "owner",
+                    User.objects.all()
+                    .annotate_avg_rating()
+                    .annotate_rating_num()
+                    .annotate_my_rating(self.request.user.id),
+                )
+            )
         )
 
         if self.action in [

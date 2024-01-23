@@ -1,11 +1,15 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
+
 from forbidden_words.models import ForbiddenWords
-from django.db.models import Avg, Count
+from .queryset import UserQuerySet
 
 
 class CustomUserManager(BaseUserManager):
     """Менеджер пользователей."""
+
+    def get_queryset(self):
+        return UserQuerySet(model=self.model, using=self._db, hints=self._hints)
 
     def create_user(self, email, password, **extra_fields):
         if not email:
@@ -37,8 +41,3 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_("Superuser must have is_superuser=True."))
 
         return self.create_user(email, password, **extra_fields)
-
-    def annotate_rating(self):
-        return self.annotate(
-            avg_rating=Avg("to_user__rating", default=0), rating_num=Count("to_user__rating")
-        )

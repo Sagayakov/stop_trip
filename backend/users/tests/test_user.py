@@ -1,12 +1,12 @@
 from django.db.models import Avg
 from pytest import mark
-from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+
 from forbidden_words.tests.factories import ForbiddenWordsFactory
-from users.tests.factories import UserFactory, RateFactory
 from offers.tests.factories import BaseAdvertisementFactory
 from users.models import Rate
+from .factories import UserFactory, RateFactory
 
 
 @mark.django_db
@@ -30,7 +30,7 @@ class UserTest(APITestCase):
         ]
 
         advertisement = BaseAdvertisementFactory(owner=owner)
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(4):
             res = self.client.get("/api/advertisements/")
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -46,15 +46,17 @@ class UserTest(APITestCase):
         rate = RateFactory(to_user=owner, from_user=me, rating=5)
         advertisement = BaseAdvertisementFactory(owner=owner)
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(4):
             res = self.client.get("/api/advertisements/")
+
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        my_rate = res.json()["results"][0]["owner"]["my_rate"]
-        self.assertEqual(my_rate, None)
+        my_rating = res.json()["results"][0]["owner"]["my_rating"]
+        self.assertEqual(my_rating, 0)
 
         self.client.force_login(me)
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(5):
             res = self.client.get("/api/advertisements/")
+
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        my_rate = res.json()["results"][0]["owner"]["my_rate"]
-        self.assertEqual(my_rate, rate.rating)
+        my_rating = res.json()["results"][0]["owner"]["my_rating"]
+        self.assertEqual(my_rating, rate.rating)

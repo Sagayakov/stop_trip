@@ -109,7 +109,7 @@ class ExchangeRateTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(15):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -167,7 +167,7 @@ class ExchangeRateTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"proposed_currency": currency[0].short_name},
@@ -199,7 +199,7 @@ class ExchangeRateTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(4):
             res = self.client.get(
                 self.list_url,
                 {"exchange_for": currency[0].short_name},
