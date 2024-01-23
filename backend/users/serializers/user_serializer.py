@@ -15,5 +15,4 @@ class UserSerializer(UserCreateSerializer):
             "password",
             "full_name",
             "messenger",
-            # "link_to_user",
         )

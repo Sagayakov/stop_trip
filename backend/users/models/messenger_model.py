@@ -1,11 +1,11 @@
 from django.db import models
 
 
-class Messengers(models.Model):
+class Messenger(models.Model):
     """Мессенджер"""
 
-    messenger = models.CharField("Название")
-    link_to_messenger = models.CharField("Ссылка на мессенджер")
+    name = models.CharField("Название", max_length=50)
+    link_to_messenger = models.CharField("Ссылка на мессенджер", max_length=100)
 
     class Meta:
         verbose_name = "Мессенджер"
@@ -13,27 +13,26 @@ class Messengers(models.Model):
         ordering = ("messenger",)
 
     def __str__(self):
-        return self.messenger
+        return self.name
 
 
-class UsersMessengers(models.Model):
-    """Адрес юзера в мессенджере"""
+class UserMessenger(models.Model):
+    """Адрес пользователя в мессенджере"""
 
     owner = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
-        related_name="user_messenger",
+        related_name="user_messengers",
         verbose_name="Создатель",
     )
     messenger = models.ForeignKey(
         "users.Messengers",
         on_delete=models.CASCADE,
-        related_name="user_messenger",
+        related_name="user_messengers",
         verbose_name="Мессенджер",
-        null=True,
-        blank=True,
     )
-    link_to_user = models.CharField("Ссылка на юзера")
+
+    link_to_user = models.CharField("Ссылка на пользователя", max_length=150)
 
     class Meta:
         verbose_name = "Мессенджер юзера"

@@ -2,7 +2,7 @@ from django.contrib.admin import register, ModelAdmin
 from django.contrib.auth.admin import UserAdmin as Admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import User, Messengers, UsersMessengers
+from .models import User, Messenger, UserMessenger
 
 
 @register(User)
@@ -41,11 +41,11 @@ class UserAdmin(Admin):
     ordering = ("email",)
 
 
-@register(Messengers)
+@register(Messenger)
 class MessengersAdmin(ModelAdmin):
     pass
 
 
-@register(UsersMessengers)
+@register(UserMessenger)
 class UserMessengersAdmin(ModelAdmin):
     pass
