@@ -1,10 +1,9 @@
 from typing import Optional
 
-from django.db import models
-from django.db.models import Avg, Count, Case, When, Q, F, IntegerField
+from django.db.models import Avg, Count, Case, When, Q, F, IntegerField, QuerySet
 
 
-class UserQuerySet(models.QuerySet):
+class UserQuerySet(QuerySet):
     """Для возможности использования кверисета необходимо вначале вызвать .all()."""
 
     def annotate_avg_rating(self):

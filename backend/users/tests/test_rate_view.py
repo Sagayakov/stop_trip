@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from users.models import Rate
-from .factories import UserFactory, RateFactory
+from users.tests.factories import UserFactory, RateFactory
 
 
 @mark.django_db

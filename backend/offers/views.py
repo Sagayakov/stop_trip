@@ -1,6 +1,6 @@
-from django.db.models import Prefetch
 from copy import deepcopy
 
+from django.db.models import Prefetch
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.decorators import action
@@ -12,10 +12,10 @@ from rest_framework.viewsets import ModelViewSet
 from slugify import slugify
 
 from common.filters import GetFilterParams
+from users.models import User
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
 from .models import Advertisement, PropertyAmenity
-from users.models import User, Rate
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
     PropertyCreateSerializer,

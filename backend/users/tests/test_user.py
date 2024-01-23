@@ -1,12 +1,10 @@
-from django.db.models import Avg
 from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
 from forbidden_words.tests.factories import ForbiddenWordsFactory
 from offers.tests.factories import BaseAdvertisementFactory
-from users.models import Rate
-from .factories import UserFactory, RateFactory
+from users.tests.factories import UserFactory, RateFactory
 
 
 @mark.django_db
@@ -37,8 +35,11 @@ class UserTest(APITestCase):
         res_json = res.json()["results"]
         rating_num = res_json[0]["owner"]["rating_num"]
         avg_rating = res_json[0]["owner"]["avg_rating"]
-        self.assertEqual(rating_num, Rate.objects.count())
-        self.assertEqual(avg_rating, Rate.objects.aggregate(Avg("rating"))["rating__avg"])
+        self.assertEqual(rating_num, len(rates))
+        rating_sum = 0
+        for rating in rates:
+            rating_sum += rating.rating
+        self.assertEqual(avg_rating, rating_sum / len(rates))
 
     def test_my_rate_on_user(self):
         owner = UserFactory(pk=9)
