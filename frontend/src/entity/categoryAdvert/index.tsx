@@ -18,6 +18,8 @@ import style from 'pages/categoryPage/style/categoryPage.module.scss';
 import { useTranslation } from 'react-i18next';
 import { pushAddToFavourite } from 'shared/eCommercy/pushAddToFavourite.ts';
 import { pushRemoveFromFavourite } from 'shared/eCommercy/pushRemoveFromFavourite.ts';
+import { getPrevLocation } from 'shared/eCommercy/getPrevLocation.ts';
+import { handleClickByAnnouncementCard } from 'shared/eCommercy/handleClickByAnnouncementCard.ts';
 
 interface Props extends AdvertsTypes{
     index: number;
@@ -68,7 +70,7 @@ export const CategoryAdvert = (el: Props) => {
                     title,
                     category,
                     price,
-                    listDescription: "Категория товаров",
+                    listDescription: getPrevLocation(),
                 })//добавляем в яндекс метрику "добавление в избранное"
             } else{
                 deleteFromFavorites({ id });
@@ -78,7 +80,7 @@ export const CategoryAdvert = (el: Props) => {
                     title,
                     category,
                     price,
-                    listDescription: "Категория товаров",
+                    listDescription: getPrevLocation(),
                 })//добавляем в яндекс метрику "удаление из избранного"
             }
         } else {
@@ -102,28 +104,20 @@ export const CategoryAdvert = (el: Props) => {
         day = lang === 'ru' ? 'Вчера' : 'Yesterday';
     }
 
-    const handleClick = () => {
-        window.dataLayer.push({//добавляем данные о клике на товар
-            "ecommerce": {
-                "currencyCode": "RUB",
-                "click": {
-                    "products": [
-                        {
-                            "id": Number(id),
-                            "name": title,
-                            "price": Number(price),
-                            "category": category,
-                            "list": "Последние объявления",
-                            "position": Number(index + 1)
-                        }
-                    ]
-                }
-            }
-        })
-    }
-
     return (
-        <NavLink className={style.card} key={id} to={`/${category}/${slug}/`} onClick={handleClick}>
+        <NavLink
+            className={style.card}
+            key={id}
+            to={`/${category}/${slug}/`}
+            onClick={() => handleClickByAnnouncementCard({
+                id,
+                index,
+                title,
+                category,
+                price,
+                listDescription: getPrevLocation()
+            })}//добаляем в яндекс метрику клик по товару
+        >
             <span
                 onClick={(event) => event.stopPropagation()}
                 className={style.add_to_favorite}

@@ -14,6 +14,8 @@ const FavoritesPage = () => {
     useEffect(() => {
         refetch();
         pushViewListWithDataResults(data, "Избранные")
+        const path = window.location.pathname.slice(1, -1);
+        sessionStorage.setItem('prevLocation', path);//для условия для яндекс метрики
     }, [refetch, data]);
 
     return (
