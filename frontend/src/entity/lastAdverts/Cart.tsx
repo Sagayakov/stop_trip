@@ -18,7 +18,7 @@ import { pushAddToFavourite } from 'shared/eCommercy/pushAddToFavourite.ts';
 import { pushRemoveFromFavourite } from 'shared/eCommercy/pushRemoveFromFavourite.ts';
 import { getPrevLocation } from 'shared/eCommercy/getPrevLocation.ts';
 
-interface Props extends AdvertsTypes{
+interface Props extends AdvertsTypes {
     index: number;
 }
 
@@ -59,26 +59,26 @@ export const Cart = (cart: Props) => {
         if (isAuth) {
             setAddToFav(!addToFav);
 
-            if(!addToFav){
-                addFavorite({ id })
+            if (!addToFav) {
+                addFavorite({ id });
                 pushAddToFavourite({
                     id,
                     index,
                     title,
                     category,
                     price,
-                    listDescription: getPrevLocation()
-                });//добавляем в яндекс метрику "добавление в избранное"
-            }else{
-                deleteFromFavorites({ id })
+                    listDescription: getPrevLocation(),
+                }); //добавляем в яндекс метрику "добавление в избранное"
+            } else {
+                deleteFromFavorites({ id });
                 pushRemoveFromFavourite({
                     id,
                     index,
                     title,
                     category,
                     price,
-                    listDescription: getPrevLocation()
-                })//добавляем в яндекс метрику "удаление из избранного"
+                    listDescription: getPrevLocation(),
+                }); //добавляем в яндекс метрику "удаление из избранного"
             }
         } else {
             toast.error(`${t('main-page.toast-favs')}`);
@@ -89,14 +89,16 @@ export const Cart = (cart: Props) => {
         <NavLink
             className={styles.announcement_cart}
             to={`/${category}/${slug}/`}
-            onClick={() => handleClickByAnnouncementCard({
-                id,
-                index,
-                title,
-                category,
-                price,
-                listDescription: getPrevLocation()
-            })}//добавляем в яндекс метрику клик по товару
+            onClick={() =>
+                handleClickByAnnouncementCard({
+                    id,
+                    index,
+                    title,
+                    category,
+                    price,
+                    listDescription: getPrevLocation(),
+                })
+            } //добавляем в яндекс метрику клик по товару
         >
             <img
                 src={
@@ -136,7 +138,9 @@ export const Cart = (cart: Props) => {
                     {`${owner.full_name[0].toUpperCase()}${owner.full_name.slice(
                         1
                     )}`}
-                    <span className={styles.rating_number}>4.5</span>
+                    <span className={styles.rating_number}>
+                        {owner.avg_rating}
+                    </span>
                 </div>
                 <span>{GetDateOfCreating(dateCreate)}</span>
             </div>
