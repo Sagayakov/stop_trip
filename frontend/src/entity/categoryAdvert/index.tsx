@@ -21,7 +21,7 @@ import { pushRemoveFromFavourite } from 'shared/eCommercy/pushRemoveFromFavourit
 import { getPrevLocation } from 'shared/eCommercy/getPrevLocation.ts';
 import { handleClickByAnnouncementCard } from 'shared/eCommercy/handleClickByAnnouncementCard.ts';
 
-interface Props extends AdvertsTypes{
+interface Props extends AdvertsTypes {
     index: number;
 }
 export const CategoryAdvert = (el: Props) => {
@@ -36,7 +36,7 @@ export const CategoryAdvert = (el: Props) => {
         images,
         index,
         title,
-        price
+        price,
     } = el;
     const { isMobile } = useMatchMedia();
     const lang = useAppSelector((state) => state.setLang.lang);
@@ -62,8 +62,8 @@ export const CategoryAdvert = (el: Props) => {
         if (isAuth) {
             setAddToFav(!addToFav);
 
-            if(!addToFav){
-                addFavorite({ id })
+            if (!addToFav) {
+                addFavorite({ id });
                 pushAddToFavourite({
                     id,
                     index,
@@ -71,8 +71,8 @@ export const CategoryAdvert = (el: Props) => {
                     category,
                     price,
                     listDescription: getPrevLocation(),
-                })//добавляем в яндекс метрику "добавление в избранное"
-            } else{
+                }); //добавляем в яндекс метрику "добавление в избранное"
+            } else {
                 deleteFromFavorites({ id });
                 pushRemoveFromFavourite({
                     id,
@@ -81,7 +81,7 @@ export const CategoryAdvert = (el: Props) => {
                     category,
                     price,
                     listDescription: getPrevLocation(),
-                })//добавляем в яндекс метрику "удаление из избранного"
+                }); //добавляем в яндекс метрику "удаление из избранного"
             }
         } else {
             toast.error(`${t('main-page.toast-favs')}`);
@@ -109,14 +109,16 @@ export const CategoryAdvert = (el: Props) => {
             className={style.card}
             key={id}
             to={`/${category}/${slug}/`}
-            onClick={() => handleClickByAnnouncementCard({
-                id,
-                index,
-                title,
-                category,
-                price,
-                listDescription: getPrevLocation()
-            })}//добаляем в яндекс метрику клик по товару
+            onClick={() =>
+                handleClickByAnnouncementCard({
+                    id,
+                    index,
+                    title,
+                    category,
+                    price,
+                    listDescription: getPrevLocation(),
+                })
+            } //добаляем в яндекс метрику клик по товару
         >
             <span
                 onClick={(event) => event.stopPropagation()}
@@ -183,7 +185,9 @@ export const CategoryAdvert = (el: Props) => {
                     {`${el.owner.full_name[0].toUpperCase()}${el.owner.full_name.slice(
                         1
                     )}`}
-                    <span className={style.rating_number}>4.5</span>
+                    <span className={style.rating_number}>
+                        {el.owner.avg_rating}
+                    </span>
                     {/* <Rating rating={4.5} /> */}
                 </div>
                 <p className={style.time}>

@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const AdvertOwner = ({ owner, className }: Props) => {
-    const [grades, setGrades] = useState(0); //изменить 0 на значение, которое будет отдавать бэк по юзеру
+    const [grades, setGrades] = useState(owner.rating_num);
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
 
@@ -41,14 +41,17 @@ export const AdvertOwner = ({ owner, className }: Props) => {
                     <p>{`${owner.full_name[0].toUpperCase()}${owner.full_name.slice(
                         1
                     )}`}</p>
-                    <div className={styles.rating_number}>4.5</div>
+                    <span className={styles.rating_number}>
+                        {owner.avg_rating}
+                    </span>
                 </div>
                 <div className={styles.rating_block}>
                     <Rating
                         id={owner.id}
-                        rating={5}
+                        rating={owner.avg_rating}
                         grades={grades}
                         setGrades={setGrades}
+                        myRating={owner.my_rating}
                     />
                     <span>{`${grades} ${spelling}`}</span>
                 </div>

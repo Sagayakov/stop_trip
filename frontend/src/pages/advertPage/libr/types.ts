@@ -82,6 +82,9 @@ type Owner = {
     full_name: string;
     id: number;
     phone: string;
+    avg_rating: number;
+    my_rating: number;
+    rating_num: number;
 };
 
 type Amenity = {

@@ -60,10 +60,11 @@
                 }
             }
             .public_date {
-                font-size: 14px;
+                font-size: 13px;
                 color: var(--grey-3);
+                font-family: var(--font-inter);
                 span {
-                    font-weight: 600;
+                    font-weight: 500;
                 }
             }
             .call_button {
@@ -170,7 +171,7 @@
                     'date date'
                     'owner owner'
                     'call call';
-                    //'write call'; когда будет кнопка "написать"
+                //'write call'; когда будет кнопка "написать"
                 .price_block {
                     grid-area: info;
                 }
