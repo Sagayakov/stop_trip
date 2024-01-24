@@ -12,7 +12,7 @@ import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefres
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { url } from 'shared/const/url';
 import { useLazyGetUserQuery } from 'app/api/fetchUser.ts';
-import { getReCaptchaToken } from 'shared/model/getReCaptchaToken.ts';
+// import { getReCaptchaToken } from 'shared/model/getReCaptchaToken.ts';
 
 export const FeedbackForm = () => {
     const [loading, setLoading] = useState(false);
@@ -41,42 +41,41 @@ export const FeedbackForm = () => {
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
     ) => {
-        console.log(feedbackData);
-        const captchaToken = await getReCaptchaToken();
+        //это для капчи
+        // const captchaToken = await getReCaptchaToken();
 
+        if(feedbackData.text.length > 900 || feedbackData.text.length < 10){
+            return toast.error(t('feedback.feedback-message'));
+        }
+        if(!userInfo) await onFocusGetId()//еще раз проверяем что у нас есть id юзера
+        await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала обновляем accessToken
+        const { accessToken } = getTokensFromStorage();
+        const body = JSON.stringify(feedbackData);
 
-        // if(feedbackData.text.length > 900 || feedbackData.text.length < 10){
-        //     return toast.error(t('feedback.feedback-message'));
-        // }
-        // if(!userInfo) await onFocusGetId()//еще раз проверяем что у нас есть id юзера
-        // await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала обновляем accessToken
-        // const { accessToken } = getTokensFromStorage();
-        // const body = JSON.stringify(feedbackData);
-        //
-        // if (accessToken) {
-        //     setLoading(true);
-        //     try {
-        //         const response = await fetch(`${url}/api/feedback/`, {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //                 Authorization: `Bearer ${accessToken}`,
-        //             },
-        //             body,
-        //         });
-        //         if (!response.ok) {
-        //             toast.error(`${t('main-page.toast-wrong')}`);
-        //         } else {
-        //             reset({ text: '' });
-        //             toast.success(`${t('main-page.toast-thanks')}`);
-        //         }
-        //     } catch (error) {
-        //         toast.error(`${t('main-page.toast-wrong')}`);
-        //     }
-        //     setLoading(false);
-        // } else {
-        //     toast.error(`${t('main-page.toast-feedback-login')}`);
-        // }
+        if (accessToken) {
+            setLoading(true);
+            try {
+                const response = await fetch(`${url}/api/feedback/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                    body,
+                });
+                if (!response.ok) {
+                    toast.error(`${t('main-page.toast-wrong')}`);
+                } else {
+                    reset({ text: '' });
+                    toast.success(`${t('main-page.toast-thanks')}`);
+                }
+            } catch (error) {
+                toast.error(`${t('main-page.toast-wrong')}`);
+            }
+            setLoading(false);
+        } else {
+            toast.error(`${t('main-page.toast-feedback-login')}`);
+        }
     };
 
     useEffect(() => {
