@@ -2,7 +2,7 @@ import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { Categories } from 'shared/const/categories.tsx';
 import { categoryCharacteristicsKeys } from 'shared/const/categoryCharacteristics.ts';
 import { useTranslation } from 'react-i18next';
-import styles from '../advertCharacteristics.module.scss'
+import styles from '../advertCharacteristics.module.scss';
 
 type GetListProps = {
     data: ProductType;
@@ -19,6 +19,7 @@ export const GetKeysList = ({ data, category }: GetListProps) => {
         if (
             key === 'images' ||
             key === 'is_published' ||
+            key === 'taxi_unit' ||
             data[key] === '' ||
             !data[key] ||
             !categoryCharacteristicsKeys[category][key]

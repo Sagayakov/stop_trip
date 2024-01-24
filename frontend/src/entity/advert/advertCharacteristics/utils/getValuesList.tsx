@@ -27,6 +27,7 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
         'region',
         'country',
         'property_type_of_service',
+        'property_type',
         'property_commission',
         'transport_type_of_service',
         'transport_commission',
@@ -44,6 +45,7 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
         'transport_category',
         'transport_brand',
         'transport_model',
+        'taxi_unit',
     ];
 
     let key: keyof ProductType;
