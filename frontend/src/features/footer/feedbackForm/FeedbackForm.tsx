@@ -112,7 +112,7 @@ export const FeedbackForm = () => {
                     )}
                 />
                 <InputTypeSubmit
-                    disabled={isValid}
+                    disabled={!isValid}
                     value={t('main-page.send')}
                     style={{ backgroundColor: isValid ? '#02c66e' : 'gray' }}
                 />
