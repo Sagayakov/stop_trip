@@ -25,7 +25,7 @@ class UserMessenger(models.Model):
         related_name="user_messengers",
         verbose_name="Пользователь",
     )
-    messenger = models.ForeignKey(
+    messenger = models.OneToOneField(
         "users.Messenger",
         on_delete=models.CASCADE,
         related_name="user_messengers",
