@@ -12,7 +12,7 @@ from rest_framework.viewsets import ModelViewSet
 from slugify import slugify
 
 from common.filters import GetFilterParams
-from users.models import User
+from users.models import User, UserMessenger
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
 from .models import Advertisement, PropertyAmenity
@@ -32,6 +32,7 @@ from .serializers import (
     DocumentCreateSerializers,
     FoodCreateSerializer,
     ExcursionCreateSerializer,
+    MyAdvertisementSerializer,
 )
 
 
@@ -54,34 +55,53 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     lookup_field = "slug"
 
     def get_queryset(self):
-        queryset = (
-            Advertisement.objects.filter(is_published=True)
-            .select_related("country", "region", "city", "proposed_currency", "exchange_for")
-            .prefetch_related(
+        queryset = Advertisement.objects.filter(is_published=True).select_related(
+            "country", "region", "city", "proposed_currency", "exchange_for"
+        )
+
+        if self.action == self.list.__name__:
+            queryset = queryset.prefetch_related(
+                "images",
                 Prefetch(
                     "owner",
                     User.objects.all()
                     .annotate_avg_rating()
                     .annotate_rating_num()
                     .annotate_my_rating(self.request.user.id),
-                )
+                ),
             )
-        )
 
-        if self.action in [
-            self.list.__name__,
-            self.retrieve.__name__,
-            self.my_advertisements.__name__,
-        ]:
+            return queryset
+
+        elif self.action == self.my_advertisements.__name__:
             queryset = queryset.prefetch_related("images")
 
-        if self.action == self.retrieve.__name__:
+            return queryset
+
+        elif self.action == self.retrieve.__name__:
             queryset = queryset.select_related(
                 "transport_brand",
                 "transport_model",
                 "proposed_currency",
                 "exchange_for",
-            ).prefetch_related("property_amenities")
+            ).prefetch_related(
+                "images",
+                "property_amenities",
+                Prefetch(
+                    "owner",
+                    User.objects.all()
+                    .prefetch_related(
+                        Prefetch(
+                            "user_messengers", UserMessenger.objects.select_related("messenger")
+                        ),
+                    )
+                    .annotate_avg_rating()
+                    .annotate_rating_num()
+                    .annotate_my_rating(self.request.user.id),
+                ),
+            )
+
+            return queryset
 
         return queryset
 
@@ -111,6 +131,9 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
         elif self.action == self.retrieve.__name__:
             return AdvertisementRetrieveSerializer
+
+        elif self.action == self.my_advertisements.__name__:
+            return MyAdvertisementSerializer
 
         return AdvertisementListSerializer
 

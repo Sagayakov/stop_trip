@@ -95,12 +95,17 @@ class AdvertisementViewSetTest(APITestCase):
             for category in CategoryChoices.values
         ]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(self.detail_url(kwargs={"slug": advertisements[0].slug}))
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["slug"], advertisements[0].slug)
+        self.assertTrue(res_json["owner"])
+        self.assertEqual(res_json["owner"]["id"], user.id)
+        self.assertIsNotNone(res_json["owner"]["avg_rating"])
+        self.assertIsNotNone(res_json["owner"]["rating_num"])
+        self.assertIsNone(res_json["owner"]["my_rating"])
 
     def test_my_advertisements(self):
         me = UserFactory()
@@ -110,7 +115,7 @@ class AdvertisementViewSetTest(APITestCase):
         advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(5)]
 
         self.client.force_login(me)
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(3):
             res = self.client.get(self.my_advertisements_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)

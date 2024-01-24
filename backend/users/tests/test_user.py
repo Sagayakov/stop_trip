@@ -28,13 +28,13 @@ class UserTest(APITestCase):
         ]
 
         advertisement = BaseAdvertisementFactory(owner=owner)
-        with self.assertNumQueries(4):
-            res = self.client.get("/api/advertisements/")
+        with self.assertNumQueries(5):
+            res = self.client.get(f"/api/advertisements/{advertisement.slug}/")
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        res_json = res.json()["results"]
-        rating_num = res_json[0]["owner"]["rating_num"]
-        avg_rating = res_json[0]["owner"]["avg_rating"]
+        res_json = res.json()
+        rating_num = res_json["owner"]["rating_num"]
+        avg_rating = res_json["owner"]["avg_rating"]
         self.assertEqual(rating_num, len(rates))
         rating_sum = 0
         for rating in rates:
@@ -47,17 +47,17 @@ class UserTest(APITestCase):
         rate = RateFactory(to_user=owner, from_user=me, rating=5)
         advertisement = BaseAdvertisementFactory(owner=owner)
 
-        with self.assertNumQueries(4):
-            res = self.client.get("/api/advertisements/")
+        with self.assertNumQueries(5):
+            res = self.client.get(f"/api/advertisements/{advertisement.slug}/")
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        my_rating = res.json()["results"][0]["owner"]["my_rating"]
-        self.assertEqual(my_rating, 0)
+        my_rating = res.json()["owner"]["my_rating"]
+        self.assertEqual(my_rating, None)
 
         self.client.force_login(me)
-        with self.assertNumQueries(5):
-            res = self.client.get("/api/advertisements/")
+        with self.assertNumQueries(6):
+            res = self.client.get(f"/api/advertisements/{advertisement.slug}/")
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        my_rating = res.json()["results"][0]["owner"]["my_rating"]
+        my_rating = res.json()["owner"]["my_rating"]
         self.assertEqual(my_rating, rate.rating)

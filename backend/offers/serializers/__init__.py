@@ -1,5 +1,6 @@
 from .advertisement_serializers import (
     AdvertisementCreateSerializer,
+    MyAdvertisementSerializer,
     AdvertisementListSerializer,
     AdvertisementRetrieveSerializer,
     AdvertisementUpdateSerializer,

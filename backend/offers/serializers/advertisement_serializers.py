@@ -1,7 +1,13 @@
 from rest_framework import serializers
+
+from countries.models import Country, Region, City
+from countries.serializers import CountrySerializer, RegionSerializer, CitySerializer
 from forbidden_words.models import ForbiddenWords
 from users.models import User
-from users.serializers import UserMessengerSerializer
+from users.serializers import (
+    UserForListAdvertisementSerializer,
+    UserForRetrieveAdvertisementSerializer,
+)
 from ..constants import CategoryChoices
 from ..models import (
     Advertisement,
@@ -11,8 +17,6 @@ from ..models import (
     TransportModel,
     Currency,
 )
-from countries.models import Country, Region, City
-from countries.serializers import CountrySerializer, RegionSerializer, CitySerializer
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
@@ -91,20 +95,34 @@ class AdvertisementPropertyAmenitySerializer(serializers.ModelSerializer):
         fields = ("name", "slug")
 
 
-class UserSerializer(serializers.ModelSerializer):
-    """Сериализатор вывода пользователя в объявлении."""
+class MyAdvertisementSerializer(serializers.ModelSerializer):
+    """Сериализатор объявлений пользователя."""
 
-    user_messengers = UserMessengerSerializer(many=True)
+    images = AdvertisementImageSerializer(many=True)
+    country = CountrySerializer(read_only=True)
+    region = RegionSerializer(read_only=True)
+    city = CitySerializer(read_only=True)
+    proposed_currency = serializers.ReadOnlyField(source="proposed_currency.short_name")
+    exchange_for = serializers.ReadOnlyField(source="exchange_for.short_name")
 
     class Meta:
-        model = User
+        model = Advertisement
         fields = (
             "id",
-            "full_name",
-            "phone",
-            "email",
-            "date_joined",
-            "user_messengers",
+            "category",
+            "country",
+            "region",
+            "city",
+            "title",
+            "price",
+            "description",
+            "images",
+            "date_create",
+            "slug",
+            "proposed_currency",
+            "exchange_for",
+            "exchange_rate",
+            "is_published",
         )
 
 
@@ -112,7 +130,7 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
     """Список объявлений."""
 
     images = AdvertisementImageSerializer(many=True)
-    owner = UserSerializer(read_only=True)
+    owner = UserForListAdvertisementSerializer(read_only=True)
     country = CountrySerializer(read_only=True)
     region = RegionSerializer(read_only=True)
     city = CitySerializer(read_only=True)
@@ -149,7 +167,7 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
     region = RegionSerializer(read_only=True)
     city = CitySerializer(read_only=True)
     property_amenities = AdvertisementPropertyAmenitySerializer(many=True, required=False)
-    owner = UserSerializer(read_only=True)
+    owner = UserForRetrieveAdvertisementSerializer(read_only=True)
     proposed_currency = serializers.ReadOnlyField(source="proposed_currency.short_name")
     exchange_for = serializers.ReadOnlyField(source="exchange_for.short_name")
 

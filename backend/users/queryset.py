@@ -16,7 +16,7 @@ class UserQuerySet(QuerySet):
         return self.annotate(
             my_rating=Case(
                 When(Q(rating_to_users__from_user=user_id), then=F("rating_to_users__rating")),
-                default=0,
+                default=None,
                 output_field=IntegerField(),
             )
         )

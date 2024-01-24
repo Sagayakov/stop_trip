@@ -10,7 +10,7 @@ class Messenger(models.Model):
     class Meta:
         verbose_name = "Мессенджер"
         verbose_name_plural = "Мессенджеры"
-        ordering = ("messenger",)
+        ordering = ("name",)
 
     def __str__(self):
         return self.name
@@ -23,10 +23,10 @@ class UserMessenger(models.Model):
         "users.User",
         on_delete=models.CASCADE,
         related_name="user_messengers",
-        verbose_name="Создатель",
+        verbose_name="Пользователь",
     )
     messenger = models.ForeignKey(
-        "users.Messengers",
+        "users.Messenger",
         on_delete=models.CASCADE,
         related_name="user_messengers",
         verbose_name="Мессенджер",
@@ -35,9 +35,9 @@ class UserMessenger(models.Model):
     link_to_user = models.CharField("Ссылка на пользователя", max_length=150)
 
     class Meta:
-        verbose_name = "Мессенджер юзера"
-        verbose_name_plural = "Мессенджеры юзера"
-        ordering = ("messenger",)
+        verbose_name = "Мессенджер пользователя"
+        verbose_name_plural = "Мессенджеры пользователей"
+        ordering = ("owner",)
 
     def __str__(self):
         return f"{self.owner.full_name}: {self.messenger.link_to_messenger}{self.link_to_user}"
