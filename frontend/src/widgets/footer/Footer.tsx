@@ -16,6 +16,11 @@ export const Footer = () => {
                     <FeedbackForm />
                 </div>
                 <div className={styles.hr}>
+                    <div className={styles.reCaptcha_brand}>{/*для линцензионного соглашения с google*/}
+                        This site is protected by reCAPTCHA and the Google{'\u00A0'}
+                        <a href="https://policies.google.com/privacy">Privacy Policy</a> and{'\u00A0'}
+                        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                    </div>
                     <hr />
                 </div>
                 {isMobile && <FooterBottomDesktop />}

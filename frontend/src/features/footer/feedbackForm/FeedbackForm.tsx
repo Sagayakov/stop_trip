@@ -12,6 +12,7 @@ import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefres
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { url } from 'shared/const/url';
 import { useLazyGetUserQuery } from 'app/api/fetchUser.ts';
+// import { getReCaptchaToken } from 'shared/model/getReCaptchaToken.ts';
 
 export const FeedbackForm = () => {
     const [loading, setLoading] = useState(false);
@@ -40,6 +41,9 @@ export const FeedbackForm = () => {
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
     ) => {
+        //это для капчи
+        // const captchaToken = await getReCaptchaToken();
+
         if(feedbackData.text.length > 900 || feedbackData.text.length < 10){
             return toast.error(t('feedback.feedback-message'));
         }
@@ -112,7 +116,7 @@ export const FeedbackForm = () => {
                     )}
                 />
                 <InputTypeSubmit
-                    disabled={isValid}
+                    disabled={!isValid}
                     value={t('main-page.send')}
                     style={{ backgroundColor: isValid ? '#02c66e' : 'gray' }}
                 />

@@ -95,7 +95,7 @@ export const ModalOption = (data: Props) => {
         if (isError) {
             toast.error(t('errors.add-announcement-error'));
         }
-    }, [isSuccess, isError]);
+    }, [isSuccess, isError, t]);
 
     return (
         <>
