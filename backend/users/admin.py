@@ -1,12 +1,18 @@
-from django.contrib.admin import register, ModelAdmin
+from django.contrib.admin import register, ModelAdmin, StackedInline
 from django.contrib.auth.admin import UserAdmin as Admin
 from django.utils.translation import gettext_lazy as _
 
 from .models import User, Messenger, UserMessenger
 
 
+class UserMessengerInline(StackedInline):
+    model = UserMessenger
+    extra = 0
+
+
 @register(User)
 class UserAdmin(Admin):
+    inlines = (UserMessengerInline,)
     list_display = ("full_name", "email", "phone", "is_staff", "is_active")
     list_filter = (
         "email",
@@ -14,7 +20,7 @@ class UserAdmin(Admin):
         "is_active",
     )
     fieldsets = (
-        (None, {"fields": ("full_name", "email", "phone", "password", "messenger")}),
+        (None, {"fields": ("full_name", "email", "phone", "password")}),
         (_("Permissions"), {"fields": ("is_staff", "is_active", "groups", "user_permissions")}),
     )
     add_fieldsets = (
@@ -32,7 +38,6 @@ class UserAdmin(Admin):
                     "is_active",
                     "groups",
                     "user_permissions",
-                    "messenger",
                 ),
             },
         ),
@@ -43,9 +48,4 @@ class UserAdmin(Admin):
 
 @register(Messenger)
 class MessengersAdmin(ModelAdmin):
-    pass
-
-
-@register(UserMessenger)
-class UserMessengersAdmin(ModelAdmin):
     pass
