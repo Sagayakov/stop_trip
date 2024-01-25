@@ -14,7 +14,12 @@ import { url } from 'shared/const/url';
 import { useLazyGetUserQuery } from 'app/api/fetchUser.ts';
 // import { getReCaptchaToken } from 'shared/model/getReCaptchaToken.ts';
 
-export const FeedbackForm = () => {
+interface Props{
+    setShowCaptcha: React.Dispatch<React.SetStateAction<boolean>>;
+    showCaptcha: boolean;
+}
+
+export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useAppDispatch();
     const { refreshToken } = getTokensFromStorage();
@@ -31,6 +36,7 @@ export const FeedbackForm = () => {
     } = useForm<TypesFeedbackForm>();
 
     const onFocusGetId = async () => {
+        if(!showCaptcha) setShowCaptcha(true);
         if(!userInfo && (localStorage.getItem('isAuth') === "true")){//получаем id юзера
             await getAccessTokenWithRefresh(dispatch, refreshToken);
             const { accessToken } = getTokensFromStorage();
@@ -76,6 +82,7 @@ export const FeedbackForm = () => {
         } else {
             toast.error(`${t('main-page.toast-feedback-login')}`);
         }
+        setShowCaptcha(false);
     };
 
     useEffect(() => {

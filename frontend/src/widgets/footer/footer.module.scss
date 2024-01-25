@@ -62,11 +62,13 @@ footer {
         .hr {
             padding: 0 0 16.25px 0;
             .reCaptcha_brand{
-                font-size: 16px;
+                font-size: 12px;
                 text-align: right;
                 font-weight: 400;
+                color: grey;
                 a{
                     color: #1f6fde;
+                    font-size: 12px;
                 }
             }
             hr {
@@ -206,10 +208,10 @@ footer {
             .hr {
                 padding: 0;
                 .reCaptcha_brand{
-                    font-size: 12px;
+                    font-size: 10px;
                     margin-top: 5px;
                     a{
-                        font-size: 12px;
+                        font-size: 10px;
                     }
                 }
             }

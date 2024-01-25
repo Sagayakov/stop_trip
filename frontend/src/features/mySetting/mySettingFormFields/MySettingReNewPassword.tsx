@@ -46,7 +46,7 @@ export const MySettingReNewPassword = ({
                                 errors?.re_new_password ||
                                 newPassword !== reNewPassword
                                     ? '#FF3F25'
-                                    : '#8f8f8f'
+                                    : '#DCDCDC'
                             }`,
                         }}
                     />
