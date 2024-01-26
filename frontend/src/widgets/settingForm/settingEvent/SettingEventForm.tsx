@@ -30,7 +30,7 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
     const onsubmit: SubmitHandler<TypeOfEventFilter> = (data) => {
         const { end_date, start_date, is_online, price } = data;
         const filters = getSearchParams(end_date, start_date, is_online, price);
-        setSearchParams(`category=event${filters}`);
+        setSearchParams(`category=event${filters}&page=1`);
         setShowFilters(false);
         scrollToTop();
     };

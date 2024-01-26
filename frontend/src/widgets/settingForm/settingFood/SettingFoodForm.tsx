@@ -36,7 +36,9 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
             food_establishment,
             food_type
         );
-        setSearchParams(`category=food${type}${delivery}${establishment}`);
+        setSearchParams(
+            `category=food${type}${delivery}${establishment}&page=1`
+        );
 
         setShowFilters(false);
         scrollToTop();

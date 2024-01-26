@@ -35,7 +35,7 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
             document_type
         );
 
-        setSearchParams(`category=document${types}${duration}`);
+        setSearchParams(`category=document${types}${duration}&page=1`);
 
         setShowFilters(false);
         scrollToTop();

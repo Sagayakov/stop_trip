@@ -33,7 +33,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         if (market_condition.length === 1) {
             params = `${market_condition[0]}`;
         }
-        setSearchParams(`${category}${condition}${params}`);
+        setSearchParams(`${category}${condition}${params}&page=1`);
         setShowFilters(false);
         scrollToTop();
     };

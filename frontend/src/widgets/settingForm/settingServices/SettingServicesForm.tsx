@@ -29,7 +29,7 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
     const onsubmit: SubmitHandler<TypeOfServicesForm> = (data) => {
         const { service_home_visit, price } = data;
         const filters = getSearchParams(service_home_visit, price);
-        setSearchParams(`category=service${filters}`);
+        setSearchParams(`category=service${filters}&page=1`);
         setShowFilters(false);
         scrollToTop();
     };

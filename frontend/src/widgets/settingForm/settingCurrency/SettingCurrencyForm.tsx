@@ -36,7 +36,9 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
             proposed_currency
         );
 
-        setSearchParams(`category=exchange_rate${proposed}${exFor}${rate}`);
+        setSearchParams(
+            `category=exchange_rate${proposed}${exFor}${rate}&page=1`
+        );
 
         setShowFilters(false);
         scrollToTop();

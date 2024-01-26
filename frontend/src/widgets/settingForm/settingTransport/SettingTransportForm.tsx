@@ -42,7 +42,7 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
 
     const onsubmit: SubmitHandler<TypeSettingTransport> = (data) => {
         const filters = getTransportQuery(data);
-        setSearchParams(`category=transport${filters}`);
+        setSearchParams(`category=transport${filters}&page=1`);
         setShowFilters(false);
         scrollToTop();
     };

@@ -46,7 +46,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
             job_duration,
             price
         );
-        setSearchParams(`category=job${filters}`);
+        setSearchParams(`category=job${filters}&page=1`);
 
         setShowFilters(false);
         scrollToTop();
