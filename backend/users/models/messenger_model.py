@@ -25,7 +25,7 @@ class UserMessenger(models.Model):
         related_name="user_messengers",
         verbose_name="Пользователь",
     )
-    messenger = models.OneToOneField(
+    messenger = models.ForeignKey(
         "users.Messenger",
         on_delete=models.CASCADE,
         related_name="user_messengers",
@@ -38,6 +38,9 @@ class UserMessenger(models.Model):
         verbose_name = "Мессенджер пользователя"
         verbose_name_plural = "Мессенджеры пользователей"
         ordering = ("owner",)
+        constraints = [
+            models.UniqueConstraint(fields=["owner", "messenger"], name="unique_user_messenger")
+        ]
 
     def __str__(self):
         return f"{self.owner.full_name}: {self.messenger.link_to_messenger}{self.link_to_user}"
