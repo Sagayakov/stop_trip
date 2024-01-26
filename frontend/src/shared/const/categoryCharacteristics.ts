@@ -54,10 +54,22 @@ export const categoryCharacteristicsKeys: Record<
         exchange_for: 'Обмен на',
         exchange_rate: 'Курс',
     },
-    document: {},
-    food: {},
-    market: {},
-    excursion: {},
+    document: {
+        document_duration: 'Срок действия документа',
+        document_type: 'Тип документа',
+    },
+    food: {
+        food_delivery: 'Доставка еды',
+        food_establishment: 'Ресторан/кафе',
+        food_type: 'Тип еды',
+    },
+    market: {
+        market_condition: 'Состояние',
+    },
+    excursion: {
+        excursion_food: 'Еда включена',
+        excursion_transfer: 'Трансфер',
+    },
 };
 
 export const categoryCharacteristicsValues: Record<
@@ -169,8 +181,36 @@ export const categoryCharacteristicsValues: Record<
     event: {},
     service: {},
     exchange_rate: {},
-    document: {},
-    food: {},
-    market: {},
+    document: {
+        document_type: {
+            'tourist-visa': 'Туристическая виза',
+            'business-visa': 'Бизнес виза',
+            'c-form': 'С-форма',
+            'exit-permit': 'Продление выезда',
+            other: 'Другое',
+        },
+        document_duration: {
+            month: 'Месяц',
+            quarter: 'Квартал',
+            year: 'Год',
+            years_5: '5 лет',
+            other: 'Другое',
+        },
+    },
+    food: {
+        food_type: {
+            veg_food: 'Вегетарианская еда',
+            non_veg_food: 'Невегетарианская еда',
+            ready_food: 'Готовая еда',
+            semi_finished_food: 'Полуфабрикаты',
+            other: 'Другое',
+        },
+    },
+    market: {
+        market_condition: {
+            new: 'Новое',
+            used: 'Б/у',
+        },
+    },
     excursion: {},
 };
