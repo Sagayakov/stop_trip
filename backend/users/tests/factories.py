@@ -3,7 +3,7 @@ import datetime
 import factory
 from django.utils.timezone import now
 
-from ..models import User, Rate
+from ..models import User, Rate, Messenger, UserMessenger
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -29,3 +29,24 @@ class RateFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Rate
+
+
+class MessengerFactory(factory.django.DjangoModelFactory):
+    """Фабрика мессенджеров."""
+
+    name = factory.Faker("name")
+    link_to_messenger = factory.Faker("name")
+
+    class Meta:
+        model = Messenger
+
+
+class UserMessengerFactory(factory.django.DjangoModelFactory):
+    """Фабрика связи юзера с мессенджером."""
+
+    owner = factory.SubFactory(UserFactory)
+    messenger = factory.SubFactory(MessengerFactory)
+    link_to_user = factory.Faker("name")
+
+    class Meta:
+        model = UserMessenger
