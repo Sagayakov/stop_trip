@@ -4,7 +4,7 @@ import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
-import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
+import styles from 'widgets/settingForm/settingExcursion/libr/settingExcursionFilter.module.scss';
 import { TypeForExcursionFilter } from 'widgets/settingForm/settingExcursion/libr/TypeForExcursionFilter';
 
 interface Props {

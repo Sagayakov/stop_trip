@@ -7,48 +7,59 @@
     .taxiPrice {
         margin-bottom: 24px;
     }
-    .unitOfMeasurement{
-        .radio_group{
+    .unitOfMeasurement {
+        .radio_group {
             display: flex;
             justify-content: space-between;
         }
     }
     .taxiPrice {
-        .setting_taxiPrice{
+        .setting_taxiPrice {
             display: flex;
             justify-content: space-between;
         }
     }
+    .propertyCity {
+        margin-bottom: 24px;
+        h3 {
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
 }
-@media (min-width: 768px) and (max-width: 1023px){
+@media (min-width: 768px) and (max-width: 1023px) {
     .filterTaxiForm {
         display: grid;
         gap: 1.5rem;
         grid-template-areas:
-                'unit type'
-                'price .'
-                'btnSubmit btnReset';
+            'city type'
+            'unit price'
+            'btnSubmit btnReset';
+        .propertyCity {
+            grid-area: city;
+            margin-bottom: 0;
+        }
         .unitOfMeasurement,
         .typeOfTaxi,
         .taxiPrice {
             margin-bottom: 0;
         }
-        .typeOfTaxi,{
+        .typeOfTaxi {
             grid-area: type;
         }
-        .unitOfMeasurement{
+        .unitOfMeasurement {
             grid-area: unit;
-            .radio_group{
+            .radio_group {
                 padding-top: 8px;
             }
         }
-        .taxiPrice{
+        .taxiPrice {
             grid-area: price;
         }
-        input[type='submit']{
+        input[type='submit'] {
             grid-area: btnSubmit;
         }
-        .reset_setting_form{
+        .reset_setting_form {
             grid-area: btnReset;
         }
     }

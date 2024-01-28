@@ -1,7 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -11,7 +11,7 @@ export const EngineCapacity = ({ register }: Props) => {
     const { t } = useTranslation();
 
     return (
-        <div className={styles.engineСapacity}>
+        <div className={styles.engineCapacity}>
             <h3>{t('filters.transport_engine_volume')}</h3>
             <div className={styles.setting_engineCapacity}>
                 <input

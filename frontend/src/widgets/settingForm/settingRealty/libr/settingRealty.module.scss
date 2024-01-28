@@ -15,7 +15,6 @@
         }
     }
     .typeOfService,
-    .propertyСity,
     .propertyDistrict,
     .propertyCity,
     .houseType,
@@ -58,7 +57,6 @@
         justify-content: space-between;
     }
     .propertyType,
-    .propertyСity,
     .typeOfService,
     .houseType,
     .prepayment,
@@ -161,7 +159,7 @@
         .typeOfService {
             grid-area: service;
         }
-        .propertyСity {
+        .propertyCity {
             grid-area: city;
         }
         .propertyDistrict {

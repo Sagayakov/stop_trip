@@ -48,7 +48,7 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
                 <ExcursionTransfer register={register} />
                 <input type="submit" value={t('filters.apply')} />
                 <button
-                    className={formStyles.reset_setting_form}
+                    className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={onReset}
                 >
                     <Reset color="#1F6FDE" />

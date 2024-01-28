@@ -18,6 +18,14 @@
             align-self: center;
         }
     }
+    .propertyCity {
+        margin-bottom: 24px;
+        h3 {
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
 
     input[type='date'],
     input[type='time'],
@@ -46,9 +54,14 @@
         gap: 1.5rem;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
+            'city .'
             'startEvent endEvent'
             'price online'
             'btnReset btnSubmit';
+        .propertyCity {
+            grid-area: city;
+            margin-bottom: 0;
+        }
         .dateOfStartEvent {
             grid-area: startEvent;
         }
@@ -59,6 +72,7 @@
             grid-area: online;
             display: grid;
             align-items: center;
+            margin-bottom: 0;
         }
         .eventPrice {
             grid-area: price;
