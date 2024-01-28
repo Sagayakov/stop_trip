@@ -5,18 +5,13 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet, ModelViewSet
+from rest_framework.viewsets import GenericViewSet
 
-from .models import Rate, User, UserMessenger
-from .serializers import (
-    RateSerializer,
-    RateChangeSerializer,
-    MessengerCreateSerializer,
-    MessengerListSerializer,
-)
-from offers.permissions import OwnerOrAdminPermission
+from ..models import Rate, User
+from ..serializers import RateSerializer, RateChangeSerializer
 
 
+@extend_schema(tags=["Rating"])
 class RateViewSet(mixins.ListModelMixin, GenericViewSet):
     """Рейтинг."""
 
@@ -73,27 +68,4 @@ class RateViewSet(mixins.ListModelMixin, GenericViewSet):
                 comment=serializer.validated_data["comment"],
             )
             user_rate.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-@extend_schema(tags=["Messenger"])
-class MessengerViewSet(ModelViewSet):
-    """Мессенджеры"""
-
-    permission_classes = [OwnerOrAdminPermission]
-
-    def get_serializer_class(self):
-        if self.action in [self.create.__name__, self.update.__name__]:
-            return MessengerCreateSerializer
-        return MessengerListSerializer
-
-    def get_queryset(self):
-        queryset = UserMessenger.objects.filter(owner=self.request.user)
-        return queryset
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.validated_data["owner"] = self.request.user
-        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

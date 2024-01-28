@@ -14,11 +14,13 @@ class MessengerSerializer(serializers.ModelSerializer):
 class MessengerCreateSerializer(serializers.ModelSerializer):
     """Сериализатор создания/редактирования мессенджеров пользователя."""
 
-    messenger = serializers.PrimaryKeyRelatedField(queryset=Messenger.objects.all(), required=False)
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    messenger = serializers.PrimaryKeyRelatedField(queryset=Messenger.objects.all())
 
     class Meta:
         model = UserMessenger
         fields = (
+            "owner",
             "messenger",
             "link_to_user",
         )
@@ -31,4 +33,7 @@ class MessengerListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserMessenger
-        fields = ("id", "messenger", "link_to_user")
+        fields = (
+            "messenger",
+            "link_to_user",
+        )
