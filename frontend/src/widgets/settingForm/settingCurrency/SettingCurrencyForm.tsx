@@ -29,16 +29,17 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
         useForm<TypeOfCurrencyFilter>();
 
     const onSubmit: SubmitHandler<TypeOfCurrencyFilter> = (data) => {
-        const { exchange_for, exchange_rate, proposed_currency } = data;
+        const { city, exchange_for, exchange_rate, proposed_currency } = data;
 
-        const { exFor, proposed, rate } = searchParamsForExchange(
+        const { currencyCity, exFor, proposed, rate } = searchParamsForExchange(
+            city,
             exchange_for,
             exchange_rate,
             proposed_currency
         );
 
         setSearchParams(
-            `category=exchange_rate${proposed}${exFor}${rate}&page=1`
+            `category=exchange_rate${currencyCity}${proposed}${exFor}${rate}&page=1`
         );
 
         setShowFilters(false);
