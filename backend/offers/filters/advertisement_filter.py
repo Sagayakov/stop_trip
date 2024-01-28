@@ -36,8 +36,8 @@ class AdvertisementFilter(
 
     category = filters.ChoiceFilter(label="Категория", choices=CategoryChoices.choices)
     price = filters.RangeFilter(label="Цена")
-    region = filters.CharFilter(label="Регион", field_name="region.slug")
-    city = CharInFilter(label="Город", field_name="city.slug")
+    region = filters.CharFilter(label="Регион", field_name="region__slug")
+    city = CharInFilter(label="Город", field_name="city__slug")
 
     order = OrderingFilter(
         fields=("date_create", "price"),

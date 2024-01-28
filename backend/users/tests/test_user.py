@@ -42,9 +42,18 @@ class UserTest(APITestCase):
         self.assertEqual(avg_rating, rating_sum / len(rates))
 
     def test_my_rate_on_user(self):
-        owner = UserFactory(pk=9)
-        me = UserFactory(pk=10)
-        rate = RateFactory(to_user=owner, from_user=me, rating=5)
+        owner = UserFactory()
+        me = UserFactory()
+        my_rate = RateFactory(to_user=owner, from_user=me, rating=5)
+        users = [UserFactory() for _ in range(5)]
+        my_other_rates = [
+            RateFactory(to_user=to_user, from_user=me, rating=_)
+            for _, to_user in enumerate(users, start=1)
+        ]
+        other_rates = [
+            RateFactory(to_user=owner, from_user=from_user, rating=_)
+            for _, from_user in enumerate(users, start=1)
+        ]
         advertisement = BaseAdvertisementFactory(owner=owner)
 
         with self.assertNumQueries(5):
@@ -60,4 +69,4 @@ class UserTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         my_rating = res.json()["owner"]["my_rating"]
-        self.assertEqual(my_rating, rate.rating)
+        self.assertEqual(my_rating, my_rate.rating)

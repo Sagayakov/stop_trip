@@ -1,6 +1,6 @@
 from typing import Optional
 
-from django.db.models import Avg, Count, Case, When, Q, F, IntegerField, QuerySet
+from django.db.models import Avg, Count, Case, When, Q, F, IntegerField, QuerySet, Subquery
 
 
 class UserQuerySet(QuerySet):
@@ -13,6 +13,7 @@ class UserQuerySet(QuerySet):
         return self.annotate(rating_num=Count("rating_to_users__rating"))
 
     def annotate_my_rating(self, user_id: Optional[int] = None):
+        # TODO: руинит запросы!!!!
         return self.annotate(
             my_rating=Case(
                 When(Q(rating_to_users__from_user=user_id), then=F("rating_to_users__rating")),

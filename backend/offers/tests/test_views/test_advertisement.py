@@ -159,6 +159,30 @@ class AdvertisementViewSetTest(APITestCase):
         res_json = res.json()
         self.assertEqual(res_json["count"], len(advertisements) - 2)
 
+    def test_filter_city(self):
+        user = UserFactory()
+        cities = [CityFactory() for _ in range(5)]
+        advertisements = [BaseAdvertisementFactory(owner=user, city=city) for city in cities]
+
+        with self.assertNumQueries(4):
+            res = self.client.get(self.list_url, {"city": cities[0].slug})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(advertisements) // len(cities))
+
+    def test_filter_region(self):
+        user = UserFactory()
+        regions = [RegionFactory() for _ in range(5)]
+        advertisements = [BaseAdvertisementFactory(owner=user, region=region) for region in regions]
+
+        with self.assertNumQueries(4):
+            res = self.client.get(self.list_url, {"region": regions[0].slug})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(advertisements) // len(regions))
+
     def test_filter_order_date_create(self):
         user = UserFactory()
         advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(3)]
