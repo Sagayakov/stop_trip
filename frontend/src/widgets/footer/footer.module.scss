@@ -8,7 +8,7 @@ footer {
         height: 102px;
         margin: 0 auto;
         display: grid;
-        grid-template-rows: 49px 33px 20px;
+        grid-template-rows: 49px auto 20px;
         .footer_top {
             display: flex;
             flex-direction: row;
@@ -60,7 +60,17 @@ footer {
             }
         }
         .hr {
-            padding: 16.25px 0;
+            padding: 0 0 16.25px 0;
+            .reCaptcha_brand{
+                font-size: 12px;
+                text-align: right;
+                font-weight: 400;
+                color: grey;
+                a{
+                    color: #1f6fde;
+                    font-size: 12px;
+                }
+            }
             hr {
                 height: 0.5px;
             }
@@ -157,7 +167,8 @@ footer {
             width: 93%;
             height: 186px;
             margin: 0 auto;
-            grid-template-rows: 80px 61px 45px;
+            grid-template-rows: 80px auto 45px;
+            //grid-template-rows: 80px 61px 45px;
             .footer_top {
                 width: 100%;
                 height: 80px;
@@ -195,7 +206,14 @@ footer {
                 }
             }
             .hr {
-                padding: 30.25px 0;
+                padding: 0;
+                .reCaptcha_brand{
+                    font-size: 10px;
+                    margin-top: 5px;
+                    a{
+                        font-size: 10px;
+                    }
+                }
             }
             .footer_bot {
                 .contacts {

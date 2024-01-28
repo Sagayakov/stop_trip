@@ -10,10 +10,15 @@ import styles from 'widgets/footer/footer.module.scss';
 import { InputTypeSubmit } from 'entity/universalEntites';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
-import { url } from 'shared/const/url';
 import { useLazyGetUserQuery } from 'app/api/fetchUser.ts';
+import { url } from 'shared/const/url.ts';
 
-export const FeedbackForm = () => {
+interface Props{
+    setShowCaptcha: React.Dispatch<React.SetStateAction<boolean>>;
+    showCaptcha: boolean;
+}
+
+export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useAppDispatch();
     const { refreshToken } = getTokensFromStorage();
@@ -30,6 +35,7 @@ export const FeedbackForm = () => {
     } = useForm<TypesFeedbackForm>();
 
     const onFocusGetId = async () => {
+        if(!showCaptcha) setShowCaptcha(true);
         if(!userInfo && (localStorage.getItem('isAuth') === "true")){//получаем id юзера
             await getAccessTokenWithRefresh(dispatch, refreshToken);
             const { accessToken } = getTokensFromStorage();
@@ -40,6 +46,33 @@ export const FeedbackForm = () => {
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
     ) => {
+        //если Олег скажет точные api_key и site_key, можно попробовать достучаться до гугла
+        //это для капчи
+        // const captchaToken = await getReCaptchaToken();
+        // const createMark = async() => {
+        //     try{
+        //         const response = await fetch(`https://recaptchaenterprise.googleapis.com/v1/projects/${process.env.CAPTCHA_PROJECT_ID}/assessments?key=${process.env.CAPTCHA_API_KEY}`, {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-Type": "application/json; charset=utf-8",
+        //             },
+        //             body: JSON.stringify({
+        //                 "event": {
+        //                     "token": captchaToken,
+        //                     "siteKey": `${process.env.CAPTCHA_SITE_KEY}`,
+        //                     "expectedAction": "USER_ACTION"
+        //                 }
+        //             })
+        //         });
+        //         const data = await response.json();
+        //         console.log(data);
+        //     }catch (error) {
+        //         console.log(error);
+        //     }
+        // }
+        // createMark();
+        //это для капчи
+
         if(feedbackData.text.length > 900 || feedbackData.text.length < 10){
             return toast.error(t('feedback.feedback-message'));
         }
@@ -72,6 +105,7 @@ export const FeedbackForm = () => {
         } else {
             toast.error(`${t('main-page.toast-feedback-login')}`);
         }
+        setShowCaptcha(false);
     };
 
     useEffect(() => {
@@ -112,7 +146,7 @@ export const FeedbackForm = () => {
                     )}
                 />
                 <InputTypeSubmit
-                    disabled={isValid}
+                    disabled={!isValid}
                     value={t('main-page.send')}
                     style={{ backgroundColor: isValid ? '#02c66e' : 'gray' }}
                 />

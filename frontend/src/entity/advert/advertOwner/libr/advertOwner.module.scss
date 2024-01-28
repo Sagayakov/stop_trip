@@ -23,17 +23,20 @@
         flex: 1 1 auto;
         width: 100%;
         font-size: 14px;
-        font-weight: 700;
+        font-weight: 600;
         color: #434343;
+        font-family: var(--font-inter);
         .rating_number {
-            width: 30px;
+            justify-content: unset;
+            width: 38px;
             height: 26px;
-            padding: 4px 5px;
+            padding: 4px 0;
             background-color: #ffd87366;
             border-radius: 50%;
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 15px;
+            font-weight: 600;
             color: #434343;
+            text-align: center;
         }
         div {
             display: flex;

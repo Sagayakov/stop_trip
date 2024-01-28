@@ -5,7 +5,6 @@ import styles from './libr/favorites.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Cart } from 'entity/lastAdverts/Cart';
 import { useEffect } from 'react';
-import { pushViewListWithDataResults } from 'shared/eCommercy/pushViewListWithDataResults.ts';
 
 const FavoritesPage = () => {
     const { data, isLoading, refetch } = useGetFavoritesQuery('');
@@ -13,7 +12,7 @@ const FavoritesPage = () => {
 
     useEffect(() => {
         refetch();
-        pushViewListWithDataResults(data, "Избранные")
+        // pushViewListWithDataResults(data, "Избранные")
         const path = window.location.pathname.slice(1, -1);
         sessionStorage.setItem('prevLocation', path);//для условия для яндекс метрики
     }, [refetch, data]);

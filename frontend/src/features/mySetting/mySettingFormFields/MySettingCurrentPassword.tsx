@@ -44,7 +44,7 @@ export const MySettingCurrentPassword = ({ errors, control, handleCopy, password
                                     passwordErrors?.data
                                         .current_password
                                         ? '#FF3F25'
-                                        : '#8f8f8f'
+                                        : '#DCDCDC'
                                 }`,
                             }}
                         />

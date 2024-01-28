@@ -31,11 +31,11 @@ export const fetchAdverts = createApi({
             { body: FormAddAnn; token: string }
         >({
             query: ({ body, token }) => ({
-                url: 'api/advertisements/', // сюда вписать адрес для добавления нового объявления
+                url: 'api/advertisements/',
                 method: 'POST',
                 headers: {
-                    // 'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
+                    "X-Csrftoken": `${token}`,
                 },
                 body,
             }),
@@ -53,6 +53,7 @@ export const fetchAdverts = createApi({
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
+                    "X-Csrftoken": `${token}`,
                 },
             }),
             providesTags: ['MyAnnouncements'],
@@ -78,7 +79,6 @@ export const fetchAdverts = createApi({
                 url: `api/advertisements/${addSlug}`,
                 method: 'PUT',
                 headers: {
-                    // 'Content-Type': 'application/json',
                     Authorization: `Bearer ${accessToken}`,
                     "X-Csrftoken": `${accessToken}`,
                 },

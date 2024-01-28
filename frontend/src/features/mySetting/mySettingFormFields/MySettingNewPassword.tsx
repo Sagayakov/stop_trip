@@ -54,7 +54,7 @@ export const MySettingNewPassword = ({
                                 errors?.new_password ||
                                 (newPassword && newPassword === currentPassword)
                                     ? '#FF3F25'
-                                    : '#8f8f8f'
+                                    : '#DCDCDC'
                             }`,
                         }}
                     />
