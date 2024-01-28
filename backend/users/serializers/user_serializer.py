@@ -2,7 +2,7 @@ from djoser.serializers import UserCreateSerializer
 from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
 
-from .messenger_serializer import UserMessengerSerializer
+from .messenger_serializer import MessengerListSerializer
 from ..models import User
 
 
@@ -57,7 +57,7 @@ class UserForListAdvertisementSerializer(serializers.ModelSerializer):
 class UserForRetrieveAdvertisementSerializer(serializers.ModelSerializer):
     """Сериализатор пользоваля для деталки объявлений."""
 
-    user_messengers = UserMessengerSerializer(many=True)
+    user_messengers = MessengerListSerializer(many=True)
     avg_rating = serializers.FloatField()
     rating_num = serializers.IntegerField()
     my_rating = serializers.IntegerField()

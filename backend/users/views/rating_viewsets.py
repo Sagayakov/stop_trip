@@ -7,10 +7,11 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from .models import Rate, User
-from .serializers import RateSerializer, RateChangeSerializer
+from ..models import Rate, User
+from ..serializers import RateSerializer, RateChangeSerializer
 
 
+@extend_schema(tags=["Rating"])
 class RateViewSet(mixins.ListModelMixin, GenericViewSet):
     """Рейтинг."""
 
