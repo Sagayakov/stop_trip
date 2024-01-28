@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import {
+    City,
     ExchangeFor,
     ExchangeRate,
     ProposedCurrency,
@@ -53,6 +54,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onSubmit)}
                 id="form-setting-currency"
             >
+                <City control={control} setValue={setValue} />
                 <ProposedCurrency control={control} setValue={setValue} />
                 <ExchangeFor control={control} setValue={setValue} />
                 <ExchangeRate register={register} />

@@ -14,6 +14,7 @@ import {
     TypeOfService,
     TypeOfTransport,
     YearOfProduction,
+    City,
 } from 'features/settingCategoryForm/settingTransportForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeSettingTransport } from './libr/TypeSettingTransport';
@@ -61,6 +62,7 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 id="form-setting-transport"
             >
                 <TypeOfService register={register} />
+                <City control={control} setValue={setValue} />
                 <TypeOfTransport register={register} watch={watch} />
                 <TransportationCategory setValue={setValue} control={control} />
                 <MarkOfTransport setValue={setValue} control={control} />

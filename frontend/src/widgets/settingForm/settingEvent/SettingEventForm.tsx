@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeOfEventFilter } from './libr/TypeOfEventFilter';
 import {
+    City,
     DateOfEndEvent,
     DateOfStartEvent,
     EventPrice,
@@ -26,7 +27,8 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { register, handleSubmit, reset } = useForm<TypeOfEventFilter>();
+    const { register, handleSubmit, reset, control, setValue } =
+        useForm<TypeOfEventFilter>();
     const onsubmit: SubmitHandler<TypeOfEventFilter> = (data) => {
         const { end_date, start_date, is_online, price } = data;
         const filters = getSearchParams(end_date, start_date, is_online, price);
@@ -47,6 +49,7 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-event"
             >
+                <City control={control} setValue={setValue} />
                 <DateOfStartEvent register={register} />
                 <DateOfEndEvent register={register} />
                 <EventPrice register={register} />

@@ -1,6 +1,9 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
-import { MarketCondition } from 'features/settingCategoryForm/settingMarketForm';
+import {
+    City,
+    MarketCondition,
+} from 'features/settingCategoryForm/settingMarketForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForMarketForm } from './libr/TypeForMarketForm';
 import styles from './libr/settingMarketForm.module.scss';
@@ -20,7 +23,8 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { register, handleSubmit, reset } = useForm<TypeForMarketForm>();
+    const { register, handleSubmit, reset, setValue, control } =
+        useForm<TypeForMarketForm>();
 
     const onsubmit: SubmitHandler<TypeForMarketForm> = (data) => {
         const { market_condition } = data;
@@ -49,6 +53,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-market"
             >
+                <City control={control} setValue={setValue} />
                 <MarketCondition register={register} />
                 <input type="submit" value={t('filters.apply')} />
                 <button

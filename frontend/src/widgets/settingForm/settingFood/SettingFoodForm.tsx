@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import {
+    City,
     FoodDelivery,
     FoodEstablishment,
     FoodType,
@@ -56,6 +57,7 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-food"
             >
+                <City control={control} setValue={setValue} />
                 <FoodType control={control} setValue={setValue} />
                 <FoodDelivery register={register} />
                 <FoodEstablishment register={register} />

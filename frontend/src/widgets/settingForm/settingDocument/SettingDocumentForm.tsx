@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import {
+    City,
     DocumentDuration,
     DocumentType,
 } from 'features/settingCategoryForm/settingDocumentForm';
@@ -52,6 +53,7 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-document"
             >
+                <City control={control} setValue={setValue} />
                 <DocumentType control={control} setValue={setValue} />
                 <DocumentDuration control={control} setValue={setValue} />
                 <input type="submit" value={t('filters.apply')} />

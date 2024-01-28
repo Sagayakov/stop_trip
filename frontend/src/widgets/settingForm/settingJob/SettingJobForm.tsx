@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
+    City,
     DurationOfWork,
     PriceOfJob,
     TypeOfJob,
@@ -64,6 +65,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-job"
             >
+                <City control={control} setValue={setValue} />
                 <TypeOfJob register={register} />
                 <DurationOfWork control={control} setValue={setValue} />
                 <TypeOfPayment control={control} setValue={setValue} />

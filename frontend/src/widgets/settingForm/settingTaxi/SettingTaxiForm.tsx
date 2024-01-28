@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
+    City,
     SettingTaxiPrice,
     TypeOfTaxi,
     UnitOfMeasurement,
@@ -49,6 +50,7 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 autoComplete="off"
                 id="form-setting-taxi"
             >
+                <City control={control} setValue={setValue} />
                 <UnitOfMeasurement register={register} />
                 <TypeOfTaxi control={control} setValue={setValue} />
                 <SettingTaxiPrice register={register} />

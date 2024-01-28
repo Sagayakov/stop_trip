@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
+    City,
     ExcursionFood,
     ExcursionTransfer,
 } from 'features/settingCategoryForm/settingExcursionForm';
@@ -21,7 +22,8 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { handleSubmit, reset, register } = useForm<TypeForExcursionFilter>();
+    const { handleSubmit, reset, register, control, setValue } =
+        useForm<TypeForExcursionFilter>();
     const onSubmit: SubmitHandler<TypeForExcursionFilter> = (data) => {
         console.log(data);
         setShowFilters(false);
@@ -41,6 +43,7 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onSubmit)}
                 id="form-setting-excursion"
             >
+                <City control={control} setValue={setValue} />
                 <ExcursionFood register={register} />
                 <ExcursionTransfer register={register} />
                 <input type="submit" value={t('filters.apply')} />

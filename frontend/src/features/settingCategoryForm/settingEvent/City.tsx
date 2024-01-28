@@ -1,15 +1,15 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
+import { TypeOfEventFilter } from 'widgets/settingForm/settingEvent/libr/TypeOfEventFilter';
 
 interface Props {
-    setValue: UseFormSetValue<TypeSettingRealty>;
-    control: Control<TypeSettingRealty, string[]>;
+    setValue: UseFormSetValue<TypeOfEventFilter>;
+    control: Control<TypeOfEventFilter, string[]>;
 }
 
 export const City = ({ control, setValue }: Props) => {
@@ -32,7 +32,7 @@ export const City = ({ control, setValue }: Props) => {
         <>
             <div className={styles.propertyCity}>
                 <h3>{t('filters.property_city')}</h3>
-                <UniversalSelectDropdown<TypeSettingRealty>
+                <UniversalSelectDropdown<TypeOfEventFilter>
                     setValue={setValue}
                     control={control}
                     name="city"

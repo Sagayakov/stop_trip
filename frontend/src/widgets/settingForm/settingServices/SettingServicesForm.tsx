@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
+    City,
     HouseCall,
     SettingServicePrice,
 } from 'features/settingCategoryForm/settingServices';
@@ -24,7 +25,8 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { register, handleSubmit, reset } = useForm<TypeOfServicesForm>();
+    const { register, handleSubmit, reset, setValue, control } =
+        useForm<TypeOfServicesForm>();
 
     const onsubmit: SubmitHandler<TypeOfServicesForm> = (data) => {
         const { service_home_visit, price } = data;
@@ -47,6 +49,7 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
                 autoComplete="off"
                 id="form-setting-service"
             >
+                <City control={control} setValue={setValue} />
                 <HouseCall register={register} />
                 <SettingServicePrice register={register} />
                 <input type="submit" value={t('filters.apply')} />
