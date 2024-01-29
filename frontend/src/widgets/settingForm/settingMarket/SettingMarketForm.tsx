@@ -10,6 +10,7 @@ import styles from './libr/settingMarketForm.module.scss';
 import stylesForm from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
+import { getMultiQuery } from 'shared/utils/getMultiQuery';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -27,17 +28,12 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         useForm<TypeForMarketForm>();
 
     const onsubmit: SubmitHandler<TypeForMarketForm> = (data) => {
-        const { market_condition } = data;
-        const category = market_condition ? 'category=market' : '';
-        const condition = market_condition ? '&market_condition=' : '';
-        let params = '';
-        if (market_condition.length === 2) {
-            params = `${market_condition[0]}%2C${market_condition[1]}`;
-        }
-        if (market_condition.length === 1) {
-            params = `${market_condition[0]}`;
-        }
-        setSearchParams(`${category}${condition}${params}&page=1`);
+        const { city, market_condition } = data;
+
+        const marketCity = getMultiQuery('city', city);
+        const condition = getMultiQuery('market_condition', market_condition);
+
+        setSearchParams(`category=market${marketCity}${condition}&page=1`);
         setShowFilters(false);
         scrollToTop();
     };

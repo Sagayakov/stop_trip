@@ -33,6 +33,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
 
     const onsubmit: SubmitHandler<TypesOfJobs> = (data) => {
         const {
+            city,
             job_type,
             job_payment_type,
             job_experience,
@@ -40,13 +41,14 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
             price,
         } = data;
 
-        const filters = getSearchParams(
+        const filters = getSearchParams({
+            city,
             job_type,
             job_payment_type,
             job_experience,
             job_duration,
-            price
-        );
+            price,
+        });
         setSearchParams(`category=job${filters}&page=1`);
 
         setShowFilters(false);
