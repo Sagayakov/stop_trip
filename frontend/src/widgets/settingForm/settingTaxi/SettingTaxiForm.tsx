@@ -30,8 +30,8 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
         useForm<TypeSettingTaxi>();
 
     const onsubmit: SubmitHandler<TypeSettingTaxi> = (data) => {
-        const { taxi_unit, taxi_type, price } = data;
-        const filters = getSearchParams(taxi_type, taxi_unit, price);
+        const { city, taxi_unit, taxi_type, price } = data;
+        const filters = getSearchParams({ city, taxi_type, taxi_unit, price });
         setSearchParams(`category=taxi${filters}&page=1`);
         scrollToTop();
         setShowFilters(false);
