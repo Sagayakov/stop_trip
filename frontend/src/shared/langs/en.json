@@ -103,7 +103,7 @@
 
     "category-page": {
         "main-link": "Main",
-        "no-adverts": "No adverts found in this category"
+        "no-adverts": "No advertisements were found based on the specified parameters"
     },
 
     "filters": {

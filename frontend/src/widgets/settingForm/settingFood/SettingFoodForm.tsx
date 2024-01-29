@@ -30,15 +30,16 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
         useForm<TypeForFoodForm>();
 
     const onsubmit: SubmitHandler<TypeForFoodForm> = (data) => {
-        const { food_delivery, food_establishment, food_type } = data;
+        const { city, food_delivery, food_establishment, food_type } = data;
 
-        const { delivery, establishment, type } = searchParamsForFood(
+        const { foodCity, delivery, establishment, type } = searchParamsForFood(
+            city,
             food_delivery,
             food_establishment,
             food_type
         );
         setSearchParams(
-            `category=food${type}${delivery}${establishment}&page=1`
+            `category=food${foodCity}${type}${delivery}${establishment}&page=1`
         );
 
         setShowFilters(false);
