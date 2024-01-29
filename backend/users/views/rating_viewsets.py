@@ -1,9 +1,8 @@
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema, OpenApiParameter
-from rest_framework import mixins
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -12,14 +11,11 @@ from ..serializers import RateSerializer, RateChangeSerializer
 
 
 @extend_schema(tags=["Rating"])
-class RateViewSet(mixins.ListModelMixin, GenericViewSet):
+class RateViewSet(GenericViewSet):
     """Рейтинг."""
 
     queryset = Rate.objects.filter(is_active=True).select_related("from_user", "to_user")
-    custom_permission_classes = {
-        "change_rate": [IsAuthenticated],
-        "list": [AllowAny],
-    }
+    custom_permission_classes = {"change_rate": [IsAuthenticated]}
 
     def get_serializer_class(self):
         if self.action == self.change_rate.__name__:

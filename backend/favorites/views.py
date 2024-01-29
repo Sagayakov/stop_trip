@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from offers.models import Advertisement
-from offers.serializers import AdvertisementListSerializer
 from .favorites import Favorite
 from .serializers import FavoriteAdvertisementCreateSerializer
 
@@ -19,7 +18,7 @@ class FavoriteViewSet(GenericViewSet, ListModelMixin):
         if self.action in ["create", "delete_favorite"]:
             return FavoriteAdvertisementCreateSerializer
         else:
-            return AdvertisementListSerializer
+            return
 
     def get_queryset(self):
         favorites = Favorite(self.request.session)
@@ -36,6 +35,11 @@ class FavoriteViewSet(GenericViewSet, ListModelMixin):
             pass
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def list(self, request, *args, **kwargs):
+        favorites = Favorite(request.session)
+        list_keys = favorites.keys
+        return Response(list_keys, status=status.HTTP_200_OK)
 
     @extend_schema(responses=None)
     @action(detail=False, methods=["POST"])

@@ -3,7 +3,6 @@ from rest_framework import serializers
 from countries.models import Country, Region, City
 from countries.serializers import CountrySerializer, RegionSerializer, CitySerializer
 from forbidden_words.models import ForbiddenWords
-from users.models import User
 from users.serializers import (
     UserForListAdvertisementSerializer,
     UserForRetrieveAdvertisementSerializer,
@@ -179,7 +178,7 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
 class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     """Сериализатор обновления объявления."""
 
-    owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
     country = serializers.SlugRelatedField(
         queryset=Country.objects.all(), slug_field="slug", required=False
     )
@@ -220,7 +219,6 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertisement
         exclude = (
-            "is_published",
             "date_create",
             "date_update",
             "slug",

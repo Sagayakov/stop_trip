@@ -94,7 +94,7 @@ class MarketTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(13):
+        with self.assertNumQueries(12):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )

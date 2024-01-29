@@ -31,9 +31,16 @@ from offers.constants import (
     MarketCondition,
     PropertyType,
 )
-from users.tests.factories import UserFactory
-from ..factories import BaseAdvertisementFactory, CountryFactory, RegionFactory, CityFactory
 from offers.models import Advertisement
+from users.tests.factories import UserFactory
+from ..factories import (
+    BaseAdvertisementFactory,
+    CountryFactory,
+    RegionFactory,
+    CityFactory,
+    TaxiAdvertisementFactory,
+    AdvertisementImageFactory,
+)
 
 
 @mark.django_db
@@ -73,6 +80,40 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
         res_json = res.json()
         self.assertEqual(res_json["title"][0], "Название объявления содержит запрещенное слово.")
+
+    def test_partial_update(self):
+        user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+        advertisement = TaxiAdvertisementFactory(
+            owner=user,
+            country=country,
+            region=region,
+            city=city,
+            title="taxi",
+            price=1500,
+            taxi_unit=TaxiUnit.KM.value,
+            taxi_type=TaxiType.ECONOMY.value,
+        )
+        advertisement_images = [
+            AdvertisementImageFactory(advertisement=advertisement) for _ in range(5)
+        ]
+
+        payload = {"is_published": False}
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(6):
+            res = self.client.put(
+                self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+        advertisement.refresh_from_db()
+        self.assertEqual(advertisement.is_published, payload["is_published"])
 
     def test_list(self):
         user = UserFactory()

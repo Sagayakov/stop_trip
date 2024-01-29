@@ -42,18 +42,22 @@ class FavoriteAPIViewTest(APITestCase):
             price=10_000,
         )
 
-        favorites = Favorite(self.client.session)
-        favorites.add(advertisement.id)
+        # Добавление в избранное
+        self.client.post(self.list_url, data={"id": advertisement.id})
 
-        self.client.force_login(user)
-        with self.assertNumQueries(2):
+        # Удаление из избранного
+        with self.assertNumQueries(1):
             res = self.client.post(self.delete_url, data={"id": advertisement.id})
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
 
+        # Проверка, что удалилось
+        res = self.client.get(self.list_url)
+        self.assertEqual(len(res.json()), 0)
+
     def test_clear_favorite(self):
         user = UserFactory()
-        advertisement = [
+        advertisements = [
             BaseAdvertisementFactory(
                 owner=user,
                 category=CategoryChoices.TAXI,
@@ -63,30 +67,37 @@ class FavoriteAPIViewTest(APITestCase):
             for _ in range(3)
         ]
         favorites = Favorite(self.client.session)
-        for advert in advertisement:
-            favorites.add(advert.id)
+        for advertisement in advertisements:
+            self.client.post(self.list_url, data={"id": advertisement.id})
 
-        self.client.force_login(user)
-        with self.assertNumQueries(1):
-            res = self.client.post(self.clear_url, favorites.clear())
+        with self.assertNumQueries(0):
+            res = self.client.post(self.clear_url)
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertCountEqual(favorites.keys, [])
 
+        # Проверка, что удалилось
+        res = self.client.get(self.list_url)
+        self.assertEqual(len(res.json()), 0)
+
     def test_list_favorites(self):
         user = UserFactory()
-        advertisement = BaseAdvertisementFactory(
-            owner=user,
-            category=CategoryChoices.TAXI,
-            title="TAXI",
-            price=10_000,
-        )
-        self.client.force_login(user)
-        favorites = Favorite(self.client.session)
-        favorites.add(advertisement.id)
+        advertisements = [
+            BaseAdvertisementFactory(
+                owner=user,
+                category=CategoryChoices.TAXI,
+                title="TAXI",
+                price=10_000,
+            )
+            for _ in range(5)
+        ]
 
-        with self.assertNumQueries(1):
+        for _ in advertisements:
+            self.client.post(self.list_url, data={"id": _.id})
+
+        with self.assertNumQueries(0):
             res = self.client.get(self.list_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertIn(advertisement.id, favorites.keys)
+        for _ in advertisements:
+            self.assertIn(_.id, res.json())
