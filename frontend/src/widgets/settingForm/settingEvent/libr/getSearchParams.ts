@@ -39,5 +39,6 @@ export const getSearchParams = ({
               end_date.time && `Т${start_date.time}:00%2B03${':'}00`
           }`
         : '';
+
     return `${eventCity}${startDateQuery}${endDateQuery}${isOnlineQuery}${priceMinQuery}${priceMaxQuery}`;
 };
