@@ -29,14 +29,17 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
         useForm<TypeOfDocumentFilter>();
 
     const onsubmit: SubmitHandler<TypeOfDocumentFilter> = (data) => {
-        const { document_duration, document_type } = data;
+        const { city, document_duration, document_type } = data;
 
-        const { duration, types } = searchParamsForDocument(
+        const { documentCity, duration, types } = searchParamsForDocument(
+            city,
             document_duration,
             document_type
         );
 
-        setSearchParams(`category=document${types}${duration}&page=1`);
+        setSearchParams(
+            `category=document${documentCity}${types}${duration}&page=1`
+        );
 
         setShowFilters(false);
         scrollToTop();
