@@ -1,12 +1,25 @@
+import { getMultiQuery } from 'shared/utils/getMultiQuery';
+
 interface Price {
     min: number;
     max: number;
 }
-export const getSearchParams = (
-    taxi_type: string[],
-    taxi_unit: string[],
-    price: Price
-) => {
+
+type TaxiParamsProps = {
+    city: string[];
+    taxi_type: string[];
+    taxi_unit: string[];
+    price: Price;
+};
+
+export const getSearchParams = ({
+    city,
+    taxi_type,
+    taxi_unit,
+    price,
+}: TaxiParamsProps) => {
+    const taxiCity = getMultiQuery('city', city);
+
     const priceMaxQuery = price.max
         ? `&price_max=${price.max.toString().replace(/,/g, '.')}`
         : '';
@@ -16,9 +29,7 @@ export const getSearchParams = (
         : '';
 
     const taxiUnitQuery = taxi_unit ? `&taxi_unit=${taxi_unit}` : '';
-    const taxiTypeQuery = taxi_type
-        ? `&taxi_type=${taxi_type.map((el) => `${el}`).join(',')}`
-        : '';
+    const taxiTypeQuery = getMultiQuery('taxi_type', taxi_type);
 
-    return `${taxiUnitQuery}${taxiTypeQuery}${priceMinQuery}${priceMaxQuery}`;
+    return `${taxiCity}${taxiUnitQuery}${taxiTypeQuery}${priceMinQuery}${priceMaxQuery}`;
 };

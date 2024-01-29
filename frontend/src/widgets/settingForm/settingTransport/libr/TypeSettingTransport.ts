@@ -1,4 +1,5 @@
 export interface TypeSettingTransport {
+    city: string[];
     transport_type_of_service: string[];
     transport_type: string[];
     transport_category: string[];
@@ -18,11 +19,11 @@ export interface SelectOption {
     value: string;
     label: string;
 }
-export interface EngineCapacity{
+export interface EngineCapacity {
     min: number;
     max: number;
 }
-export interface YearOfProduction{
+export interface YearOfProduction {
     min: number;
     max: number;
 }

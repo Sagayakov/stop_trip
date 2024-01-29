@@ -1,4 +1,5 @@
 export interface TypeSettingTaxi {
+    city: string[];
     taxi_unit: string[];
     taxi_type: string[];
     price: Price;
@@ -8,7 +9,7 @@ export interface SelectOption {
     label: string;
 }
 
-interface Price{
+interface Price {
     min: number;
     max: number;
 }

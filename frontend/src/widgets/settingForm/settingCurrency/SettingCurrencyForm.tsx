@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import {
+    City,
     ExchangeFor,
     ExchangeRate,
     ProposedCurrency,
@@ -28,15 +29,18 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
         useForm<TypeOfCurrencyFilter>();
 
     const onSubmit: SubmitHandler<TypeOfCurrencyFilter> = (data) => {
-        const { exchange_for, exchange_rate, proposed_currency } = data;
+        const { city, exchange_for, exchange_rate, proposed_currency } = data;
 
-        const { exFor, proposed, rate } = searchParamsForExchange(
+        const { currencyCity, exFor, proposed, rate } = searchParamsForExchange(
+            city,
             exchange_for,
             exchange_rate,
             proposed_currency
         );
 
-        setSearchParams(`category=exchange_rate${proposed}${exFor}${rate}`);
+        setSearchParams(
+            `category=exchange_rate${currencyCity}${proposed}${exFor}${rate}&page=1`
+        );
 
         setShowFilters(false);
         scrollToTop();
@@ -51,6 +55,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onSubmit)}
                 id="form-setting-currency"
             >
+                <City control={control} setValue={setValue} />
                 <ProposedCurrency control={control} setValue={setValue} />
                 <ExchangeFor control={control} setValue={setValue} />
                 <ExchangeRate register={register} />

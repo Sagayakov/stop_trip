@@ -1,4 +1,5 @@
 export interface TypeSettingRealty {
+    city: string[];
     property_type_of_service: string[];
     property_city: string[];
     property_district: string[];
@@ -46,11 +47,11 @@ export interface LivingSpace {
     min: number;
     max: number;
 }
-export interface SleepingPlaces{
+export interface SleepingPlaces {
     min: number;
     max: number;
 }
-export interface BathroomCount{
+export interface BathroomCount {
     min: number;
     max: number;
 }

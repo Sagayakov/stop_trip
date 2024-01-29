@@ -13,13 +13,21 @@
             }
         }
     }
+    .propertyCity {
+        margin-bottom: 24px;
+        h3 {
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
     .typeOfService,
     .typeOfTransport,
     .transportationCategory,
     .mark,
     .model,
     .engineType,
-    .engineСapacity,
+    .engineCapacity,
     .drive,
     .yearOfProduction,
     .transmissionType,
@@ -29,7 +37,7 @@
     .transportPrice {
         margin-bottom: 24px;
     }
-    .engineСapacity,
+    .engineCapacity,
     .yearOfProduction,
     .transportComission,
     .transportPrice {
@@ -59,7 +67,8 @@
         display: grid;
         gap: 1.5rem;
         grid-template-areas:
-            'service typeTransport'
+            'service .'
+            'city typeTransport'
             'category body'
             'markTr engineType'
             'modelTr year'
@@ -69,6 +78,10 @@
             'btnReset btnSubmit';
         .typeOfService {
             grid-area: service;
+        }
+        .propertyCity {
+            margin-bottom: 0;
+            grid-area: city;
         }
         .typeOfTransport {
             grid-area: typeTransport;
@@ -85,7 +98,7 @@
         .engineType {
             grid-area: engineType;
         }
-        .engineСapacity {
+        .engineCapacity {
             grid-area: capacity;
         }
         .drive {
