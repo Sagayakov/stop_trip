@@ -1,12 +1,17 @@
-interface Price{
-    min: number
-    max: number
+import { getMultiQuery } from 'shared/utils/getMultiQuery';
+
+interface Price {
+    min: number;
+    max: number;
 }
 
-export const getSearchParams = (service_home_visit: boolean, price: Price) => {
-    const homeVisitQuery = service_home_visit
-        ? `&service_home_visit=true`
-        : '';
+export const getSearchParams = (
+    city: string[],
+    service_home_visit: boolean,
+    price: Price
+) => {
+    const serviceCity = getMultiQuery('city', city);
+    const homeVisitQuery = service_home_visit ? `&service_home_visit=true` : '';
 
     const priceMaxQuery = price.max
         ? `&price_max=${price.max.toString().replace(/,/g, '.')}`
@@ -16,5 +21,5 @@ export const getSearchParams = (service_home_visit: boolean, price: Price) => {
         ? `&price_min=${price.min.toString().replace(/,/g, '.')}`
         : '';
 
-    return  `${homeVisitQuery}${priceMinQuery}${priceMaxQuery}`;
-}
+    return `${serviceCity}${homeVisitQuery}${priceMinQuery}${priceMaxQuery}`;
+};
