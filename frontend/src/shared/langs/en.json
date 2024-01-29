@@ -20,6 +20,8 @@
         "toast-thanks": "Thanks for your feedback!",
         "toast-copied": "Copied!",
         "toast-error": "An error occurred while copying text: ",
+        "toast-copy-btn": "Copy",
+        "toast-number-saved": "Phone number saved to clipboard!",
         "messages-tooltip": "Messaging feature is in development",
         "search-tooltip": "Search feature is in development"
     },

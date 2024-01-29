@@ -31,12 +31,14 @@ export const MarketCondition = ({ register }: Props) => {
     return (
         <div className={styles.marketCondition}>
             <h3>{t('filters.market_condition')}</h3>
-            <UniversalRadioGroup
-                radioValues={options.choices}
-                register={register}
-                name="market_condition"
-                className={styles.checkbox_group}
-            />
+            {data && (
+                <UniversalRadioGroup
+                    radioValues={options.choices}
+                    register={register}
+                    name="market_condition"
+                    className={styles.checkbox_group}
+                />
+            )}
         </div>
     );
 };
