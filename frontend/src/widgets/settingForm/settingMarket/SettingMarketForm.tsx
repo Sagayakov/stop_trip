@@ -1,12 +1,16 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
-import { MarketCondition } from 'features/settingCategoryForm/settingMarketForm';
+import {
+    City,
+    MarketCondition,
+} from 'features/settingCategoryForm/settingMarketForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForMarketForm } from './libr/TypeForMarketForm';
 import styles from './libr/settingMarketForm.module.scss';
 import stylesForm from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
+import { getMultiQuery } from 'shared/utils/getMultiQuery';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -20,20 +24,16 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { register, handleSubmit, reset } = useForm<TypeForMarketForm>();
+    const { register, handleSubmit, reset, setValue, control } =
+        useForm<TypeForMarketForm>();
 
     const onsubmit: SubmitHandler<TypeForMarketForm> = (data) => {
-        const { market_condition } = data;
-        const category = market_condition ? 'category=market' : '';
-        const condition = market_condition ? '&market_condition=' : '';
-        let params = '';
-        if (market_condition.length === 2) {
-            params = `${market_condition[0]}%2C${market_condition[1]}`;
-        }
-        if (market_condition.length === 1) {
-            params = `${market_condition[0]}`;
-        }
-        setSearchParams(`${category}${condition}${params}`);
+        const { city, market_condition } = data;
+
+        const marketCity = getMultiQuery('city', city);
+        const condition = `&market_condition=${market_condition}`;
+
+        setSearchParams(`category=market${marketCity}${condition}&page=1`);
         setShowFilters(false);
         scrollToTop();
     };
@@ -49,6 +49,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-market"
             >
+                <City control={control} setValue={setValue} />
                 <MarketCondition register={register} />
                 <input type="submit" value={t('filters.apply')} />
                 <button

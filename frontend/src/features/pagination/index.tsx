@@ -5,7 +5,7 @@ import styles from './libr/pagination.module.scss';
 import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks';
 import { setPageMain } from 'widgets/lastAdverts/model/pageReducer/pageMain';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { setPageCategory } from 'pages/categoryPage/model/pageReducer/pageCategory';
 import { beginningParentScroll } from 'features/pagination/libr/beginningParentScroll';
 
@@ -22,6 +22,8 @@ export const Pagination = ({ data, parentRef }: Props) => {
     const [pages, setPages] = useState(0);
     const dispatch = useAppDispatch();
     const pathname = useLocation().pathname;
+    const queryParam = useLocation().search;
+    const [, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         if (data) {
@@ -38,6 +40,9 @@ export const Pagination = ({ data, parentRef }: Props) => {
         } else {
             if (pageCategory > 1) {
                 dispatch(setPageCategory(pageCategory - 1));
+
+                const notChanged = queryParam.slice(0, queryParam.length - 1);
+                setSearchParams(`${notChanged}${pageCategory - 1}`);
             }
         }
         beginningParentScroll(parentRef);
@@ -51,15 +56,24 @@ export const Pagination = ({ data, parentRef }: Props) => {
         } else {
             if (pageCategory < pages) {
                 dispatch(setPageCategory(pageCategory + 1));
+
+                const notChanged = queryParam.slice(0, queryParam.length - 1);
+                setSearchParams(`${notChanged}${pageCategory + 1}`);
             }
         }
         beginningParentScroll(parentRef);
     };
 
     const handleClickNumber = (page: number) => {
-        pathname === '/'
-            ? dispatch(setPageMain(page))
-            : dispatch(setPageCategory(page));
+        if (pathname === '/') {
+            dispatch(setPageMain(page));
+        } else {
+            dispatch(setPageCategory(page));
+
+            const notChanged = queryParam.slice(0, queryParam.length - 1);
+            setSearchParams(`${notChanged}${page}`);
+        }
+
         beginningParentScroll(parentRef);
     };
 
@@ -83,7 +97,7 @@ export const Pagination = ({ data, parentRef }: Props) => {
                         return (
                             <span
                                 className={
-                                    pageMain === el
+                                    pageToChange === el
                                         ? `${styles.page_number} ${styles.active}`
                                         : `${styles.page_number}`
                                 }

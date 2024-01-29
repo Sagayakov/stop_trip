@@ -4,8 +4,16 @@
     }
     .proposedCurrency,
     .exchangeFor,
-    .exchangeRateInput {
+    .exchangeRate {
         margin-bottom: 24px;
+    }
+    .propertyCity {
+        margin-bottom: 24px;
+        h3 {
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 700;
+        }
     }
 }
 
@@ -14,17 +22,25 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
+            'city .'
             'exchangeFor proposedCurrency'
             'exchangeRate .'
             'submitBtn resetBtn';
         gap: 16px;
+        .propertyCity {
+            margin-bottom: 0;
+            grid-area: city;
+        }
         .exchangeFor {
+            margin-bottom: 0;
             grid-area: exchangeFor;
         }
-        .exchangeRateInput {
+        .exchangeRate {
+            margin-bottom: 0;
             grid-area: exchangeRate;
         }
         .proposedCurrency {
+            margin-bottom: 0;
             grid-area: proposedCurrency;
         }
         .reset_setting_form {

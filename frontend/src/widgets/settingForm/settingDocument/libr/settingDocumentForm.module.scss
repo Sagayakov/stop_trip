@@ -6,12 +6,40 @@
     .documentType {
         margin-bottom: 24px;
     }
+    .propertyCity {
+        margin-bottom: 24px;
+        h3 {
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-    .filterDocumentForm{
+    .filterDocumentForm {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            'city .'
+            'duration type'
+            'resetBtn submitBtn';
         gap: 16px;
+
+        .propertyCity {
+            grid-area: city;
+        }
+        .documentDuration {
+            grid-area: duration;
+        }
+        .documentType {
+            grid-area: type;
+        }
+        input[type='submit'] {
+            grid-area: submitBtn;
+        }
+        .reset_setting_form {
+            grid-area: resetBtn;
+        }
     }
 }

@@ -1,0 +1,21 @@
+.copy_number_toast {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .copy_button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 2rem;
+        border: none;
+        border-radius: var(--radii);
+        background-color: var(--main-blue);
+        padding: 0 0.5rem;
+        color: white;
+        font-family: var(--font-sf);
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+    }
+}

@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { toast } from 'react-toastify';
 import { useAppSelector } from 'app/store/hooks';
+import { CopyNumberMessage } from 'features/copyNumberMessage';
 
 interface Props {
     data: ProductType;
@@ -23,7 +24,9 @@ export const DesktopAdvert = ({ data, date }: Props) => {
 
     const handleClickShowNumber = () => {
         if (data) {
-            toast.success(`${data.owner.phone}`);
+            toast.success(<CopyNumberMessage phone={data.owner.phone} />, {
+                autoClose: false,
+            });
         }
     };
 

@@ -48,7 +48,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
 
     const onsubmit: SubmitHandler<TypeSettingRealty> = (data) => {
         const filters = getRealtyQuery(data);
-        setSearchParams(`category=property${filters}`);
+        setSearchParams(`category=property${filters}&page=1`);
         setShowFilters(false);
         scrollToTop();
     };

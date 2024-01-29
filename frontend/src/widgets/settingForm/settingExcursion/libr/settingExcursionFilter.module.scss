@@ -2,17 +2,44 @@
     h3 {
         margin-bottom: 14px;
     }
-    .settingExcursion {
+    .settingExcursionTransfer,
+    .settingExcursionFood {
         margin-bottom: 24px;
     }
+    .propertyCity {
+        margin-bottom: 24px;
+        h3 {
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
 }
-@media(min-width: 768px) and (max-width: 1023px){
-    .filterExcursionForm{
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .filterExcursionForm {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
-        .settingExcursion{
-            margin-bottom: 0;
+        grid-template-areas:
+            'city .'
+            'food transfer'
+            'submitBtn resetBnt';
+
+        .propertyCity {
+            grid-area: city;
+        }
+        .settingExcursionFood {
+            grid-area: food;
+        }
+        .settingExcursionTransfer {
+            grid-area: transfer;
+        }
+        .reset_setting_form {
+            grid-area: resetBnt;
+        }
+        input[type='submit'] {
+            grid-area: submitBtn;
         }
     }
 }

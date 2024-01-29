@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import {
+    City,
     DocumentDuration,
     DocumentType,
 } from 'features/settingCategoryForm/settingDocumentForm';
@@ -28,14 +29,17 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
         useForm<TypeOfDocumentFilter>();
 
     const onsubmit: SubmitHandler<TypeOfDocumentFilter> = (data) => {
-        const { document_duration, document_type } = data;
+        const { city, document_duration, document_type } = data;
 
-        const { duration, types } = searchParamsForDocument(
+        const { documentCity, duration, types } = searchParamsForDocument(
+            city,
             document_duration,
             document_type
         );
 
-        setSearchParams(`category=document${types}${duration}`);
+        setSearchParams(
+            `category=document${documentCity}${types}${duration}&page=1`
+        );
 
         setShowFilters(false);
         scrollToTop();
@@ -52,11 +56,12 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-document"
             >
+                <City control={control} setValue={setValue} />
                 <DocumentType control={control} setValue={setValue} />
                 <DocumentDuration control={control} setValue={setValue} />
                 <input type="submit" value={t('filters.apply')} />
                 <button
-                    className={formStyles.reset_setting_form}
+                    className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={onReset}
                 >
                     <Reset color="#1F6FDE" />

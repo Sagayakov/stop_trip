@@ -14,8 +14,8 @@
     .withExperience {
         margin-bottom: 24px;
     }
-    .typeOfJob{
-        .checkbox_group{
+    .typeOfJob {
+        .checkbox_group {
             display: flex;
             justify-content: space-between;
         }
@@ -26,6 +26,14 @@
             justify-content: space-between;
         }
     }
+    .propertyCity {
+        margin-bottom: 24px;
+        h3 {
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -34,23 +42,26 @@
         grid-template-columns: 1fr 1fr;
         gap: 1.5rem;
         grid-template-areas:
-            'typeOfJob durationOfWork'
-            'payment withExp'
-            'price ...'
+            'city typeOfJob'
+            'durationOfWork payment'
+            'withExp price'
             'btnReset btnSubmit';
-        .durationOfWork{
+        .propertyCity {
+            grid-area: city;
+        }
+        .durationOfWork {
             grid-area: durationOfWork;
         }
-        .jobPrice{
+        .jobPrice {
             grid-area: price;
         }
-        .typeOfJob{
+        .typeOfJob {
             grid-area: typeOfJob;
         }
-        .typeOfPayment{
+        .typeOfPayment {
             grid-area: payment;
         }
-        .withExperience{
+        .withExperience {
             grid-area: withExp;
         }
         .reset_setting_form {

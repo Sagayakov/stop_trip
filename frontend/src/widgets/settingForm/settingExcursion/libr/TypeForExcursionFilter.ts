@@ -1,4 +1,5 @@
-export interface TypeForExcursionFilter{
-    excursion_food: boolean
-    excursion_transfer: boolean
+export interface TypeForExcursionFilter {
+    city: string[];
+    excursion_food: boolean;
+    excursion_transfer: boolean;
 }

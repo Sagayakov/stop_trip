@@ -1,7 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypeForExcursionFilter } from 'widgets/settingForm/settingExcursion/libr/TypeForExcursionFilter.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'widgets/settingForm/settingExcursion/libr/settingExcursionFilter.module.scss'
+import styles from 'widgets/settingForm/settingExcursion/libr/settingExcursionFilter.module.scss';
 interface Props {
     register: UseFormRegister<TypeForExcursionFilter>;
 }
@@ -10,7 +10,7 @@ export const ExcursionFood = ({ register }: Props) => {
     const { t } = useTranslation();
 
     return (
-        <div className={styles.settingExcursion}>
+        <div className={styles.settingExcursionFood}>
             <h3>{t('filters.food')}</h3>
             <label className="form_checkbox">
                 <input type="checkbox" {...register('excursion_food')} />

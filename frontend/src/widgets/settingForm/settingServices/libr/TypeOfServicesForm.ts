@@ -1,9 +1,10 @@
 export interface TypeOfServicesForm {
-    service_home_visit: boolean
-    price: Price
+    city: string[];
+    service_home_visit: boolean;
+    price: Price;
 }
 
 interface Price {
-    min: number
-    max: number
+    min: number;
+    max: number;
 }
