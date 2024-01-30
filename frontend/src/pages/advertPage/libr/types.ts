@@ -85,8 +85,20 @@ type Owner = {
     avg_rating: number;
     my_rating: number;
     rating_num: number;
+    user_messengers: UserMessenger[];
 };
 
 type Amenity = {
     name: string;
+};
+
+type UserMessenger = {
+    messenger: Messenger;
+    link_to_user: string;
+};
+
+export type Messenger = {
+    id: number;
+    name: string;
+    link_to_messenger: string;
 };
