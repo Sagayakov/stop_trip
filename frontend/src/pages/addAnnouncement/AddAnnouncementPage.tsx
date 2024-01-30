@@ -53,7 +53,6 @@ const AddAnnouncementPage = () => {
     const [addAdvert, {isSuccess, isError, isLoading}] = useAddAdvertMutation();
 
     const onsubmit = async (data: FormAddAnn) => {
-        console.log(data);
         setValue('country', 'india');
         setValue('region', "goa");
         dispatch(setLoading(true));
@@ -133,7 +132,6 @@ const AddAnnouncementPage = () => {
                             <AnnouncementPriceField
                                 register={register}
                                 formState={formState}
-                                watch={watch}
                             />
                         )}
                         <AnnouncementDescriptionField control={control} />

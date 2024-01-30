@@ -48,6 +48,7 @@ export const AnnouncementJob = ({
                 register={register}
                 defaultValue={data?.job_experience}
                 formState={formState}
+                setValue={setValue}
             />
         </>
     );
