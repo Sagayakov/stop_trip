@@ -37,7 +37,9 @@ export const AddMessengerForm = () => {
 
     const onsubmit: SubmitHandler<SettingMessengerType> = (data) => {
         console.log(data);
-        //const { messenger, link_to_user } = data;
+        const { messenger, link_to_user } = data;
+        const body = { messenger: 1, link_to_user };
+        addMessenger({ body });
 
         reset();
     };

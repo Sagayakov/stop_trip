@@ -30,7 +30,7 @@ export const fetchMessengers = createApi({
                 headers: {
                     'X-Csrftoken': `${Cookies.get('access_token')}`,
                     'Content-Type': 'application/json',
-                    //Authorization: `Bearer ${Cookies.get('access_token')}`,
+                    Authorization: `Bearer ${Cookies.get('access_token')}`,
                 },
                 body,
             }),
