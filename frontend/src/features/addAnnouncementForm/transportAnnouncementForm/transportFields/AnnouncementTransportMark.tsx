@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 
+
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
@@ -24,6 +25,14 @@ export const AnnouncementTransportMark = ({
         {value: 'toyota', label: 'Toyota'},
         {value: 'yamaha', label: 'Yamaha'},
     ];
+    //пока приходит id почему-то, как будет слаг - раскомментировать
+    // useEffect(() => {
+    //     if(defaultValue){
+    //         setValue(
+    //             'transport_brand',
+    //             String(getDefaultValue(defaultValue, optionValues)!.value))
+    //     }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+    // }, []);
 
     return (
         <div className={styles.ann_field}>

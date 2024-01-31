@@ -5,17 +5,11 @@ import { useMyAnnouncementsQuery } from 'app/api/fetchAdverts.ts';
 import { MyAnnouncementCart } from 'features/myAnnouncements/MyAnnouncementCart.tsx';
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
-import { useEffect } from 'react';
-import { pushViewListWithoutDataResult } from 'shared/eCommercy/pushViewListWithoutDataResult.ts';
 
 const MyAnnouncements = () => {
     const { t } = useTranslation();
     const { accessToken } = getTokensFromStorage();
     const { data, isLoading, refetch } = useMyAnnouncementsQuery(accessToken);
-
-    useEffect(() => {
-        pushViewListWithoutDataResult(data, "Мои объявления");
-    }, [data]);
 
     return (
         <>

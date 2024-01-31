@@ -5,6 +5,7 @@ import { valuesOfTransportForm } from 'widgets/settingForm/settingTransport/libr
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
+import { useEffect } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -19,6 +20,14 @@ export const AnnouncementTransportBodyType = ({
 }: Props) => {
     const optionValues = valuesOfTransportForm.transport_body_type;
     const { t } = useTranslation();
+
+    useEffect(() => {
+        if(defaultValue){
+            setValue(
+                'transport_body_type',
+                String(getDefaultValue(defaultValue, optionValues)!.value))
+        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+    }, []);
 
     return (
         <div className={styles.ann_field}>

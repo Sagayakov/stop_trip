@@ -45,6 +45,7 @@ const AdvertisementEditing = () => {
     const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery(slug);
     const { accessToken, refreshToken } = getTokensFromStorage();
     const { data: user } = useGetUserQuery(accessToken);
+
     const [editAdvert, { isLoading: isSendLoading, isSuccess, isError: isSendError }] = useEditAdvertMutation();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>(
         dataAdvert?.coordinates
@@ -82,10 +83,20 @@ const AdvertisementEditing = () => {
     };
 
     useEffect(() => {
+        setValue('country', 'india');
+        setValue('region', "goa");
         dataAdvert && setMarkerPosition(dataAdvert.coordinates);
         dataAdvert?.slug && setValue('slug', dataAdvert?.slug);
         dataAdvert?.images && setEditImages(dataAdvert.images)
         if(path[1] !== "advertisement-editing") setValue('category', dataAdvert?.category)
+        return () => {
+            setEditImages(undefined);
+            setSelectedImages(undefined);
+            setMarkerPosition(undefined);
+        }
+    }, [dataAdvert, setValue, isSuccess, isSendError,  path]);
+
+    useEffect(() => {
         if(isSuccess){
             toast.success(`${t('add-page.edit-success')}`)
             scrollToTop();
@@ -93,88 +104,80 @@ const AdvertisementEditing = () => {
         if(isSendError){
             toast.error(`${t('errors.add-announcement-error')}`);
         }
-        return () => {
-            setEditImages(undefined);
-            setSelectedImages(undefined);
-            setMarkerPosition(undefined);
-        }
-    }, [dataAdvert, setValue, isSuccess, isSendError, t, path]);
+    }, [t, isSendError, isSuccess]);//чтобы уведомление всплыло один раз
 
     return (
-        <>
-            <section className={styles.add_ann}>
-                <h1>{t('add-page.edit')}</h1>
-                <form
-                    className={styles.add_ann_form}
-                    onSubmit={handleSubmit(onsubmit)}
-                    id="form-edit-announcement"
-                >
-                    {isLoading && user?.id && <LoadingWithBackground />}
-                    {(isSendLoading || isLoading) && <LoadingWithBackground />}
-                    {dataAdvert && (
-                        <>
-                            {(path[1] !== "advertisement-editing") && <AnnouncementCategoryField
-                                setValue={setValue}
-                                control={control}
-                                formState={formState}
-                                defaultValue={dataAdvert.category}
-                            />}
-                            <AnnouncementRegion
-                                setValue={setValue}
-                                control={control}
-                                defaultValue={dataAdvert.region}
-                                formState={formState}
-                            />
-                            <AnnouncementCity
-                                setValue={setValue}
-                                control={control}
-                                defaultValue={dataAdvert.city}
-                                formState={formState}
-                            />
-                            <AnnouncementNameField
+        <section className={styles.add_ann}>
+            <h1>{t('add-page.edit')}</h1>
+            <form
+                className={styles.add_ann_form}
+                onSubmit={handleSubmit(onsubmit)}
+                id="form-edit-announcement"
+            >
+                {isLoading && user?.id && <LoadingWithBackground />}
+                {(isSendLoading || isLoading) && <LoadingWithBackground />}
+                {dataAdvert && (
+                    <>
+                        {(path[1] !== "advertisement-editing") && <AnnouncementCategoryField
+                            setValue={setValue}
+                            control={control}
+                            formState={formState}
+                            defaultValue={dataAdvert.category}
+                        />}
+                        <AnnouncementRegion
+                            setValue={setValue}
+                            control={control}
+                            defaultValue={dataAdvert.region}
+                            formState={formState}
+                        />
+                        <AnnouncementCity
+                            setValue={setValue}
+                            control={control}
+                            defaultValue={dataAdvert.city}
+                            formState={formState}
+                        />
+                        <AnnouncementNameField
+                            register={register}
+                            formState={formState}
+                            defaultValue={dataAdvert.title}
+                        />
+                        {category !== 'exchange_rate' && (
+                            <AnnouncementPriceField
                                 register={register}
                                 formState={formState}
-                                defaultValue={dataAdvert.title}
+                                defaultValue={dataAdvert.price}
                             />
-                            {category !== 'exchange_rate' && (
-                                <AnnouncementPriceField
-                                    register={register}
-                                    formState={formState}
-                                    defaultValue={dataAdvert.price}
-                                    watch={watch}
-                                />
-                            )}
-                            <AnnouncementDescriptionField
-                                defaultValue={dataAdvert.description}
-                                control={control}
-                            />
-                            <OptionalFields
-                                control={control}
-                                register={register}
-                                setValue={setValue}
-                                watch={watch}
-                                data={dataAdvert}
-                                formState={formState}
-                            />
-                            <AnnouncementPhotoField
-                                selectedImages={selectedImages}
-                                setSelectedImages={setSelectedImages}
-                                setValue={setValue}
-                                // images={dataAdvert?.images}
-                                setEditImages={setEditImages}
-                                editImages={editImages}
-                            />
-                            <AnnouncementLocationField
-                                setValue={setValue}
-                                markerPosition={markerPosition}
-                                setMarkerPosition={setMarkerPosition}
-                            />
-                        </>
-                    )}
-                    <AnnouncementSubmitButton />
-                </form>
-            </section>
-        </>
+                        )}
+                        <AnnouncementDescriptionField
+                            defaultValue={dataAdvert.description}
+                            control={control}
+                        />
+                        <OptionalFields
+                            control={control}
+                            register={register}
+                            setValue={setValue}
+                            watch={watch}
+                            data={dataAdvert}
+                            formState={formState}
+                        />
+                        <AnnouncementPhotoField
+                            selectedImages={selectedImages}
+                            setSelectedImages={setSelectedImages}
+                            setValue={setValue}
+                            // images={dataAdvert?.images}
+                            setEditImages={setEditImages}
+                            editImages={editImages}
+                        />
+                        <AnnouncementLocationField
+                            setValue={setValue}
+                            markerPosition={markerPosition}
+                            setMarkerPosition={setMarkerPosition}
+                        />
+                    </>
+                )}
+                <AnnouncementSubmitButton />
+            </form>
+        </section>
     );
 };
 export default AdvertisementEditing;
