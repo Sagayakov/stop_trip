@@ -12,6 +12,7 @@ import { setPageMainSlice } from 'widgets/lastAdverts/model/pageReducer/pageMain
 import { setPageCategorySlice } from 'pages/categoryPage/model/pageReducer/pageCategory';
 import { fetchRating } from 'app/api/fetchRating';
 import { fetchUser } from 'app/api/fetchUser.ts';
+import { fetchMessengers } from 'app/api/fetchMessengers';
 
 const setupStore = () =>
     configureStore({
@@ -30,14 +31,15 @@ const setupStore = () =>
             [fetchFavorites.reducerPath]: fetchFavorites.reducer,
             [fetchRating.reducerPath]: fetchRating.reducer,
             [fetchUser.reducerPath]: fetchUser.reducer,
+            [fetchMessengers.reducerPath]: fetchMessengers.reducer,
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
                 .concat(fetchUser.middleware)
                 .concat(fetchAdverts.middleware)
                 .concat(fetchFavorites.middleware)
-                .concat(fetchRating.middleware), //getDefaultMiddleWare это функция, которая вернет массив, и в этот массив мы добавляем еще миддлвееры которые лежат в goodsApi
-
+                .concat(fetchRating.middleware)
+                .concat(fetchMessengers.middleware), //getDefaultMiddleWare это функция, которая вернет массив, и в этот массив мы добавляем еще миддлвееры которые лежат в goodsApi
     });
 
 export const store = setupStore();

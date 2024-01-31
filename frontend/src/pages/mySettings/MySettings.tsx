@@ -14,6 +14,7 @@ import {
     useSetUserMutation,
 } from 'app/api/fetchUser.ts';
 import { MySettingForm } from 'widgets/mySetting/MySettingForm.tsx';
+import { SettingMessengers } from 'widgets/settingMessengers';
 
 const MySettings = () => {
     const { t } = useTranslation();
@@ -81,6 +82,12 @@ const MySettings = () => {
                 &nbsp;{` > ${t('my-settings.setting')}`}
             </div>
             <h1 className={styles.title}>{t('my-settings.setting')}</h1>
+            {userData && (
+                <p className={styles.user_email}>
+                    {t('my-settings.mail-address')}: <b>{userData.email}</b>
+                </p>
+            )}
+            <SettingMessengers />
             <form
                 className={styles.setting_form}
                 onSubmit={handleSubmit(onsubmit)}

@@ -12,11 +12,11 @@ export const fetchMessengers = createApi({
             query: (page = '') => ({
                 url: `api/messengers/${page ? `?page=${page}` : ''}`,
                 method: 'GET',
-                /* credentials: 'include',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${Cookies.get('access_token')}`,
-                }, */
+                },
             }),
             providesTags: ['Messengers'],
         }),
