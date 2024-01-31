@@ -330,7 +330,8 @@
         "correct-name": "Enter correct name",
         "user-messengers": "Your messengers",
         "select-messenger": "Select a messenger",
-        "add-messenger": "Add"
+        "add-messenger": "Add",
+        "correct-link": "You can enter phone number in international format or username (if possible)"
     },
     "feedback": {
         "feedback-message": "10 to 900 characters"
