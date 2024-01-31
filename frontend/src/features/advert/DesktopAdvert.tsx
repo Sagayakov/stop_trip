@@ -82,11 +82,11 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                     {/*>*/}
                     {/*    {t('advert-page.write')}*/}
                     {/*</button>*/}
-                    {data.owner.user_messengers.length && (
+                    {data.owner.user_messengers.length ? (
                         <AdvertMessengers
                             messengers={data.owner.user_messengers}
                         />
-                    )}
+                    ) : null}
                     {date && (
                         <p className={styles.public_date}>
                             {t('advert-page.published')}{' '}
