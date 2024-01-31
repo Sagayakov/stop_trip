@@ -94,6 +94,13 @@
                 font-weight: 700;
                 cursor: pointer;
             }
+            .user_messengers {
+                display: flex;
+                gap: 0.5rem;
+                img {
+                    width: 2.5rem;
+                }
+            }
         }
     }
 }
