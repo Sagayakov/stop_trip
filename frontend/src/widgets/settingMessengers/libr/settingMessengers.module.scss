@@ -12,49 +12,48 @@
             display: flex;
             width: 100%;
 
-            .messenger_select {
-                flex: 0 0 auto;
-                height: 2.5rem;
-                border: 1px solid var(--grey-1);
-                border-radius: 0.5rem;
-                -webkit-appearance: none;
-                background: white;
-                background: white url('../../../shared/ui/icons/down-grey.svg')
-                    no-repeat right center;
-                background-size: 12%;
-                padding: 0.5rem 2rem 0.5rem 1rem;
-                margin-right: 0.5rem;
-                font-weight: 500;
-                color: var(--main-black);
-            }
-            .messenger_select:focus {
-                outline: none;
-                border-color: var(--main-blue);
-                background-color: var(--grey-4);
-                color: var(--main-black);
+            .messenger_select_wrapper {
+                width: 28%;
             }
 
-            .prefix_input {
+            .prefix_span {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.5rem;
                 outline: none;
-                width: 3rem;
+                width: auto;
                 height: 2.5rem;
                 border: 1px solid var(--grey-1);
+                border-right: none;
                 border-radius: 0.5rem 0 0 0.5rem;
-                padding: 1rem;
-                &:focus {
-                    border-color: var(--grey-1) !important;
+                padding: 0 0 0 0.5rem;
+                margin-left: 0.5rem;
+                color: var(--grey-5);
+                white-space: nowrap;
+                img {
+                    width: 1.5rem;
                 }
             }
 
-            .link_input {
-                outline: none;
+            .link_wrapper {
+                display: flex;
+                flex-direction: column;
                 width: 40%;
-                height: 2.5rem;
-                border: 1px solid var(--grey-1);
-                border-radius: 0 0.5rem 0.5rem 0;
-                padding: 1rem;
-                &:focus {
-                    border: 1px solid var(--main-blue);
+                .link_input {
+                    outline: none;
+                    width: 100%;
+                    height: 2.5rem;
+                    border: 1px solid var(--grey-1);
+                    border-radius: 0 0.5rem 0.5rem 0;
+                    padding: 0.5rem 0.5rem 0.5rem 0;
+                    &:focus {
+                        border: 1px solid var(--main-blue);
+                    }
+                }
+
+                .link_tooltip {
+                    font-size: 13px;
                 }
             }
 
@@ -76,5 +75,14 @@
                 }
             }
         }
+    }
+}
+
+.select_option {
+    display: flex;
+    align-items: center;
+    img {
+        width: 1.5rem;
+        margin-right: 5px;
     }
 }
