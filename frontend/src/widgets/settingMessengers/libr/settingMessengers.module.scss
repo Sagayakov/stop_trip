@@ -1,0 +1,80 @@
+.messengers_wrapper {
+    width: 100%;
+    .messengers_header {
+        margin: 1rem 0;
+        font-size: 20px;
+    }
+    .add_messengers_block {
+        border-bottom: 1px solid var(--grey-1);
+        padding: 1rem 0;
+        width: 100%;
+        .add_messenger_form {
+            display: flex;
+            width: 100%;
+
+            .messenger_select {
+                flex: 0 0 auto;
+                height: 2.5rem;
+                border: 1px solid var(--grey-1);
+                border-radius: 0.5rem;
+                -webkit-appearance: none;
+                background: white;
+                background: white url('../../../shared/ui/icons/down-grey.svg')
+                    no-repeat right center;
+                background-size: 12%;
+                padding: 0.5rem 2rem 0.5rem 1rem;
+                margin-right: 0.5rem;
+                font-weight: 500;
+                color: var(--main-black);
+            }
+            .messenger_select:focus {
+                outline: none;
+                border-color: var(--main-blue);
+                background-color: var(--grey-4);
+                color: var(--main-black);
+            }
+
+            .prefix_input {
+                outline: none;
+                width: 3rem;
+                height: 2.5rem;
+                border: 1px solid var(--grey-1);
+                border-radius: 0.5rem 0 0 0.5rem;
+                padding: 1rem;
+                &:focus {
+                    border-color: var(--grey-1) !important;
+                }
+            }
+
+            .link_input {
+                outline: none;
+                width: 40%;
+                height: 2.5rem;
+                border: 1px solid var(--grey-1);
+                border-radius: 0 0.5rem 0.5rem 0;
+                padding: 1rem;
+                &:focus {
+                    border: 1px solid var(--main-blue);
+                }
+            }
+
+            .submit {
+                width: 25%;
+                height: 2.5rem;
+                background-color: #02c66e;
+                border: none;
+                border-radius: 8px;
+                margin-left: 0.5rem;
+                color: white;
+                cursor: pointer;
+                &:hover {
+                    background-color: #02c66e;
+                }
+                &:disabled {
+                    background-color: var(--grey-2);
+                    cursor: default;
+                }
+            }
+        }
+    }
+}

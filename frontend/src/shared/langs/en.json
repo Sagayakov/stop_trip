@@ -327,7 +327,10 @@
         "password-change": "Password change",
         "same-password": "The new password must be different from the old one",
         "equal-new-password": "The new password must be different from the old password",
-        "correct-name": "Enter correct name"
+        "correct-name": "Enter correct name",
+        "user-messengers": "Your messengers",
+        "select-messenger": "Select a messenger",
+        "add-messenger": "Add"
     },
     "feedback": {
         "feedback-message": "10 to 900 characters"

@@ -327,7 +327,10 @@
         "password-change": "Смена пароля",
         "same-password": "Новый пароль должен отличаться от старого",
         "equal-new-password": "Новый пароль должен отличаться от старого",
-        "correct-name": "Введите корректное имя"
+        "correct-name": "Введите корректное имя",
+        "user-messengers": "Ваши мессенджеры",
+        "select-messenger": "Выберите мессенджер",
+        "add-messenger": "Добавить"
     },
 
     "feedback": {
