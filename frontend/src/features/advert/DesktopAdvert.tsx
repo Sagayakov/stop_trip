@@ -11,6 +11,7 @@ import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { toast } from 'react-toastify';
 import { useAppSelector } from 'app/store/hooks';
 import { CopyNumberMessage } from 'features/copyNumberMessage';
+import { AdvertMessengers } from 'features/advertMessengers';
 
 interface Props {
     data: ProductType;
@@ -81,6 +82,11 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                     {/*>*/}
                     {/*    {t('advert-page.write')}*/}
                     {/*</button>*/}
+                    {data.owner.user_messengers.length && (
+                        <AdvertMessengers
+                            messengers={data.owner.user_messengers}
+                        />
+                    )}
                     {date && (
                         <p className={styles.public_date}>
                             {t('advert-page.published')}{' '}

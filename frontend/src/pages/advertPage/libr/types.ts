@@ -76,7 +76,7 @@ export type ProductType = {
     transport_commission: null | number;
 };
 
-type Owner = {
+export type Owner = {
     date_joined: string;
     email: string;
     full_name: string;
@@ -92,7 +92,7 @@ type Amenity = {
     name: string;
 };
 
-type UserMessenger = {
+export type UserMessenger = {
     messenger: Messenger;
     link_to_user: string;
 };

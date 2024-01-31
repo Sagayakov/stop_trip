@@ -7,6 +7,7 @@ import { ProductInfo } from 'features/advert/ProductInfo.tsx';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { useTranslation } from 'react-i18next';
 import { Date } from 'widgets/advert/libr/types.ts';
+import { AdvertMessengers } from 'features/advertMessengers';
 // import { toast } from 'react-toastify';
 
 interface Props {
@@ -38,6 +39,11 @@ export const MobileAdvert = ({ data, date }: Props) => {
                     {/*>*/}
                     {/*    {t('advert-page.write')}*/}
                     {/*</button>*/}
+                    {data.owner.user_messengers.length && (
+                        <AdvertMessengers
+                            messengers={data.owner.user_messengers}
+                        />
+                    )}
                     {date && (
                         <p className={styles.public_date}>
                             {t('advert-page.published')}{' '}
