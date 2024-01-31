@@ -13,4 +13,7 @@ type Result = {
     link_to_user: string;
 };
 
-export type AddMessengerType = Omit<Result, 'id'>;
+export type AddMessengerType = {
+    messenger: number;
+    link_to_user: string;
+};
