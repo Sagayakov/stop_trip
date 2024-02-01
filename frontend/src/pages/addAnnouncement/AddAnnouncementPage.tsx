@@ -27,7 +27,7 @@ import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefres
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
-import { useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
+import { fetchAdverts, useAddAdvertMutation } from 'app/api/fetchAdverts.ts';
 
 const AddAnnouncementPage = () => {
     const {
@@ -79,12 +79,14 @@ const AddAnnouncementPage = () => {
             setModalSuccess(true);
             setSelectedImages(undefined);
             setMarkerPosition(undefined);
+            dispatch(fetchAdverts.util?.invalidateTags(['Adverts', 'MyAnnouncements']))
+            //очищаем кэш, чтобы обновить данные по объявлениям
             reset();
         }
         if(isError) toast.error(`${t('errors.add-announcement-error')}`);
         setValue('country', 'india');
         setValue('region', "goa");
-    }, [isSuccess, isError, reset, t, setValue]);
+    }, [isSuccess, isError]);
 
     return (
         <>
