@@ -3,7 +3,7 @@ import 'pages/addAnnouncement/libr/selectAddAnnouncement.scss';
 import { useForm } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import { useEditAdvertMutation, useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
+import { fetchAdverts, useEditAdvertMutation, useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
     AnnouncementCategoryField,
@@ -100,6 +100,8 @@ const AdvertisementEditing = () => {
         if(isSuccess){
             toast.success(`${t('add-page.edit-success')}`)
             scrollToTop();
+            dispatch(fetchAdverts.util?.invalidateTags(['Adverts', 'MyAnnouncements']))
+            //очищаем кэш, чтобы обновить данные по объявлениям
         }
         if(isSendError){
             toast.error(`${t('errors.add-announcement-error')}`);

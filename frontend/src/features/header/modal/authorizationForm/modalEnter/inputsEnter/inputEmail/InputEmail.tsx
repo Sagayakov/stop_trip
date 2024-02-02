@@ -44,7 +44,7 @@ export const InputEmail = ({
         const firstPart = inputText.slice(0, atIndex);
         const domainPart = inputText.slice(atIndex + 1);
 
-        sessionStorage.setItem('emailRegistration', inputText);
+        sessionStorage.setItem('emailEnter', inputText);
 
         setLengthError(
             firstPart.length >= 64 ||
