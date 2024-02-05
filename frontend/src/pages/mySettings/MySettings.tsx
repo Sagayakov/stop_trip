@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
-import {  useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
@@ -34,8 +34,8 @@ const MySettings = () => {
         getAccessTokenWithRefresh(dispatch, refreshToken);
     }, [dispatch]);
     useEffect(() => {
-        dispatch(fetchUser.util?.invalidateTags(['User']));//очищаем кэш по юзеру
-    }, [])
+        dispatch(fetchUser.util?.invalidateTags(['User'])); //очищаем кэш по юзеру
+    }, []);
 
     const onsubmit: SubmitHandler<SettingTypes> = async (
         data: SettingTypes
