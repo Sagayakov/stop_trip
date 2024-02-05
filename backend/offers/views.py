@@ -65,6 +65,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 Prefetch(
                     "owner",
                     User.objects.all()
+                    .prefetch_related("rating_from_users")
                     .annotate_avg_rating()
                     .annotate_rating_num()
                     .annotate_my_rating(self.request.user.id),

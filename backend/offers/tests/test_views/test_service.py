@@ -146,7 +146,7 @@ class ServiceTest(APITestCase):
             )
             for _ in range(2)
         ]
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(
                 self.list_url,
                 {"service_home_visit": True},

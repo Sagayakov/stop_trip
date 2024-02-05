@@ -122,7 +122,7 @@ class AdvertisementViewSetTest(APITestCase):
             for category in CategoryChoices.values
         ]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(self.list_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -182,7 +182,7 @@ class AdvertisementViewSetTest(APITestCase):
             for category in CategoryChoices.values
         ]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(
                 self.list_url,
                 {"category": CategoryChoices.TRANSPORT},
@@ -199,7 +199,7 @@ class AdvertisementViewSetTest(APITestCase):
             for _ in [i * 100_000 for i in range(1, 10)]
         ]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(
                 self.list_url,
                 {
@@ -217,7 +217,7 @@ class AdvertisementViewSetTest(APITestCase):
         cities = [CityFactory() for _ in range(5)]
         advertisements = [BaseAdvertisementFactory(owner=user, city=city) for city in cities]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(self.list_url, {"city": cities[0].slug})
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -229,7 +229,7 @@ class AdvertisementViewSetTest(APITestCase):
         regions = [RegionFactory() for _ in range(5)]
         advertisements = [BaseAdvertisementFactory(owner=user, region=region) for region in regions]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(self.list_url, {"region": regions[0].slug})
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -240,7 +240,7 @@ class AdvertisementViewSetTest(APITestCase):
         user = UserFactory()
         advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(3)]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(
                 self.list_url,
                 {"order": "-date_create"},
@@ -258,7 +258,7 @@ class AdvertisementViewSetTest(APITestCase):
             BaseAdvertisementFactory(owner=user, price=1_000_000 + _) for _ in range(3)
         ]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(
                 self.list_url,
                 {"order": "-price"},

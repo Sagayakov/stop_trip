@@ -150,7 +150,7 @@ class EventTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(
                 self.list_url,
                 {"start_date": str(start_date)},
@@ -176,7 +176,7 @@ class EventTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(
                 self.list_url,
                 {"end_date": str(end_date)},
@@ -200,7 +200,7 @@ class EventTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(
                 self.list_url,
                 {"is_online": True},

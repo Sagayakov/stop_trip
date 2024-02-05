@@ -147,7 +147,7 @@ class ExcursionTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(self.list_url, {"excursion_food": True})
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -168,7 +168,7 @@ class ExcursionTest(APITestCase):
             for _ in range(2)
         ]
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             res = self.client.get(self.list_url, {"excursion_transfer": True})
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
