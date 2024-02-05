@@ -100,6 +100,7 @@ export const AnnouncementRealty = ({
                 register={register}
                 defaultValue={data?.property_has_furniture}
                 formState={formState}
+                setValue={setValue}
             />
             <AnnouncementRealtyParking
                 register={register}

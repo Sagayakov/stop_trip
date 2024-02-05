@@ -25,6 +25,14 @@ export const AnnouncementTransportModelOfTransport = ({
         {value: 'land-cruizer', label: 'Land Cruizer'},
         {value: 'tdm-850', label: 'TDM-850'},
     ];
+    // //пока приходит id, как будет слаг - раскомментировать
+    // useEffect(() => {
+    //     if(defaultValue){
+    //         setValue(
+    //             'transport_model',
+    //             String(getDefaultValue(defaultValue, optionValues)!.value))
+    //     }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+    // }, []);
 
     return (
         <div className={styles.ann_field}>
