@@ -89,8 +89,10 @@ export const CategoryAdvert = (el: Props) => {
     };
 
     useEffect(() => {
-        const target = data?.results.find((el) => el.id === id);
-        isAuth && setAddToFav(!!target);
+        if (data && data.results) {
+            const target = data.results.find((el) => el.id === id);
+            isAuth && setAddToFav(!!target);
+        }
     }, [data, id, isAuth]);
 
     const date = getDate(date_create);
