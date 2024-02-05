@@ -30,8 +30,10 @@ export const Like = ({
     const [isLike, setIsLike] = useState(false);
 
     useEffect(() => {
-        const target = data?.results.find((el) => el.id === id);
-        isAuth && setIsLike(!!target);
+        if (data && data.results) {
+            const target = data.results.find((el) => el.id === id);
+            isAuth && setIsLike(!!target);
+        }
     }, [data, id, isAuth]);
 
     const addToFavorite = () => {
