@@ -34,6 +34,7 @@ class MessengerListSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserMessenger
         fields = (
+            "id",
             "messenger",
             "link_to_user",
         )

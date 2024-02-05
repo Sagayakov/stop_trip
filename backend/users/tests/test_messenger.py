@@ -72,3 +72,27 @@ class MessengerTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(UserMessenger.objects.count(), 0)
+
+    def test_list_messenger(self):
+        me = UserFactory()
+        my_messengers = [UserMessengerFactory(owner=me) for _ in range(5)]
+
+        user = UserFactory()
+        _ = [UserMessengerFactory(owner=user) for _ in range(3)]
+
+        self.client.force_login(me)
+        with self.assertNumQueries(8):
+            res = self.client.get(self.list_url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(my_messengers))
+        self.assertEqual(res_json["results"][0]["link_to_user"], my_messengers[0].link_to_user)
+        self.assertEqual(res_json["results"][0]["id"], my_messengers[0].id)
+        self.assertEqual(
+            res_json["results"][0]["messenger"]["name"], my_messengers[0].messenger.name
+        )
+        self.assertEqual(
+            res_json["results"][0]["messenger"]["link_to_messenger"],
+            my_messengers[0].messenger.link_to_messenger,
+        )

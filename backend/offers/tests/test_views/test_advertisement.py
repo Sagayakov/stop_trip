@@ -32,7 +32,7 @@ from offers.constants import (
     PropertyType,
 )
 from offers.models import Advertisement
-from users.tests.factories import UserFactory
+from users.tests.factories import UserFactory, UserMessengerFactory
 from ..factories import (
     BaseAdvertisementFactory,
     CountryFactory,
@@ -131,6 +131,7 @@ class AdvertisementViewSetTest(APITestCase):
 
     def test_detail(self):
         user = UserFactory()
+        user_messenger = UserMessengerFactory(owner=user)
         advertisements = [
             BaseAdvertisementFactory(owner=user, category=category)
             for category in CategoryChoices.values
@@ -144,6 +145,17 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res_json["slug"], advertisements[0].slug)
         self.assertTrue(res_json["owner"])
         self.assertEqual(res_json["owner"]["id"], user.id)
+        self.assertEqual(
+            res_json["owner"]["user_messengers"][0]["messenger"]["id"], user_messenger.id
+        )
+        self.assertEqual(
+            res_json["owner"]["user_messengers"][0]["link_to_user"],
+            user_messenger.link_to_user,
+        )
+        self.assertEqual(
+            res_json["owner"]["user_messengers"][0]["messenger"]["name"],
+            user_messenger.messenger.name,
+        )
         self.assertIsNotNone(res_json["owner"]["avg_rating"])
         self.assertIsNotNone(res_json["owner"]["rating_num"])
         self.assertIsNone(res_json["owner"]["my_rating"])
