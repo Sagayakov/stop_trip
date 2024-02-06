@@ -1,9 +1,29 @@
 .messengers_wrapper {
     width: 100%;
+
     .messengers_header {
         margin: 1rem 0;
         font-size: 20px;
     }
+
+    .current_messengers {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        .user_messenger {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: fit-content;
+            background-color: var(--grey-4);
+            border-radius: 0.5rem;
+            padding: 0 0.5rem;
+            img {
+                width: 2rem;
+            }
+        }
+    }
+
     .add_messengers_block {
         border-bottom: 1px solid var(--grey-1);
         padding: 1rem 0;
