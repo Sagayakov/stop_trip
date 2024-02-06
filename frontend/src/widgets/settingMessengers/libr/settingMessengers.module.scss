@@ -1,0 +1,108 @@
+.messengers_wrapper {
+    width: 100%;
+
+    .messengers_header {
+        margin: 1rem 0;
+        font-size: 20px;
+    }
+
+    .current_messengers {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        .user_messenger {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: fit-content;
+            background-color: var(--grey-4);
+            border-radius: 0.5rem;
+            padding: 0 0.5rem;
+            img {
+                width: 2rem;
+            }
+        }
+    }
+
+    .add_messengers_block {
+        border-bottom: 1px solid var(--grey-1);
+        padding: 1rem 0;
+        width: 100%;
+        .add_messenger_form {
+            display: flex;
+            width: 100%;
+
+            .messenger_select_wrapper {
+                width: 28%;
+            }
+
+            .prefix_span {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.5rem;
+                outline: none;
+                width: auto;
+                height: 2.5rem;
+                border: 1px solid var(--grey-1);
+                border-right: none;
+                border-radius: 0.5rem 0 0 0.5rem;
+                padding: 0 0 0 0.5rem;
+                margin-left: 0.5rem;
+                color: var(--grey-5);
+                white-space: nowrap;
+                img {
+                    width: 1.5rem;
+                }
+            }
+
+            .link_wrapper {
+                display: flex;
+                flex-direction: column;
+                width: 40%;
+                .link_input {
+                    outline: none;
+                    width: 100%;
+                    height: 2.5rem;
+                    border: 1px solid var(--grey-1);
+                    border-radius: 0 0.5rem 0.5rem 0;
+                    padding: 0.5rem 0.5rem 0.5rem 0;
+                    &:focus {
+                        border: 1px solid var(--main-blue);
+                    }
+                }
+
+                .link_tooltip {
+                    font-size: 13px;
+                }
+            }
+
+            .submit {
+                width: 25%;
+                height: 2.5rem;
+                background-color: #02c66e;
+                border: none;
+                border-radius: 8px;
+                margin-left: 0.5rem;
+                color: white;
+                cursor: pointer;
+                &:hover {
+                    background-color: #02c66e;
+                }
+                &:disabled {
+                    background-color: var(--grey-2);
+                    cursor: default;
+                }
+            }
+        }
+    }
+}
+
+.select_option {
+    display: flex;
+    align-items: center;
+    img {
+        width: 1.5rem;
+        margin-right: 5px;
+    }
+}

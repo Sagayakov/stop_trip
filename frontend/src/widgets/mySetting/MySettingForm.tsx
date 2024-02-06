@@ -54,9 +54,6 @@ export const MySettingForm = (props: Props) => {
             {!data && <h1>{t('my-settings.no-data')}</h1>}
             {data && (
                 <>
-                    <p>
-                        {t('my-settings.mail-address')}: <b>{data.email}</b>
-                    </p>
                     <div className={styles.input_wrapper}>
                         <MySettingName
                             control={control}

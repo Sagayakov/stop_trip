@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
-import {  useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
@@ -15,6 +15,7 @@ import {
     useSetUserMutation,
 } from 'app/api/fetchUser.ts';
 import { MySettingForm } from 'widgets/mySetting/MySettingForm.tsx';
+import { SettingMessengers } from 'widgets/settingMessengers';
 
 const MySettings = () => {
     const { t } = useTranslation();
@@ -33,8 +34,8 @@ const MySettings = () => {
         getAccessTokenWithRefresh(dispatch, refreshToken);
     }, [dispatch]);
     useEffect(() => {
-        dispatch(fetchUser.util?.invalidateTags(['User']));//очищаем кэш по юзеру
-    }, [])
+        dispatch(fetchUser.util?.invalidateTags(['User'])); //очищаем кэш по юзеру
+    }, []);
 
     const onsubmit: SubmitHandler<SettingTypes> = async (
         data: SettingTypes
@@ -85,6 +86,12 @@ const MySettings = () => {
                 &nbsp;{` > ${t('my-settings.setting')}`}
             </div>
             <h1 className={styles.title}>{t('my-settings.setting')}</h1>
+            {userData && (
+                <p className={styles.user_email}>
+                    {t('my-settings.mail-address')}: <b>{userData.email}</b>
+                </p>
+            )}
+            <SettingMessengers />
             <form
                 className={styles.setting_form}
                 onSubmit={handleSubmit(onsubmit)}

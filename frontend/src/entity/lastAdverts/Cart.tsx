@@ -46,10 +46,8 @@ export const Cart = (cart: Props) => {
     const [addToFav, setAddToFav] = useState(false);
 
     useEffect(() => {
-        if (data && data.results) {
-            const target = data.results.find((el) => el.id === id);
-            isAuth && setAddToFav(!!target);
-        }
+        const target = data?.find((el) => el === id);
+        isAuth && setAddToFav(!!target);
     }, [data, id, isAuth]);
 
     const style = {

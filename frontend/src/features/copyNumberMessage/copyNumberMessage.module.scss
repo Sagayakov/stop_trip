@@ -3,6 +3,10 @@
     align-items: center;
     gap: 1rem;
 
+    p {
+        white-space: nowrap;
+    }
+
     .copy_button {
         display: flex;
         justify-content: center;
@@ -16,6 +20,7 @@
         font-family: var(--font-sf);
         font-weight: 700;
         text-decoration: none;
+        white-space: nowrap;
         cursor: pointer;
     }
 }

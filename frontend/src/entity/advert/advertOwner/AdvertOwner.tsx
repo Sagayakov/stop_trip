@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Rating } from 'shared/ui/Rating';
 import styles from './libr/advertOwner.module.scss';
 import { useGradeSpelling } from './libr/utils/getGradeSpelling.ts';
-import { Owner } from 'app/api/types/lastAdvertsTypes.ts';
 import { getDate } from 'shared/utils/getDate.ts';
 import { getUserIcon } from 'shared/utils/userIcon/getUserIcon.ts';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks.ts';
+import { Owner } from 'pages/advertPage/libr/types.ts';
 
 interface Props {
     owner: Owner;
