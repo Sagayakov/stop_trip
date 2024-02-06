@@ -13,6 +13,7 @@ class MessengerTest(APITestCase):
     def setUp(self):
         self.list_url: str = reverse("messengers-list")
         self.detail_url = partial(reverse, "messengers-detail")
+        self.all_messengers_url: str = reverse("messengers-all-messengers")
 
     def test_create_messenger(self):
         user = UserFactory()
@@ -96,3 +97,15 @@ class MessengerTest(APITestCase):
             res_json["results"][0]["messenger"]["link_to_messenger"],
             my_messengers[0].messenger.link_to_messenger,
         )
+
+    def test_all_messengers(self):
+        user = UserFactory()
+        messengers = [MessengerFactory() for _ in range(5)]
+
+        self.client.force_login(user)
+        with self.assertNumQueries(2):
+            res = self.client.get(self.all_messengers_url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(messengers))
