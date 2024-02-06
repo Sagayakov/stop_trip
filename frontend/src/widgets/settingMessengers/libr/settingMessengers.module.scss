@@ -13,13 +13,39 @@
         .user_messenger {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
             width: fit-content;
             background-color: var(--grey-4);
             border-radius: 0.5rem;
             padding: 0 0.5rem;
             img {
                 width: 2rem;
+                margin-right: 0.5rem;
+            }
+            .edit_input {
+                height: 2rem;
+                background-color: white !important;
+                padding: 0 2rem 0 0;
+            }
+            .edit_input_disabled {
+                height: unset;
+                width: auto;
+                background-color: var(--grey-4);
+                border: none;
+                padding: 0 2rem 0 0;
+            }
+            .finish_edit {
+                width: 3rem;
+                height: 2rem;
+                background: var(--main-green) url('shared/ui/icons/union.svg')
+                    no-repeat center center;
+                box-shadow: none;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            .edit_user_messenger,
+            .delete_user_messenger {
+                cursor: pointer;
+                margin-left: 0.5rem;
             }
         }
     }

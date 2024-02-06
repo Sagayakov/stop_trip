@@ -51,7 +51,7 @@ export const fetchMessengers = createApi({
         }),
         updateMessenger: build.mutation<
             AddMessengerType,
-            { body: AddMessengerType; id: string }
+            { body: AddMessengerType; id: string | number }
         >({
             query: ({ body, id }) => ({
                 url: `/api/messengers/${id}`,
@@ -67,11 +67,11 @@ export const fetchMessengers = createApi({
         }),
         modifyMessenger: build.mutation<
             AddMessengerType,
-            { body: Partial<AddMessengerType>; id: string }
+            { body: { link_to_user: string }; id: string | number }
         >({
             query: ({ body, id }) => ({
                 url: `/api/messengers/${id}`,
-                method: 'PATch',
+                method: 'PATCH',
                 headers: {
                     'X-Csrftoken': `${Cookies.get('access_token')}`,
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export const fetchMessengers = createApi({
             }),
             invalidatesTags: ['Messengers'],
         }),
-        deleteMessenger: build.mutation<null, { id: string }>({
+        deleteMessenger: build.mutation<null, { id: string | number }>({
             query: ({ id }) => ({
                 url: `/api/messengers/${id}`,
                 method: 'DELETE',

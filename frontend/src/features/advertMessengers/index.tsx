@@ -16,7 +16,7 @@ export const AdvertMessengers = ({ messengers }: AdvertMessengersProps) => {
                     key={el.messenger.id}
                 >
                     <img
-                        src={`../../../src/shared/ui/icons/${el.messenger.name}.png`}
+                        src={`../../../src/shared/ui/icons/icon${el.messenger.name}.png`}
                     />
                 </Link>
             ))}

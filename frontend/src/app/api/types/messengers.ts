@@ -7,7 +7,7 @@ export type MessengersType = {
     results: Result[];
 };
 
-type Result = {
+export type Result = {
     id: number;
     messenger: Messenger;
     link_to_user: string;

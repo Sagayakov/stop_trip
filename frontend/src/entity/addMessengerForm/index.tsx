@@ -48,7 +48,7 @@ export const AddMessengerForm = ({
             )!.link_to_messenger;
             setPrefix(messengerPrefix || '');
             setPrefixIcon(
-                `../../../../src/shared/ui/icons/${selected.value}.png`
+                `../../../../src/shared/ui/icons/icon${selected.value}.png`
             );
             setValue('messenger', selected.value);
         }
@@ -84,7 +84,7 @@ export const AddMessengerForm = ({
                     formatOptionLabel={(option) => (
                         <div className={styles.select_option}>
                             <img
-                                src={`../../../../src/shared/ui/icons/${option.value}.png`}
+                                src={`../../../../src/shared/ui/icons/icon${option.value}.png`}
                                 alt={option.value}
                             />
                             <span>{option.value}</span>
