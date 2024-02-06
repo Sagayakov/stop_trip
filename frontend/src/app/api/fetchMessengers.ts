@@ -2,13 +2,26 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { url } from 'shared/const/url';
 import { AddMessengerType, MessengersType } from './types/messengers';
 import Cookies from 'js-cookie';
+import { Messenger } from 'pages/advertPage/libr/types';
 
 export const fetchMessengers = createApi({
     reducerPath: 'fetchMessengers',
     tagTypes: ['Messengers'],
     baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
     endpoints: (build) => ({
-        getMessengers: build.query<MessengersType, string>({
+        getMessengers: build.query<Messenger[], string>({
+            query: () => ({
+                url: `api/messengers/all_messengers`,
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${Cookies.get('access_token')}`,
+                },
+            }),
+            providesTags: ['Messengers'],
+        }),
+        getUserMessengers: build.query<MessengersType, string>({
             query: (page = '') => ({
                 url: `api/messengers/${page ? `?page=${page}` : ''}`,
                 method: 'GET',
@@ -85,6 +98,7 @@ export const fetchMessengers = createApi({
 
 export const {
     useGetMessengersQuery,
+    useGetUserMessengersQuery,
     useAddMessengerMutation,
     useUpdateMessengerMutation,
     useModifyMessengerMutation,
