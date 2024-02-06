@@ -163,6 +163,7 @@ class AdvertisementViewSetTest(APITestCase):
     def test_my_advertisements(self):
         me = UserFactory()
         my_advertisements = [BaseAdvertisementFactory(owner=me) for _ in range(5)]
+        my_unpublished_advertisements = [BaseAdvertisementFactory(owner=me) for _ in range(2)]
 
         user = UserFactory()
         advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(5)]
@@ -173,7 +174,7 @@ class AdvertisementViewSetTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(my_advertisements))
+        self.assertEqual(len(res_json), len(my_advertisements) + len(my_unpublished_advertisements))
 
     def test_filter_category(self):
         user = UserFactory()

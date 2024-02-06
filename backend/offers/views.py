@@ -55,12 +55,12 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     lookup_field = "slug"
 
     def get_queryset(self):
-        queryset = Advertisement.objects.filter(is_published=True).select_related(
+        queryset = Advertisement.objects.select_related(
             "country", "region", "city", "proposed_currency", "exchange_for"
         )
 
         if self.action == self.list.__name__:
-            queryset = queryset.prefetch_related(
+            queryset = queryset.filter(is_published=True).prefetch_related(
                 "images",
                 Prefetch(
                     "owner",
@@ -80,26 +80,30 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
             return queryset
 
         elif self.action == self.retrieve.__name__:
-            queryset = queryset.select_related(
-                "transport_brand",
-                "transport_model",
-                "proposed_currency",
-                "exchange_for",
-            ).prefetch_related(
-                "images",
-                "property_amenities",
-                Prefetch(
-                    "owner",
-                    User.objects.all()
-                    .prefetch_related(
-                        Prefetch(
-                            "user_messengers", UserMessenger.objects.select_related("messenger")
-                        ),
-                    )
-                    .annotate_avg_rating()
-                    .annotate_rating_num()
-                    .annotate_my_rating(self.request.user.id),
-                ),
+            queryset = (
+                queryset.filter(is_published=True)
+                .select_related(
+                    "transport_brand",
+                    "transport_model",
+                    "proposed_currency",
+                    "exchange_for",
+                )
+                .prefetch_related(
+                    "images",
+                    "property_amenities",
+                    Prefetch(
+                        "owner",
+                        User.objects.all()
+                        .prefetch_related(
+                            Prefetch(
+                                "user_messengers", UserMessenger.objects.select_related("messenger")
+                            ),
+                        )
+                        .annotate_avg_rating()
+                        .annotate_rating_num()
+                        .annotate_my_rating(self.request.user.id),
+                    ),
+                )
             )
 
             return queryset
