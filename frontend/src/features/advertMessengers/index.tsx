@@ -1,4 +1,3 @@
-import { useGetMessengersQuery } from 'app/api/fetchMessengers';
 import { UserMessenger } from 'pages/advertPage/libr/types.ts';
 import { Link } from 'react-router-dom';
 import styles from 'widgets/advert/libr/advert.module.scss';
@@ -8,8 +7,6 @@ type AdvertMessengersProps = {
 };
 
 export const AdvertMessengers = ({ messengers }: AdvertMessengersProps) => {
-    const { data: allMessengersData } = useGetMessengersQuery('');
-
     return (
         <div className={styles.user_messengers}>
             {messengers.map((el) => (
@@ -18,7 +15,9 @@ export const AdvertMessengers = ({ messengers }: AdvertMessengersProps) => {
                     target="_blank"
                     key={el.messenger.id}
                 >
-                    <img src="../../../src/shared/ui/icons/tg.png" />
+                    <img
+                        src={`../../../src/shared/ui/icons/${el.messenger.name}.png`}
+                    />
                 </Link>
             ))}
         </div>
