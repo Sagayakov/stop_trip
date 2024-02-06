@@ -21,7 +21,7 @@ export const SettingMessengers = () => {
                     {userMessengersData.results.map((el) => (
                         <span key={el.id} className={styles.user_messenger}>
                             <img
-                                src={`../../../src/shared/ui/icons/${el.messenger.name}.png`}
+                                src={`../../../src/shared/ui/icons/icon${el.messenger.name}.png`}
                                 alt={el.messenger.name}
                             />
                             {`${el.messenger.link_to_messenger}${el.link_to_user}`}
