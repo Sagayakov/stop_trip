@@ -5,6 +5,7 @@ import {
     useGetMessengersQuery,
     useGetUserMessengersQuery,
 } from 'app/api/fetchMessengers';
+import { UserMessenger } from 'features/userMessenger';
 
 export const SettingMessengers = () => {
     const { t } = useTranslation();
@@ -19,13 +20,7 @@ export const SettingMessengers = () => {
             {userMessengersData && userMessengersData.results.length && (
                 <div className={styles.current_messengers}>
                     {userMessengersData.results.map((el) => (
-                        <span key={el.id} className={styles.user_messenger}>
-                            <img
-                                src={`../../../src/shared/ui/icons/icon${el.messenger.name}.png`}
-                                alt={el.messenger.name}
-                            />
-                            {`${el.messenger.link_to_messenger}${el.link_to_user}`}
-                        </span>
+                        <UserMessenger messenger={el} key={el.id} />
                     ))}
                 </div>
             )}

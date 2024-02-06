@@ -331,7 +331,8 @@
         "user-messengers": "Your messengers",
         "select-messenger": "Select a messenger",
         "add-messenger": "Add",
-        "correct-link": "You can enter phone number in international format or username (if possible)"
+        "correct-link": "You can enter phone number in international format or username (if possible)",
+        "smth-wrong": "Something went wrong. Please, try again"
     },
     "feedback": {
         "feedback-message": "10 to 900 characters"
