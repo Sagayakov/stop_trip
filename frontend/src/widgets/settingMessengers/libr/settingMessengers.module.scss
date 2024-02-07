@@ -10,6 +10,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+        width: 100%;
         .user_messenger {
             display: flex;
             align-items: center;
@@ -130,5 +131,88 @@
     img {
         width: 1.5rem;
         margin-right: 5px;
+    }
+}
+
+@media (max-width: 921px) {
+    .messengers_wrapper {
+        .add_messengers_block {
+            .add_messenger_form {
+                display: grid;
+                grid-template-columns: minmax(0, min-content) auto 25%;
+                grid-template-areas:
+                    'select select .'
+                    'prefix link submit';
+
+                .messenger_select_wrapper {
+                    grid-area: select;
+                    width: 100%;
+                    margin-bottom: 0.5rem;
+                }
+                .prefix_span {
+                    grid-area: prefix;
+                    justify-content: flex-end;
+                    width: unset;
+                    margin-left: 0;
+                }
+                .link_wrapper {
+                    grid-area: link;
+                    width: 100%;
+                    margin-right: 0.5rem;
+                }
+                .submit {
+                    grid-area: submit;
+                    width: 96%;
+                    margin-left: 0;
+                    justify-self: end;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 558px) {
+    .messengers_wrapper {
+        .add_messengers_block {
+            .add_messenger_form {
+                grid-template-columns: minmax(0, min-content) auto;
+                grid-template-areas:
+                    'select select'
+                    'prefix link'
+                    'submit submit';
+                .submit {
+                    width: 100%;
+                    margin-top: 0.5rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 442px) {
+    .messengers_wrapper {
+        .current_messengers {
+            .user_messenger {
+                img {
+                    width: 1.5rem;
+                    margin-right: 2px;
+                }
+                .edit_input,
+                .edit_input_disabled {
+                    padding-right: 0;
+                }
+            }
+        }
+        .add_messengers_block {
+            .add_messenger_form {
+                .prefix_span {
+                    gap: 2px;
+                    font-size: 13px;
+                    img {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
 }
