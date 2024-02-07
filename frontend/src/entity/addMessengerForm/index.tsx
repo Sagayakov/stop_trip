@@ -28,6 +28,7 @@ export const AddMessengerForm = ({
         handleSubmit,
         formState: { isValid },
         reset,
+        watch,
     } = useForm<SettingMessengerType>({
         mode: 'all',
     });
@@ -40,6 +41,8 @@ export const AddMessengerForm = ({
             value: el.name,
             option: el.name,
         }));
+
+    const selectValue = watch('messenger');
 
     const handleChange = (selected: Option | null) => {
         if (selected) {
@@ -121,7 +124,7 @@ export const AddMessengerForm = ({
                 <input
                     type="submit"
                     className={styles.submit}
-                    disabled={!isValid}
+                    disabled={!isValid || !selectValue}
                     value={t('my-settings.add-messenger')}
                 />
             </form>
