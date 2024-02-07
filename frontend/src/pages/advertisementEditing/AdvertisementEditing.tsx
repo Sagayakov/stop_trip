@@ -110,12 +110,12 @@ const AdvertisementEditing = () => {
 
     return (
         <section className={styles.add_ann}>
-            <h1>{t('add-page.edit')}</h1>
             <form
                 className={styles.add_ann_form}
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-edit-announcement"
             >
+                <h1>{t('add-page.edit')}</h1>
                 {isLoading && user?.id && <LoadingWithBackground />}
                 {(isSendLoading || isLoading) && <LoadingWithBackground />}
                 {dataAdvert && (
