@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "users.apps.UserConfig",
     "feedback.apps.FeedbackConfig",
     "countries.apps.CountryConfig",
+    "report.apps.ReportConfig",
 ]
 
 MIDDLEWARE = [
