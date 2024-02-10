@@ -4,6 +4,7 @@
     .messengers_header {
         margin: 1rem 0;
         font-size: 20px;
+        font-weight: 600;
     }
 
     .current_messengers {
@@ -52,7 +53,6 @@
     }
 
     .add_messengers_block {
-        border-bottom: 1px solid var(--grey-1);
         padding: 1rem 0;
         width: 100%;
         .add_messenger_form {
@@ -134,7 +134,7 @@
     }
 }
 
-@media (max-width: 921px) {
+@media (max-width: 1021px) {
     .messengers_wrapper {
         .add_messengers_block {
             .add_messenger_form {
@@ -194,8 +194,8 @@
         .current_messengers {
             .user_messenger {
                 img {
-                    width: 1.5rem;
-                    margin-right: 2px;
+                    width: 1rem;
+                    margin-right: 1px;
                 }
                 .edit_input,
                 .edit_input_disabled {

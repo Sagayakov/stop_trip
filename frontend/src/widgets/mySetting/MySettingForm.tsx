@@ -15,6 +15,7 @@ import {
     MySettingPhone,
     MySettingReNewPassword,
 } from 'features/mySetting';
+import { SettingMessengers } from 'widgets/settingMessengers';
 
 interface Props {
     control: Control<SettingTypes, string>;
@@ -68,6 +69,7 @@ export const MySettingForm = (props: Props) => {
                             mutationErrors={mutationErrors}
                         />
                     </div>
+                    <SettingMessengers />
                     <div className={styles.input_wrapper}>
                         <h2>{t('my-settings.password-change')}</h2>
                         <MySettingCurrentPassword
