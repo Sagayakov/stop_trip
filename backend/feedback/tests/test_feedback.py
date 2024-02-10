@@ -1,4 +1,3 @@
-from functools import partial
 from django.urls import reverse
 from pytest import mark
 from rest_framework.test import APITestCase
@@ -12,7 +11,6 @@ from users.tests.factories import UserFactory
 class FeedbackViewSetTest(APITestCase):
     def setUp(self):
         self.list_url: str = reverse("feedback-list")
-        self.detail_url = partial(reverse, "feedback-detail")
 
     def test_create_feedback(self):
         self.assertEqual(FeedBackModel.objects.count(), 0)
