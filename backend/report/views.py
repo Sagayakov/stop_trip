@@ -13,16 +13,12 @@ class ReportViewSet(mixins.CreateModelMixin, GenericViewSet):
     """Report View"""
 
     permission_classes = [IsAuthenticated]
+    serializer_class = ReportSerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = ReportSerializer(data=request.data)
         try:
-            serializer.is_valid(raise_exception=True)
-            serializer.validated_data["from_user"] = self.request.user
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return super().create(request, *args, **kwargs)
         except IntegrityError as _:
             return Response(
-                {"detail": "Уже есть жалоба от юзера к этому объявлению"},
                 status=status.HTTP_400_BAD_REQUEST,
             )

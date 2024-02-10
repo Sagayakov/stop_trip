@@ -6,6 +6,7 @@ class Messenger(models.Model):
 
     name = models.CharField("Название", max_length=50)
     link_to_messenger = models.CharField("Ссылка на мессенджер", max_length=100)
+    description = models.CharField("Описание", max_length=200, null=True, blank=True)
 
     class Meta:
         verbose_name = "Мессенджер"

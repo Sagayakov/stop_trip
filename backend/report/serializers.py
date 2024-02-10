@@ -8,9 +8,9 @@ from offers.models import Advertisement
 class ReportSerializer(serializers.ModelSerializer):
     """Сериализатор создания обратной связи"""
 
-    from_user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
+    from_user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     advertisement = serializers.SlugRelatedField(
-        queryset=Advertisement.objects.all(), slug_field="slug", required=False
+        queryset=Advertisement.objects.all(), slug_field="slug", required=True
     )
 
     class Meta:

@@ -19,3 +19,4 @@ class ReportAdmin(ModelAdmin):
     )
     search_fields = ("from_user__email", "advertisement__owner__email")
     list_filter = ("advertisement__owner__email",)
+    show_change_link = True

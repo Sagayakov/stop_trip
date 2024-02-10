@@ -9,18 +9,18 @@ class ReportModel(models.Model):
         "users.User",
         on_delete=models.CASCADE,
         verbose_name="От пользователя",
-        related_name="report_to_advertisement",
+        related_name="reports_to_advertisements",
     )
     advertisement = models.ForeignKey(
         "offers.Advertisement",
         on_delete=models.CASCADE,
         verbose_name="Объявление",
-        related_name="report_to_advertisement",
+        related_name="reports_to_advertisements",
     )
     reason = models.CharField("Причина жалобы", max_length=50, choices=ReasonForReport.choices)
-    description = models.CharField(
+    description = models.TextField(
         "Описание",
-        max_length=900,
+        max_length=500,
         blank=True,
         null=True,
     )

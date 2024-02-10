@@ -73,9 +73,7 @@ class ReportViewSetTest(APITestCase):
         }
         self.client.force_login(user)
         self.client.post(self.list_url, data=payload)
-        self.assertEqual(ReportModel.objects.count(), 1)
         self.client.force_login(new_user)
-        self.assertEqual(ReportModel.objects.count(), 1)
 
         with self.assertNumQueries(3):
             res = self.client.post(self.list_url, data=payload_new)
@@ -84,6 +82,5 @@ class ReportViewSetTest(APITestCase):
         self.assertEqual(ReportModel.objects.count(), 2)
         report_first = ReportModel.objects.first()
         report_last = ReportModel.objects.last()
-        self.assertEqual(report_last.from_user, new_user)
         self.assertEqual(report_first.from_user, user)
         self.assertEqual(report_last.from_user, new_user)
