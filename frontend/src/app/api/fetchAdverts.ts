@@ -5,6 +5,7 @@ import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { FiltersType } from './types/filtersType';
 import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import Cookies from 'js-cookie';
 
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
@@ -46,6 +47,10 @@ export const fetchAdverts = createApi({
                 url: `api/advertisements/${slug}/`,
                 method: 'GET',
                 credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('access_token')}`,
+                    'X-Csrftoken': `${Cookies.get('access_token')}`,
+                },
             }),
         }),
         getFilters: build.query<FiltersType, string>({
