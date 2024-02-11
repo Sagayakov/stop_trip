@@ -68,10 +68,19 @@ export const Star = ({
         event.preventDefault();
         event.stopPropagation();
         if (isAuth) {
-            setActiveStar(id);
-            refetch();
-            changeRating({ id: userId, body: { rating: id, comment: '' } });
-            toast.success(`${t('advert-page.grade-added')}`);
+            changeRating({ id: userId, body: { rating: id, comment: '' } })
+                .unwrap()
+                .then(() => {
+                    toast.success(t('advert-page.grade-added'));
+                    setActiveStar(id);
+                    refetch();
+                })
+                .catch((error) => {
+                    toast.error(
+                        JSON.stringify(error.data.message).slice(1, -1) ||
+                            t('my-settings.smth-wrong')
+                    );
+                });
         } else {
             toast.error(`${t('advert-page.grade-register')}`);
         }
