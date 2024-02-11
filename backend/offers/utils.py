@@ -1,4 +1,4 @@
-from offers.models import Advertisement, AdvertisementImage
+from .models import Advertisement, AdvertisementImage
 from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
