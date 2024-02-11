@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from countries.models import Country, Region, City
 from countries.serializers import CountrySerializer, RegionSerializer, CitySerializer
 from forbidden_words.models import ForbiddenWords
@@ -7,6 +6,8 @@ from users.serializers import (
     UserForListAdvertisementSerializer,
     UserForRetrieveAdvertisementSerializer,
 )
+
+from ..utils import compression_photo
 from ..constants import CategoryChoices
 from ..models import (
     Advertisement,
@@ -51,11 +52,10 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         images = validated_data.pop("images", [])
         advertisement = super().create(validated_data)
-        images_list: list[AdvertisementImage] = []
         if images:
-            for image in images:
-                images_list.append(AdvertisementImage(advertisement=advertisement, image=image))
-            AdvertisementImage.objects.bulk_create(images_list)
+            AdvertisementImage.objects.bulk_create(
+                compression_photo(advertisement=advertisement, images=images)
+            )
         return advertisement
 
     @staticmethod
@@ -228,13 +228,12 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
         upload_images = validated_data.pop("upload_images", [])
         delete_images = validated_data.pop("delete_images", [])
         advertisement = super().update(instance, validated_data)
-        images_list: list[AdvertisementImage] = []
         if delete_images:
             AdvertisementImage.objects.filter(advertisement=instance, id__in=delete_images).delete()
         if upload_images:
-            for image in upload_images:
-                images_list.append(AdvertisementImage(advertisement=advertisement, image=image))
-            AdvertisementImage.objects.bulk_create(images_list)
+            AdvertisementImage.objects.bulk_create(
+                compression_photo(advertisement=advertisement, images=upload_images)
+            )
         return advertisement
 
     @staticmethod
