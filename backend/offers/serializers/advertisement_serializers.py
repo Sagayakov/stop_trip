@@ -1,5 +1,7 @@
 from rest_framework import serializers
-
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from countries.models import Country, Region, City
 from countries.serializers import CountrySerializer, RegionSerializer, CitySerializer
 from forbidden_words.models import ForbiddenWords
@@ -16,6 +18,22 @@ from ..models import (
     TransportModel,
     Currency,
 )
+
+
+def compression_photo(advertisement: Advertisement, images: list[AdvertisementImage]):
+    images_list: list[AdvertisementImage] = []
+    for image in images:
+        img = Image.open(image)
+        # Разрешение фото. При таком весит примерно 150кб
+        img.thumbnail((1600, 1600))
+        output_io = BytesIO()
+        img.save(output_io, format="JPEG", quality=70)
+        image_file = InMemoryUploadedFile(
+            output_io, None, image.name, "image/jpeg", output_io.tell(), None
+        )
+        output_io.seek(0)
+        images_list.append(AdvertisementImage(advertisement=advertisement, image=image_file))
+    return images_list
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
@@ -51,11 +69,10 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         images = validated_data.pop("images", [])
         advertisement = super().create(validated_data)
-        images_list: list[AdvertisementImage] = []
         if images:
-            for image in images:
-                images_list.append(AdvertisementImage(advertisement=advertisement, image=image))
-            AdvertisementImage.objects.bulk_create(images_list)
+            AdvertisementImage.objects.bulk_create(
+                compression_photo(advertisement=advertisement, images=images)
+            )
         return advertisement
 
     @staticmethod
@@ -228,13 +245,12 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
         upload_images = validated_data.pop("upload_images", [])
         delete_images = validated_data.pop("delete_images", [])
         advertisement = super().update(instance, validated_data)
-        images_list: list[AdvertisementImage] = []
         if delete_images:
             AdvertisementImage.objects.filter(advertisement=instance, id__in=delete_images).delete()
         if upload_images:
-            for image in upload_images:
-                images_list.append(AdvertisementImage(advertisement=advertisement, image=image))
-            AdvertisementImage.objects.bulk_create(images_list)
+            AdvertisementImage.objects.bulk_create(
+                compression_photo(advertisement=advertisement, images=upload_images)
+            )
         return advertisement
 
     @staticmethod
