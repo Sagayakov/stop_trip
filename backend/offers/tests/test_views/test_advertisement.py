@@ -272,119 +272,167 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res_json["results"][-1]["id"], advertisements[0].id)
 
     def test_get_filter_params(self):
-        with self.assertNumQueries(16):
+        with self.assertNumQueries(15):
             res = self.client.get(self.get_filter_params_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
 
-        for spec in res_json["params"]:
+        for spec, value in res_json.items():
             # advertisement
-            if spec["name"] == "category":
-                self.assertEqual(len(spec["choices"]), len(CategoryChoices.choices))
-            elif spec["name"] == "region":
-                self.assertEqual(len(spec["choices"]), 0)
-            elif spec["name"] == "city":
-                self.assertEqual(len(spec["choices"]), 0)
-            elif spec["name"] == "price":
-                self.assertTrue(len(spec["range"]))
+            if spec == "category":
+                self.assertEqual(len(value), len(CategoryChoices.choices))
+            elif spec == "region":
+                self.assertEqual(len(value), 0)
+            elif spec == "city":
+                self.assertEqual(len(value), 0)
+            elif spec == "price":
+                self.assertTrue(len(value))
             # event
-            elif spec["name"] == "is_online":
-                self.assertEqual(len(spec["choices"]), len([True, False]))
+            elif spec == "is_online":
+                self.assertEqual(
+                    value,
+                    [
+                        {"value": True, "label": "Да"},
+                        {"value": False, "label": "Нет"},
+                    ],
+                )
             # job
-            elif spec["name"] == "job_type":
-                self.assertEqual(len(spec["choices"]), len(JobType.choices))
-            elif spec["name"] == "job_duration":
-                self.assertEqual(len(spec["choices"]), len(JobDurationType.choices))
-            elif spec["name"] == "job_payment_type":
-                self.assertEqual(len(spec["choices"]), len(JobPaymentType.choices))
-            elif spec["name"] == "job_experience":
-                self.assertEqual(len(spec["choices"]), len([True, False]))
+            elif spec == "job_type":
+                self.assertEqual(len(value), len(JobType.choices))
+            elif spec == "job_duration":
+                self.assertEqual(len(value), len(JobDurationType.choices))
+            elif spec == "job_payment_type":
+                self.assertEqual(len(value), len(JobPaymentType.choices))
+            elif spec == "job_experience":
+                self.assertEqual(
+                    value,
+                    [
+                        {"value": True, "label": "Да"},
+                        {"value": False, "label": "Нет"},
+                    ],
+                )
             # property
-            elif spec["name"] == "property_type":
-                self.assertEqual(len(spec["choices"]), len(PropertyType.choices))
-            elif spec["name"] == "property_type_of_service":
-                self.assertEqual(len(spec["choices"]), len(PropertyTypeOfService.choices))
-            elif spec["name"] == "property_bathroom_count":
-                self.assertEqual(len(spec["choices"]), 0)
-            elif spec["name"] == "property_bathroom_type":
-                self.assertEqual(len(spec["choices"]), len(PropertyBathroomType.choices))
-            elif spec["name"] == "property_house_type":
-                self.assertEqual(len(spec["choices"]), len(PropertyHouseType.choices))
-            elif spec["name"] == "property_sleeping_places":
-                self.assertTrue(len(spec["range"]))
-            elif spec["name"] == "property_rooms_count":
-                self.assertTrue(len(spec["range"]))
-            elif spec["name"] == "property_rental_condition":
-                self.assertEqual(len(spec["choices"]), len(PropertyRentalCondition.choices))
-            elif spec["name"] == "property_area":
-                self.assertTrue(len(spec["range"]))
-            elif spec["name"] == "property_has_furniture":
-                self.assertEqual(len(spec["choices"]), len([True, False]))
-            elif spec["name"] == "property_amenities":
-                self.assertEqual(len(spec["choices"]), 0)
+            elif spec == "property_type":
+                self.assertEqual(len(value), len(PropertyType.choices))
+            elif spec == "property_type_of_service":
+                self.assertEqual(len(value), len(PropertyTypeOfService.choices))
+            elif spec == "property_bathroom_count":
+                self.assertEqual(len(value), 0)
+            elif spec == "property_bathroom_type":
+                self.assertEqual(len(value), len(PropertyBathroomType.choices))
+            elif spec == "property_house_type":
+                self.assertEqual(len(value), len(PropertyHouseType.choices))
+            elif spec == "property_sleeping_places":
+                self.assertTrue(len(value))
+            elif spec == "property_rooms_count":
+                self.assertTrue(len(value))
+            elif spec == "property_rental_condition":
+                self.assertEqual(len(value), len(PropertyRentalCondition.choices))
+            elif spec == "property_area":
+                self.assertTrue(len(value))
+            elif spec == "property_has_furniture":
+                self.assertEqual(
+                    value,
+                    [
+                        {"value": True, "label": "Да"},
+                        {"value": False, "label": "Нет"},
+                    ],
+                )
+            elif spec == "property_amenities":
+                self.assertEqual(len(value), 0)
             # service
-            elif spec["name"] == "service_home_visit":
-                self.assertEqual(len(spec["choices"]), len([True, False]))
+            elif spec == "service_home_visit":
+                self.assertEqual(
+                    value,
+                    [
+                        {"value": True, "label": "Да"},
+                        {"value": False, "label": "Нет"},
+                    ],
+                )
             # taxi
-            elif spec["name"] == "taxi_unit":
-                self.assertEqual(len(spec["choices"]), len(TaxiUnit.choices))
-            elif spec["name"] == "taxi_type":
-                self.assertEqual(len(spec["choices"]), len(TaxiType.choices))
+            elif spec == "taxi_unit":
+                self.assertEqual(len(value), len(TaxiUnit.choices))
+            elif spec == "taxi_type":
+                self.assertEqual(len(value), len(TaxiType.choices))
             # transport
-            elif spec["name"] == "transport_type_of_service":
-                self.assertEqual(len(spec["choices"]), len(TransportTypeOfService.choices))
-            elif spec["name"] == "transport_type":
-                self.assertEqual(len(spec["choices"]), len(TransportType.choices))
-            elif spec["name"] == "transport_category":
-                self.assertEqual(len(spec["choices"]), len(TransportCategory.choices))
-            elif spec["name"] == "transport_brand":
-                self.assertEqual(len(spec["choices"]), 0)
-            elif spec["name"] == "transport_model":
-                self.assertEqual(len(spec["choices"]), 0)
-            elif spec["name"] == "transport_engine_type":
-                self.assertEqual(len(spec["choices"]), len(TransportEngineType.choices))
-            elif spec["name"] == "transport_drive_type":
-                self.assertEqual(len(spec["choices"]), len(TransportDriveType.choices))
-            elif spec["name"] == "transport_engine_volume":
-                self.assertTrue(len(spec["range"]))
-            elif spec["name"] == "transport_year_of_production":
-                self.assertTrue(len(spec["range"]))
-            elif spec["name"] == "transport_transmission_type":
-                self.assertEqual(len(spec["choices"]), len(TransportTransmissionType.choices))
-            elif spec["name"] == "transport_body_type":
-                self.assertEqual(len(spec["choices"]), len(TransportBodyType.choices))
-            elif spec["name"] == "transport_condition":
-                self.assertEqual(len(spec["choices"]), len(TransportCondition.choices))
-            elif spec["name"] == "transport_commission":
-                self.assertTrue(len(spec["range"]))
+            elif spec == "transport_type_of_service":
+                self.assertEqual(len(value), len(TransportTypeOfService.choices))
+            elif spec == "transport_type":
+                self.assertEqual(len(value), len(TransportType.choices))
+            elif spec == "transport_category":
+                self.assertEqual(len(value), len(TransportCategory.choices))
+            elif spec == "transport_brand":
+                self.assertEqual(len(value), 0)
+            elif spec == "transport_model":
+                self.assertEqual(len(value), 0)
+            elif spec == "transport_engine_type":
+                self.assertEqual(len(value), len(TransportEngineType.choices))
+            elif spec == "transport_drive_type":
+                self.assertEqual(len(value), len(TransportDriveType.choices))
+            elif spec == "transport_engine_volume":
+                self.assertTrue(len(value))
+            elif spec == "transport_year_of_production":
+                self.assertTrue(len(value))
+            elif spec == "transport_transmission_type":
+                self.assertEqual(len(value), len(TransportTransmissionType.choices))
+            elif spec == "transport_body_type":
+                self.assertEqual(len(value), len(TransportBodyType.choices))
+            elif spec == "transport_condition":
+                self.assertEqual(len(value), len(TransportCondition.choices))
+            elif spec == "transport_commission":
+                self.assertTrue(len(value))
             # exchange
-            elif spec["name"] == "proposed_currency":
-                self.assertEqual(len(spec["choices"]), 0)
-            elif spec["name"] == "exchange_for":
-                self.assertEqual(len(spec["choices"]), 0)
+            elif spec == "proposed_currency":
+                self.assertEqual(len(value), 0)
+            elif spec == "exchange_for":
+                self.assertEqual(len(value), 0)
             # food
-            elif spec["name"] == "food_delivery":
-                self.assertEqual(spec["choices"], [True, False])
-            elif spec["name"] == "food_establishment":
-                self.assertEqual(spec["choices"], [True, False])
-            elif spec["name"] == "food_type":
-                self.assertEqual(len(spec["choices"]), len(FoodType.choices))
+            elif spec == "food_delivery":
+                self.assertEqual(
+                    value,
+                    [
+                        {"value": True, "label": "Да"},
+                        {"value": False, "label": "Нет"},
+                    ],
+                )
+            elif spec == "food_establishment":
+                self.assertEqual(
+                    value,
+                    [
+                        {"value": True, "label": "Да"},
+                        {"value": False, "label": "Нет"},
+                    ],
+                )
+            elif spec == "food_type":
+                self.assertEqual(len(value), len(FoodType.choices))
             # documents
-            elif spec["name"] == "document_type":
-                self.assertEqual(len(spec["choices"]), len(DocumentType.choices))
-            elif spec["name"] == "document_duration":
-                self.assertEqual(len(spec["choices"]), len(DocumentDuration.choices))
+            elif spec == "document_type":
+                self.assertEqual(len(value), len(DocumentType.choices))
+            elif spec == "document_duration":
+                self.assertEqual(len(value), len(DocumentDuration.choices))
             # excursion
-            elif spec["name"] == "excursion_food":
-                self.assertEqual(len(spec["choices"]), len([True, False]))
-            elif spec["name"] == "excursion_transfer":
-                self.assertEqual(len(spec["choices"]), len([True, False]))
+            elif spec == "excursion_food":
+                self.assertEqual(
+                    value,
+                    [
+                        {"value": True, "label": "Да"},
+                        {"value": False, "label": "Нет"},
+                    ],
+                )
+            elif spec == "excursion_transfer":
+                self.assertEqual(
+                    value,
+                    [
+                        {"value": True, "label": "Да"},
+                        {"value": False, "label": "Нет"},
+                    ],
+                )
             # market
-            elif spec["name"] == "market_condition":
-                self.assertEqual(len(spec["choices"]), len(MarketCondition.choices))
+            elif spec == "market_condition":
+                self.assertEqual(len(value), len(MarketCondition.choices))
             else:
-                assert False, f"Add test for spec['name'] = '{spec['name']}'"
+                assert False, f"Add test for spec = '{spec}'"
 
     def test_get_available_filtered_params(self):
         with self.assertNumQueries(47):

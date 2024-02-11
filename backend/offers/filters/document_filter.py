@@ -13,24 +13,24 @@ class DocumentFilter(FilterSet):
     document_duration = ChoiceInFilter(label="Срок действия", choices=DocumentDuration.choices)
 
     @classmethod
-    def _document_filter_specs(cls, queryset) -> list[dict]:
-        specs: list[dict] = []
+    def _document_filter_specs(cls, queryset) -> dict[str, list[dict]]:
+        specs: dict[str, Union[list, dict]] = {}
 
         # Тип документа
         document_type_specs = {
-            "name": "document_type",
-            "choices": [{"value": value, "label": label} for value, label in DocumentType.choices],
+            "document_type": [
+                {"value": value, "label": label} for value, label in DocumentType.choices
+            ],
         }
-        specs.append(document_type_specs)
+        specs |= document_type_specs
 
         # Срок действия
         document_duration_specs = {
-            "name": "document_duration",
-            "choices": [
+            "document_duration": [
                 {"value": value, "label": label} for value, label in DocumentDuration.choices
             ],
         }
-        specs.append(document_duration_specs)
+        specs |= document_duration_specs
 
         return specs
 
