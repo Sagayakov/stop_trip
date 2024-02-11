@@ -1,7 +1,4 @@
 from rest_framework import serializers
-from PIL import Image
-from io import BytesIO
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from countries.models import Country, Region, City
 from countries.serializers import CountrySerializer, RegionSerializer, CitySerializer
 from forbidden_words.models import ForbiddenWords
@@ -9,6 +6,8 @@ from users.serializers import (
     UserForListAdvertisementSerializer,
     UserForRetrieveAdvertisementSerializer,
 )
+
+from ..utils import compression_photo
 from ..constants import CategoryChoices
 from ..models import (
     Advertisement,
@@ -18,22 +17,6 @@ from ..models import (
     TransportModel,
     Currency,
 )
-
-
-def compression_photo(advertisement: Advertisement, images: list[AdvertisementImage]):
-    images_list: list[AdvertisementImage] = []
-    for image in images:
-        img = Image.open(image)
-        # Разрешение фото. При таком весит примерно 150кб
-        img.thumbnail((1600, 1600))
-        output_io = BytesIO()
-        img.save(output_io, format="JPEG", quality=70)
-        image_file = InMemoryUploadedFile(
-            output_io, None, image.name, "image/jpeg", output_io.tell(), None
-        )
-        output_io.seek(0)
-        images_list.append(AdvertisementImage(advertisement=advertisement, image=image_file))
-    return images_list
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
