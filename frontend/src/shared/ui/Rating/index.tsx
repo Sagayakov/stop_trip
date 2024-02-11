@@ -1,21 +1,37 @@
 import { useState } from 'react';
 import { Star } from '../icons/icons-tools/Star';
+import { ProductType } from 'pages/advertPage/libr/types';
+import {
+    BaseQueryFn,
+    FetchArgs,
+    FetchBaseQueryError,
+    FetchBaseQueryMeta,
+    QueryDefinition,
+} from '@reduxjs/toolkit/dist/query';
+import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
 
 type RatingProps = {
     id: number;
     rating: number;
-    grades: number;
     myRating: number;
-    setGrades?: React.Dispatch<React.SetStateAction<number>>;
+    refetch: () => QueryActionCreatorResult<
+        QueryDefinition<
+            string,
+            BaseQueryFn<
+                string | FetchArgs,
+                unknown,
+                FetchBaseQueryError,
+                Record<string, never>,
+                FetchBaseQueryMeta
+            >,
+            'Adverts' | 'MyAnnouncements',
+            ProductType,
+            'fetchAdverts'
+        >
+    >;
 };
 
-export const Rating = ({
-    id,
-    rating,
-    grades,
-    setGrades,
-    myRating,
-}: RatingProps) => {
+export const Rating = ({ id, rating, myRating, refetch }: RatingProps) => {
     const [activeStar, setActiveStar] = useState(myRating);
     const [prepareStar, setPrepareStar] = useState(0);
 
@@ -34,8 +50,7 @@ export const Rating = ({
                         setPrepareStar={setPrepareStar}
                         activeStar={activeStar}
                         setActiveStar={setActiveStar}
-                        grades={grades}
-                        setGrades={setGrades}
+                        refetch={refetch}
                     />
                 );
             })}

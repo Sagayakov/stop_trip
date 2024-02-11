@@ -4,6 +4,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import styles from 'entity/advert/advertOwner/libr/advertOwner.module.scss';
 import { useChangeRatingMutation } from 'app/api/fetchRating';
+import { ProductType } from 'pages/advertPage/libr/types';
+import {
+    BaseQueryFn,
+    FetchArgs,
+    FetchBaseQueryError,
+    FetchBaseQueryMeta,
+    QueryDefinition,
+} from '@reduxjs/toolkit/dist/query';
+import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
 
 type StarProps = {
     userId: number;
@@ -12,8 +21,21 @@ type StarProps = {
     setPrepareStar: React.Dispatch<React.SetStateAction<number>>;
     activeStar: number;
     setActiveStar: React.Dispatch<React.SetStateAction<number>>;
-    grades?: number;
-    setGrades?: React.Dispatch<React.SetStateAction<number>>;
+    refetch: () => QueryActionCreatorResult<
+        QueryDefinition<
+            string,
+            BaseQueryFn<
+                string | FetchArgs,
+                unknown,
+                FetchBaseQueryError,
+                Record<string, never>,
+                FetchBaseQueryMeta
+            >,
+            'Adverts' | 'MyAnnouncements',
+            ProductType,
+            'fetchAdverts'
+        >
+    >;
 };
 
 export const Star = ({
@@ -23,8 +45,7 @@ export const Star = ({
     setPrepareStar,
     activeStar,
     setActiveStar,
-    grades,
-    setGrades,
+    refetch,
 }: StarProps) => {
     const { t } = useTranslation();
     const isAuth: boolean = useAppSelector((state) => state.setIsAuth.isAuth);
@@ -48,7 +69,7 @@ export const Star = ({
         event.stopPropagation();
         if (isAuth) {
             setActiveStar(id);
-            grades !== undefined && setGrades && setGrades(grades + 1);
+            refetch();
             changeRating({ id: userId, body: { rating: id, comment: '' } });
             toast.success(`${t('advert-page.grade-added')}`);
         } else {

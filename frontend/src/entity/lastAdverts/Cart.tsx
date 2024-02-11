@@ -139,7 +139,7 @@ export const Cart = (cart: Props) => {
                         1
                     )}`}
                     <span className={styles.rating_number}>
-                        {owner.avg_rating}
+                        {owner.avg_rating.toFixed(2)}
                     </span>
                 </div>
                 <span>{GetDateOfCreating(dateCreate)}</span>
