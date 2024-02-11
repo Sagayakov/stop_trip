@@ -17,13 +17,13 @@ export const SettingMessengers = () => {
             <p className={styles.messengers_header}>
                 {t('my-settings.user-messengers')}
             </p>
-            {userMessengersData && userMessengersData.results.length && (
+            {userMessengersData && userMessengersData.results.length ? (
                 <div className={styles.current_messengers}>
                     {userMessengersData.results.map((el) => (
                         <UserMessenger messenger={el} key={el.id} />
                     ))}
                 </div>
-            )}
+            ) : null}
             {allMessengersData && userMessengersData && (
                 <div className={styles.add_messengers_block}>
                     <AddMessengerForm
