@@ -125,7 +125,7 @@ export const AddMessengerForm = ({
                     type="submit"
                     className={styles.submit}
                     disabled={!isValid || !selectValue}
-                    value={t('my-settings.add-messenger')}
+                    value="+"
                 />
             </form>
             {response.error && (

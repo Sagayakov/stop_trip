@@ -1,5 +1,5 @@
 .messengers_wrapper {
-    width: 100%;
+    width: 50%;
 
     .messengers_header {
         margin: 1rem 0;
@@ -15,7 +15,7 @@
         .user_messenger {
             display: flex;
             align-items: center;
-            width: fit-content;
+            width: 100%;
             background-color: var(--grey-4);
             border-radius: 0.5rem;
             padding: 0 0.5rem;
@@ -30,7 +30,6 @@
             }
             .edit_input_disabled {
                 height: unset;
-                width: auto;
                 background-color: var(--grey-4);
                 border: none;
                 padding: 0 2rem 0 0;
@@ -56,26 +55,33 @@
         padding: 1rem 0;
         width: 100%;
         .add_messenger_form {
-            display: flex;
+            display: grid;
+            grid-template-columns: minmax(0, min-content) auto minmax(
+                    0,
+                    min-content
+                );
+            grid-template-areas:
+                'select select .'
+                'prefix input submit';
             width: 100%;
 
             .messenger_select_wrapper {
-                width: 28%;
+                grid-area: select;
+                margin-bottom: 5px;
             }
 
             .prefix_span {
+                grid-area: prefix;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 gap: 0.5rem;
                 outline: none;
-                width: auto;
                 height: 2.5rem;
                 border: 1px solid var(--grey-1);
                 border-right: none;
                 border-radius: 0.5rem 0 0 0.5rem;
                 padding: 0 0 0 0.5rem;
-                margin-left: 0.5rem;
                 color: var(--grey-5);
                 white-space: nowrap;
                 img {
@@ -84,9 +90,9 @@
             }
 
             .link_wrapper {
+                grid-area: input;
                 display: flex;
                 flex-direction: column;
-                width: 40%;
                 .link_input {
                     outline: none;
                     width: 100%;
@@ -105,12 +111,13 @@
             }
 
             .submit {
-                width: 25%;
+                grid-area: submit;
                 height: 2.5rem;
                 background-color: #02c66e;
                 border: none;
                 border-radius: 8px;
-                margin-left: 0.5rem;
+                margin-left: 5px;
+                padding: 0.75rem 1rem;
                 color: white;
                 cursor: pointer;
                 &:hover {
@@ -136,10 +143,14 @@
 
 @media (max-width: 1021px) {
     .messengers_wrapper {
+        width: 70%;
         .add_messengers_block {
             .add_messenger_form {
                 display: grid;
-                grid-template-columns: minmax(0, min-content) auto 25%;
+                grid-template-columns: minmax(0, min-content) auto minmax(
+                        0,
+                        min-content
+                    );
                 grid-template-areas:
                     'select select .'
                     'prefix link submit';
@@ -168,6 +179,12 @@
                 }
             }
         }
+    }
+}
+
+@media (max-width: 767px) {
+    .messengers_wrapper {
+        width: 100%;
     }
 }
 
@@ -207,7 +224,7 @@
             .add_messenger_form {
                 .prefix_span {
                     gap: 2px;
-                    font-size: 13px;
+
                     img {
                         display: none;
                     }
