@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 import './libr/reactSelect.styles.scss';
 import { useAddMessengerMutation } from 'app/api/fetchMessengers';
 import { Messenger, UserMessenger } from 'pages/advertPage/libr/types';
+import { Link } from 'react-router-dom';
+import { getDescriptionDetails, getPattern } from './libr/utils';
 
 type AddMessengerFormProps = {
     messengers: UserMessenger[];
@@ -26,7 +28,7 @@ export const AddMessengerForm = ({
         control,
         setValue,
         handleSubmit,
-        formState: { isValid },
+        formState: { isValid, errors },
         reset,
         watch,
     } = useForm<SettingMessengerType>({
@@ -58,7 +60,6 @@ export const AddMessengerForm = ({
     };
 
     const onsubmit: SubmitHandler<SettingMessengerType> = (data) => {
-        console.log(data);
         const { messenger, link_to_user } = data;
         const messengerId = allMessengers.find(
             (el) => el.name === messenger
@@ -66,8 +67,14 @@ export const AddMessengerForm = ({
         const body = { messenger: messengerId, link_to_user };
         addMessenger({ body });
 
+        setTooltipVisible(false);
         reset();
     };
+
+    const description = allMessengers.find((el) => el.name === selectValue)
+        ?.description;
+    const { descriptionText, descriptionLink } =
+        getDescriptionDetails(description);
 
     return (
         <>
@@ -102,20 +109,29 @@ export const AddMessengerForm = ({
                     name="link_to_user"
                     control={control}
                     defaultValue=""
-                    rules={{ required: true }}
+                    rules={{
+                        required: true,
+                        pattern: getPattern(selectValue),
+                    }}
                     render={({ field }) => (
                         <div className={styles.link_wrapper}>
                             <input
                                 {...field}
                                 type="text"
                                 placeholder="username"
-                                className={styles.link_input}
+                                className={
+                                    !errors?.link_to_user
+                                        ? styles.link_input
+                                        : `${styles.link_input} ${styles.link_input_error}`
+                                }
                                 onFocus={() => setTooltipVisible(true)}
-                                onBlur={() => setTooltipVisible(false)}
                             />
                             {tooltipVisible && (
                                 <p className={styles.link_tooltip}>
-                                    {t('my-settings.correct-link')}
+                                    {descriptionText}
+                                    <Link to={descriptionLink} target="_blank">
+                                        {descriptionLink}
+                                    </Link>
                                 </p>
                             )}
                         </div>
@@ -125,7 +141,7 @@ export const AddMessengerForm = ({
                     type="submit"
                     className={styles.submit}
                     disabled={!isValid || !selectValue}
-                    value={t('my-settings.add-messenger')}
+                    value="+"
                 />
             </form>
             {response.error && (

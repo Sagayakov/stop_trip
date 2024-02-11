@@ -101,4 +101,5 @@ export type Messenger = {
     id: number;
     name: string;
     link_to_messenger: string;
+    description: string;
 };

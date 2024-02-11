@@ -35,14 +35,18 @@ export const fetchAdverts = createApi({
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "X-Csrftoken": `${token}`,
+                    'X-Csrftoken': `${token}`,
                 },
                 body,
             }),
             invalidatesTags: ['Adverts'],
         }),
         getAdvertBySlug: build.query<ProductType, string>({
-            query: (slug) => `api/advertisements/${slug}/`,
+            query: (slug) => ({
+                url: `api/advertisements/${slug}/`,
+                method: 'GET',
+                credentials: 'include',
+            }),
         }),
         getFilters: build.query<FiltersType, string>({
             query: () => `api/advertisements/get_filter_params/`,
@@ -53,7 +57,7 @@ export const fetchAdverts = createApi({
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
-                    "X-Csrftoken": `${token}`,
+                    'X-Csrftoken': `${token}`,
                 },
             }),
             providesTags: ['MyAnnouncements'],
@@ -66,8 +70,8 @@ export const fetchAdverts = createApi({
                 url: `api/advertisements/${slug}`,
                 method: 'DELETE',
                 headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "X-Csrftoken": `${token}`,
+                    Authorization: `Bearer ${token}`,
+                    'X-Csrftoken': `${token}`,
                 },
             }),
         }),
@@ -80,7 +84,7 @@ export const fetchAdverts = createApi({
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
-                    "X-Csrftoken": `${accessToken}`,
+                    'X-Csrftoken': `${accessToken}`,
                 },
                 body,
             }),
@@ -96,5 +100,5 @@ export const {
     useAddAdvertMutation,
     useMyAnnouncementsQuery,
     useEditAdvertMutation,
-    useDeleteAnnouncemetMutation
+    useDeleteAnnouncemetMutation,
 } = fetchAdverts;

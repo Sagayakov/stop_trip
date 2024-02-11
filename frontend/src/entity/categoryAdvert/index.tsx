@@ -186,7 +186,7 @@ export const CategoryAdvert = (el: Props) => {
                         1
                     )}`}
                     <span className={style.rating_number}>
-                        {el.owner.avg_rating}
+                        {el.owner.avg_rating.toFixed(2)}
                     </span>
                     {/* <Rating rating={4.5} /> */}
                 </div>

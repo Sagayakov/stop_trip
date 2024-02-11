@@ -58,7 +58,7 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                 <ProductInfo data={data} />
                 <section className={styles.owner_info}>
                     <PriceBlock data={data} />
-                    <AdvertOwner owner={data.owner} className={styles.owner} />
+                    <AdvertOwner className={styles.owner} />
                     {isTablet ? (
                         <Link
                             className={styles.call_button}

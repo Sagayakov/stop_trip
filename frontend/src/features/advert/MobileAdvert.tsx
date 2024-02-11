@@ -26,7 +26,7 @@ export const MobileAdvert = ({ data, date }: Props) => {
                 <section className={styles.owner_info}>
                     <PriceBlock data={data} />
                     <h1 className={styles.full_title}>{data.title}</h1>
-                    <AdvertOwner owner={data.owner} className={styles.owner} />
+                    <AdvertOwner className={styles.owner} />
                     <Link
                         className={styles.call_button}
                         to={`tel:${data.owner.phone}`}
