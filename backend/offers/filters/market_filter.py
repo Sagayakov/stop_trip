@@ -11,17 +11,16 @@ class MarketFilter(FilterSet):
     market_condition = filters.ChoiceFilter(label="Состояние", choices=MarketCondition.choices)
 
     @classmethod
-    def _market_filter_specs(cls, queryset) -> list[dict]:
-        specs: list[dict] = []
+    def _market_filter_specs(cls, queryset) -> dict[str, list[dict]]:
+        specs: dict[str, Union[list, dict]] = {}
 
         # Состояние
         market_condition_specs = {
-            "name": "market_condition",
-            "choices": [
+            "market_condition": [
                 {"value": value, "label": label} for value, label in MarketCondition.choices
             ],
         }
-        specs.append(market_condition_specs)
+        specs |= market_condition_specs
 
         return specs
 

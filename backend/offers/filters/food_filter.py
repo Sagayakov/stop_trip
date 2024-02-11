@@ -14,29 +14,29 @@ class FoodFilter(FilterSet):
     food_type = ChoiceInFilter(label="Тип еды", choices=FoodType.choices)
 
     @classmethod
-    def _food_filter_specs(cls, queryset) -> list[dict]:
-        specs: list[dict] = []
+    def _food_filter_specs(cls, queryset) -> dict[str, list[dict]]:
+        specs: dict[str, Union[list, dict]] = {}
 
         # Доставка на дом
         food_delivery_specs = {
-            "name": "food_delivery",
-            "choices": [True, False],
+            "food_delivery": [{"value": True, "label": "Да"}, {"value": False, "label": "Нет"}],
         }
-        specs.append(food_delivery_specs)
+        specs |= food_delivery_specs
 
         # Ресторан/кафе
         food_establishment_specs = {
-            "name": "food_establishment",
-            "choices": [True, False],
+            "food_establishment": [
+                {"value": True, "label": "Да"},
+                {"value": False, "label": "Нет"},
+            ],
         }
-        specs.append(food_establishment_specs)
+        specs |= food_establishment_specs
 
         # Тип еды
         food_type_specs = {
-            "name": "food_type",
-            "choices": [{"value": value, "label": label} for value, label in FoodType.choices],
+            "food_type": [{"value": value, "label": label} for value, label in FoodType.choices],
         }
-        specs.append(food_type_specs)
+        specs |= food_type_specs
 
         return specs
 

@@ -12,15 +12,14 @@ class EventFilter(FilterSet):
     is_online = filters.BooleanFilter(label="Онлайн")
 
     @classmethod
-    def _event_filter_specs(cls, queryset) -> list[dict]:
-        specs: list[dict] = []
+    def _event_filter_specs(cls, queryset) -> dict[str, list[dict]]:
+        specs: dict[str, Union[list, dict]] = {}
 
         # Онлайн
         is_online_specs = {
-            "name": "is_online",
-            "choices": [True, False],
+            "is_online": [{"value": True, "label": "Да"}, {"value": False, "label": "Нет"}],
         }
-        specs.append(is_online_specs)
+        specs |= is_online_specs
 
         return specs
 
