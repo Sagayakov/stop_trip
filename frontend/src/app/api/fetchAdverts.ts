@@ -42,15 +42,22 @@ export const fetchAdverts = createApi({
             }),
             invalidatesTags: ['Adverts'],
         }),
-        getAdvertBySlug: build.query<ProductType, string>({
-            query: (slug) => ({
+        getAdvertBySlug: build.query<
+            ProductType,
+            { slug: string; isAuth: boolean }
+        >({
+            query: ({ slug, isAuth }) => ({
                 url: `api/advertisements/${slug}/`,
                 method: 'GET',
                 credentials: 'include',
-                headers: {
-                    Authorization: `Bearer ${Cookies.get('access_token')}`,
-                    'X-Csrftoken': `${Cookies.get('access_token')}`,
-                },
+                headers: isAuth
+                    ? {
+                          Authorization: `Bearer ${Cookies.get(
+                              'access_token'
+                          )}`,
+                          'X-Csrftoken': `${Cookies.get('access_token')}`,
+                      }
+                    : {},
             }),
         }),
         getFilters: build.query<FiltersType, string>({

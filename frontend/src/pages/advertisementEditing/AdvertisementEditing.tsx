@@ -27,7 +27,7 @@ import { AnnouncementSubmitButton } from 'entity/addAnnouncementForm/universalFi
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { toast } from 'react-toastify';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
-import { useAppDispatch } from 'app/store/hooks.ts';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
@@ -46,7 +46,11 @@ const AdvertisementEditing = () => {
     const path = useLocation().pathname.split('/');
     const slug = path[path.length - 1];
 
-    const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery(slug);
+    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery({
+        slug,
+        isAuth,
+    });
     const { accessToken, refreshToken } = getTokensFromStorage();
     const { data: user } = useGetUserQuery(accessToken);
 

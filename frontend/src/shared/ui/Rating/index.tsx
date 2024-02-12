@@ -16,7 +16,7 @@ type RatingProps = {
     myRating: number;
     refetch: () => QueryActionCreatorResult<
         QueryDefinition<
-            string,
+            { slug: string; isAuth: boolean },
             BaseQueryFn<
                 string | FetchArgs,
                 unknown,
