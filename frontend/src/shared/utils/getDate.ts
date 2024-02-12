@@ -32,11 +32,13 @@ export const getDate = (publicDate: string | undefined) => {
 
         return {
             dayToDisplay,
-            hours,
-            minutes: minutes < 10 ? `0${minutes}` : minutes,
+            hours: `${hours}`,
+            minutes: minutes < 10 ? `0${minutes}` : `${minutes}`,
         };
     } else {
         const dayToDisplay = '';
-        return { dayToDisplay };
+        const hours = '';
+        const minutes = '';
+        return { dayToDisplay, hours, minutes };
     }
 };

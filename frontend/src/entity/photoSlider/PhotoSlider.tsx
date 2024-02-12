@@ -10,10 +10,12 @@ import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { createPortal } from 'react-dom';
 import { Portal } from 'entity/portal/Portal.tsx';
 import { Shadow } from 'entity/portal/Shadow.tsx';
+import { useAppSelector } from 'app/store/hooks';
 
 export const PhotoSlider = () => {
     const { slug } = useParams();
-    const { data } = useGetAdvertBySlugQuery(slug!);
+    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const { data } = useGetAdvertBySlugQuery({ slug: slug!, isAuth });
     const [activeImage, setActiveImage] = useState(0);
     const [imageWidth, setImageWidth] = useState<number>(0);
     const [imageHeight, setImageHeight] = useState<number>(0);

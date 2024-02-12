@@ -23,7 +23,7 @@ type StarProps = {
     setActiveStar: React.Dispatch<React.SetStateAction<number>>;
     refetch: () => QueryActionCreatorResult<
         QueryDefinition<
-            string,
+            { slug: string; isAuth: boolean },
             BaseQueryFn<
                 string | FetchArgs,
                 unknown,

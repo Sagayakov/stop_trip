@@ -15,8 +15,9 @@ interface Props {
 export const AdvertOwner = ({ className }: Props) => {
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
+    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
     const { slug } = useParams();
-    const { data, refetch } = useGetAdvertBySlugQuery(slug!);
+    const { data, refetch } = useGetAdvertBySlugQuery({ slug: slug!, isAuth });
 
     const { firstLetters } = getUserIcon(data?.owner.full_name);
 

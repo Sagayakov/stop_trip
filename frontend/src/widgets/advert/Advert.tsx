@@ -8,10 +8,12 @@ import { Date } from './libr/types.ts';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { DesktopAdvert } from 'features/advert/DesktopAdvert.tsx';
 import { MobileAdvert } from 'features/advert/MobileAdvert.tsx';
+import { useAppSelector } from 'app/store/hooks.ts';
 
 const Advert = () => {
     const { slug } = useParams();
-    const { data } = useGetAdvertBySlugQuery(slug!);
+    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const { data } = useGetAdvertBySlugQuery({ slug: slug!, isAuth });
     const [date, setDate] = useState<Date | null>(null);
     const { isMobile } = useMatchMedia();
 
