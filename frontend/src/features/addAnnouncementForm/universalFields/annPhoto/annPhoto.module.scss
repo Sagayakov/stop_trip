@@ -57,7 +57,8 @@
     .loadphoto_counter {
         display: flex;
         align-self: flex-start;
-        align-items: flex-start;
+        align-items: flex-end;
+        flex-direction: column;
         color: var(--grey-3);
         .loadphoto_counter_wrapper {
             & svg {

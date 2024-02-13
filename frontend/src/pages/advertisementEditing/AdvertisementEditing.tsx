@@ -31,7 +31,7 @@ import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createForm
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
-    const { register, handleSubmit, control, setValue, formState, watch } =
+    const { register, handleSubmit, control, setValue, formState, watch, setError, clearErrors } =
         useForm<FormAddAnn>({
             reValidateMode: 'onBlur',
         });
@@ -51,6 +51,7 @@ const AdvertisementEditing = () => {
         dataAdvert?.coordinates
     );
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
+    const [imgSize, setImgSize] = useState(0);
     const [editImages, setEditImages] = useState<LastAdvertsImages[] | undefined>(dataAdvert?.images)
 
     const addSlug = dataAdvert ? dataAdvert.slug : '';
@@ -93,6 +94,7 @@ const AdvertisementEditing = () => {
             setEditImages(undefined);
             setSelectedImages(undefined);
             setMarkerPosition(undefined);
+            setImgSize(0);
         }
     }, [dataAdvert, setValue, isSuccess, isSendError,  path]);
 
@@ -166,9 +168,12 @@ const AdvertisementEditing = () => {
                             selectedImages={selectedImages}
                             setSelectedImages={setSelectedImages}
                             setValue={setValue}
-                            // images={dataAdvert?.images}
                             setEditImages={setEditImages}
                             editImages={editImages}
+                            imgSize={imgSize}
+                            setImgSize={setImgSize}
+                            clearErrors={clearErrors}
+                            setError={setError}
                         />
                         <AnnouncementLocationField
                             setValue={setValue}

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { UseFormSetValue } from 'react-hook-form';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
+import { ErrorOption, FieldPath, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { MiniLoadPhoto } from 'shared/ui/icons/loadPhoto';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +7,7 @@ import styles from './annPhoto.module.scss';
 import { LoadPhotoBtn } from 'features/addAnnouncementForm/universalFields/annPhoto/annPhotoField/LoadPhotoBtn.tsx';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
 import { useLocation } from 'react-router-dom';
+import { toFixed } from 'ol/math';
 
 
 interface Props {
@@ -15,14 +16,26 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     editImages?: LastAdvertsImages[] | undefined;
     setEditImages?: React.Dispatch<React.SetStateAction<LastAdvertsImages[] | undefined>>
-    // images?: LastAdvertsImages[] | undefined;
+    imgSize: number;
+    setImgSize: React.Dispatch<SetStateAction<number>>;
+    setError: (name: (FieldPath<FormAddAnn> | `root.${string}` | "root"), error: ErrorOption, options?: {shouldFocus: boolean}) => void;
+    clearErrors: (name?: (FieldPath<FormAddAnn> | FieldPath<FormAddAnn>[] | `root.${string}` | "root")) => void
 }
 
-const AnnouncementPhotoField = ({ selectedImages, setSelectedImages, setValue, editImages, setEditImages }: Props) => {
+const AnnouncementPhotoField = ({
+    selectedImages,
+    setSelectedImages,
+    setValue,
+    editImages,
+    setEditImages,
+    setImgSize,
+    imgSize,
+    setError,
+    clearErrors
+}: Props) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const { t } = useTranslation();
     const [previewImages, setPreviewImages] = useState<string[]>([]);
-    // const [editImages, setEditImages] = useState<LastAdvertsImages[] | undefined>(images)
     const [deleteIdArray, setDeleteIdArray] = useState<number[]>([]);
     const path = useLocation().pathname.split('/');
 
@@ -72,6 +85,23 @@ const AnnouncementPhotoField = ({ selectedImages, setSelectedImages, setValue, e
             setValue('delete_images', deleteIdArray); //на бэк передаем массив id картинок, которые удаляем
         }
     }, [selectedImages, setValue, deleteIdArray]);
+    
+    useEffect(() => {
+        if(selectedImages) {
+            const size = selectedImages.reduce((acc, img) => {
+                acc += img.size;
+                return acc;
+            }, 0)
+            if(size > 52428800) {
+                setError('upload_images', {});
+                setError('images', {});
+            } else{
+                clearErrors('images');
+                clearErrors('upload_images');
+            }
+            setImgSize(size);
+        }
+    }, [selectedImages]);
 
 
     return (
@@ -84,17 +114,20 @@ const AnnouncementPhotoField = ({ selectedImages, setSelectedImages, setValue, e
                         selectedImages={selectedImages}
                         setSelectedImages={setSelectedImages}
                         setPreviewImages={setPreviewImages}
+                        imgSize={imgSize}
                     />
                     <div className={styles.loadphoto_counter}>
                         <div className={styles.loadphoto_counter_wrapper}>
                             <MiniLoadPhoto />
-                            {t('add-page.uploaded')}{' '}
-                            {photoCounter()}/10
-                            {/*{(selectedImages && selectedImages.length) || 0}/10*/}
+                            {t('add-page.uploaded')} {photoCounter()}/10
+                        </div>
+                        <div>
+                            {toFixed((imgSize / 1024 / 1024), 2)}/50mb
                         </div>
                     </div>
                 </div>
-                {((selectedImages && selectedImages.length > 0) || editImages)  && (
+                {((selectedImages && selectedImages.length > 0) ||
+                    editImages) && (
                     //если при редактировании есть старые фотки, или если добавляем новые, то отрисовываем их
                     <div className={styles.preview}>
                         {editImages?.map((img) => (
