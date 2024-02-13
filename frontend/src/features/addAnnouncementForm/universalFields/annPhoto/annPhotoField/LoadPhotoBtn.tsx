@@ -8,9 +8,16 @@ interface Props{
     selectedImages: File[] | undefined;
     setSelectedImages: React.Dispatch<React.SetStateAction<File[] | undefined>>;
     setPreviewImages: React.Dispatch<React.SetStateAction<string[]>>;
+    imgSize: number;
 }
 
-export const LoadPhotoBtn = ({ inputRef, setSelectedImages, selectedImages, setPreviewImages }:Props) => {
+export const LoadPhotoBtn = ({
+    inputRef,
+    setSelectedImages,
+    selectedImages,
+    setPreviewImages,
+    imgSize,
+}:Props) => {
     const { t } = useTranslation();
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +38,7 @@ export const LoadPhotoBtn = ({ inputRef, setSelectedImages, selectedImages, setP
             });
         }
     };
+
 
     return (
         <div>
@@ -54,6 +62,7 @@ export const LoadPhotoBtn = ({ inputRef, setSelectedImages, selectedImages, setP
                 {selectedImages &&
                     selectedImages.length > 10 &&
                     `${t('add-page.please-select')}`}
+                {imgSize > 52428800 && <p>{t('add-page.limit')}</p>}
             </div>
         </div>
     );

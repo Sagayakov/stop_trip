@@ -74,10 +74,7 @@ export const fetchAdverts = createApi({
             }),
             providesTags: ['MyAnnouncements'],
         }),
-        deleteAnnouncemet: build.mutation<
-            null,
-            { token: string; slug: string }
-        >({
+        deleteAnnouncemet: build.mutation<null, { token: string; slug: string }>({
             query: ({ token, slug }) => ({
                 url: `api/advertisements/${slug}`,
                 method: 'DELETE',

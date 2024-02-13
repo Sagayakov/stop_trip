@@ -38,12 +38,15 @@ const AddAnnouncementPage = () => {
         setValue,
         formState,
         watch,
+        setError,
+        clearErrors
     } = useForm<FormAddAnn>({
         reValidateMode: 'onBlur',
     });
     const dispatch = useAppDispatch();
 
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
+    const [imgSize, setImgSize] = useState(0);
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [modalSuccess, setModalSuccess] = useState(false);
     const { t } = useTranslation();
@@ -64,10 +67,8 @@ const AddAnnouncementPage = () => {
         );
         try {
             const { accessToken } = getTokensFromStorage();
-            await addAdvert({
-                body: formData as FormAddAnn,
-                token: accessToken,
-            });
+            await addAdvert({body: formData as FormAddAnn, token: accessToken});
+            dispatch(setLoading(false));
         } catch (error) {
             console.log(error);
             dispatch(setLoading(false));
@@ -79,19 +80,15 @@ const AddAnnouncementPage = () => {
         scrollToTop();
     };
     const sendButtonDisabled = () => {
-        return selectedImages && selectedImages.length > 10;
+        return (selectedImages && selectedImages.length > 10) || (imgSize > 52428800);
     };
     useEffect(() => {
         if (isSuccess) {
             setModalSuccess(true);
             setSelectedImages(undefined);
             setMarkerPosition(undefined);
-            dispatch(
-                fetchAdverts.util?.invalidateTags([
-                    'Adverts',
-                    'MyAnnouncements',
-                ])
-            );
+            setImgSize(0);
+            dispatch(fetchAdverts.util?.invalidateTags(['Adverts', 'MyAnnouncements']))
             //очищаем кэш, чтобы обновить данные по объявлениям
             reset();
         }
@@ -160,6 +157,10 @@ const AddAnnouncementPage = () => {
                             selectedImages={selectedImages}
                             setSelectedImages={setSelectedImages}
                             setValue={setValue}
+                            imgSize={imgSize}
+                            setImgSize={setImgSize}
+                            setError={setError}
+                            clearErrors={clearErrors}
                         />
                         <AnnouncementLocationField
                             setValue={setValue}

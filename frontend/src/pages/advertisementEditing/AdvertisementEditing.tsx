@@ -35,7 +35,7 @@ import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createForm
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
-    const { register, handleSubmit, control, setValue, formState, watch } =
+    const { register, handleSubmit, control, setValue, formState, watch, setError, clearErrors } =
         useForm<FormAddAnn>({
             reValidateMode: 'onBlur',
         });
@@ -62,9 +62,8 @@ const AdvertisementEditing = () => {
         dataAdvert?.coordinates
     );
     const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
-    const [editImages, setEditImages] = useState<
-        LastAdvertsImages[] | undefined
-    >(dataAdvert?.images);
+    const [imgSize, setImgSize] = useState(0);
+    const [editImages, setEditImages] = useState<LastAdvertsImages[] | undefined>(dataAdvert?.images)
 
     const addSlug = dataAdvert ? dataAdvert.slug : '';
     const navigate = useNavigate();
@@ -114,8 +113,9 @@ const AdvertisementEditing = () => {
             setEditImages(undefined);
             setSelectedImages(undefined);
             setMarkerPosition(undefined);
-        };
-    }, [dataAdvert, setValue, isSuccess, isSendError, path]);
+            setImgSize(0);
+        }
+    }, [dataAdvert, setValue, isSuccess, isSendError,  path]);
 
     useEffect(() => {
         if (isSuccess) {
@@ -136,12 +136,12 @@ const AdvertisementEditing = () => {
 
     return (
         <section className={styles.add_ann}>
-            <h1>{t('add-page.edit')}</h1>
             <form
                 className={styles.add_ann_form}
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-edit-announcement"
             >
+                <h1>{t('add-page.edit')}</h1>
                 {isLoading && user?.id && <LoadingWithBackground />}
                 {(isSendLoading || isLoading) && <LoadingWithBackground />}
                 {dataAdvert && (
@@ -194,9 +194,12 @@ const AdvertisementEditing = () => {
                             selectedImages={selectedImages}
                             setSelectedImages={setSelectedImages}
                             setValue={setValue}
-                            // images={dataAdvert?.images}
                             setEditImages={setEditImages}
                             editImages={editImages}
+                            imgSize={imgSize}
+                            setImgSize={setImgSize}
+                            clearErrors={clearErrors}
+                            setError={setError}
                         />
                         <AnnouncementLocationField
                             setValue={setValue}
