@@ -43,6 +43,7 @@ class TaxiTest(APITestCase):
             "taxi_unit": TaxiUnit.KM.value,
             "taxi_type": TaxiType.BUSINESS.value,
             "images": payload_images,
+            "youtube": "https://youtu.be/jNQXAC9IVRw",
         }
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
@@ -65,6 +66,9 @@ class TaxiTest(APITestCase):
         self.assertEqual(new_advertisement.taxi_unit, payload["taxi_unit"])
         self.assertEqual(new_advertisement.taxi_type, payload["taxi_type"])
         self.assertEqual(new_advertisement.images.count(), len(payload_images))
+        self.assertEqual(
+            new_advertisement.youtube, "https://www.youtube.com/embed/jNQXAC9IVRw?controls=0"
+        )
 
     def test_update_taxi(self):
         user = UserFactory()
@@ -101,6 +105,7 @@ class TaxiTest(APITestCase):
                 advertisement_image.id for advertisement_image in advertisement_images[3:]
             ],
             "upload_images": payload_images,
+            "youtube": "https://youtu.be/VaLXzI92t9M",
         }
 
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -123,6 +128,9 @@ class TaxiTest(APITestCase):
         self.assertEqual(advertisement.taxi_unit, payload["taxi_unit"])
         self.assertEqual(advertisement.taxi_type, payload["taxi_type"])
         self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
+        self.assertEqual(
+            advertisement.youtube, "https://www.youtube.com/embed/VaLXzI92t9M?controls=0"
+        )
         new_images_ids = advertisement.images.values_list("id", flat=True)
         for image in advertisement_images[3:]:
             self.assertTrue(image.id not in new_images_ids)

@@ -66,6 +66,7 @@ class TransportTest(APITestCase):
             "transport_passengers_quality": 5,
             "transport_commission": 500,
             "images": payload_images,
+            "youtube": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
         }
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
@@ -116,6 +117,9 @@ class TransportTest(APITestCase):
         )
         self.assertEqual(new_advertisement.transport_commission, payload["transport_commission"])
         self.assertEqual(new_advertisement.images.count(), len(payload_images))
+        self.assertEqual(
+            new_advertisement.youtube, "https://www.youtube.com/embed/jNQXAC9IVRw?controls=0"
+        )
 
     def test_update_transport(self):
         user = UserFactory()
@@ -180,6 +184,7 @@ class TransportTest(APITestCase):
                 advertisement_image.id for advertisement_image in advertisement_images[3:]
             ],
             "upload_images": payload_images,
+            "youtube": "https://www.youtube.com/watch?v=VaLXzI92t9M",
         }
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
@@ -226,6 +231,9 @@ class TransportTest(APITestCase):
         )
         self.assertEqual(advertisement.transport_commission, payload["transport_commission"])
         self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
+        self.assertEqual(
+            advertisement.youtube, "https://www.youtube.com/embed/VaLXzI92t9M?controls=0"
+        )
         new_images_ids = advertisement.images.values_list("id", flat=True)
         for image in advertisement_images[3:]:
             self.assertTrue(image.id not in new_images_ids)

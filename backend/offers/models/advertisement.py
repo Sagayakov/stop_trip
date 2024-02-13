@@ -73,6 +73,13 @@ class Advertisement(
     date_create = models.DateTimeField("Дата создания", auto_now_add=True)
     date_update = models.DateTimeField("Дата редактирования", auto_now=True)
     slug = AutoSlugField(unique=True, db_index=True)
+    youtube = models.URLField(
+        "Ссылка на ютуб",
+        help_text="https://www.youtube.com/watch?v=jNQXAC9IVRw",
+        max_length=60,
+        blank=True,
+        null=True,
+    )
 
     class Meta:
         verbose_name = "Объявление"

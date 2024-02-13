@@ -43,6 +43,7 @@ class DocumentTest(APITestCase):
             "document_type": DocumentType.C_FORM,
             "document_duration": DocumentDuration.QUARTER,
             "images": payload_images,
+            "youtube": "https://youtu.be/jNQXAC9IVRw?si=7eaplvei50RcVeFR",
         }
 
         self.assertEqual(Advertisement.objects.count(), 0)
@@ -67,6 +68,9 @@ class DocumentTest(APITestCase):
         self.assertEqual(new_advertisement.document_type, payload["document_type"])
         self.assertEqual(new_advertisement.document_duration, payload["document_duration"])
         self.assertEqual(new_advertisement.images.count(), len(payload_images))
+        self.assertEqual(
+            new_advertisement.youtube, "https://www.youtube.com/embed/jNQXAC9IVRw?controls=0"
+        )
 
     def test_update_document(self):
         user = UserFactory()
@@ -96,6 +100,7 @@ class DocumentTest(APITestCase):
                 advertisement_image.id for advertisement_image in advertisement_images[3:]
             ],
             "upload_images": payload_images,
+            "youtube": "https://youtu.be/VaLXzI92t9M?si=7eaplvei50RcVeFR",
         }
 
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -119,6 +124,9 @@ class DocumentTest(APITestCase):
         self.assertEqual(advertisement.document_type, payload["document_type"])
         self.assertEqual(advertisement.document_duration, payload["document_duration"])
         self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
+        self.assertEqual(
+            advertisement.youtube, "https://www.youtube.com/embed/VaLXzI92t9M?controls=0"
+        )
         new_images_ids = advertisement.images.values_list("id", flat=True)
         for image in advertisement_images[3:]:
             self.assertTrue(image.id not in new_images_ids)

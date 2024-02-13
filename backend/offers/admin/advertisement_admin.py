@@ -32,6 +32,7 @@ class AdvertisementAdmin(ModelAdmin):
                     "is_published",
                     "date_create",
                     "date_update",
+                    "youtube",
                 )
             },
         ),
