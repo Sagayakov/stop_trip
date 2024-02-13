@@ -1,7 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypesOfJobs } from 'widgets/settingForm/settingJob/libr/TypesOfJobs.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType } from 'app/api/types/filtersType.ts';
+import { SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalCheckboxGroup } from 'entity/universalEntites';
@@ -22,9 +22,7 @@ export const TypeOfJob = ({ register }: Props) => {
 
     useEffect(() => {
         if (data) {
-            const result = (
-                data.params.find((el) => el.name === 'job_type') as ChoicesType
-            ).choices.filter(
+            const result = (data['job_type'] as SelectType[]).filter(
                 (el) => (el as Options).value && (el as Options).label
             );
             data && setTypeValues(result as Options[]);

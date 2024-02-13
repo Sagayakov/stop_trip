@@ -1,7 +1,7 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { TypesOfJobs } from 'widgets/settingForm/settingJob/libr/TypesOfJobs.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
+import { SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
@@ -19,11 +19,7 @@ export const DurationOfWork = ({ control, setValue }: Props) => {
 
     useEffect(() => {
         if (data) {
-            const result = (
-                data.params.find(
-                    (el) => el.name === 'job_duration'
-                ) as ChoicesType
-            ).choices.filter(
+            const result = (data['job_duration'] as SelectType[]).filter(
                 (el) => (el as SelectType).value && (el as SelectType).label
             );
             data && setDurationValues(result as SelectType[]);

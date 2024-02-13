@@ -3,7 +3,6 @@ import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
-import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
 
@@ -11,18 +10,10 @@ interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
     control: Control<TypeSettingTransport, string[]>;
 }
-interface ChoicesType {
-    name: keyof ProductType;
-    choices: SelectType[];
-}
 
 export const ConditionOfTransport = ({ setValue, control }: Props) => {
     const { data } = useGetFiltersQuery('');
     const { t } = useTranslation();
-
-    const options = data?.params.find(
-        (el) => el.name === 'transport_condition'
-    ) as ChoicesType;
 
     return (
         <div className={styles.condition}>
@@ -37,7 +28,7 @@ export const ConditionOfTransport = ({ setValue, control }: Props) => {
                         placeholder={t('filters.transport_condition')}
                         closeMenuOnSelect={false}
                         isMulti={true}
-                        options={options.choices}
+                        options={data['transport_condition'] as SelectType[]}
                     />
                 )}
             </div>

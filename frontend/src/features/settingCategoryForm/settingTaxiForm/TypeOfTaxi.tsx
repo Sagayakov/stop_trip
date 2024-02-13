@@ -1,7 +1,7 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { TypeSettingTaxi } from 'widgets/settingForm/settingTaxi/libr/TypeSettingTaxi.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
+import { SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingTaxi/libr/settingTaxiForm.module.scss';
@@ -19,9 +19,7 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
 
     useEffect(() => {
         if (data) {
-            const result = (
-                data.params.find((el) => el.name === 'taxi_type') as ChoicesType
-            ).choices.filter(
+            const result = (data['taxi_type'] as SelectType[]).filter(
                 (el) => (el as SelectType).value && (el as SelectType).label
             );
             data && setTypeValues(result as SelectType[]);

@@ -1,7 +1,6 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypeSettingTaxi } from 'widgets/settingForm/settingTaxi/libr/TypeSettingTaxi.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup.tsx';
@@ -22,9 +21,7 @@ export const UnitOfMeasurement = ({ register }: Props) => {
 
     useEffect(() => {
         if (data) {
-            const result = (
-                data.params.find((el) => el.name === 'taxi_unit') as ChoicesType
-            ).choices.filter(
+            const result = (data['taxi_unit'] as Options[]).filter(
                 (el) => (el as Options).value && (el as Options).label
             );
             data && setUnitValues(result as Options[]);
