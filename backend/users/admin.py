@@ -1,6 +1,8 @@
 from django.contrib.admin import register, ModelAdmin, StackedInline
 from django.contrib.auth.admin import UserAdmin as Admin
 from django.utils.translation import gettext_lazy as _
+from django import forms
+from django.db import models
 
 from .models import User, Messenger, UserMessenger
 
@@ -48,4 +50,6 @@ class UserAdmin(Admin):
 
 @register(Messenger)
 class MessengersAdmin(ModelAdmin):
-    pass
+    formfield_overrides = {
+        models.CharField: {"widget": forms.Textarea(attrs={"rows": 4, "cols": 80})},
+    }

@@ -13,22 +13,20 @@ class TaxiFilter(FilterSet):
     taxi_type = ChoiceInFilter(label="Вид такси", choices=TaxiType.choices)
 
     @classmethod
-    def _taxi_filter_specs(cls, queryset) -> list[dict]:
-        specs: list[dict] = []
+    def _taxi_filter_specs(cls, queryset) -> dict[str, list[dict]]:
+        specs: dict[str, Union[list, dict]] = {}
 
         # Единица измерения
         taxi_unit_specs = {
-            "name": "taxi_unit",
-            "choices": [{"value": value, "label": label} for value, label in TaxiUnit.choices],
+            "taxi_unit": [{"value": value, "label": label} for value, label in TaxiUnit.choices],
         }
-        specs.append(taxi_unit_specs)
+        specs |= taxi_unit_specs
 
         # Вид такси
         taxi_type_specs = {
-            "name": "taxi_type",
-            "choices": [{"value": value, "label": label} for value, label in TaxiType.choices],
+            "taxi_type": [{"value": value, "label": label} for value, label in TaxiType.choices],
         }
-        specs.append(taxi_type_specs)
+        specs |= taxi_type_specs
 
         return specs
 

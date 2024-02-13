@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { LastAdvertsTypes } from './types/lastAdvertsTypes';
 import { url } from 'shared/const/url.ts';
 import Cookies from 'js-cookie';
 
@@ -8,7 +7,7 @@ export const fetchFavorites = createApi({
     tagTypes: ['Favorites'],
     baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
     endpoints: (build) => ({
-        getFavorites: build.query<LastAdvertsTypes, number | string>({
+        getFavorites: build.query<number[], number | string>({
             query: (page = '') => ({
                 url: `api/favorites/${page ? `?page=${page}` : ''}`,
                 method: 'GET',

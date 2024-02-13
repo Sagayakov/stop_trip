@@ -16,6 +16,7 @@ export const fetchRating = createApi({
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${Cookies.get('access_token')}`,
+                    'X-Csrftoken': `${Cookies.get('access_token')}`,
                 },
             }),
         }),
@@ -28,6 +29,7 @@ export const fetchRating = createApi({
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${Cookies.get('access_token')}`,
+                    'X-Csrftoken': `${Cookies.get('access_token')}`,
                 },
                 body,
             }),

@@ -3,7 +3,11 @@ import 'pages/addAnnouncement/libr/selectAddAnnouncement.scss';
 import { useForm } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import { fetchAdverts, useEditAdvertMutation, useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
+import {
+    fetchAdverts,
+    useEditAdvertMutation,
+    useGetAdvertBySlugQuery,
+} from 'app/api/fetchAdverts.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
     AnnouncementCategoryField,
@@ -23,7 +27,7 @@ import { AnnouncementSubmitButton } from 'entity/addAnnouncementForm/universalFi
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { toast } from 'react-toastify';
 import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
-import { useAppDispatch } from 'app/store/hooks.ts';
+import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
@@ -42,11 +46,18 @@ const AdvertisementEditing = () => {
     const path = useLocation().pathname.split('/');
     const slug = path[path.length - 1];
 
-    const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery(slug);
+    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery({
+        slug,
+        isAuth,
+    });
     const { accessToken, refreshToken } = getTokensFromStorage();
     const { data: user } = useGetUserQuery(accessToken);
 
-    const [editAdvert, { isLoading: isSendLoading, isSuccess, isError: isSendError }] = useEditAdvertMutation();
+    const [
+        editAdvert,
+        { isLoading: isSendLoading, isSuccess, isError: isSendError },
+    ] = useEditAdvertMutation();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>(
         dataAdvert?.coordinates
     );
@@ -69,12 +80,19 @@ const AdvertisementEditing = () => {
     const onsubmit = async (data: FormAddAnn) => {
         dispatch(setLoading(true));
         setValue('country', 'india');
-        setValue('region', "goa");
+        setValue('region', 'goa');
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
-        const formData = createFormDataObjectForSendAnnouncement(data, 'upload_images');
+        const formData = createFormDataObjectForSendAnnouncement(
+            data,
+            'upload_images'
+        );
         try {
             const { accessToken } = getTokensFromStorage();
-            await editAdvert({body: formData as FormAddAnn, addSlug, accessToken})
+            await editAdvert({
+                body: formData as FormAddAnn,
+                addSlug,
+                accessToken,
+            });
             dispatch(setLoading(false));
         } catch (error) {
             console.log(error);
@@ -85,11 +103,12 @@ const AdvertisementEditing = () => {
 
     useEffect(() => {
         setValue('country', 'india');
-        setValue('region', "goa");
+        setValue('region', 'goa');
         dataAdvert && setMarkerPosition(dataAdvert.coordinates);
         dataAdvert?.slug && setValue('slug', dataAdvert?.slug);
-        dataAdvert?.images && setEditImages(dataAdvert.images)
-        if(path[1] !== "advertisement-editing") setValue('category', dataAdvert?.category)
+        dataAdvert?.images && setEditImages(dataAdvert.images);
+        if (path[1] !== 'advertisement-editing')
+            setValue('category', dataAdvert?.category);
         return () => {
             setEditImages(undefined);
             setSelectedImages(undefined);
@@ -99,16 +118,21 @@ const AdvertisementEditing = () => {
     }, [dataAdvert, setValue, isSuccess, isSendError,  path]);
 
     useEffect(() => {
-        if(isSuccess){
-            toast.success(`${t('add-page.edit-success')}`)
+        if (isSuccess) {
+            toast.success(`${t('add-page.edit-success')}`);
             scrollToTop();
-            dispatch(fetchAdverts.util?.invalidateTags(['Adverts', 'MyAnnouncements']))
+            dispatch(
+                fetchAdverts.util?.invalidateTags([
+                    'Adverts',
+                    'MyAnnouncements',
+                ])
+            );
             //очищаем кэш, чтобы обновить данные по объявлениям
         }
-        if(isSendError){
+        if (isSendError) {
             toast.error(`${t('errors.add-announcement-error')}`);
         }
-    }, [t, isSendError, isSuccess]);//чтобы уведомление всплыло один раз
+    }, [t, isSendError, isSuccess]); //чтобы уведомление всплыло один раз
 
     return (
         <section className={styles.add_ann}>
@@ -122,12 +146,14 @@ const AdvertisementEditing = () => {
                 {(isSendLoading || isLoading) && <LoadingWithBackground />}
                 {dataAdvert && (
                     <>
-                        {(path[1] !== "advertisement-editing") && <AnnouncementCategoryField
-                            setValue={setValue}
-                            control={control}
-                            formState={formState}
-                            defaultValue={dataAdvert.category}
-                        />}
+                        {path[1] !== 'advertisement-editing' && (
+                            <AnnouncementCategoryField
+                                setValue={setValue}
+                                control={control}
+                                formState={formState}
+                                defaultValue={dataAdvert.category}
+                            />
+                        )}
                         <AnnouncementRegion
                             setValue={setValue}
                             control={control}

@@ -31,7 +31,9 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         const { city, market_condition } = data;
 
         const marketCity = getMultiQuery('city', city);
-        const condition = `&market_condition=${market_condition}`;
+        const condition = market_condition
+            ? `&market_condition=${market_condition}`
+            : '';
 
         setSearchParams(`category=market${marketCity}${condition}&page=1`);
         setShowFilters(false);

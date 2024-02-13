@@ -1,28 +1,32 @@
-import { useState } from 'react';
 import { Rating } from 'shared/ui/Rating';
 import styles from './libr/advertOwner.module.scss';
 import { useGradeSpelling } from './libr/utils/getGradeSpelling.ts';
-import { Owner } from 'app/api/types/lastAdvertsTypes.ts';
 import { getDate } from 'shared/utils/getDate.ts';
 import { getUserIcon } from 'shared/utils/userIcon/getUserIcon.ts';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks.ts';
+import { useParams } from 'react-router-dom';
+import { useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
-    owner: Owner;
     className: string;
 }
 
-export const AdvertOwner = ({ owner, className }: Props) => {
-    const [grades, setGrades] = useState(owner.rating_num);
+export const AdvertOwner = ({ className }: Props) => {
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
+    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const { slug } = useParams();
+    const { data, refetch } = useGetAdvertBySlugQuery({ slug: slug!, isAuth });
 
-    const { firstLetters } = getUserIcon(owner.full_name);
+    const { firstLetters } = getUserIcon(data?.owner.full_name);
 
-    const spelling = useGradeSpelling(grades);
+    const spelling = `${t('advert-page.grade')}${useGradeSpelling(
+        data?.owner.rating_num,
+        lang
+    )}`;
 
-    const date = getDate(owner.date_joined);
+    const date = getDate(data?.owner.date_joined);
     const { dayToDisplay } = date;
     let day = dayToDisplay;
 
@@ -35,28 +39,31 @@ export const AdvertOwner = ({ owner, className }: Props) => {
 
     return (
         <div className={`${styles.owner} ${className}`}>
-            <span className={styles.user_icon}>{firstLetters}</span>
-            <div className={styles.owner_characteristics}>
-                <div>
-                    <p>{`${owner.full_name[0].toUpperCase()}${owner.full_name.slice(
-                        1
-                    )}`}</p>
-                    <span className={styles.rating_number}>
-                        {owner.avg_rating}
-                    </span>
-                </div>
-                <div className={styles.rating_block}>
-                    <Rating
-                        id={owner.id}
-                        rating={owner.avg_rating}
-                        grades={grades}
-                        setGrades={setGrades}
-                        myRating={owner.my_rating}
-                    />
-                    <span>{`${grades} ${spelling}`}</span>
-                </div>
-                <p>{`${t('advert-page.registration-date')} ${day}`}</p>
-            </div>
+            {data && (
+                <>
+                    <span className={styles.user_icon}>{firstLetters}</span>
+                    <div className={styles.owner_characteristics}>
+                        <div>
+                            <p>{`${data.owner.full_name[0].toUpperCase()}${data.owner.full_name.slice(
+                                1
+                            )}`}</p>
+                            <span className={styles.rating_number}>
+                                {data.owner.avg_rating.toFixed(2)}
+                            </span>
+                        </div>
+                        <div className={styles.rating_block}>
+                            <Rating
+                                id={data.owner.id}
+                                rating={data.owner.avg_rating}
+                                myRating={data.owner.my_rating}
+                                refetch={refetch}
+                            />
+                            <span>{`${data.owner.rating_num} ${spelling}`}</span>
+                        </div>
+                        <p>{`${t('advert-page.registration-date')} ${day}`}</p>
+                    </div>
+                </>
+            )}
         </div>
     );
 };

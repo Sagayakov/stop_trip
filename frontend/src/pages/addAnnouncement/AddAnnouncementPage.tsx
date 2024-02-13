@@ -53,14 +53,18 @@ const AddAnnouncementPage = () => {
     const { refreshToken } = getTokensFromStorage();
     const category = watch('category');
 
-    const [addAdvert, {isSuccess, isError, isLoading}] = useAddAdvertMutation();
+    const [addAdvert, { isSuccess, isError, isLoading }] =
+        useAddAdvertMutation();
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
-        setValue('region', "goa");
+        setValue('region', 'goa');
         dispatch(setLoading(true));
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
-        const formData = createFormDataObjectForSendAnnouncement(data, 'images');
+        const formData = createFormDataObjectForSendAnnouncement(
+            data,
+            'images'
+        );
         try {
             const { accessToken } = getTokensFromStorage();
             await addAdvert({body: formData as FormAddAnn, token: accessToken});
@@ -79,7 +83,7 @@ const AddAnnouncementPage = () => {
         return (selectedImages && selectedImages.length > 10) || (imgSize > 52428800);
     };
     useEffect(() => {
-        if(isSuccess){
+        if (isSuccess) {
             setModalSuccess(true);
             setSelectedImages(undefined);
             setMarkerPosition(undefined);
@@ -88,9 +92,9 @@ const AddAnnouncementPage = () => {
             //очищаем кэш, чтобы обновить данные по объявлениям
             reset();
         }
-        if(isError) toast.error(`${t('errors.add-announcement-error')}`);
+        if (isError) toast.error(`${t('errors.add-announcement-error')}`);
         setValue('country', 'india');
-        setValue('region', "goa");
+        setValue('region', 'goa');
     }, [isSuccess, isError]);
 
     return (

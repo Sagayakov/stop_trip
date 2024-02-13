@@ -49,22 +49,20 @@ class AdvertisementFilter(
         fields = ()
 
     @classmethod
-    def _advertisement_filter_specs(cls, queryset) -> list[dict]:
-        specs: list[dict] = []
+    def _advertisement_filter_specs(cls, queryset) -> dict[str, list[dict]]:
+        specs: dict[str, Union[list, dict]] = {}
 
         # Категория
         category_specs = {
-            "name": "category",
-            "choices": [
+            "category": [
                 {"value": value, "label": label} for value, label in CategoryChoices.choices
             ],
         }
-        specs.append(category_specs)
+        specs |= category_specs
 
         # Регион
         region_specs = {
-            "name": "region",
-            "choices": [
+            "region": [
                 {"value": value, "label": label}
                 for value, label in queryset.exclude(region__isnull=True)
                 .values_list("region__slug", "region__name")
@@ -72,12 +70,11 @@ class AdvertisementFilter(
                 .distinct("region__slug", "region__name")
             ],
         }
-        specs.append(region_specs)
+        specs |= region_specs
 
         # Город
         city_specs = {
-            "name": "city",
-            "choices": [
+            "city": [
                 {"value": value, "label": label}
                 for value, label in queryset.exclude(city__isnull=True)
                 .values_list("city__slug", "city__name")
@@ -85,15 +82,14 @@ class AdvertisementFilter(
                 .distinct("city__slug", "city__name")
             ],
         }
-        specs.append(city_specs)
+        specs |= city_specs
 
         # Цена
         price_range = queryset.aggregate(min=Min("price"), max=Max("price"))
         price_specs = {
-            "name": "price",
-            "range": {"min": price_range["min"], "max": price_range["max"]},
+            "price": {"min": price_range["min"], "max": price_range["max"]},
         }
-        specs.append(price_specs)
+        specs |= price_specs
 
         return specs
 
@@ -130,14 +126,13 @@ class AdvertisementFilter(
 
     @classmethod
     def get_filter_params(cls, queryset) -> dict[str, Union[int, list]]:
-        params: list[dict] = []
+        params: dict = {}
 
         for method in dir(cls):
             if method.endswith("_filter_specs"):
-                params += [*getattr(cls, method)(queryset)]
+                params |= getattr(cls, method)(queryset)
 
-        filter_params = {"count": queryset.count(), "params": params}
-        return filter_params
+        return params
 
     @classmethod
     def get_available_filtered_params(cls, queryset) -> dict[str, Union[int, list]]:

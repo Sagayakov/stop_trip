@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "users.apps.UserConfig",
     "feedback.apps.FeedbackConfig",
     "countries.apps.CountryConfig",
+    "report.apps.ReportConfig",
 ]
 
 MIDDLEWARE = [
@@ -261,7 +262,7 @@ SIMPLE_JWT = {
 }
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
-
+PASSWORD_RESET_TIMEOUT = 259_200
 DOMAIN = getenv("SITE_HOST")
 SITE_NAME = getenv("SITE_HOST")
 DJOSER = {
@@ -269,6 +270,7 @@ DJOSER = {
     "USER_CREATE_PASSWORD_RETYPE": True,
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
     "SEND_CONFIRMATION_EMAIL": True,
+    "RE_SEND_CONFIRMATION_EMAIL": True,
     "SET_PASSWORD_RETYPE": True,
     "PASSWORD_RESET_CONFIRM_URL": "email/reset/confirm/{uid}/{token}",
     "ACTIVATION_URL": "activate/{uid}/{token}",
@@ -351,3 +353,7 @@ AWS_DEFAULT_ACL = None
 AWS_LOCATION = getenv("YND_LOCATION", "media")
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_FILE_OVERWRITE = False
+
+# Максимальные размеры на загрузку медиа до сжатия
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB

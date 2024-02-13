@@ -5,17 +5,23 @@ import styles from './libr/favorites.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Cart } from 'entity/lastAdverts/Cart';
 import { useEffect } from 'react';
+import { useGetAdvertsQuery } from 'app/api/fetchAdverts';
 
 const FavoritesPage = () => {
     const { data, isLoading, refetch } = useGetFavoritesQuery('');
+    const { data: advertsData } = useGetAdvertsQuery('');
     const { t } = useTranslation();
 
     useEffect(() => {
         refetch();
         // pushViewListWithDataResults(data, "Избранные")
         const path = window.location.pathname.slice(1, -1);
-        sessionStorage.setItem('prevLocation', path);//для условия для яндекс метрики
+        sessionStorage.setItem('prevLocation', path); //для условия для яндекс метрики
     }, [refetch, data]);
+
+    const targetData = advertsData?.results?.filter(
+        (el) => data?.includes(el.id)
+    );
 
     return (
         <>
@@ -25,9 +31,9 @@ const FavoritesPage = () => {
                 &nbsp;{` > ${t('modal-logged.favorites')}`}
             </div>
             <h1 className={styles.title}>{t('modal-logged.favorites')}</h1>
-            {data && data.results.length ? (
+            {targetData && targetData.length ? (
                 <div className={styles.fav_list}>
-                    {data.results.map((el, index: number) => (
+                    {targetData.map((el, index: number) => (
                         <Cart key={el.id} {...el} index={index} />
                     ))}
                 </div>

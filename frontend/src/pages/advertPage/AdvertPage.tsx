@@ -5,10 +5,12 @@ import { useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 const Advert = lazy(() => import('widgets/advert/Advert'));
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 const AdvertPage = () => {
     const { slug } = useParams();
-    const { data } = useGetAdvertBySlugQuery(slug!);
+    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const { data } = useGetAdvertBySlugQuery({ slug: slug!, isAuth });
     const { isMobile } = useMatchMedia();
 
     return (

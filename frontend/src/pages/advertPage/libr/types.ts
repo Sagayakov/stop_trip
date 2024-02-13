@@ -76,7 +76,7 @@ export type ProductType = {
     transport_commission: null | number;
 };
 
-type Owner = {
+export type Owner = {
     date_joined: string;
     email: string;
     full_name: string;
@@ -85,8 +85,21 @@ type Owner = {
     avg_rating: number;
     my_rating: number;
     rating_num: number;
+    user_messengers: UserMessenger[];
 };
 
 type Amenity = {
     name: string;
+};
+
+export type UserMessenger = {
+    messenger: Messenger;
+    link_to_user: string;
+};
+
+export type Messenger = {
+    id: number;
+    name: string;
+    link_to_messenger: string;
+    description: string;
 };

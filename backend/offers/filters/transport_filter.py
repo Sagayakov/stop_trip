@@ -46,38 +46,36 @@ class TransportFilter(FilterSet):
     transport_commission = filters.RangeFilter(label="Комиссия")
 
     @classmethod
-    def _transport_filter_specs(cls, queryset) -> list[dict]:
-        specs: list[dict] = []
+    def _transport_filter_specs(cls, queryset) -> dict[str, list[dict]]:
+        specs: dict[str, Union[list, dict]] = {}
 
         # Тип услуги
         transport_type_of_service_specs = {
-            "name": "transport_type_of_service",
-            "choices": [
+            "transport_type_of_service": [
                 {"value": value, "label": label} for value, label in TransportTypeOfService.choices
             ],
         }
-        specs.append(transport_type_of_service_specs)
+        specs |= transport_type_of_service_specs
 
         # Тип транспорта
         transport_type_specs = {
-            "name": "transport_type",
-            "choices": [{"value": value, "label": label} for value, label in TransportType.choices],
+            "transport_type": [
+                {"value": value, "label": label} for value, label in TransportType.choices
+            ],
         }
-        specs.append(transport_type_specs)
+        specs |= transport_type_specs
 
         # Категория транспорта
         transport_category_specs = {
-            "name": "transport_category",
-            "choices": [
+            "transport_category": [
                 {"value": value, "label": label} for value, label in TransportCategory.choices
             ],
         }
-        specs.append(transport_category_specs)
+        specs |= transport_category_specs
 
         # Марка транспорта
         transport_brand_specs = {
-            "name": "transport_brand",
-            "choices": [
+            "transport_brand": [
                 {"value": value, "label": label}
                 for value, label in queryset.exclude(transport_brand__isnull=True)
                 .values_list("transport_brand__slug", "transport_brand__name")
@@ -85,12 +83,11 @@ class TransportFilter(FilterSet):
                 .distinct("transport_brand__slug")
             ],
         }
-        specs.append(transport_brand_specs)
+        specs |= transport_brand_specs
 
         # Модель транспорта
         transport_model_specs = {
-            "name": "transport_model",
-            "choices": [
+            "transport_model": [
                 {"value": value, "label": label}
                 for value, label in queryset.exclude(transport_model__isnull=True)
                 .values_list("transport_model__slug", "transport_model__name")
@@ -98,92 +95,84 @@ class TransportFilter(FilterSet):
                 .distinct("transport_model__slug")
             ],
         }
-        specs.append(transport_model_specs)
+        specs |= transport_model_specs
 
         # Тип двигателя
         transport_engine_type_specs = {
-            "name": "transport_engine_type",
-            "choices": [
+            "transport_engine_type": [
                 {"value": value, "label": label} for value, label in TransportEngineType.choices
             ],
         }
-        specs.append(transport_engine_type_specs)
+        specs |= transport_engine_type_specs
 
         # Вид привода
         transport_drive_type_specs = {
-            "name": "transport_drive_type",
-            "choices": [
+            "transport_drive_type": [
                 {"value": value, "label": label} for value, label in TransportDriveType.choices
             ],
         }
-        specs.append(transport_drive_type_specs)
+        specs |= transport_drive_type_specs
 
         # Объём двигателя
         transport_engine_volume_range = queryset.aggregate(
             min=Min("transport_engine_volume"), max=Max("transport_engine_volume")
         )
         transport_engine_volume_specs = {
-            "name": "transport_engine_volume",
-            "range": {
+            "transport_engine_volume": {
                 "min": transport_engine_volume_range["min"],
                 "max": transport_engine_volume_range["max"],
             },
         }
-        specs.append(transport_engine_volume_specs)
+        specs |= transport_engine_volume_specs
 
         # Год производства
         transport_year_of_production_range = queryset.aggregate(
             min=Min("transport_year_of_production"), max=Max("transport_year_of_production")
         )
         transport_year_of_production_specs = {
-            "name": "transport_year_of_production",
-            "range": {
+            "transport_year_of_production": {
                 "min": transport_year_of_production_range["min"],
                 "max": transport_year_of_production_range["max"],
             },
         }
-        specs.append(transport_year_of_production_specs)
+        specs |= transport_year_of_production_specs
 
         # Тип коробки передач
         transport_transmission_type_specs = {
-            "name": "transport_transmission_type",
-            "choices": [
+            "transport_transmission_type": [
                 {"value": value, "label": label}
                 for value, label in TransportTransmissionType.choices
             ],
         }
-        specs.append(transport_transmission_type_specs)
+        specs |= transport_transmission_type_specs
 
         # Тип кузова
         transport_body_type_specs = {
-            "name": "transport_body_type",
-            "choices": [
+            "transport_body_type": [
                 {"value": value, "label": label} for value, label in TransportBodyType.choices
             ],
         }
-        specs.append(transport_body_type_specs)
+        specs |= transport_body_type_specs
 
         # Состояние транспорта
         transport_condition_specs = {
-            "name": "transport_condition",
-            "choices": [
+            "transport_condition": [
                 {"value": value, "label": label} for value, label in TransportCondition.choices
             ],
         }
-        specs.append(transport_condition_specs)
+        specs |= transport_condition_specs
 
         # Комиссия
         transport_commission_range = queryset.aggregate(
             min=Min("transport_commission"), max=Max("transport_commission")
         )
         transport_commission_specs = {
-            "name": "transport_commission",
-            "range": {
+            "transport_commission": {
                 "min": transport_commission_range["min"],
                 "max": transport_commission_range["max"],
             },
         }
-        specs.append(transport_commission_specs)
+        specs |= transport_commission_specs
 
         return specs
 

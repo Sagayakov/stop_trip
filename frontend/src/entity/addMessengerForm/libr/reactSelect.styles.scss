@@ -1,0 +1,36 @@
+.messenger_select__control {
+    width: 100%;
+    height: 40px;
+    border-radius: 0.5rem !important;
+
+    .messenger_select__indicators {
+        .messenger_select__clear-indicator {
+            padding: 0;
+        }
+        .messenger_select__dropdown-indicator {
+            padding: 8px 8px 8px 0;
+        }
+        span {
+            display: none;
+        }
+    }
+    &::-webkit-scrollbar {
+        width: 2px !important;
+    }
+    &::-webkit-scrollbar-thumb {
+        width: 2px;
+        background-color: gray !important;
+    }
+    .messenger_select__value-container {
+        .messenger_select__input-container {
+            .messenger_select__input {
+                height: 25px;
+                border: none !important;
+            }
+        }
+    }
+    .messenger_select__menu-list {
+        max-height: 200px;
+        scrollbar-width: thin !important;
+    }
+}

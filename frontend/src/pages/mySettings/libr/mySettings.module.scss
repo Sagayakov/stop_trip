@@ -1,9 +1,10 @@
-input{
+input {
     border: 1px solid var(--grey-1);
 }
 .my_setting {
     width: 1240px;
     margin: 0 auto 80px;
+    font-family: var(--font-inter);
     .title {
         width: 100%;
         margin: 1rem 0;
@@ -19,20 +20,22 @@ input{
             color: var(--grey-3);
         }
     }
+    .user_email {
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--grey-1);
+        font-size: 20px;
+        b {
+            font-size: 20px;
+        }
+    }
     .setting_form {
         padding-top: 1rem;
-        p{
-            font-size: 22px;
-            margin-bottom: 1rem;
-            b{
-                font-size: 22px;
-            }
-        }
-        .input_wrapper{
+
+        .input_wrapper {
             display: flex;
             flex-direction: column;
             width: 50%;
-            h2{
+            h2 {
                 margin: 1.5rem 0 1rem;
                 font-size: 24px;
             }
@@ -52,7 +55,7 @@ input{
                 }
             }
 
-            .errors{
+            .errors {
                 min-height: 18px;
                 color: red;
                 font-size: 14px;
@@ -78,7 +81,7 @@ input{
                 overflow-wrap: break-word;
                 cursor: pointer;
             }
-            input[type="submit"]:disabled{
+            input[type='submit']:disabled {
                 background-color: var(--grey-3);
             }
 
@@ -125,7 +128,7 @@ input{
             font-size: 24px;
         }
         .setting_form {
-            .input_wrapper{
+            .input_wrapper {
                 width: 70%;
             }
             .button_wrapper {
@@ -150,17 +153,17 @@ input{
         .bread_crumbs {
             width: 100%;
             margin: 0 auto;
-            padding: 15px;
+            padding: 15px 0;
         }
         .title {
-            padding: 0 15px;
+            padding: 0;
         }
         .setting_form {
-            padding: 1rem 15px 0;
-            .input_wrapper{
+            padding: 1rem 0 0;
+            .input_wrapper {
                 width: 100%;
-                .password_div{
-                    #eye{
+                .password_div {
+                    #eye {
                         top: 22px;
                     }
                 }
@@ -211,13 +214,13 @@ input{
         .title {
             width: 100%;
             margin: 0 auto 16px;
-            padding: 0 15px;
+            padding: 0;
             font-size: 22px;
         }
-        .setting_form{
-            .input_wrapper{
-                .password_div{
-                    #eye{
+        .setting_form {
+            .input_wrapper {
+                .password_div {
+                    #eye {
                         top: 32px;
                     }
                 }

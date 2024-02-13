@@ -5,6 +5,7 @@ import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { FiltersType } from './types/filtersType';
 import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import Cookies from 'js-cookie';
 
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
@@ -35,14 +36,29 @@ export const fetchAdverts = createApi({
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "X-Csrftoken": `${token}`,
+                    'X-Csrftoken': `${token}`,
                 },
                 body,
             }),
             invalidatesTags: ['Adverts'],
         }),
-        getAdvertBySlug: build.query<ProductType, string>({
-            query: (slug) => `api/advertisements/${slug}/`,
+        getAdvertBySlug: build.query<
+            ProductType,
+            { slug: string; isAuth: boolean }
+        >({
+            query: ({ slug, isAuth }) => ({
+                url: `api/advertisements/${slug}/`,
+                method: 'GET',
+                credentials: 'include',
+                headers: isAuth
+                    ? {
+                          Authorization: `Bearer ${Cookies.get(
+                              'access_token'
+                          )}`,
+                          'X-Csrftoken': `${Cookies.get('access_token')}`,
+                      }
+                    : {},
+            }),
         }),
         getFilters: build.query<FiltersType, string>({
             query: () => `api/advertisements/get_filter_params/`,
@@ -53,7 +69,7 @@ export const fetchAdverts = createApi({
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
-                    "X-Csrftoken": `${token}`,
+                    'X-Csrftoken': `${token}`,
                 },
             }),
             providesTags: ['MyAnnouncements'],
@@ -63,8 +79,8 @@ export const fetchAdverts = createApi({
                 url: `api/advertisements/${slug}`,
                 method: 'DELETE',
                 headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "X-Csrftoken": `${token}`,
+                    Authorization: `Bearer ${token}`,
+                    'X-Csrftoken': `${token}`,
                 },
             }),
         }),
@@ -77,7 +93,7 @@ export const fetchAdverts = createApi({
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
-                    "X-Csrftoken": `${accessToken}`,
+                    'X-Csrftoken': `${accessToken}`,
                 },
                 body,
             }),
@@ -93,5 +109,5 @@ export const {
     useAddAdvertMutation,
     useMyAnnouncementsQuery,
     useEditAdvertMutation,
-    useDeleteAnnouncemetMutation
+    useDeleteAnnouncemetMutation,
 } = fetchAdverts;

@@ -9,15 +9,17 @@ class ServiceFilter(FilterSet):
     service_home_visit = filters.BooleanFilter(label="Выезд на дом")
 
     @classmethod
-    def _service_filter_specs(cls, queryset) -> list[dict]:
-        specs: list[dict] = []
+    def _service_filter_specs(cls, queryset) -> dict[str, list[dict]]:
+        specs: dict[str, Union[list, dict]] = {}
 
         # Выезд на дом
         service_home_visit_specs = {
-            "name": "service_home_visit",
-            "choices": [True, False],
+            "service_home_visit": [
+                {"value": True, "label": "Да"},
+                {"value": False, "label": "Нет"},
+            ],
         }
-        specs.append(service_home_visit_specs)
+        specs |= service_home_visit_specs
 
         return specs
 

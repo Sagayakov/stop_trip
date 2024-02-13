@@ -1,0 +1,236 @@
+.messengers_wrapper {
+    width: 50%;
+
+    .messengers_header {
+        margin: 1rem 0;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .current_messengers {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        .user_messenger {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background-color: var(--grey-4);
+            border-radius: 0.5rem;
+            padding: 0 0.5rem;
+            img {
+                width: 2rem;
+                margin-right: 0.5rem;
+            }
+            .edit_input {
+                height: 2rem;
+                background-color: white !important;
+                padding: 0 2rem 0 0;
+            }
+            .edit_input_disabled {
+                height: unset;
+                background-color: var(--grey-4);
+                border: none;
+                padding: 0 2rem 0 0;
+            }
+            .finish_edit {
+                width: 3rem;
+                height: 2rem;
+                background: var(--main-green) url('shared/ui/icons/union.svg')
+                    no-repeat center center;
+                box-shadow: none;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            .edit_user_messenger,
+            .delete_user_messenger {
+                cursor: pointer;
+                margin-left: 0.5rem;
+            }
+        }
+    }
+
+    .add_messengers_block {
+        padding: 1rem 0;
+        width: 100%;
+        .add_messenger_form {
+            display: grid;
+            grid-template-columns: minmax(0, min-content) auto minmax(
+                    0,
+                    min-content
+                );
+            grid-template-areas:
+                'select select select'
+                'prefix input submit';
+            width: 100%;
+
+            .messenger_select_wrapper {
+                grid-area: select;
+                margin-bottom: 5px;
+            }
+
+            .prefix_span {
+                grid-area: prefix;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.5rem;
+                outline: none;
+                height: 2.5rem;
+                border: 1px solid var(--grey-1);
+                border-right: none;
+                border-radius: 0.5rem 0 0 0.5rem;
+                padding: 0 0 0 0.5rem;
+                color: var(--grey-5);
+                white-space: nowrap;
+                img {
+                    width: 1.5rem;
+                }
+            }
+
+            .link_wrapper {
+                grid-area: input;
+                display: flex;
+                flex-direction: column;
+                .link_input {
+                    outline: none;
+                    width: 100%;
+                    height: 2.5rem;
+                    border: 1px solid var(--grey-1);
+                    border-radius: 0 0.5rem 0.5rem 0;
+                    padding: 0.5rem 0.5rem 0.5rem 0;
+                    &:focus {
+                        border: 1px solid var(--main-blue);
+                    }
+                }
+                .link_input.link_input_error,
+                .link_input.link_input_error:focus {
+                    border: 1px solid red !important;
+                }
+
+                .link_tooltip {
+                    font-size: 13px;
+                    color: var(--main-blue);
+                    a {
+                        font-size: 13px;
+                        color: var(--main-blue);
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .submit {
+                grid-area: submit;
+                height: 2.5rem;
+                background-color: #02c66e;
+                border: none;
+                border-radius: 8px;
+                margin-left: 5px;
+                padding: 0.75rem 1rem;
+                color: white;
+                cursor: pointer;
+                &:hover {
+                    background-color: #02c66e;
+                }
+                &:disabled {
+                    background-color: var(--grey-2);
+                    cursor: default;
+                }
+            }
+        }
+    }
+}
+
+.select_option {
+    display: flex;
+    align-items: center;
+    img {
+        width: 1.5rem;
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: 1021px) {
+    .messengers_wrapper {
+        width: 70%;
+        .add_messengers_block {
+            .add_messenger_form {
+                .messenger_select_wrapper {
+                    grid-area: select;
+                    width: 100%;
+                    margin-bottom: 0.5rem;
+                }
+                .prefix_span {
+                    grid-area: prefix;
+                    justify-content: flex-end;
+                    width: unset;
+                    margin-left: 0;
+                }
+                .link_wrapper {
+                    grid-area: input;
+                    width: 100%;
+                    margin-right: 0.5rem;
+                }
+                .submit {
+                    grid-area: submit;
+                    width: 96%;
+                    margin-left: 0;
+                    justify-self: end;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .messengers_wrapper {
+        width: 100%;
+    }
+}
+
+@media (max-width: 558px) {
+    .messengers_wrapper {
+        .add_messengers_block {
+            .add_messenger_form {
+                grid-template-columns: minmax(0, min-content) auto;
+                grid-template-areas:
+                    'select select'
+                    'prefix input'
+                    'submit submit';
+                .submit {
+                    width: 100%;
+                    margin-top: 0.5rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 442px) {
+    .messengers_wrapper {
+        .current_messengers {
+            .user_messenger {
+                img {
+                    width: 1rem;
+                    margin-right: 1px;
+                }
+                .edit_input,
+                .edit_input_disabled {
+                    padding-right: 0;
+                }
+            }
+        }
+        .add_messengers_block {
+            .add_messenger_form {
+                .prefix_span {
+                    gap: 2px;
+
+                    img {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
