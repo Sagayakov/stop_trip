@@ -52,8 +52,7 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         images = validated_data.pop("images", [])
-        if validated_data.get("youtube"):
-            youtube_link = validated_data["youtube"]
+        if youtube_link := validated_data.get("youtube"):
             validated_data["youtube"] = change_link(youtube_link)
         advertisement = super().create(validated_data)
         if images:
@@ -231,8 +230,7 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         upload_images = validated_data.pop("upload_images", [])
         delete_images = validated_data.pop("delete_images", [])
-        if validated_data.get("youtube"):
-            youtube_link = validated_data["youtube"]
+        if youtube_link := validated_data.get("youtube"):
             validated_data["youtube"] = change_link(youtube_link)
         advertisement = super().update(instance, validated_data)
         if delete_images:
