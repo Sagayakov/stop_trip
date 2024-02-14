@@ -40,8 +40,10 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         scrollToTop();
     };
 
-    const onReset = () => {
+    const handleReset = () => {
         reset();
+        setSearchParams('category=market&page=1');
+        location.reload();
     };
 
     return (
@@ -56,7 +58,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                 <input type="submit" value={t('filters.apply')} />
                 <button
                     className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`}
-                    onClick={onReset}
+                    onClick={handleReset}
                 >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}

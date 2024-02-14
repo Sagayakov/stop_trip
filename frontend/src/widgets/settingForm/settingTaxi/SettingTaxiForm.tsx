@@ -37,9 +37,10 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
         setShowFilters(false);
     };
 
-    const onReset = () => {
+    const handleReset = () => {
         reset();
-        scrollToTop();
+        setSearchParams('category=taxi&page=1');
+        location.reload();
     };
 
     return (
@@ -57,7 +58,7 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 <input type="submit" value={t('filters.apply')} />
                 <button
                     className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
-                    onClick={onReset}
+                    onClick={handleReset}
                 >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}

@@ -45,8 +45,10 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
         scrollToTop();
     };
 
-    const onReset = () => {
+    const handleReset = () => {
         reset();
+        setSearchParams('category=document&page=1');
+        location.reload();
     };
 
     return (
@@ -62,7 +64,7 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                 <input type="submit" value={t('filters.apply')} />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
-                    onClick={onReset}
+                    onClick={handleReset}
                 >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}

@@ -19,7 +19,7 @@ interface Props {
 }
 
 const SettingCurrencyForm = ({ setShowFilters }: Props) => {
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
@@ -30,13 +30,25 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
 
     const onSubmit: SubmitHandler<TypeOfCurrencyFilter> = (data) => {
         const { city, exchange_for, exchange_rate, proposed_currency } = data;
-        console.log(data);
+
+        const searchCity = searchParams.get('city')?.split(',');
+        const searchFor = searchParams
+            .get('exchange_for')
+            ?.split(',')
+            .map((el) => ({ value: el, label: el }));
+        const searchRate = Number(searchParams.get('exchange_rate'));
+        const searchProposed = searchParams
+            .get('proposed_currency')
+            ?.split(',')
+            .map((el) => ({ value: el, label: el }));
 
         const { currencyCity, exFor, proposed, rate } = searchParamsForExchange(
-            city,
-            exchange_for,
-            exchange_rate,
-            proposed_currency
+            {
+                city: searchCity ?? city,
+                exchange_for: searchFor ?? exchange_for,
+                exchange_rate: searchRate || exchange_rate,
+                proposed_currency: searchProposed ?? proposed_currency,
+            }
         );
 
         setSearchParams(
@@ -47,7 +59,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
         scrollToTop();
     };
 
-    const onReset = () => {
+    const handleReset = () => {
         reset();
         setSearchParams('category=exchange_rate&page=1');
         location.reload();
@@ -67,7 +79,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
                 <input type="submit" value={t('filters.apply')} />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
-                    onClick={onReset}
+                    onClick={handleReset}
                 >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}

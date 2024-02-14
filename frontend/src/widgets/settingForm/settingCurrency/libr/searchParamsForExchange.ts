@@ -5,17 +5,24 @@ interface Currency {
     label: string;
 }
 
-export const searchParamsForExchange = (
-    city: string[],
-    exchange_for: Currency,
-    exchange_rate: number,
-    proposed_currency: Currency
-) => {
+type SearchParamsProps = {
+    city?: string[];
+    exchange_for?: Currency[];
+    exchange_rate?: number;
+    proposed_currency?: Currency[];
+};
+
+export const searchParamsForExchange = ({
+    city,
+    exchange_for,
+    exchange_rate,
+    proposed_currency,
+}: SearchParamsProps) => {
     let proposedValues = '';
     try {
         if (proposed_currency) {
-            Object.entries(proposed_currency).forEach((el) => {
-                proposedValues = proposedValues + el[1] + '%2C';
+            proposed_currency.forEach((el) => {
+                proposedValues = proposedValues + el.value + '%2C';
             });
 
             proposedValues = proposedValues.slice(0, proposedValues.length - 3);
@@ -32,8 +39,8 @@ export const searchParamsForExchange = (
 
     try {
         if (exchange_for) {
-            Object.entries(exchange_for).forEach((el) => {
-                exchangeFor = exchangeFor + el[1] + '%2C';
+            exchange_for.forEach((el) => {
+                exchangeFor = exchangeFor + el.value + '%2C';
             });
             exchangeFor = exchangeFor.slice(0, exchangeFor.length - 3);
         }

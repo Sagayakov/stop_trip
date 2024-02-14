@@ -48,9 +48,10 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
         scrollToTop();
     };
 
-    const onReset = () => {
+    const handleReset = () => {
         reset();
-        scrollToTop();
+        setSearchParams('category=transport&page=1');
+        location.reload();
     };
 
     return (
@@ -83,7 +84,7 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 <SettingTransportPrice register={register} />
                 <input type="submit" value={t('filters.apply')} />
                 <UniversalButton
-                    onClick={onReset}
+                    onClick={handleReset}
                     className={`${formStyle.reset_setting_form} ${styles.reset_setting_form}`}
                 >
                     <Reset color="#1F6FDE" />

@@ -52,8 +52,11 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
         setShowFilters(false);
         scrollToTop();
     };
-    const onReset = () => {
+
+    const handleReset = () => {
         reset();
+        setSearchParams('category=property&page=1');
+        location.reload();
     };
 
     return (
@@ -86,7 +89,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 <input type="submit" value={t('filters.apply')} />
                 <UniversalButton
                     className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
-                    onClick={onReset}
+                    onClick={handleReset}
                 >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}
