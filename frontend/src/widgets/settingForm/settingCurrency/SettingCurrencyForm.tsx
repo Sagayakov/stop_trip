@@ -26,7 +26,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
     const { t } = useTranslation();
 
     const { handleSubmit, reset, control, setValue, register } =
-        useForm<TypeOfCurrencyFilter>({ mode: 'onChange' });
+        useForm<TypeOfCurrencyFilter>();
 
     const onSubmit: SubmitHandler<TypeOfCurrencyFilter> = (data) => {
         const { city, exchange_for, exchange_rate, proposed_currency } = data;
@@ -47,7 +47,11 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
         scrollToTop();
     };
 
-    const onReset = () => reset();
+    const onReset = () => {
+        reset();
+        setSearchParams('category=exchange_rate&page=1');
+        location.reload();
+    };
 
     return (
         <section className={styles.filters} onClick={handleClick}>
