@@ -7,7 +7,7 @@ from users.serializers import (
     UserForRetrieveAdvertisementSerializer,
 )
 
-from ..utils import compression_photo
+from ..utils import compression_photo, change_link
 from ..constants import CategoryChoices
 from ..models import (
     Advertisement,
@@ -47,10 +47,13 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
             "price",
             "description",
             "coordinates",
+            "youtube",
         )
 
     def create(self, validated_data):
         images = validated_data.pop("images", [])
+        if youtube_link := validated_data.get("youtube"):
+            validated_data["youtube"] = change_link(youtube_link)
         advertisement = super().create(validated_data)
         if images:
             AdvertisementImage.objects.bulk_create(
@@ -227,6 +230,8 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         upload_images = validated_data.pop("upload_images", [])
         delete_images = validated_data.pop("delete_images", [])
+        if youtube_link := validated_data.get("youtube"):
+            validated_data["youtube"] = change_link(youtube_link)
         advertisement = super().update(instance, validated_data)
         if delete_images:
             AdvertisementImage.objects.filter(advertisement=instance, id__in=delete_images).delete()

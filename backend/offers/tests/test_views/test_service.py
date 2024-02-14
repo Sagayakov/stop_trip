@@ -38,6 +38,7 @@ class ServiceTest(APITestCase):
             "price": 10_000,
             "service_home_visit": False,
             "images": payload_images,
+            "youtube": "https://www.youtube.com/embed/jNQXAC9IVRw",
         }
 
         self.assertEqual(Advertisement.objects.count(), 0)
@@ -60,6 +61,9 @@ class ServiceTest(APITestCase):
         self.assertEqual(new_advertisement.price, payload["price"])
         self.assertEqual(new_advertisement.service_home_visit, payload["service_home_visit"])
         self.assertEqual(new_advertisement.images.count(), len(payload_images))
+        self.assertEqual(
+            new_advertisement.youtube, "https://www.youtube.com/embed/jNQXAC9IVRw?controls=0"
+        )
 
     def test_update_service(self):
         user = UserFactory()
@@ -91,6 +95,7 @@ class ServiceTest(APITestCase):
                 advertisement_image.id for advertisement_image in advertisement_images[3:]
             ],
             "upload_images": payload_images,
+            "youtube": "https://www.youtube.com/embed/VaLXzI92t9M",
         }
 
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -113,6 +118,9 @@ class ServiceTest(APITestCase):
         self.assertEqual(advertisement.price, payload["price"])
         self.assertEqual(advertisement.service_home_visit, payload["service_home_visit"])
         self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
+        self.assertEqual(
+            advertisement.youtube, "https://www.youtube.com/embed/VaLXzI92t9M?controls=0"
+        )
         new_images_ids = advertisement.images.values_list("id", flat=True)
         for image in advertisement_images[3:]:
             self.assertTrue(image.id not in new_images_ids)
