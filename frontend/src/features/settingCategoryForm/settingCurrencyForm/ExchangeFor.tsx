@@ -4,22 +4,34 @@ import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelect
 import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingCurrency/libr/settingCurrencyFilter.module.scss';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { useEffect, useState } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;
     control: Control<TypeOfCurrencyFilter, string[]>;
 }
 
+type SelectOption = {
+    value: string;
+    label: string;
+};
+
 export const ExchangeFor = ({ control, setValue }: Props) => {
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
+    const { data } = useGetFiltersQuery('');
+    const [currencyValues, setCurrencyValues] = useState<SelectOption[]>([]);
 
-    const options = [
-        { value: 'EUR', label: 'Евро' },
-        { value: 'RUB', label: 'Рубль' },
-        { value: 'INR', label: 'Рупий' },
-        { value: 'USD', label: 'Доллар' },
-    ];
+    useEffect(() => {
+        if (data) {
+            const result = (data['exchange_for'] as SelectOption[]).filter(
+                (el) => (el as SelectOption).value && (el as SelectOption).label
+            );
+
+            setCurrencyValues(result as SelectOption[]);
+        }
+    }, [data]);
 
     return (
         <div className={styles.exchangeFor}>
@@ -29,7 +41,7 @@ export const ExchangeFor = ({ control, setValue }: Props) => {
                 control={control}
                 isMulti={true}
                 name="exchange_for"
-                options={options}
+                options={currencyValues}
                 placeholder={t('filters.exchange_for')}
                 prefix="filterForm"
                 setValue={setValue}

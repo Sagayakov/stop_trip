@@ -13,6 +13,6 @@ type RangeType = {
 };
 
 export type SelectType = {
-    value: string | number | null;
-    label: string | number | null;
+    value: string | number | boolean;
+    label: string | number;
 };

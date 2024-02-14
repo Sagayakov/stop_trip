@@ -37,7 +37,6 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
         );
         setSearchParams(`category=excursion${filters}&page=1`);
         setShowFilters(false);
-        reset();
         scrollToTop();
     };
 

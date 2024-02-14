@@ -26,10 +26,11 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
     const { t } = useTranslation();
 
     const { handleSubmit, reset, control, setValue, register } =
-        useForm<TypeOfCurrencyFilter>();
+        useForm<TypeOfCurrencyFilter>({ mode: 'onChange' });
 
     const onSubmit: SubmitHandler<TypeOfCurrencyFilter> = (data) => {
         const { city, exchange_for, exchange_rate, proposed_currency } = data;
+        console.log(data);
 
         const { currencyCity, exFor, proposed, rate } = searchParamsForExchange(
             city,
