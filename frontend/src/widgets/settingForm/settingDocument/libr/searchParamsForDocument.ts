@@ -1,9 +1,14 @@
 import { getMultiQuery } from 'shared/utils/getMultiQuery';
 
+interface Document {
+    value: string;
+    label: string;
+}
+
 export const searchParamsForDocument = (
-    city: string[],
-    document_duration: string[],
-    document_type: string[]
+    city?: string[],
+    document_duration?: Document[],
+    document_type?: Document[]
 ) => {
     let documentCity = '';
 

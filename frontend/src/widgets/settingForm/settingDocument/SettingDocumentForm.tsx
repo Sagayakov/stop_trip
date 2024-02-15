@@ -12,6 +12,8 @@ import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingDocumentForm.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { getDefaultValues } from './libr/getDefaultValues';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -19,14 +21,16 @@ interface Props {
 
 const SettingDocumentForm = ({ setShowFilters }: Props) => {
     const { t } = useTranslation();
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { data } = useGetFiltersQuery('');
+    const defaultValues = getDefaultValues(searchParams, data);
 
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
 
     const { handleSubmit, reset, setValue, control } =
-        useForm<TypeOfDocumentFilter>();
+        useForm<TypeOfDocumentFilter>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeOfDocumentFilter> = (data) => {
         const { city, document_duration, document_type } = data;

@@ -4,23 +4,34 @@ import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelect
 import { TypeOfDocumentFilter } from 'widgets/settingForm/settingDocument/libr/TypeOfDocumentFilter.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingDocument/libr/settingDocumentForm.module.scss';
+import { useEffect, useState } from 'react';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfDocumentFilter>;
     control: Control<TypeOfDocumentFilter, string[]>;
 }
 
+type SelectOption = {
+    value: string;
+    label: string;
+};
+
 export const DocumentDuration = ({ control, setValue }: Props) => {
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
+    const { data } = useGetFiltersQuery('');
+    const [values, setValues] = useState<SelectOption[]>([]);
 
-    const options = [
-        { value: 'month', label: 'Месяц' },
-        { value: 'quarter', label: 'Квартал' },
-        { value: 'year', label: 'Год' },
-        { value: 'years_5', label: '5 лет' },
-        { value: 'other', label: 'Другое' },
-    ];
+    useEffect(() => {
+        if (data) {
+            const result = (data['document_duration'] as SelectOption[]).filter(
+                (el) => (el as SelectOption).value && (el as SelectOption).label
+            );
+
+            setValues(result as SelectOption[]);
+        }
+    }, [data]);
 
     return (
         <>
@@ -31,7 +42,7 @@ export const DocumentDuration = ({ control, setValue }: Props) => {
                     control={control}
                     isMulti={true}
                     name="document_duration"
-                    options={options}
+                    options={values}
                     placeholder={t('filters.document_duration')}
                     prefix="filterForm"
                     setValue={setValue}
