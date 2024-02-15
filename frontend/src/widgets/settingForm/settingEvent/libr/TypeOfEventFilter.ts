@@ -7,7 +7,7 @@ export interface TypeOfEventFilter {
 }
 
 export interface TypeDate {
-    date: Date;
+    date: string;
     time: string;
 }
 export interface Price {

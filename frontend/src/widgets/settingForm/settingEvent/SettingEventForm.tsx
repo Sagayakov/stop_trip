@@ -14,23 +14,29 @@ import { getSearchParams } from './libr/getSearchParams.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingEventFilter.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import { getDefaultValues } from './libr/getDefaultValues.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 const SettingEventForm = ({ setShowFilters }: Props) => {
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { t } = useTranslation();
+    const { data } = useGetFiltersQuery('');
+    const defaultValues = getDefaultValues(searchParams, data);
 
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
 
     const { register, handleSubmit, reset, control, setValue } =
-        useForm<TypeOfEventFilter>();
+        useForm<TypeOfEventFilter>({ defaultValues });
+
     const onsubmit: SubmitHandler<TypeOfEventFilter> = (data) => {
         const { city, end_date, start_date, is_online, price } = data;
+
         const filters = getSearchParams({
             city,
             end_date,
@@ -38,6 +44,7 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
             is_online,
             price,
         });
+
         setSearchParams(`category=event${filters}&page=1`);
         setShowFilters(false);
         scrollToTop();
