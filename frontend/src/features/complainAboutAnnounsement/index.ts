@@ -1,0 +1,1 @@
+export { ModalComplain } from './ModalComplain.tsx'

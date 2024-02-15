@@ -35,6 +35,13 @@
                     color: var(--main-black);
                 }
             }
+            button{
+                height: 30px;
+                border-radius: var(--radii);
+                border: none;
+                cursor: pointer;
+                width: 40%;
+            }
         }
         .owner_info {
             display: flex;
@@ -216,6 +223,13 @@
             padding: 70px 0 0;
             svg {
                 width: 20px;
+            }
+        }
+        .announcement_info{
+            .product_info{
+                button{
+                    width: 100%;
+                }
             }
         }
     }

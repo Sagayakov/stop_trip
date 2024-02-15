@@ -73,7 +73,7 @@ export const Header = () => {
                 </UniversalButton>
                 <LangAuthBlock />
                 {isAddModalOpen && (
-                    <ModalAddAdvert closeAddModal={closeAddModal} />
+                    <ModalAddAdvert closeAddModal={closeAddModal} text={t('modal-add-advert.must')} />
                 )}
                 {isCheckEmailModalOpen && <ModalCheckEmail />}
             </div>
