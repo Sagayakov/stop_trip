@@ -1,15 +1,10 @@
 import { getMultiQuery } from 'shared/utils/getMultiQuery';
 
-interface FoodType {
-    label: string;
-    value: string;
-}
-
 export const searchParamsForFood = (
     city: string[],
     food_delivery: boolean,
     food_establishment: boolean,
-    food_type: FoodType[]
+    food_type: string[]
 ) => {
     const foodCity = getMultiQuery('city', city);
     const type = food_type ? `&food_type=${food_type.join('%2C')}` : '';

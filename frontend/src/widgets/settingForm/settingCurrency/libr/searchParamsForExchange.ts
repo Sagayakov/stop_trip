@@ -1,15 +1,10 @@
 import { getMultiQuery } from 'shared/utils/getMultiQuery';
 
-interface Currency {
-    value: string;
-    label: string;
-}
-
 type SearchParamsProps = {
     city?: string[];
-    exchange_for?: Currency[];
+    exchange_for?: string[];
     exchange_rate?: number;
-    proposed_currency?: Currency[];
+    proposed_currency?: string[];
 };
 
 export const searchParamsForExchange = ({

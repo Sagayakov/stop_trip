@@ -1,10 +1,10 @@
 export interface TypeOfDocumentFilter {
     city: string[];
-    document_type: Document[];
-    document_duration: Document[];
+    document_type: string[];
+    document_duration: string[];
 }
 
-interface Document {
+/* interface Document {
     value: string;
     label: string;
-}
+} */
