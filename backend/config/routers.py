@@ -6,6 +6,8 @@ from offers.views import AdvertisementModelViewSet
 from users.views import RateViewSet, MessengerViewSet
 from report.views import ReportViewSet
 
+from partners.views import PartnerViewSet
+
 router = DefaultRouter()
 
 router.register("advertisements", AdvertisementModelViewSet, basename="advertisements")
@@ -14,3 +16,4 @@ router.register("feedback", FeedbackModelViewSet, basename="feedback")
 router.register("favorites", FavoriteViewSet, basename="favorites")
 router.register("messengers", MessengerViewSet, basename="messengers")
 router.register("report", ReportViewSet, basename="report")
+router.register("partners", PartnerViewSet, basename="partners")
