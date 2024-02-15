@@ -11,21 +11,25 @@ import stylesForm from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { getMultiQuery } from 'shared/utils/getMultiQuery';
+import { getDefaultValues } from './libr/getDefaultValues';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 const SettingMarketForm = ({ setShowFilters }: Props) => {
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { t } = useTranslation();
+    const { data } = useGetFiltersQuery('');
+    const defaultValues = getDefaultValues(searchParams, data);
 
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
 
     const { register, handleSubmit, reset, setValue, control } =
-        useForm<TypeForMarketForm>();
+        useForm<TypeForMarketForm>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeForMarketForm> = (data) => {
         const { city, market_condition } = data;

@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingMarket/libr/settingMarketForm.module.scss';
 import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 interface Props {
     register: UseFormRegister<TypeForMarketForm>;
@@ -17,6 +19,23 @@ interface Values {
 export const MarketCondition = ({ register }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetFiltersQuery('');
+    const [searchParams] = useSearchParams();
+    const [defaultParam, setDefaultParam] = useState<Values | undefined>();
+
+    useEffect(() => {
+        if (data) {
+            const conditionParam = searchParams.get('market_condition');
+            const param = conditionParam
+                ? {
+                      value: conditionParam,
+                      label: (data['market_condition'] as Values[]).find(
+                          (item) => item.value === conditionParam
+                      )!.label,
+                  }
+                : undefined;
+            setDefaultParam(param);
+        }
+    }, [data, searchParams]);
 
     return (
         <div className={styles.marketCondition}>
@@ -27,6 +46,7 @@ export const MarketCondition = ({ register }: Props) => {
                     register={register}
                     name="market_condition"
                     className={styles.checkbox_group}
+                    defaultValue={defaultParam}
                 />
             )}
         </div>
