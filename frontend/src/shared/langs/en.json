@@ -282,6 +282,7 @@
         "required": "Required field",
         "complain": "Complain",
         "need-auth-complain": "To make a complaint about an advertisement, you must",
+        "complain-description": "Please describe the problem",
         "complain-success": "Your complaint has been sent! Thank you for making our site better!",
         "complain-error": "You have already left a complaint about this ad!",
         "complain-title": "Complaint about the ad",

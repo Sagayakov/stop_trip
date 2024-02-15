@@ -1,5 +1,5 @@
 export interface ComplainTypes {
     advertisement: string;
     reason: string;
-    description: string;
+    description?: string;
 }

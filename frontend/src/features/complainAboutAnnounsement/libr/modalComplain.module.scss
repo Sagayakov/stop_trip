@@ -1,3 +1,31 @@
+@keyframes background {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes height {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 465.5px;
+    }
+}
+@keyframes opacity {
+    0% {
+        opacity: 0;
+    }
+    90% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .modal_background {
     button {
         width: 100px;
@@ -21,6 +49,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: background 0.3s forwards;
     .modal_content {
         width: 50%;
         height: auto;
@@ -29,6 +58,7 @@
         border: none;
         padding: 1rem 2rem 2rem;
         position: relative;
+        animation: height 0.5s forwards;
         .close_modal {
             width: 1px;
             background-color: transparent;
@@ -49,6 +79,9 @@
             label {
                 cursor: pointer;
             }
+        }
+        h1, .select_reason{
+            animation: opacity 0.3s forwards;
         }
         .step_one {
             background-color: var(--main-blue);
