@@ -1,7 +1,6 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { TypeSettingTaxi } from 'widgets/settingForm/settingTaxi/libr/TypeSettingTaxi.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingTaxi/libr/settingTaxiForm.module.scss';
@@ -11,6 +10,11 @@ interface Props {
     setValue: UseFormSetValue<TypeSettingTaxi>;
     control: Control<TypeSettingTaxi, string[]>;
 }
+
+type SelectType = {
+    value: string;
+    label: string;
+};
 
 export const TypeOfTaxi = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');

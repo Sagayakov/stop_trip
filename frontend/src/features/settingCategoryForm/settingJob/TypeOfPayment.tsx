@@ -1,7 +1,6 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { TypesOfJobs } from 'widgets/settingForm/settingJob/libr/TypesOfJobs.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingJob/libr/settingJobFilter.module.scss';
@@ -11,6 +10,11 @@ interface Props {
     setValue: UseFormSetValue<TypesOfJobs>;
     control: Control<TypesOfJobs, string[]>;
 }
+
+type SelectType = {
+    value: string;
+    label: string;
+};
 
 export const TypeOfPayment = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');

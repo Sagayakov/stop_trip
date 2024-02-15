@@ -3,22 +3,32 @@ import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelect
 import { TypeForFoodForm } from 'widgets/settingForm/settingFood/libr/TypeForFoodForm.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingFood/libr/settingFoordForm.module.scss';
+import { useEffect, useState } from 'react';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 
 interface Props {
     setValue: UseFormSetValue<TypeForFoodForm>;
     control: Control<TypeForFoodForm, string[]>;
 }
 
+type SelectType = {
+    value: string;
+    label: string;
+};
+
 export const FoodType = ({ control, setValue }: Props) => {
     const { t } = useTranslation();
+    const { data } = useGetFiltersQuery('');
+    const [typeValues, setTypeValues] = useState<SelectType[]>([]);
 
-    const options = [
-        { value: 'veg_food', label: 'Вегетарианская еда' },
-        { value: 'non_veg_food', label: 'Невегетарианская еда' },
-        { value: 'ready_food', label: 'Готовая еда' },
-        { value: 'semi_finished_food', label: 'Полуфабрикаты' },
-        { value: 'other_food', label: 'Другое' },
-    ];
+    useEffect(() => {
+        if (data) {
+            const result = (data['taxi_type'] as SelectType[]).filter(
+                (el) => (el as SelectType).value && (el as SelectType).label
+            );
+            data && setTypeValues(result as SelectType[]);
+        }
+    }, [data]);
 
     return (
         <div className={styles.foodType}>
@@ -28,7 +38,7 @@ export const FoodType = ({ control, setValue }: Props) => {
                 control={control}
                 isMulti={true}
                 name="food_type"
-                options={options}
+                options={typeValues}
                 placeholder={t('filters.food_type')}
                 prefix="filterForm"
                 setValue={setValue}
