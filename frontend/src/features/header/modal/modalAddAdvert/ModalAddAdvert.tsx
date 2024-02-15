@@ -8,9 +8,10 @@ import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
 
 type Props = {
     closeAddModal: (isOpen: boolean) => void;
+    text: string;
 };
 
-export const ModalAddAdvert = ({ closeAddModal }: Props) => {
+export const ModalAddAdvert = ({ closeAddModal, text }: Props) => {
     const dispatch = useAppDispatch();
     const toggle = useAppSelector((state) => state.toggleModalEnter.toggle);
     const handleToggleModal = () => dispatch(toggleModalEnter(!toggle));
@@ -27,7 +28,8 @@ export const ModalAddAdvert = ({ closeAddModal }: Props) => {
             <BackgroundModal className={styles.modal_add} callback={() => closeAddModal(false)} />
             <div className={styles.modal_add_content}>
                 <Close onclick={() => closeAddModal(false)} />
-                {t('modal-add-advert.must')}{' '}
+                {text}{' '}
+                {/*{t('modal-add-advert.must')}{' '}*/}
                 <span className={styles.auth_link} onClick={() => handleClick(true)}>
                     {t('modal-add-advert.login')}{' '}
                 </span>

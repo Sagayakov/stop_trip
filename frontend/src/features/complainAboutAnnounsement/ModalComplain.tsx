@@ -8,6 +8,7 @@ import { handleComplain } from 'features/complainAboutAnnounsement/libr/handleCo
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { ComplainStepTwo } from 'features/complainAboutAnnounsement/steps/ComplainStepTwo.tsx';
 import { useLocation } from 'react-router-dom';
+import { Close } from 'shared/ui/icons/icons-tools/Close.tsx';
 
 interface Props{
     setShowComplainModal: React.Dispatch<SetStateAction<boolean>>;
@@ -48,6 +49,9 @@ export const ModalComplain = ({ setShowComplainModal }: Props) => {
                 onClick={(event) => event.stopPropagation()}
                 onSubmit={handleSubmit(onsubmit)}
             >
+                <button type="button" className={styles.close_modal}>
+                    <Close onclick={() => setShowComplainModal(false)} color="#ffffff" />
+                </button>
                 <h1>{t('add-page.complain-title')}</h1>
                 {step === 1 && <ComplainStepOne register={register} />}
                 {step === 2 && <ComplainStepTwo register={register} watch={watch} />}

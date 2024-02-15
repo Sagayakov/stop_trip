@@ -29,6 +29,14 @@
         border-radius: 1rem;
         border: none;
         padding: 1rem 2rem 2rem;
+        position: relative;
+        .close_modal{
+            width: 1px;
+            background-color: transparent;
+            position: absolute;
+            right: -1rem;
+            top: 1rem;
+        }
         h1{
             text-align: center;
             font-size: 24px;
@@ -70,6 +78,26 @@
             .back{
                 background-color: var(--grey-1);
                 color: black;
+            }
+        }
+    }
+}
+@media (max-width: 767px) {
+    .modal_background{
+        .modal_content{
+            width: 70vw;
+            padding: 1rem 1rem 2rem;
+        }
+    }
+}@media (max-width: 425px) {
+    .modal_background{
+        .modal_content{
+            width: 85vw;
+            .close_modal{
+                right: -0.3rem;
+            }
+            h1{
+                font-size: 20px;
             }
         }
     }

@@ -8,14 +8,23 @@ import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalComplain } from 'features/complainAboutAnnounsement';
+import { ModalAddAdvert } from 'features/header/modal/modalAddAdvert/ModalAddAdvert.tsx';
+import { useAppSelector } from 'app/store/hooks.ts';
 
 interface Props {
     data: ProductType;
 }
 export const ProductInfo = ({ data }: Props) => {
     const [showComplainModal, setShowComplainModal] = useState(false);
+    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
+    const [needAuth, setNeedAuth] = useState(false)
     const { t } = useTranslation();
     const { isMobile } = useMatchMedia();
+
+    const handleModalOpen = () => {
+        !isAuth ? setNeedAuth(true) : setShowComplainModal(true);
+    }
+
     return (
         <section className={styles.product_info}>
             {!isMobile && <PhotoSlider />}
@@ -29,7 +38,7 @@ export const ProductInfo = ({ data }: Props) => {
                 </div>
             )}
             {data.coordinates && <AdvertLocation data={data} />}
-            <button onClick={() => setShowComplainModal(!showComplainModal)}>
+            <button onClick={handleModalOpen}>
                 {t('add-page.complain')}
             </button>
             {showComplainModal &&
@@ -37,6 +46,10 @@ export const ProductInfo = ({ data }: Props) => {
                     <ModalComplain setShowComplainModal={setShowComplainModal} />,
                     document.body)
             }
+            {needAuth && <ModalAddAdvert
+                closeAddModal={() => setNeedAuth(false)}
+                text={t('add-page.need-auth-complain')}
+            />}
         </section>
     );
 };
