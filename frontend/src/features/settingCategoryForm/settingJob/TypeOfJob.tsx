@@ -6,28 +6,42 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalCheckboxGroup } from 'entity/universalEntites';
 import styles from 'widgets/settingForm/settingJob/libr/settingJobFilter.module.scss';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
     register: UseFormRegister<TypesOfJobs>;
 }
 interface Options {
-    value: string | number;
-    label: string | number;
+    value: string;
+    label: string;
 }
 
 export const TypeOfJob = ({ register }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [typeValues, setTypeValues] = useState<Options[]>([]);
     const { t } = useTranslation();
+    const [searchParams] = useSearchParams();
+    const [typeParams, setTypeParams] = useState<Options[] | undefined>([]);
 
     useEffect(() => {
         if (data) {
             const result = (data['job_type'] as SelectType[]).filter(
                 (el) => (el as Options).value && (el as Options).label
             );
-            data && setTypeValues(result as Options[]);
+            setTypeValues(result as Options[]);
+
+            const defaultParams = searchParams
+                .get('job_type')
+                ?.split(',')
+                .map((el) => ({
+                    value: el,
+                    label: (data['job_type'] as Options[]).find(
+                        (item) => item.value === el
+                    )!.label,
+                }));
+            setTypeParams(defaultParams);
         }
-    }, [data]);
+    }, [data, searchParams]);
 
     return (
         <>
@@ -38,6 +52,7 @@ export const TypeOfJob = ({ register }: Props) => {
                     checkboxValues={typeValues}
                     name="job_type"
                     className={styles.checkbox_group}
+                    defaultValue={typeParams}
                 />
             </div>
         </>
