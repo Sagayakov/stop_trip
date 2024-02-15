@@ -18,45 +18,15 @@ export const searchParamsForExchange = ({
     exchange_rate,
     proposed_currency,
 }: SearchParamsProps) => {
-    let proposedValues = '';
-    try {
-        if (proposed_currency) {
-            proposed_currency.forEach((el) => {
-                proposedValues = proposedValues + el.value + '%2C';
-            });
-
-            proposedValues = proposedValues.slice(0, proposedValues.length - 3);
-        }
-    } catch (error) {
-        console.log(error);
-    }
-
     const proposed = proposed_currency
-        ? `&proposed_currency=${proposedValues}`
+        ? `&proposed_currency=${proposed_currency.join('%2C')}`
         : '';
 
-    let exchangeFor = '';
+    const currencyCity = getMultiQuery('city', city);
 
-    try {
-        if (exchange_for) {
-            exchange_for.forEach((el) => {
-                exchangeFor = exchangeFor + el.value + '%2C';
-            });
-            exchangeFor = exchangeFor.slice(0, exchangeFor.length - 3);
-        }
-    } catch (error) {
-        console.log(error);
-    }
-
-    let currencyCity = '';
-
-    try {
-        currencyCity = getMultiQuery('city', city);
-    } catch (error) {
-        console.log(error);
-    }
-
-    const exFor = exchange_for ? `&exchange_for=${exchangeFor}` : '';
+    const exFor = exchange_for
+        ? `&exchange_for=${exchange_for.join('%2C')}`
+        : '';
 
     const rate = exchange_rate
         ? `&exchange_rate=${exchange_rate.toString().replace(/,/g, '.')}`

@@ -8,11 +8,13 @@ import {
 } from 'features/settingCategoryForm/settingCurrencyForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeOfCurrencyFilter } from './libr/TypeOfCurrencyFilter';
-import { searchParamsForExchange } from './libr/searchParamsForExchange';
 import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop';
 import styles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import formStyles from './libr/settingCurrencyFilter.module.scss';
+import { searchParamsForExchange } from './libr/searchParamsForExchange';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { getDefaultValues } from './libr/getDefaultValues';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -24,30 +26,23 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
     const { t } = useTranslation();
+    const { data } = useGetFiltersQuery('');
+    const defaultValues = getDefaultValues(searchParams, data);
 
     const { handleSubmit, reset, control, setValue, register } =
-        useForm<TypeOfCurrencyFilter>();
+        useForm<TypeOfCurrencyFilter>({
+            defaultValues,
+        });
 
     const onSubmit: SubmitHandler<TypeOfCurrencyFilter> = (data) => {
         const { city, exchange_for, exchange_rate, proposed_currency } = data;
 
-        const searchCity = searchParams.get('city')?.split(',');
-        const searchFor = searchParams
-            .get('exchange_for')
-            ?.split(',')
-            .map((el) => ({ value: el, label: el }));
-        const searchRate = Number(searchParams.get('exchange_rate'));
-        const searchProposed = searchParams
-            .get('proposed_currency')
-            ?.split(',')
-            .map((el) => ({ value: el, label: el }));
-
         const { currencyCity, exFor, proposed, rate } = searchParamsForExchange(
             {
-                city: searchCity ?? city,
-                exchange_for: searchFor ?? exchange_for,
-                exchange_rate: searchRate || exchange_rate,
-                proposed_currency: searchProposed ?? proposed_currency,
+                city,
+                exchange_for,
+                exchange_rate,
+                proposed_currency,
             }
         );
 

@@ -2,6 +2,7 @@ import { UseFormRegister } from 'react-hook-form';
 import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingCurrency/libr/settingCurrencyFilter.module.scss';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
     register: UseFormRegister<TypeOfCurrencyFilter>;
@@ -9,6 +10,8 @@ interface Props {
 
 export const ExchangeRate = ({ register }: Props) => {
     const { t } = useTranslation();
+    const [searchParams] = useSearchParams();
+    const searchValue = searchParams.get('exchange_rate');
 
     return (
         <div className={styles.exchangeRate}>
@@ -19,6 +22,7 @@ export const ExchangeRate = ({ register }: Props) => {
                     placeholder={t('filters.exchange_rate')}
                     min={0}
                     step={0.01}
+                    defaultValue={searchValue || ''}
                     {...register('exchange_rate')}
                 />
             </div>
