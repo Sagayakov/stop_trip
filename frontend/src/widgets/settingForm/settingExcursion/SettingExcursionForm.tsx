@@ -12,6 +12,8 @@ import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { getSearchParams } from './libr/getSearchParams';
 import { useSearchParams } from 'react-router-dom';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { getDefaultValues } from './libr/getDefaultValues';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -19,22 +21,26 @@ interface Props {
 
 const SettingExcursionForm = ({ setShowFilters }: Props) => {
     const { t } = useTranslation();
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { data } = useGetFiltersQuery('');
+    const defaultValues = getDefaultValues(searchParams, data);
 
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
 
     const { handleSubmit, reset, register, control, setValue } =
-        useForm<TypeForExcursionFilter>();
+        useForm<TypeForExcursionFilter>({ defaultValues });
 
     const onSubmit: SubmitHandler<TypeForExcursionFilter> = (data) => {
         const { city, excursion_food, excursion_transfer } = data;
+
         const filters = getSearchParams(
             city,
             excursion_food,
             excursion_transfer
         );
+
         setSearchParams(`category=excursion${filters}&page=1`);
         setShowFilters(false);
         scrollToTop();
