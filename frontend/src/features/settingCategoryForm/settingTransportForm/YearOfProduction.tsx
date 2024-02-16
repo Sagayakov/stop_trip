@@ -1,7 +1,8 @@
 import { UseFormRegister } from 'react-hook-form';
 import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss'
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -9,6 +10,13 @@ interface Props {
 
 export const YearOfProduction = ({ register }: Props) => {
     const { t } = useTranslation();
+    const [searchParams] = useSearchParams();
+    const min = searchParams.get('transport_year_of_production_min')
+        ? Number(searchParams.get('transport_year_of_production_min'))
+        : undefined;
+    const max = searchParams.get('transport_year_of_production_max')
+        ? Number(searchParams.get('transport_year_of_production_max'))
+        : undefined;
 
     return (
         <div className={styles.yearOfProduction}>
@@ -18,11 +26,13 @@ export const YearOfProduction = ({ register }: Props) => {
                     type="number"
                     {...register('transport_year_of_production.min')}
                     placeholder={t('filters.from')}
+                    defaultValue={min}
                 />
                 <input
                     type="number"
                     {...register('transport_year_of_production.max')}
                     placeholder={t('filters.up-to')}
+                    defaultValue={max}
                 />
             </div>
         </div>

@@ -4,6 +4,8 @@ import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup.tsx';
 import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
@@ -18,6 +20,23 @@ interface Values {
 export const TypeOfTransport = ({ register }: Props) => {
     const { data } = useGetFiltersQuery('');
     const { t } = useTranslation();
+    const [searchParams] = useSearchParams();
+    const [defaultParam, setDefaultParam] = useState<Values | undefined>();
+
+    useEffect(() => {
+        if (data) {
+            const typeParam = searchParams.get('transport_type');
+            const param = typeParam
+                ? {
+                      value: typeParam,
+                      label: (data['transport_type'] as Values[]).find(
+                          (item) => item.value === typeParam
+                      )!.label,
+                  }
+                : undefined;
+            setDefaultParam(param);
+        }
+    }, [data, searchParams]);
 
     return (
         <div className={styles.typeOfTransport}>
@@ -29,6 +48,7 @@ export const TypeOfTransport = ({ register }: Props) => {
                         radioValues={data['transport_type'] as Values[]}
                         name="transport_type"
                         className={styles.radio_group}
+                        defaultValue={defaultParam}
                     />
                 )}
             </div>

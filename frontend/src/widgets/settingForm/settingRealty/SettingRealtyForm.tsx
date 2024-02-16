@@ -51,6 +51,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
         useForm<TypeSettingRealty>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeSettingRealty> = (data) => {
+        console.log(data);
         const filters = getRealtyQuery(data);
         setSearchParams(`category=property${filters}&page=1`);
         setShowFilters(false);
