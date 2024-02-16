@@ -38,7 +38,7 @@ export const ProductInfo = ({ data }: Props) => {
                 </div>
             )}
             {data.coordinates && <AdvertLocation data={data} />}
-            <button onClick={handleModalOpen}>
+            <button className={styles.complain_button} onClick={handleModalOpen} >
                 {t('add-page.complain')}
             </button>
             {showComplainModal &&

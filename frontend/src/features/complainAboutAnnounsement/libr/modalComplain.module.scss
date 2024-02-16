@@ -25,6 +25,19 @@
         opacity: 1;
     }
 }
+@keyframes out {
+    0% {
+        opacity: 1;
+        height: 465.5px;
+    }
+    40% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+        height: 200px;
+    }
+}
 
 .modal_background {
     button {
@@ -51,7 +64,7 @@
     align-items: center;
     animation: background 0.3s forwards;
     .modal_content {
-        width: 50%;
+        width: 30%;
         height: auto;
         background-color: var(--main-background);
         border-radius: 1rem;
@@ -60,16 +73,21 @@
         position: relative;
         animation: height 0.5s forwards;
         .close_modal {
-            width: 1px;
+            width: 30px;
             background-color: transparent;
             position: absolute;
-            right: -1rem;
-            top: 1rem;
+            right: -2rem;
+            z-index: 1;
+            top: 0;
+            svg{
+                z-index: 2;
+            }
         }
-        h1 {
+        .h_one_complain {
             text-align: center;
             font-size: 24px;
             margin-bottom: 1.5rem;
+            padding: 0 !important;
         }
         .select_reason {
             display: flex;
@@ -78,9 +96,12 @@
             margin-bottom: 2rem;
             label {
                 cursor: pointer;
+                input{
+                    padding: 0;//для сафари
+                }
             }
         }
-        h1, .select_reason{
+        .h_one_complain, .select_reason{
             animation: opacity 0.3s forwards;
         }
         .step_one {
@@ -90,7 +111,7 @@
         }
         textarea {
             width: 100%;
-            height: 30vh;
+            height: 290px;
             background-color: #eaeaea;
             border-radius: var(--radii);
             border: none;
@@ -113,6 +134,20 @@
             }
         }
     }
+    .out{
+        animation: out 0.5s forwards;
+    }
+}
+
+@media (max-width: 1024px) {
+    .modal_background {
+        .modal_content {
+            width: 40vw;
+            .h_one_complain{
+                font-size: 23px;
+            }
+        }
+    }
 }
 @media (max-width: 767px) {
     .modal_background {
@@ -125,11 +160,18 @@
 @media (max-width: 425px) {
     .modal_background {
         .modal_content {
-            width: 85vw;
+            width: 100vw;
             .close_modal {
-                right: -0.3rem;
+                right: 0.5rem;
+                top: 0.5rem;
+                svg{
+                    fill: black !important;
+                    path{
+                        stroke: black !important;
+                    }
+                }
             }
-            h1 {
+            .h_one_complain {
                 font-size: 20px;
             }
         }

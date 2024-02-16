@@ -9,7 +9,7 @@
 
     &.visible {
         opacity: 1;
-        max-height: 100svh; //при 100vh в сафари на маленьком экране не видно кнопку "зарегистрироваться"
+        max-height: 100dvh; //при 100vh в сафари на маленьком экране не видно кнопку "зарегистрироваться"
         transition:
             opacity 0.6s ease,
             max-height 1s ease;
