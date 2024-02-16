@@ -13,14 +13,6 @@ export const ComplainStepOne = ({ register }: Props) => {
         <>
             <div className={styles.select_reason}>
                 <label className="form_checkbox">
-                    <input type="radio" {...register('reason')} value="offer_not_current" />
-                    <span>{t('complain-reason.not-current')}</span>
-                </label>
-                <label className="form_checkbox">
-                    <input type="radio" {...register('reason')} value="not_censored" />
-                    <span>{t('complain-reason.not-censored')}</span>
-                </label>
-                <label className="form_checkbox">
                     <input type="radio" {...register('reason')} value="prohibited_substances" />
                     <span>{t('complain-reason.prohibited-substances')}</span>
                 </label>
@@ -29,16 +21,24 @@ export const ComplainStepOne = ({ register }: Props) => {
                     <span>{t('complain-reason.scammer')}</span>
                 </label>
                 <label className="form_checkbox">
-                    <input type="radio" {...register('reason')} value="wrong_description" />
-                    <span>{t('complain-reason.wrong-description')}</span>
-                </label>
-                <label className="form_checkbox">
                     <input type="radio" {...register('reason')} value="wrong_location" />
                     <span>{t('complain-reason.wrong-location')}</span>
                 </label>
                 <label className="form_checkbox">
                     <input type="radio" {...register('reason')} value="wrong_price" />
                     <span>{t('complain-reason.wrong-price')}</span>
+                </label>
+                <label className="form_checkbox">
+                    <input type="radio" {...register('reason')} value="wrong_description" />
+                    <span>{t('complain-reason.wrong-description')}</span>
+                </label>
+                <label className="form_checkbox">
+                    <input type="radio" {...register('reason')} value="not_censored" />
+                    <span>{t('complain-reason.not-censored')}</span>
+                </label>
+                <label className="form_checkbox">
+                    <input type="radio" {...register('reason')} value="offer_not_current" />
+                    <span>{t('complain-reason.not-current')}</span>
                 </label>
                 <label className="form_checkbox">
                     <input type="radio" {...register('reason')} value="other" />
