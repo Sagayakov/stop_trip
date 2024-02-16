@@ -13,21 +13,25 @@ import { getSearchParams } from 'widgets/settingForm/settingTaxi/libr/getSearchP
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingTaxiForm.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { getDefaultValues } from './libr/getDefaultValues';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 const SettingTaxiForm = ({ setShowFilters }: Props) => {
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { t } = useTranslation();
+    const { data } = useGetFiltersQuery('');
+    const defaultValues = getDefaultValues(searchParams, data);
 
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
 
     const { register, handleSubmit, reset, setValue, control } =
-        useForm<TypeSettingTaxi>();
+        useForm<TypeSettingTaxi>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeSettingTaxi> = (data) => {
         const { city, taxi_unit, taxi_type, price } = data;
@@ -37,9 +41,10 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
         setShowFilters(false);
     };
 
-    const onReset = () => {
+    const handleReset = () => {
         reset();
-        scrollToTop();
+        setSearchParams('category=taxi&page=1');
+        location.reload();
     };
 
     return (
@@ -57,7 +62,7 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 <input type="submit" value={t('filters.apply')} />
                 <button
                     className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
-                    onClick={onReset}
+                    onClick={handleReset}
                 >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}

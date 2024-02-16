@@ -13,6 +13,8 @@ import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingFoordForm.module.scss';
 import stylesForm from 'widgets/settingForm/forms/filtersForm.module.scss';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { getDefaultValues } from './libr/getDefaultValues';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -24,10 +26,12 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { data } = useGetFiltersQuery('');
+    const defaultValues = getDefaultValues(searchParams, data);
 
     const { register, handleSubmit, reset, setValue, control } =
-        useForm<TypeForFoodForm>();
+        useForm<TypeForFoodForm>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeForFoodForm> = (data) => {
         const { city, food_delivery, food_establishment, food_type } = data;
@@ -46,9 +50,10 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
         scrollToTop();
     };
 
-    const onReset = () => {
+    const handleReset = () => {
         reset();
-        scrollToTop();
+        setSearchParams('category=food&page=1');
+        location.reload();
     };
 
     return (
@@ -65,7 +70,7 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
                 <input type="submit" value={t('filters.apply')} />
                 <button
                     className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`}
-                    onClick={onReset}
+                    onClick={handleReset}
                 >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}

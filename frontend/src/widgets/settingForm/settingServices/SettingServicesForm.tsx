@@ -12,21 +12,25 @@ import { getSearchParams } from './libr/getSearchParams.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingServicesForm.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import { getDefaultValues } from './libr/getDefaultValues.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 const SettingServicesForm = ({ setShowFilters }: Props) => {
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { t } = useTranslation();
+    const { data } = useGetFiltersQuery('');
+    const defaultValues = getDefaultValues(searchParams, data);
 
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
 
     const { register, handleSubmit, reset, setValue, control } =
-        useForm<TypeOfServicesForm>();
+        useForm<TypeOfServicesForm>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeOfServicesForm> = (data) => {
         const { city, service_home_visit, price } = data;
@@ -36,9 +40,10 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
         scrollToTop();
     };
 
-    const onReset = () => {
+    const handleReset = () => {
         reset();
-        scrollToTop();
+        setSearchParams('category=service&page=1');
+        location.reload();
     };
 
     return (
@@ -55,7 +60,7 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
                 <input type="submit" value={t('filters.apply')} />
                 <button
                     className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
-                    onClick={onReset}
+                    onClick={handleReset}
                 >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}

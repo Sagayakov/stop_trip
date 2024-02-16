@@ -12,6 +12,8 @@ import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingDocumentForm.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { getDefaultValues } from './libr/getDefaultValues';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -19,14 +21,16 @@ interface Props {
 
 const SettingDocumentForm = ({ setShowFilters }: Props) => {
     const { t } = useTranslation();
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { data } = useGetFiltersQuery('');
+    const defaultValues = getDefaultValues(searchParams, data);
 
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
 
     const { handleSubmit, reset, setValue, control } =
-        useForm<TypeOfDocumentFilter>();
+        useForm<TypeOfDocumentFilter>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeOfDocumentFilter> = (data) => {
         const { city, document_duration, document_type } = data;
@@ -45,8 +49,10 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
         scrollToTop();
     };
 
-    const onReset = () => {
+    const handleReset = () => {
         reset();
+        setSearchParams('category=document&page=1');
+        location.reload();
     };
 
     return (
@@ -62,7 +68,7 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                 <input type="submit" value={t('filters.apply')} />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
-                    onClick={onReset}
+                    onClick={handleReset}
                 >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}

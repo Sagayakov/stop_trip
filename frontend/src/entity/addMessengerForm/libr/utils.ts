@@ -14,7 +14,7 @@ export const getPattern = (messenger: string | undefined) => {
     if (messenger) {
         switch (messenger) {
             case 'Telegram':
-                return /^[a-z0-9_]{5,32}$/;
+                return /^[a-zA-Z0-9_]{5,32}$/;
             case 'Messenger':
                 return /[0-9]{1,16}/;
             case 'WhatsApp':

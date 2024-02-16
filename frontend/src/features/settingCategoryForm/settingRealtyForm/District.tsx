@@ -1,7 +1,6 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
@@ -12,6 +11,11 @@ interface Props {
     control: Control<TypeSettingRealty, string[]>;
 }
 
+type SelectType = {
+    value: string;
+    label: string;
+};
+
 export const District = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [districtValues, setDistrictValues] = useState<SelectType[]>([]);
@@ -19,9 +23,7 @@ export const District = ({ control, setValue }: Props) => {
 
     useEffect(() => {
         if (data) {
-            const result = (
-                data.params.find((el) => el.name === 'region') as ChoicesType
-            ).choices.filter(
+            const result = (data['region'] as SelectType[]).filter(
                 (el) => (el as SelectType).value && (el as SelectType).label
             );
             data && setDistrictValues(result as SelectType[]);
@@ -35,12 +37,13 @@ export const District = ({ control, setValue }: Props) => {
                 <UniversalSelectDropdown<TypeSettingRealty>
                     setValue={setValue}
                     control={control}
-                    name="property_district"
+                    name="region"
                     prefix="filterForm"
                     placeholder={t('filters.property_district')}
                     closeMenuOnSelect={true}
                     isMulti={false}
                     options={districtValues}
+                    defaultValue={{ value: 'goa', label: 'Гоа' }}
                 />
             </div>
         </>

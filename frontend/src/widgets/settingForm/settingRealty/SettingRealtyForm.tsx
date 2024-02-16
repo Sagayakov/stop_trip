@@ -30,21 +30,25 @@ import { UniversalButton } from 'entity/universalEntites';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingRealty.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { getDefaultValues } from './libr/getDefaultValues';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
 }
 
 const SettingRealtyForm = ({ setShowFilters }: Props) => {
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { t } = useTranslation();
+    const { data } = useGetFiltersQuery('');
+    const defaultValues = getDefaultValues(searchParams, data);
 
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
     };
 
     const { register, handleSubmit, reset, watch, setValue, control } =
-        useForm<TypeSettingRealty>();
+        useForm<TypeSettingRealty>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeSettingRealty> = (data) => {
         const filters = getRealtyQuery(data);
@@ -52,8 +56,11 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
         setShowFilters(false);
         scrollToTop();
     };
-    const onReset = () => {
+
+    const handleReset = () => {
         reset();
+        setSearchParams('category=property&page=1');
+        location.reload();
     };
 
     return (
@@ -86,7 +93,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 <input type="submit" value={t('filters.apply')} />
                 <UniversalButton
                     className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
-                    onClick={onReset}
+                    onClick={handleReset}
                 >
                     <Reset color="#1F6FDE" />
                     {t('filters.reset')}

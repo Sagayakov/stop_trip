@@ -1,6 +1,5 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { ChoicesType, SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
@@ -12,19 +11,22 @@ interface Props {
     control: Control<TypeOfDocumentFilter, string[]>;
 }
 
+type SelectOption = {
+    value: string;
+    label: string;
+};
+
 export const City = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');
-    const [cityValues, setCityValues] = useState<SelectType[]>([]);
+    const [cityValues, setCityValues] = useState<SelectOption[]>([]);
     const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
-            const result = (
-                data.params.find((el) => el.name === 'city') as ChoicesType
-            ).choices.filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
+            const result = (data['city'] as SelectOption[]).filter(
+                (el) => (el as SelectOption).value && (el as SelectOption).label
             );
-            data && setCityValues(result as SelectType[]);
+            data && setCityValues(result as SelectOption[]);
         }
     }, [data]);
 

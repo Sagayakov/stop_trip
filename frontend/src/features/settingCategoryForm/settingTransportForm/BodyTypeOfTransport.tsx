@@ -1,10 +1,8 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { SelectType } from 'app/api/types/filtersType.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
-import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { useEffect, useState } from 'react';
 import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
 
@@ -12,10 +10,11 @@ interface Props {
     control: Control<TypeSettingTransport, string[]>;
     setValue: UseFormSetValue<TypeSettingTransport>;
 }
-interface ChoicesType {
-    name: keyof ProductType;
-    choices: SelectType[];
-}
+
+type SelectType = {
+    value: string;
+    label: string;
+};
 
 export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
     const { data } = useGetFiltersQuery('');
@@ -24,11 +23,7 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
 
     useEffect(() => {
         if (data) {
-            const result = (
-                data.params.find(
-                    (el) => el.name === 'transport_body_type'
-                ) as ChoicesType
-            ).choices.filter(
+            const result = (data['transport_body_type'] as SelectType[]).filter(
                 (el) => (el as SelectType).value && (el as SelectType).label
             );
             data && setBodyTypesValues(result as SelectType[]);

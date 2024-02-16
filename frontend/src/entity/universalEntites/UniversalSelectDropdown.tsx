@@ -1,7 +1,16 @@
-import { Control, Controller, FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form';
-import Select from 'react-select';
+import {
+    Control,
+    Controller,
+    FieldValues,
+    Path,
+    PathValue,
+    UseFormSetValue,
+} from 'react-hook-form';
+import Select, { ActionMeta } from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props<T extends FieldValues> {
     setValue: UseFormSetValue<T>;
@@ -15,12 +24,12 @@ interface Props<T extends FieldValues> {
     requiredFiled?: boolean;
     isSearchable?: boolean;
     isClearable?: boolean;
-    defaultValue?: SelectOption;
+    defaultValue?: SelectOption | SelectOption[];
     isDisabled?: boolean;
 }
-interface SelectOption{
-    value: string | number | null | boolean
-    label: string | number | null | boolean
+interface SelectOption {
+    value: string;
+    label: string;
 }
 
 export const UniversalSelectDropdown = <T extends FieldValues>({
@@ -40,18 +49,60 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
 }: Props<T>) => {
     const animated = makeAnimated();
     const { t } = useTranslation();
+    const [searchParams] = useSearchParams();
+    const searchValues = searchParams.get(name)?.split(',');
+    const [searchOptions, setSearchOptions] = useState<SelectOption[]>([]);
+    const [availableOptions, setAvailableOptions] = useState<SelectOption[]>(
+        []
+    );
+
+    useEffect(() => {
+        if (options) {
+            setSearchOptions(
+                options.filter((el) => searchValues?.includes(el.value))
+            );
+            setAvailableOptions(
+                options.filter((el) => !searchValues?.includes(el.value))
+            );
+        }
+    }, [options]);
 
     const handleChange = (
-        selectedOptions: SelectOption | SelectOption[] | null
+        selectedOptions: SelectOption | SelectOption[] | null,
+        context: ActionMeta<SelectOption>
     ) => {
-        defaultValue = undefined
+        defaultValue = undefined;
+
         if (selectedOptions) {
-            const optionsArray = Array.isArray(selectedOptions)
-                ? selectedOptions
-                : [selectedOptions];
+            let optionsArray = [];
+
+            if (Array.isArray(selectedOptions)) {
+                let newOptions = Array.from(
+                    new Set([...searchOptions, ...selectedOptions])
+                );
+
+                if (context.action === 'remove-value') {
+                    newOptions = newOptions.filter(
+                        (item) => item.value !== context.removedValue.value
+                    );
+
+                    setAvailableOptions(
+                        Array.from(
+                            new Set([...availableOptions, context.removedValue])
+                        )
+                    );
+                }
+
+                setSearchOptions(newOptions);
+                optionsArray = newOptions;
+            } else {
+                optionsArray = [selectedOptions];
+            }
+
             const selectedValues = optionsArray
                 .map((option) => option?.value)
                 .filter(Boolean) as PathValue<T, Path<T>>;
+
             if (isMulti) {
                 setValue(name, selectedValues);
             } else {
@@ -61,42 +112,59 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
     };
 
     return (
-        <Controller
-            name={name}
-            control={control}
-            rules={{
-                required: {
-                    value: requiredFiled || false,
-                    message: t('add-page.required')
-                }
-            }}
-            render={({ field }) => (
-                <Select
-                    {...field}
-                    classNamePrefix={prefix}
-                    id={name}
-                    components={animated}
-                    placeholder={placeholder}
-                    closeMenuOnSelect={closeMenuOnSelect}
-                    isMulti={isMulti}
-                    isClearable={isClearable}
-                    options={options}
-                    defaultValue={defaultValue}
-                    isDisabled={isDisabled}
-                    isSearchable={isSearchable}
-                    onChange={(selectedOptions) => {
-                        handleChange(
-                            selectedOptions as
-                                | SelectOption
-                                | SelectOption[]
-                                | null
-                        );
+        <>
+            {options && (
+                <Controller
+                    name={name}
+                    control={control}
+                    rules={{
+                        required: {
+                            value: requiredFiled || false,
+                            message: t('add-page.required'),
+                        },
                     }}
-                    value={defaultValue || (options?.filter(
-                        (option) => field.value?.includes(option.value)
-                    ))}
+                    render={({ field }) => (
+                        <Select
+                            {...field}
+                            classNamePrefix={prefix}
+                            id={name}
+                            components={animated}
+                            placeholder={placeholder}
+                            closeMenuOnSelect={closeMenuOnSelect}
+                            isMulti={isMulti}
+                            isClearable={isClearable}
+                            options={
+                                availableOptions.length
+                                    ? availableOptions
+                                    : options
+                            }
+                            defaultValue={defaultValue || searchOptions}
+                            isDisabled={isDisabled}
+                            isSearchable={isSearchable}
+                            onChange={(selectedOptions, context) => {
+                                handleChange(
+                                    selectedOptions as
+                                        | SelectOption
+                                        | SelectOption[]
+                                        | null,
+                                    context
+                                );
+                            }}
+                            value={
+                                searchOptions.length
+                                    ? searchOptions
+                                    : defaultValue ||
+                                      options.filter(
+                                          (option) =>
+                                              field.value?.includes(
+                                                  option.value
+                                              )
+                                      )
+                            }
+                        />
+                    )}
                 />
             )}
-        />
+        </>
     );
 };

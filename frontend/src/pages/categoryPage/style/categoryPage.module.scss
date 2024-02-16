@@ -184,7 +184,7 @@ h1 {
 }
 
 .announcement_not_found {
-    width: 100%;
+    width: 75%;
     text-align: center;
     font-size: 1.8rem;
     font-weight: 700;
@@ -206,6 +206,10 @@ h1 {
     h1 {
         width: 85%;
         margin: 15px auto 25px;
+    }
+
+    .announcement_not_found {
+        width: calc(70% - 16px);
     }
 
     .filters_announcement {
@@ -262,6 +266,10 @@ h1 {
                 font-size: 26px;
             }
         }
+    }
+
+    .announcement_not_found {
+        width: 100%;
     }
 
     .filters_announcement {
@@ -329,6 +337,10 @@ h1 {
         margin: 0 auto;
         padding: 15px;
         font-size: 22px;
+    }
+
+    .announcement_not_found {
+        width: 100%;
     }
 
     .filters_announcement {
@@ -418,6 +430,10 @@ h1 {
                 }
             }
         }
+    }
+
+    .announcement_not_found {
+        width: 100%;
     }
 
     .bread_crumbs {

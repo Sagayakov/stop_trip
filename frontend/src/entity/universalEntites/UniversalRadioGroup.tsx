@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -23,6 +24,14 @@ export const UniversalRadioGroup = <T extends FieldValues>({
     requiredField,
 }: Props<T>) => {
     const { t } = useTranslation();
+    const [value, setValue] = useState<string | number>();
+
+    useEffect(() => {
+        if (defaultValue) {
+            setValue(defaultValue.value);
+        }
+    }, [defaultValue]);
+
     return (
         <div className={`radio_group ${className}`}>
             {radioValues.map((el) => (
@@ -33,10 +42,11 @@ export const UniversalRadioGroup = <T extends FieldValues>({
                         {...register(name, {
                             required: {
                                 value: requiredField || false,
-                                message: t('add-page.required')
+                                message: t('add-page.required'),
                             },
                         })}
-                        checked={defaultValue?.value === el.value || undefined}
+                        checked={value === el.value}
+                        onChange={(e) => setValue(e.target.value)}
                     />
                     <span>{el.label}</span>
                 </label>

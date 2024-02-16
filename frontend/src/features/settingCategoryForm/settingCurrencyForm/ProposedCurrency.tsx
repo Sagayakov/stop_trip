@@ -4,20 +4,34 @@ import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelect
 import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingCurrency/libr/settingCurrencyFilter.module.scss';
+import { useEffect, useState } from 'react';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;
     control: Control<TypeOfCurrencyFilter, string[]>;
 }
 
+type SelectOption = {
+    value: string;
+    label: string;
+};
+
 export const ProposedCurrency = ({ control, setValue }: Props) => {
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
+    const { data } = useGetFiltersQuery('');
+    const [currencyValues, setCurrencyValues] = useState<SelectOption[]>([]);
 
-    const options = [
-        { value: 'RUB', label: 'Рубль' },
-        { value: 'USD', label: 'Доллар' },
-    ];
+    useEffect(() => {
+        if (data) {
+            const result = (data['proposed_currency'] as SelectOption[]).filter(
+                (el) => (el as SelectOption).value && (el as SelectOption).label
+            );
+
+            setCurrencyValues(result as SelectOption[]);
+        }
+    }, [data]);
 
     return (
         <>
@@ -28,7 +42,7 @@ export const ProposedCurrency = ({ control, setValue }: Props) => {
                     control={control}
                     isMulti={true}
                     name="proposed_currency"
-                    options={options}
+                    options={currencyValues}
                     placeholder={t('filters.proposed_currency')}
                     prefix="filterForm"
                     setValue={setValue}
