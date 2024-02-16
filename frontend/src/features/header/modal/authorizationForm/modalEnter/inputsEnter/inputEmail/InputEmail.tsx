@@ -34,8 +34,8 @@ export const InputEmail = ({
 
     const email = watch('email');
     const handleBlur = () => {
-        if(email.length !== 0 )sessionStorage.setItem('emailEnter', email);
-    }
+        if (email.length !== 0) sessionStorage.setItem('emailEnter', email);
+    };
 
     const oninput = (event: React.FormEvent<HTMLInputElement>) => {
         event.currentTarget.value = event.currentTarget.value.toLowerCase();
@@ -109,7 +109,7 @@ export const InputEmail = ({
                             t('modal-login.correct-email')}
                     </p>
                 )}
-                {lengthError && (
+                {/* {lengthError && (
                     <p
                         style={{
                             color: '#FF3F25',
@@ -119,7 +119,7 @@ export const InputEmail = ({
                     >
                         {t('modal-registration.email-length')}
                     </p>
-                )}
+                )} */}
             </div>
         </>
     );
