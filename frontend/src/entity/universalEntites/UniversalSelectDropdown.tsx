@@ -138,7 +138,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                                     ? availableOptions
                                     : options
                             }
-                            defaultValue={defaultValue}
+                            defaultValue={defaultValue || searchOptions}
                             isDisabled={isDisabled}
                             isSearchable={isSearchable}
                             onChange={(selectedOptions, context) => {

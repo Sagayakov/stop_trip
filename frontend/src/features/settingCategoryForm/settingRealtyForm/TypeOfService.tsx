@@ -2,43 +2,55 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UseFormRegister } from 'react-hook-form';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { SelectType } from 'app/api/types/filtersType.ts';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup.tsx';
 import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
 }
 interface Options {
-    value: string | number;
-    label: string | number;
+    value: string;
+    label: string;
 }
 
 export const TypeOfService = ({ register }: Props) => {
     const { data } = useGetFiltersQuery('');
-    const [typesValues, setTypesValues] = useState<Options[]>([]);
     const { t } = useTranslation();
+    const [searchParams] = useSearchParams();
+    const [defaultParam, setDefaultParam] = useState<Options | undefined>();
 
     useEffect(() => {
         if (data) {
-            const result = (
-                data['property_type_of_service'] as SelectType[]
-            ).filter((el) => (el as Options).value && (el as Options).label);
-            data && setTypesValues(result as Options[]);
+            const typeParam = searchParams.get('property_type_of_service');
+            const param = typeParam
+                ? {
+                      value: typeParam,
+                      label: (
+                          data['property_type_of_service'] as Options[]
+                      ).find((item) => item.value === typeParam)!.label,
+                  }
+                : undefined;
+            setDefaultParam(param);
         }
-    }, [data]);
+    }, [data, searchParams]);
 
     return (
         <>
             <div className={styles.typeOfService}>
                 <h3>{t('filters.property_type_of_service')}</h3>
-                <UniversalRadioGroup
-                    register={register}
-                    radioValues={typesValues}
-                    name="property_type_of_service"
-                    className={styles.radio_group}
-                />
+                {data && (
+                    <UniversalRadioGroup
+                        register={register}
+                        radioValues={
+                            data['property_type_of_service'] as Options[]
+                        }
+                        name="property_type_of_service"
+                        className={styles.radio_group}
+                        defaultValue={defaultParam}
+                    />
+                )}
             </div>
         </>
     );

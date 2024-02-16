@@ -17,9 +17,7 @@ export const getRealtyQuery = (data: TypeSettingRealty) => {
                 query += `&${key}=${data[key as keyof TypeSettingRealty]
                     .toString()
                     .replace(/,/g, '.')}`;
-            } else if (
-                data[key as keyof TypeSettingRealty] === 'property_balcony'
-            ) {
+            } else if (key === 'property_balcony') {
                 query += `&property_balcony=${
                     data[key as keyof TypeSettingRealty]
                 }`;
@@ -27,8 +25,10 @@ export const getRealtyQuery = (data: TypeSettingRealty) => {
                 typeof data[key as keyof TypeSettingRealty] === 'boolean'
             ) {
                 query += `&${key}=true`;
-            }else if(typeof data[key as keyof TypeSettingRealty] === "string") {
-                query += `&${key}=${data[key as keyof  TypeSettingRealty]}`
+            } else if (
+                typeof data[key as keyof TypeSettingRealty] === 'string'
+            ) {
+                query += `&${key}=${data[key as keyof TypeSettingRealty]}`;
             } else if (Array.isArray(data[key as keyof TypeSettingRealty])) {
                 query += getMultiQuery(
                     key,

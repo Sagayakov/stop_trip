@@ -1,7 +1,8 @@
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss'
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
     watch: UseFormWatch<TypeSettingRealty>;
@@ -10,6 +11,13 @@ interface Props {
 
 export const SettingPrice = ({ register, watch }: Props) => {
     const { t } = useTranslation();
+    const [searchParams] = useSearchParams();
+    const min = searchParams.get('price_min')
+        ? Number(searchParams.get('price_min'))
+        : undefined;
+    const max = searchParams.get('price_max')
+        ? Number(searchParams.get('price_max'))
+        : undefined;
 
     const radio = watch('price.limit');
     const checkedStyle = {
@@ -43,11 +51,13 @@ export const SettingPrice = ({ register, watch }: Props) => {
                     type="number"
                     min="0"
                     placeholder={t('filters.from')}
+                    defaultValue={min}
                     {...register('price.min')}
                 />
                 <input
                     type="number"
                     placeholder={t('filters.up-to')}
+                    defaultValue={max}
                     {...register('price.max')}
                 />
             </div>

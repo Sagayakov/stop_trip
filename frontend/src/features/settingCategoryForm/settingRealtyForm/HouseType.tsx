@@ -1,7 +1,6 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { SelectType } from 'app/api/types/filtersType.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
@@ -11,6 +10,11 @@ interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
     control: Control<TypeSettingRealty, string[]>;
 }
+
+type SelectType = {
+    value: string;
+    label: string;
+};
 
 export const HouseType = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');
@@ -22,7 +26,7 @@ export const HouseType = ({ control, setValue }: Props) => {
             const result = (data['property_house_type'] as SelectType[]).filter(
                 (el) => (el as SelectType).value && (el as SelectType).label
             );
-            data && setHouseTypeValues(result as SelectType[]);
+            setHouseTypeValues(result as SelectType[]);
         }
     }, [data]);
 
