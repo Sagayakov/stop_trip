@@ -1,5 +1,6 @@
 import re
 from io import BytesIO
+from typing import Optional
 from uuid import uuid4
 
 from PIL import Image
@@ -26,7 +27,7 @@ def compression_photo(
     return images_list
 
 
-def change_link(youtube_link):
+def change_link(youtube_link) -> Optional[str]:
     """Функция для преобразования ссылки с ютуба для корректного отображения на сайте"""
 
     regex = r"(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})"
@@ -35,4 +36,4 @@ def change_link(youtube_link):
     if match:
         youtube_id_video = match.group(1)
         return f"https://www.youtube.com/embed/{youtube_id_video}?controls=0"
-    return None
+    return
