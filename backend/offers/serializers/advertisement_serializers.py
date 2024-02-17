@@ -172,6 +172,8 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
     owner = UserForRetrieveAdvertisementSerializer(read_only=True)
     proposed_currency = serializers.ReadOnlyField(source="proposed_currency.short_name")
     exchange_for = serializers.ReadOnlyField(source="exchange_for.short_name")
+    transport_brand = serializers.ReadOnlyField(source="transport_brand.slug")
+    transport_model = serializers.ReadOnlyField(source="transport_model.slug")
 
     class Meta:
         model = Advertisement
