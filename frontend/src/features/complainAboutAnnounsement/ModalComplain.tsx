@@ -14,7 +14,7 @@ interface Props{
     setShowComplainModal: React.Dispatch<SetStateAction<boolean>>;
 }
 
-export const ModalComplain = ({ setShowComplainModal }: Props) => {
+const ModalComplain = ({ setShowComplainModal }: Props) => {
     const slug = useLocation().pathname.split('/')[2]
     const { t } = useTranslation();
     const [step, setStep] = useState(1);
@@ -80,3 +80,4 @@ export const ModalComplain = ({ setShowComplainModal }: Props) => {
         </div>
     );
 }
+export default ModalComplain;

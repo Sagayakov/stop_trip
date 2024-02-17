@@ -150,6 +150,7 @@
 @media (max-width: 767px) {
     .announcement_wrapper {
         width: 93%;
+        margin: 0 auto 30px;
         .announcement_header {
             margin: 0;
             font-size: 24px;
@@ -221,6 +222,7 @@
 
 @media (max-width: 475px) {
     .announcement_wrapper {
+        margin: 0 auto 20px;
         .bread_crumbs {
             padding: 70px 0 0;
             svg {
