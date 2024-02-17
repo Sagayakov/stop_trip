@@ -5,6 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from common.utils import generate_image_file
 from forbidden_words.tests.factories import ForbiddenWordsFactory
 from offers.constants import (
     CategoryChoices,
@@ -31,7 +32,7 @@ from offers.constants import (
     MarketCondition,
     PropertyType,
 )
-from offers.models import Advertisement
+from offers.models import Advertisement, AdvertisementImage
 from users.tests.factories import UserFactory, UserMessengerFactory
 from ..factories import (
     BaseAdvertisementFactory,
@@ -114,6 +115,40 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         advertisement.refresh_from_db()
         self.assertEqual(advertisement.is_published, payload["is_published"])
+
+    def test_update_images(self):
+        user = UserFactory()
+        advertisement = TaxiAdvertisementFactory(owner=user)
+        advertisement_images = [
+            AdvertisementImageFactory(advertisement=advertisement) for _ in range(3)
+        ]
+        advertisement_images_ids = [image.id for image in advertisement_images]
+
+        payload_images = [generate_image_file() for _ in range(5)]
+        payload = {
+            "upload_images": payload_images,
+            "delete_images": advertisement_images_ids,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(8):
+            res = self.client.put(
+                self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Advertisement.objects.count(), 1)
+        advertisement.refresh_from_db()
+
+        self.assertEqual(AdvertisementImage.objects.count(), len(payload_images))
+        self.assertEqual(
+            AdvertisementImage.objects.filter(
+                advertisement=advertisement.id, id__in=advertisement_images_ids
+            ).count(),
+            0,
+        )
 
     def test_list(self):
         user = UserFactory()

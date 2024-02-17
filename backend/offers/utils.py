@@ -1,11 +1,16 @@
 import re
-from .models import Advertisement, AdvertisementImage
-from PIL import Image
 from io import BytesIO
-from django.core.files.uploadedfile import InMemoryUploadedFile
+from uuid import uuid4
+
+from PIL import Image
+from django.core.files.base import ContentFile
+
+from .models import Advertisement, AdvertisementImage
 
 
-def compression_photo(advertisement: Advertisement, images: list[AdvertisementImage]):
+def compression_photo(
+    advertisement: Advertisement, images: list[bytes]
+) -> list[AdvertisementImage]:
     """Функция для сжатия качества загружаемых фото"""
 
     images_list: list[AdvertisementImage] = []
@@ -13,13 +18,11 @@ def compression_photo(advertisement: Advertisement, images: list[AdvertisementIm
         img = Image.open(image)
         # Разрешение фото. При таком весит примерно 150кб
         img.thumbnail((1600, 1600))
-        output_io = BytesIO()
-        img.save(output_io, format="JPEG", quality=70)
-        image_file = InMemoryUploadedFile(
-            output_io, None, image.name, "image/jpeg", output_io.tell(), None
-        )
-        output_io.seek(0)
-        images_list.append(AdvertisementImage(advertisement=advertisement, image=image_file))
+        file = BytesIO()
+        img.save(file, format="JPEG", quality=70)
+        image_content = ContentFile(file.getvalue(), name=str(uuid4()))
+        file.seek(0)
+        images_list.append(AdvertisementImage(advertisement=advertisement, image=image_content))
     return images_list
 
 

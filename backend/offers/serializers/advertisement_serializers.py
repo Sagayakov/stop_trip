@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from countries.models import Country, Region, City
 from countries.serializers import CountrySerializer, RegionSerializer, CitySerializer
 from forbidden_words.models import ForbiddenWords
@@ -6,8 +7,6 @@ from users.serializers import (
     UserForListAdvertisementSerializer,
     UserForRetrieveAdvertisementSerializer,
 )
-
-from ..utils import compression_photo, change_link
 from ..constants import CategoryChoices
 from ..models import (
     Advertisement,
@@ -17,6 +16,7 @@ from ..models import (
     TransportModel,
     Currency,
 )
+from ..utils import compression_photo, change_link
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
@@ -55,6 +55,7 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
         if youtube_link := validated_data.get("youtube"):
             validated_data["youtube"] = change_link(youtube_link)
         advertisement = super().create(validated_data)
+
         if images:
             AdvertisementImage.objects.bulk_create(
                 compression_photo(advertisement=advertisement, images=images)
@@ -233,6 +234,7 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
         if youtube_link := validated_data.get("youtube"):
             validated_data["youtube"] = change_link(youtube_link)
         advertisement = super().update(instance, validated_data)
+
         if delete_images:
             AdvertisementImage.objects.filter(advertisement=instance, id__in=delete_images).delete()
         if upload_images:
