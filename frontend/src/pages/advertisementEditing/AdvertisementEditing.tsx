@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import {
     fetchAdverts,
     useEditAdvertMutation,
-    useGetAdvertBySlugQuery,
+    useGetAdvertBySlugQuery, useGetSelectOptionsQuery,
 } from 'app/api/fetchAdverts.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -54,6 +54,7 @@ const AdvertisementEditing = () => {
     const { accessToken, refreshToken } = getTokensFromStorage();
     const { data: user } = useGetUserQuery(accessToken);
 
+    useGetSelectOptionsQuery('');//запрашиваем данные, потом будем доставать из кэша
     const [
         editAdvert,
         { isLoading: isSendLoading, isSuccess, isError: isSendError },

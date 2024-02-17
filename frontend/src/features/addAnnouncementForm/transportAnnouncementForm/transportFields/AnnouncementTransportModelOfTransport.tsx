@@ -4,6 +4,8 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -19,18 +21,13 @@ export const AnnouncementTransportModelOfTransport = ({
     formState
 }: Props) => {
     const { t } = useTranslation();
-
-    const optionValues = [
-        {value: '3', label: '3'},
-        {value: 'land-cruizer', label: 'Land Cruizer'},
-        {value: 'tdm-850', label: 'TDM-850'},
-    ];
-    // //пока приходит id, как будет слаг - раскомментировать
+    const { data } = useGetSelectOptionsQuery('');
+    //пока приходит id, как будет слаг - раскомментировать
     // useEffect(() => {
     //     if(defaultValue){
     //         setValue(
     //             'transport_model',
-    //             String(getDefaultValue(defaultValue, optionValues)!.value))
+    //             String(getDefaultValue(defaultValue, data?.transport_model)!.value))
     //     }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     // }, []);
 
@@ -42,9 +39,9 @@ export const AnnouncementTransportModelOfTransport = ({
                 control={control}
                 isMulti={false}
                 name="transport_model"
-                options={optionValues}
+                options={data?.transport_model}
                 placeholder={t('filters.choose-model')}
-                defaultValue={getDefaultValue(defaultValue, optionValues)}
+                defaultValue={getDefaultValue(defaultValue, data?.transport_model) as StringOptions}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
                 requiredFiled={true}

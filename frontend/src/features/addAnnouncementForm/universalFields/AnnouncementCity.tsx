@@ -4,6 +4,7 @@ import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelect
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { useEffect } from 'react';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -14,16 +15,11 @@ interface Props {
 
 const AnnouncementCity = ({ control, setValue, defaultValue, formState }: Props) => {
     const { t } = useTranslation();
-
-    const options = [
-        { value: 'arambol', label: 'Арамболь' },
-        { value: 'mandrem', label: 'Мандрем' },
-        { value: 'panzhim', label: 'Панжим' },
-    ];
+    const { data } = useGetSelectOptionsQuery('');
 
     useEffect(() => {
         if (defaultValue) {
-            const defaultCity = options.find(
+            const defaultCity = data?.city.find(
                 (el) => el.label === defaultValue.name
             );
             setValue('city', defaultCity!.value);
@@ -44,9 +40,9 @@ const AnnouncementCity = ({ control, setValue, defaultValue, formState }: Props)
                 placeholder={t('add-page.city')}
                 closeMenuOnSelect={true}
                 isMulti={false}
-                options={options}
+                options={data?.city}
                 requiredFiled={true}
-                defaultValue={options.find(
+                defaultValue={data?.city.find(
                     (el) => el.label === defaultValue?.name
                 )}
             />

@@ -5,6 +5,8 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 import { useEffect } from 'react';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -20,16 +22,16 @@ export const AnnouncementDocValidityPeriod = ({
     formState
 }: Props) => {
     const { t } = useTranslation();
-    const options = [
-        { value: 'month', label: 'Месяц' },
-        { value: 'quarter', label: 'Квартал' },
-        { value: 'year', label: 'Год' },
-        { value: 'years_5', label: '5 лет' },
-        { value: 'other', label: 'Другое' },
-    ];
+    const { data } = useGetSelectOptionsQuery('');
+
     useEffect(() => {
         if(defaultValue){
-            setValue('document_duration', String(getDefaultValue(defaultValue, options)!.value))
+            setValue('document_duration', String(
+                getDefaultValue(
+                    defaultValue,
+                    data?.document_duration)!.value
+                )
+            )
         }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
@@ -44,8 +46,8 @@ export const AnnouncementDocValidityPeriod = ({
                 placeholder={t('filters.document_duration')}
                 closeMenuOnSelect={true}
                 isMulti={false}
-                defaultValue={getDefaultValue(defaultValue, options)}
-                options={options}
+                defaultValue={getDefaultValue(defaultValue, data?.document_duration) as StringOptions}
+                options={data?.document_duration}
                 requiredFiled={true}
             />
             <div className={styles.ann_field_err}>{formState?.errors?.document_duration?.message}</div>

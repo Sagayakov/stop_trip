@@ -1,11 +1,12 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 import { useEffect } from 'react';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -18,12 +19,17 @@ export const AnnouncementRealtyHouseType = ({
     control,
     defaultValue,
 }: Props) => {
-    const optionValues = valuesOfPropertyForm.property_house_type;
+    const { data } = useGetSelectOptionsQuery('');
     const { t } = useTranslation();
 
     useEffect(() => {
         if(defaultValue){
-            setValue('property_house_type', String(getDefaultValue(defaultValue, optionValues)!.value))
+            setValue('property_house_type', String(
+                getDefaultValue(
+                    defaultValue,
+                    data?.property_house_type)!.value
+                )
+            )
         }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
@@ -35,9 +41,9 @@ export const AnnouncementRealtyHouseType = ({
                 control={control}
                 isMulti={false}
                 name="property_house_type"
-                options={optionValues}
+                options={data?.property_house_type}
                 placeholder={t('filters.property_house_type')}
-                defaultValue={getDefaultValue(defaultValue, optionValues)}
+                defaultValue={getDefaultValue(defaultValue, data?.property_house_type) as StringOptions}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

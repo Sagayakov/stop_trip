@@ -5,6 +5,8 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 import { useEffect } from 'react';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -20,17 +22,16 @@ export const AnnouncementDocType = ({
     formState
 }: Props) => {
     const { t } = useTranslation();
-    const options = [
-        { value: 'tourist-visa', label: 'Туристическая виза' },
-        { value: 'business-visa', label: 'Бизнес-виза' },
-        { value: 'c-form', label: 'C-форма' },
-        { value: 'exit-permit', label: 'Продление выезда' },
-        { value: 'other', label: 'Другое' },
-    ];
+    const { data } = useGetSelectOptionsQuery('');
 
     useEffect(() => {
         if(defaultValue){
-            setValue('document_type', String(getDefaultValue(defaultValue, options)!.value))
+            setValue('document_type', String(
+                getDefaultValue(
+                    defaultValue,
+                    data?.document_type)!.value
+                )
+            )
         }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
@@ -45,8 +46,8 @@ export const AnnouncementDocType = ({
                 placeholder={t('filters.document_type')}
                 closeMenuOnSelect={true}
                 isMulti={false}
-                options={options}
-                defaultValue={getDefaultValue(defaultValue, options)}
+                options={data?.document_type}
+                defaultValue={getDefaultValue(defaultValue, data?.document_type) as StringOptions}
                 requiredFiled={true}
             />
             <div className={styles.ann_field_err}>{formState?.errors?.document_type?.message}</div>

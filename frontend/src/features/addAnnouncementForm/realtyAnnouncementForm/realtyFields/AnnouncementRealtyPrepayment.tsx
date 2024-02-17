@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 import { useEffect } from 'react';
+import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -37,7 +38,7 @@ export const AnnouncementRealtyPrepayment = ({
                 name="property_prepayment"
                 options={optionValues}
                 placeholder={t('filters.property_prepayment')}
-                defaultValue={getDefaultValue(defaultValue, optionValues)}
+                defaultValue={getDefaultValue(defaultValue, optionValues) as StringOptions}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

@@ -5,6 +5,8 @@ import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -20,20 +22,13 @@ export const AnnouncementPropertyType = ({
     formState
 }: Props) => {
     const { t } = useTranslation();
-    const optionValues = [
-        { value: 'flat', label: 'Квартира' },
-        { value: 'house', label: 'Дом' },
-        { value: 'room', label: 'Комната' },
-        { value: 'bed_place', label: 'Кровать' },
-        { value: 'parking', label: 'Парковочное место' },
-        { value: 'commercial', label: 'Коммерческое помещение' },
-    ];
+    const { data } = useGetSelectOptionsQuery('');
 
     useEffect(() => {
         if (defaultValue) {
             setValue(
                 'property_house_type',
-                String(getDefaultValue(defaultValue, optionValues)!.value)
+                String(getDefaultValue(defaultValue, data?.property_type)!.value)
             );
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
@@ -46,9 +41,9 @@ export const AnnouncementPropertyType = ({
                 control={control}
                 isMulti={false}
                 name="property_type"
-                options={optionValues}
+                options={data?.property_type}
                 placeholder={t('filters.property-type')}
-                defaultValue={getDefaultValue(defaultValue, optionValues)}
+                defaultValue={getDefaultValue(defaultValue, data?.property_type) as StringOptions}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
                 requiredFiled={true}

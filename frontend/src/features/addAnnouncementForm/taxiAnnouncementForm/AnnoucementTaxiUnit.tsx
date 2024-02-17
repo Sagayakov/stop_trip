@@ -3,6 +3,7 @@ import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -12,15 +13,11 @@ interface Props {
 
 export const AnnouncementTaxiUnit = ({ register, defaultValue, formState}: Props) => {
     const { t } = useTranslation();
+    const { data } = useGetSelectOptionsQuery('');
 
-    const valuesOfTaxiUnit = [
-        { label: 'Маршрут', value: 'route' },
-        { label: 'Час', value: 'hour' },
-        { label: 'Км', value: 'km' },
-    ];
     const getDefaultValue = () => {
         if (defaultValue) {
-            return valuesOfTaxiUnit.find((el) => el.value === defaultValue);
+            return data?.taxi_unit.find((el) => el.value === defaultValue);
         }
     };
 
@@ -30,7 +27,7 @@ export const AnnouncementTaxiUnit = ({ register, defaultValue, formState}: Props
             <UniversalRadioGroup
                 register={register}
                 name="taxi_unit"
-                radioValues={valuesOfTaxiUnit}
+                radioValues={data!.taxi_unit}
                 className={styles.radio_group}
                 defaultValue={getDefaultValue()}
                 requiredField={true}

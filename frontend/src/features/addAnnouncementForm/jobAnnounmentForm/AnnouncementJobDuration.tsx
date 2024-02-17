@@ -3,6 +3,7 @@ import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -12,17 +13,11 @@ interface Props {
 
 export const AnnouncementJobDuration = ({ register, defaultValue, formState }: Props) => {
     const { t } = useTranslation();
-
-    const durationValues = [
-        { label: 'Разовое задание', value: 'one_time_task' },
-        { label: 'Временная работа', value: 'temporary' },
-        { label: 'Постоянная работа', value: 'permanent' },
-        { label: 'Другое', value: 'other' },
-    ];
+    const { data } = useGetSelectOptionsQuery('');
 
     const getDefaultValue = () => {
         if (defaultValue) {
-            return durationValues.find((el) => el.value === defaultValue);
+            return data?.job_duration.find((el) => el.value === defaultValue);
         }
     };
 
@@ -31,7 +26,7 @@ export const AnnouncementJobDuration = ({ register, defaultValue, formState }: P
             <h3>{t('filters.job_duration')}<span>*</span>:</h3>
             <UniversalRadioGroup
                 name="job_duration"
-                radioValues={durationValues}
+                radioValues={data!.job_duration}
                 defaultValue={getDefaultValue()}
                 register={register}
                 className={styles.radio_group}

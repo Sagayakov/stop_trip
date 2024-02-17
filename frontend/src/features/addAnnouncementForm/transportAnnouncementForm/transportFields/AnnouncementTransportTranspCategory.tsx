@@ -1,11 +1,12 @@
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { valuesOfTransportForm } from 'widgets/settingForm/settingTransport/libr/valuesOfTransportForm.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 import { useEffect } from 'react';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -21,12 +22,11 @@ export const AnnouncementTransportTranspCategory = ({
     formState
 }: Props) => {
     const { t } = useTranslation();
-
-    const optionValues = valuesOfTransportForm.transport_category;
+    const { data } = useGetSelectOptionsQuery('');
 
     useEffect(() => {
         if(defaultValue){
-            setValue('transport_category', String(getDefaultValue(defaultValue, optionValues)!.value))
+            setValue('transport_category', String(getDefaultValue(defaultValue, data?.transport_category as StringOptions[])!.value))
         }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
@@ -38,9 +38,9 @@ export const AnnouncementTransportTranspCategory = ({
                 control={control}
                 isMulti={false}
                 name="transport_category"
-                options={optionValues}
+                options={data?.transport_category}
                 placeholder={t('filters.choose-category')}
-                defaultValue={getDefaultValue(defaultValue, optionValues)}
+                defaultValue={getDefaultValue(defaultValue, data?.transport_category) as StringOptions}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
                 requiredFiled={true}

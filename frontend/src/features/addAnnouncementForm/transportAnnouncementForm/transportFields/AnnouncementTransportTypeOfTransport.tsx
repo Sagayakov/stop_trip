@@ -3,6 +3,7 @@ import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -15,19 +16,16 @@ export const AnnouncementTransportTypeOfTransport = ({
     formState
 }: Props) => {
     const { t } = useTranslation();
+    const { data } = useGetSelectOptionsQuery('');
 
-    const values = [
-        { label: `${t('filters.ground')}`, value: 'ground' },
-        { label: `${t('filters.water')}`, value: 'water' },
-    ];
     return (
         <div className={styles.ann_field}>
             <h3>{t('filters.transport_type')}<span>*</span>:</h3>
             <UniversalRadioGroup
                 name="transport_type"
-                radioValues={values}
+                radioValues={data!.transport_type}
                 register={register}
-                defaultValue={values.find((el) => el.value === defaultValue)}
+                defaultValue={data?.transport_type.find((el) => el.value === defaultValue)}
                 className={styles.radio_group}
                 requiredField={true}
             />

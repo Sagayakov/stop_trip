@@ -6,6 +6,7 @@ import { FiltersType } from './types/filtersType';
 import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import Cookies from 'js-cookie';
+import { SelectOptionValues } from 'app/api/types/selectOptionValues.ts';
 
 export const fetchAdverts = createApi({
     reducerPath: 'fetchAdverts',
@@ -63,6 +64,9 @@ export const fetchAdverts = createApi({
         getFilters: build.query<FiltersType, string>({
             query: () => `api/advertisements/get_filter_params/`,
         }),
+        getSelectOptions: build.query<SelectOptionValues, string>({
+            query: () => `api/advertisements/get_filter_params/`,
+        }),
         myAnnouncements: build.query<MyAnnouncements[], string>({
             query: (token: string) => ({
                 url: 'api/advertisements/my_advertisements/',
@@ -110,4 +114,5 @@ export const {
     useMyAnnouncementsQuery,
     useEditAdvertMutation,
     useDeleteAnnouncemetMutation,
+    useGetSelectOptionsQuery,
 } = fetchAdverts;
