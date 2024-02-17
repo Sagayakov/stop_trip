@@ -1,10 +1,10 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { taxiValues } from './taxiValues';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useEffect } from 'react';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -16,18 +16,18 @@ export const AnnouncementTaxiType = ({
     setValue,
     defaultValue,
 }: Props) => {
-    const valuesOfTaxiType = taxiValues.valuesofTaxiType;
     const { t } = useTranslation();
+    const { data } = useGetSelectOptionsQuery('');
 
     const getDefaultValue = () => {
         if (defaultValue) {
-            return valuesOfTaxiType.find((el) => el.value === defaultValue);
+            return data?.taxi_type.find((el) => el.value === defaultValue);
         }
     };
 
     useEffect(() => {
         if (defaultValue) {
-            setValue('taxi_type', getDefaultValue()!.value);
+            setValue('taxi_type', getDefaultValue()?.value);
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
@@ -40,7 +40,7 @@ export const AnnouncementTaxiType = ({
                 isMulti={false}
                 name="taxi_type"
                 placeholder={t('filters.taxi_type')}
-                options={valuesOfTaxiType}
+                options={data?.taxi_type}
                 defaultValue={getDefaultValue()}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}

@@ -1,10 +1,10 @@
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { jobValues } from './libr/jobValues';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useEffect } from 'react';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -19,12 +19,12 @@ export const AnnouncementJobPayment = ({
     defaultValue,
     formState
 }: Props) => {
-    const paymentValues = jobValues.payment;
     const { t } = useTranslation();
+    const { data } = useGetSelectOptionsQuery('');
 
     const getDefaultValue = () => {
         if (defaultValue) {
-            return paymentValues.find((el) => el.value === defaultValue);
+            return data?.job_payment_type.find((el) => el.value === defaultValue);
         }
     };
 
@@ -42,7 +42,7 @@ export const AnnouncementJobPayment = ({
                 control={control}
                 isMulti={false}
                 name="job_payment_type"
-                options={paymentValues}
+                options={data?.job_payment_type}
                 defaultValue={getDefaultValue()}
                 placeholder={t('filters.job_payment_type')}
                 prefix="filterAnnouncementCategory"

@@ -45,7 +45,7 @@ export const UniversalRadioGroup = <T extends FieldValues>({
                                 message: t('add-page.required'),
                             },
                         })}
-                        checked={value === el.value}
+                        checked={value == el.value}
                         onChange={(e) => setValue(e.target.value)}
                     />
                     <span>{el.label}</span>

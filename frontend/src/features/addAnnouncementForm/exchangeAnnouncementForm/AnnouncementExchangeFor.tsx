@@ -1,10 +1,10 @@
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { exchangeValues } from './libr/exchangeValues';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useEffect } from 'react';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -19,12 +19,12 @@ export const AnnouncementExchangeFor = ({
     defaultValue,
     formState
 }: Props) => {
-    const exchangeForValues = exchangeValues.exchangeFor;
     const { t } = useTranslation();
+    const { data } = useGetSelectOptionsQuery('');
 
     const getDefaultValue = () => {
         if (defaultValue) {
-            return exchangeForValues.find((el) => el.value === defaultValue);
+            return data?.exchange_for.find((el) => el.value === defaultValue);
         }
     };
 
@@ -42,7 +42,7 @@ export const AnnouncementExchangeFor = ({
                 control={control}
                 isMulti={false}
                 name="exchange_for"
-                options={exchangeForValues}
+                options={data?.exchange_for}
                 defaultValue={getDefaultValue()}
                 placeholder={t('filters.exchange_for')}
                 prefix="filterAnnouncementCategory"

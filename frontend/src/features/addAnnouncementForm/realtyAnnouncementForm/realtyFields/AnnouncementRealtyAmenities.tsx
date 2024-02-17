@@ -3,10 +3,10 @@ import { UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
-    // defaultValue?: Options[] | undefined;
     defaultValue?: Amenity[] | undefined;
 }
 type Amenity = {
@@ -22,18 +22,11 @@ export const AnnouncementRealtyAmenities = ({
     defaultValue,
 }: Props) => {
     const { t } = useTranslation();
-
-    const optionValues = [
-        {value: 'kondicioner', label: 'Кондиционер'},
-        {value: 'uvlazhnitel', label: 'Увлажнитель'},
-        {value: 'wi-fi', label: 'wi-fi'}
-    ]
-    // const val = defaultValue?.map((el) => el.name.toLowerCase());
-    // const defArr = optionValues.map((el) => defaultValue?.includes(el.label))
+    const { data } = useGetSelectOptionsQuery('');
 
     const val: Options[] = [];
     defaultValue?.forEach((el) => {
-        for (const optionValue of optionValues) {
+        for (const optionValue of data!.property_amenities) {
             if(el.name.toLowerCase() === optionValue.label.toLowerCase()){
                 val.push(optionValue)
             }
@@ -43,10 +36,9 @@ export const AnnouncementRealtyAmenities = ({
         <div className={styles.ann_field}>
             <h3>{t('filters.property_amenities')}:</h3>
             <UniversalCheckboxGroup
-                checkboxValues={optionValues}
+                checkboxValues={data!.property_amenities}
                 name="property_amenities"
                 register={register}
-                // defaultValue={optionValues.find((el) => defaultValue?.includes(el))}
                 defaultValue={val}
                 className={styles.checkbox_group}
             />

@@ -4,6 +4,8 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 
 
 interface Props {
@@ -20,17 +22,13 @@ export const AnnouncementTransportMark = ({
     formState
 }: Props) => {
     const { t } = useTranslation();
-    const optionValues = [
-        {value: 'bmw', label: 'BMW'},
-        {value: 'toyota', label: 'Toyota'},
-        {value: 'yamaha', label: 'Yamaha'},
-    ];
+    const { data } = useGetSelectOptionsQuery('');
     //пока приходит id почему-то, как будет слаг - раскомментировать
     // useEffect(() => {
     //     if(defaultValue){
     //         setValue(
     //             'transport_brand',
-    //             String(getDefaultValue(defaultValue, optionValues)!.value))
+    //             String(getDefaultValue(defaultValue, data?.transport_brand)!.value))
     //     }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     // }, []);
 
@@ -42,9 +40,9 @@ export const AnnouncementTransportMark = ({
                 control={control}
                 isMulti={false}
                 name="transport_brand"
-                options={optionValues}
+                options={data?.transport_brand}
                 placeholder={t('filters.choose-brand')}
-                defaultValue={getDefaultValue(defaultValue, optionValues)}
+                defaultValue={getDefaultValue(defaultValue, data?.transport_brand) as StringOptions}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
                 requiredFiled={true}

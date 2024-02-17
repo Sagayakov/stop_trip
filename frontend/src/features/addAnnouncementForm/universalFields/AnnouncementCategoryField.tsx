@@ -5,6 +5,7 @@ import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useEffect } from 'react';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -23,22 +24,11 @@ const AnnouncementCategoryField = ({
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
 
-    const categoryList = [
-        { label: `${t('labels.property')}`, value: 'property' },
-        { label: `${t('labels.transport')}`, value: 'transport' },
-        { label: `${t('labels.job')}`, value: 'job' },
-        { label: `${t('labels.service')}`, value: 'service' },
-        { label: `${t('labels.taxi')}`, value: 'taxi' },
-        { label: `${t('labels.event')}`, value: 'event' },
-        { label: `${t('labels.exchange_rate')}`, value: 'exchange_rate' },
-        { label: `${t('labels.market')}`, value: 'market' },
-        { label: `${t('labels.document')}`, value: 'document' },
-        { label: `${t('labels.food')}`, value: 'food' },
-        { label: `${t('labels.excursion')}`, value: 'excursion' },
-    ];
+    const { data } = useGetSelectOptionsQuery('');
+
     const getDefaultValue = () => {
         if (defaultValue) {
-            return categoryList.find((el) => el.value === defaultValue);
+            return data?.category.find((el) => el.value === defaultValue);
         }
     };
 
@@ -60,7 +50,7 @@ const AnnouncementCategoryField = ({
                     control={control}
                     isMulti={false}
                     name="category"
-                    options={categoryList}
+                    options={data?.category}
                     placeholder={t('add-page.choose')}
                     prefix="filterAnnouncementCategory"
                     defaultValue={getDefaultValue()}

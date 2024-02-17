@@ -4,6 +4,8 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -17,14 +19,7 @@ export const AnnouncementFoodType = ({
     defaultValue,
 }: Props) => {
     const { t } = useTranslation();
-
-    const options = [
-        { label: 'Вегетарианская еда', value: 'veg_food' },
-        { label: 'Невегетарианская еда', value: 'non_veg_food' },
-        { label: 'Готовая еда', value: 'ready_food' },
-        { label: 'Полуфабрикаты', value: 'semi_finished_food' },
-        { label: 'Другое', value: 'other_food' },
-    ];
+    const { data } = useGetSelectOptionsQuery('');
 
     return (
         <div className={styles.ann_field}>
@@ -34,8 +29,8 @@ export const AnnouncementFoodType = ({
                 control={control}
                 isMulti={false}
                 name="food_type"
-                options={options}
-                defaultValue={getDefaultValue(defaultValue, options)}
+                options={data?.food_type}
+                defaultValue={getDefaultValue(defaultValue, data?.food_type) as StringOptions}
                 placeholder={t('filters.food_type')}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}

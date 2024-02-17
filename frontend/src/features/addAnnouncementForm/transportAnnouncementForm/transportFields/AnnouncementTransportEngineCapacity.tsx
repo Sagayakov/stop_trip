@@ -2,6 +2,7 @@ import { UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -9,6 +10,7 @@ interface Props {
 }
 export const AnnouncementTransportEngineCapacity = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
+    const { data } = useGetSelectOptionsQuery('');
 
     return (
         <div className={styles.ann_field}>
@@ -20,8 +22,8 @@ export const AnnouncementTransportEngineCapacity = ({ register, defaultValue }: 
                     autoComplete="off"
                     defaultValue={defaultValue || ''}
                     {...register('transport_engine_volume')}
-                    min="1"
-                    max="2.7"
+                    min={data?.transport_engine_volume.min || "1"}
+                    max={data?.transport_engine_volume.max || "2.7"}
                     placeholder={t('filters.volume')}
                 />
             </div>

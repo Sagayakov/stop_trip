@@ -6,6 +6,7 @@ import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
+import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -33,7 +34,7 @@ export const AnnouncementRealtyCity = ({
                 options={optionValues}
                 placeholder={t('filters.choose-city')}
                 prefix="filterAnnouncementCategory"
-                defaultValue={getDefaultValue(defaultValue?.name, optionValues)}
+                defaultValue={getDefaultValue(defaultValue?.name, optionValues) as StringOptions}
                 setValue={setValue}
                 isSearchable={!isMobile}
             />

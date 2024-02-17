@@ -3,6 +3,7 @@ import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -16,14 +17,11 @@ export const AnnouncementMarketCondition = ({
     formState
 }: Props) => {
     const { t } = useTranslation();
-    const conditionValues = [
-        { label: `${t('filters.used')}`, value: 'used' },
-        { label: `${t('filters.new')}`, value: 'new' },
-    ];
+    const { data } = useGetSelectOptionsQuery('');
 
     const getDefaultValue = () => {
         if (defaultValue) {
-            return conditionValues.find((el) => el.value === defaultValue);
+            return data?.market_condition.find((el) => el.value === defaultValue);
         }
     };
 
@@ -33,7 +31,7 @@ export const AnnouncementMarketCondition = ({
             <UniversalRadioGroup
                 register={register}
                 name="market_condition"
-                radioValues={conditionValues}
+                radioValues={data!.market_condition}
                 defaultValue={getDefaultValue()}
                 className={styles.radio_group}
                 requiredField={true}

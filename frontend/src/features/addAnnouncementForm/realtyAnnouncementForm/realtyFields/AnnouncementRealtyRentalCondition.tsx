@@ -1,11 +1,12 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 import { useEffect } from 'react';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -18,12 +19,17 @@ export const AnnouncementRealtyRentalCondition = ({
     control,
     defaultValue,
 }: Props) => {
-    const optionValues = valuesOfPropertyForm.property_rental_condition;
+    const { data } = useGetSelectOptionsQuery('');
     const { t } = useTranslation();
 
     useEffect(() => {
         if(defaultValue){
-            setValue('property_rental_condition', String(getDefaultValue(defaultValue, optionValues)!.value))
+            setValue('property_rental_condition', String(
+                getDefaultValue(
+                    defaultValue,
+                    data?.property_rental_condition)!.value
+                )
+            )
         }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
@@ -35,9 +41,12 @@ export const AnnouncementRealtyRentalCondition = ({
                 control={control}
                 isMulti={false}
                 name="property_rental_condition"
-                options={optionValues}
+                options={data?.property_rental_condition}
                 placeholder={t('filters.property_rental_condition')}
-                defaultValue={getDefaultValue(defaultValue, optionValues)}
+                defaultValue={getDefaultValue(
+                    defaultValue,
+                    data?.property_rental_condition) as StringOptions
+                }
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

@@ -1,9 +1,9 @@
 import { UseFormRegister } from 'react-hook-form';
 import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { valuesOfTransportForm } from 'widgets/settingForm/settingTransport/libr/valuesOfTransportForm.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -15,8 +15,7 @@ export const AnnoucementTransportDriveType = ({
     defaultValue,
 }: Props) => {
     const { t } = useTranslation();
-
-    const driveValue = valuesOfTransportForm.transport_drive_type;
+    const { data } = useGetSelectOptionsQuery('');
 
     return (
         <div className={styles.ann_field}>
@@ -24,8 +23,8 @@ export const AnnoucementTransportDriveType = ({
             <UniversalRadioGroup
                 register={register}
                 name="transport_drive_type"
-                radioValues={driveValue}
-                defaultValue={driveValue.find(
+                radioValues={data!.transport_drive_type}
+                defaultValue={data?.transport_drive_type.find(
                     (el) => el.value === defaultValue
                 )}
                 className={styles.radio_group}

@@ -3,6 +3,7 @@ import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -15,11 +16,7 @@ export const AnnouncementTransportTypeOfService = ({
     formState
 }: Props) => {
     const { t } = useTranslation();
-
-    const radioValues = [
-        { label: `${t('filters.rent')}`, value: 'rent' },
-        { label: `${t('filters.sale')}`, value: 'sale' },
-    ];
+    const { data } = useGetSelectOptionsQuery('');
 
     return (
         <div className={styles.ann_field}>
@@ -27,8 +24,8 @@ export const AnnouncementTransportTypeOfService = ({
             <UniversalRadioGroup
                 register={register}
                 name="transport_type_of_service"
-                radioValues={radioValues}
-                defaultValue={radioValues.find(
+                radioValues={data!.transport_type_of_service}
+                defaultValue={data?.transport_type_of_service.find(
                     (el) => el.value === defaultValue
                 )}
                 className={styles.radio_group}

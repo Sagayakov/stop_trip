@@ -1,9 +1,10 @@
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
-import { FormAddAnn } from '../../../pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useEffect } from 'react';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -19,16 +20,10 @@ export const AnnouncementExchangeName = ({
     formState
 }: Props) => {
     const { t } = useTranslation();
-
-    const exchangeNameValues = [
-        { label: 'Доллар', value: 'USD' },
-        { label: 'Рубль', value: 'RUB' },
-        { label: 'Рупий', value: 'Рупий' },
-        { label: 'Евро', value: 'EUR' },
-    ];
+    const { data } = useGetSelectOptionsQuery('');
     const getDefaultValue = () => {
         if (defaultValue) {
-            return exchangeNameValues.find((el) => el.value === defaultValue);
+            return data?.proposed_currency.find((el) => el.value === defaultValue);
         }
     };
 
@@ -46,7 +41,7 @@ export const AnnouncementExchangeName = ({
                 control={control}
                 isMulti={false}
                 name="proposed_currency"
-                options={exchangeNameValues}
+                options={data?.proposed_currency}
                 placeholder={t('filters.proposed_currency')}
                 defaultValue={getDefaultValue()}
                 prefix="filterAnnouncementCategory"
