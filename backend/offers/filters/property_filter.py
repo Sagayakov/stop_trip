@@ -33,6 +33,8 @@ class PropertyFilter(FilterSet):
     property_area = filters.RangeFilter(label="Общая площадь")
     property_has_furniture = filters.BooleanFilter(label="Мебель")
     property_amenities = CharInFilter(label="Удобства", method="filter_property_amenities")
+    property_prepayment = ChoiceInFilter(label="Предоплата", choices=PropertyPrepayment.choices)
+    property_balcony = ChoiceInFilter(label="Балкон", choices=PropertyBalcony.choices)
 
     @staticmethod
     def filter_property_amenities(queryset, name, value):
