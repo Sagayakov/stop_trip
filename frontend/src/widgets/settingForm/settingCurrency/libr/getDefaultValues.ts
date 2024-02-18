@@ -8,15 +8,9 @@ export const getDefaultValues = (
         return {
             city: params.get('city')?.split(','),
 
-            exchange_for: params.get('exchange_for')?.split(','),
-            /* .map((el) => ({
-                    value: el,
-                    label: (data['exchange_for'] as SelectOption[]).find(
-                        (item) => item.value === el
-                    )?.label,
-                })), */
+            exchange_for: params.get('exchange_for') || undefined,
 
-            proposed_currency: params.get('proposed_currency')?.split(','),
+            proposed_currency: params.get('proposed_currency') || undefined,
 
             exchange_rate: params.get('exchange_rate')
                 ? Number(params.get('exchange_rate'))

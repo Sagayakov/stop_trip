@@ -39,7 +39,7 @@ export const ExchangeFor = ({ control, setValue }: Props) => {
             <UniversalSelectDropdown<TypeOfCurrencyFilter>
                 closeMenuOnSelect={false}
                 control={control}
-                isMulti={true}
+                isMulti={false}
                 name="exchange_for"
                 options={currencyValues}
                 placeholder={t('filters.exchange_for')}
