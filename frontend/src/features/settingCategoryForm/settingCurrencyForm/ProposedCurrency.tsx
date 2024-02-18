@@ -40,7 +40,7 @@ export const ProposedCurrency = ({ control, setValue }: Props) => {
                 <UniversalSelectDropdown
                     closeMenuOnSelect={false}
                     control={control}
-                    isMulti={true}
+                    isMulti={false}
                     name="proposed_currency"
                     options={currencyValues}
                     placeholder={t('filters.proposed_currency')}
