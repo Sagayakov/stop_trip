@@ -70,11 +70,10 @@ class CurrencyExchange(FilterSet):
         )
 
         # Обменный курс
-        facets["exchange_rate"] = (
-            queryset.exclude(exchange_for__isnull=True)
-            .values_list("exchange_rate", flat=True)
-            .order_by("exchange_rate")
-            .distinct("exchange_rate")
-        )
+        exchange_rate_range = queryset.aggregate(min=Min("exchange_rate"), max=Max("exchange_rate"))
+        facets["exchange_rate"] = {
+            "min": exchange_rate_range["min"],
+            "max": exchange_rate_range["max"],
+        }
 
         return facets

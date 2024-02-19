@@ -544,7 +544,8 @@ class AdvertisementViewSetTest(APITestCase):
             elif facet == "exchange_for":
                 self.assertEqual(len(available_params), 0)
             elif facet == "exchange_rate":
-                self.assertEqual(len(available_params), 0)
+                self.assertEqual(len(available_params), 2)
+                self.assertTrue(all([param in available_params.keys() for param in ["min", "max"]]))
             # food
             elif facet == "food_delivery":
                 self.assertEqual(len(available_params), 0)
