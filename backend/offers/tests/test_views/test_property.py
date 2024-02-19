@@ -841,3 +841,119 @@ class PropertyTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["count"], len(property_set))
+
+    def test_filter_property_prepayment(self):
+        user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+
+        property_set = [
+            PropertyAdvertisementFactory(
+                owner=user,
+                country=country,
+                region=region,
+                city=city,
+                price=100_000 + _ * 50_000,
+                category=CategoryChoices.PROPERTY.value,
+                coordinates="35,35",
+                property_type_of_service=PropertyTypeOfService.SALE,
+                property_building_max_floor=5,
+                property_floor=4,
+                property_bathroom_count=2,
+                property_bathroom_type=PropertyBathroomType.SEPARATE,
+                property_area=35,
+                property_living_area=50,
+                property_balcony=PropertyBalcony.YES,
+                property_has_furniture=True,
+                property_house_type=PropertyHouseType.BLOCK,
+                property_has_parking=True,
+                property_rental_condition=PropertyRentalCondition.FAMILY,
+                property_prepayment=[PropertyPrepayment.TWO_MONTHS, PropertyPrepayment.WITHOUT][
+                    _ % 2
+                ],
+                property_sleeping_places=5,
+                property_rooms_count=3,
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(5):
+            res = self.client.get(
+                self.list_url,
+                {"property_prepayment": PropertyPrepayment.WITHOUT.value},
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(property_set) // 2)
+
+        with self.assertNumQueries(5):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "property_prepayment": f"{PropertyPrepayment.TWO_MONTHS.value},"
+                    f"{PropertyPrepayment.WITHOUT.value}"
+                },
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(property_set))
+
+    def test_filter_property_balcony(self):
+        user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+
+        property_set = [
+            PropertyAdvertisementFactory(
+                owner=user,
+                country=country,
+                region=region,
+                city=city,
+                price=100_000 + _ * 50_000,
+                category=CategoryChoices.PROPERTY.value,
+                coordinates="35,35",
+                property_type_of_service=PropertyTypeOfService.SALE,
+                property_building_max_floor=5,
+                property_floor=4,
+                property_bathroom_count=2,
+                property_bathroom_type=PropertyBathroomType.SEPARATE,
+                property_area=35,
+                property_living_area=50,
+                property_balcony=[PropertyBalcony.YES, PropertyBalcony.LOGGIA][_ % 2],
+                property_has_furniture=True,
+                property_house_type=PropertyHouseType.BLOCK,
+                property_has_parking=True,
+                property_rental_condition=PropertyRentalCondition.FAMILY,
+                property_prepayment=PropertyPrepayment.TWO_MONTHS,
+                property_sleeping_places=5,
+                property_rooms_count=3,
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(5):
+            res = self.client.get(
+                self.list_url,
+                {"property_balcony": PropertyBalcony.YES.value},
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(property_set) // 2)
+
+        with self.assertNumQueries(5):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "property_balcony": f"{PropertyBalcony.YES.value},"
+                    f"{PropertyBalcony.LOGGIA.value}"
+                },
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(property_set))

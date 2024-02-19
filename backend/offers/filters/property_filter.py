@@ -10,6 +10,8 @@ from ..constants import (
     PropertyHouseType,
     PropertyRentalCondition,
     PropertyType,
+    PropertyPrepayment,
+    PropertyBalcony,
 )
 
 
@@ -31,6 +33,8 @@ class PropertyFilter(FilterSet):
     property_area = filters.RangeFilter(label="Общая площадь")
     property_has_furniture = filters.BooleanFilter(label="Мебель")
     property_amenities = CharInFilter(label="Удобства", method="filter_property_amenities")
+    property_prepayment = ChoiceInFilter(label="Предоплата", choices=PropertyPrepayment.choices)
+    property_balcony = ChoiceInFilter(label="Балкон", choices=PropertyBalcony.choices)
 
     @staticmethod
     def filter_property_amenities(queryset, name, value):
@@ -150,6 +154,22 @@ class PropertyFilter(FilterSet):
         }
         specs |= property_amenities_specs
 
+        # Предоплата
+        property_prepayment_specs = {
+            "property_prepayment": [
+                {"value": value, "label": label} for value, label in PropertyPrepayment.choices
+            ]
+        }
+        specs |= property_prepayment_specs
+
+        # Балкон
+        property_balcony_specs = {
+            "property_balcony": [
+                {"value": value, "label": label} for value, label in PropertyBalcony.choices
+            ]
+        }
+        specs |= property_balcony_specs
+
         return specs
 
     @classmethod
@@ -243,6 +263,22 @@ class PropertyFilter(FilterSet):
             .values_list("property_amenities__slug", flat=True)
             .order_by("property_amenities__slug")
             .distinct("property_amenities__slug")
+        )
+
+        # Предоплата
+        facets["property_prepayment"] = (
+            queryset.exclude(property_prepayment__isnull=True)
+            .values_list("property_prepayment", flat=True)
+            .order_by("property_prepayment")
+            .distinct("property_prepayment")
+        )
+
+        # Балкон
+        facets["property_balcony"] = (
+            queryset.exclude(property_balcony__isnull=True)
+            .values_list("property_balcony", flat=True)
+            .order_by("property_balcony")
+            .distinct("property_balcony")
         )
 
         return facets
