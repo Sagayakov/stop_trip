@@ -28,7 +28,7 @@ export const AnnouncementTransportTransmission = ({
                 defaultValue={data?.transport_transmission_type.find(
                     (el) => el.value === defaultValue
                 )}
-                radioValues={data!.transport_transmission_type}
+                radioValues={data?.transport_transmission_type || [{value: ' ', label: ' '}]}
                 className={styles.radio_group}
                 requiredField={true}
             />

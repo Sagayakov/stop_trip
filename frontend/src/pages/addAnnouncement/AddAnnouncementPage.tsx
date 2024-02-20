@@ -32,6 +32,7 @@ import {
     useAddAdvertMutation,
     useGetSelectOptionsQuery,
 } from 'app/api/fetchAdverts.ts';
+import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 
 const AddAnnouncementPage = () => {
     const {
@@ -168,6 +169,7 @@ const AddAnnouncementPage = () => {
                             setError={setError}
                             clearErrors={clearErrors}
                         />
+                        <YoutubeField register={register} />
                         <AnnouncementLocationField
                             setValue={setValue}
                             markerPosition={markerPosition}

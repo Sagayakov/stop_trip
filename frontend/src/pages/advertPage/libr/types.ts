@@ -74,6 +74,7 @@ export type ProductType = {
     transport_vin: null | number;
     transport_year_of_production: null | number;
     transport_commission: null | number;
+    youtube: string;
 };
 
 export type Owner = {

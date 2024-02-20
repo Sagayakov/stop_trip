@@ -23,7 +23,7 @@ export const AnnouncementTransportTypeOfTransport = ({
             <h3>{t('filters.transport_type')}<span>*</span>:</h3>
             <UniversalRadioGroup
                 name="transport_type"
-                radioValues={data!.transport_type}
+                radioValues={data?.transport_type || [{value: ' ', label: ' '}]}
                 register={register}
                 defaultValue={data?.transport_type.find((el) => el.value === defaultValue)}
                 className={styles.radio_group}

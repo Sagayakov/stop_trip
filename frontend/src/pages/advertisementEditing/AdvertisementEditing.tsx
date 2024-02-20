@@ -32,6 +32,7 @@ import { useGetUserQuery } from 'app/api/fetchUser.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
 import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
+import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
@@ -202,6 +203,7 @@ const AdvertisementEditing = () => {
                             clearErrors={clearErrors}
                             setError={setError}
                         />
+                        <YoutubeField register={register} defaultValue={dataAdvert?.youtube} />
                         <AnnouncementLocationField
                             setValue={setValue}
                             markerPosition={markerPosition}

@@ -3,6 +3,7 @@ import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -14,20 +15,16 @@ export const AnnouncementRealtyBalcony = ({
     defaultValue,
 }: Props) => {
     const { t } = useTranslation();
+    const { data } = useGetSelectOptionsQuery('');
 
-    const optionValues = [
-        { label: `${t('filters.loggia')}`, value: 'loggia' },
-        { label: `${t('filters.no')}`, value: 'no' },
-        { label: `${t('filters.yes')}`, value: 'yes' },
-    ];
     return (
         <div className={styles.ann_field}>
             <h3>{t('filters.property_balcony')}:</h3>
             <UniversalRadioGroup
                 name="property_balcony"
-                radioValues={optionValues}
+                radioValues={data?.property_balcony || [{value: ' ', label: ' '}]}
                 register={register}
-                defaultValue={optionValues.find(
+                defaultValue={data?.property_balcony.find(
                     (el) => el.value === defaultValue
                 )}
                 className={styles.radio_group}

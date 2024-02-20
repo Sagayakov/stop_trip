@@ -273,6 +273,8 @@
         "description": "Description",
         "photo": "Photos",
         "choose-photo": "Choose photo",
+        "youtube-placeholder": "Link",
+        "youtube": "Link to youtube video",
         "uploaded": "Uploaded",
         "please-select": "Please, select no more than 10 photos",
         "limit": "Up to 50 megabytes",
