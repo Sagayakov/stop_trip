@@ -126,7 +126,7 @@ export const PhotoSlider = () => {
                 <div className={styles.image_wrapper}>
                     <div
                         className={
-                            !data.images.length
+                            !data.images.length && !data.youtube
                                 ? styles.active_no_image
                                 : styles.active_image
                         }
