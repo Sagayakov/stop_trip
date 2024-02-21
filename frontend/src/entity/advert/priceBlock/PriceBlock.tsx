@@ -30,7 +30,7 @@ export const PriceBlock = ({ data }: Props) => {
         if (category === 'exchange_rate' && exchange_rate) {
             return exchange_rate;
         }
-        if (category === 'taxi' && taxi_unit) {
+        if (category === 'taxi' && taxi_unit && price) {
             const value = valuesOfTaxiUnit.find(
                 (elem) => elem.value === taxi_unit
             );

@@ -126,7 +126,7 @@ export const PhotoSlider = () => {
                 <div className={styles.image_wrapper}>
                     <div
                         className={
-                            !data.images.length
+                            !data.images.length && !data.youtube
                                 ? styles.active_no_image
                                 : styles.active_image
                         }
@@ -172,12 +172,18 @@ export const PhotoSlider = () => {
                                 />
                             </div>
                         )}
-                        <ShareIcon />
-                        <Like
-                            id={Number(data.id)}
-                            color="#ff3f25"
-                            strokeColor="#1C1C1E"
-                        />
+
+                        {activeImage !== data.images.length && (
+                            <>
+                                <ShareIcon />
+                                <Like
+                                    id={Number(data.id)}
+                                    color="#ff3f25"
+                                    strokeColor="#1C1C1E"
+                                />
+                            </>
+                        )}
+
                         {!!data.images.length && imageHeight > imageWidth && (
                             <>
                                 <img
