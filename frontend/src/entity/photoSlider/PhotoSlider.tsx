@@ -172,12 +172,18 @@ export const PhotoSlider = () => {
                                 />
                             </div>
                         )}
-                        <ShareIcon />
-                        <Like
-                            id={Number(data.id)}
-                            color="#ff3f25"
-                            strokeColor="#1C1C1E"
-                        />
+
+                        {activeImage !== data.images.length && (
+                            <>
+                                <ShareIcon />
+                                <Like
+                                    id={Number(data.id)}
+                                    color="#ff3f25"
+                                    strokeColor="#1C1C1E"
+                                />
+                            </>
+                        )}
+
                         {!!data.images.length && imageHeight > imageWidth && (
                             <>
                                 <img
