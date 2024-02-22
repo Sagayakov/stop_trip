@@ -21,7 +21,6 @@ import {
 } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
 import { useEffect, useState } from 'react';
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
-import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { AnnouncementSubmitButton } from 'entity/addAnnouncementForm/universalFields';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { toast } from 'react-toastify';
@@ -47,8 +46,7 @@ const AdvertisementEditing = () => {
     const slug = path[path.length - 1];
 
     const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery(slug);
-    const { accessToken } = getTokensFromStorage();
-    const { data: user } = useGetUserQuery(accessToken);
+    const { data: user } = useGetUserQuery('');
 
     useGetSelectOptionsQuery('');//запрашиваем данные, потом будем доставать из кэша
     const [

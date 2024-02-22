@@ -1,11 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { url } from 'shared/const/url.ts';
 import Cookies from 'js-cookie';
+import { refetchAccessTokenForPrepareHeaders } from 'app/api/handlers/refetchAccessTokenForPrepareHeaders.ts';
 
 export const fetchFavorites = createApi({
     reducerPath: 'fetchFavorites',
     tagTypes: ['Favorites'],
-    baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
+    baseQuery: fetchBaseQuery({ baseUrl: `${url}/`,
+        credentials: 'include',
+        prepareHeaders: refetchAccessTokenForPrepareHeaders //перед обращением к эндпоинту обновляем accessToken
+    }),
     endpoints: (build) => ({
         getFavorites: build.query<number[], number | string>({
             query: (page = '') => ({
@@ -14,7 +18,6 @@ export const fetchFavorites = createApi({
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${Cookies.get('access_token')}`,
                 },
             }),
             providesTags: ['Favorites'],

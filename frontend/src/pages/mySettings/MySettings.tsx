@@ -3,10 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
-import { useEffect, useLayoutEffect } from 'react';
-import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
+import { useEffect } from 'react';
 import { useAppDispatch } from 'app/store/hooks.ts';
-import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { toast } from 'react-toastify';
 import {
     fetchUser,
@@ -24,25 +22,19 @@ const MySettings = () => {
     });
     const { isValid } = formState;
     const dispatch = useAppDispatch();
-    const { accessToken } = getTokensFromStorage();
     const [setUser, response] = useSetUserMutation();
     const [setPassword, responsePassword] = useSetPasswordMutation();
-    const { data: userData } = useGetUserQuery(accessToken);
+    const { data: userData } = useGetUserQuery('');
 
-    useLayoutEffect(() => {
-        const { refreshToken } = getTokensFromStorage();
-        getAccessTokenWithRefresh(dispatch, refreshToken);
-    }, [dispatch]);
     useEffect(() => {
-        dispatch(fetchUser.util?.invalidateTags(['User'])); //очищаем кэш по юзеру
+        return () => {
+            dispatch(fetchUser.util?.invalidateTags(['User'])); //очищаем кэш по юзеру
+        }
     }, []);
 
     const onsubmit: SubmitHandler<SettingTypes> = async (
         data: SettingTypes
     ) => {
-        const { refreshToken } = getTokensFromStorage();
-        await getAccessTokenWithRefresh(dispatch, refreshToken);
-        const { accessToken: token } = getTokensFromStorage();
 
         if (
             data.current_password &&
@@ -54,7 +46,7 @@ const MySettings = () => {
                 new_password: data.new_password,
                 re_new_password: data.re_new_password,
             };
-            await setPassword({ body, token: token })
+            await setPassword(body)
                 .unwrap()
                 .then(() => toast.success(t('my-settings.success')))
                 .catch(() => {
@@ -66,7 +58,7 @@ const MySettings = () => {
             (data.phone && data.phone !== userData?.phone) ||
             (data.full_name && data.full_name !== userData?.full_name)
         ) {
-            await setUser({ body: data, token: token })
+            await setUser(data)
                 .unwrap()
                 .then(() => toast.success(t('my-settings.success')))
                 .catch(() => {

@@ -3,11 +3,15 @@ import { url } from 'shared/const/url';
 import { AddMessengerType, MessengersType } from './types/messengers';
 import Cookies from 'js-cookie';
 import { Messenger } from 'pages/advertPage/libr/types';
+import { refetchAccessTokenForPrepareHeaders } from 'app/api/handlers/refetchAccessTokenForPrepareHeaders.ts';
 
 export const fetchMessengers = createApi({
     reducerPath: 'fetchMessengers',
     tagTypes: ['Messengers'],
-    baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
+    baseQuery: fetchBaseQuery({ baseUrl: `${url}/`,
+        credentials: 'include',
+        prepareHeaders: refetchAccessTokenForPrepareHeaders //перед обращением к эндпоинту обновляем accessToken
+    }),
     endpoints: (build) => ({
         getMessengers: build.query<Messenger[], string>({
             query: () => ({
@@ -16,7 +20,6 @@ export const fetchMessengers = createApi({
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${Cookies.get('access_token')}`,
                 },
             }),
             providesTags: ['Messengers'],
@@ -28,7 +31,6 @@ export const fetchMessengers = createApi({
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${Cookies.get('access_token')}`,
                 },
             }),
             providesTags: ['Messengers'],
@@ -43,7 +45,6 @@ export const fetchMessengers = createApi({
                 headers: {
                     'X-Csrftoken': `${Cookies.get('access_token')}`,
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${Cookies.get('access_token')}`,
                 },
                 body,
             }),
@@ -59,7 +60,6 @@ export const fetchMessengers = createApi({
                 headers: {
                     'X-Csrftoken': `${Cookies.get('access_token')}`,
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${Cookies.get('access_token')}`,
                 },
                 body,
             }),
@@ -75,7 +75,6 @@ export const fetchMessengers = createApi({
                 headers: {
                     'X-Csrftoken': `${Cookies.get('access_token')}`,
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${Cookies.get('access_token')}`,
                 },
                 body,
             }),
@@ -88,7 +87,6 @@ export const fetchMessengers = createApi({
                 headers: {
                     'X-Csrftoken': `${Cookies.get('access_token')}`,
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${Cookies.get('access_token')}`,
                 },
             }),
             invalidatesTags: ['Messengers'],

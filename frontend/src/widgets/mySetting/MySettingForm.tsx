@@ -4,7 +4,6 @@ import { Control, FormState, UseFormWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { SettingTypes } from 'pages/mySettings/types/settingTypes.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
-import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { toast } from 'react-toastify';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
@@ -38,8 +37,7 @@ export const MySettingForm = (props: Props) => {
     } = props;
     const { errors } = formState;
     const { t } = useTranslation();
-    const { accessToken } = getTokensFromStorage();
-    const { data, isLoading } = useGetUserQuery(accessToken);
+    const { data, isLoading } = useGetUserQuery('');
 
     const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
         event.preventDefault();
