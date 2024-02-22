@@ -19,7 +19,6 @@ export const LoadPhotoBtn = ({
     imgSize,
 }:Props) => {
     const { t } = useTranslation();
-
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = event.target.files
         if(fileList){

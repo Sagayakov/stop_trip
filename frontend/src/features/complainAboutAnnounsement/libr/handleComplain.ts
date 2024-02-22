@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { ComplainTypes } from 'features/complainAboutAnnounsement/libr/ComplainTypes.ts';
 import { Dispatch } from '@reduxjs/toolkit';
 import { TFunction } from 'i18next';
+import { getCsrfToken } from 'app/api/handlers/getCsrfToken.ts';
 
 interface Props{
     payload: ComplainTypes;
@@ -24,7 +25,7 @@ export const handleComplain = async ({ dispatch, payload, t }: Props) => {
             headers: {
                 "Content-Type": 'application/json',
                 "Authorization": `Bearer ${accessToken}`,
-                "X-Csrftoken": `${accessToken}`,
+                "X-Csrftoken": getCsrfToken(),
             },
             body: JSON.stringify(payload),
         })

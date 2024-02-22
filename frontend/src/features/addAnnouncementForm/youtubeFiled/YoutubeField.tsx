@@ -5,7 +5,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
-    defaultValue?: string;
+    defaultValue?: string | null | undefined;
 }
 
 export const YoutubeField = ({ register, defaultValue }: Props) => {
@@ -18,7 +18,7 @@ export const YoutubeField = ({ register, defaultValue }: Props) => {
                 placeholder={t('add-page.youtube-placeholder')}
                 minLength={1}
                 maxLength={100}
-                defaultValue={defaultValue}
+                defaultValue={defaultValue || ''}
                 {...register('youtube')}
             />
             <div className={styles.ann_field_err}></div>

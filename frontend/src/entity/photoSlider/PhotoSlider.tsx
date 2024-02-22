@@ -10,7 +10,6 @@ import { createPortal } from 'react-dom';
 import { Portal } from 'entity/portal/Portal.tsx';
 import { Shadow } from 'entity/portal/Shadow.tsx';
 import { useGetAdvertBySlugQuery } from 'app/api/authFetchAdverts.ts';
-import { useAppSelector } from 'app/store/hooks';
 import { YoutubeEmbed } from 'features/youtubeEmbed';
 
 

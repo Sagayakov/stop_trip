@@ -93,7 +93,9 @@ const AddAnnouncementPage = () => {
             //очищаем кэш, чтобы обновить данные по объявлениям
             reset();
         }
-        if (isError) toast.error(`${t('errors.add-announcement-error')}`);
+        if (isError) {
+            toast.error(`${t('errors.add-announcement-error')}`);
+        }
         setValue('country', 'india');
         setValue('region', 'goa');
     }, [isSuccess, isError]);

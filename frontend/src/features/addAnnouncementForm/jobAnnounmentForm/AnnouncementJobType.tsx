@@ -3,12 +3,11 @@ import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
-import { categorySubTypesDictionary } from 'shared/const/categorySubTypesDictionary.ts';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
-    defaultValue?: null | keyof typeof categorySubTypesDictionary;
+    defaultValue?: string | null | undefined;
     formState: FormState<FormAddAnn>;
 }
 

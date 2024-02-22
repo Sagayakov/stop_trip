@@ -4,6 +4,7 @@ import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { refetchAccessTokenForPrepareHeaders } from 'app/api/handlers/refetchAccessTokenForPrepareHeaders.ts';
+import { getCsrfToken } from 'app/api/handlers/getCsrfToken.ts';
 
 export const authFetchAdverts = createApi({
     reducerPath: 'authFetchAdverts',
@@ -18,6 +19,9 @@ export const authFetchAdverts = createApi({
             query: (body) => ({
                 url: 'api/advertisements/',
                 method: 'POST',
+                headers: {
+                    "X-Csrftoken": getCsrfToken()
+                },
                 body,
             }),
             invalidatesTags: ['Adverts'],

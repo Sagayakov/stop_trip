@@ -24,7 +24,7 @@ const AnnouncementCity = ({ control, setValue, defaultValue, formState }: Props)
             );
             setValue('city', defaultCity!.value);
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
-    }, []);
+    }, [defaultValue]);
 
     return (
         <div className={styles.ann_field}>
