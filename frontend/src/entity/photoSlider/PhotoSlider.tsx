@@ -10,6 +10,9 @@ import { createPortal } from 'react-dom';
 import { Portal } from 'entity/portal/Portal.tsx';
 import { Shadow } from 'entity/portal/Shadow.tsx';
 import { useGetAdvertBySlugQuery } from 'app/api/authFetchAdverts.ts';
+import { useAppSelector } from 'app/store/hooks';
+import { YoutubeEmbed } from 'features/youtubeEmbed';
+
 
 export const PhotoSlider = () => {
     const { slug } = useParams();
@@ -30,15 +33,23 @@ export const PhotoSlider = () => {
         if (data) {
             activeImage > 0
                 ? setActiveImage(activeImage - 1)
-                : setActiveImage(data.images.length - 1);
+                : setActiveImage(
+                      data.youtube ? data.images.length : data.images.length - 1
+                  );
         }
     };
 
     const handleClickNext = () => {
         if (data) {
-            activeImage < data.images.length - 1
-                ? setActiveImage(activeImage + 1)
-                : setActiveImage(0);
+            if (data.youtube) {
+                activeImage < data.images.length
+                    ? setActiveImage(activeImage + 1)
+                    : setActiveImage(0);
+            } else {
+                activeImage < data.images.length - 1
+                    ? setActiveImage(activeImage + 1)
+                    : setActiveImage(0);
+            }
         }
     };
 
@@ -62,15 +73,23 @@ export const PhotoSlider = () => {
         if (data) {
             activePortalImage > 1
                 ? setActivePortalImage(activePortalImage - 1)
-                : setActivePortalImage(data.images.length);
+                : setActivePortalImage(
+                      data.youtube ? data.images.length + 1 : data.images.length
+                  );
         }
     };
 
     const handleClickPortalNext = () => {
         if (data) {
-            activePortalImage < data.images.length
-                ? setActivePortalImage(activePortalImage + 1)
-                : setActivePortalImage(1);
+            if (data.youtube) {
+                activePortalImage < data.images.length + 1
+                    ? setActivePortalImage(activePortalImage + 1)
+                    : setActivePortalImage(1);
+            } else {
+                activePortalImage < data.images.length
+                    ? setActivePortalImage(activePortalImage + 1)
+                    : setActivePortalImage(1);
+            }
         }
     };
 
@@ -107,7 +126,7 @@ export const PhotoSlider = () => {
                 <div className={styles.image_wrapper}>
                     <div
                         className={
-                            !data.images.length
+                            !data.images.length && !data.youtube
                                 ? styles.active_no_image
                                 : styles.active_image
                         }
@@ -123,19 +142,28 @@ export const PhotoSlider = () => {
                                 />
                             </div>
                         )}
-                        <img
-                            src={image}
-                            alt="Main image"
-                            ref={imageRef}
-                            onLoad={handleOnLoad}
-                            className={
-                                !data.images.length
-                                    ? styles.no_image
-                                    : imageWidth > imageHeight
-                                      ? `${styles.horizontal}`
-                                      : `${styles.vertical}`
-                            }
-                        />
+
+                        <>
+                            {activeImage === data.images.length &&
+                            data.youtube ? (
+                                <YoutubeEmbed link={data.youtube} />
+                            ) : (
+                                <img
+                                    src={image}
+                                    alt="Main image"
+                                    ref={imageRef}
+                                    onLoad={handleOnLoad}
+                                    className={
+                                        !data.images.length
+                                            ? styles.no_image
+                                            : imageWidth > imageHeight
+                                              ? `${styles.horizontal}`
+                                              : `${styles.vertical}`
+                                    }
+                                />
+                            )}
+                        </>
+
                         {!!data.images.length && (
                             <div className={styles.arrow_container}>
                                 <ArrowRight
@@ -144,12 +172,18 @@ export const PhotoSlider = () => {
                                 />
                             </div>
                         )}
-                        <ShareIcon />
-                        <Like
-                            id={Number(data.id)}
-                            color="#ff3f25"
-                            strokeColor="#1C1C1E"
-                        />
+
+                        {activeImage !== data.images.length && (
+                            <>
+                                <ShareIcon />
+                                <Like
+                                    id={Number(data.id)}
+                                    color="#ff3f25"
+                                    strokeColor="#1C1C1E"
+                                />
+                            </>
+                        )}
+
                         {!!data.images.length && imageHeight > imageWidth && (
                             <>
                                 <img
@@ -180,6 +214,20 @@ export const PhotoSlider = () => {
                                     alt={`image #${i + 1}`}
                                 />
                             ))}
+                        {data && data.youtube && (
+                            <img
+                                className={
+                                    activeImage !== data.images.length
+                                        ? `${styles.blurred_image}`
+                                        : ''
+                                }
+                                src="../../../src/shared/ui/icons/youtube.png"
+                                onClick={() =>
+                                    setActiveImage(data.images.length)
+                                }
+                                alt="youtube video"
+                            />
+                        )}
                     </div>
                 </div>
             )}
@@ -189,12 +237,18 @@ export const PhotoSlider = () => {
                 createPortal(
                     <>
                         <Portal
-                            image={data.images[activePortalImage - 1].image}
+                            image={
+                                activePortalImage < data.images.length + 1
+                                    ? data.images[activePortalImage - 1].image
+                                    : undefined
+                            }
                             setIsPortalOpen={setIsPortalOpen}
                             images={data.images}
                             active={activePortalImage}
                             handleClickPortalPrev={handleClickPortalPrev}
                             handleClickPortalNext={handleClickPortalNext}
+                            isVideo={!!data.youtube}
+                            link={data.youtube}
                         />
                         <Shadow setIsPortalOpen={setIsPortalOpen} />
                     </>,

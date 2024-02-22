@@ -15,22 +15,23 @@
     top: 50%;
     left: 50%;
     z-index: 1002;
-    width: 80%;
+    width: 90%;
     text-align: center;
     transform: translate(-50%, -50%);
     img {
-        width: 90%;
-        margin: 20px auto 0;
+        margin: 0 auto;
         border-radius: 16px;
     }
-    /* .horizontal {
-        height: 90vh;
-    } */
+    .horizontal {
+        width: 100%;
+    }
     .vertical {
-        width: unset;
+        height: 95vh;
+        width: auto;
+        /* width: unset;
         max-width: 90%;
         min-height: 80vh;
-        max-height: 90vh;
+        max-height: 90vh; */
     }
     .close_portal {
         position: absolute;
@@ -102,13 +103,13 @@
 
 @media (max-width: 1440px) {
     .portal {
-        top: 55%;
-        .horizontal {
+        //top: 55%;
+        /* .horizontal {
             width: 95%;
             height: unset;
 
             //height: 78vh;
-        }
+        } */
         .close_portal {
             right: 35px;
         }
@@ -123,10 +124,10 @@
 
 @media (max-width: 1240px) {
     .portal {
-        .horizontal {
+        /* .horizontal {
             height: unset;
             width: 95%;
-        }
+        } */
         .close_portal {
             right: 30px;
         }
@@ -141,11 +142,11 @@
 
 @media (max-width: 1023px) {
     .portal {
-        top: 60%;
+        //top: 60%;
         width: 85%;
-        img {
+        /* img {
             margin: 0 auto;
-        }
+        } */
         /* .horizontal {
             width: 90%;
         } */
@@ -212,13 +213,13 @@
     }
 }
 
-@media screen and (orientation: landscape) {
+@media screen and (orientation: landscape) and (max-width: 767px) {
     .portal {
         top: 65%;
         width: 95%;
-        .horizontal {
+        /* .horizontal {
             width: 65%;
-        }
+        } */
     }
 }
 
@@ -229,7 +230,8 @@
             min-height: 35vh;
         } */
         .vertical {
-            min-height: 70vh;
+            height: unset;
+            width: 100%;
         }
     }
 }
@@ -240,9 +242,9 @@
         /* .horizontal {
             min-height: 25vh;
         } */
-        .vertical {
+        /* .vertical {
             min-height: 51vh;
-        }
+        } */
         .pages {
             left: 45%;
         }
@@ -256,9 +258,9 @@
 @media (max-width: 360px) {
     .portal {
         top: 40%;
-        .vertical {
+        /* .vertical {
             min-height: 44vh;
-        }
+        } */
         .pages {
             left: 44%;
         }

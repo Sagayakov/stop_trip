@@ -216,3 +216,34 @@ class ExchangeRateTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["count"], len(currency_exchange_set))
+
+    def test_exchange_rate(self):
+        user = UserFactory()
+        names = ["Фунт", "Евро", "Рубль", "Доллар"]
+        short_names = ["FNT", "EUR", "RUB", "USD"]
+
+        currency = [
+            CurrencyFactory(name=name, short_name=short_name)
+            for name, short_name in zip(names, short_names)
+        ]
+
+        currency_exchange_set = [
+            ExchangeAdvertisementFactory(
+                owner=user,
+                title="exchange_rate",
+                price=1500,
+                proposed_currency=currency[0],
+                exchange_for=currency[0],
+                exchange_rate=i,
+            )
+            for i in range(85, 89)
+        ]
+
+        with self.assertNumQueries(5):
+            res = self.client.get(
+                self.list_url,
+                {"exchange_rate_min": 85, "exchange_rate_max": 86},
+            )
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(currency_exchange_set) // 2)

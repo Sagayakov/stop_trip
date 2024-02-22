@@ -5,6 +5,8 @@ export const categoryCharacteristicsKeys: Record<
     Record<string, string>
 > = {
     transport: {
+        transport_brand: 'Марка',
+        transport_model: 'Модель',
         transport_engine_type: 'Тип двигателя',
         transport_drive_type: 'Привод',
         transport_engine_volume: 'Объём',
@@ -102,7 +104,7 @@ export const categoryCharacteristicsValues: Record<
             coupe: 'Купе',
             convertible: 'Кабриолет',
             hatchback: 'Хэтчбэк',
-            SUV: 'Внедорожник',
+            suv: 'Внедорожник',
             limousine: 'Лимузин',
             pickup: 'Пикап',
         },

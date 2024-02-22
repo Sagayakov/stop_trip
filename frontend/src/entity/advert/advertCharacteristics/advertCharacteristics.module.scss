@@ -12,19 +12,17 @@
         margin-top: 0.8rem;
         .characteristics_key {
             flex: 1 1 auto;
-            p {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                font-size: 14px;
-                color: var(--grey-3);
-                line-height: 1.5rem;
-                .dashes {
-                    display: block;
-                    flex: 1 1 auto;
-                    height: 10px;
-                    border-bottom: 1px dashed var(--grey-1);
-                }
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 14px;
+            color: var(--grey-3);
+            line-height: 1.5rem;
+            .dashes {
+                display: block;
+                flex: 1 1 auto;
+                height: 10px;
+                border-bottom: 1px dashed var(--grey-1);
             }
         }
         .characteristics_value {

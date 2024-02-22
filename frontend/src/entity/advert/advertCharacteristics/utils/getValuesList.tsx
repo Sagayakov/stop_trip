@@ -7,6 +7,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { getEventDate } from 'shared/utils/getEventDate';
 import styles from '../advertCharacteristics.module.scss';
+import { unInformative } from './unInformativeFields';
 
 type GetListProps = {
     data: ProductType;
@@ -17,36 +18,6 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
     const { t } = useTranslation();
 
     const list = [];
-
-    const unInformative = [
-        'id',
-        'images',
-        'is_published',
-        'owner',
-        'city',
-        'region',
-        'country',
-        'property_type_of_service',
-        'property_type',
-        'property_commission',
-        'transport_type_of_service',
-        'transport_commission',
-        'category',
-        'title',
-        'price',
-        'coordinates',
-        'description',
-        'date_create',
-        'date_update',
-        'slug',
-        'property_city',
-        'property_district',
-        'transport_type',
-        'transport_category',
-        'transport_brand',
-        'transport_model',
-        'taxi_unit',
-    ];
 
     let key: keyof ProductType;
     for (key in data) {
@@ -60,7 +31,12 @@ export const GetValuesList = ({ data, category }: GetListProps) => {
             } else {
                 continue;
             }
-        } else if (key === 'exchange_for' || key === 'proposed_currency') {
+        } else if (
+            key === 'exchange_for' ||
+            key === 'proposed_currency' ||
+            key === 'transport_brand' ||
+            key === 'transport_model'
+        ) {
             list.push(
                 <div key={key}>
                     <p>{data[key]}</p>

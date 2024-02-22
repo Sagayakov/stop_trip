@@ -1,4 +1,3 @@
-import { categorySubTypesDictionary } from 'shared/const/categorySubTypesDictionary.ts';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
 import { Categories } from 'shared/const/categories.tsx';
 
@@ -26,7 +25,7 @@ export type ProductType = {
     job_duration: null | string;
     job_experience: boolean;
     job_payment_type: null | string;
-    job_type: null | keyof typeof categorySubTypesDictionary;
+    job_type: null | string;
     owner: Owner;
     price: null | number;
     property_amenities: Amenity[];
@@ -36,16 +35,16 @@ export type ProductType = {
     property_bathroom_count: null | number;
     property_bathroom_type: string;
     property_building_max_floor: null | number;
-    country: { name: string } | null;
-    property_city: { name: string } | null;
-    city: { name: string } | null;
+    country: NameType | null;
+    property_city: NameType | null;
+    city: NameType | null;
     coordinates: string;
     property_district: string | null;
-    region: { name: string } | null;
+    region: NameType | null;
     property_floor: null | number;
     property_has_furniture: boolean;
     property_has_parking: boolean;
-    property_house_type: keyof typeof categorySubTypesDictionary;
+    property_house_type: string;
     property_living_area: null | string;
     property_prepayment: string;
     property_rental_condition: string;
@@ -56,12 +55,12 @@ export type ProductType = {
     service_home_visit: boolean;
     slug: string;
     start_date: null | string;
-    taxi_type: null | keyof typeof categorySubTypesDictionary;
+    taxi_type: null | string;
     taxi_unit: null | string;
     title: string;
     transport_body_type: null | string;
     transport_brand: null | string;
-    transport_category: null | keyof typeof categorySubTypesDictionary;
+    transport_category: null | string;
     transport_condition: null | string;
     transport_drive_type: null | string;
     transport_engine_type: null | string;
@@ -74,7 +73,16 @@ export type ProductType = {
     transport_vin: null | number;
     transport_year_of_production: null | number;
     transport_commission: null | number;
-    youtube: string;
+    youtube: string | null;
+};
+
+export type NameType = {
+    name: string;
+};
+
+export type Amenity = {
+    name: string;
+    slug: string;
 };
 
 export type Owner = {
@@ -87,10 +95,6 @@ export type Owner = {
     my_rating: number;
     rating_num: number;
     user_messengers: UserMessenger[];
-};
-
-type Amenity = {
-    name: string;
 };
 
 export type UserMessenger = {
