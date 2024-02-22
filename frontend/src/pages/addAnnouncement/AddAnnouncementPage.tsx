@@ -63,8 +63,6 @@ const AddAnnouncementPage = () => {
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
         setValue('region', 'goa');
-        // dispatch(setLoading(true));
-        // await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
         const formData = createFormDataObjectForSendAnnouncement(
             data,
             'images'

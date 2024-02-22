@@ -75,6 +75,7 @@ export const AnnouncementTransport = ({
             <AnnouncementTransportEngineCapacity
                 register={register}
                 defaultValue={data?.transport_engine_volume}
+                formState={formState}
             />
             <AnnoucementTransportDriveType
                 register={register}

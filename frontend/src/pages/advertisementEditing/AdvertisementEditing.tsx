@@ -68,7 +68,6 @@ const AdvertisementEditing = () => {
     }
 
     const onsubmit = async (data: FormAddAnn) => {
-        dispatch(setLoading(true));
         setValue('country', 'india');
         setValue('region', 'goa');
 
@@ -94,18 +93,17 @@ const AdvertisementEditing = () => {
         dataAdvert?.images && setEditImages(dataAdvert.images);
         if (path[1] !== 'advertisement-editing')
             setValue('category', dataAdvert?.category);
-        return () => {
-            setEditImages(undefined);
-            setSelectedImages(undefined);
-            setMarkerPosition(undefined);
-            setImgSize(0);
-        }
+
     }, [dataAdvert, setValue, isSuccess, isSendError,  path]);
 
     useEffect(() => {
         if (isSuccess) {
             toast.success(`${t('add-page.edit-success')}`);
             scrollToTop();
+            setEditImages(undefined);
+            setSelectedImages(undefined);
+            setImgSize(0);
+            setMarkerPosition(undefined);
             dispatch(
                 fetchAdverts.util?.invalidateTags([
                     'Adverts',
