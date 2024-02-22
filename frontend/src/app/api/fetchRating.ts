@@ -2,11 +2,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { url } from 'shared/const/url.ts';
 import Cookies from 'js-cookie';
 import { AddRating, RatingType } from './types/ratingTypes';
+import { refetchAccessTokenForPrepareHeaders } from 'app/api/handlers/refetchAccessTokenForPrepareHeaders.ts';
 
 export const fetchRating = createApi({
     reducerPath: 'fetchRating',
     tagTypes: ['Rating'],
-    baseQuery: fetchBaseQuery({ baseUrl: `${url}/` }),
+    baseQuery: fetchBaseQuery({ baseUrl: `${url}/`,
+        prepareHeaders: refetchAccessTokenForPrepareHeaders //перед обращением к эндпоинту обновляем accessToken
+    }),
     endpoints: (build) => ({
         getRating: build.query<RatingType, number | string>({
             query: (page = '') => ({
@@ -15,7 +18,6 @@ export const fetchRating = createApi({
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${Cookies.get('access_token')}`,
                     'X-Csrftoken': `${Cookies.get('access_token')}`,
                 },
             }),
@@ -28,7 +30,6 @@ export const fetchRating = createApi({
                 url: `api/user_rate/change_rate/?to_user=${id}`,
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${Cookies.get('access_token')}`,
                     'X-Csrftoken': `${Cookies.get('access_token')}`,
                 },
                 body,

@@ -24,7 +24,7 @@ export const AnnouncementTransportTypeOfService = ({
             <UniversalRadioGroup
                 register={register}
                 name="transport_type_of_service"
-                radioValues={data!.transport_type_of_service}
+                radioValues={data?.transport_type_of_service || [{value: ' ', label: ' '}]}
                 defaultValue={data?.transport_type_of_service.find(
                     (el) => el.value === defaultValue
                 )}

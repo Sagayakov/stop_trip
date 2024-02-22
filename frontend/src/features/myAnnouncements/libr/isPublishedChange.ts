@@ -17,18 +17,18 @@ export const fetchIsPublishedChange = async (slug: string, accessToken: string, 
 }
 
 export const isPublishedChange = async (props: TypesForHandlers) => {
-    const { is_published, refetch, dispatch, slug, t } = props;
+    const { is_published, dispatch, refetch, slug, t } = props;
     try {
-        dispatch(setLoading(true));
+        dispatch!(setLoading(true));
         const { refreshToken } = getTokensFromStorage();
-        await getAccessTokenWithRefresh(dispatch, refreshToken);
+        await getAccessTokenWithRefresh(dispatch!, refreshToken);
         const { accessToken } = getTokensFromStorage();
         await fetchIsPublishedChange(slug!, accessToken, is_published!);
         await refetch();
-        dispatch(setLoading(false));
+        dispatch!(setLoading(false));
     } catch(error) {
         console.log(error);
-        dispatch(setLoading(false));
+        dispatch!(setLoading(false));
         t('main-page.toast-wrong');
     }
 }

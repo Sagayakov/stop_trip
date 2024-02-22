@@ -13,6 +13,7 @@ import { setPageCategorySlice } from 'pages/categoryPage/model/pageReducer/pageC
 import { fetchRating } from 'app/api/fetchRating';
 import { fetchUser } from 'app/api/fetchUser.ts';
 import { fetchMessengers } from 'app/api/fetchMessengers';
+import { authFetchAdverts } from 'app/api/authFetchAdverts.ts';
 
 const setupStore = () =>
     configureStore({
@@ -32,6 +33,7 @@ const setupStore = () =>
             [fetchRating.reducerPath]: fetchRating.reducer,
             [fetchUser.reducerPath]: fetchUser.reducer,
             [fetchMessengers.reducerPath]: fetchMessengers.reducer,
+            [authFetchAdverts.reducerPath]: authFetchAdverts.reducer,
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
@@ -39,7 +41,8 @@ const setupStore = () =>
                 .concat(fetchAdverts.middleware)
                 .concat(fetchFavorites.middleware)
                 .concat(fetchRating.middleware)
-                .concat(fetchMessengers.middleware), //getDefaultMiddleWare это функция, которая вернет массив, и в этот массив мы добавляем еще миддлвееры которые лежат в goodsApi
+                .concat(fetchMessengers.middleware)
+                .concat(authFetchAdverts.middleware),
     });
 
 export const store = setupStore();

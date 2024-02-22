@@ -272,6 +272,8 @@
         "set-price": "Пожалуйста, установите цену",
         "description": "Описание",
         "photo": "Фото",
+        "youtube-placeholder": "Ссылка",
+        "youtube": "Сcылка на видео с youtube",
         "choose-photo": "Выберите фото",
         "uploaded": "Загружено",
         "please-select": "Пожалуйста, выберите не более 10 фотографий",

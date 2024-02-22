@@ -6,7 +6,7 @@ import { getUserIcon } from 'shared/utils/userIcon/getUserIcon.ts';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks.ts';
 import { useParams } from 'react-router-dom';
-import { useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
+import { useGetAdvertBySlugQuery } from 'app/api/authFetchAdverts.ts';
 
 interface Props {
     className: string;
@@ -15,9 +15,8 @@ interface Props {
 export const AdvertOwner = ({ className }: Props) => {
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
-    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
     const { slug } = useParams();
-    const { data, refetch } = useGetAdvertBySlugQuery({ slug: slug!, isAuth });
+    const { data, refetch } = useGetAdvertBySlugQuery(slug!);
 
     const { firstLetters } = getUserIcon(data?.owner.full_name);
 

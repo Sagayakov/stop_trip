@@ -20,10 +20,12 @@ export interface SelectOptionValues{
     property_area: MinMax;
     property_bathroom_count: NumberOptions[];
     property_bathroom_type: StringOptions[];
+    property_balcony: StringOptions[];
     property_has_furniture: BooleanStringOptions[];
     property_house_type: StringOptions[];
     property_rental_condition: StringOptions[];
     property_rooms_count: MinMax;
+    property_prepayment: StringOptions[];
     property_sleeping_places: MinMax;
     property_type: StringOptions[];
     property_type_of_service: StringOptions[];

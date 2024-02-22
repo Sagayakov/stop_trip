@@ -23,7 +23,7 @@ export const AnnoucementTransportDriveType = ({
             <UniversalRadioGroup
                 register={register}
                 name="transport_drive_type"
-                radioValues={data!.transport_drive_type}
+                radioValues={data?.transport_drive_type || [{value: ' ', label: ' '}]}
                 defaultValue={data?.transport_drive_type.find(
                     (el) => el.value === defaultValue
                 )}

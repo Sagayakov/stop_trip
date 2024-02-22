@@ -1,12 +1,12 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 import { useEffect } from 'react';
 import { StringOptions } from 'app/api/types/selectOptionValues.ts';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -19,12 +19,15 @@ export const AnnouncementRealtyPrepayment = ({
     control,
     defaultValue,
 }: Props) => {
-    const optionValues = valuesOfPropertyForm.property_prepayment;
+    const { data } = useGetSelectOptionsQuery('');
     const { t } = useTranslation();
 
     useEffect(() => {
         if(defaultValue){
-            setValue('property_prepayment', String(getDefaultValue(defaultValue, optionValues)!.value))
+            setValue('property_prepayment', String(
+                getDefaultValue(
+                    defaultValue,
+                    data?.property_prepayment)!.value))
         }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
@@ -36,9 +39,11 @@ export const AnnouncementRealtyPrepayment = ({
                 control={control}
                 isMulti={false}
                 name="property_prepayment"
-                options={optionValues}
+                options={data?.property_prepayment}
                 placeholder={t('filters.property_prepayment')}
-                defaultValue={getDefaultValue(defaultValue, optionValues) as StringOptions}
+                defaultValue={getDefaultValue(
+                    defaultValue,
+                    data?.property_prepayment) as StringOptions}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />

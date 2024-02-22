@@ -13,7 +13,7 @@ import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
 import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 
 export interface TypesForHandlers {
-    dispatch: Dispatch;
+    dispatch?: Dispatch;
     slug?: string;
     is_published?: boolean;
     t: TFunction<'translation', undefined>;
@@ -29,12 +29,12 @@ export interface TypesForHandlers {
             >,
             'Adverts' | 'MyAnnouncements',
             MyAnnouncements[],
-            'fetchAdverts'
+            'authFetchAdverts'
         >
     >;
     deleteAnn?: MutationTrigger<
         MutationDefinition<
-            { token: string; slug: string },
+            string,
             BaseQueryFn<
                 string | FetchArgs,
                 unknown,
@@ -44,7 +44,7 @@ export interface TypesForHandlers {
             >,
             'Adverts' | 'MyAnnouncements',
             null,
-            'fetchAdverts'
+            'authFetchAdverts'
         >
     >;
     setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;

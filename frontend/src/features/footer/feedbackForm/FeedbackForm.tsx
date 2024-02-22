@@ -38,8 +38,7 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
         if(!showCaptcha) setShowCaptcha(true);
         if(!userInfo && (localStorage.getItem('isAuth') === "true")){//получаем id юзера
             await getAccessTokenWithRefresh(dispatch, refreshToken);
-            const { accessToken } = getTokensFromStorage();
-            await getUserId(accessToken);
+            await getUserId('');
         }
     }
 

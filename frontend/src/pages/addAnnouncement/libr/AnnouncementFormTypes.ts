@@ -12,6 +12,8 @@ export interface FormAddAnn {
     images?: File[];
     upload_images?: File[];
     delete_images?: number[];
+    //youtube
+    youtube?: string;
     //документы
     document_type?: string;
     document_duration?: string;

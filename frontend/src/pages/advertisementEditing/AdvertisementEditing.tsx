@@ -5,8 +5,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useTranslation } from 'react-i18next';
 import {
     fetchAdverts,
-    useEditAdvertMutation,
-    useGetAdvertBySlugQuery, useGetSelectOptionsQuery,
+    useGetSelectOptionsQuery,
 } from 'app/api/fetchAdverts.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -20,18 +19,18 @@ import {
     AnnouncementRegion,
     OptionalFields,
 } from 'pages/addAnnouncement/lazyFields/lazyFields.ts';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
-import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
 import { AnnouncementSubmitButton } from 'entity/addAnnouncementForm/universalFields';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { toast } from 'react-toastify';
-import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
-import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
+import { useAppDispatch } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
 import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
+import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
+import { useEditAdvertMutation, useGetAdvertBySlugQuery } from 'app/api/authFetchAdverts.ts';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
@@ -46,13 +45,8 @@ const AdvertisementEditing = () => {
     const path = useLocation().pathname.split('/');
     const slug = path[path.length - 1];
 
-    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
-    const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery({
-        slug,
-        isAuth,
-    });
-    const { accessToken, refreshToken } = getTokensFromStorage();
-    const { data: user } = useGetUserQuery(accessToken);
+    const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery(slug);
+    const { data: user } = useGetUserQuery('');
 
     useGetSelectOptionsQuery('');//запрашиваем данные, потом будем доставать из кэша
     const [
@@ -69,36 +63,25 @@ const AdvertisementEditing = () => {
     const addSlug = dataAdvert ? dataAdvert.slug : '';
     const navigate = useNavigate();
 
-    useLayoutEffect(() => {
-        const { refreshToken } = getTokensFromStorage();
-        getAccessTokenWithRefresh(dispatch, refreshToken); //перед отрисовкой получаем новый accessToken
-    }, [dispatch]);
-
     if (!isLoading && user && user.id !== dataAdvert?.owner.id) {
         navigate({ pathname: '/404' }); //если прошла загрузка, мы получили id хозяина объявления и он не равен нашему id, то отправляем на 404
     }
 
     const onsubmit = async (data: FormAddAnn) => {
-        dispatch(setLoading(true));
         setValue('country', 'india');
         setValue('region', 'goa');
-        await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
+
         const formData = createFormDataObjectForSendAnnouncement(
             data,
             'upload_images'
         );
         try {
-            const { accessToken } = getTokensFromStorage();
-            await editAdvert({
-                body: formData as FormAddAnn,
-                addSlug,
-                accessToken,
-            });
-            dispatch(setLoading(false));
+            await editAdvert({ body: formData as FormAddAnn, addSlug });
         } catch (error) {
             console.log(error);
-            dispatch(setLoading(false));
             toast.error(`${t('errors.add-announcement-error')}`);
+        } finally {
+            dispatch(setLoading(false));
         }
     };
 
@@ -110,18 +93,17 @@ const AdvertisementEditing = () => {
         dataAdvert?.images && setEditImages(dataAdvert.images);
         if (path[1] !== 'advertisement-editing')
             setValue('category', dataAdvert?.category);
-        return () => {
-            setEditImages(undefined);
-            setSelectedImages(undefined);
-            setMarkerPosition(undefined);
-            setImgSize(0);
-        }
+
     }, [dataAdvert, setValue, isSuccess, isSendError,  path]);
 
     useEffect(() => {
         if (isSuccess) {
             toast.success(`${t('add-page.edit-success')}`);
             scrollToTop();
+            setEditImages(undefined);
+            setSelectedImages(undefined);
+            setImgSize(0);
+            setMarkerPosition(undefined);
             dispatch(
                 fetchAdverts.util?.invalidateTags([
                     'Adverts',
@@ -202,6 +184,7 @@ const AdvertisementEditing = () => {
                             clearErrors={clearErrors}
                             setError={setError}
                         />
+                        <YoutubeField register={register} defaultValue={dataAdvert?.youtube} />
                         <AnnouncementLocationField
                             setValue={setValue}
                             markerPosition={markerPosition}

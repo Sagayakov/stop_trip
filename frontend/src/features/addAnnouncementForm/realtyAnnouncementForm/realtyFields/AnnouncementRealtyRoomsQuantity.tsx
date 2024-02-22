@@ -16,6 +16,8 @@ export const AnnouncementRealtyRoomsQuantity = ({
     formState
 }: Props) => {
     const { t } = useTranslation();
+    // const { data } = useGetSelectOptionsQuery('');
+    // console.log(data)
 
     const optionValues = [
         { value: 1, label: 1 },

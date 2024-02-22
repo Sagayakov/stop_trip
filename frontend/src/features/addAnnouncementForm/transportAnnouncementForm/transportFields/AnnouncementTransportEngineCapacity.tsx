@@ -1,4 +1,4 @@
-import { UseFormRegister } from 'react-hook-form';
+import { FormState, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
@@ -7,6 +7,7 @@ import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue?: number | null | undefined;
+    formState: FormState<FormAddAnn>;
 }
 export const AnnouncementTransportEngineCapacity = ({ register, defaultValue }: Props) => {
     const { t } = useTranslation();
@@ -18,7 +19,7 @@ export const AnnouncementTransportEngineCapacity = ({ register, defaultValue }: 
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"
-                    pattern="[0-9]*[.,]?[0-9]+"
+                    pattern="[0-9]+\.[0-9]+"
                     autoComplete="off"
                     defaultValue={defaultValue || ''}
                     {...register('transport_engine_volume')}
@@ -27,7 +28,9 @@ export const AnnouncementTransportEngineCapacity = ({ register, defaultValue }: 
                     placeholder={t('filters.volume')}
                 />
             </div>
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {/*{formState?.errors?.transport_engine_volume && 'Введите число в формате 2.0'}*/}
+            </div>
         </div>
     );
 };

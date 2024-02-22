@@ -22,16 +22,15 @@ import './libr/selectAddAnnouncement.scss';
 import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
 import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFields/SuccessAddAnnouncement.tsx';
 import { toast } from 'react-toastify';
-import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage.ts';
-import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefresh.ts';
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
 import {
     fetchAdverts,
-    useAddAdvertMutation,
     useGetSelectOptionsQuery,
 } from 'app/api/fetchAdverts.ts';
+import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
+import { useAddAdvertMutation } from 'app/api/authFetchAdverts.ts';
 
 const AddAnnouncementPage = () => {
     const {
@@ -54,7 +53,6 @@ const AddAnnouncementPage = () => {
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [modalSuccess, setModalSuccess] = useState(false);
     const { t } = useTranslation();
-    const { refreshToken } = getTokensFromStorage();
     const category = watch('category');
 
     const [addAdvert, { isSuccess, isError, isLoading }] =
@@ -65,20 +63,17 @@ const AddAnnouncementPage = () => {
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
         setValue('region', 'goa');
-        dispatch(setLoading(true));
-        await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала дожидаемся новый accessToken, затем шлем пост запрос
         const formData = createFormDataObjectForSendAnnouncement(
             data,
             'images'
         );
         try {
-            const { accessToken } = getTokensFromStorage();
-            await addAdvert({body: formData as FormAddAnn, token: accessToken});
-            dispatch(setLoading(false));
+            await addAdvert(formData as FormAddAnn);
         } catch (error) {
             console.log(error);
-            dispatch(setLoading(false));
             toast.error(`${t('errors.add-announcement-error')}`);
+        } finally {
+            dispatch(setLoading(false));
         }
     };
     const handleClick = () => {
@@ -168,6 +163,7 @@ const AddAnnouncementPage = () => {
                             setError={setError}
                             clearErrors={clearErrors}
                         />
+                        <YoutubeField register={register} />
                         <AnnouncementLocationField
                             setValue={setValue}
                             markerPosition={markerPosition}

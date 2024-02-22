@@ -1,16 +1,14 @@
 import { Suspense, lazy } from 'react';
 const Controls = lazy(() => import('../../features/controls/Controls'));
 import { useParams } from 'react-router-dom';
-import { useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 const Advert = lazy(() => import('widgets/advert/Advert'));
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
-import { useAppSelector } from 'app/store/hooks';
+import { useGetAdvertBySlugQuery } from 'app/api/authFetchAdverts.ts';
 
 const AdvertPage = () => {
     const { slug } = useParams();
-    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
-    const { data } = useGetAdvertBySlugQuery({ slug: slug!, isAuth });
+    const { data } = useGetAdvertBySlugQuery(slug!);
     const { isMobile } = useMatchMedia();
 
     return (

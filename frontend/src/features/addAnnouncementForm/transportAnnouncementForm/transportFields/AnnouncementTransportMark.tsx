@@ -6,6 +6,7 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues.ts';
+import { useEffect } from 'react';
 
 
 interface Props {
@@ -23,14 +24,14 @@ export const AnnouncementTransportMark = ({
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
-    //пока приходит id почему-то, как будет слаг - раскомментировать
-    // useEffect(() => {
-    //     if(defaultValue){
-    //         setValue(
-    //             'transport_brand',
-    //             String(getDefaultValue(defaultValue, data?.transport_brand)!.value))
-    //     }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
-    // }, []);
+
+    useEffect(() => {
+        if(defaultValue){
+            setValue(
+                'transport_brand',
+                String(getDefaultValue(defaultValue, data?.transport_brand)!.value))
+        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+    }, []);
 
     return (
         <div className={styles.ann_field}>
