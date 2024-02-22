@@ -3,19 +3,17 @@ import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
 import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
 import styles from './libr/photoSlider.module.scss';
 import { useParams } from 'react-router-dom';
-import { useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
 import { Like } from 'shared/ui/Like';
 import { ShareIcon } from 'shared/ui/shareIcon';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { createPortal } from 'react-dom';
 import { Portal } from 'entity/portal/Portal.tsx';
 import { Shadow } from 'entity/portal/Shadow.tsx';
-import { useAppSelector } from 'app/store/hooks';
+import { useGetAdvertBySlugQuery } from 'app/api/authFetchAdverts.ts';
 
 export const PhotoSlider = () => {
     const { slug } = useParams();
-    const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
-    const { data } = useGetAdvertBySlugQuery({ slug: slug!, isAuth });
+    const { data } = useGetAdvertBySlugQuery(slug!);
     const [activeImage, setActiveImage] = useState(0);
     const [imageWidth, setImageWidth] = useState<number>(0);
     const [imageHeight, setImageHeight] = useState<number>(0);

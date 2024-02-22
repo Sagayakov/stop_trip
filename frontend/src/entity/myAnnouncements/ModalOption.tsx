@@ -2,7 +2,6 @@ import styles from 'pages/myAnnouncements/libr/myAnnouncements.module.scss';
 import { Pencil } from 'shared/ui/icons/icons-tools/Pencil.tsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useDeleteAnnouncemetMutation } from 'app/api/fetchAdverts.ts';
 import { useAppDispatch, useAppSelector } from 'app/store/hooks.ts';
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
 import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
@@ -16,6 +15,7 @@ import {
 import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
 import { isPublishedChange } from 'features/myAnnouncements/libr/isPublishedChange.ts';
 import { announcementDelete } from 'features/myAnnouncements/libr/announcementDelete.ts';
+import { useDeleteAnnouncemetMutation } from 'app/api/authFetchAdverts.ts';
 
 interface Props extends MyAnnouncements{
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,7 +31,7 @@ interface Props extends MyAnnouncements{
             >,
             'Adverts' | 'MyAnnouncements',
             MyAnnouncements[],
-            'fetchAdverts'
+            'authFetchAdverts'
         >
     >;
 }
@@ -55,7 +55,7 @@ export const ModalOption = (data: Props) => {
                     <input type="checkbox"
                            checked={is_published}
                            onChange={
-                               () => isPublishedChange({slug: slug as string, is_published, refetch, dispatch, t})
+                               () => isPublishedChange({slug: slug as string, dispatch, is_published, refetch, t})
                            }
                     />
                     <span>{t('myAnnouncements.published')}</span>
@@ -71,7 +71,7 @@ export const ModalOption = (data: Props) => {
                     className={styles.delete}
                     onClick={
                         () => announcementDelete(
-                            { setShowModal, refetch, dispatch, t, slug: slug as string, deleteAnn, isSuccessDelete, isErrorDelete }
+                            { setShowModal, refetch, t, slug: slug as string, deleteAnn, isSuccessDelete, isErrorDelete }
                         )
                     }
                 >

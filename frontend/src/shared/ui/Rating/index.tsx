@@ -16,7 +16,7 @@ type RatingProps = {
     myRating: number;
     refetch: () => QueryActionCreatorResult<
         QueryDefinition<
-            { slug: string; isAuth: boolean },
+            string,
             BaseQueryFn<
                 string | FetchArgs,
                 unknown,
@@ -26,7 +26,7 @@ type RatingProps = {
             >,
             'Adverts' | 'MyAnnouncements',
             ProductType,
-            'fetchAdverts'
+            'authFetchAdverts'
         >
     >;
 };

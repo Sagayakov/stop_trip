@@ -23,7 +23,7 @@ type StarProps = {
     setActiveStar: React.Dispatch<React.SetStateAction<number>>;
     refetch: () => QueryActionCreatorResult<
         QueryDefinition<
-            { slug: string; isAuth: boolean },
+            string,
             BaseQueryFn<
                 string | FetchArgs,
                 unknown,
@@ -33,7 +33,7 @@ type StarProps = {
             >,
             'Adverts' | 'MyAnnouncements',
             ProductType,
-            'fetchAdverts'
+            'authFetchAdverts'
         >
     >;
 };
