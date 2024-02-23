@@ -20,9 +20,10 @@ export const authFetchAdverts = createApi({
                 url: 'api/advertisements/',
                 method: 'POST',
                 headers: {
-                    "X-Csrftoken": getCsrfToken()
+                    "X-Csrftoken": getCsrfToken(),
+                    'Content-Type': 'application/json',
                 },
-                body,
+                body: JSON.stringify(body),
             }),
             invalidatesTags: ['Adverts'],
         }),
