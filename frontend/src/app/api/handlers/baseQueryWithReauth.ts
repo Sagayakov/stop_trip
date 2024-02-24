@@ -6,12 +6,16 @@ import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefres
 const baseQuery = fetchBaseQuery({
     baseUrl: `${url}`,
     credentials: 'include',
-    prepareHeaders: (headers) => {
-        const {accessToken} = getTokensFromStorage();
-        headers.set("Authorization", `Bearer ${accessToken}`)
-        return headers;
-    }
-})
+    prepareHeaders: (headers, { getState }) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        if (getState().setIsEnter.isEnter && localStorage.getItem('isAuth')) {
+            const { accessToken } = getTokensFromStorage();
+            headers.set('Authorization', `Bearer ${accessToken}`);
+            return headers;
+        }
+    },
+});
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
