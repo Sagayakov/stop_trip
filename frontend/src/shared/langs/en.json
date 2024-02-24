@@ -278,6 +278,7 @@
         "uploaded": "Uploaded",
         "please-select": "Please, select no more than 10 photos",
         "limit": "Up to 50 megabytes",
+        "from-to": "1 to 5",
         "location": "Location",
         "back": "Back",
         "edit-success": "Announcement successfully edited",

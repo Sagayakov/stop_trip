@@ -125,6 +125,7 @@ export const AnnouncementRealty = ({
             <AnnouncementRealtyComission
                 register={register}
                 defaultValue={data?.property_commission}
+                formState={formState}
             />
         </>
     );
