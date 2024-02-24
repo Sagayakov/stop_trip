@@ -20,7 +20,7 @@ export const GetDateOfCreating = (str: string) => {
     switch (diffDays) {
         case 0:
             return `${
-                lang === 'ru' ? 'Cегодня' : 'Today'
+                lang === 'ru' ? 'Сегодня' : 'Today'
             }, ${hours}:${minutes}`;
         case 1:
             return `${

@@ -1,15 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { url } from 'shared/const/url.ts';
-import Cookies from 'js-cookie';
-import { refetchAccessTokenForPrepareHeaders } from 'app/api/handlers/refetchAccessTokenForPrepareHeaders.ts';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQueryWithReauth } from 'app/api/handlers/baseQueryWithReauth.ts';
+import { getCsrfToken } from 'app/api/handlers/getCsrfToken.ts';
 
 export const fetchFavorites = createApi({
     reducerPath: 'fetchFavorites',
     tagTypes: ['Favorites'],
-    baseQuery: fetchBaseQuery({ baseUrl: `${url}/`,
-        credentials: 'include',
-        prepareHeaders: refetchAccessTokenForPrepareHeaders //перед обращением к эндпоинту обновляем accessToken
-    }),
+    baseQuery: baseQueryWithReauth,
     endpoints: (build) => ({
         getFavorites: build.query<number[], number | string>({
             query: (page = '') => ({
@@ -26,7 +22,10 @@ export const fetchFavorites = createApi({
             query: (body) => ({
                 url: 'api/favorites/',
                 method: 'POST',
-                headers: { 'X-Csrftoken': `${Cookies.get('access_token')}` },
+                headers: {
+                    "X-Csrftoken": getCsrfToken(),
+                    // 'X-Csrftoken': `${Cookies.get('access_token')}`
+                },
                 body,
             }),
             invalidatesTags: ['Favorites'],
@@ -35,7 +34,10 @@ export const fetchFavorites = createApi({
             query: (body) => ({
                 url: 'api/favorites/delete_favorite/',
                 method: 'POST',
-                headers: { 'X-Csrftoken': `${Cookies.get('access_token')}` },
+                headers: {
+                    "X-Csrftoken": getCsrfToken(),
+                    // 'X-Csrftoken': `${Cookies.get('access_token')}`
+                },
                 body,
             }),
             invalidatesTags: ['Favorites'],
@@ -45,7 +47,8 @@ export const fetchFavorites = createApi({
                 url: 'api/favorites/clear_favorite/',
                 method: 'POST',
                 headers: {
-                    'X-Csrftoken': `${Cookies.get('access_token')}`,
+                    "X-Csrftoken": getCsrfToken(),
+                    // 'X-Csrftoken': `${Cookies.get('access_token')}`,
                 },
             }),
             invalidatesTags: ['Favorites'],

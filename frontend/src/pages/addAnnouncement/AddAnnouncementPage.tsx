@@ -24,7 +24,6 @@ import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFi
 import { toast } from 'react-toastify';
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
-import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
 import {
     fetchAdverts,
     useGetSelectOptionsQuery,
@@ -60,15 +59,30 @@ const AddAnnouncementPage = () => {
 
     useGetSelectOptionsQuery('');//запрашиваем данные, потом будем доставать из кэша
 
+    // useEffect(() => {
+    //     if(selectedImages){
+    //         convertFilesToBinaryStrings(selectedImages)
+    //             .then(binaryStrings => {
+    //                 console.log(binaryStrings);
+    //                 setValue('images', binaryStrings as string[]);
+    //             })
+    //             .catch(error => {
+    //                 console.error('Ошибка при преобразовании файлов:', error);
+    //             });
+    //     }
+    // }, [selectedImages])
+
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
         setValue('region', 'goa');
-        const formData = createFormDataObjectForSendAnnouncement(
-            data,
-            'images'
-        );
+        // const formData = createFormDataObjectForSendAnnouncement(
+        //     data,
+        //     'images'
+        // );
+        //если раскомментировать, то в запросе убрать JSON.stringify
         try {
-            await addAdvert(formData as FormAddAnn);
+            await addAdvert(data);
+            // await addAdvert(formData as FormAddAnn);
         } catch (error) {
             console.log(error);
             toast.error(`${t('errors.add-announcement-error')}`);

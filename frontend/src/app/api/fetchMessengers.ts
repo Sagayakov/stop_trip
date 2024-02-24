@@ -1,17 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { url } from 'shared/const/url';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { AddMessengerType, MessengersType } from './types/messengers';
-import Cookies from 'js-cookie';
 import { Messenger } from 'pages/advertPage/libr/types';
-import { refetchAccessTokenForPrepareHeaders } from 'app/api/handlers/refetchAccessTokenForPrepareHeaders.ts';
+import { baseQueryWithReauth } from 'app/api/handlers/baseQueryWithReauth.ts';
+import { getCsrfToken } from 'app/api/handlers/getCsrfToken.ts';
 
 export const fetchMessengers = createApi({
     reducerPath: 'fetchMessengers',
     tagTypes: ['Messengers'],
-    baseQuery: fetchBaseQuery({ baseUrl: `${url}/`,
-        credentials: 'include',
-        prepareHeaders: refetchAccessTokenForPrepareHeaders //перед обращением к эндпоинту обновляем accessToken
-    }),
+    baseQuery: baseQueryWithReauth,
     endpoints: (build) => ({
         getMessengers: build.query<Messenger[], string>({
             query: () => ({
@@ -43,7 +39,8 @@ export const fetchMessengers = createApi({
                 url: '/api/messengers/',
                 method: 'POST',
                 headers: {
-                    'X-Csrftoken': `${Cookies.get('access_token')}`,
+                    "X-Csrftoken": getCsrfToken(),
+                    // 'X-Csrftoken': `${Cookies.get('access_token')}`,
                     'Content-Type': 'application/json',
                 },
                 body,
@@ -58,7 +55,8 @@ export const fetchMessengers = createApi({
                 url: `/api/messengers/${id}`,
                 method: 'PUT',
                 headers: {
-                    'X-Csrftoken': `${Cookies.get('access_token')}`,
+                    "X-Csrftoken": getCsrfToken(),
+                    // 'X-Csrftoken': `${Cookies.get('access_token')}`,
                     'Content-Type': 'application/json',
                 },
                 body,
@@ -73,7 +71,8 @@ export const fetchMessengers = createApi({
                 url: `/api/messengers/${id}`,
                 method: 'PATCH',
                 headers: {
-                    'X-Csrftoken': `${Cookies.get('access_token')}`,
+                    "X-Csrftoken": getCsrfToken(),
+                    // 'X-Csrftoken': `${Cookies.get('access_token')}`,
                     'Content-Type': 'application/json',
                 },
                 body,
@@ -85,7 +84,8 @@ export const fetchMessengers = createApi({
                 url: `/api/messengers/${id}`,
                 method: 'DELETE',
                 headers: {
-                    'X-Csrftoken': `${Cookies.get('access_token')}`,
+                    "X-Csrftoken": getCsrfToken(),
+                    // 'X-Csrftoken': `${Cookies.get('access_token')}`,
                     'Content-Type': 'application/json',
                 },
             }),
