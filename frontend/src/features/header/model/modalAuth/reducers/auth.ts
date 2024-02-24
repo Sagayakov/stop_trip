@@ -2,8 +2,10 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface InitState {
     isAuth: boolean;
-    errorRegistration: ErrorRegistration | undefined
-    errorEnter: string | null
+    errorRegistration: ErrorRegistration | undefined;
+    errorEnter: string | null;
+    accessToken: string | null;
+    refreshToken: string | null;
 }
 interface ErrorRegistration {
     [key: string]: string
@@ -12,7 +14,9 @@ interface ErrorRegistration {
 const initialState: InitState = {
     isAuth: false,
     errorRegistration: undefined,
-    errorEnter: null
+    errorEnter: null,
+    accessToken: null,
+    refreshToken: null,
 };
 
 export const setIsAuthSlice = createSlice({
@@ -33,6 +37,9 @@ export const setIsAuthSlice = createSlice({
             state.errorEnter = null;
             state.errorRegistration = undefined;
         },
+        setAccessToken: (state, action: PayloadAction<string>) =>{
+            state.accessToken = action.payload
+        }
     },
 });
 

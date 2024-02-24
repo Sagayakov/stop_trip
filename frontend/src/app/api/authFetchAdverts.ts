@@ -1,19 +1,18 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import { url } from 'shared/const/url.ts';
+import { createApi } from '@reduxjs/toolkit/dist/query/react';
+// import { url } from 'shared/const/url.ts';
 import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
-import { refetchAccessTokenForPrepareHeaders } from 'app/api/handlers/refetchAccessTokenForPrepareHeaders.ts';
+import {
+    baseQueryWithReauth,
+    // refetchAccessTokenForPrepareHeaders,
+} from 'app/api/handlers/baseQueryWithReauth.ts';
 import { getCsrfToken } from 'app/api/handlers/getCsrfToken.ts';
 
 export const authFetchAdverts = createApi({
     reducerPath: 'authFetchAdverts',
     tagTypes: ['Adverts', 'MyAnnouncements'],
-    baseQuery: fetchBaseQuery({
-        baseUrl: `${url}/`,
-        credentials: 'include',
-        prepareHeaders: refetchAccessTokenForPrepareHeaders //перед обращением к эндпоинту обновляем accessToken
-    }),
+    baseQuery: baseQueryWithReauth,
     endpoints: (build) => ({
         addAdvert: build.mutation<ProductType, FormAddAnn>({
             query: (body) => ({

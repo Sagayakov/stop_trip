@@ -24,7 +24,6 @@ import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFi
 import { toast } from 'react-toastify';
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
-import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
 import {
     fetchAdverts,
     useGetSelectOptionsQuery,
@@ -60,32 +59,6 @@ const AddAnnouncementPage = () => {
 
     useGetSelectOptionsQuery('');//запрашиваем данные, потом будем доставать из кэша
 
-    // function fileToBinaryString(file: File) {
-    //     return new Promise((resolve, reject) => {
-    //         const reader = new FileReader();
-    //         reader.onload = function(event) {
-    //             resolve(event.target?.result);
-    //         };
-    //         reader.onerror = function(error) {
-    //             reject(error);
-    //         };
-    //         reader.readAsBinaryString(file);
-    //     });
-    // }
-    //
-    // async function convertFilesToBinaryStrings(files: File[]) {
-    //     const binaryStrings = [];
-    //     for (const file of files) {
-    //         try {
-    //             const binaryString = await fileToBinaryString(file);
-    //             binaryStrings.push(binaryString);
-    //         } catch (error) {
-    //             console.error('Ошибка при чтении файла:', error);
-    //         }
-    //     }
-    //     return binaryStrings;
-    // }
-    //
     // useEffect(() => {
     //     if(selectedImages){
     //         convertFilesToBinaryStrings(selectedImages)
@@ -98,19 +71,18 @@ const AddAnnouncementPage = () => {
     //             });
     //     }
     // }, [selectedImages])
-    //
-    //
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
         setValue('region', 'goa');
-        const formData = createFormDataObjectForSendAnnouncement(
-            data,
-            'images'
-        );
+        // const formData = createFormDataObjectForSendAnnouncement(
+        //     data,
+        //     'images'
+        // );
+        //если раскомментировать, то в запросе убрать JSON.stringify
         try {
-            // await addAdvert(data);
-            await addAdvert(formData as FormAddAnn);
+            await addAdvert(data);
+            // await addAdvert(formData as FormAddAnn);
         } catch (error) {
             console.log(error);
             toast.error(`${t('errors.add-announcement-error')}`);
