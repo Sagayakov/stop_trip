@@ -357,7 +357,10 @@
         "correct-link": "You can enter phone number in international format or username (if possible)",
         "smth-wrong": "Something went wrong. Please, try again"
     },
+
     "feedback": {
         "feedback-message": "10 to 900 characters"
-    }
+    },
+
+    "cookie-consent": "To improve the convenience of the site, we use cookies. By remaining on the site, you agree to the policy of their use."
 }
