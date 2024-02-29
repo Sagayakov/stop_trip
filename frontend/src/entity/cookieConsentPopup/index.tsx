@@ -1,7 +1,10 @@
 import CookieConsent from 'react-cookie-consent';
 import styles from './cookieConsentPopup.module.scss';
+import { useTranslation } from 'react-i18next';
 
 export const CookieConsentPopup = () => {
+    const { t } = useTranslation();
+
     return (
         <div className="popup">
             <CookieConsent
@@ -16,15 +19,7 @@ export const CookieConsentPopup = () => {
                 buttonClasses={styles.accept_button}
                 expires={150}
             >
-                <p>
-                    Для повышения удобства сайта мы используем cookies.
-                    Оставаясь на сайте, вы соглашаетесь с политикой их
-                    применения.
-                </p>
-                <p>
-                    To improve the convenience of the site, we use cookies. By
-                    remaining on the site, you agree to the policy of their use.
-                </p>
+                <p>{t('cookie-consent')}</p>
             </CookieConsent>
         </div>
     );
