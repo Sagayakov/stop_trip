@@ -9,10 +9,8 @@ export const Input = () => {
     const { t } = useTranslation();
     const { isDesktop } = useMatchMedia();
 
-    const handleClick = () =>
-        toast.warn(`${t('main-page.search-tooltip')}`);
-        // isTablet && toast.warn(`${t('main-page.search-tooltip')}`);
-
+    const handleClick = () => toast.warn(`${t('main-page.search-tooltip')}`);
+    // isTablet && toast.warn(`${t('main-page.search-tooltip')}`);
 
     return (
         <div
@@ -22,7 +20,11 @@ export const Input = () => {
             data-tooltip-content={t('main-page.search-tooltip')}
         >
             <Find />
-            <input placeholder={t('main-page.find')} disabled />
+            <input
+                name="search_input"
+                placeholder={t('main-page.find')}
+                disabled
+            />
             {isDesktop && (
                 <Tooltip
                     id="search-tooltip"
