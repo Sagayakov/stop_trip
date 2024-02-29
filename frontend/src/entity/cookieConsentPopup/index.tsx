@@ -3,12 +3,20 @@ import styles from './cookieConsentPopup.module.scss';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 import { Close } from 'shared/ui/icons/icons-tools/Close';
+import { Dispatch, SetStateAction } from 'react';
 
-export const CookieConsentPopup = () => {
+type CookieConsentPopupProps = {
+    setIsCookieAccepted: Dispatch<SetStateAction<boolean>>;
+};
+
+export const CookieConsentPopup = ({
+    setIsCookieAccepted,
+}: CookieConsentPopupProps) => {
     const { t } = useTranslation();
 
     const handleCloseCookies = () => {
         Cookies.set('user_consent', 'true');
+        setIsCookieAccepted(true);
     };
 
     return (

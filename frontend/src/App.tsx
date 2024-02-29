@@ -4,6 +4,8 @@ import { store } from './app/store/store';
 import { BrowserRouter } from 'react-router-dom';
 import '../i18next';
 import { CookieConsentPopup } from 'entity/cookieConsentPopup';
+import { useState } from 'react';
+import Cookies from 'js-cookie';
 
 declare global {
     interface Window {
@@ -11,6 +13,10 @@ declare global {
     }
 }
 function App() {
+    const [isCookieAccepted, setIsCookieAccepted] = useState<boolean>(
+        !!Cookies.get('user_consent')
+    );
+
     return (
         <>
             <Provider store={store}>
@@ -18,7 +24,9 @@ function App() {
                     <AppRouter />
                 </BrowserRouter>
             </Provider>
-            <CookieConsentPopup />
+            {!isCookieAccepted && (
+                <CookieConsentPopup setIsCookieAccepted={setIsCookieAccepted} />
+            )}
         </>
     );
 }
