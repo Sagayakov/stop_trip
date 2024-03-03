@@ -46,7 +46,11 @@ export const authFetchAdverts = createApi({
             query: ({ body, addSlug }) => ({
                 url: `api/advertisements/${addSlug}`,
                 method: 'PUT',
-                body,
+                headers: {
+                    "X-Csrftoken": getCsrfToken(),
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
             }),
             invalidatesTags: ['MyAnnouncements'],
         }),

@@ -28,9 +28,9 @@ import { useAppDispatch } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
-import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
 import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 import { useEditAdvertMutation, useGetAdvertBySlugQuery } from 'app/api/authFetchAdverts.ts';
+import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
@@ -66,17 +66,32 @@ const AdvertisementEditing = () => {
     if (!isLoading && user && user.id !== dataAdvert?.owner.id) {
         navigate({ pathname: '/404' }); //если прошла загрузка, мы получили id хозяина объявления и он не равен нашему id, то отправляем на 404
     }
+    
+    useEffect(() => {
+        if(selectedImages){
+            convertFilesToBase64Strings(selectedImages)
+                .then(base64Strings => {
+                console.log('Конвертация прошла');
+                setValue('upload_images', base64Strings as string[]);
+            })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                });
+        }
+    })
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
         setValue('region', 'goa');
 
-        const formData = createFormDataObjectForSendAnnouncement(
-            data,
-            'upload_images'
-        );
+        // const formData = createFormDataObjectForSendAnnouncement(
+        //     data,
+        //     'upload_images'
+        // );
+        
         try {
-            await editAdvert({ body: formData as FormAddAnn, addSlug });
+            await editAdvert({ body: data, addSlug});
+            // await editAdvert({ body: formData as FormAddAnn, addSlug });
         } catch (error) {
             console.log(error);
             toast.error(`${t('errors.add-announcement-error')}`);
