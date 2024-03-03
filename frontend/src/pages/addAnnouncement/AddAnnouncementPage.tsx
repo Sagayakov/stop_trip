@@ -64,17 +64,9 @@ const AddAnnouncementPage = () => {
 
     useEffect(() => {
         if(selectedImages){
-            // convertFilesToBinaryStrings(selectedImages)
-            //     .then(binaryStrings => {
-            //         setValue('images', binaryStrings as string[]);
-            //         console.log(binaryStrings);
-            //     })
-            //     .catch(error => {
-            //         console.error('Ошибка при преобразовании файлов:', error);
-            //     });
             convertFilesToBase64Strings(selectedImages)
                 .then(base64Strings => {
-                    console.log('Массив base64 строк:', base64Strings);
+                    console.log('Конвертация прошла',);
                     setValue('images', base64Strings as string[]);
                 })
                 .catch(error => {
