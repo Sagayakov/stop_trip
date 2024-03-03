@@ -30,6 +30,7 @@ import {
 } from 'app/api/fetchAdverts.ts';
 import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 import { useAddAdvertMutation } from 'app/api/authFetchAdverts.ts';
+import { convertFilesToBinaryStrings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 
 const AddAnnouncementPage = () => {
     const {
@@ -59,18 +60,18 @@ const AddAnnouncementPage = () => {
 
     useGetSelectOptionsQuery('');//запрашиваем данные, потом будем доставать из кэша
 
-    // useEffect(() => {
-    //     if(selectedImages){
-    //         convertFilesToBinaryStrings(selectedImages)
-    //             .then(binaryStrings => {
-    //                 console.log(binaryStrings);
-    //                 setValue('images', binaryStrings as string[]);
-    //             })
-    //             .catch(error => {
-    //                 console.error('Ошибка при преобразовании файлов:', error);
-    //             });
-    //     }
-    // }, [selectedImages])
+    useEffect(() => {
+        if(selectedImages){
+            convertFilesToBinaryStrings(selectedImages)
+                .then(binaryStrings => {
+                    console.log(binaryStrings);
+                    setValue('images', binaryStrings as string[]);
+                })
+                .catch(error => {
+                    console.error('Ошибка при преобразовании файлов:', error);
+                });
+        }
+    }, [selectedImages])
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
