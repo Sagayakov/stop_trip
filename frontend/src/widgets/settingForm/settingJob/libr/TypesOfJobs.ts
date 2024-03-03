@@ -1,4 +1,5 @@
 export interface TypesOfJobs {
+    region: string[];
     city: string[];
     job_type: string[];
     job_duration: string[];

@@ -14,6 +14,7 @@ import { getSearchParams } from './libr/getSearchParams';
 import { useSearchParams } from 'react-router-dom';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
+import { District } from 'features/settingCategoryForm/settingExcursionForm/District';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -59,6 +60,7 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onSubmit)}
                 id="form-setting-excursion"
             >
+                <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} />
                 <ExcursionFood register={register} />
                 <ExcursionTransfer register={register} />

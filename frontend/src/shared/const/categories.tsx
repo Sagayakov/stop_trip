@@ -28,11 +28,11 @@ export type Categories =
     | 'excursion';
 
 export const categories: Record<string, Category> = {
-    property: { description: 'Аренда недвижимости', icon: Realty },
-    transport: { description: 'Аренда транспорта', icon: Transport },
-    exchange_rate: { description: 'Валютные пары', icon: Currency },
+    property: { description: 'Недвижимость', icon: Realty },
+    transport: { description: 'Транспорт', icon: Transport },
+    exchange_rate: { description: 'Обмен валют', icon: Currency },
     document: { description: 'Документы', icon: Docs },
-    food: { description: 'Домашняя еда', icon: Food },
+    food: { description: 'Еда', icon: Food },
     event: { description: 'Мероприятия', icon: Docs },
     market: { description: 'Покупка/продажа', icon: BuySell },
     job: { description: 'Работа', icon: Job },

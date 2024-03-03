@@ -6,6 +6,7 @@
         }
         .setting_houseCall,
         .setting_servicePrice {
+            width: fit-content;
             margin-bottom: 24px;
             .form_checkbox {
                 cursor: pointer;
@@ -16,8 +17,10 @@
         .setting_servicePrice {
             display: flex;
             justify-content: space-between;
+            gap: 1rem;
         }
     }
+    .propertyDistrict,
     .propertyCity {
         margin-bottom: 24px;
         h3 {
@@ -34,9 +37,12 @@
         gap: 1.5rem;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
-            'city .'
+            'district city'
             'houseCall price'
             'btnReset btnSubmit';
+        .propertyDistrict {
+            grid-area: district;
+        }
         .propertyCity {
             grid-area: city;
         }

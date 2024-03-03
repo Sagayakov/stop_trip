@@ -17,6 +17,7 @@ import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import styles from './libr/settingJobFilter.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
+import { District } from 'features/settingCategoryForm/settingJob/District.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -72,6 +73,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-job"
             >
+                <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} />
                 <TypeOfJob register={register} />
                 <DurationOfWork control={control} setValue={setValue} />

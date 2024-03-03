@@ -15,6 +15,7 @@ import formStyles from './libr/settingCurrencyFilter.module.scss';
 import { searchParamsForExchange } from './libr/searchParamsForExchange';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
+import { District } from 'features/settingCategoryForm/settingCurrencyForm/District';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -67,6 +68,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onSubmit)}
                 id="form-setting-currency"
             >
+                <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} />
                 <ProposedCurrency control={control} setValue={setValue} />
                 <ExchangeFor control={control} setValue={setValue} />

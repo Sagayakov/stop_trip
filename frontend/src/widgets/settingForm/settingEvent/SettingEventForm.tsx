@@ -16,6 +16,7 @@ import styles from './libr/settingEventFilter.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
+import { District } from 'features/settingCategoryForm/settingEvent/District.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -63,6 +64,7 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-event"
             >
+                <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} />
                 <DateOfStartEvent register={register} />
                 <DateOfEndEvent register={register} />

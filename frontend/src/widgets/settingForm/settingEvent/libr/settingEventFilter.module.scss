@@ -18,6 +18,7 @@
             align-self: center;
         }
     }
+    .propertyDistrict,
     .propertyCity {
         margin-bottom: 24px;
         h3 {
@@ -40,6 +41,9 @@
     .eventPrice {
         margin-bottom: 24px;
     }
+    .isOnline {
+        width: fit-content;
+    }
     .eventPrice {
         .setting_eventPrice {
             display: flex;
@@ -54,10 +58,14 @@
         gap: 1.5rem;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
-            'city .'
+            'district city'
             'startEvent endEvent'
             'price online'
             'btnReset btnSubmit';
+        .propertyDistrict {
+            grid-area: district;
+            margin-bottom: 0;
+        }
         .propertyCity {
             grid-area: city;
             margin-bottom: 0;

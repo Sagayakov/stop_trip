@@ -81,6 +81,10 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                     new Set([...searchOptions, ...selectedOptions])
                 );
 
+                if (context.action === 'clear') {
+                    newOptions = [];
+                }
+
                 if (context.action === 'remove-value') {
                     newOptions = newOptions.filter(
                         (item) => item.value !== context.removedValue.value

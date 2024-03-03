@@ -7,6 +7,7 @@
     .exchangeRate {
         margin-bottom: 24px;
     }
+    .propertyDistrict,
     .propertyCity {
         margin-bottom: 24px;
         h3 {
@@ -22,11 +23,15 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
-            'city .'
+            'district city'
             'exchangeFor proposedCurrency'
             'exchangeRate .'
             'submitBtn resetBtn';
         gap: 16px;
+        .propertyDistrict {
+            margin-bottom: 0;
+            grid-area: district;
+        }
         .propertyCity {
             margin-bottom: 0;
             grid-area: city;

@@ -13,6 +13,7 @@
             }
         }
     }
+    .propertyDistrict,
     .propertyCity {
         margin-bottom: 24px;
         h3 {
@@ -68,7 +69,8 @@
         gap: 1.5rem;
         grid-template-areas:
             'service .'
-            'city typeTransport'
+            'district city'
+            'typeTransport .'
             'category body'
             'markTr engineType'
             'modelTr year'
@@ -78,6 +80,10 @@
             'btnReset btnSubmit';
         .typeOfService {
             grid-area: service;
+        }
+        .propertyDistrict {
+            margin-bottom: 0;
+            grid-area: district;
         }
         .propertyCity {
             margin-bottom: 0;

@@ -1,4 +1,5 @@
 export interface TypeOfEventFilter {
+    region: string[];
     city: string[];
     start_date: TypeDate;
     end_date: TypeDate;

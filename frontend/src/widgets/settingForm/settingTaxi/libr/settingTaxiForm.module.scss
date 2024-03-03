@@ -19,6 +19,7 @@
             justify-content: space-between;
         }
     }
+    .propertyDistrict,
     .propertyCity {
         margin-bottom: 24px;
         h3 {
@@ -32,9 +33,14 @@
         display: grid;
         gap: 1.5rem;
         grid-template-areas:
-            'city type'
-            'unit price'
+            'district city'
+            'type unit'
+            'price .'
             'btnSubmit btnReset';
+        .propertyDistrict {
+            grid-area: district;
+            margin-bottom: 0;
+        }
         .propertyCity {
             grid-area: city;
             margin-bottom: 0;

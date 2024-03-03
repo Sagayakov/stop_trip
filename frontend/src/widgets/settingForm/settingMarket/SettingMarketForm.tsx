@@ -13,6 +13,7 @@ import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { getMultiQuery } from 'shared/utils/getMultiQuery';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { District } from 'features/settingCategoryForm/settingMarketForm/District';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -57,6 +58,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-market"
             >
+                <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} />
                 <MarketCondition register={register} />
                 <input type="submit" value={t('filters.apply')} />

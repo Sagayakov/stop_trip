@@ -6,6 +6,7 @@
     .documentType {
         margin-bottom: 24px;
     }
+    .propertyDistrict,
     .propertyCity {
         margin-bottom: 24px;
         h3 {
@@ -21,11 +22,14 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
-            'city .'
+            'district city'
             'duration type'
             'resetBtn submitBtn';
         gap: 16px;
 
+        .propertyDistrict {
+            grid-area: district;
+        }
         .propertyCity {
             grid-area: city;
         }

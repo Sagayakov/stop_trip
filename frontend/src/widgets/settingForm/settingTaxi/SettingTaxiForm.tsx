@@ -15,6 +15,7 @@ import styles from './libr/settingTaxiForm.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
+import { District } from 'features/settingCategoryForm/settingTaxiForm/District';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -55,6 +56,7 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 autoComplete="off"
                 id="form-setting-taxi"
             >
+                <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} />
                 <UnitOfMeasurement register={register} />
                 <TypeOfTaxi control={control} setValue={setValue} />

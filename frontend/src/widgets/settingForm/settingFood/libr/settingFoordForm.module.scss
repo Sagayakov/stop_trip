@@ -7,6 +7,11 @@
     .foodType {
         margin-bottom: 24px;
     }
+    .foodDelivery,
+    .foodEstablishment {
+        width: fit-content;
+    }
+    .propertyDistrict,
     .propertyCity {
         margin-bottom: 24px;
         h3 {
@@ -22,10 +27,15 @@
         grid-template-columns: 1fr 1fr;
         gap: 16px;
         grid-template-areas:
-            'city foodType'
+            'district city'
+            'foodType .'
             'foodDel foodEst'
             'submitBtn resetBnt';
 
+        .propertyDistrict {
+            margin-bottom: 0;
+            grid-area: district;
+        }
         .propertyCity {
             margin-bottom: 0;
             grid-area: city;

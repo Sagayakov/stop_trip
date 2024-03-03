@@ -1,4 +1,5 @@
 export interface TypeSettingTaxi {
+    region: string[];
     city: string[];
     taxi_unit: string[];
     taxi_type: string[];

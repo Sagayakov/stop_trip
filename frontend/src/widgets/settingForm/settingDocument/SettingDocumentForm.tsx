@@ -14,6 +14,7 @@ import styles from './libr/settingDocumentForm.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
+import { District } from 'features/settingCategoryForm/settingDocumentForm/District';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -62,6 +63,7 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-document"
             >
+                <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} />
                 <DocumentType control={control} setValue={setValue} />
                 <DocumentDuration control={control} setValue={setValue} />
