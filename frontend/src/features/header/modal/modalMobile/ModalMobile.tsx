@@ -9,7 +9,7 @@ import './modalMobile.scss';
 import { clearTokensFromCookies } from 'app/cookie/cookieAuth.ts';
 //import { Langs } from 'entity/langs';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 //import { useMatchMedia } from 'app/hooks/useMatchMedia';
 //import { toast } from 'react-toastify';
 //import { Tooltip } from 'react-tooltip';
@@ -23,6 +23,7 @@ export const ModalMobile = (props: Props) => {
     const { showUserMenu, setShowUserMenu } = props;
     const dispatch: Dispatch = useAppDispatch();
     const { t } = useTranslation();
+    const navigate = useNavigate();
     //const { isDesktop } = useMatchMedia();
 
     const handleLogout = () => {
@@ -31,6 +32,7 @@ export const ModalMobile = (props: Props) => {
         clearTokensFromCookies();
         sessionStorage.clear();
         localStorage.removeItem('isAuth');
+        navigate('/');
     };
 
     /* const handleClickMessages = () =>
