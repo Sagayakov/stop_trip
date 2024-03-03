@@ -5,7 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from common.utils import generate_image_file
+from common.utils import generate_image_file, encode_bytes_to_base64
 from forbidden_words.tests.factories import ForbiddenWordsFactory
 from offers.constants import (
     CategoryChoices,
@@ -126,7 +126,7 @@ class AdvertisementViewSetTest(APITestCase):
         ]
         advertisement_images_ids = [image.id for image in advertisement_images]
 
-        payload_images = [generate_image_file() for _ in range(5)]
+        payload_images = [encode_bytes_to_base64(generate_image_file()) for _ in range(5)]
         payload = {
             "upload_images": payload_images,
             "delete_images": advertisement_images_ids,

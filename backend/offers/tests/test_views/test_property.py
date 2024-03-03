@@ -5,7 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 
-from common.utils import generate_image_file
+from common.utils import generate_image_file, encode_bytes_to_base64
 from offers.constants import (
     CategoryChoices,
     PropertyTypeOfService,
@@ -43,7 +43,7 @@ class PropertyTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
-        payload_images = [generate_image_file() for _ in range(5)]
+        payload_images = [encode_bytes_to_base64(generate_image_file()) for _ in range(5)]
         payload = {
             "category": CategoryChoices.PROPERTY.value,
             "title": "test",
@@ -180,7 +180,7 @@ class PropertyTest(APITestCase):
         new_country = CountryFactory(name="Vietnam")
         new_region = RegionFactory(country=country, name="V1")
         new_city = CityFactory(region=region, name="Hue")
-        payload_images = [generate_image_file() for _ in range(5)]
+        payload_images = [encode_bytes_to_base64(generate_image_file()) for _ in range(5)]
         payload = {
             "title": "test",
             "price": advertisement.price - 100,

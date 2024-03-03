@@ -5,7 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from common.utils import generate_image_file
+from common.utils import generate_image_file, encode_bytes_to_base64
 from offers.constants import (
     CategoryChoices,
     TransportTypeOfService,
@@ -42,7 +42,7 @@ class TransportTest(APITestCase):
         city = CityFactory(region=region)
         transport_brand = TransportBrandFactory(name="Audi")
         transport_model = TransportModelFactory(name="A7", brand=transport_brand)
-        payload_images = [generate_image_file() for _ in range(5)]
+        payload_images = [encode_bytes_to_base64(generate_image_file()) for _ in range(5)]
         payload = {
             "category": CategoryChoices.TRANSPORT.value,
             "country": country.slug,
@@ -159,7 +159,7 @@ class TransportTest(APITestCase):
         new_country = CountryFactory(name="Vietnam")
         new_region = RegionFactory(country=country, name="V1")
         new_city = CityFactory(region=region, name="Hue")
-        payload_images = [generate_image_file() for _ in range(5)]
+        payload_images = [encode_bytes_to_base64(generate_image_file()) for _ in range(5)]
         payload = {
             "title": "test_transport_new",
             "price": 120_000,

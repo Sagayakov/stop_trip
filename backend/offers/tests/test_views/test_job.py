@@ -5,7 +5,7 @@ from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from common.utils import generate_image_file
+from common.utils import generate_image_file, encode_bytes_to_base64
 from offers.constants import (
     CategoryChoices,
     JobType,
@@ -33,7 +33,7 @@ class JobTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
-        payload_images = [generate_image_file() for _ in range(5)]
+        payload_images = [encode_bytes_to_base64(generate_image_file()) for _ in range(5)]
         payload = {
             "category": CategoryChoices.JOB.value,
             "country": country.slug,
@@ -86,7 +86,7 @@ class JobTest(APITestCase):
         new_country = CountryFactory()
         new_region = RegionFactory(country=country)
         new_city = CityFactory(region=region)
-        payload_images = [generate_image_file() for _ in range(5)]
+        payload_images = [encode_bytes_to_base64(generate_image_file()) for _ in range(5)]
         payload = {
             "country": new_country.slug,
             "region": new_region.slug,

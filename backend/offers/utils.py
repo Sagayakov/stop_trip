@@ -1,3 +1,5 @@
+import base64
+import io
 import re
 from io import BytesIO
 from typing import Optional
@@ -9,14 +11,15 @@ from django.core.files.base import ContentFile
 from .models import Advertisement, AdvertisementImage
 
 
-def compression_photo(
-    advertisement: Advertisement, images: list[bytes]
-) -> list[AdvertisementImage]:
+def compression_photo(advertisement: Advertisement, images: list[str]) -> list[AdvertisementImage]:
     """Функция для сжатия качества загружаемых фото"""
 
     images_list: list[AdvertisementImage] = []
     for image in images:
-        img = Image.open(image)
+        # Превращаем base64 в bytes
+        byte_image = base64.b64decode(image)
+        image_stream = io.BytesIO(byte_image)
+        img = Image.open(image_stream)
         # Разрешение фото. При таком весит примерно 150кб
         img.thumbnail((1600, 1600))
         file = BytesIO()
