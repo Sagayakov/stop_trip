@@ -18,10 +18,6 @@ export const SelectGeo = () => {
             )}
             <select name="city_select" ref={selectRef} disabled>
                 <option value={t('main-page.goa')}>{t('main-page.goa')}</option>
-                <option value={t('main-page.goa')}>{t('main-page.goa')}</option>
-                <option value={t('main-page.goa')}>{t('main-page.goa')}</option>
-                <option value={t('main-page.goa')}>{t('main-page.goa')}</option>
-                <option value={t('main-page.goa')}>{t('main-page.goa')}</option>
             </select>
         </div>
     );
