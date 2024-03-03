@@ -23,6 +23,7 @@ def compression_photo(advertisement: Advertisement, images: list[str]) -> list[A
         # Разрешение фото. При таком весит примерно 150кб
         img.thumbnail((1600, 1600))
         file = BytesIO()
+        img = img.convert("RGB")
         img.save(file, format="JPEG", quality=70)
         image_content = ContentFile(file.getvalue(), name=str(uuid4()))
         file.seek(0)
