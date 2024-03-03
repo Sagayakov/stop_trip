@@ -27,11 +27,11 @@
     },
 
     "categories": {
-        "property": "Rental of property",
-        "transport": "Rental of transport",
-        "exchange_rate": "Currency pairs",
+        "property": "Property",
+        "transport": "Transport",
+        "exchange_rate": "Currency exchange",
         "document": "Documents",
-        "food": "Homemade food",
+        "food": "Food",
         "event": "Events",
         "market": "Buy/Sell",
         "job": "Job",
