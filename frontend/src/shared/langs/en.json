@@ -58,7 +58,7 @@
         "not-more-50": "No more than 50 characters",
         "wildcars-name": "enter a name without wildcards",
         "phone": "Phone number",
-        "correct-number": "Enter correct phone number",
+        "correct-number": "Enter your phone number in international format",
         "email-exists": "A user with this email already exists",
         "email-min": "Minimum email length - 10 characters",
         "email-max": "Maximum email length - 50 characters",
