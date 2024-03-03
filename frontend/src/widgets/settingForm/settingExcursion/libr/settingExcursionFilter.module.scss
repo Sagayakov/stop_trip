@@ -7,6 +7,7 @@
         width: fit-content;
         margin-bottom: 24px;
     }
+    .propertyDistrict,
     .propertyCity {
         margin-bottom: 24px;
         h3 {
@@ -23,10 +24,13 @@
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
         grid-template-areas:
-            'city .'
+            'district city'
             'food transfer'
             'submitBtn resetBnt';
 
+        .propertyDistrict {
+            grid-area: district;
+        }
         .propertyCity {
             grid-area: city;
         }

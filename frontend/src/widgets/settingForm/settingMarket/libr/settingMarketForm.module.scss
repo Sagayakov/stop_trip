@@ -9,6 +9,7 @@
             gap: 1rem;
         }
     }
+    .propertyDistrict,
     .propertyCity {
         margin-bottom: 24px;
         h3 {
@@ -25,9 +26,13 @@
         grid-template-columns: 1fr 1fr;
         gap: 16px;
         grid-template-areas:
-            'city cond'
+            'district city'
+            'cond .'
             'submitBtn resetbtn';
 
+        .propertyDistrict {
+            grid-area: district;
+        }
         .propertyCity {
             grid-area: city;
         }

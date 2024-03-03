@@ -1,4 +1,5 @@
 export interface TypeSettingTransport {
+    region: string[];
     city: string[];
     transport_type_of_service: string[];
     transport_type: string[];

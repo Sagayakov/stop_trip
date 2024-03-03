@@ -15,6 +15,7 @@ import styles from './libr/settingFoordForm.module.scss';
 import stylesForm from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
+import { District } from 'features/settingCategoryForm/settingFoodForm/District';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -63,6 +64,7 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-food"
             >
+                <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} />
                 <FoodType control={control} setValue={setValue} />
                 <FoodDelivery register={register} />

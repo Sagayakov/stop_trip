@@ -27,6 +27,7 @@ import styles from './libr/settingTransportForm.module.scss';
 import formStyle from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
+import { District } from 'features/settingCategoryForm/settingTransportForm/District';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -67,6 +68,7 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 id="form-setting-transport"
             >
                 <TypeOfService register={register} />
+                <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} />
                 <TypeOfTransport register={register} watch={watch} />
                 <TransportationCategory setValue={setValue} control={control} />

@@ -29,6 +29,7 @@
             justify-content: space-between;
         }
     }
+    .propertyDistrict,
     .propertyCity {
         margin-bottom: 24px;
         h3 {
@@ -45,10 +46,14 @@
         grid-template-columns: 1fr 1fr;
         gap: 1.5rem;
         grid-template-areas:
-            'city typeOfJob'
-            'durationOfWork payment'
-            'withExp price'
+            'district city'
+            'typeOfJob durationOfWork'
+            'withExp payment'
+            'price .'
             'btnReset btnSubmit';
+        .propertyDistrict {
+            grid-area: district;
+        }
         .propertyCity {
             grid-area: city;
         }

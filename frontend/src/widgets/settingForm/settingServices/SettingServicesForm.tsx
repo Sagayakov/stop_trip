@@ -14,6 +14,7 @@ import styles from './libr/settingServicesForm.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
+import { District } from 'features/settingCategoryForm/settingServices/District.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -54,6 +55,7 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
                 autoComplete="off"
                 id="form-setting-service"
             >
+                <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} />
                 <HouseCall register={register} />
                 <SettingServicePrice register={register} />

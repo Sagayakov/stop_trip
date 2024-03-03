@@ -1,14 +1,14 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
-import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
+import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport';
+import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
 
 interface Props {
-    setValue: UseFormSetValue<TypeSettingRealty>;
-    control: Control<TypeSettingRealty, string[]>;
+    setValue: UseFormSetValue<TypeSettingTransport>;
+    control: Control<TypeSettingTransport, string[]>;
 }
 
 type SelectType = {
@@ -34,7 +34,7 @@ export const District = ({ control, setValue }: Props) => {
         <>
             <div className={styles.propertyDistrict}>
                 <h3>{t('filters.property_district')}</h3>
-                <UniversalSelectDropdown<TypeSettingRealty>
+                <UniversalSelectDropdown<TypeSettingTransport>
                     setValue={setValue}
                     control={control}
                     name="region"
