@@ -30,8 +30,9 @@ import {
 } from 'app/api/fetchAdverts.ts';
 import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 import { useAddAdvertMutation } from 'app/api/authFetchAdverts.ts';
+import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 // import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
-import { convertFilesToBinaryStrings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
+// import { convertFilesToBinaryStrings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 
 const AddAnnouncementPage = () => {
     const {
@@ -63,13 +64,21 @@ const AddAnnouncementPage = () => {
 
     useEffect(() => {
         if(selectedImages){
-            convertFilesToBinaryStrings(selectedImages)
-                .then(binaryStrings => {
-                    setValue('images', binaryStrings as string[]);
-                    console.log(binaryStrings);
+            // convertFilesToBinaryStrings(selectedImages)
+            //     .then(binaryStrings => {
+            //         setValue('images', binaryStrings as string[]);
+            //         console.log(binaryStrings);
+            //     })
+            //     .catch(error => {
+            //         console.error('Ошибка при преобразовании файлов:', error);
+            //     });
+            convertFilesToBase64Strings(selectedImages)
+                .then(base64Strings => {
+                    console.log('Массив base64 строк:', base64Strings);
+                    setValue('images', base64Strings as string[]);
                 })
                 .catch(error => {
-                    console.error('Ошибка при преобразовании файлов:', error);
+                    console.error('Ошибка:', error);
                 });
         }
     }, [selectedImages])
