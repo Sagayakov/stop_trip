@@ -12,6 +12,7 @@ import {
     PageNotFound,
     ResetPassword,
     MySettings,
+    UserAgreement,
 } from './components';
 
 interface Route {
@@ -29,6 +30,7 @@ export const publicRoutes: Route[] = [
     { path: '/activate/:uid/:token', component: ActivateAccount },
     { path: '/email/reset/confirm/:uid/:token', component: ResetPassword },
     { path: '/:category/:slug', component: AdvertPage },
+    { path: '/user-agreement', component: UserAgreement },
     { path: '/404', component: PageNotFound },
     ...categoryRoutes,
 ];
