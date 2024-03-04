@@ -1,0 +1,21 @@
+h2 {
+    font-size: 1.5rem;
+}
+
+.contents_list {
+    padding-left: 1rem;
+    ol {
+        li {
+            font-size: 1.2rem;
+
+            a {
+                font-size: 1.2rem;
+                color: var(--main-blue);
+                cursor: pointer;
+            }
+            a:hover {
+                color: var(--main-green);
+            }
+        }
+    }
+}

@@ -1,0 +1,61 @@
+.points_wrapper {
+    .points_list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        counter-reset: item;
+        li {
+            display: block;
+            font-weight: 600;
+            font-size: 1.5rem;
+            line-height: 2;
+            margin-top: 0;
+            margin-bottom: 0;
+
+            .sub_points_list {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                counter-reset: item;
+
+                li {
+                    display: block;
+                    font-weight: 400;
+                    font-size: 1.2rem;
+                }
+                li:before {
+                    content: counters(item, '.') '. ';
+                    counter-increment: item;
+                }
+            }
+        }
+        li:before {
+            content: counters(item, '.') '. ';
+            counter-increment: item;
+        }
+    }
+
+    p {
+        font-size: 1.2rem;
+        line-height: 2;
+    }
+}
+
+@media (max-width: 767px) {
+    .points_wrapper {
+        .points_list {
+            li {
+                font-size: 1.2rem;
+                .sub_points_list {
+                    li {
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+        p {
+            font-size: 1rem;
+        }
+    }
+}

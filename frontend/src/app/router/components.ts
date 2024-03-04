@@ -24,6 +24,7 @@ export const ResetPassword = lazy(
 export const AdvertisementEditing = lazy(
     () => import('pages/advertisementEditing/AdvertisementEditing.tsx')
 );
-export const MySettings = lazy(
-    () => import('pages/mySettings/MySettings.tsx')
-)
+export const MySettings = lazy(() => import('pages/mySettings/MySettings.tsx'));
+export const UserAgreement = lazy(
+    () => import('pages/userAgreement/UserAgreement.tsx')
+);
