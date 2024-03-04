@@ -158,11 +158,12 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                                 searchOptions.length
                                     ? searchOptions
                                     : defaultValue ||
-                                      options.filter(
-                                          (option) =>
-                                              field.value?.includes(
-                                                  option.value
-                                              )
+                                      options.filter((option) =>
+                                          name === 'region'
+                                              ? field.value === option.value
+                                              : field.value?.includes(
+                                                    option.value
+                                                )
                                       )
                             }
                         />

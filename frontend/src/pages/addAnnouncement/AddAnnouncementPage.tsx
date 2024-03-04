@@ -44,7 +44,7 @@ const AddAnnouncementPage = () => {
         formState,
         watch,
         setError,
-        clearErrors
+        clearErrors,
     } = useForm<FormAddAnn>({
         reValidateMode: 'onBlur',
     });
@@ -60,24 +60,23 @@ const AddAnnouncementPage = () => {
     const [addAdvert, { isSuccess, isError, isLoading }] =
         useAddAdvertMutation();
 
-    useGetSelectOptionsQuery('');//запрашиваем данные, потом будем доставать из кэша
+    useGetSelectOptionsQuery(''); //запрашиваем данные, потом будем доставать из кэша
 
     useEffect(() => {
-        if(selectedImages){
+        if (selectedImages) {
             convertFilesToBase64Strings(selectedImages)
-                .then(base64Strings => {
-                    console.log('Конвертация прошла',);
+                .then((base64Strings) => {
+                    console.log('Конвертация прошла');
                     setValue('images', base64Strings as string[]);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error('Ошибка:', error);
                 });
         }
-    }, [selectedImages])
+    }, [selectedImages]);
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
-        setValue('region', 'goa');
         // const formData = createFormDataObjectForSendAnnouncement(
         //     data,
         //     'images'
@@ -93,20 +92,30 @@ const AddAnnouncementPage = () => {
             dispatch(setLoading(false));
         }
     };
+
     const handleClick = () => {
         setModalSuccess(false);
         scrollToTop();
     };
+
     const sendButtonDisabled = () => {
-        return (selectedImages && selectedImages.length > 10) || (imgSize > 52428800);
+        return (
+            (selectedImages && selectedImages.length > 10) || imgSize > 52428800
+        );
     };
+
     useEffect(() => {
         if (isSuccess) {
             setModalSuccess(true);
             setSelectedImages(undefined);
             setMarkerPosition(undefined);
             setImgSize(0);
-            dispatch(fetchAdverts.util?.invalidateTags(['Adverts', 'MyAnnouncements']))
+            dispatch(
+                fetchAdverts.util?.invalidateTags([
+                    'Adverts',
+                    'MyAnnouncements',
+                ])
+            );
             //очищаем кэш, чтобы обновить данные по объявлениям
             reset();
         }
@@ -114,7 +123,6 @@ const AddAnnouncementPage = () => {
             toast.error(`${t('errors.add-announcement-error')}`);
         }
         setValue('country', 'india');
-        setValue('region', 'goa');
     }, [isSuccess, isError]);
 
     return (

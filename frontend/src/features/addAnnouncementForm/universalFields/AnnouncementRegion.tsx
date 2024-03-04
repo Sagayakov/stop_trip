@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
+import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts';
+import { useEffect, useState } from 'react';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -11,9 +13,35 @@ interface Props {
     formState: FormState<FormAddAnn>;
 }
 
-const AnnouncementRegion = ({ control, setValue, formState }: Props) => {
+type SelectType = {
+    value: string;
+    label: string;
+};
+
+const AnnouncementRegion = ({
+    control,
+    setValue,
+    formState,
+    defaultValue,
+}: Props) => {
     const { t } = useTranslation();
-    const options = [{ value: 'goa', label: 'Гоа' }];
+    const [options, setOptions] = useState<SelectType[]>([]);
+    const { data } = useGetSelectOptionsQuery('');
+
+    useEffect(() => {
+        if (data) {
+            const result = (data['region'] as SelectType[]).filter(
+                (el) => (el as SelectType).value && (el as SelectType).label
+            );
+            setOptions(result as SelectType[]);
+        }
+        if (defaultValue) {
+            const defaultRegion = data?.region.find(
+                (el) => el.label === defaultValue.name
+            );
+            setValue('region', defaultRegion!.value);
+        }
+    }, [data, defaultValue, setValue]);
 
     return (
         <div className={styles.ann_field}>
@@ -29,12 +57,14 @@ const AnnouncementRegion = ({ control, setValue, formState }: Props) => {
                 placeholder={t('add-page.region')}
                 closeMenuOnSelect={true}
                 isMulti={false}
+                isDisabled={false}
                 options={options}
-                defaultValue={options[0]}
-                isDisabled={true}//убрать, когда будет не только Гоа
+                defaultValue={{ value: 'north-goa', label: 'Северный Гоа' }}
                 requiredFiled={true}
             />
-            <div className={styles.ann_field_err}>{formState?.errors?.region?.message}</div>
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.region?.message}
+            </div>
         </div>
     );
 };
