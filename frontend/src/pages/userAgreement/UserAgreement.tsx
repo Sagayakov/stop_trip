@@ -14,9 +14,7 @@ const UserAgreement = () => {
             <section className={styles.contents_wrapper}>
                 <UserAgreementContents />
             </section>
-            <section className={styles.points_wrapper}>
-                <UserAgreementPoints />
-            </section>
+            <UserAgreementPoints />
         </div>
     );
 };
