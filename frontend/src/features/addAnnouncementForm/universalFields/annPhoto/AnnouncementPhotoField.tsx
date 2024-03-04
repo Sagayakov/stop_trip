@@ -8,6 +8,7 @@ import { LoadPhotoBtn } from 'features/addAnnouncementForm/universalFields/annPh
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
 import { useLocation } from 'react-router-dom';
 import { toFixed } from 'ol/math';
+import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 
 
 interface Props {
@@ -53,7 +54,7 @@ const AnnouncementPhotoField = ({
 
     const removeImageEdid = (id: number) => {
         if(editImages && editImages.length > 0){
-            setEditImages && setEditImages(prevImages => prevImages!.filter(img => img.id !== id));
+            setEditImages!((prevImages) => prevImages!.filter(img => img.id !== id));
             setDeleteIdArray([...deleteIdArray, id]);
         }
     };
@@ -75,9 +76,21 @@ const AnnouncementPhotoField = ({
     useEffect(() => {
         if (selectedImages) {
             if(path[1] === 'advertisement-editing'){
-                setValue('upload_images', selectedImages)
+                convertFilesToBase64Strings(selectedImages)
+                    .then((base64Strings) => {
+                        setValue('upload_images', base64Strings as string[])
+                    })
+                    .catch((error) => {
+                        console.error('Ошибка:', error);
+                    });
             }else{
-                setValue('images', selectedImages);
+                convertFilesToBase64Strings(selectedImages)
+                    .then((base64Strings) => {
+                        setValue('images', base64Strings as string[])
+                    })
+                    .catch((error) => {
+                        console.error('Ошибка:', error);
+                    });
             }
         }//если добаляем картинки, то их присваиваем полю upload_images
         // если же находимся на странице добавления объявлений, то присваиваем полю
