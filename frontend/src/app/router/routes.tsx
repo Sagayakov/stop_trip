@@ -44,5 +44,6 @@ export const privateRoutes: Route[] = [
     { path: '/my-announcements', component: MyAnnouncements },
     { path: '/favorites', component: FavoritesPage },
     { path: '/my-settings', component: MySettings },
+    { path: '/user-agreement', component: UserAgreement },
     ...categoryRoutes,
 ];
