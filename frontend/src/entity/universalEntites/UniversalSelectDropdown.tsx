@@ -10,7 +10,7 @@ import Select, { ActionMeta } from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props<T extends FieldValues> {
     setValue: UseFormSetValue<T>;
@@ -55,7 +55,6 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
     const [availableOptions, setAvailableOptions] = useState<SelectOption[]>(
         []
     );
-    const location = useLocation().pathname.split('/')[1];
 
     useEffect(() => {
         if (options) {
@@ -98,8 +97,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                     );
                 }
 
-                location !== '/add-announcement' &&
-                    setSearchOptions(newOptions);
+                setSearchOptions(newOptions);
                 optionsArray = newOptions;
             } else {
                 optionsArray = [selectedOptions];

@@ -27,10 +27,6 @@ const AnnouncementRegion = ({
     const { t } = useTranslation();
     const [options, setOptions] = useState<SelectType[]>([]);
     const { data } = useGetSelectOptionsQuery('');
-    /* const options = [
-        { value: 'north-goa', label: 'Северный Гоа' },
-        { value: 'south-goa', label: 'Южный Гоа' },
-    ]; */
 
     useEffect(() => {
         if (data) {
@@ -44,7 +40,7 @@ const AnnouncementRegion = ({
                 (el) => el.label === defaultValue.name
             );
             setValue('region', defaultRegion!.value);
-        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+        }
     }, [data, defaultValue, setValue]);
 
     return (

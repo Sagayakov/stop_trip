@@ -77,7 +77,6 @@ const AddAnnouncementPage = () => {
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
-        //setValue('region', 'goa');
         // const formData = createFormDataObjectForSendAnnouncement(
         //     data,
         //     'images'
@@ -124,7 +123,6 @@ const AddAnnouncementPage = () => {
             toast.error(`${t('errors.add-announcement-error')}`);
         }
         setValue('country', 'india');
-        //setValue('region', 'goa');
     }, [isSuccess, isError]);
 
     return (
