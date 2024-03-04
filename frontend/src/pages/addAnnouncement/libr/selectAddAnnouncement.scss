@@ -55,6 +55,9 @@
 }
 
 @media (max-width: 511px) {
+    .filterAnnouncementCategory__menu {
+        width: 100% !important;
+    }
     .filterAnnouncementCategory__control {
         width: 100%;
         height: 20px;

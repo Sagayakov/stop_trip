@@ -66,7 +66,7 @@ const AdvertisementEditing = () => {
     if (!isLoading && user && user.id !== dataAdvert?.owner.id) {
         navigate({ pathname: '/404' }); //если прошла загрузка, мы получили id хозяина объявления и он не равен нашему id, то отправляем на 404
     }
-    
+
     useEffect(() => {
         if(selectedImages){
             convertFilesToBase64Strings(selectedImages)
@@ -83,15 +83,9 @@ const AdvertisementEditing = () => {
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
         setValue('region', 'goa');
-
-        // const formData = createFormDataObjectForSendAnnouncement(
-        //     data,
-        //     'upload_images'
-        // );
-        
+        console.log(data);
         try {
             await editAdvert({ body: data, addSlug});
-            // await editAdvert({ body: formData as FormAddAnn, addSlug });
         } catch (error) {
             console.log(error);
             toast.error(`${t('errors.add-announcement-error')}`);

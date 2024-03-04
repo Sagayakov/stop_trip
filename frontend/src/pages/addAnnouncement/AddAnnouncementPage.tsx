@@ -31,8 +31,6 @@ import {
 import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 import { useAddAdvertMutation } from 'app/api/authFetchAdverts.ts';
 import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
-// import { createFormDataObjectForSendAnnouncement } from 'shared/utils/createFormDataObjectForSendAnnouncement.ts';
-// import { convertFilesToBinaryStrings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 
 const AddAnnouncementPage = () => {
     const {
@@ -77,14 +75,8 @@ const AddAnnouncementPage = () => {
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
-        // const formData = createFormDataObjectForSendAnnouncement(
-        //     data,
-        //     'images'
-        // );
-        //если раскомментировать, то в запросе убрать JSON.stringify
         try {
             await addAdvert(data);
-            // await addAdvert(formData as FormAddAnn);
         } catch (error) {
             console.log(error);
             toast.error(`${t('errors.add-announcement-error')}`);
