@@ -75,8 +75,9 @@ const AddAnnouncementPage = () => {
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
+
         try {
-            await addAdvert(data);
+            await addAdvert({ ...data, region: data.region || 'north-goa' });
         } catch (error) {
             console.log(error);
             toast.error(`${t('errors.add-announcement-error')}`);

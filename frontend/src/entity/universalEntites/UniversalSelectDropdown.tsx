@@ -157,7 +157,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                             value={
                                 searchOptions.length
                                     ? searchOptions
-                                    : defaultValue ||
+                                    : defaultValue ??
                                       options.filter((option) =>
                                           name === 'region'
                                               ? field.value === option.value

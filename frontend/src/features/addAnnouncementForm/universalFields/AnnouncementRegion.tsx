@@ -60,7 +60,7 @@ const AnnouncementRegion = ({
                 isDisabled={false}
                 options={options}
                 defaultValue={{ value: 'north-goa', label: 'Северный Гоа' }}
-                requiredFiled={true}
+                //requiredFiled={true}
             />
             <div className={styles.ann_field_err}>
                 {formState?.errors?.region?.message}
