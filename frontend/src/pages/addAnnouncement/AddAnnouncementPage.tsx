@@ -77,7 +77,11 @@ const AddAnnouncementPage = () => {
         setValue('country', 'india');
 
         try {
-            await addAdvert({ ...data, region: data.region || 'north-goa' });
+            const nonNullableData = Object.entries(data).filter((el) => el[1]);
+            await addAdvert({
+                ...Object.fromEntries(nonNullableData),
+                region: data.region || 'north-goa',
+            });
         } catch (error) {
             console.log(error);
             toast.error(`${t('errors.add-announcement-error')}`);
