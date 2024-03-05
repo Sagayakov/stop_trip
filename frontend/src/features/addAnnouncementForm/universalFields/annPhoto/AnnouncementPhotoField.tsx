@@ -12,29 +12,28 @@ import { toFixed } from 'ol/math';
 interface Props {
     watch: UseFormWatch<FormAddAnn>;
     setValue: UseFormSetValue<FormAddAnn>;
-    editImages?: LastAdvertsImages[] | undefined;
-    setEditImages?: React.Dispatch<React.SetStateAction<LastAdvertsImages[] | undefined>>
     imgSize: number;
     setImgSize: React.Dispatch<SetStateAction<number>>;
     setError: (name: (FieldPath<FormAddAnn> | `root.${string}` | "root"), error: ErrorOption, options?: {shouldFocus: boolean}) => void;
-    clearErrors: (name?: (FieldPath<FormAddAnn> | FieldPath<FormAddAnn>[] | `root.${string}` | "root")) => void
+    clearErrors: (name?: (FieldPath<FormAddAnn> | FieldPath<FormAddAnn>[] | `root.${string}` | "root")) => void;
+    editImages?: LastAdvertsImages[];
 }
 
 const AnnouncementPhotoField = ({
     watch,
     setValue,
-    editImages,
-    setEditImages,
-    setImgSize,
+    editImages: img,
+    // setImgSize,
+    // setError,
+    // clearErrors,
     imgSize,
-    setError,
-    clearErrors
 }: Props) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const { t } = useTranslation();
     const [previewImages, setPreviewImages] = useState<string[]>([]);
     const [deleteIdArray, setDeleteIdArray] = useState<number[]>([]);
     const images = watch('images');
+    const [editImages, setEditImages] = useState<LastAdvertsImages[] | undefined>(img);
 
     const removeImage = (index: number) => {
         if (images) {
@@ -47,24 +46,19 @@ const AnnouncementPhotoField = ({
 
             setPreviewImages(newPreviews);
         }
-    };
+    };//удаление фотографий при загрузке
 
-    // const removeImageEdid = (id: number) => {
-    //     if(editImages && editImages.length > 0){
-    //         setEditImages!((prevImages) => prevImages!.filter(img => img.id !== id));
-    //         setDeleteIdArray([...deleteIdArray, id]);
-    //     }
-    // };
+    const removeImageEdit = (id: number) => {
+        setEditImages((prevImages) => prevImages!.filter(img => img.id !== id));
+        setDeleteIdArray([...deleteIdArray, id]);
+    };//удаление фотографий при редактировании
 
     const photoCounter = () => {
         return previewImages?.length || 0
     }
-
     useEffect(() => {
-        if(editImages){
-            setValue('delete_images', deleteIdArray);
-        }//на бэк передаем массив id картинок, которые удаляем
-    }, [setValue, deleteIdArray]);
+        setValue('delete_images', deleteIdArray);
+    }, [deleteIdArray])//на бэк передаем массив id картинок, которые удаляем
     
     // useEffect(() => {
     //     if(selectedImages) {
@@ -109,26 +103,25 @@ const AnnouncementPhotoField = ({
                 </div>
                 {((images && images.length > 0) ||
                     editImages) && (
-                    //если при редактировании есть старые фотки, или если добавляем новые, то отрисовываем их
                     <div className={styles.preview}> {/*это редактируемые фотографии*/}
-                        {/*{editImages?.map((img) => (*/}
-                        {/*    <div*/}
-                        {/*        key={img.id}*/}
-                        {/*        className={styles.btn_view_delete}*/}
-                        {/*        onClick={() => removeImageEdid(img.id)}*/}
-                        {/*    >*/}
-                        {/*        <img*/}
-                        {/*            key={img.id}*/}
-                        {/*            src={img.image}*/}
-                        {/*            alt={`Preview ${img.id}`}*/}
-                        {/*            style={{*/}
-                        {/*                maxWidth: '100px',*/}
-                        {/*                margin: '5px',*/}
-                        {/*            }}*/}
-                        {/*        />*/}
-                        {/*        <span>&#x2716;</span>*/}
-                        {/*    </div>*/}
-                        {/*))}*/}
+                        {editImages?.map((img) => (
+                            <div
+                                key={img.id}
+                                className={styles.btn_view_delete}
+                                onClick={() => removeImageEdit(img.id)}
+                            >
+                                <img
+                                    key={img.id}
+                                    src={img.image}
+                                    alt={`Preview ${img.id}`}
+                                    style={{
+                                        maxWidth: '100px',
+                                        margin: '5px',
+                                    }}
+                                />
+                                <span>&#x2716;</span>
+                            </div>
+                        ))}
                         {previewImages?.map((preview, index) => (
                             <div
                                 key={index}

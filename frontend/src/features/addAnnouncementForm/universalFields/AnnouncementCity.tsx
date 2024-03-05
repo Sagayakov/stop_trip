@@ -22,7 +22,7 @@ const AnnouncementCity = ({ control, setValue, defaultValue, formState }: Props)
             const defaultCity = data?.city.find(
                 (el) => el.label === defaultValue.name
             );
-            setValue('city', defaultCity!.value);
+            setValue('city', defaultCity?.value);
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, [defaultValue]);
 

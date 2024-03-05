@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
+
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue: string | undefined;
@@ -31,7 +32,7 @@ export const AnnouncementMarketCondition = ({
             <UniversalRadioGroup
                 register={register}
                 name="market_condition"
-                radioValues={data!.market_condition}
+                radioValues={data?.market_condition || [{ value: '', label: '' }]}
                 defaultValue={getDefaultValue()}
                 className={styles.radio_group}
                 requiredField={true}

@@ -28,9 +28,9 @@ export const LoadPhotoBtn = ({
     const path = useLocation().pathname.split('/');
     const images = watch('images');
     const uploadImages = watch('upload_images');
-
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = event.target.files
+        console.log(uploadImages);
         if(fileList){
             if(path[1] === 'advertisement-editing'){
                 convertFilesToBase64Strings(fileList)
