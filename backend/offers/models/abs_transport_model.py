@@ -92,7 +92,7 @@ class AbsTransport(models.Model):
     )
     transport_engine_volume = models.FloatField(
         "Объём",
-        choices=list([(float(i / 10), float(i / 10)) for i in range(10, 100)]),
+        validators=[MinValueValidator(0.1), MaxValueValidator(9.9)],
         null=True,
         blank=True,
     )
