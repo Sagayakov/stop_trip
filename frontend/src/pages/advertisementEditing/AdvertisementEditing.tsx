@@ -27,10 +27,8 @@ import { toast } from 'react-toastify';
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
-import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
 import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 import { useEditAdvertMutation, useGetAdvertBySlugQuery } from 'app/api/authFetchAdverts.ts';
-import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
@@ -56,9 +54,7 @@ const AdvertisementEditing = () => {
     const [markerPosition, setMarkerPosition] = useState<string | undefined>(
         dataAdvert?.coordinates
     );
-    const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
     const [imgSize, setImgSize] = useState(0);
-    const [editImages, setEditImages] = useState<LastAdvertsImages[] | undefined>(dataAdvert?.images)
 
     const addSlug = dataAdvert ? dataAdvert.slug : '';
     const navigate = useNavigate();
@@ -66,19 +62,6 @@ const AdvertisementEditing = () => {
     if (!isLoading && user && user.id !== dataAdvert?.owner.id) {
         navigate({ pathname: '/404' }); //если прошла загрузка, мы получили id хозяина объявления и он не равен нашему id, то отправляем на 404
     }
-
-    useEffect(() => {
-        if(selectedImages){
-            convertFilesToBase64Strings(selectedImages)
-                .then(base64Strings => {
-                console.log('Конвертация прошла');
-                setValue('upload_images', base64Strings as string[]);
-            })
-                .catch(error => {
-                    console.error('Ошибка:', error);
-                });
-        }
-    })
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
@@ -99,7 +82,6 @@ const AdvertisementEditing = () => {
         setValue('region', 'goa');
         dataAdvert && setMarkerPosition(dataAdvert.coordinates);
         dataAdvert?.slug && setValue('slug', dataAdvert?.slug);
-        dataAdvert?.images && setEditImages(dataAdvert.images);
         if (path[1] !== 'advertisement-editing')
             setValue('category', dataAdvert?.category);
 
@@ -109,8 +91,6 @@ const AdvertisementEditing = () => {
         if (isSuccess) {
             toast.success(`${t('add-page.edit-success')}`);
             scrollToTop();
-            setEditImages(undefined);
-            setSelectedImages(undefined);
             setImgSize(0);
             setMarkerPosition(undefined);
             dispatch(
@@ -183,15 +163,13 @@ const AdvertisementEditing = () => {
                             formState={formState}
                         />
                         <AnnouncementPhotoField
-                            selectedImages={selectedImages}
-                            setSelectedImages={setSelectedImages}
                             setValue={setValue}
-                            setEditImages={setEditImages}
-                            editImages={editImages}
                             imgSize={imgSize}
                             setImgSize={setImgSize}
                             clearErrors={clearErrors}
                             setError={setError}
+                            watch={watch}
+                            editImages={dataAdvert?.images}
                         />
                         <YoutubeField register={register} defaultValue={dataAdvert?.youtube} />
                         <AnnouncementLocationField

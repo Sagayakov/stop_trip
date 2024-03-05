@@ -41,7 +41,7 @@ const fileToBase64String = (file: File) => {
     });
 };
 
-export const convertFilesToBase64Strings = async (files: File[]) => {
+export const convertFilesToBase64Strings = async (files: File[] | FileList) => {
     const base64Strings: string[] = [];
     for (const file of files) {
         try {

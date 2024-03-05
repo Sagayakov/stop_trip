@@ -39,7 +39,7 @@ const AnnouncementRegion = ({
             const defaultRegion = data?.region.find(
                 (el) => el.label === defaultValue.name
             );
-            setValue('region', defaultRegion!.value);
+            setValue('region', defaultRegion?.value);
         }
     }, [data, defaultValue, setValue]);
 

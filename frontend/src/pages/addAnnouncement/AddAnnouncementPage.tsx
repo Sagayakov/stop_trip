@@ -30,7 +30,7 @@ import {
 } from 'app/api/fetchAdverts.ts';
 import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 import { useAddAdvertMutation } from 'app/api/authFetchAdverts.ts';
-import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
+// import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 
 const AddAnnouncementPage = () => {
     const {
@@ -48,7 +48,7 @@ const AddAnnouncementPage = () => {
     });
     const dispatch = useAppDispatch();
 
-    const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
+    // const [selectedImages, setSelectedImages] = useState<File[] | undefined>();
     const [imgSize, setImgSize] = useState(0);
     const [markerPosition, setMarkerPosition] = useState<string | undefined>();
     const [modalSuccess, setModalSuccess] = useState(false);
@@ -60,18 +60,18 @@ const AddAnnouncementPage = () => {
 
     useGetSelectOptionsQuery(''); //запрашиваем данные, потом будем доставать из кэша
 
-    useEffect(() => {
-        if (selectedImages) {
-            convertFilesToBase64Strings(selectedImages)
-                .then((base64Strings) => {
-                    console.log('Конвертация прошла');
-                    setValue('images', base64Strings as string[]);
-                })
-                .catch((error) => {
-                    console.error('Ошибка:', error);
-                });
-        }
-    }, [selectedImages]);
+    // useEffect(() => {
+    //     if (selectedImages) {
+    //         convertFilesToBase64Strings(selectedImages)
+    //             .then((base64Strings) => {
+    //                 console.log('Конвертация прошла');
+    //                 setValue('images', base64Strings as string[]);
+    //             })
+    //             .catch((error) => {
+    //                 console.error('Ошибка:', error);
+    //             });
+    //     }
+    // }, [selectedImages]);
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
@@ -91,16 +91,15 @@ const AddAnnouncementPage = () => {
         scrollToTop();
     };
 
-    const sendButtonDisabled = () => {
-        return (
-            (selectedImages && selectedImages.length > 10) || imgSize > 52428800
-        );
-    };
+    // const sendButtonDisabled = () => {
+    //     return (
+    //         (selectedImages && selectedImages.length > 10) || imgSize > 52428800
+    //     );
+    // };
 
     useEffect(() => {
         if (isSuccess) {
             setModalSuccess(true);
-            setSelectedImages(undefined);
             setMarkerPosition(undefined);
             setImgSize(0);
             dispatch(
@@ -175,8 +174,7 @@ const AddAnnouncementPage = () => {
                             formState={formState}
                         />
                         <AnnouncementPhotoField
-                            selectedImages={selectedImages}
-                            setSelectedImages={setSelectedImages}
+                            watch={watch}
                             setValue={setValue}
                             imgSize={imgSize}
                             setImgSize={setImgSize}
@@ -190,7 +188,8 @@ const AddAnnouncementPage = () => {
                             setMarkerPosition={setMarkerPosition}
                         />
                         <AnnouncementSubmitButton
-                            isDisabled={sendButtonDisabled()}
+                            isDisabled={false}
+                            // isDisabled={sendButtonDisabled()}
                         />
                     </Suspense>
                 </form>
