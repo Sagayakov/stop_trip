@@ -21,7 +21,6 @@ export const AnnouncementRealtyHasFurniture = ({
     //const location = useLocation().pathname.split('/')[1];
     //const isRequired = location !== 'advertisement-editing';
 
-    console.log(defaultValue);
     useEffect(() => {
         if (defaultValue === undefined) {
             setValue('property_has_furniture', false);
