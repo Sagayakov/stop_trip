@@ -77,7 +77,9 @@ const AddAnnouncementPage = () => {
         setValue('country', 'india');
 
         try {
-            const nonNullableData = Object.entries(data).filter((el) => el[1]);
+            const nonNullableData = Object.entries(data).filter(
+                (el) => el[1] !== null && el[1] !== undefined && el[1] !== ''
+            );
             await addAdvert({
                 ...Object.fromEntries(nonNullableData),
                 region: data.region || 'north-goa',

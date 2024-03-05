@@ -12,7 +12,7 @@ interface Props {
 export const AnnouncementRealtyRoomsQuantity = ({
     register,
     defaultValue,
-    formState
+    formState,
 }: Props) => {
     const { t } = useTranslation();
 
@@ -26,13 +26,13 @@ export const AnnouncementRealtyRoomsQuantity = ({
                 <input
                     type="text"
                     autoComplete="off"
-                    pattern="[1-5]"
+                    pattern="[1-30]"
                     placeholder={t('add-page.from-to')}
                     defaultValue={defaultValue || ''}
                     required={true}
                     min={1}
-                    max={5}
-                    {...register('property_rooms_count', )}
+                    max={30}
+                    {...register('property_rooms_count')}
                 />
             </div>
             <div className={styles.ann_field_err}>

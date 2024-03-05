@@ -33,7 +33,7 @@ export const AnnouncementTransportComission = ({
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
                     {...register('transport_commission')}
-                    min={1}
+                    min={0}
                     placeholder={t('filters.transport_commission')}
                     onInput={(e) => handleInput(e)}
                     value={value}

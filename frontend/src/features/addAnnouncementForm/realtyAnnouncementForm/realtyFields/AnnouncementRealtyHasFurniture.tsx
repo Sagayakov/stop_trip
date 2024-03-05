@@ -1,9 +1,9 @@
 import { FormState, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
-import { useEffect, } from 'react';
-import { useLocation } from 'react-router-dom';
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
+import { useEffect } from 'react';
+//import { useLocation } from 'react-router-dom';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -11,34 +11,45 @@ interface Props {
     formState: FormState<FormAddAnn>;
     setValue: UseFormSetValue<FormAddAnn>;
 }
-export const AnnouncementRealtyHasFurniture = ({ register, defaultValue, formState, setValue, }: Props) => {
+export const AnnouncementRealtyHasFurniture = ({
+    register,
+    defaultValue,
+    formState,
+    setValue,
+}: Props) => {
     const { t } = useTranslation();
-    const location = useLocation().pathname.split('/')[1];
-    const isRequired = location !== 'advertisement-editing';
+    //const location = useLocation().pathname.split('/')[1];
+    //const isRequired = location !== 'advertisement-editing';
 
+    console.log(defaultValue);
     useEffect(() => {
-        if(defaultValue === undefined){
+        if (defaultValue === undefined) {
             setValue('property_has_furniture', false);
-        } else setValue('property_has_furniture', defaultValue)
-    }, []);
+        } else setValue('property_has_furniture', defaultValue);
+    }, [defaultValue, setValue]);
 
     return (
         <div className={styles.ann_field}>
             <h3>
                 {t('filters.with-furniture')}
-                {isRequired && <span>*</span>}:
+                {/* {isRequired && <span>*</span>} */}:
             </h3>
             <div className={styles.radio_group}>
                 <label>
                     <input
                         type="checkbox"
                         {...register('property_has_furniture', {
-                            required: {
+                            /* required: {
                                 value: isRequired,
                                 message: t('add-page.required'),
-                            },
+                            }, */
                         })}
-                        onChange={(event) => setValue('property_has_furniture',event.target.checked)}
+                        onChange={(event) =>
+                            setValue(
+                                'property_has_furniture',
+                                event.target.checked
+                            )
+                        }
                         defaultChecked={defaultValue}
                         style={{ display: 'none' }}
                     />
