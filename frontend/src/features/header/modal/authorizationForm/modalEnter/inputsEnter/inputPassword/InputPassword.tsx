@@ -7,6 +7,7 @@ import styleForError from 'features/header/modal/modal.module.scss';
 import { AuthData } from '../../libr/EnterType.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { ErrorNode } from './libr/ErrorNode.tsx';
 
 interface Props {
     errors: FieldErrors<AuthData>;
@@ -72,11 +73,7 @@ export const InputPassword = ({
                         {t('modal-login.correct-password')}
                     </p>
                 )}
-                {errorEnter && (
-                    <p style={{ color: '#FF3F25', fontSize: '13px' }}>
-                        {errorEnter}
-                    </p>
-                )}
+                {errorEnter && <ErrorNode text={errorEnter} />}
             </div>
         </div>
     );

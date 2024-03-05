@@ -24,7 +24,7 @@ export const submitEntForm = async (
     const result = await authUser();
 
     if (result.status === 401) {
-        return dispatch(setErrorEnter('Неверный логин или пароль'));
+        return dispatch(setErrorEnter((await result.json()).detail));
     }
 
     if (result) {

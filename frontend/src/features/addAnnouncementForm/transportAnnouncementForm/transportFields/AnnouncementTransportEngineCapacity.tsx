@@ -1,7 +1,7 @@
 import { FormState, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 
 interface Props {
@@ -9,7 +9,10 @@ interface Props {
     defaultValue?: number | null | undefined;
     formState: FormState<FormAddAnn>;
 }
-export const AnnouncementTransportEngineCapacity = ({ register, defaultValue }: Props) => {
+export const AnnouncementTransportEngineCapacity = ({
+    register,
+    defaultValue,
+}: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
 
@@ -19,12 +22,12 @@ export const AnnouncementTransportEngineCapacity = ({ register, defaultValue }: 
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"
-                    pattern="[0-9]+\.[0-9]+"
+                    pattern="^(?:(?:0|[1-9]\d*)(?:[.]\d+)?|[1-9]\d*\/[1-9]\d*)$"
                     autoComplete="off"
                     defaultValue={defaultValue || ''}
                     {...register('transport_engine_volume')}
-                    min={data?.transport_engine_volume.min || "1"}
-                    max={data?.transport_engine_volume.max || "2.7"}
+                    min={data?.transport_engine_volume.min || '1'}
+                    max={data?.transport_engine_volume.max || '2.7'}
                     placeholder={t('filters.volume')}
                 />
             </div>

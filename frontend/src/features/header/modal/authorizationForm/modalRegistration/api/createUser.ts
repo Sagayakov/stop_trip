@@ -13,7 +13,6 @@ export const createUser = async (body: NewUser, dispatch: Dispatch) => {
             body: JSON.stringify(body),
         });
         if (responce.status === 500) {
-            console.log(500);
             await fetch(`${url}api/auth/users/resend_activation/`);
         }
         if (responce.status === 400) {
