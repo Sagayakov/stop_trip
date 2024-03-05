@@ -74,7 +74,6 @@ const AddAnnouncementPage = () => {
     }, [selectedImages]);
 
     const onsubmit = async (data: FormAddAnn) => {
-        console.log(data);
         setValue('country', 'india');
 
         try {
