@@ -8,6 +8,11 @@ class FeedBackAdmin(ModelAdmin):
     list_display = (
         "id",
         "owner",
-        "text",
+        "short_text",
         "date_create",
     )
+
+    def short_text(self, obj):
+        return obj.text[:75]
+
+    short_text.short_description = "Начало отзыва"

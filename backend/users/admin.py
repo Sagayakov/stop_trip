@@ -15,7 +15,7 @@ class UserMessengerInline(StackedInline):
 @register(User)
 class UserAdmin(Admin):
     inlines = (UserMessengerInline,)
-    list_display = ("full_name", "email", "phone", "is_staff", "is_active")
+    list_display = ("full_name", "date_joined", "email", "phone", "is_staff", "is_active")
     list_filter = (
         "email",
         "is_staff",
@@ -44,7 +44,7 @@ class UserAdmin(Admin):
             },
         ),
     )
-    search_fields = ("email",)
+    search_fields = ("email", "full_name")
     ordering = ("email",)
 
 
