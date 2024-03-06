@@ -53,3 +53,4 @@ class MessengersAdmin(ModelAdmin):
     formfield_overrides = {
         models.CharField: {"widget": forms.Textarea(attrs={"rows": 4, "cols": 80})},
     }
+    list_display = ("name", "link_to_messenger")

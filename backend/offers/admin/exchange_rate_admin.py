@@ -5,4 +5,4 @@ from ..models import Currency
 
 @register(Currency)
 class CurrencyAdmin(ModelAdmin):
-    pass
+    list_display = ("name", "short_name")

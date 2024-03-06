@@ -13,9 +13,11 @@ from slugify import slugify
 
 from common.filters import GetFilterParams
 from users.models import User, UserMessenger
+from countries.models import Region, City
+from countries.serializers import CitySerializer, RegionSerializer
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
-from .models import Advertisement, PropertyAmenity
+from .models import Advertisement, PropertyAmenity, TransportModel
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
     PropertyCreateSerializer,
@@ -33,6 +35,7 @@ from .serializers import (
     FoodCreateSerializer,
     ExcursionCreateSerializer,
     MyAdvertisementSerializer,
+    TransportModelSerializer,
 )
 
 
@@ -191,4 +194,31 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
         queryset = self.get_queryset().filter(owner=self.request.user)
         serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["GET"])
+    def get_regions_by_country(self, request, *args, **kwargs):
+        """Возвращает регионы по стране"""
+
+        country = request.query_params["country"]
+        queryset = Region.objects.filter(country__slug=country)
+        serializer = RegionSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["GET"])
+    def get_cities_by_region(self, request, *args, **kwargs):
+        """Возвращает города по региону"""
+
+        region = request.query_params["region"]
+        queryset = City.objects.filter(region__slug=region)
+        serializer = CitySerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["GET"])
+    def get_transport_models_by_brand(self, request, *args, **kwargs):
+        """Возвращает модели транспорта по марке"""
+
+        brand = request.query_params["brand"]
+        queryset = TransportModel.objects.filter(brand__slug=brand)
+        serializer = TransportModelSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
