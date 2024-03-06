@@ -13,7 +13,12 @@ interface Props {
     formState: FormState<FormAddAnn>;
 }
 
-const AnnouncementCity = ({ control, setValue, defaultValue, formState }: Props) => {
+const AnnouncementCity = ({
+    control,
+    setValue,
+    defaultValue,
+    formState,
+}: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
 
@@ -46,7 +51,9 @@ const AnnouncementCity = ({ control, setValue, defaultValue, formState }: Props)
                     (el) => el.label === defaultValue?.name
                 )}
             />
-            <div className={styles.ann_field_err}>{formState?.errors?.city?.message}</div>
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.city?.message}
+            </div>
         </div>
     );
 };

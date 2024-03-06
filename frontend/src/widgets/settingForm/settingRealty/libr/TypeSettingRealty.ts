@@ -1,7 +1,7 @@
 export interface TypeSettingRealty {
     city: string[];
     property_type_of_service: string[];
-    region: string[];
+    region: string;
     property_house_type: string[];
     property_floor: number;
     property_rental_condition: string[];

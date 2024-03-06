@@ -12,7 +12,7 @@ export const getDefaultValues = (
                 .get('property_type_of_service')
                 ?.split(','),
 
-            region: params.get('region')?.split(','),
+            region: params.get('region') || undefined,
 
             property_house_type: params.get('property_house_type')?.split(','),
 

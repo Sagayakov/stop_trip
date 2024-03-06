@@ -61,9 +61,10 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
             setSearchOptions(
                 options.filter((el) => searchValues?.includes(el.value))
             );
-            setAvailableOptions(
-                options.filter((el) => !searchValues?.includes(el.value))
-            );
+            name !== 'region' &&
+                setAvailableOptions(
+                    options.filter((el) => !searchValues?.includes(el.value))
+                );
         }
     }, [options]);
 
@@ -100,6 +101,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                 setSearchOptions(newOptions);
                 optionsArray = newOptions;
             } else {
+                setSearchOptions([selectedOptions]);
                 optionsArray = [selectedOptions];
             }
 

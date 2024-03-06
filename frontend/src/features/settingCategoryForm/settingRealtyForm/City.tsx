@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
     control: Control<TypeSettingRealty, string[]>;
+    watch: UseFormWatch<TypeSettingRealty>;
 }
 
 type SelectOption = {
@@ -16,10 +17,12 @@ type SelectOption = {
     label: string;
 };
 
-export const City = ({ control, setValue }: Props) => {
+export const City = ({ control, setValue, watch }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [cityValues, setCityValues] = useState<SelectOption[]>([]);
     const { t } = useTranslation();
+    const region = watch('region');
+    console.log(region);
 
     useEffect(() => {
         if (data) {
