@@ -26,8 +26,8 @@ export const AnnouncementTransportEngineCapacity = ({
                     autoComplete="off"
                     defaultValue={defaultValue || ''}
                     {...register('transport_engine_volume')}
-                    min={data?.transport_engine_volume.min || '1'}
-                    max={data?.transport_engine_volume.max || '2.7'}
+                    min={data?.transport_engine_volume.min || '0.1'}
+                    max={data?.transport_engine_volume.max || '9.9'}
                     placeholder={t('filters.volume')}
                 />
             </div>
