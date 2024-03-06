@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 from django.db.models import Prefetch
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
@@ -196,6 +196,16 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="country",
+                type=str,
+                location=OpenApiParameter.QUERY,
+                description="Ввести slug страны",
+            ),
+        ]
+    )
     @action(detail=False, methods=["GET"])
     def get_regions_by_country(self, request, *args, **kwargs):
         """Возвращает регионы по стране"""
@@ -205,6 +215,16 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = RegionSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="region",
+                type=str,
+                location=OpenApiParameter.QUERY,
+                description="Ввести slug региона",
+            ),
+        ]
+    )
     @action(detail=False, methods=["GET"])
     def get_cities_by_region(self, request, *args, **kwargs):
         """Возвращает города по региону"""
@@ -214,6 +234,16 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = CitySerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="brand",
+                type=str,
+                location=OpenApiParameter.QUERY,
+                description="Ввести slug бренда транспорта",
+            ),
+        ]
+    )
     @action(detail=False, methods=["GET"])
     def get_transport_models_by_brand(self, request, *args, **kwargs):
         """Возвращает модели транспорта по марке"""
