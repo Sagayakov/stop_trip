@@ -31,7 +31,7 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
     const { data } = useGetFiltersQuery('');
     const defaultValues = getDefaultValues(searchParams, data);
 
-    const { register, handleSubmit, reset, setValue, control } =
+    const { register, handleSubmit, reset, setValue, control, watch } =
         useForm<TypeForFoodForm>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeForFoodForm> = (data) => {
@@ -65,7 +65,7 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
                 id="form-setting-food"
             >
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} />
+                <City control={control} setValue={setValue} watch={watch} />
                 <FoodType control={control} setValue={setValue} />
                 <FoodDelivery register={register} />
                 <FoodEstablishment register={register} />

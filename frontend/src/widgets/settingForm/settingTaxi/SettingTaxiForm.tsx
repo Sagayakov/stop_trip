@@ -31,7 +31,7 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { register, handleSubmit, reset, setValue, control } =
+    const { register, handleSubmit, reset, setValue, control, watch } =
         useForm<TypeSettingTaxi>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeSettingTaxi> = (data) => {
@@ -57,7 +57,7 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 id="form-setting-taxi"
             >
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} />
+                <City control={control} setValue={setValue} watch={watch} />
                 <UnitOfMeasurement register={register} />
                 <TypeOfTaxi control={control} setValue={setValue} />
                 <SettingTaxiPrice register={register} />

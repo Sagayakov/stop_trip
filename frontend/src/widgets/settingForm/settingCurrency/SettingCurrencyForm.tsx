@@ -30,7 +30,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
     const { data } = useGetFiltersQuery('');
     const defaultValues = getDefaultValues(searchParams, data);
 
-    const { handleSubmit, reset, control, setValue, register } =
+    const { handleSubmit, reset, control, setValue, register, watch } =
         useForm<TypeOfCurrencyFilter>({
             defaultValues,
         });
@@ -69,7 +69,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
                 id="form-setting-currency"
             >
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} />
+                <City control={control} setValue={setValue} watch={watch} />
                 <ProposedCurrency control={control} setValue={setValue} />
                 <ExchangeFor control={control} setValue={setValue} />
                 <ExchangeRate register={register} />

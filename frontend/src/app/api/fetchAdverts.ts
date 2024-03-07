@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { LastAdvertsTypes } from './types/lastAdvertsTypes';
 import { url } from 'shared/const/url.ts';
-import { FiltersType } from './types/filtersType';
+import { AvailableFiltersType, FiltersType } from './types/filtersType';
 import { SelectOptionValues } from 'app/api/types/selectOptionValues.ts';
 
 export const fetchAdverts = createApi({
@@ -9,7 +9,7 @@ export const fetchAdverts = createApi({
     tagTypes: ['Adverts', 'MyAnnouncements'],
     baseQuery: fetchBaseQuery({
         baseUrl: `${url}/`,
-        credentials: 'include'
+        credentials: 'include',
     }),
     endpoints: (build) => ({
         getAdverts: build.query<LastAdvertsTypes, string>({
@@ -33,6 +33,10 @@ export const fetchAdverts = createApi({
         getSelectOptions: build.query<SelectOptionValues, string>({
             query: () => `api/advertisements/get_filter_params/`,
         }),
+        getAvailableFilters: build.query<AvailableFiltersType, string>({
+            query: (filterQuery = '') =>
+                `api/advertisements/get_available_filtered_params/${filterQuery}`,
+        }),
     }),
 });
 
@@ -40,4 +44,5 @@ export const {
     useGetAdvertsQuery,
     useGetFiltersQuery,
     useGetSelectOptionsQuery,
+    useGetAvailableFiltersQuery,
 } = fetchAdverts;

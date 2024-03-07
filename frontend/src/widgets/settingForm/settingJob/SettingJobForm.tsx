@@ -33,7 +33,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { register, handleSubmit, reset, setValue, control } =
+    const { register, handleSubmit, reset, setValue, control, watch } =
         useForm<TypesOfJobs>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypesOfJobs> = (data) => {
@@ -74,7 +74,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
                 id="form-setting-job"
             >
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} />
+                <City control={control} setValue={setValue} watch={watch} />
                 <TypeOfJob register={register} />
                 <DurationOfWork control={control} setValue={setValue} />
                 <TypeOfPayment control={control} setValue={setValue} />

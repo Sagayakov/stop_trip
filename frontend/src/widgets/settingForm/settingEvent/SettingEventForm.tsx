@@ -32,7 +32,7 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { register, handleSubmit, reset, control, setValue } =
+    const { register, handleSubmit, reset, control, setValue, watch } =
         useForm<TypeOfEventFilter>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeOfEventFilter> = (data) => {
@@ -65,7 +65,7 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
                 id="form-setting-event"
             >
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} />
+                <City control={control} setValue={setValue} watch={watch} />
                 <DateOfStartEvent register={register} />
                 <DateOfEndEvent register={register} />
                 <EventPrice register={register} />
