@@ -55,7 +55,7 @@ const AddAnnouncementPage = () => {
     const { t } = useTranslation();
     const category = watch('category');
 
-    const [addAdvert, { isSuccess, isError, isLoading }] =
+    const [addAdvert, { isSuccess, isError, isLoading /* error: addError */ }] =
         useAddAdvertMutation();
 
     useGetSelectOptionsQuery(''); //запрашиваем данные, потом будем доставать из кэша
@@ -84,8 +84,25 @@ const AddAnnouncementPage = () => {
                 ...Object.fromEntries(nonNullableData),
                 region: data.region || 'north-goa',
             });
+            /* if (addError && 'status' in addError) {
+                setError(
+                    'price',
+                    {
+                        message: JSON.stringify(
+                            (
+                                addError.data as Record<
+                                    keyof FormAddAnn,
+                                    string[]
+                                >
+                            ).price[0]
+                        ),
+                    },
+                    { shouldFocus: true }
+                );
+            } */
         } catch (error) {
             console.log(error);
+
             toast.error(`${t('errors.add-announcement-error')}`);
         } finally {
             dispatch(setLoading(false));
