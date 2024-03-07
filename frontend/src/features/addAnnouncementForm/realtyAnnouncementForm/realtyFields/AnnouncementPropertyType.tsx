@@ -26,15 +26,16 @@ export const AnnouncementPropertyType = ({
     console.log(defaultValue);
 
     useEffect(() => {
-        if (defaultValue) {
+        if (data && defaultValue) {
             setValue(
                 'property_house_type',
                 String(
-                    getDefaultValue(defaultValue, data?.property_type)!.value
+                    getDefaultValue(defaultValue, data.property_house_type)
+                        ?.value
                 )
             );
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
-    }, []);
+    }, [defaultValue, data]);
 
     return (
         <div className={styles.ann_field}>

@@ -77,7 +77,6 @@ const AdvertisementEditing = () => {
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
 
-        console.log(data);
         try {
             const nonNullableData = Object.entries(data).filter(
                 (el) => el[1] !== null && el[1] !== undefined && el[1] !== ''
