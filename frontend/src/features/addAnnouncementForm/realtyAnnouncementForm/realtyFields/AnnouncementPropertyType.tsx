@@ -19,23 +19,29 @@ export const AnnouncementPropertyType = ({
     setValue,
     control,
     defaultValue,
-    formState
+    formState,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    console.log(defaultValue);
 
     useEffect(() => {
         if (defaultValue) {
             setValue(
                 'property_house_type',
-                String(getDefaultValue(defaultValue, data?.property_type)!.value)
+                String(
+                    getDefaultValue(defaultValue, data?.property_type)!.value
+                )
             );
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.property-type')}<span>*</span>:</h3>
+            <h3>
+                {t('filters.property-type')}
+                <span>*</span>:
+            </h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}
@@ -43,12 +49,19 @@ export const AnnouncementPropertyType = ({
                 name="property_type"
                 options={data?.property_type}
                 placeholder={t('filters.property-type')}
-                defaultValue={getDefaultValue(defaultValue, data?.property_type) as StringOptions}
+                defaultValue={
+                    getDefaultValue(
+                        defaultValue,
+                        data?.property_type
+                    ) as StringOptions
+                }
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
                 requiredFiled={true}
             />
-            <div className={styles.ann_field_err}>{formState?.errors?.property_type?.message}</div>
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.property_type?.message}
+            </div>
         </div>
     );
 };

@@ -18,7 +18,6 @@ const AnnouncementPriceField = ({
     const { errors } = formState;
     const { t } = useTranslation();
     const [value, setValue] = useState(getDefaultPrice() || '');
-    console.log(errors);
 
     const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
         const lastNumber = e.currentTarget.value.at(-1);
