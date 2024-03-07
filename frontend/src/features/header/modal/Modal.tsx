@@ -29,7 +29,9 @@ export const Modal = () => {
     };
 
     return (
-        <div className={classNameForModalBackground()} onClick={handleClose}>
+        <div
+            className={classNameForModalBackground()} /*  onClick={handleClose} */
+        >
             <div
                 className={styles.modal_wrapper}
                 onClick={(event) => event.stopPropagation()}
