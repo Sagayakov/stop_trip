@@ -5,7 +5,10 @@ import {
     UseFormWatch,
 } from 'react-hook-form';
 import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import {
+    useGetAvailableFiltersQuery,
+    useGetFiltersQuery,
+} from 'app/api/fetchAdverts.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
@@ -24,22 +27,29 @@ type SelectType = {
 };
 
 export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
-    const markOfTrasport = watch('transport_brand');
-    const disabled = markOfTrasport && markOfTrasport.length ? false : true;
+    const markOfTransport = watch('transport_brand');
+    const disabled = markOfTransport && markOfTransport.length ? false : true;
     const { data } = useGetFiltersQuery('');
     const [modelOfTransportValues, setModelOfTransportValues] = useState<
         SelectType[]
     >([]);
     const { t } = useTranslation();
+    const { data: availableData } = useGetAvailableFiltersQuery(
+        `?transport_brand=${markOfTransport}`
+    );
 
     useEffect(() => {
-        if (data) {
+        if (data && availableData) {
             const result = (data['transport_model'] as SelectType[]).filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
+                (el) =>
+                    (
+                        availableData.available_params
+                            .transport_model as string[]
+                    ).includes(el.value)
             );
-            data && setModelOfTransportValues(result as SelectType[]);
+            setModelOfTransportValues(result as SelectType[]);
         }
-    }, [data]);
+    }, [data, availableData]);
 
     return (
         <div className={styles.model}>
