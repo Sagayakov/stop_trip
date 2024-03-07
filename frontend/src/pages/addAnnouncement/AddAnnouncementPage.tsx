@@ -17,7 +17,7 @@ import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import styles from './libr/addAnnouncement.module.scss';
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
-import { scrollToTop } from 'shared/utils/scrollToTop.ts';
+//import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import './libr/selectAddAnnouncement.scss';
 import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
 import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFields/SuccessAddAnnouncement.tsx';
@@ -30,6 +30,7 @@ import {
 } from 'app/api/fetchAdverts.ts';
 import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 import { useAddAdvertMutation } from 'app/api/authFetchAdverts.ts';
+import { useNavigate } from 'react-router-dom';
 // import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 
 const AddAnnouncementPage = () => {
@@ -54,6 +55,7 @@ const AddAnnouncementPage = () => {
     const [modalSuccess, setModalSuccess] = useState(false);
     const { t } = useTranslation();
     const category = watch('category');
+    const navigate = useNavigate();
 
     const [addAdvert, { isSuccess, isError, isLoading /* error: addError */ }] =
         useAddAdvertMutation();
@@ -111,7 +113,8 @@ const AddAnnouncementPage = () => {
 
     const handleClick = () => {
         setModalSuccess(false);
-        scrollToTop();
+        //scrollToTop();
+        navigate('/my-announcements');
     };
 
     // const sendButtonDisabled = () => {
