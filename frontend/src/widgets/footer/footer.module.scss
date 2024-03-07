@@ -61,12 +61,12 @@ footer {
         }
         .hr {
             padding: 0 0 16.25px 0;
-            .reCaptcha_brand{
+            .reCaptcha_brand {
                 font-size: 12px;
                 text-align: right;
                 font-weight: 400;
                 color: grey;
-                a{
+                a {
                     color: #1f6fde;
                     font-size: 12px;
                 }
@@ -86,9 +86,16 @@ footer {
                 width: 100px;
                 display: flex;
                 justify-content: space-between;
+                a {
+                    cursor: pointer;
+                }
             }
         }
     }
+}
+
+.email_link:hover {
+    color: var(--main-blue);
 }
 
 @media (max-width: 1439px) {
@@ -207,10 +214,10 @@ footer {
             }
             .hr {
                 padding: 0;
-                .reCaptcha_brand{
+                .reCaptcha_brand {
                     font-size: 10px;
                     margin-top: 5px;
-                    a{
+                    a {
                         font-size: 10px;
                     }
                 }
