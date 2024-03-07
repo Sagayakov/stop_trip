@@ -63,6 +63,7 @@ const OptionalFields = ({
                     setValue={setValue}
                     data={data}
                     formState={formState}
+                    watch={watch}
                 />
             )}
             {getCategoryValue('property') && (
@@ -83,7 +84,11 @@ const OptionalFields = ({
                 />
             )}
             {getCategoryValue('event') && (
-                <AnnouncementEvent register={register} data={data} formState={formState} />
+                <AnnouncementEvent
+                    register={register}
+                    data={data}
+                    formState={formState}
+                />
             )}
             {getCategoryValue('food') && (
                 <AnnouncementFood
@@ -104,10 +109,18 @@ const OptionalFields = ({
                 />
             )}
             {getCategoryValue('excursion') && (
-                <AnnouncementExcursion register={register} data={data} formState={formState} />
+                <AnnouncementExcursion
+                    register={register}
+                    data={data}
+                    formState={formState}
+                />
             )}
             {getCategoryValue('market') && (
-                <AnnouncementMarket register={register} data={data} formState={formState} />
+                <AnnouncementMarket
+                    register={register}
+                    data={data}
+                    formState={formState}
+                />
             )}
             {getCategoryValue('exchange_rate') && (
                 <AnnouncementExchange
@@ -119,7 +132,11 @@ const OptionalFields = ({
                 />
             )}
             {getCategoryValue('service') && (
-                <AnnouncementService register={register} data={data} formState={formState} />
+                <AnnouncementService
+                    register={register}
+                    data={data}
+                    formState={formState}
+                />
             )}
             {getCategoryValue('taxi') && (
                 <AnnouncementTaxi

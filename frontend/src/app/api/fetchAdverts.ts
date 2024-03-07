@@ -44,6 +44,10 @@ export const fetchAdverts = createApi({
             query: (filterQuery = '') =>
                 `api/advertisements/get_cities_by_region/${filterQuery}`,
         }),
+        getModelsByBrand: build.query<AvailableValuesType[], string>({
+            query: (filterQuery = '') =>
+                `api/advertisements/get_transport_models_by_brand/${filterQuery}`,
+        }),
     }),
 });
 
@@ -53,4 +57,5 @@ export const {
     useGetSelectOptionsQuery,
     useGetAvailableFiltersQuery,
     useGetCitiesByRegionQuery,
+    useGetModelsByBrandQuery,
 } = fetchAdverts;

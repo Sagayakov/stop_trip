@@ -33,7 +33,6 @@ const AnnouncementCity = ({
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
     const region = watch('region');
-
     const { data: availableData } = useGetCitiesByRegionQuery(
         `?region=${region || 'north-goa'}`
     );
