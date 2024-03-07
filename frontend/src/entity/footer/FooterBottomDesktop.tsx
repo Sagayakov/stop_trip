@@ -1,7 +1,6 @@
 import { LogoHeader } from 'shared/ui/icons/icons-tools/LogoHeader.tsx';
 import { Telegram } from 'shared/ui/icons/contacts/Telegram.tsx';
 import { WhatsApp } from 'shared/ui/icons/contacts/WhatsApp.tsx';
-import { Facebook } from 'shared/ui/icons/contacts/Facebook.tsx';
 import styles from 'widgets/footer/footer.module.scss';
 import { Link } from 'react-router-dom';
 
@@ -21,8 +20,12 @@ export const FooterBottomDesktop = () => {
                     <Link to="https://t.me/StopTripAdmin" target="_blank">
                         <Telegram color="#3968aa" />
                     </Link>
-                    <WhatsApp color="#10bf3e" />
-                    <Facebook color="#5e83d8" />
+                    <Link
+                        to="https://api.whatsapp.com/send/?phone=%2B77053699731&text&type=phone_number&app_absent=0"
+                        target="_blank"
+                    >
+                        <WhatsApp color="#10bf3e" />
+                    </Link>
                 </div>
             </div>
         </div>
