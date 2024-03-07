@@ -21,7 +21,17 @@ const AnnouncementPriceField = ({
 
     const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
         const lastNumber = e.currentTarget.value.at(-1);
-        if (lastNumber && !Number(lastNumber)) {
+        if (lastNumber && lastNumber === ',') {
+            setValue(e.currentTarget.value.replace(lastNumber, '.'));
+            return;
+        }
+        if (
+            lastNumber &&
+            !Number(lastNumber) &&
+            lastNumber !== '0' &&
+            lastNumber !== '.' &&
+            lastNumber !== ','
+        ) {
             setValue(e.currentTarget.value.replace(lastNumber, ''));
             return;
         }
@@ -39,15 +49,18 @@ const AnnouncementPriceField = ({
             <h3>{t('add-page.price')}:</h3>
             <input
                 type="text"
+                pattern="[0-9]*[.,]?[0-9]+"
                 id={styles.ann_field_price}
-                placeholder={t('add-page.price')}
+                placeholder="0 - 99 999 999.99"
                 style={errors?.price ? { border: '1px solid red' } : {}}
                 {...register('price')}
                 onInput={(e) => handleInput(e)}
+                min="0"
+                max="99999999.99"
                 value={value}
             />
             <div className={styles.ann_field_err}>
-                {/*{errors?.price && `${t('add-page.set-price')}`}*/}
+                {errors?.price && errors.price.message}
             </div>
         </div>
     );

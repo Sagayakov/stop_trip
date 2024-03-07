@@ -36,7 +36,7 @@ export const EngineCapacity = ({ register }: Props) => {
                     pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
                     {...register('transport_engine_volume.max')}
-                    min="0.5"
+                    min="0.1"
                     placeholder={t('filters.up-to')}
                     defaultValue={max}
                 />

@@ -16,3 +16,11 @@ export type SelectType = {
     value: string | number | boolean;
     label: string | number;
 };
+
+export type AvailableFiltersType = {
+    count: number;
+    available_params: Record<
+        keyof ProductType,
+        string[] | { min: number; max: number }
+    >;
+};

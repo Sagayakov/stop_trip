@@ -30,7 +30,7 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { handleSubmit, reset, setValue, control } =
+    const { handleSubmit, reset, setValue, control, watch } =
         useForm<TypeOfDocumentFilter>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeOfDocumentFilter> = (data) => {
@@ -64,7 +64,7 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                 id="form-setting-document"
             >
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} />
+                <City control={control} setValue={setValue} watch={watch} />
                 <DocumentType control={control} setValue={setValue} />
                 <DocumentDuration control={control} setValue={setValue} />
                 <input type="submit" value={t('filters.apply')} />

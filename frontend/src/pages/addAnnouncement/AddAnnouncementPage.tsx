@@ -17,7 +17,7 @@ import { FormAddAnn } from './libr/AnnouncementFormTypes';
 import styles from './libr/addAnnouncement.module.scss';
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground';
 import { useTranslation } from 'react-i18next';
-import { scrollToTop } from 'shared/utils/scrollToTop.ts';
+//import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import './libr/selectAddAnnouncement.scss';
 import { BackgroundModal } from 'shared/utils/BackgroundModal.tsx';
 import { SuccessAddAnnouncement } from 'features/addAnnouncementForm/universalFields/SuccessAddAnnouncement.tsx';
@@ -30,6 +30,7 @@ import {
 } from 'app/api/fetchAdverts.ts';
 import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 import { useAddAdvertMutation } from 'app/api/authFetchAdverts.ts';
+import { useNavigate } from 'react-router-dom';
 // import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 
 const AddAnnouncementPage = () => {
@@ -54,8 +55,9 @@ const AddAnnouncementPage = () => {
     const [modalSuccess, setModalSuccess] = useState(false);
     const { t } = useTranslation();
     const category = watch('category');
+    const navigate = useNavigate();
 
-    const [addAdvert, { isSuccess, isError, isLoading }] =
+    const [addAdvert, { isSuccess, isError, isLoading /* error: addError */ }] =
         useAddAdvertMutation();
 
     useGetSelectOptionsQuery(''); //запрашиваем данные, потом будем доставать из кэша
@@ -84,8 +86,25 @@ const AddAnnouncementPage = () => {
                 ...Object.fromEntries(nonNullableData),
                 region: data.region || 'north-goa',
             });
+            /* if (addError && 'status' in addError) {
+                setError(
+                    'price',
+                    {
+                        message: JSON.stringify(
+                            (
+                                addError.data as Record<
+                                    keyof FormAddAnn,
+                                    string[]
+                                >
+                            ).price[0]
+                        ),
+                    },
+                    { shouldFocus: true }
+                );
+            } */
         } catch (error) {
             console.log(error);
+
             toast.error(`${t('errors.add-announcement-error')}`);
         } finally {
             dispatch(setLoading(false));
@@ -94,7 +113,8 @@ const AddAnnouncementPage = () => {
 
     const handleClick = () => {
         setModalSuccess(false);
-        scrollToTop();
+        //scrollToTop();
+        navigate('/my-announcements');
     };
 
     // const sendButtonDisabled = () => {
@@ -160,6 +180,7 @@ const AddAnnouncementPage = () => {
                             setValue={setValue}
                             control={control}
                             formState={formState}
+                            watch={watch}
                         />
                         <AnnouncementNameField
                             register={register}

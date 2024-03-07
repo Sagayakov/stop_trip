@@ -3,6 +3,7 @@ import {
     FormState,
     UseFormRegister,
     UseFormSetValue,
+    UseFormWatch,
 } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import {
@@ -28,6 +29,7 @@ interface Props {
     control: Control<FormAddAnn, string[]>;
     data?: ProductType;
     formState: FormState<FormAddAnn>;
+    watch: UseFormWatch<FormAddAnn>;
 }
 
 export const AnnouncementTransport = ({
@@ -36,6 +38,7 @@ export const AnnouncementTransport = ({
     setValue,
     data,
     formState,
+    watch,
 }: Props) => {
     return (
         <>
@@ -66,6 +69,7 @@ export const AnnouncementTransport = ({
                 setValue={setValue}
                 defaultValue={data?.transport_model}
                 formState={formState}
+                watch={watch}
             />
             <AnnouncementTransportEngineType
                 control={control}

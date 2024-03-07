@@ -44,3 +44,8 @@ export type Owner = {
     my_rating: number;
     rating_num: number;
 };
+
+export type AvailableValuesType = {
+    name: string;
+    slug: string;
+};

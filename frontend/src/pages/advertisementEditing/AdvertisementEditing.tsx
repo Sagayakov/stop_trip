@@ -28,14 +28,25 @@ import { useAppDispatch } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser.ts';
 import { setLoading } from 'entity/loading/model/setLoadingSlice.ts';
 import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
-import { useEditAdvertMutation, useGetAdvertBySlugQuery } from 'app/api/authFetchAdverts.ts';
+import {
+    useEditAdvertMutation,
+    useGetAdvertBySlugQuery,
+} from 'app/api/authFetchAdverts.ts';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
-    const { register, handleSubmit, control, setValue, formState, watch, setError, clearErrors } =
-        useForm<FormAddAnn>({
-            reValidateMode: 'onBlur',
-        });
+    const {
+        register,
+        handleSubmit,
+        control,
+        setValue,
+        formState,
+        watch,
+        setError,
+        clearErrors,
+    } = useForm<FormAddAnn>({
+        reValidateMode: 'onBlur',
+    });
     const dispatch = useAppDispatch();
 
     const category = watch('category');
@@ -46,7 +57,7 @@ const AdvertisementEditing = () => {
     const { data: dataAdvert, isLoading } = useGetAdvertBySlugQuery(slug);
     const { data: user } = useGetUserQuery('');
 
-    useGetSelectOptionsQuery('');//запрашиваем данные, потом будем доставать из кэша
+    useGetSelectOptionsQuery(''); //запрашиваем данные, потом будем доставать из кэша
     const [
         editAdvert,
         { isLoading: isSendLoading, isSuccess, isError: isSendError },
@@ -65,10 +76,18 @@ const AdvertisementEditing = () => {
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
-        setValue('region', 'goa');
-        console.log(data);
+
         try {
-            await editAdvert({ body: data, addSlug});
+            const nonNullableData = Object.entries(data).filter(
+                (el) => el[1] !== null && el[1] !== undefined && el[1] !== ''
+            );
+            await editAdvert({
+                body: {
+                    ...Object.fromEntries(nonNullableData),
+                    region: data.region || 'north-goa',
+                },
+                addSlug,
+            });
         } catch (error) {
             console.log(error);
             toast.error(`${t('errors.add-announcement-error')}`);
@@ -79,13 +98,12 @@ const AdvertisementEditing = () => {
 
     useEffect(() => {
         setValue('country', 'india');
-        setValue('region', 'goa');
+
         dataAdvert && setMarkerPosition(dataAdvert.coordinates);
         dataAdvert?.slug && setValue('slug', dataAdvert?.slug);
         if (path[1] !== 'advertisement-editing')
             setValue('category', dataAdvert?.category);
-
-    }, [dataAdvert, setValue, isSuccess, isSendError,  path]);
+    }, [dataAdvert, isSuccess, isSendError, path]);
 
     useEffect(() => {
         if (isSuccess) {
@@ -137,6 +155,7 @@ const AdvertisementEditing = () => {
                             control={control}
                             defaultValue={dataAdvert.city}
                             formState={formState}
+                            watch={watch}
                         />
                         <AnnouncementNameField
                             register={register}
@@ -171,7 +190,10 @@ const AdvertisementEditing = () => {
                             watch={watch}
                             editImages={dataAdvert?.images}
                         />
-                        <YoutubeField register={register} defaultValue={dataAdvert?.youtube} />
+                        <YoutubeField
+                            register={register}
+                            defaultValue={dataAdvert?.youtube}
+                        />
                         <AnnouncementLocationField
                             setValue={setValue}
                             markerPosition={markerPosition}

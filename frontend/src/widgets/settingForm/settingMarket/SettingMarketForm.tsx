@@ -29,7 +29,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { register, handleSubmit, reset, setValue, control } =
+    const { register, handleSubmit, reset, setValue, control, watch } =
         useForm<TypeForMarketForm>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeForMarketForm> = (data) => {
@@ -59,7 +59,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                 id="form-setting-market"
             >
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} />
+                <City control={control} setValue={setValue} watch={watch} />
                 <MarketCondition register={register} />
                 <input type="submit" value={t('filters.apply')} />
                 <button

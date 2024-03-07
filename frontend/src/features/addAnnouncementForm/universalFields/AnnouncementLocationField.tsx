@@ -25,7 +25,7 @@ const AnnouncementLocationField = ({
             const longitude = arr[1];
             setValue('coordinates', `${latitude}, ${longitude}`);
         }
-    }, [markerPosition]);
+    }, [markerPosition, setValue]);
     const defaultCoordinates = () => {
         if (markerPosition) {
             const arr = markerPosition?.split(',');

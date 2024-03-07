@@ -72,7 +72,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
             >
                 <TypeOfService register={register} />
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} />
+                <City control={control} setValue={setValue} watch={watch} />
                 <HouseType control={control} setValue={setValue} />
                 <PropertyType setValue={setValue} control={control} />
                 <SettingPrice register={register} watch={watch} />

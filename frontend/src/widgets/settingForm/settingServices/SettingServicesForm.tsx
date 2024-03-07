@@ -30,7 +30,7 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { register, handleSubmit, reset, setValue, control } =
+    const { register, handleSubmit, reset, setValue, control, watch } =
         useForm<TypeOfServicesForm>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeOfServicesForm> = (data) => {
@@ -56,7 +56,7 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
                 id="form-setting-service"
             >
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} />
+                <City control={control} setValue={setValue} watch={watch} />
                 <HouseCall register={register} />
                 <SettingServicePrice register={register} />
                 <input type="submit" value={t('filters.apply')} />

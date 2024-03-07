@@ -30,7 +30,7 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { handleSubmit, reset, register, control, setValue } =
+    const { handleSubmit, reset, register, control, setValue, watch } =
         useForm<TypeForExcursionFilter>({ defaultValues });
 
     const onSubmit: SubmitHandler<TypeForExcursionFilter> = (data) => {
@@ -61,7 +61,7 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
                 id="form-setting-excursion"
             >
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} />
+                <City control={control} setValue={setValue} watch={watch} />
                 <ExcursionFood register={register} />
                 <ExcursionTransfer register={register} />
                 <input type="submit" value={t('filters.apply')} />

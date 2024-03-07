@@ -1,5 +1,8 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import {
+    useGetAvailableFiltersQuery,
+    useGetFiltersQuery,
+} from 'app/api/fetchAdverts.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
@@ -9,6 +12,7 @@ import { TypeOfDocumentFilter } from 'widgets/settingForm/settingDocument/libr/T
 interface Props {
     setValue: UseFormSetValue<TypeOfDocumentFilter>;
     control: Control<TypeOfDocumentFilter, string[]>;
+    watch: UseFormWatch<TypeOfDocumentFilter>;
 }
 
 type SelectOption = {
@@ -16,19 +20,25 @@ type SelectOption = {
     label: string;
 };
 
-export const City = ({ control, setValue }: Props) => {
+export const City = ({ control, setValue, watch }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [cityValues, setCityValues] = useState<SelectOption[]>([]);
     const { t } = useTranslation();
+    const region = watch('region');
+    const { data: availableData } = useGetAvailableFiltersQuery(
+        `?region=${region || 'north-goa'}`
+    );
 
     useEffect(() => {
-        if (data) {
-            const result = (data['city'] as SelectOption[]).filter(
-                (el) => (el as SelectOption).value && (el as SelectOption).label
+        if (data && availableData) {
+            const result = (data['city'] as SelectOption[]).filter((el) =>
+                (availableData.available_params.city as string[]).includes(
+                    el.value
+                )
             );
-            data && setCityValues(result as SelectOption[]);
+            setCityValues(result as SelectOption[]);
         }
-    }, [data]);
+    }, [data, availableData]);
 
     return (
         <>
