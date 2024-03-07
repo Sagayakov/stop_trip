@@ -203,6 +203,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 type=str,
                 location=OpenApiParameter.QUERY,
                 description="Ввести slug страны",
+                required=True,
             ),
         ]
     )
@@ -210,7 +211,9 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     def get_regions_by_country(self, request, *args, **kwargs):
         """Возвращает регионы по стране"""
 
-        country = request.query_params["country"]
+        country = request.query_params.get("country")
+        if not country:
+            return Response("country - обязательный параметр", status=status.HTTP_400_BAD_REQUEST)
         queryset = Region.objects.filter(country__slug=country)
         serializer = RegionSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -222,6 +225,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 type=str,
                 location=OpenApiParameter.QUERY,
                 description="Ввести slug региона",
+                required=True,
             ),
         ]
     )
@@ -229,7 +233,9 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     def get_cities_by_region(self, request, *args, **kwargs):
         """Возвращает города по региону"""
 
-        region = request.query_params["region"]
+        region = request.query_params.get("region")
+        if not region:
+            return Response("region - обязательный параметр", status=status.HTTP_400_BAD_REQUEST)
         queryset = City.objects.filter(region__slug=region)
         serializer = CitySerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -241,6 +247,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 type=str,
                 location=OpenApiParameter.QUERY,
                 description="Ввести slug бренда транспорта",
+                required=True,
             ),
         ]
     )
@@ -248,7 +255,9 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     def get_transport_models_by_brand(self, request, *args, **kwargs):
         """Возвращает модели транспорта по марке"""
 
-        brand = request.query_params["brand"]
+        brand = request.query_params.get("brand")
+        if not brand:
+            return Response("brand - обязательный параметр", status=status.HTTP_400_BAD_REQUEST)
         queryset = TransportModel.objects.filter(brand__slug=brand)
         serializer = TransportModelSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
