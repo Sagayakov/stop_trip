@@ -11,3 +11,5 @@ class TransportBrandAdmin(ModelAdmin):
 @register(TransportModel)
 class TransportModelAdmin(ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
+    list_display = ("name", "slug", "brand")
+    list_filter = ("brand",)

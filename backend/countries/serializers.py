@@ -7,7 +7,7 @@ class CountrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Country
-        fields = ("name",)
+        fields = ("name", "slug")
 
 
 class RegionSerializer(serializers.ModelSerializer):
@@ -15,7 +15,7 @@ class RegionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Region
-        fields = ("name",)
+        fields = ("name", "slug")
 
 
 class CitySerializer(serializers.ModelSerializer):
@@ -23,4 +23,4 @@ class CitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = City
-        fields = ("name",)
+        fields = ("name", "slug")

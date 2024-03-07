@@ -43,6 +43,8 @@ from ..factories import (
     CityFactory,
     TaxiAdvertisementFactory,
     AdvertisementImageFactory,
+    TransportBrandFactory,
+    TransportModelFactory,
 )
 
 
@@ -56,6 +58,11 @@ class AdvertisementViewSetTest(APITestCase):
             "advertisements-get-available-filtered-params"
         )
         self.my_advertisements_url: str = reverse("advertisements-my-advertisements")
+        self.get_transport_models_by_brand_url: str = reverse(
+            "advertisements-get-transport-models-by-brand"
+        )
+        self.get_cities_by_region_url: str = reverse("advertisements-get-cities-by-region")
+        self.get_regions_by_country_url: str = reverse("advertisements-get-regions-by-country")
 
     def test_create_advertisement_forbidden_words_exception(self):
         forbidden_words = ForbiddenWordsFactory()
@@ -212,6 +219,74 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), len(my_advertisements) + len(my_unpublished_advertisements))
+
+    def test_get_transport_models_by_brand(self):
+        brand = [TransportBrandFactory() for _ in range(2)]
+        brand_0_models = [TransportModelFactory(brand=brand[0]) for _ in range(5)]
+        brand_1_models = [TransportModelFactory(brand=brand[1]) for _ in range(3)]
+
+        with self.assertNumQueries(1):
+            res = self.client.get(
+                self.get_transport_models_by_brand_url,
+                data={"brand": brand[0].slug},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(brand_0_models))
+
+        with self.assertNumQueries(1):
+            res = self.client.get(
+                self.get_transport_models_by_brand_url,
+                data={"brand": brand[1].slug},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(brand_1_models))
+
+    def test_get_cities_by_region(self):
+        country = CountryFactory()
+        regions = [RegionFactory(country=country) for _ in range(2)]
+        region_0_cities = [CityFactory(region=regions[0]) for _ in range(5)]
+        region_1_cities = [CityFactory(region=regions[1]) for _ in range(7)]
+
+        with self.assertNumQueries(1):
+            res = self.client.get(self.get_cities_by_region_url, data={"region": regions[0].slug})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(region_0_cities))
+
+        with self.assertNumQueries(1):
+            res = self.client.get(self.get_cities_by_region_url, data={"region": regions[1].slug})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(region_1_cities))
+
+    def test_get_regions_by_country(self):
+        country = [CountryFactory() for _ in range(2)]
+        country_0_regions = [RegionFactory(country=country[0]) for _ in range(4)]
+        country_1_regions = [RegionFactory(country=country[1]) for _ in range(6)]
+
+        with self.assertNumQueries(1):
+            res = self.client.get(
+                self.get_regions_by_country_url, data={"country": country[0].slug}
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(country_0_regions))
+
+        with self.assertNumQueries(1):
+            res = self.client.get(
+                self.get_regions_by_country_url, data={"country": country[1].slug}
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(country_1_regions))
 
     def test_filter_category(self):
         user = UserFactory()

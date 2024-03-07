@@ -51,3 +51,11 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
             "transport_vin",
             "transport_commission",
         )
+
+
+class TransportModelSerializer(serializers.ModelSerializer):
+    """Серриализатор модели транспорта"""
+
+    class Meta:
+        model = TransportModel
+        fields = ("name", "slug")
