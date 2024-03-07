@@ -160,6 +160,7 @@ const AddAnnouncementPage = () => {
                             setValue={setValue}
                             control={control}
                             formState={formState}
+                            watch={watch}
                         />
                         <AnnouncementNameField
                             register={register}

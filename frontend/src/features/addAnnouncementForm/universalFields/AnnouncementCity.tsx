@@ -2,15 +2,25 @@ import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { Control, FormState, UseFormSetValue } from 'react-hook-form';
-import { useEffect } from 'react';
-import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import {
+    Control,
+    FormState,
+    UseFormSetValue,
+    UseFormWatch,
+} from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import {
+    useGetCitiesByRegionQuery,
+    useGetSelectOptionsQuery,
+} from 'app/api/fetchAdverts.ts';
+import { StringOptions } from 'app/api/types/selectOptionValues';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: { name: string } | null | undefined;
     formState: FormState<FormAddAnn>;
+    watch: UseFormWatch<FormAddAnn>;
 }
 
 const AnnouncementCity = ({
@@ -18,18 +28,30 @@ const AnnouncementCity = ({
     setValue,
     defaultValue,
     formState,
+    watch,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const region = watch('region');
+
+    const { data: availableData } = useGetCitiesByRegionQuery(
+        `?region=${region || 'north-goa'}`
+    );
+    const [options, setOptions] = useState<StringOptions[]>([]);
 
     useEffect(() => {
+        if (availableData) {
+            setOptions(
+                availableData.map((el) => ({ value: el.slug, label: el.name }))
+            );
+        }
         if (defaultValue) {
             const defaultCity = data?.city.find(
                 (el) => el.label === defaultValue.name
             );
             setValue('city', defaultCity?.value);
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
-    }, [defaultValue]);
+    }, [defaultValue, availableData, data?.city]);
 
     return (
         <div className={styles.ann_field}>
@@ -45,7 +67,7 @@ const AnnouncementCity = ({
                 placeholder={t('add-page.city')}
                 closeMenuOnSelect={true}
                 isMulti={false}
-                options={data?.city}
+                options={options}
                 requiredFiled={true}
                 defaultValue={data?.city.find(
                     (el) => el.label === defaultValue?.name

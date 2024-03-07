@@ -1,5 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { LastAdvertsTypes } from './types/lastAdvertsTypes';
+import {
+    AvailableValuesType,
+    LastAdvertsTypes,
+} from './types/lastAdvertsTypes';
 import { url } from 'shared/const/url.ts';
 import { AvailableFiltersType, FiltersType } from './types/filtersType';
 import { SelectOptionValues } from 'app/api/types/selectOptionValues.ts';
@@ -37,6 +40,10 @@ export const fetchAdverts = createApi({
             query: (filterQuery = '') =>
                 `api/advertisements/get_available_filtered_params/${filterQuery}`,
         }),
+        getCitiesByRegion: build.query<AvailableValuesType[], string>({
+            query: (filterQuery = '') =>
+                `api/advertisements/get_cities_by_region/${filterQuery}`,
+        }),
     }),
 });
 
@@ -45,4 +52,5 @@ export const {
     useGetFiltersQuery,
     useGetSelectOptionsQuery,
     useGetAvailableFiltersQuery,
+    useGetCitiesByRegionQuery,
 } = fetchAdverts;
