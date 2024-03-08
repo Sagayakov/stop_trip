@@ -365,6 +365,7 @@
     "cookie-consent": "To improve the convenience of the site, we use cookies. By remaining on the site, you agree to the policy of their use.",
 
     "user_agreement": {
+        "link": "User Agreement",
         "main_header": "User Agreement for stoptrip.com",
         "contents": "Contents",
         "1_header": "General Provisions",

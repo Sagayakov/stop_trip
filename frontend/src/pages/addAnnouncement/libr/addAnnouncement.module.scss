@@ -42,6 +42,7 @@
         align-items: center;
         gap: 1rem;
         p {
+            text-align: center;
             font-size: 28px;
             color: var(--main-blue);
         }
@@ -56,12 +57,12 @@
     }
 }
 @media (max-width: 650px) {
-        .modal{
-            height: 30vh;
-            p{
-                font-size: 24px !important;
-            }
+    .modal {
+        height: 30vh;
+        p {
+            font-size: 24px !important;
         }
+    }
 }
 
 .add_ann {
@@ -151,7 +152,7 @@
                 overflow-wrap: break-word;
                 cursor: pointer;
             }
-            input[type='submit']:disabled{
+            input[type='submit']:disabled {
                 background-color: var(--grey-3);
             }
             .goBack {
@@ -304,7 +305,7 @@
             }
             .ann_field {
                 #ann_field_price {
-                    width: 40%;
+                    width: 50%;
                     padding: 8px 12px;
                 }
                 input[type='text'],
@@ -355,7 +356,7 @@
         .add_ann_form {
             .ann_field {
                 #ann_field_price {
-                    width: 40%;
+                    width: 50%;
                 }
                 #ann_field_price,
                 input[type='text'],
