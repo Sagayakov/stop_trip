@@ -5,10 +5,10 @@ footer {
     font-weight: 600;
     .footer_wrapper {
         width: 1240px;
-        height: 102px;
+        //height: 102px;
         margin: 0 auto;
         display: grid;
-        grid-template-rows: 49px auto 20px;
+        grid-template-rows: 49px auto auto;
         .footer_top {
             display: flex;
             flex-direction: row;
@@ -86,8 +86,21 @@ footer {
                 width: 50px;
                 display: flex;
                 justify-content: space-between;
-                a {
+            }
+            .email_agreement {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 0.5rem;
+                .email_link {
                     cursor: pointer;
+                }
+                .user_agreement {
+                    font-size: 14px;
+                }
+                .email_link:hover,
+                .user_agreement:hover {
+                    color: var(--main-blue);
                 }
             }
         }
@@ -97,7 +110,6 @@ footer {
 @media (max-width: 1439px) {
     footer {
         width: 100%;
-        margin: 0 auto 80px;
         .footer_wrapper {
             width: 85%;
             margin: 0 auto;
@@ -168,9 +180,9 @@ footer {
         margin: 0 auto 20px;
         .footer_wrapper {
             width: 93%;
-            height: 186px;
+            height: 206px;
             margin: 0 auto;
-            grid-template-rows: 80px auto 45px;
+            grid-template-rows: 80px auto 65px;
             //grid-template-rows: 80px 61px 45px;
             .footer_top {
                 width: 100%;
@@ -219,23 +231,31 @@ footer {
                 }
             }
             .footer_bot {
-                .contacts {
+                .email_agreement {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0.5rem;
                     width: 141px;
-                    height: 45px;
+                    height: 65px;
+                    .contacts_logo {
+                        display: flex;
+                        gap: 0.5rem;
+                        width: 100%;
+                        height: 20px;
+                        padding-left: 0.5rem;
+                    }
+                }
+                .contacts {
                     display: flex;
                     flex-direction: column;
                     align-items: flex-end;
-                    p {
+                    gap: 0.5rem;
+                    width: auto;
+                    padding-top: 1rem;
+                    .user_agreement {
+                        white-space: nowrap;
                         font-size: 14px;
-                        display: block;
-                        width: 121px;
-                        height: 17px;
-                    }
-                    .contacts_logo {
-                        display: flex;
-                        justify-content: space-between;
-                        width: 50px;
-                        height: 20px;
                     }
                 }
             }
