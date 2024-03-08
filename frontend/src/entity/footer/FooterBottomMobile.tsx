@@ -18,11 +18,11 @@ export const FooterBottomMobile = () => {
                 </Link>
             </div>
             <a
-                href="mailto:admin@gmail.com"
+                href="mailto:admin@stoptrip.com"
                 target="_blank"
                 className={styles.email_link}
             >
-                admin@gmail.com
+                admin@stoptrip.com
             </a>
         </div>
     );

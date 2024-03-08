@@ -14,7 +14,7 @@ export const FooterBottomDesktop = () => {
                     target="_blank"
                     className={styles.email_link}
                 >
-                    admin@gmail.com
+                    admin@stoptrip.com
                 </a>
                 <div className={styles.contacts_logo}>
                     <Link to="https://t.me/StopTripAdmin" target="_blank">
