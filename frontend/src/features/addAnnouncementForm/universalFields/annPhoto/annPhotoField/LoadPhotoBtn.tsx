@@ -19,41 +19,31 @@ interface Props{
 export const LoadPhotoBtn = ({
     inputRef,
     setPreviewImages,
-    imgSize,
     setValue,
     previewImages,
     watch,
+    imgSize,
 }:Props) => {
     const { t } = useTranslation();
     const path = useLocation().pathname.split('/');
     const images = watch('images');
     const uploadImages = watch('upload_images');
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+    const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = event.target.files
-        console.log(uploadImages);
         if(fileList){
             if(path[1] === 'advertisement-editing'){
-                convertFilesToBase64Strings(fileList)
-                    .then((base64Strings) => {
-                        if(uploadImages){
-                            base64Strings.push(...uploadImages);//если что-то было, пушим в массив
-                        }
-                        setValue('upload_images', base64Strings as string[]);
-                    })
-                    .catch((error) => {
-                        console.error('Ошибка:', error);
-                    });
+                const base64Strings = await convertFilesToBase64Strings(fileList);
+                if(uploadImages){
+                    base64Strings.push(...uploadImages);//если что-то было, пушим в массив
+                }
+                setValue('upload_images', base64Strings as string[]);
             } else {
-                convertFilesToBase64Strings(fileList)
-                    .then((base64Strings) => {
-                        if (images) {
-                            base64Strings.push(...images);//если что-то было, пушим в массив
-                        }
-                        setValue('images', base64Strings as string[])
-                    })
-                    .catch((error) => {
-                        console.error('Ошибка:', error);
-                    });
+                const base64Strings = await convertFilesToBase64Strings(fileList)
+                if (images) {
+                    base64Strings.push(...images);//если что-то было, пушим в массив
+                }
+                setValue('images', base64Strings as string[])
             }//если мы на странице редактирования, то setValue для поля upload_images
             //если на странице добавления объявлений, то для поля images
 
@@ -67,7 +57,6 @@ export const LoadPhotoBtn = ({
         }
     };
 
-
     return (
         <div>
             <div
@@ -80,7 +69,7 @@ export const LoadPhotoBtn = ({
                     className={styles.loadphoto_btn_hidden}
                     type="file"
                     ref={inputRef}
-                    accept="image/*,.img,.png,.jpeg,.jpg"
+                    accept="image/*,.img,.png,.jpeg,.jpg,.heic"
                     multiple={true}
                     max={11}
                     onChange={handleImageChange}
@@ -90,8 +79,9 @@ export const LoadPhotoBtn = ({
                 {previewImages &&
                     previewImages.length > 10 &&
                     `${t('add-page.please-select')}`}
-                {imgSize > 52428800 && <p>{t('add-page.limit')}</p>}
+                {imgSize > 60 && <p>{t('add-page.limit')}</p>}
             </div>
         </div>
     );
 };
+//62914560

@@ -1,3 +1,6 @@
+input{
+    padding: 0;
+}
 .optional_fields {
     opacity: 0;
     max-height: 0;
@@ -15,6 +18,15 @@
             border-color: var(--grey-3);
         }
     }
+    //.ann_field{
+    //    .radio_group{
+    //        .form_checkbox{
+    //            input{
+    //                padding: 0 !important; //для сафари
+    //            }
+    //        }
+    //    }
+    //}
 
     &.visible {
         opacity: 1;
