@@ -12,9 +12,11 @@ interface Props {
 export const AnnouncementTransportEngineCapacity = ({
     register,
     defaultValue,
+    formState,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const { errors } = formState;
 
     return (
         <div className={styles.ann_field}>
@@ -32,7 +34,7 @@ export const AnnouncementTransportEngineCapacity = ({
                 />
             </div>
             <div className={styles.ann_field_err}>
-                {/*{formState?.errors?.transport_engine_volume && 'Введите число в формате 2.0'}*/}
+                {errors?.transport_engine_volume?.message}
             </div>
         </div>
     );

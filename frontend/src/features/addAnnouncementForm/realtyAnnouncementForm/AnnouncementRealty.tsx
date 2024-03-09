@@ -59,20 +59,24 @@ export const AnnouncementRealty = ({
                 control={control}
                 setValue={setValue}
                 defaultValue={data?.property_house_type}
+                errors={formState.errors}
             />
             <AnnouncementRealtyPrepayment
                 control={control}
                 setValue={setValue}
                 defaultValue={data?.property_prepayment}
+                errors={formState.errors}
             />
             <AnnouncementRealtyRentalCondition
                 control={control}
                 setValue={setValue}
                 defaultValue={data?.property_rental_condition}
+                errors={formState.errors}
             />
             <AnnouncementRealtyFloorsQuantity
                 register={register}
                 defaultValue={data?.property_building_max_floor}
+                errors={formState.errors}
             />
             <AnnouncementRealtyFloorNumber
                 register={register}
@@ -82,10 +86,12 @@ export const AnnouncementRealty = ({
             <AnnouncementRealtyTotalArea
                 register={register}
                 defaultValue={data?.property_area}
+                errors={formState.errors}
             />
             <AnnouncementRealtyLivingArea
                 register={register}
                 defaultValue={data?.property_living_area}
+                errors={formState.errors}
             />
             <AnnouncementRealtyRoomsQuantity
                 register={register}
@@ -95,6 +101,7 @@ export const AnnouncementRealty = ({
             <AnnouncementRealtySleepingPlaces
                 register={register}
                 defaultValue={data?.property_sleeping_places}
+                errors={formState.errors}
             />
             <AnnouncementRealtyHasFurniture
                 register={register}
@@ -105,22 +112,27 @@ export const AnnouncementRealty = ({
             <AnnouncementRealtyParking
                 register={register}
                 defaultValue={data?.property_has_parking}
+                errors={formState.errors}
             />
             <AnnouncementRealtyBalcony
                 register={register}
                 defaultValue={data?.property_balcony}
+                errors={formState.errors}
             />
             <AnnouncementRealtyBathroomQuantity
                 register={register}
                 defaultValue={data?.property_bathroom_count}
+                errors={formState.errors}
             />
             <AnnouncementRealtyBathroomType
                 register={register}
                 defaultValue={data?.property_bathroom_type}
+                errors={formState.errors}
             />
             <AnnouncementRealtyAmenities
                 register={register}
                 defaultValue={data?.property_amenities}
+                errors={formState.errors}
             />
             <AnnouncementRealtyComission
                 register={register}

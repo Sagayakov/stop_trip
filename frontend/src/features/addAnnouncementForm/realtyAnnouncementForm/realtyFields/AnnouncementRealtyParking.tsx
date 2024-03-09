@@ -1,13 +1,18 @@
-import { UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue?: boolean | null | undefined;
+    errors: FieldErrors<FormAddAnn>;
 }
-export const AnnouncementRealtyParking = ({ register, defaultValue }: Props) => {
+export const AnnouncementRealtyParking = ({
+    register,
+    defaultValue,
+    errors,
+}: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -24,7 +29,10 @@ export const AnnouncementRealtyParking = ({ register, defaultValue }: Props) => 
                     <span>{t('filters.property_has_parking')}</span>
                 </label>
             </div>
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.property_has_parking &&
+                    errors.property_has_parking.message}
+            </div>
         </div>
     );
 };

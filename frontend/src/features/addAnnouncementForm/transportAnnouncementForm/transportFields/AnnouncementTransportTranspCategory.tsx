@@ -19,20 +19,31 @@ export const AnnouncementTransportTranspCategory = ({
     setValue,
     control,
     defaultValue,
-    formState
+    formState,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
 
     useEffect(() => {
-        if(defaultValue){
-            setValue('transport_category', String(getDefaultValue(defaultValue, data?.transport_category as StringOptions[])!.value))
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+        if (defaultValue) {
+            setValue(
+                'transport_category',
+                String(
+                    getDefaultValue(
+                        defaultValue,
+                        data?.transport_category as StringOptions[]
+                    )!.value
+                )
+            );
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_category')}<span>*</span>:</h3>
+            <h3>
+                {t('filters.transport_category')}
+                <span>*</span>:
+            </h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}
@@ -40,12 +51,19 @@ export const AnnouncementTransportTranspCategory = ({
                 name="transport_category"
                 options={data?.transport_category}
                 placeholder={t('filters.choose-category')}
-                defaultValue={getDefaultValue(defaultValue, data?.transport_category) as StringOptions}
+                defaultValue={
+                    getDefaultValue(
+                        defaultValue,
+                        data?.transport_category
+                    ) as StringOptions
+                }
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
                 requiredFiled={true}
             />
-            <div className={styles.ann_field_err}>{formState?.errors?.transport_category?.message}</div>
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.transport_category?.message}
+            </div>
         </div>
     );
 };

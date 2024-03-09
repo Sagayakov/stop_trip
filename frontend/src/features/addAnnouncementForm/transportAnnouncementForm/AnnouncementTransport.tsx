@@ -75,6 +75,7 @@ export const AnnouncementTransport = ({
                 control={control}
                 setValue={setValue}
                 defaultValue={data?.transport_engine_type}
+                errors={formState.errors}
             />
             <AnnouncementTransportEngineCapacity
                 register={register}
@@ -84,10 +85,12 @@ export const AnnouncementTransport = ({
             <AnnoucementTransportDriveType
                 register={register}
                 defaultValue={data?.transport_drive_type}
+                errors={formState.errors}
             />
             <AnnouncementTransportYear
                 register={register}
                 defaultValue={data?.transport_year_of_production}
+                errors={formState.errors}
             />
             <AnnouncementTransportTransmission
                 register={register}
@@ -98,14 +101,17 @@ export const AnnouncementTransport = ({
                 control={control}
                 setValue={setValue}
                 defaultValue={data?.transport_body_type}
+                errors={formState.errors}
             />
             <AnnoucementTransportCondition
                 register={register}
                 defaultValue={data?.transport_condition}
+                errors={formState.errors}
             />
             <AnnouncementTransportComission
                 register={register}
                 defaultValue={data?.transport_commission}
+                errors={formState.errors}
             />
         </>
     );

@@ -8,7 +8,6 @@ import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 import { useEffect } from 'react';
 
-
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
@@ -20,22 +19,28 @@ export const AnnouncementTransportMark = ({
     setValue,
     control,
     defaultValue,
-    formState
+    formState,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
 
     useEffect(() => {
-        if(defaultValue){
+        if (defaultValue) {
             setValue(
                 'transport_brand',
-                String(getDefaultValue(defaultValue, data?.transport_brand)!.value))
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+                String(
+                    getDefaultValue(defaultValue, data?.transport_brand)!.value
+                )
+            );
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_brand')}<span>*</span>:</h3>
+            <h3>
+                {t('filters.transport_brand')}
+                <span>*</span>:
+            </h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}
@@ -43,12 +48,19 @@ export const AnnouncementTransportMark = ({
                 name="transport_brand"
                 options={data?.transport_brand}
                 placeholder={t('filters.choose-brand')}
-                defaultValue={getDefaultValue(defaultValue, data?.transport_brand) as StringOptions}
+                defaultValue={
+                    getDefaultValue(
+                        defaultValue,
+                        data?.transport_brand
+                    ) as StringOptions
+                }
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
                 requiredFiled={true}
             />
-            <div className={styles.ann_field_err}>{formState?.errors?.transport_brand?.message}</div>
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.transport_brand?.message}
+            </div>
         </div>
     );
 };

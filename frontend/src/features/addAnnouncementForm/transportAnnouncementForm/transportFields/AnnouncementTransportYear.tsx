@@ -1,4 +1,4 @@
-import { UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
@@ -6,10 +6,12 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue?: number | null | undefined;
+    errors: FieldErrors<FormAddAnn>;
 }
 export const AnnouncementTransportYear = ({
     register,
     defaultValue,
+    errors,
 }: Props) => {
     const { t } = useTranslation();
 
@@ -27,7 +29,9 @@ export const AnnouncementTransportYear = ({
                     {...register('transport_year_of_production')}
                 />
             </div>
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.transport_year_of_production?.message}
+            </div>
         </div>
     );
 };

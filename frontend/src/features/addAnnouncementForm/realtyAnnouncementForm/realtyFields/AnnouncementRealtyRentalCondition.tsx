@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
@@ -12,25 +12,30 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
+    errors: FieldErrors<FormAddAnn>;
 }
 
 export const AnnouncementRealtyRentalCondition = ({
     setValue,
     control,
     defaultValue,
+    errors,
 }: Props) => {
     const { data } = useGetSelectOptionsQuery('');
     const { t } = useTranslation();
 
     useEffect(() => {
-        if(defaultValue){
-            setValue('property_rental_condition', String(
-                getDefaultValue(
-                    defaultValue,
-                    data?.property_rental_condition)!.value
+        if (defaultValue) {
+            setValue(
+                'property_rental_condition',
+                String(
+                    getDefaultValue(
+                        defaultValue,
+                        data?.property_rental_condition
+                    )!.value
                 )
-            )
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+            );
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (
@@ -43,14 +48,19 @@ export const AnnouncementRealtyRentalCondition = ({
                 name="property_rental_condition"
                 options={data?.property_rental_condition}
                 placeholder={t('filters.property_rental_condition')}
-                defaultValue={getDefaultValue(
-                    defaultValue,
-                    data?.property_rental_condition) as StringOptions
+                defaultValue={
+                    getDefaultValue(
+                        defaultValue,
+                        data?.property_rental_condition
+                    ) as StringOptions
                 }
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.property_rental_condition &&
+                    errors.property_rental_condition.message}
+            </div>
         </div>
     );
 };

@@ -53,7 +53,7 @@ const AddAnnouncementPage = () => {
     const category = watch('category');
     const navigate = useNavigate();
 
-    const [addAdvert, { isSuccess, isError, isLoading }] =
+    const [addAdvert, { isSuccess, isError, isLoading, error }] =
         useAddAdvertMutation();
 
     useGetSelectOptionsQuery(''); //запрашиваем данные, потом будем доставать из кэша
@@ -96,8 +96,13 @@ const AddAnnouncementPage = () => {
             //очищаем кэш, чтобы обновить данные по объявлениям
             reset();
         }
-        if (isError) {
-            toast.error(`${t('errors.add-announcement-error')}`);
+        if (isError && error && 'data' in error) {
+            Object.entries(
+                error.data as Record<keyof FormAddAnn, string[]>
+            ).forEach((el) => {
+                toast.error(`${t(`filters.${el[0]}`)}: ${el[1][0]}`);
+                setError(el[0] as keyof FormAddAnn, { message: el[1][0] });
+            });
         }
         setValue('country', 'india');
     }, [isSuccess, isError]);
@@ -105,9 +110,14 @@ const AddAnnouncementPage = () => {
     useEffect(() => {
         if (formState.errors) {
             const firstErrorKey = Object.keys(formState.errors)[0];
-            const errorField = document.querySelector(`input[name="${firstErrorKey}"]`);
+            const errorField = document.querySelector(
+                `input[name="${firstErrorKey}"]`
+            );
             if (errorField) {
-                errorField.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                errorField.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                });
             }
         }
     }, [formState]); // для скролла в сафари

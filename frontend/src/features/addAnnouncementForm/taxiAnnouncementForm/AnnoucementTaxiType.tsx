@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
@@ -10,11 +10,13 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null;
+    errors: FieldErrors<FormAddAnn>;
 }
 export const AnnouncementTaxiType = ({
     control,
     setValue,
     defaultValue,
+    errors,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
@@ -45,7 +47,9 @@ export const AnnouncementTaxiType = ({
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.taxi_type?.message}
+            </div>
         </div>
     );
 };
