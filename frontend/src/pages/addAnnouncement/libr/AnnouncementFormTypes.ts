@@ -86,6 +86,4 @@ export interface FormAddAnn {
 export interface SelectOption {
     value: string;
     label: string;
-    // value: string | number | null | boolean;
-    // label: string | number | null | boolean;
 }

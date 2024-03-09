@@ -42,6 +42,7 @@
     .filterAnnouncementCategory__menu-list {
         max-height: 200px;
         scrollbar-width: thin !important;
+        overflow-y: scroll !important; // иначе в сафари не скроллится окно с опциями
     }
 }
 

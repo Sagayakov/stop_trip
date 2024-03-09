@@ -65,7 +65,6 @@ const AdvertisementEditing = () => {
     const [markerPosition, setMarkerPosition] = useState<string | undefined>(
         dataAdvert?.coordinates
     );
-    const [imgSize, setImgSize] = useState(0);
 
     const addSlug = dataAdvert ? dataAdvert.slug : '';
     const navigate = useNavigate();
@@ -109,7 +108,6 @@ const AdvertisementEditing = () => {
         if (isSuccess) {
             toast.success(`${t('add-page.edit-success')}`);
             scrollToTop();
-            setImgSize(0);
             setMarkerPosition(undefined);
             dispatch(
                 fetchAdverts.util?.invalidateTags([
@@ -183,8 +181,6 @@ const AdvertisementEditing = () => {
                         />
                         <AnnouncementPhotoField
                             setValue={setValue}
-                            imgSize={imgSize}
-                            setImgSize={setImgSize}
                             clearErrors={clearErrors}
                             setError={setError}
                             watch={watch}

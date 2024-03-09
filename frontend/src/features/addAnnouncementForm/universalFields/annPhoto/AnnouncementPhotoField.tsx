@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ErrorOption, FieldPath, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { MiniLoadPhoto } from 'shared/ui/icons/loadPhoto';
@@ -12,8 +12,6 @@ import { toFixed } from 'ol/math';
 interface Props {
     watch: UseFormWatch<FormAddAnn>;
     setValue: UseFormSetValue<FormAddAnn>;
-    imgSize: number;
-    setImgSize: React.Dispatch<SetStateAction<number>>;
     setError: (name: (FieldPath<FormAddAnn> | `root.${string}` | "root"), error: ErrorOption, options?: {shouldFocus: boolean}) => void;
     clearErrors: (name?: (FieldPath<FormAddAnn> | FieldPath<FormAddAnn>[] | `root.${string}` | "root")) => void;
     editImages?: LastAdvertsImages[];
@@ -23,22 +21,22 @@ const AnnouncementPhotoField = ({
     watch,
     setValue,
     editImages: img,
-    // setImgSize,
-    // setError,
-    // clearErrors,
-    imgSize,
+    setError,
+    clearErrors,
 }: Props) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const { t } = useTranslation();
     const [previewImages, setPreviewImages] = useState<string[]>([]);
     const [deleteIdArray, setDeleteIdArray] = useState<number[]>([]);
-    const images = watch('images');
     const [editImages, setEditImages] = useState<LastAdvertsImages[] | undefined>(img);
+    const [imgSize, setImgSize] = useState(0);
+    const images = watch('images');
+    const uploadImg = watch('upload_images');
 
     const removeImage = (index: number) => {
         if (images) {
             const newImages = [...images];
-            newImages.splice(index, 1);//удаляем массив по индексу
+            newImages.splice(index, 1);//удаляем элемент по индексу
             setValue('images',newImages);
 
             const newPreviews = [...previewImages]
@@ -59,24 +57,27 @@ const AnnouncementPhotoField = ({
     useEffect(() => {
         setValue('delete_images', deleteIdArray);
     }, [deleteIdArray])//на бэк передаем массив id картинок, которые удаляем
-    
-    // useEffect(() => {
-    //     if(selectedImages) {
-    //         const size = selectedImages.reduce((acc, img) => {
-    //             acc += img.size;
-    //             return acc;
-    //         }, 0)
-    //         if(size > 52428800) {
-    //             setError('upload_images', {});
-    //             setError('images', {});
-    //         } else{
-    //             clearErrors('images');
-    //             clearErrors('upload_images');
-    //         }
-    //         setImgSize(size);
-    //     }
-    // }, [selectedImages]);
 
+    const getImgSize = useCallback(() => {
+        let imgSize = 0;
+        let uploadImgSize = 0;
+        images?.forEach((img) => imgSize += img.length);
+        uploadImg?.forEach((img) => uploadImgSize += img.length);
+        const size = toFixed((imgSize + uploadImgSize) / 1024 / 1024, 2);
+        setImgSize(size);
+        return size
+    }, [images, uploadImg]);
+
+    useEffect(() => {
+        getImgSize();
+        if(imgSize > 60) {
+            setError('upload_images', {type: 'max'});
+            setError('images', {type: 'max'});
+        } else{
+            clearErrors('images');
+            clearErrors('upload_images');
+        }
+    }, [images, uploadImg]);
 
     return (
         <div className={`${styles.ann_field} ${styles.mobile_add_photo}`}>
@@ -97,51 +98,48 @@ const AnnouncementPhotoField = ({
                             {t('add-page.uploaded')} {photoCounter()}/10
                         </div>
                         <div>
-                            {toFixed((imgSize / 1024 / 1024), 2)}/50mb
+                            {imgSize}/60mb
                         </div>
                     </div>
                 </div>
-                {((images && images.length > 0) ||
-                    editImages) && (
-                    <div className={styles.preview}> {/*это редактируемые фотографии*/}
-                        {editImages?.map((img) => (
-                            <div
+                <div className={styles.preview}> {/*это редактируемые фотографии*/}
+                    {editImages?.map((img) => (
+                        <div
+                            key={img.id}
+                            className={styles.btn_view_delete}
+                            onClick={() => removeImageEdit(img.id)}
+                        >
+                            <img
                                 key={img.id}
-                                className={styles.btn_view_delete}
-                                onClick={() => removeImageEdit(img.id)}
-                            >
-                                <img
-                                    key={img.id}
-                                    src={img.image}
-                                    alt={`Preview ${img.id}`}
-                                    style={{
-                                        maxWidth: '100px',
-                                        margin: '5px',
-                                    }}
-                                />
-                                <span>&#x2716;</span>
-                            </div>
-                        ))}
-                        {previewImages?.map((preview, index) => (
-                            <div
+                                src={img.image}
+                                alt={`Preview ${img.id}`}
+                                style={{
+                                    maxWidth: '100px',
+                                    margin: '5px',
+                                }}
+                            />
+                            <span>&#x2716;</span>
+                        </div>
+                    ))}
+                    {previewImages?.map((preview, index) => (
+                        <div
+                            key={index}
+                            className={styles.btn_view_delete}
+                            onClick={() => removeImage(index)}
+                        >
+                            <img
                                 key={index}
-                                className={styles.btn_view_delete}
-                                onClick={() => removeImage(index)}
-                            >
-                                <img
-                                    key={index}
-                                    src={preview}
-                                    alt={`Preview ${index}`}
-                                    style={{
-                                        maxWidth: '100px',
-                                        margin: '5px',
-                                    }}
-                                />
-                                <span>&#x2716;</span>
-                            </div>
-                        ))}{/*это загружаемые фотографии*/}
-                    </div>
-                )}
+                                src={preview}
+                                alt={`Preview ${index}`}
+                                style={{
+                                    maxWidth: '100px',
+                                    margin: '5px',
+                                }}
+                            />
+                            <span>&#x2716;</span>
+                        </div>
+                    ))}{/*это загружаемые фотографии*/}
+                </div>
             </div>
         </div>
     );
