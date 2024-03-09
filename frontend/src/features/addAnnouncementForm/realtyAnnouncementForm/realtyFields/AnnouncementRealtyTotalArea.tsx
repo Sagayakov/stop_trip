@@ -1,4 +1,4 @@
-import { UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
@@ -6,10 +6,12 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue?: string | null | undefined;
+    errors: FieldErrors<FormAddAnn>;
 }
 export const AnnouncementRealtyTotalArea = ({
     register,
     defaultValue,
+    errors,
 }: Props) => {
     const { t } = useTranslation();
 
@@ -27,7 +29,10 @@ export const AnnouncementRealtyTotalArea = ({
                     {...register('property_area')}
                 />
             </div>
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.property_house_type &&
+                    errors.property_house_type.message}
+            </div>
         </div>
     );
 };

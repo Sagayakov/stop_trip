@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
@@ -12,23 +12,28 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
+    errors: FieldErrors<FormAddAnn>;
 }
 
 export const AnnouncementRealtyPrepayment = ({
     setValue,
     control,
     defaultValue,
+    errors,
 }: Props) => {
     const { data } = useGetSelectOptionsQuery('');
     const { t } = useTranslation();
 
     useEffect(() => {
-        if(defaultValue){
-            setValue('property_prepayment', String(
-                getDefaultValue(
-                    defaultValue,
-                    data?.property_prepayment)!.value))
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+        if (defaultValue) {
+            setValue(
+                'property_prepayment',
+                String(
+                    getDefaultValue(defaultValue, data?.property_prepayment)!
+                        .value
+                )
+            );
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (
@@ -41,13 +46,19 @@ export const AnnouncementRealtyPrepayment = ({
                 name="property_prepayment"
                 options={data?.property_prepayment}
                 placeholder={t('filters.property_prepayment')}
-                defaultValue={getDefaultValue(
-                    defaultValue,
-                    data?.property_prepayment) as StringOptions}
+                defaultValue={
+                    getDefaultValue(
+                        defaultValue,
+                        data?.property_prepayment
+                    ) as StringOptions
+                }
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.property_prepayment &&
+                    errors.property_prepayment.message}
+            </div>
         </div>
     );
 };

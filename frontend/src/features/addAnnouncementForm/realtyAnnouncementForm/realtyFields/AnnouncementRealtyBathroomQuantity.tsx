@@ -1,13 +1,18 @@
-import { UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss'
+import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue?: number | null | undefined;
+    errors: FieldErrors<FormAddAnn>;
 }
-export const AnnouncementRealtyBathroomQuantity = ({ register, defaultValue }: Props) => {
+export const AnnouncementRealtyBathroomQuantity = ({
+    register,
+    defaultValue,
+    errors,
+}: Props) => {
     const { t } = useTranslation();
 
     return (
@@ -24,7 +29,10 @@ export const AnnouncementRealtyBathroomQuantity = ({ register, defaultValue }: P
                     {...register('property_bathroom_count')}
                 />
             </div>
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.property_bathroom_count &&
+                    errors.property_bathroom_count.message}
+            </div>
         </div>
     );
 };

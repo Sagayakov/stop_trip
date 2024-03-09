@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
@@ -12,25 +12,28 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
+    errors: FieldErrors<FormAddAnn>;
 }
 
 export const AnnouncementTransportEngineType = ({
     setValue,
     control,
     defaultValue,
+    errors,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
 
     useEffect(() => {
-        if(defaultValue){
-            setValue('transport_engine_type', String(
-                getDefaultValue(
-                    defaultValue,
-                    data!.transport_engine_type)!.value
+        if (defaultValue) {
+            setValue(
+                'transport_engine_type',
+                String(
+                    getDefaultValue(defaultValue, data!.transport_engine_type)!
+                        .value
                 )
-            )
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+            );
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (
@@ -43,11 +46,18 @@ export const AnnouncementTransportEngineType = ({
                 name="transport_engine_type"
                 options={data?.transport_engine_type}
                 placeholder={t('filters.transport_engine_type')}
-                defaultValue={getDefaultValue(defaultValue, data?.transport_engine_type) as StringOptions}
+                defaultValue={
+                    getDefaultValue(
+                        defaultValue,
+                        data?.transport_engine_type
+                    ) as StringOptions
+                }
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.transport_engine_type?.message}
+            </div>
         </div>
     );
 };

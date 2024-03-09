@@ -1,5 +1,5 @@
 import { UniversalCheckboxGroup } from 'entity/universalEntites';
-import { UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
@@ -8,6 +8,7 @@ import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue?: Amenity[] | undefined;
+    errors: FieldErrors<FormAddAnn>;
 }
 type Amenity = {
     name: string;
@@ -20,6 +21,7 @@ interface Options {
 export const AnnouncementRealtyAmenities = ({
     register,
     defaultValue,
+    errors,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
@@ -27,11 +29,11 @@ export const AnnouncementRealtyAmenities = ({
     const val: Options[] = [];
     defaultValue?.forEach((el) => {
         for (const optionValue of data!.property_amenities) {
-            if(el.name.toLowerCase() === optionValue.label.toLowerCase()){
-                val.push(optionValue)
+            if (el.name.toLowerCase() === optionValue.label.toLowerCase()) {
+                val.push(optionValue);
             }
         }
-    })
+    });
     return (
         <div className={styles.ann_field}>
             <h3>{t('filters.property_amenities')}:</h3>
@@ -42,7 +44,10 @@ export const AnnouncementRealtyAmenities = ({
                 defaultValue={val}
                 className={styles.checkbox_group}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.property_amenities &&
+                    errors.property_amenities.message}
+            </div>
         </div>
     );
 };

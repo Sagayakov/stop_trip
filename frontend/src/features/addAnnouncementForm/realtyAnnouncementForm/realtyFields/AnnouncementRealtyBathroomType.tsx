@@ -1,4 +1,4 @@
-import { UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup';
 import { useTranslation } from 'react-i18next';
@@ -8,11 +8,13 @@ import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     defaultValue?: string | null | undefined;
+    errors: FieldErrors<FormAddAnn>;
 }
 
 export const AnnouncementRealtyBathroomType = ({
     register,
     defaultValue,
+    errors,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
@@ -31,7 +33,10 @@ export const AnnouncementRealtyBathroomType = ({
                     className={styles.radio_group}
                 />
             </div>
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.property_bathroom_type &&
+                    errors.property_bathroom_type.message}
+            </div>
         </div>
     );
 };

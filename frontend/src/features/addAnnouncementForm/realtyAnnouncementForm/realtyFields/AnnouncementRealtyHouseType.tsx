@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
@@ -12,25 +12,28 @@ interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
+    errors: FieldErrors<FormAddAnn>;
 }
 
 export const AnnouncementRealtyHouseType = ({
     setValue,
     control,
     defaultValue,
+    errors,
 }: Props) => {
     const { data } = useGetSelectOptionsQuery('');
     const { t } = useTranslation();
 
     useEffect(() => {
-        if(defaultValue){
-            setValue('property_house_type', String(
-                getDefaultValue(
-                    defaultValue,
-                    data?.property_house_type)!.value
+        if (defaultValue) {
+            setValue(
+                'property_house_type',
+                String(
+                    getDefaultValue(defaultValue, data?.property_house_type)!
+                        .value
                 )
-            )
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+            );
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (
@@ -43,11 +46,19 @@ export const AnnouncementRealtyHouseType = ({
                 name="property_house_type"
                 options={data?.property_house_type}
                 placeholder={t('filters.property_house_type')}
-                defaultValue={getDefaultValue(defaultValue, data?.property_house_type) as StringOptions}
+                defaultValue={
+                    getDefaultValue(
+                        defaultValue,
+                        data?.property_house_type
+                    ) as StringOptions
+                }
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.property_house_type &&
+                    errors.property_house_type.message}
+            </div>
         </div>
     );
 };

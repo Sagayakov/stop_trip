@@ -13,23 +13,32 @@ interface Props {
 export const AnnouncementTransportTypeOfTransport = ({
     register,
     defaultValue,
-    formState
+    formState,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_type')}<span>*</span>:</h3>
+            <h3>
+                {t('filters.transport_type')}
+                <span>*</span>:
+            </h3>
             <UniversalRadioGroup
                 name="transport_type"
-                radioValues={data?.transport_type || [{value: ' ', label: ' '}]}
+                radioValues={
+                    data?.transport_type || [{ value: ' ', label: ' ' }]
+                }
                 register={register}
-                defaultValue={data?.transport_type.find((el) => el.value === defaultValue)}
+                defaultValue={data?.transport_type.find(
+                    (el) => el.value === defaultValue
+                )}
                 className={styles.radio_group}
                 requiredField={true}
             />
-            <div className={styles.ann_field_err}>{formState?.errors?.transport_type?.message}</div>
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.transport_type?.message}
+            </div>
         </div>
     );
 };

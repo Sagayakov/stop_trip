@@ -36,6 +36,7 @@ export const AnnouncementTaxi = ({
                 control={control}
                 setValue={setValue}
                 defaultValue={data?.taxi_type}
+                errors={formState.errors}
             />
         </div>
     );
