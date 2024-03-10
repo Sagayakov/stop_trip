@@ -6,6 +6,9 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+const allowableExtensions = ['image/png', 'image/heic', 'image/heif', 'image/jpg', 'image/jpeg', 'image/img'];
 
 interface Props{
     inputRef: RefObject<HTMLInputElement>;
@@ -32,6 +35,14 @@ export const LoadPhotoBtn = ({
     const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = event.target.files
         if(fileList){
+            for (const file of fileList) {
+                const fileType = file.type.split('.');
+                const extension = fileType[fileType.length - 1];
+                if (!allowableExtensions.includes(extension)) {
+                    toast.error(t('add-page.extension'));
+                    return
+                }
+            }// проверяем расширение файла
             if(path[1] === 'advertisement-editing'){
                 const base64Strings = await convertFilesToBase64Strings(fileList);
                 if(uploadImages){

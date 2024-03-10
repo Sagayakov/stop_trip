@@ -38,7 +38,7 @@ export const AnnouncementRealtyAmenities = ({
         <div className={styles.ann_field}>
             <h3>{t('filters.property_amenities')}:</h3>
             <UniversalCheckboxGroup
-                checkboxValues={data!.property_amenities}
+                checkboxValues={data?.property_amenities || [{ value: '', label: '' }]}
                 name="property_amenities"
                 register={register}
                 defaultValue={val}
