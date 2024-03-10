@@ -357,3 +357,11 @@ AWS_S3_FILE_OVERWRITE = False
 # Максимальные размеры на загрузку медиа до сжатия
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
+
+# Celery
+CELERY_TASK_SERIALIZER = "json"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"

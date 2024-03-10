@@ -61,6 +61,21 @@ services:
       - HTPASSWD_NODE
       - HTPASSWD
 
+  redis:
+    image: redis:6.2-alpine
+    volumes:
+      - redisdata:/data
+
+  celery:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    command: celery -A config worker -l info -c 1 -n celery@dats.com -Q celery
+    depends_on:
+      - db
+      - redis
+    <<: *app_environment
+
 #  frontend:
 #    build:
 #      context: ./frontend
@@ -77,3 +92,4 @@ volumes:
   static:
   acme.sh:
   certs:
+  redisdata:
