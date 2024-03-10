@@ -1,6 +1,7 @@
 import styles from 'pages/myAnnouncements/libr/myAnnouncements.module.scss';
 import { GetDateOfCreating } from 'entity/lastAdverts/libr/getDateOfCreating.ts';
 import { useTranslation } from 'react-i18next';
+import { prettifyPrice } from 'shared/utils/prettifyPrice';
 
 interface Props {
     title: string;
@@ -17,7 +18,11 @@ export const MyAnnouncementDescription = ({
     return (
         <div className={styles.description}>
             <div className={styles.price}>
-                <p>{price ? `₹${price}` : `${t('advert-page.negotiated')}`}</p>
+                <p>
+                    {price
+                        ? prettifyPrice(price)
+                        : `${t('advert-page.negotiated')}`}
+                </p>
             </div>
             <p>{title}</p>
             <div className={styles.date_and_likes}>
