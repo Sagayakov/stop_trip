@@ -103,7 +103,7 @@ export const Cart = (cart: Props) => {
             <img
                 src={
                     images[0] === undefined
-                        ? '../../../src/entity/lastAdverts/ui/image-not-found.jpg'
+                        ? '/image-not-found.jpg'
                         : images[0].image
                 }
                 alt="img"

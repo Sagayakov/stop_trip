@@ -14,8 +14,7 @@ label > span::before {
 }
 
 label > input:checked + span::before {
-    background: url('../../../../../public/union.svg') no-repeat center
-        center;
+    background: url('/union.svg') no-repeat center center;
     background-size: 60%;
     background-color: var(--main-green);
     box-shadow: none;

@@ -60,7 +60,7 @@ export const InputPassword = ({
                                     : '#DCDCDC'
                             }`,
                         }}
-                        onBlur={() => setTogglePass(false)}
+                        //onBlur={() => setTogglePass(false)}
                     />
                 )}
             />

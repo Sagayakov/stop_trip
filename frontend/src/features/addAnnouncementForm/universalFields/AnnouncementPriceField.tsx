@@ -51,7 +51,7 @@ const AnnouncementPriceField = ({
                 type="text"
                 pattern="[0-9]*[.,]?[0-9]+"
                 id={styles.ann_field_price}
-                placeholder="0 - 99 999 999.99"
+                placeholder={t('add-page.price')}
                 style={errors?.price ? { border: '1px solid red' } : {}}
                 {...register('price')}
                 onInput={(e) => handleInput(e)}

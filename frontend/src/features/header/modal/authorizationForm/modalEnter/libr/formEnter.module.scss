@@ -97,7 +97,7 @@
 
 .form_checkbox > input:checked + span::before {
     background-size: 60%;
-    background: var(--main-green) url('union.svg') no-repeat center center;
+    background: var(--main-green) url('/union.svg') no-repeat center center;
     box-shadow: none;
 }
 
