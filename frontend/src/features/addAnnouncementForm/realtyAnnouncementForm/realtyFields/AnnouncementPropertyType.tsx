@@ -23,14 +23,13 @@ export const AnnouncementPropertyType = ({
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
-    console.log(defaultValue);
 
     useEffect(() => {
         if (data && defaultValue) {
             setValue(
-                'property_house_type',
+                'property_type',
                 String(
-                    getDefaultValue(defaultValue, data.property_house_type)
+                    getDefaultValue(defaultValue, data?.property_house_type)
                         ?.value
                 )
             );
