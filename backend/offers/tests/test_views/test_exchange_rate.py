@@ -70,6 +70,32 @@ class ExchangeRateTest(APITestCase):
             new_advertisement.youtube, "https://www.youtube.com/embed/jNQXAC9IVRw?controls=0"
         )
 
+    def test_create_exchange_rate_error(self):
+        proposed_currency = CurrencyFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+        payload = {
+            "category": CategoryChoices.EXCHANGE_RATE.value,
+            "country": country.slug,
+            "region": region.slug,
+            "city": city.slug,
+            "title": "test_exchange_rate",
+            "proposed_currency": proposed_currency.short_name,
+            "exchange_for": proposed_currency.short_name,
+            "exchange_rate": 2.15,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 0)
+        user = UserFactory()
+        self.client.force_login(user)
+
+        with self.assertNumQueries(7):
+            res = self.client.post(self.list_url, data=payload)
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Advertisement.objects.count(), 0)
+
     def test_update_exchange_rate(self):
         user = UserFactory()
         country = CountryFactory()
@@ -137,6 +163,49 @@ class ExchangeRateTest(APITestCase):
         new_images_ids = advertisement.images.values_list("id", flat=True)
         for image in advertisement_images[3:]:
             self.assertTrue(image.id not in new_images_ids)
+
+    def test_update_exchange_rate_error(self):
+        user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+        proposed_currency = [CurrencyFactory() for _ in range(2)]
+        exchange_for = [CurrencyFactory() for _ in range(2)]
+        advertisement = ExchangeAdvertisementFactory(
+            owner=user,
+            country=country,
+            region=region,
+            city=city,
+            title="exchange_rate",
+            price=1500,
+            proposed_currency=proposed_currency[0],
+            exchange_for=exchange_for[0],
+            exchange_rate=3.15,
+        )
+        advertisement_images = [
+            AdvertisementImageFactory(advertisement=advertisement) for _ in range(5)
+        ]
+
+        payload = {
+            "country": country.slug,
+            "region": region.slug,
+            "city": city.slug,
+            "title": "exchange_rate",
+            "proposed_currency": exchange_for[0].short_name,
+            "exchange_for": exchange_for[0].short_name,
+            "exchange_rate": 2.15,
+        }
+
+        self.assertEqual(Advertisement.objects.count(), 1)
+        self.client.force_login(user)
+
+        with self.assertNumQueries(9):
+            res = self.client.put(
+                self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Advertisement.objects.count(), 1)
 
     def test_delete_exchange_rate(self):
         user = UserFactory()

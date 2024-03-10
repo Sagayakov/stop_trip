@@ -87,15 +87,23 @@ class Advertisement(
         ordering = ("-date_create",)
 
     def clean(self):
-        """Проверяет, содержит ли название объявления запрещенные слова."""
-        forbidden_words = ForbiddenWords.objects.first()
+        super().clean()
+        errors = {}
 
+        forbidden_words = ForbiddenWords.objects.first()
         if forbidden_words:
             all_words = forbidden_words.russian_words + forbidden_words.english_words
 
             for word in all_words:
                 if word.lower() in self.title.lower():
-                    raise ValidationError("Название объявления содержит запрещенное слово.")
+                    errors["title"] = "Название объявления содержит запрещенное слово."
+
+        if self.proposed_currency and self.exchange_for:
+            if self.proposed_currency == self.exchange_for:
+                errors["exchange_for"] = "Предлагаемая валюта и обменная не должны совпадать."
+
+        if errors:
+            raise ValidationError(errors)
 
     def __str__(self):
         return f"Объявление: {self.title}. Владелец: {self.owner}"
