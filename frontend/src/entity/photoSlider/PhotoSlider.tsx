@@ -12,7 +12,6 @@ import { Shadow } from 'entity/portal/Shadow.tsx';
 import { useGetAdvertBySlugQuery } from 'app/api/authFetchAdverts.ts';
 import { YoutubeEmbed } from 'features/youtubeEmbed';
 
-
 export const PhotoSlider = () => {
     const { slug } = useParams();
     const { data } = useGetAdvertBySlugQuery(slug!);
@@ -54,7 +53,7 @@ export const PhotoSlider = () => {
 
     const image =
         !data || !data.images[activeImage]
-            ? '../../../src/entity/lastAdverts/ui/image-not-found.jpg'
+            ? '/image-not-found.jpg'
             : data?.images[activeImage].image;
 
     const handleOnLoad = () => {

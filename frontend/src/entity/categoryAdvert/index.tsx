@@ -48,9 +48,9 @@ export const CategoryAdvert = (el: Props) => {
     const { t } = useTranslation();
 
     const notFoundImg = [
-        '../../../src/entity/lastAdverts/ui/image-not-found.jpg',
-        '../../../src/entity/lastAdverts/ui/image-not-found.jpg',
-        '../../../src/entity/lastAdverts/ui/image-not-found.jpg',
+        '/image-not-found.jpg',
+        '/image-not-found.jpg',
+        '/image-not-found.jpg',
     ];
 
     const styleFav = {
@@ -84,7 +84,8 @@ export const CategoryAdvert = (el: Props) => {
                 }); //добавляем в яндекс метрику "удаление из избранного"
             }
         } else {
-            toast.error(`${t('main-page.toast-favs')}`);
+            const toastId = 'category add to fav toast';
+            toast.error(`${t('main-page.toast-favs')}`, { toastId });
         }
     };
 
@@ -149,7 +150,7 @@ export const CategoryAdvert = (el: Props) => {
                     <img
                         src={
                             !images[0]
-                                ? '../../../src/entity/lastAdverts/ui/image-not-found.jpg'
+                                ? '/image-not-found.jpg'
                                 : images[0].image
                         }
                         alt="Not found"

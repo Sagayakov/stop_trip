@@ -38,15 +38,15 @@
     min-height: 100vh;
     margin: 0;
     main {
-        flex: 1;//прижимаем футер к низу
+        flex: 1; //прижимаем футер к низу
     }
     footer {
-        margin-top: auto;//прижимаем футер к низу
+        margin-top: auto; //прижимаем футер к низу
     }
 }
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
     width: 1px !important;
     height: 1px;
     opacity: 0 !important;
@@ -66,17 +66,16 @@ input[type="radio"] {
     background-size: 50% 50%;
     background-color: var(--grey-1);
 }
-input[type="radio"] + span::before{
+input[type='radio'] + span::before {
     border-radius: 0.75rem;
 }
 
 .form_checkbox > input:checked + span::before {
     background-size: 60%;
-    background: var(--main-green) url('shared/ui/icons/union.svg') no-repeat
-    center center;
+    background: var(--main-green) url('/union.svg') no-repeat center center;
     box-shadow: none;
 }
-.form_checkbox{
+.form_checkbox {
     display: flex;
 }
 .form_checkbox > span {
@@ -97,18 +96,18 @@ input[type='number']:focus {
 }
 // чтобы стрелочек не было в инпутах
 
-main{
+main {
     max-width: 1440px;
     margin: 0 auto;
 }
-@media (max-width: 1439px){
-     main {
+@media (max-width: 1439px) {
+    main {
         width: 100%;
-     }
+    }
 }
-a{
+a {
     text-decoration: none;
 }
 .grecaptcha-badge {
     visibility: hidden;
-}//скрываем значок капчи
+} //скрываем значок капчи

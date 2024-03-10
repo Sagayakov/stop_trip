@@ -1,7 +1,6 @@
 import styles from 'pages/myAnnouncements/libr/myAnnouncements.module.scss';
 import { useState } from 'react';
 import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
-import imgNotFound from 'entity/lastAdverts/ui/image-not-found.jpg';
 import {
     AnnouncementOptions,
     ModalOption,
@@ -65,20 +64,32 @@ export const MyAnnouncementCart = (data: Props) => {
             >
                 <AnnouncementOptions setShowModal={setShowModal} />
                 {showModal && (
-                    <ModalOption {...data} setShowModal={setShowModal} refetch={refetch} />
+                    <ModalOption
+                        {...data}
+                        setShowModal={setShowModal}
+                        refetch={refetch}
+                    />
                 )}
-                <NavLink to={`/${category}/${slug}/`} onClick={() => handleClickByAnnouncementCard({
-                    id: id!,
-                    index,
-                    title,
-                    category: category!,
-                    price,
-                    listDescription: "Мои объявления",//добавляем в яндекс метрику клик по товару
-                })}>
+                <NavLink
+                    to={`/${category}/${slug}/`}
+                    onClick={() =>
+                        handleClickByAnnouncementCard({
+                            id: id!,
+                            index,
+                            title,
+                            category: category!,
+                            price,
+                            listDescription: 'Мои объявления', //добавляем в яндекс метрику клик по товару
+                        })
+                    }
+                >
                     {images?.length !== 0 ? (
                         <img alt="announcements img" src={images[0].image} />
                     ) : (
-                        <img alt="announcements img" src={imgNotFound} />
+                        <img
+                            alt="announcements img"
+                            src="/image-not-found.jpg"
+                        />
                     )}
                     <MyAnnouncementDescription
                         title={title}

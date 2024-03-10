@@ -111,8 +111,8 @@
             }
             .label_option > input:checked + span::before {
                 background-size: 60%;
-                background: var(--main-green) url('shared/ui/icons/union.svg')
-                    no-repeat center center;
+                background: var(--main-green) url('/union.svg') no-repeat center
+                    center;
                 box-shadow: none;
             }
             .edit {
@@ -121,19 +121,19 @@
             }
             .edit,
             .label_option,
-            .delete{
+            .delete {
                 display: flex;
                 align-items: center;
                 padding: 0.5rem 1rem;
             }
             .edit:hover,
             .label_option:hover,
-            .delete:hover{
+            .delete:hover {
                 background-color: var(--grey-2);
                 border-radius: var(--radii);
             }
-            .delete{
-                span{
+            .delete {
+                span {
                     margin: 0 1rem 0 3px;
                 }
                 color: var(--error);
@@ -273,14 +273,16 @@
         padding: 0 15px;
         font-size: 22px;
     }
-    .announcements_list{
-        .announcement{
-            .modal_option{//чтобы модалка не уезжала за экран
+    .announcements_list {
+        .announcement {
+            .modal_option {
+                //чтобы модалка не уезжала за экран
                 top: 0;
                 right: -26px;
             }
-            &:nth-child(2n - 1){//иначе модальное окно левого столбца уедет за экран
-                .modal_option{
+            &:nth-child(2n - 1) {
+                //иначе модальное окно левого столбца уедет за экран
+                .modal_option {
                     top: 0;
                     right: 0;
                 }
@@ -298,9 +300,9 @@
                 height: 130px !important;
                 border-radius: 8px 8px 0 0;
             }
-            .description{
+            .description {
                 margin: 12px 8px;
-                p{
+                p {
                     font-size: 16px;
                 }
             }
