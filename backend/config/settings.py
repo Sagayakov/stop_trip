@@ -20,6 +20,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://stoptrip:3000",
     "http://stoptrip.com",
     "http://stoptrip.com:3000",
+    "https://stoptrip.com",
+    "https://stoptrip.com:3000",
     "http://localhost",
     "http://localhost:3000",
 ]
