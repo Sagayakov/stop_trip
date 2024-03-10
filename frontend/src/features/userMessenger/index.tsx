@@ -58,7 +58,7 @@ export const UserMessenger = ({ messenger }: UserMessengerProps) => {
     return (
         <div className={styles.user_messenger}>
             <img
-                src={`../../../src/shared/ui/icons/icon${messenger.messenger.name}.png`}
+                src={`/icons/icon${messenger.messenger.name}.png`}
                 alt={messenger.messenger.name}
             />
             {messenger.messenger.link_to_messenger}

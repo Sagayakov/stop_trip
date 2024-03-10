@@ -219,7 +219,7 @@ export const PhotoSlider = () => {
                                         ? `${styles.blurred_image}`
                                         : ''
                                 }
-                                src="../../../src/shared/ui/icons/youtube.png"
+                                src="/images/youtube.png"
                                 onClick={() =>
                                     setActiveImage(data.images.length)
                                 }
