@@ -23,7 +23,7 @@ export const FoodType = ({ control, setValue }: Props) => {
 
     useEffect(() => {
         if (data) {
-            const result = (data['taxi_type'] as SelectType[]).filter(
+            const result = (data['food_type'] as SelectType[]).filter(
                 (el) => (el as SelectType).value && (el as SelectType).label
             );
             data && setTypeValues(result as SelectType[]);
