@@ -32,7 +32,8 @@ export const InputRepeatPassword = ({
 
     const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
         event.preventDefault();
-        toast.error(`${t('modal-login.copy-password')}`);
+        const toastId = 'repeat copy password error toast';
+        toast.error(`${t('modal-login.copy-password')}`, { toastId });
     };
 
     const onBlurRepeatPassword = () => setShowPassword(false);

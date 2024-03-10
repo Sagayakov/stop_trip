@@ -60,7 +60,7 @@ const AddAnnouncementPage = () => {
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
-        console.log(data)
+        console.log(data);
         try {
             const nonNullableData = Object.entries(data).filter(
                 (el) => el[1] !== null && el[1] !== undefined && el[1] !== ''
@@ -71,8 +71,8 @@ const AddAnnouncementPage = () => {
             });
         } catch (error) {
             console.log(error);
-
-            toast.error(`${t('errors.add-announcement-error')}`);
+            const toastId = 'add advert error toast';
+            toast.error(`${t('errors.add-announcement-error')}`, { toastId });
         } finally {
             dispatch(setLoading(false));
         }
@@ -100,7 +100,10 @@ const AddAnnouncementPage = () => {
             Object.entries(
                 error.data as Record<keyof FormAddAnn, string[]>
             ).forEach((el) => {
-                toast.error(`${t(`filters.${el[0]}`)}: ${el[1][0]}`);
+                const toastId = `add advert ${el[0]} error toast`;
+                toast.error(`${t(`filters.${el[0]}`)}: ${el[1][0]}`, {
+                    toastId,
+                });
                 setError(el[0] as keyof FormAddAnn, { message: el[1][0] });
             });
         }

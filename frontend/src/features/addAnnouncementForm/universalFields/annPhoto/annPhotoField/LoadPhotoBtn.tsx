@@ -1,16 +1,23 @@
 import { LoadPhotoIcon } from 'shared/ui/icons/loadPhoto';
 import { RefObject } from 'react';
 import { useTranslation } from 'react-i18next';
-import styles from '../annPhoto.module.scss'
+import styles from '../annPhoto.module.scss';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const allowableExtensions = ['image/png', 'image/heic', 'image/heif', 'image/jpg', 'image/jpeg', 'image/img'];
+const allowableExtensions = [
+    'image/png',
+    'image/heic',
+    'image/heif',
+    'image/jpg',
+    'image/jpeg',
+    'image/img',
+];
 
-interface Props{
+interface Props {
     inputRef: RefObject<HTMLInputElement>;
     setPreviewImages: React.Dispatch<React.SetStateAction<string[]>>;
     imgSize: number;
@@ -26,43 +33,51 @@ export const LoadPhotoBtn = ({
     previewImages,
     watch,
     imgSize,
-}:Props) => {
+}: Props) => {
     const { t } = useTranslation();
     const path = useLocation().pathname.split('/');
     const images = watch('images');
     const uploadImages = watch('upload_images');
 
-    const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        const fileList = event.target.files
-        if(fileList){
+    const handleImageChange = async (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const fileList = event.target.files;
+        if (fileList) {
             for (const file of fileList) {
                 const fileType = file.type.split('.');
                 const extension = fileType[fileType.length - 1];
                 if (!allowableExtensions.includes(extension)) {
-                    toast.error(t('add-page.extension'));
-                    return
+                    const toastId = 'load photo ext toast';
+                    toast.error(t('add-page.extension'), { toastId });
+                    return;
                 }
-            }// проверяем расширение файла
-            if(path[1] === 'advertisement-editing'){
-                const base64Strings = await convertFilesToBase64Strings(fileList);
-                if(uploadImages){
-                    base64Strings.push(...uploadImages);//если что-то было, пушим в массив
+            } // проверяем расширение файла
+            if (path[1] === 'advertisement-editing') {
+                const base64Strings =
+                    await convertFilesToBase64Strings(fileList);
+                if (uploadImages) {
+                    base64Strings.push(...uploadImages); //если что-то было, пушим в массив
                 }
                 setValue('upload_images', base64Strings as string[]);
             } else {
-                const base64Strings = await convertFilesToBase64Strings(fileList)
+                const base64Strings =
+                    await convertFilesToBase64Strings(fileList);
                 if (images) {
-                    base64Strings.push(...images);//если что-то было, пушим в массив
+                    base64Strings.push(...images); //если что-то было, пушим в массив
                 }
-                setValue('images', base64Strings as string[])
-            }//если мы на странице редактирования, то setValue для поля upload_images
+                setValue('images', base64Strings as string[]);
+            } //если мы на странице редактирования, то setValue для поля upload_images
             //если на странице добавления объявлений, то для поля images
 
             Array.from(fileList).forEach((file) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onloadend = () => {
-                    setPreviewImages((prevPreviews) => [...prevPreviews, reader.result as string]);
+                    setPreviewImages((prevPreviews) => [
+                        ...prevPreviews,
+                        reader.result as string,
+                    ]);
                 }; //для предпросмотра
             });
         }

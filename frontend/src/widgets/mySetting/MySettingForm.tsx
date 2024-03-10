@@ -41,7 +41,8 @@ export const MySettingForm = (props: Props) => {
 
     const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
         event.preventDefault();
-        toast.error(`${t('modal-login.copy-password')}`);
+        const toastId = 'settings copy password toast';
+        toast.error(`${t('modal-login.copy-password')}`, { toastId });
     };
 
     return (

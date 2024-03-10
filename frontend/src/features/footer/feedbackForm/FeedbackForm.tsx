@@ -13,7 +13,7 @@ import { useAppDispatch } from 'app/store/hooks.ts';
 import { useLazyGetUserQuery } from 'app/api/fetchUser.ts';
 import { url } from 'shared/const/url.ts';
 
-interface Props{
+interface Props {
     setShowCaptcha: React.Dispatch<React.SetStateAction<boolean>>;
     showCaptcha: boolean;
 }
@@ -35,12 +35,13 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
     } = useForm<TypesFeedbackForm>();
 
     const onFocusGetId = async () => {
-        if(!showCaptcha) setShowCaptcha(true);
-        if(!userInfo && (localStorage.getItem('isAuth') === "true")){//получаем id юзера
+        if (!showCaptcha) setShowCaptcha(true);
+        if (!userInfo && localStorage.getItem('isAuth') === 'true') {
+            //получаем id юзера
             await getAccessTokenWithRefresh(dispatch, refreshToken);
             await getUserId('');
         }
-    }
+    };
 
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
@@ -72,10 +73,11 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
         // createMark();
         //это для капчи
 
-        if(feedbackData.text.length > 900 || feedbackData.text.length < 10){
-            return toast.error(t('feedback.feedback-message'));
+        if (feedbackData.text.length > 900 || feedbackData.text.length < 10) {
+            const toastId = 'feedback length error toast';
+            return toast.error(t('feedback.feedback-message'), { toastId });
         }
-        if(!userInfo) await onFocusGetId()//еще раз проверяем что у нас есть id юзера
+        if (!userInfo) await onFocusGetId(); //еще раз проверяем что у нас есть id юзера
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала обновляем accessToken
         const { accessToken } = getTokensFromStorage();
         const body = JSON.stringify(feedbackData);
@@ -92,23 +94,29 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
                     body,
                 });
                 if (!response.ok) {
-                    toast.error(`${t('main-page.toast-wrong')}`);
+                    const toastId = 'feedback wrong toast';
+                    toast.error(`${t('main-page.toast-wrong')}`, { toastId });
                 } else {
                     reset({ text: '' });
-                    toast.success(`${t('main-page.toast-thanks')}`);
+                    const toastId = 'feedback success toast';
+                    toast.success(`${t('main-page.toast-thanks')}`, {
+                        toastId,
+                    });
                 }
             } catch (error) {
-                toast.error(`${t('main-page.toast-wrong')}`);
+                const toastId = 'feedback error toast';
+                toast.error(`${t('main-page.toast-wrong')}`, { toastId });
             }
             setLoading(false);
         } else {
-            toast.error(`${t('main-page.toast-feedback-login')}`);
+            const toastId = 'feedback login error toast';
+            toast.error(`${t('main-page.toast-feedback-login')}`, { toastId });
         }
         setShowCaptcha(false);
     };
 
     useEffect(() => {
-        userInfo?.id && setValue('owner', userInfo.id)
+        userInfo?.id && setValue('owner', userInfo.id);
     }, [userInfo, setValue]);
 
     return (
@@ -131,16 +139,27 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
                             value: 900,
                             message: t('feedback.feedback-message'),
                         },
-                        onChange: (event) => (event.target.value.length > 900 &&
-                            toast.error(t('feedback.feedback-message')))
+                        onChange: (event) => {
+                            const toastId = 'feedback long message error toast';
+                            event.target.value.length > 900 &&
+                                toast.error(t('feedback.feedback-message'), {
+                                    toastId,
+                                });
+                        },
                     }}
                     render={({ field }) => (
                         <textarea
                             {...field}
                             placeholder={t('main-page.enter-text')}
-                            style={(!isValid && touchedFields.text) ? {border: '1px solid #ff2d55'} : {}}
+                            style={
+                                !isValid && touchedFields.text
+                                    ? { border: '1px solid #ff2d55' }
+                                    : {}
+                            }
                             onFocus={onFocusGetId}
-                            onChange={(event) => field.onChange(event.target.value)}
+                            onChange={(event) =>
+                                field.onChange(event.target.value)
+                            }
                         />
                     )}
                 />

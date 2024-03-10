@@ -14,8 +14,17 @@ export const ShareIcon = () => {
         const path = window.location.href;
 
         navigator.clipboard.writeText(path).then(
-            () => toast.info(`${t('main-page.toast-copied')}`),
-            (err) => toast.error(`${t('main-page.toast-error')}`, err)
+            () => {
+                const toastId = 'copy path clipboard success toast';
+                toast.info(`${t('main-page.toast-copied')}`, { toastId });
+            },
+            (err) => {
+                const toastId = 'copy path clipboard error toast';
+                toast.error(`${t('main-page.toast-error')}`, {
+                    ...err,
+                    toastId,
+                });
+            }
         );
     };
 

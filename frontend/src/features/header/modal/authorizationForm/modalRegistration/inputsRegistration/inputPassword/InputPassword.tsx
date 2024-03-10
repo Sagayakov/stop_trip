@@ -24,7 +24,8 @@ export const InputPassword = ({ errors, register }: Props) => {
 
     const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
         event.preventDefault();
-        toast.error(`${t('modal-login.copy-password')}`);
+        const toastId = 'register copy password error toast';
+        toast.error(`${t('modal-login.copy-password')}`, { toastId });
     };
 
     return (

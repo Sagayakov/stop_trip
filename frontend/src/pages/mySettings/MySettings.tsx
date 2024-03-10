@@ -29,13 +29,12 @@ const MySettings = () => {
     useEffect(() => {
         return () => {
             dispatch(fetchUser.util?.invalidateTags(['User'])); //очищаем кэш по юзеру
-        }
+        };
     }, []);
 
     const onsubmit: SubmitHandler<SettingTypes> = async (
         data: SettingTypes
     ) => {
-
         if (
             data.current_password &&
             data.new_password &&
@@ -48,9 +47,15 @@ const MySettings = () => {
             };
             await setPassword(body)
                 .unwrap()
-                .then(() => toast.success(t('my-settings.success')))
+                .then(() => {
+                    const toastId = 'edit password success toast';
+                    toast.success(t('my-settings.success'), { toastId });
+                })
                 .catch(() => {
-                    toast.error(t('errors.add-announcement-error'));
+                    const toastId = 'edit password error toast';
+                    toast.error(t('errors.add-announcement-error'), {
+                        toastId,
+                    });
                 });
         }
 
@@ -60,9 +65,15 @@ const MySettings = () => {
         ) {
             await setUser(data)
                 .unwrap()
-                .then(() => toast.success(t('my-settings.success')))
+                .then(() => {
+                    const toastId = 'edit user success toast';
+                    toast.success(t('my-settings.success'), { toastId });
+                })
                 .catch(() => {
-                    toast.error(t('errors.add-announcement-error'));
+                    const toastId = 'edit password error toast';
+                    toast.error(t('errors.add-announcement-error'), {
+                        toastId,
+                    });
                 });
         }
     };

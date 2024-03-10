@@ -71,18 +71,22 @@ export const Star = ({
             changeRating({ id: userId, body: { rating: id, comment: '' } })
                 .unwrap()
                 .then(() => {
-                    toast.success(t('advert-page.grade-added'));
+                    const toastId = 'change rating success toast';
+                    toast.success(t('advert-page.grade-added'), { toastId });
                     setActiveStar(id);
                     refetch();
                 })
                 .catch((error) => {
+                    const toastId = 'change rating error toast';
                     toast.error(
                         JSON.stringify(error.data.message).slice(1, -1) ||
-                            t('my-settings.smth-wrong')
+                            t('my-settings.smth-wrong'),
+                        { toastId }
                     );
                 });
         } else {
-            toast.error(`${t('advert-page.grade-register')}`);
+            const toastId = 'change rating login error toast';
+            toast.error(`${t('advert-page.grade-register')}`, { toastId });
         }
     };
 
