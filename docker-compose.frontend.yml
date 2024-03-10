@@ -5,7 +5,7 @@ services:
     build:
       context: ./frontend
     restart: unless-stopped
-    command: sh -c "npm run build"
+    command: sh -c "npm install serve -g && npm run build && npm run serve"
     depends_on:
       - backend
     ports:
