@@ -62,21 +62,26 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
             )
         return advertisement
 
-    @staticmethod
-    def validate_title(value):
-        """Проверяет, содержит ли название объявления запрещенные слова."""
-        forbidden_words = ForbiddenWords.objects.first()
+    def validate(self, attrs):
+        errors = {}
 
-        if forbidden_words:
+        title = attrs.get("title")
+        forbidden_words = ForbiddenWords.objects.first()
+        if forbidden_words and title:
             all_words = forbidden_words.russian_words + forbidden_words.english_words
 
             for word in all_words:
-                if word.lower() in value.lower():
-                    raise serializers.ValidationError(
-                        "Название объявления содержит запрещенное слово."
-                    )
+                if word.lower() in title.lower():
+                    errors["title"] = "Название объявления содержит запрещенное слово."
 
-        return value
+        if "proposed_currency" in attrs.keys() and "exchange_for" in attrs.keys():
+            if attrs["proposed_currency"] == attrs["exchange_for"]:
+                errors["exchange_for"] = "Валюты не могут быть одинаковы"
+
+        if errors:
+            raise serializers.ValidationError(errors)
+
+        return attrs
 
 
 class AdvertisementImageSerializer(serializers.ModelSerializer):
@@ -245,18 +250,23 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
             )
         return advertisement
 
-    @staticmethod
-    def validate_title(value):
-        """Проверяет, содержит ли название объявления запрещенные слова."""
-        forbidden_words = ForbiddenWords.objects.first()
+    def validate(self, attrs):
+        errors = {}
 
-        if forbidden_words:
+        title = attrs.get("title")
+        forbidden_words = ForbiddenWords.objects.first()
+        if forbidden_words and title:
             all_words = forbidden_words.russian_words + forbidden_words.english_words
 
             for word in all_words:
-                if word.lower() in value.lower():
-                    raise serializers.ValidationError(
-                        "Название объявления содержит запрещенное слово."
-                    )
+                if word.lower() in title.lower():
+                    errors["title"] = "Название объявления содержит запрещенное слово."
 
-        return value
+        if "proposed_currency" in attrs.keys() and "exchange_for" in attrs.keys():
+            if attrs["proposed_currency"] == attrs["exchange_for"]:
+                errors["exchange_for"] = "Валюты не могут быть одинаковы"
+
+        if errors:
+            raise serializers.ValidationError(errors)
+
+        return attrs

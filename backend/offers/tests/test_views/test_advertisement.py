@@ -115,7 +115,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(7):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -142,7 +142,7 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(8):
+        with self.assertNumQueries(9):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
