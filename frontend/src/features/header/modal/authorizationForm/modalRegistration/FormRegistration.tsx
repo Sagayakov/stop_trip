@@ -22,7 +22,7 @@ export const FormRegistration = () => {
         getValues,
         watch,
     } = useForm<AuthRegistration>({
-        mode: 'all',
+        mode: 'onBlur',
     });
 
     const dispatch = useAppDispatch();
@@ -47,8 +47,8 @@ export const FormRegistration = () => {
             autoComplete="false"
             id="form-registration"
         >
-            <InputName errors={errors} register={register} watch={watch} />
-            <InputPhone errors={errors} register={register} watch={watch} />
+            <InputName errors={errors} register={register} />
+            <InputPhone errors={errors} register={register} />
             <InputEmail errors={errors} register={register} watch={watch} />
             <InputPassword errors={errors} register={register} />
             <InputRepeatPassword

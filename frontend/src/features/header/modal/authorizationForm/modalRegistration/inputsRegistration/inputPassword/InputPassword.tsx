@@ -48,7 +48,7 @@ export const InputPassword = ({ errors, register }: Props) => {
                             errors?.passWord ? '#FF3F25' : '#DCDCDC'
                         }`,
                     }}
-                    onBlur={() => setShowPassword(false)}
+                    //onBlur={() => setShowPassword(false)}
                 />
                 <div id={styles.eye} onClick={handleShowPass}>
                     <Eye />

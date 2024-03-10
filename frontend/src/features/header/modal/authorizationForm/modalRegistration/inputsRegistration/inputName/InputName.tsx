@@ -1,4 +1,4 @@
-import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 import { useTranslation } from 'react-i18next';
 import styles from 'features/header/modal/modal.module.scss';
@@ -6,23 +6,25 @@ import styles from 'features/header/modal/modal.module.scss';
 interface Props {
     errors: FieldErrors<AuthRegistration>;
     register: UseFormRegister<AuthRegistration>;
-    watch: UseFormWatch<AuthRegistration>;
 }
 
-export const InputName = ({ register, errors, watch }: Props) => {
+export const InputName = ({ register, errors }: Props) => {
     const { t } = useTranslation();
-    const username = watch('userName');
-    const handleBlur = () => {
-        if(username.length !== 0 ) sessionStorage.setItem('username', username);
-    }
+
+    const handleInput = (event: React.FormEvent<HTMLInputElement>) => {
+        const inputText = event.currentTarget.value;
+        if (inputText.length !== 0)
+            sessionStorage.setItem('username', inputText);
+    };
+
     const getDefaultValue = () => {
         const name = sessionStorage.getItem('username');
-        if(name === undefined || name === null){
+        if (name === undefined || name === null) {
             return '';
         } else {
-            return name
+            return name;
         }
-    }
+    };
 
     return (
         <>
@@ -35,7 +37,7 @@ export const InputName = ({ register, errors, watch }: Props) => {
                     maxLength: 50,
                 })}
                 defaultValue={getDefaultValue()}
-                onBlur={handleBlur}
+                onInput={(e) => handleInput(e)}
                 placeholder={t('modal-registration.user-name')}
                 style={{
                     border: `1px solid ${

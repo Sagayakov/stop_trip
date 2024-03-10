@@ -36,7 +36,7 @@ export const InputRepeatPassword = ({
         toast.error(`${t('modal-login.copy-password')}`, { toastId });
     };
 
-    const onBlurRepeatPassword = () => setShowPassword(false);
+    //const onBlurRepeatPassword = () => setShowPassword(false);
 
     return (
         <>
@@ -51,7 +51,7 @@ export const InputRepeatPassword = ({
                     placeholder={t('modal-registration.repeat')}
                     autoComplete="new-password"
                     type={showPassword ? 'text' : 'password'}
-                    onBlur={onBlurRepeatPassword}
+                    //onBlur={onBlurRepeatPassword}
                     style={{
                         border: `1px solid ${
                             errors?.repeatPassword ? '#FF3F25' : '#DCDCDC'
