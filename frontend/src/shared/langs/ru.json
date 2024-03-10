@@ -278,6 +278,7 @@
         "uploaded": "Загружено",
         "please-select": "Пожалуйста, выберите не более 10 фотографий",
         "limit": "До 60 мегабайт",
+        "extension": "Только файлы .png, .jpeg, .jpg, .img, .heic",
         "from-to": "От 1 до 30",
         "location": "Локация",
         "back": "Назад",

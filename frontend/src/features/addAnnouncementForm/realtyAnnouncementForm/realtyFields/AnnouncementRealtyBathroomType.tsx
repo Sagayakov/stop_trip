@@ -27,9 +27,9 @@ export const AnnouncementRealtyBathroomType = ({
                     name="property_bathroom_type"
                     radioValues={data!.property_bathroom_type}
                     register={register}
-                    defaultValue={data?.property_bathroom_type.find(
+                    defaultValue={data?.property_bathroom_type?.find(
                         (el) => el.value === defaultValue
-                    )}
+                    ) || { value: '', label: '' }}
                     className={styles.radio_group}
                 />
             </div>
