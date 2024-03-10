@@ -23,7 +23,7 @@ interface Props {
 export const InputEmail = ({
     errors,
     control,
-    watch,
+    //watch,
     lengthError,
     setLengthError,
     dotError,
@@ -32,10 +32,10 @@ export const InputEmail = ({
     const errorEnter = useAppSelector((state) => state.setIsAuth.errorEnter);
     const { t } = useTranslation();
 
-    const email = watch('email');
-    const handleBlur = () => {
+    //const email = watch('email');
+    /* const handleBlur = () => {
         if (email.length !== 0) sessionStorage.setItem('emailEnter', email);
-    };
+    }; */
 
     const oninput = (event: React.FormEvent<HTMLInputElement>) => {
         event.currentTarget.value = event.currentTarget.value.toLowerCase();
@@ -81,7 +81,7 @@ export const InputEmail = ({
                         type="email"
                         placeholder="Email"
                         autoComplete="username"
-                        onBlur={handleBlur}
+                        //onBlur={handleBlur}
                         onInput={(event) => oninput(event)}
                         style={{
                             border: `1px solid ${

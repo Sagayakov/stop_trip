@@ -24,7 +24,7 @@ export const FormEnter = () => {
         control,
         watch,
     } = useForm<AuthData>({
-        mode: 'all',
+        mode: 'onBlur',
     });
     const dispatch = useAppDispatch();
     const enterError = useAppSelector((state) => state.setIsAuth.errorEnter);
