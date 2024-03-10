@@ -72,7 +72,7 @@ input[type="radio"] + span::before{
 
 .form_checkbox > input:checked + span::before {
     background-size: 60%;
-    background: var(--main-green) url('shared/ui/icons/union.svg') no-repeat
+    background: var(--main-green) url('../../../public/union.svg') no-repeat
     center center;
     box-shadow: none;
 }
