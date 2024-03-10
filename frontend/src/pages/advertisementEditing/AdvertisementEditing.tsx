@@ -89,7 +89,8 @@ const AdvertisementEditing = () => {
             });
         } catch (error) {
             console.log(error);
-            toast.error(`${t('errors.add-announcement-error')}`);
+            const toastId = 'edit advert error toast';
+            toast.error(`${t('errors.add-announcement-error')}`, { toastId });
         } finally {
             dispatch(setLoading(false));
         }
@@ -106,7 +107,8 @@ const AdvertisementEditing = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            toast.success(`${t('add-page.edit-success')}`);
+            const toastId = 'edit advert success toast';
+            toast.success(`${t('add-page.edit-success')}`, { toastId });
             scrollToTop();
             setMarkerPosition(undefined);
             dispatch(
@@ -118,7 +120,8 @@ const AdvertisementEditing = () => {
             //очищаем кэш, чтобы обновить данные по объявлениям
         }
         if (isSendError) {
-            toast.error(`${t('errors.add-announcement-error')}`);
+            const toastId = 'edit advert error toast';
+            toast.error(`${t('errors.add-announcement-error')}`, { toastId });
         }
     }, [t, isSendError, isSuccess]); //чтобы уведомление всплыло один раз
 

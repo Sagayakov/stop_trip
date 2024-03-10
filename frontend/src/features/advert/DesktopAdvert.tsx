@@ -25,8 +25,10 @@ export const DesktopAdvert = ({ data, date }: Props) => {
 
     const handleClickShowNumber = () => {
         if (data) {
+            const toastId = 'copy number toast';
             toast.success(<CopyNumberMessage phone={data.owner.phone} />, {
                 autoClose: false,
+                toastId,
             });
         }
     };

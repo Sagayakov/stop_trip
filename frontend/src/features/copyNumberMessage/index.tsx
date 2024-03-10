@@ -7,8 +7,19 @@ export const CopyNumberMessage = ({ phone }: { phone: string }) => {
 
     const handleClick = () => {
         navigator.clipboard.writeText(phone).then(
-            () => toast.success(`${t('main-page.toast-number-saved')}`),
-            (err) => toast.error(`${t('main-page.toast-error')}`, err)
+            () => {
+                const toastId = 'copy number clipboard success toast';
+                toast.success(`${t('main-page.toast-number-saved')}`, {
+                    toastId,
+                });
+            },
+            (err) => {
+                const toastId = 'copy number clipboard error toast';
+                toast.error(`${t('main-page.toast-error')}`, {
+                    toastId,
+                    ...err,
+                });
+            }
         );
     };
 

@@ -1,4 +1,4 @@
-import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { AuthRegistration } from '../../libr/RegistrationTypes';
 import { useTranslation } from 'react-i18next';
 import styles from 'features/header/modal/modal.module.scss';
@@ -7,22 +7,20 @@ import { useAppSelector } from 'app/store/hooks.ts';
 interface Props {
     errors: FieldErrors<AuthRegistration>;
     register: UseFormRegister<AuthRegistration>;
-    watch: UseFormWatch<AuthRegistration>;
 }
 
-export const InputPhone = ({ errors, register, watch }: Props) => {
+export const InputPhone = ({ errors, register }: Props) => {
     const phoneErrors = useAppSelector(
         (state) => state.setIsAuth.errorRegistration?.phone
     );
     const { t } = useTranslation();
 
-    const phoneNumber = watch('phone');
-
-    const handleBlur = () => {
-        if(phoneNumber && String(phoneNumber).length !== 0 ){
-            sessionStorage.setItem('phonenumber', String(phoneNumber));
+    const handleInput = (event: React.FormEvent<HTMLInputElement>) => {
+        const inputText = event.currentTarget.value;
+        if (inputText && String(inputText).length !== 0) {
+            sessionStorage.setItem('phonenumber', String(inputText));
         }
-    }
+    };
 
     return (
         <>
@@ -35,7 +33,7 @@ export const InputPhone = ({ errors, register, watch }: Props) => {
                 })}
                 placeholder={t('modal-registration.phone')}
                 defaultValue={sessionStorage.getItem('phonenumber') || ''}
-                onBlur={handleBlur}
+                onInput={(e) => handleInput(e)}
                 style={{
                     border: `1px solid ${
                         errors?.phone || phoneErrors ? '#FF3F25' : '#DCDCDC'

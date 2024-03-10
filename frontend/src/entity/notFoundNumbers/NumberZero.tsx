@@ -6,16 +6,23 @@ export const NumberZero = () => {
 
     return (
         <div className={styles.number_zero}>
-            {imagesCount.map((el) =>
+            {imagesCount.map((el) => (
                 <div
-                    className={`${styles.image_block} ${styles[`image_block${el}`]}`}
+                    className={`${styles.image_block} ${
+                        styles[`image_block${el}`]
+                    }`}
                     key={el}
-                    style={{backgroundImage: `url('../../../src/shared/ui/images/image${el}.png')`}}>
-                </div>)
-            }
-            {blueBlockCount.map((el) =>
-                <div className={`${styles.blue_block} ${styles[`blue_block${el}`]}`} key={el}></div>)
-            }
+                    style={{ backgroundImage: `url('/images/image${el}.png')` }}
+                ></div>
+            ))}
+            {blueBlockCount.map((el) => (
+                <div
+                    className={`${styles.blue_block} ${
+                        styles[`blue_block${el}`]
+                    }`}
+                    key={el}
+                ></div>
+            ))}
         </div>
     );
 };

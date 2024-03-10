@@ -24,7 +24,8 @@ export const InputPassword = ({ errors, register }: Props) => {
 
     const handleCopy = (event: React.ClipboardEvent<HTMLInputElement>) => {
         event.preventDefault();
-        toast.error(`${t('modal-login.copy-password')}`);
+        const toastId = 'register copy password error toast';
+        toast.error(`${t('modal-login.copy-password')}`, { toastId });
     };
 
     return (
@@ -47,7 +48,7 @@ export const InputPassword = ({ errors, register }: Props) => {
                             errors?.passWord ? '#FF3F25' : '#DCDCDC'
                         }`,
                     }}
-                    onBlur={() => setShowPassword(false)}
+                    //onBlur={() => setShowPassword(false)}
                 />
                 <div id={styles.eye} onClick={handleShowPass}>
                     <Eye />

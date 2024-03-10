@@ -61,7 +61,7 @@
         "correct-number": "Enter your phone number in international format",
         "email-exists": "A user with this email already exists",
         "email-min": "Minimum email length - 10 characters",
-        "email-max": "Maximum email length - 50 characters",
+        "email-max": "Maximum email length - 128 characters",
         "email-length": "Maximum or minimum address length before or after character\n@ exceeded, enter no more than 64, or the total \nmaximum or minimum length has been exceeded (128 characters max, 10 min)",
         "two-dots": "You cannot enter two points in a row",
         "digit": "The domain part cannot have a number at the beginning or end\nor dash",

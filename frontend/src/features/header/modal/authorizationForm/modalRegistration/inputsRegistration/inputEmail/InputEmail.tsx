@@ -22,6 +22,7 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
     const [twoPoints, setTwoPoints] = useState(false);
     const [startEndError, setStartEndError] = useState(false);
     const allLength = watch('email');
+
     const getDefaultValue = () => {
         const email = sessionStorage.getItem('emailRegistration');
         if (email === undefined || email === null) {
@@ -54,7 +55,8 @@ export const InputEmail = ({ errors, register, watch }: Props) => {
         const firstPart = inputText.slice(0, atIndex);
         const domainPart = inputText.slice(atIndex + 1);
 
-        if(allLength.length !== 0 ) sessionStorage.setItem('emailRegistration', inputText);
+        if (allLength.length !== 0)
+            sessionStorage.setItem('emailRegistration', inputText);
 
         if (firstPart.length >= 64 || firstPart.length < 1) {
             setEmailDomeinLengthError(true);

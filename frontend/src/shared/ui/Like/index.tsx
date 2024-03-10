@@ -42,7 +42,8 @@ export const Like = ({
                 ? addFavorite({ id })
                 : deleteFromFavorites({ id });
         } else {
-            toast.error(`${t('main-page.toast-favs')}`);
+            const toastId = 'product add to fav toast';
+            toast.error(`${t('main-page.toast-favs')}`, { toastId });
         }
     };
 

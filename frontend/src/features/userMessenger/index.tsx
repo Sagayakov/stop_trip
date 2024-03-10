@@ -25,11 +25,16 @@ export const UserMessenger = ({ messenger }: UserMessengerProps) => {
         setEditMode(false);
         await modifyMessenger({ id, body: { link_to_user: newUserLink } })
             .unwrap()
-            .then(() => toast.success(t('my-settings.success')))
+            .then(() => {
+                const toastId = 'patch messenger success toast';
+                toast.success(t('my-settings.success'), { toastId });
+            })
             .catch(() => {
+                const toastId = 'patch messenger error toast';
                 toast.error(
                     updateResponse?.data?.link_to_user ||
-                        t('my-settings.smth-wrong')
+                        t('my-settings.smth-wrong'),
+                    { toastId }
                 );
             });
     };
@@ -37,10 +42,15 @@ export const UserMessenger = ({ messenger }: UserMessengerProps) => {
     const handleDeleteMessenger = async (id: number) => {
         await deleteMessenger({ id })
             .unwrap()
-            .then(() => toast.success(t('my-settings.success')))
+            .then(() => {
+                const toastId = 'delete messenger success toast';
+                toast.success(t('my-settings.success'), { toastId });
+            })
             .catch(() => {
+                const toastId = 'delete messenger error toast';
                 toast.error(
-                    deleteResponse?.data || t('my-settings.smth-wrong')
+                    deleteResponse?.data || t('my-settings.smth-wrong'),
+                    { toastId }
                 );
             });
     };
@@ -48,7 +58,7 @@ export const UserMessenger = ({ messenger }: UserMessengerProps) => {
     return (
         <div className={styles.user_messenger}>
             <img
-                src={`../../../src/shared/ui/icons/icon${messenger.messenger.name}.png`}
+                src={`/icons/icon${messenger.messenger.name}.png`}
                 alt={messenger.messenger.name}
             />
             {messenger.messenger.link_to_messenger}
