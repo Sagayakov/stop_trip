@@ -36,6 +36,10 @@
             }
         }
     }
+    input[type='email'],
+    input[type='password'] {
+        padding-left: 12px;
+    }
     .enter_with {
         width: 258px;
         height: 53px;

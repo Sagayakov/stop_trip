@@ -1,7 +1,9 @@
 .form_registration {
-    .forget_password {
-        color: var(--main-green);
-        margin-bottom: 1.5rem;
+    input[name='userName'],
+    input[name='phone'],
+    input[type='email'],
+    input[type='password'] {
+        padding-left: 12px;
     }
     .user_agreement {
         font-family: var(--font-inter);
@@ -30,8 +32,8 @@
     .form_checkbox > span > p {
         font-size: 13px;
     }
-    .form_checkbox{
-        input[type="checkbox"]{
+    .form_checkbox {
+        input[type='checkbox'] {
             padding: 0 !important; //чтобы не сдвигался блок "принимаю соглашения" в сафари
         }
     }
