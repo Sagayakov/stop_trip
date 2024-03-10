@@ -81,7 +81,8 @@ export const Cart = (cart: Props) => {
                 }); //добавляем в яндекс метрику "удаление из избранного"
             }
         } else {
-            toast.error(`${t('main-page.toast-favs')}`);
+            const toastId = 'main add to fav toast';
+            toast.error(`${t('main-page.toast-favs')}`, { toastId });
         }
     };
 
