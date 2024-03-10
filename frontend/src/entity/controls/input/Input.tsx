@@ -9,7 +9,10 @@ export const Input = () => {
     const { t } = useTranslation();
     const { isDesktop } = useMatchMedia();
 
-    const handleClick = () => toast.warn(`${t('main-page.search-tooltip')}`);
+    const handleClick = () => {
+        const toastId = 'search toast';
+        toast.warn(`${t('main-page.search-tooltip')}`, { toastId });
+    };
     // isTablet && toast.warn(`${t('main-page.search-tooltip')}`);
 
     return (
