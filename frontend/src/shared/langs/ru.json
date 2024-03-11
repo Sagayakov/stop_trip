@@ -1,6 +1,7 @@
 {
     "main-page": {
         "post-advert": "Разместить объявление",
+        "edit-advert": "Редактировать",
         "publish": "Опубликовать",
         "login-register": "Вход/Регистрация",
         "all-categories": "Все категории",

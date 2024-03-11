@@ -200,7 +200,7 @@ const AdvertisementEditing = () => {
                         />
                     </>
                 )}
-                <AnnouncementSubmitButton />
+                <AnnouncementSubmitButton value="edit-advert" />
             </form>
         </section>
     );
