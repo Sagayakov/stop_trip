@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter.ts';
@@ -10,6 +10,7 @@ import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;
     control: Control<TypeOfCurrencyFilter, string[]>;
+    watch: UseFormWatch<TypeOfCurrencyFilter>;
 }
 
 type SelectOption = {
@@ -17,21 +18,22 @@ type SelectOption = {
     label: string;
 };
 
-export const ProposedCurrency = ({ control, setValue }: Props) => {
+export const ProposedCurrency = ({ control, setValue, watch }: Props) => {
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
     const { data } = useGetFiltersQuery('');
     const [currencyValues, setCurrencyValues] = useState<SelectOption[]>([]);
+    const exchangeFor = watch('exchange_for');
 
     useEffect(() => {
         if (data) {
             const result = (data['proposed_currency'] as SelectOption[]).filter(
-                (el) => (el as SelectOption).value && (el as SelectOption).label
+                (el) => el.value !== exchangeFor
             );
 
             setCurrencyValues(result as SelectOption[]);
         }
-    }, [data]);
+    }, [data, exchangeFor]);
 
     return (
         <>

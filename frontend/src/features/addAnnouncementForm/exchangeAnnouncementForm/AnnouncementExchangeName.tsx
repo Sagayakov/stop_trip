@@ -1,4 +1,9 @@
-import { Control, FormState, UseFormSetValue } from 'react-hook-form';
+import {
+    Control,
+    FormState,
+    UseFormSetValue,
+    UseFormWatch,
+} from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
@@ -11,19 +16,25 @@ interface Props {
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
     formState: FormState<FormAddAnn>;
+    watch: UseFormWatch<FormAddAnn>;
 }
 
 export const AnnouncementExchangeName = ({
     setValue,
     control,
     defaultValue,
-    formState
+    formState,
+    watch,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const exchangeFor = watch('exchange_for');
+
     const getDefaultValue = () => {
         if (defaultValue) {
-            return data?.proposed_currency.find((el) => el.value === defaultValue);
+            return data?.proposed_currency.find(
+                (el) => el.value === defaultValue
+            );
         }
     };
 
@@ -35,20 +46,27 @@ export const AnnouncementExchangeName = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.proposed_currency')}<span>*</span>:</h3>
+            <h3>
+                {t('filters.proposed_currency')}
+                <span>*</span>:
+            </h3>
             <UniversalSelectDropdown
                 closeMenuOnSelect={true}
                 control={control}
                 isMulti={false}
                 name="proposed_currency"
-                options={data?.proposed_currency}
+                options={data?.proposed_currency.filter(
+                    (el) => el.value !== exchangeFor
+                )}
                 placeholder={t('filters.proposed_currency')}
                 defaultValue={getDefaultValue()}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
                 requiredFiled={true}
             />
-            <div className={styles.ann_field_err}>{formState?.errors?.proposed_currency?.message}</div>
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.proposed_currency?.message}
+            </div>
         </div>
     );
 };

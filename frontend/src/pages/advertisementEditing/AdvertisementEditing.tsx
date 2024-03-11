@@ -49,8 +49,6 @@ const AdvertisementEditing = () => {
     });
     const dispatch = useAppDispatch();
 
-    const category = watch('category');
-
     const path = useLocation().pathname.split('/');
     const slug = path[path.length - 1];
 
@@ -163,11 +161,12 @@ const AdvertisementEditing = () => {
                             formState={formState}
                             defaultValue={dataAdvert.title}
                         />
-                        {category !== 'exchange_rate' && (
+                        {dataAdvert?.category !== 'exchange_rate' && (
                             <AnnouncementPriceField
                                 register={register}
                                 formState={formState}
                                 defaultValue={dataAdvert.price}
+                                category={dataAdvert?.category}
                             />
                         )}
                         <AnnouncementDescriptionField
@@ -200,7 +199,7 @@ const AdvertisementEditing = () => {
                         />
                     </>
                 )}
-                <AnnouncementSubmitButton />
+                <AnnouncementSubmitButton value="edit-advert" />
             </form>
         </section>
     );
