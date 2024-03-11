@@ -7,6 +7,7 @@ import { useState } from 'react';
 interface Props {
     register: UseFormRegister<FormAddAnn>;
     formState: FormState<FormAddAnn>;
+    category: string | undefined;
     defaultValue?: number | null;
 }
 
@@ -14,6 +15,7 @@ const AnnouncementPriceField = ({
     register,
     formState,
     defaultValue,
+    category,
 }: Props) => {
     const { errors } = formState;
     const { t } = useTranslation();
@@ -46,12 +48,16 @@ const AnnouncementPriceField = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('add-page.price')}:</h3>
+            <h3>
+                {t(category === 'job' ? 'filters.salary' : 'add-page.price')}:
+            </h3>
             <input
                 type="text"
                 pattern="[0-9]*[.,]?[0-9]+"
                 id={styles.ann_field_price}
-                placeholder={t('add-page.price')}
+                placeholder={t(
+                    category === 'job' ? 'filters.salary' : 'add-page.price'
+                )}
                 style={errors?.price ? { border: '1px solid red' } : {}}
                 {...register('price')}
                 onInput={(e) => handleInput(e)}
