@@ -70,8 +70,16 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
             >
                 <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} watch={watch} />
-                <ProposedCurrency control={control} setValue={setValue} />
-                <ExchangeFor control={control} setValue={setValue} />
+                <ProposedCurrency
+                    control={control}
+                    setValue={setValue}
+                    watch={watch}
+                />
+                <ExchangeFor
+                    control={control}
+                    setValue={setValue}
+                    watch={watch}
+                />
                 <ExchangeRate register={register} />
                 <input type="submit" value={t('filters.apply')} />
                 <button
