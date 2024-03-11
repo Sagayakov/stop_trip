@@ -24,8 +24,8 @@ header {
         justify-content: space-between;
         //cursor: pointer;
         transition: all 0.7s ease;
-        svg{
-            flex-shrink: 0;//отключаем сужение для svg
+        svg {
+            flex-shrink: 0; //отключаем сужение для svg
         }
         .addAdvert {
             width: 262px;
@@ -349,7 +349,7 @@ header {
             }
             .language_auth {
                 justify-content: flex-end;
-                .language{
+                .language {
                     margin-left: auto;
                 }
             }

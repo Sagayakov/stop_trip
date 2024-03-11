@@ -25,8 +25,6 @@ export const CookieConsentPopup = ({
                 location="bottom"
                 buttonText="OK"
                 cookieName="user_consent"
-                overlay
-                overlayClasses={styles.cookie_bg_shadow}
                 contentClasses={styles.accept_cookie_text}
                 containerClasses={styles.accept_cookie_wrapper}
                 style={{ background: '#2B373B' }}
