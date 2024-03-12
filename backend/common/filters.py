@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django_filters import BaseInFilter, NumberFilter, CharFilter, ChoiceFilter
 from rest_framework import status
 from rest_framework.decorators import action
@@ -94,6 +96,7 @@ class GetFilterParams:
 
     """
 
+    @method_decorator(cache_page(60 * 10))
     @action(detail=False, methods=["GET"])
     def get_filter_params(self, request):
         """Эндпоинт для получения значений фильтра."""
@@ -101,6 +104,7 @@ class GetFilterParams:
         filter_params = self.filterset_class.get_filter_params(queryset=self.get_queryset())
         return Response(filter_params, status=status.HTTP_200_OK)
 
+    @method_decorator(cache_page(60 * 10))
     @action(detail=False, methods=["GET"])
     def get_available_filtered_params(self, request):
         """Эндпоинт для получения доступных (после всех фильтраций) значений фильтра."""
