@@ -2,6 +2,8 @@ from typing import Union
 from django.db.models import Min, Max
 from django_filters.rest_framework import filters, FilterSet
 
+from offers.models import Currency
+
 
 class CurrencyExchange(FilterSet):
     """Фильтр обмена валют"""
@@ -20,10 +22,9 @@ class CurrencyExchange(FilterSet):
         proposed_currency_specs = {
             "proposed_currency": [
                 {"value": value, "label": label}
-                for value, label in queryset.exclude(proposed_currency__isnull=True)
-                .values_list("proposed_currency__short_name", "proposed_currency__name")
-                .order_by("proposed_currency__short_name")
-                .distinct("proposed_currency__short_name")
+                for value, label in Currency.objects.values_list("short_name", "name")
+                .order_by("short_name")
+                .distinct("short_name")
             ],
         }
         specs |= proposed_currency_specs
@@ -32,10 +33,9 @@ class CurrencyExchange(FilterSet):
         exchange_for_specs = {
             "exchange_for": [
                 {"value": value, "label": label}
-                for value, label in queryset.exclude(exchange_for__isnull=True)
-                .values_list("exchange_for__short_name", "exchange_for__name")
-                .order_by("exchange_for__short_name")
-                .distinct("exchange_for__short_name")
+                for value, label in Currency.objects.values_list("short_name", "name")
+                .order_by("short_name")
+                .distinct("short_name")
             ],
         }
         specs |= exchange_for_specs
