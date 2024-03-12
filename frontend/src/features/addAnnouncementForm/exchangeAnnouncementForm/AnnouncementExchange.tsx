@@ -4,6 +4,7 @@ import {
     UseFormSetValue,
     Control,
     FormState,
+    UseFormWatch,
 } from 'react-hook-form';
 import { AnnouncementExchangeName } from './AnnouncementExchangeName';
 import { AnnouncementExchangeFor } from './AnnouncementExchangeFor';
@@ -16,6 +17,7 @@ interface Props {
     control: Control<FormAddAnn, string[]>;
     data?: ProductType;
     formState: FormState<FormAddAnn>;
+    watch: UseFormWatch<FormAddAnn>;
 }
 
 export const AnnouncementExchange = ({
@@ -24,6 +26,7 @@ export const AnnouncementExchange = ({
     setValue,
     data,
     formState,
+    watch,
 }: Props) => {
     return (
         <>
@@ -32,12 +35,14 @@ export const AnnouncementExchange = ({
                 setValue={setValue}
                 defaultValue={data?.proposed_currency}
                 formState={formState}
+                watch={watch}
             />
             <AnnouncementExchangeFor
                 control={control}
                 setValue={setValue}
                 defaultValue={data?.exchange_for}
                 formState={formState}
+                watch={watch}
             />
             <AnnouncementExchangeRate
                 register={register}

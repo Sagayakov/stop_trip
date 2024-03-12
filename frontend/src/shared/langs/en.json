@@ -1,6 +1,7 @@
 {
     "main-page": {
         "post-advert": "Place an advert",
+        "edit-advert": "Edit",
         "publish": "Publish",
         "login-register": "Login/Registration",
         "all-categories": "All categories",

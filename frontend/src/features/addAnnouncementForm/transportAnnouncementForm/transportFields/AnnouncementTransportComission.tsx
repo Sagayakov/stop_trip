@@ -19,7 +19,17 @@ export const AnnouncementTransportComission = ({
 
     const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
         const lastNumber = e.currentTarget.value.at(-1);
-        if (lastNumber && !Number(lastNumber) && lastNumber !== '0') {
+        if (lastNumber && lastNumber === ',') {
+            setValue(e.currentTarget.value.replace(lastNumber, '.'));
+            return;
+        }
+        if (
+            lastNumber &&
+            !Number(lastNumber) &&
+            lastNumber !== '0' &&
+            lastNumber !== '.' &&
+            lastNumber !== ','
+        ) {
             setValue(e.currentTarget.value.replace(lastNumber, ''));
             return;
         }

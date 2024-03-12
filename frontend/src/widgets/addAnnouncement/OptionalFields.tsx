@@ -129,6 +129,7 @@ const OptionalFields = ({
                     setValue={setValue}
                     data={data}
                     formState={formState}
+                    watch={watch}
                 />
             )}
             {getCategoryValue('service') && (

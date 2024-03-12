@@ -172,6 +172,7 @@ const AddAnnouncementPage = () => {
                             <AnnouncementPriceField
                                 register={register}
                                 formState={formState}
+                                category={category}
                             />
                         )}
                         <AnnouncementDescriptionField control={control} />
