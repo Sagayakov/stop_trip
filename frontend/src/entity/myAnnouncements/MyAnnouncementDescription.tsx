@@ -8,7 +8,7 @@ interface Props {
     category: string | undefined;
     title: string;
     price: number;
-    exchange_rate: number;
+    exchange_rate: string | null;
     date_create?: string;
     proposed_currency?: string;
     exchange_for?: string;
