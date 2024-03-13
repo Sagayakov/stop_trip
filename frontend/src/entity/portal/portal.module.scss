@@ -12,12 +12,12 @@
 
 .portal {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 5%;
+    left: 5%;
     z-index: 1002;
     width: 90%;
     text-align: center;
-    transform: translate(-50%, -50%);
+
     img {
         margin: 0 auto;
         border-radius: 16px;
@@ -103,7 +103,6 @@
 
 @media (max-width: 1440px) {
     .portal {
-        //top: 55%;
         /* .horizontal {
             width: 95%;
             height: unset;
@@ -142,7 +141,7 @@
 
 @media (max-width: 1023px) {
     .portal {
-        //top: 60%;
+        left: 7.5%;
         width: 85%;
         /* img {
             margin: 0 auto;
@@ -161,6 +160,7 @@
 
 @media (max-width: 767px) {
     .portal {
+        left: 2.5%;
         width: 95%;
         .horizontal {
             width: 100%;
@@ -215,7 +215,7 @@
 
 @media screen and (orientation: landscape) and (max-width: 767px) {
     .portal {
-        top: 65%;
+        left: 2.5%;
         width: 95%;
         /* .horizontal {
             width: 65%;
@@ -225,7 +225,6 @@
 
 @media (max-width: 600px) {
     .portal {
-        top: 55%;
         /* .horizontal {
             min-height: 35vh;
         } */
@@ -238,7 +237,6 @@
 
 @media (max-width: 500px) {
     .portal {
-        top: 50%;
         /* .horizontal {
             min-height: 25vh;
         } */
@@ -257,7 +255,6 @@
 
 @media (max-width: 360px) {
     .portal {
-        top: 40%;
         /* .vertical {
             min-height: 44vh;
         } */
