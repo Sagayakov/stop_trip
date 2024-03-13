@@ -58,7 +58,12 @@ const AdvertisementEditing = () => {
     useGetSelectOptionsQuery(''); //запрашиваем данные, потом будем доставать из кэша
     const [
         editAdvert,
-        { isLoading: isSendLoading, isSuccess, isError: isSendError },
+        {
+            isLoading: isSendLoading,
+            isSuccess,
+            isError: isSendError,
+            error: sendError,
+        },
     ] = useEditAdvertMutation();
     const [markerPosition, setMarkerPosition] = useState<string | undefined>(
         dataAdvert?.coordinates
@@ -116,12 +121,46 @@ const AdvertisementEditing = () => {
                 ])
             );
             //очищаем кэш, чтобы обновить данные по объявлениям
+            navigate('/my-announcements');
         }
         if (isSendError) {
-            const toastId = 'edit advert error toast';
-            toast.error(`${t('errors.add-announcement-error')}`, { toastId });
+            if (isSendError && sendError && 'data' in sendError) {
+                Object.entries(
+                    sendError.data as Record<keyof FormAddAnn, string[]>
+                ).forEach((el) => {
+                    const toastId = `edit advert ${el[0]} error toast`;
+                    toast.error(`${t(`filters.${el[0]}`)}: ${el[1][0]}`, {
+                        toastId,
+                    });
+                    setError(el[0] as keyof FormAddAnn, { message: el[1][0] });
+                });
+            }
         }
     }, [t, isSendError, isSuccess]); //чтобы уведомление всплыло один раз
+
+    useEffect(() => {
+        if (formState.errors) {
+            const firstErrorKey = Object.keys(formState.errors)[0];
+            const errorField = document.querySelector(
+                `input[name="${firstErrorKey}"]`
+            );
+            if (errorField) {
+                if (navigator.userAgent === 'safari') {
+                    errorField.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                    });
+                } else {
+                    const y =
+                        errorField.getBoundingClientRect().top +
+                        window.scrollY -
+                        80;
+
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+            }
+        }
+    }, [formState]);
 
     return (
         <section className={styles.add_ann}>
@@ -191,6 +230,7 @@ const AdvertisementEditing = () => {
                         <YoutubeField
                             register={register}
                             defaultValue={dataAdvert?.youtube}
+                            errors={formState.errors}
                         />
                         <AnnouncementLocationField
                             setValue={setValue}

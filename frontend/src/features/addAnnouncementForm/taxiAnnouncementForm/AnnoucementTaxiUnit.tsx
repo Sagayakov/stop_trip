@@ -11,7 +11,11 @@ interface Props {
     formState: FormState<FormAddAnn>;
 }
 
-export const AnnouncementTaxiUnit = ({ register, defaultValue, formState}: Props) => {
+export const AnnouncementTaxiUnit = ({
+    register,
+    defaultValue,
+    formState,
+}: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
 
@@ -23,16 +27,23 @@ export const AnnouncementTaxiUnit = ({ register, defaultValue, formState}: Props
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.taxi_unit')}<span>*</span>:</h3>
-            <UniversalRadioGroup
-                register={register}
-                name="taxi_unit"
-                radioValues={data!.taxi_unit}
-                className={styles.radio_group}
-                defaultValue={getDefaultValue()}
-                requiredField={true}
-            />
-            <div className={styles.ann_field_err}>{formState?.errors?.taxi_unit?.message}</div>
+            <h3>
+                {t('filters.taxi_unit')}
+                <span>*</span>:
+            </h3>
+            {data && (
+                <UniversalRadioGroup
+                    register={register}
+                    name="taxi_unit"
+                    radioValues={data.taxi_unit}
+                    className={styles.radio_group}
+                    defaultValue={getDefaultValue()}
+                    requiredField={true}
+                />
+            )}
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.taxi_unit?.message}
+            </div>
         </div>
     );
 };

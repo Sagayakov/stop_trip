@@ -23,15 +23,19 @@ export const AnnouncementRealtyBathroomType = ({
         <div className={styles.ann_field}>
             <h3>{t('filters.property_bathroom_type')}:</h3>
             <div className={styles.radio_group}>
-                <UniversalRadioGroup
-                    name="property_bathroom_type"
-                    radioValues={data!.property_bathroom_type}
-                    register={register}
-                    defaultValue={data?.property_bathroom_type?.find(
-                        (el) => el.value === defaultValue
-                    ) || { value: '', label: '' }}
-                    className={styles.radio_group}
-                />
+                {data && (
+                    <UniversalRadioGroup
+                        name="property_bathroom_type"
+                        radioValues={data.property_bathroom_type}
+                        register={register}
+                        defaultValue={
+                            data?.property_bathroom_type?.find(
+                                (el) => el.value === defaultValue
+                            ) || { value: '', label: '' }
+                        }
+                        className={styles.radio_group}
+                    />
+                )}
             </div>
             <div className={styles.ann_field_err}>
                 {errors?.property_bathroom_type &&

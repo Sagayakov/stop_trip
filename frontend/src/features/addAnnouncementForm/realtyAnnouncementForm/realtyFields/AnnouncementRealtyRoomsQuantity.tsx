@@ -26,7 +26,7 @@ export const AnnouncementRealtyRoomsQuantity = ({
                 <input
                     type="text"
                     autoComplete="off"
-                    pattern="[1-30]"
+                    pattern="[0-9]+"
                     placeholder={t('add-page.from-to')}
                     defaultValue={defaultValue || ''}
                     required={true}

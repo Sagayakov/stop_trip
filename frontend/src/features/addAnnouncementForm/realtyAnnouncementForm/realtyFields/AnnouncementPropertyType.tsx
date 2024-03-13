@@ -29,8 +29,7 @@ export const AnnouncementPropertyType = ({
             setValue(
                 'property_type',
                 String(
-                    getDefaultValue(defaultValue, data?.property_house_type)
-                        ?.value
+                    getDefaultValue(defaultValue, data?.property_type)?.value
                 )
             );
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение

@@ -21,7 +21,7 @@ export const AnnouncementRealtyBathroomQuantity = ({
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"
-                    pattern="[0-9]*[.,]?[0-9]+"
+                    pattern="[0-9]+"
                     autoComplete="off"
                     min={0}
                     defaultValue={defaultValue || ''}

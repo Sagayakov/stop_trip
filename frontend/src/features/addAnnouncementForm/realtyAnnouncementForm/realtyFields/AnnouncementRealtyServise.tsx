@@ -13,25 +13,34 @@ interface Props {
 export const AnnouncementRealtyServise = ({
     register,
     defaultValue,
-    formState
+    formState,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.property_type_of_service')}<span>*</span>:</h3>
-            <UniversalRadioGroup
-                name="property_type_of_service"
-                radioValues={data!.property_type_of_service}
-                register={register}
-                className={styles.radio_group}
-                defaultValue={data?.property_type_of_service?.find(
-                    (el) => el.value === defaultValue
-                ) || { value: '', label: '' }}
-                requiredField={true}
-            />
-            <div className={styles.ann_field_err}>{formState?.errors?.property_type_of_service?.message}</div>
+            <h3>
+                {t('filters.property_type_of_service')}
+                <span>*</span>:
+            </h3>
+            {data && (
+                <UniversalRadioGroup
+                    name="property_type_of_service"
+                    radioValues={data.property_type_of_service}
+                    register={register}
+                    className={styles.radio_group}
+                    defaultValue={
+                        data?.property_type_of_service?.find(
+                            (el) => el.value === defaultValue
+                        ) || { value: '', label: '' }
+                    }
+                    requiredField={true}
+                />
+            )}
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.property_type_of_service?.message}
+            </div>
         </div>
     );
 };

@@ -26,6 +26,7 @@ const AnnouncementLocationField = ({
             setValue('coordinates', `${latitude}, ${longitude}`);
         }
     }, [markerPosition, setValue]);
+
     const defaultCoordinates = () => {
         if (markerPosition) {
             const arr = markerPosition?.split(',');
@@ -34,6 +35,7 @@ const AnnouncementLocationField = ({
             return [latitude, longitude];
         }
     };
+
     return (
         <div className={styles.ann_field}>
             <h3>{`${t('add-page.location')}:`}</h3>

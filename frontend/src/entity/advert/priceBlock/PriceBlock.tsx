@@ -2,6 +2,7 @@ import styles from 'widgets/advert/libr/advert.module.scss';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { useTranslation } from 'react-i18next';
 import { prettifyPrice } from 'shared/utils/prettifyPrice';
+import { prettifyRate } from 'shared/utils/prettifyRate';
 
 interface Props {
     data: ProductType;
@@ -28,7 +29,7 @@ export const PriceBlock = ({ data }: Props) => {
             : `${t('advert-page.price-negotiated')}`;
 
         if (category === 'exchange_rate' && exchange_rate) {
-            return exchange_rate;
+            return prettifyRate(exchange_rate);
         }
         if (category === 'taxi' && taxi_unit && price) {
             const value = valuesOfTaxiUnit.find(

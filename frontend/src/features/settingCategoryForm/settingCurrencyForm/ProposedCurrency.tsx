@@ -40,7 +40,7 @@ export const ProposedCurrency = ({ control, setValue, watch }: Props) => {
             <div className={styles.proposedCurrency}>
                 <h3>{t('filters.proposed_currency')}</h3>
                 <UniversalSelectDropdown
-                    closeMenuOnSelect={false}
+                    closeMenuOnSelect={true}
                     control={control}
                     isMulti={false}
                     name="proposed_currency"
