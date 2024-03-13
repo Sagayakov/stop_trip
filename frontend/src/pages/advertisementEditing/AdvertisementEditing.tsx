@@ -116,6 +116,7 @@ const AdvertisementEditing = () => {
                 ])
             );
             //очищаем кэш, чтобы обновить данные по объявлениям
+            navigate('/my-announcements');
         }
         if (isSendError) {
             const toastId = 'edit advert error toast';
