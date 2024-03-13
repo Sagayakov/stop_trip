@@ -47,6 +47,7 @@ export const MapComponent = ({
         );
         setSelectedCoord && setSelectedCoord(clickedCoord);
     };
+
     useEffect(() => {
         const map = new Map({
             layers: [
@@ -87,7 +88,7 @@ export const MapComponent = ({
             setMarkerPosition(`${selectedCoord[1]},  ${selectedCoord[0]}`);
 
         return () => map.setTarget('');
-    }, [propertyLocation, selectedCoord]);
+    }, [propertyLocation, selectedCoord, isSelected]);
 
     const handleWheel = () => {
         if (map) {
