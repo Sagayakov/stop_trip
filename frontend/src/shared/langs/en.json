@@ -282,7 +282,7 @@
         "extension": "Only .png, .jpeg, .jpg, .img, .heic",
         "from-to": "1 to 30",
         "location": "Location",
-        "back": "Back",
+        "cancel": "Cancel",
         "edit-success": "Announcement successfully edited",
         "required": "Required field",
         "complain": "Complain",
