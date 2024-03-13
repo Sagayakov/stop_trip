@@ -171,7 +171,8 @@ export const PhotoSlider = () => {
                             </div>
                         )}
 
-                        {activeImage !== data.images.length && (
+                        {((!data.youtube && !data.images.length) ||
+                            activeImage !== data.images.length) && (
                             <>
                                 <ShareIcon />
                                 <Like

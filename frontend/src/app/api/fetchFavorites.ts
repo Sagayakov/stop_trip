@@ -1,7 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from 'app/api/handlers/baseQueryWithReauth.ts';
 import { getCsrfToken } from 'app/api/handlers/getCsrfToken.ts';
-//import { getTokensFromStorage } from 'widgets/header/libr/authentication/getTokensFromStorage';
 
 export const fetchFavorites = createApi({
     reducerPath: 'fetchFavorites',
@@ -15,10 +14,6 @@ export const fetchFavorites = createApi({
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    /* 'X-Csrftoken': getCsrfToken(),
-                    Authorization: `Bearer ${
-                        getTokensFromStorage().accessToken
-                    }`, */
                 },
             }),
             providesTags: ['Favorites'],
@@ -29,7 +24,6 @@ export const fetchFavorites = createApi({
                 method: 'POST',
                 headers: {
                     'X-Csrftoken': getCsrfToken(),
-                    // 'X-Csrftoken': `${Cookies.get('access_token')}`
                 },
                 body,
             }),
@@ -41,7 +35,6 @@ export const fetchFavorites = createApi({
                 method: 'POST',
                 headers: {
                     'X-Csrftoken': getCsrfToken(),
-                    // 'X-Csrftoken': `${Cookies.get('access_token')}`
                 },
                 body,
             }),
@@ -53,7 +46,6 @@ export const fetchFavorites = createApi({
                 method: 'POST',
                 headers: {
                     'X-Csrftoken': getCsrfToken(),
-                    // 'X-Csrftoken': `${Cookies.get('access_token')}`,
                 },
             }),
             invalidatesTags: ['Favorites'],
