@@ -19,4 +19,5 @@ export const unInformative = [
     'property_district',
     'taxi_unit',
     'youtube',
+    'exchange_rate',
 ];

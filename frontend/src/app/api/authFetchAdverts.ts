@@ -19,7 +19,7 @@ export const authFetchAdverts = createApi({
                 url: 'api/advertisements/',
                 method: 'POST',
                 headers: {
-                    "X-Csrftoken": getCsrfToken(),
+                    'X-Csrftoken': getCsrfToken(),
                     'Content-Type': 'application/json',
                 },
                 // body,
@@ -42,12 +42,15 @@ export const authFetchAdverts = createApi({
                 method: 'DELETE',
             }),
         }),
-        editAdvert: build.mutation<FormAddAnn,{ body: FormAddAnn; addSlug: string }>({
+        editAdvert: build.mutation<
+            FormAddAnn,
+            { body: FormAddAnn; addSlug: string }
+        >({
             query: ({ body, addSlug }) => ({
                 url: `api/advertisements/${addSlug}`,
                 method: 'PUT',
                 headers: {
-                    "X-Csrftoken": getCsrfToken(),
+                    'X-Csrftoken': getCsrfToken(),
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body),
@@ -60,7 +63,7 @@ export const authFetchAdverts = createApi({
                 method: 'GET',
             }),
         }),
-    })
+    }),
 });
 
 export const {

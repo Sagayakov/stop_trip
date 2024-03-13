@@ -8,8 +8,10 @@ export interface MyAnnouncements {
     owner?: Owner;
     slug: string | null;
     is_published: boolean;
-    exchange_rate: number;
+    exchange_rate: string | null;
     description: string;
+    proposed_currency?: string;
+    exchange_for?: string;
 }
 export interface Owner {
     id: number;
@@ -22,7 +24,7 @@ interface Images {
     image: string;
     id: number;
 }
-export interface ChangePublished{
+export interface ChangePublished {
     category: string;
     title: string;
     price: number;

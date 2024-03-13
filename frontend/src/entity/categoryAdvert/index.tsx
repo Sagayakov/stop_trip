@@ -20,6 +20,7 @@ import { pushAddToFavourite } from 'shared/eCommercy/pushAddToFavourite.ts';
 import { pushRemoveFromFavourite } from 'shared/eCommercy/pushRemoveFromFavourite.ts';
 import { getPrevLocation } from 'shared/eCommercy/getPrevLocation.ts';
 import { handleClickByAnnouncementCard } from 'shared/eCommercy/handleClickByAnnouncementCard.ts';
+import { prettifyRate } from 'shared/utils/prettifyRate';
 
 interface Props extends AdvertsTypes {
     index: number;
@@ -176,7 +177,7 @@ export const CategoryAdvert = (el: Props) => {
                             >{`${proposed_currency}/${exchange_for} `}</span>
                         )}
                     {category === 'exchange_rate' && exchange_rate
-                        ? exchange_rate
+                        ? prettifyRate(exchange_rate)
                         : el.price
                           ? prettifyPrice(el.price)
                           : `${t('advert-page.price-negotiated')}`}

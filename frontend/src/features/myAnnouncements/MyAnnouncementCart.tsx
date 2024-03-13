@@ -47,6 +47,9 @@ export const MyAnnouncementCart = (data: Props) => {
         refetch,
         id,
         index,
+        exchange_rate,
+        proposed_currency,
+        exchange_for,
     } = data;
     const [showModal, setShowModal] = useState(false);
 
@@ -92,9 +95,13 @@ export const MyAnnouncementCart = (data: Props) => {
                         />
                     )}
                     <MyAnnouncementDescription
+                        category={category}
                         title={title}
                         price={price}
                         date_create={date_create}
+                        exchange_rate={exchange_rate}
+                        proposed_currency={proposed_currency}
+                        exchange_for={exchange_for}
                     />
                 </NavLink>
             </div>

@@ -24,7 +24,7 @@ export interface AdvertsTypes {
     date_create: string;
     owner: Owner;
     slug: string;
-    exchange_rate: number | null;
+    exchange_rate: string | null;
     proposed_currency?: string | null;
     exchange_for?: string | null;
 }
