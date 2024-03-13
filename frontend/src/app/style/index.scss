@@ -111,3 +111,8 @@ a {
 .grecaptcha-badge {
     visibility: hidden;
 } //скрываем значок капчи
+
+.Toastify__close-button > svg {
+    height: 24px;
+    width: 24px;
+}
