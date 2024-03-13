@@ -117,10 +117,19 @@ const AddAnnouncementPage = () => {
                 `input[name="${firstErrorKey}"]`
             );
             if (errorField) {
-                errorField.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                });
+                if (navigator.userAgent === 'safari') {
+                    errorField.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                    });
+                } else {
+                    const y =
+                        errorField.getBoundingClientRect().top +
+                        window.scrollY -
+                        80;
+
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
             }
         }
     }, [formState]); // для скролла в сафари
@@ -189,7 +198,10 @@ const AddAnnouncementPage = () => {
                             setError={setError}
                             clearErrors={clearErrors}
                         />
-                        <YoutubeField register={register} />
+                        <YoutubeField
+                            register={register}
+                            errors={formState.errors}
+                        />
                         <AnnouncementLocationField
                             setValue={setValue}
                             markerPosition={markerPosition}

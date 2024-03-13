@@ -1,14 +1,15 @@
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useTranslation } from 'react-i18next';
-import { UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
+    errors: FieldErrors<FormAddAnn>;
     defaultValue?: string | null | undefined;
 }
 
-export const YoutubeField = ({ register, defaultValue }: Props) => {
+export const YoutubeField = ({ register, defaultValue, errors }: Props) => {
     const { t } = useTranslation();
     return (
         <div className={styles.ann_field}>
@@ -17,11 +18,13 @@ export const YoutubeField = ({ register, defaultValue }: Props) => {
                 type="text"
                 placeholder={t('add-page.youtube-placeholder')}
                 minLength={1}
-                maxLength={100}
+                //maxLength={60}
                 defaultValue={defaultValue || ''}
                 {...register('youtube')}
             />
-            <div className={styles.ann_field_err}></div>
+            <div className={styles.ann_field_err}>
+                {errors?.youtube?.message}
+            </div>
         </div>
     );
-}
+};
