@@ -214,7 +214,9 @@
 
         "food": "Еда",
         "excursion_food": "Еда включена",
-        "excursion_transfer": "Трансфер"
+        "excursion_transfer": "Трансфер",
+
+        "youtube": "Поле youtube"
     },
 
     "advert-page": {
