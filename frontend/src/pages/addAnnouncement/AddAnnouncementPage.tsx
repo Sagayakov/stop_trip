@@ -214,7 +214,7 @@ const AddAnnouncementPage = () => {
                             setMarkerPosition={setMarkerPosition}
                         />
                         <AnnouncementSubmitButton
-                            isDisabled={!formState.errors}
+                            isDisabled={!formState.isValid}
                         />
                     </Suspense>
                 </form>

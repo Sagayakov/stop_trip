@@ -287,6 +287,7 @@
         "cancel": "Cancel",
         "edit-success": "Added changes are being processed, the ad will be updated within 10 minutes",
         "required": "Required field",
+        "right-format": "Enter data in correct format",
         "complain": "Complain",
         "need-auth-complain": "To make a complaint about an advertisement, you must",
         "complain-description": "Please describe the problem",

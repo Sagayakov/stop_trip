@@ -24,15 +24,21 @@ export const AnnouncementRealtyFloorNumber = ({
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"
-                    pattern="[0-9]+"
                     autoComplete="off"
-                    min={0}
                     defaultValue={defaultValue || ''}
                     placeholder={t('filters.property_floor')}
                     {...register('property_floor', {
                         required: {
                             value: true,
                             message: t('add-page.required'),
+                        },
+                        pattern: {
+                            value: /[0-9]+/,
+                            message: t('add-page.right-format'),
+                        },
+                        min: {
+                            value: 0,
+                            message: t('add-page.right-format'),
                         },
                     })}
                 />

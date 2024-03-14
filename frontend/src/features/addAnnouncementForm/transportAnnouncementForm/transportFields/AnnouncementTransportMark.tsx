@@ -33,7 +33,7 @@ export const AnnouncementTransportMark = ({
                 )
             );
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
-    }, []);
+    }, [defaultValue]);
 
     return (
         <div className={styles.ann_field}>

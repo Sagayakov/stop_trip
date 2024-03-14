@@ -42,11 +42,18 @@ export const AnnouncementRealtyTotalArea = ({
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"
-                    pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
-                    min={0}
                     placeholder={t('filters.area')}
-                    {...register('property_area')}
+                    {...register('property_area', {
+                        pattern: {
+                            value: /[0-9]*[.,]?[0-9]+/,
+                            message: t('add-page.right-format'),
+                        },
+                        min: {
+                            value: 0,
+                            message: t('add-page.right-format'),
+                        },
+                    })}
                     value={value}
                     onInput={(e) => handleInput(e)}
                 />

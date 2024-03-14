@@ -34,7 +34,7 @@ export const AnnouncementRealtyHouseType = ({
                 )
             );
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
-    }, []);
+    }, [data?.property_house_type, defaultValue]);
 
     return (
         <div className={styles.ann_field}>

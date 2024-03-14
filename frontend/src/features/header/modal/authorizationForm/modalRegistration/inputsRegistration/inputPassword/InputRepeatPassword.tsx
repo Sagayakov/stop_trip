@@ -17,12 +17,7 @@ interface Props {
     getValues: UseFormGetValues<AuthRegistration>;
 }
 
-export const InputRepeatPassword = ({
-    errors,
-    register,
-
-    getValues,
-}: Props) => {
+export const InputRepeatPassword = ({ errors, register, getValues }: Props) => {
     const [showPassword, setShowPassword] = useState(false);
     const { t } = useTranslation();
 
