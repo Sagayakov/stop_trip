@@ -88,10 +88,10 @@ const AdvertisementEditing = () => {
                     ...Object.fromEntries(nonNullableData),
                     start_date: data.start_date
                         ? `${data.start_date}T${data.start_time ?? ''}`
-                        : '',
+                        : undefined,
                     end_date: data.end_date
                         ? `${data.end_date}T${data.end_time ?? ''}`
-                        : '',
+                        : undefined,
                     region: data.region || 'north-goa',
                 },
                 addSlug,

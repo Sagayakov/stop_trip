@@ -236,7 +236,7 @@
         "grade": "grade",
         "grade-added": "Thank you! Your rating has been added!",
         "grade-register": "Please log in to be able to rate",
-        "advertisement-added": "Advertisement added!",
+        "advertisement-added": "Your ad is being processed and will be added within 10 minutes!",
         "taxi-route": "Route",
         "taxi-hour": "Hour",
         "taxi-km": "Km"
@@ -285,7 +285,7 @@
         "from-to": "1 to 30",
         "location": "Location",
         "cancel": "Cancel",
-        "edit-success": "Announcement successfully edited",
+        "edit-success": "Added changes are being processed, the ad will be updated within 10 minutes",
         "required": "Required field",
         "complain": "Complain",
         "need-auth-complain": "To make a complaint about an advertisement, you must",
