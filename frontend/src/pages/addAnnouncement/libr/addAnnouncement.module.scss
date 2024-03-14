@@ -1,4 +1,4 @@
-input{
+input {
     padding: 0;
 }
 .optional_fields {
@@ -17,6 +17,9 @@ input{
             width: 100%;
             border-color: var(--grey-3);
         }
+        input[type='time'] {
+            margin-top: 0.5rem;
+        }
     }
     //.ann_field{
     //    .radio_group{
@@ -33,6 +36,7 @@ input{
         max-height: fit-content;
     }
 }
+
 .background {
     background-color: rgba(28, 28, 30, 0.7);
     z-index: 1001 !important;

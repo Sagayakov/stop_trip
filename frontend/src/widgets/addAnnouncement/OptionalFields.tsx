@@ -88,6 +88,7 @@ const OptionalFields = ({
                     register={register}
                     data={data}
                     formState={formState}
+                    watch={watch}
                 />
             )}
             {getCategoryValue('food') && (

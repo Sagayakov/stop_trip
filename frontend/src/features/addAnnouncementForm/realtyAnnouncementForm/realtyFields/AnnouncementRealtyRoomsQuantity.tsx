@@ -26,13 +26,26 @@ export const AnnouncementRealtyRoomsQuantity = ({
                 <input
                     type="text"
                     autoComplete="off"
-                    pattern="[0-9]+"
                     placeholder={t('add-page.from-to')}
                     defaultValue={defaultValue || ''}
-                    required={true}
-                    min={1}
-                    max={30}
-                    {...register('property_rooms_count')}
+                    {...register('property_rooms_count', {
+                        required: {
+                            value: true,
+                            message: t('add-page.required'),
+                        },
+                        pattern: {
+                            value: /[0-9]+/,
+                            message: t('add-page.right-format'),
+                        },
+                        min: {
+                            value: 1,
+                            message: t('add-page.right-format'),
+                        },
+                        max: {
+                            value: 30,
+                            message: t('add-page.right-format'),
+                        },
+                    })}
                 />
             </div>
             <div className={styles.ann_field_err}>

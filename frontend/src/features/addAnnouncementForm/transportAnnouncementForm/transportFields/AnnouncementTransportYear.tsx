@@ -21,12 +21,19 @@ export const AnnouncementTransportYear = ({
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"
-                    pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
                     defaultValue={defaultValue || ''}
-                    min={1970}
                     placeholder={t('filters.year')}
-                    {...register('transport_year_of_production')}
+                    {...register('transport_year_of_production', {
+                        pattern: {
+                            value: /[0-9]*[.,]?[0-9]+/,
+                            message: t('add-page.right-format'),
+                        },
+                        min: {
+                            value: 1970,
+                            message: t('add-page.right-format'),
+                        },
+                    })}
                 />
             </div>
             <div className={styles.ann_field_err}>

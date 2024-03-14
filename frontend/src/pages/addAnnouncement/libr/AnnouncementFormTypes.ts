@@ -19,7 +19,9 @@ export interface FormAddAnn {
     document_duration?: string;
     //мероприятия
     start_date?: string;
+    start_time?: string;
     end_date?: string;
+    end_time?: string;
     is_online?: boolean;
     //валюта
     proposed_currency?: string;

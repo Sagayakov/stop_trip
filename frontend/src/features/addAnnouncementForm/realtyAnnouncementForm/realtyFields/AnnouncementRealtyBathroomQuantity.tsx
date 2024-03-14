@@ -21,12 +21,19 @@ export const AnnouncementRealtyBathroomQuantity = ({
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"
-                    pattern="[0-9]+"
                     autoComplete="off"
-                    min={0}
                     defaultValue={defaultValue || ''}
                     placeholder={t('filters.count')}
-                    {...register('property_bathroom_count')}
+                    {...register('property_bathroom_count', {
+                        pattern: {
+                            value: /[0-9]+/,
+                            message: t('add-page.right-format'),
+                        },
+                        min: {
+                            value: 0,
+                            message: t('add-page.right-format'),
+                        },
+                    })}
                 />
             </div>
             <div className={styles.ann_field_err}>

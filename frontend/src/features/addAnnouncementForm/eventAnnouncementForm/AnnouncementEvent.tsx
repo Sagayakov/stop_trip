@@ -1,5 +1,5 @@
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { FormState, UseFormRegister } from 'react-hook-form';
+import { FormState, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { AnnouncementEventStart } from './AnnouncementEventStart';
 import { AnnouncementEventEnd } from './AnnouncementEventEnd';
 import { AnnouncementEventOnline } from './AnnouncementEventOnline';
@@ -10,20 +10,28 @@ interface Props {
     register: UseFormRegister<FormAddAnn>;
     data?: ProductType;
     formState: FormState<FormAddAnn>;
+    watch: UseFormWatch<FormAddAnn>;
 }
 
-export const AnnouncementEvent = ({ register, data, formState }: Props) => {
+export const AnnouncementEvent = ({
+    register,
+    data,
+    formState,
+    watch,
+}: Props) => {
     return (
         <div className={styles.ann_event}>
             <AnnouncementEventStart
                 register={register}
                 defaultValue={data?.start_date}
                 formState={formState}
+                watch={watch}
             />
             <AnnouncementEventEnd
                 register={register}
                 defaultValue={data?.end_date}
                 formState={formState}
+                watch={watch}
             />
             <AnnouncementEventOnline
                 register={register}

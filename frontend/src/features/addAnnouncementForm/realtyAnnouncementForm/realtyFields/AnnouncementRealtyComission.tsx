@@ -38,19 +38,21 @@ export const AnnouncementRealtyComission = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>
-                {t('filters.property_commission')}
-                {/* <span>*</span> */}:
-            </h3>
+            <h3>{t('filters.property_commission')}:</h3>
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"
-                    pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
                     {...register('property_commission', {
-                        //required: true,
+                        min: {
+                            value: 0,
+                            message: t('add-page.right-format'),
+                        },
+                        pattern: {
+                            value: /[0-9]*[.,]?[0-9]+/,
+                            message: t('add-page.right-format'),
+                        },
                     })}
-                    min={0}
                     placeholder={t('filters.from')}
                     onInput={(e) => handleInput(e)}
                     value={value}
