@@ -86,6 +86,12 @@ const AdvertisementEditing = () => {
             await editAdvert({
                 body: {
                     ...Object.fromEntries(nonNullableData),
+                    start_date: data.start_date
+                        ? `${data.start_date}T${data.start_time ?? ''}`
+                        : '',
+                    end_date: data.end_date
+                        ? `${data.end_date}T${data.end_time ?? ''}`
+                        : '',
                     region: data.region || 'north-goa',
                 },
                 addSlug,

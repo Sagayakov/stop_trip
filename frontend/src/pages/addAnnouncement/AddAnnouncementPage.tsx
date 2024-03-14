@@ -67,6 +67,12 @@ const AddAnnouncementPage = () => {
             );
             await addAdvert({
                 ...Object.fromEntries(nonNullableData),
+                start_date: data.start_date
+                    ? `${data.start_date}T${data.start_time ?? ''}`
+                    : '',
+                end_date: data.end_date
+                    ? `${data.end_date}T${data.end_time ?? ''}`
+                    : '',
                 region: data.region || 'north-goa',
             });
         } catch (error) {

@@ -1,4 +1,4 @@
-input{
+input {
     padding: 0;
 }
 .optional_fields {
@@ -16,6 +16,9 @@ input{
         input[type='date'] {
             width: 100%;
             border-color: var(--grey-3);
+        }
+        input[type='time'] {
+            margin-top: 0.5rem;
         }
     }
     //.ann_field{
