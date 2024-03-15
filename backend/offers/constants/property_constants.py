@@ -10,7 +10,7 @@ class PropertyType(TextChoices):
     FLAT = "flat", "Квартира"
     HOUSE = "house", "Дом"
     ROOM = "room", "Комната"
-    BED_PLACE = "bed_place", "Кровать"
+    BED_PLACE = "bed_place", "Спальное место"
     PARKING = "parking", "Парковочное место"
     COMMERCIAL = "commercial", "Коммерческое помещение"
 
