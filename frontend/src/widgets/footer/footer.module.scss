@@ -103,6 +103,7 @@ footer {
                 }
                 .user_agreement {
                     font-size: 14px;
+                    color: black;
                 }
                 .email_link:hover,
                 .user_agreement:hover {
@@ -262,7 +263,7 @@ footer {
 
                     .user_agreement {
                         white-space: nowrap;
-                        font-size: 16px;
+                        font-size: 10px; // было 16, но футер слишком широкий
                     }
                 }
             }

@@ -25,40 +25,42 @@ export const AnnouncementEventEnd = ({
                 {t('filters.date-end')}
                 <span>*</span>:
             </h3>
-            <input
-                type="date"
-                {...register('end_date', {
-                    required: {
-                        value: true,
-                        message: t('add-page.required'),
-                    },
-                })}
-                defaultValue={
-                    defaultValue
-                        ? new Date(defaultValue)
-                              .toLocaleDateString('ru')
-                              .split('.')
-                              .reverse()
-                              .join('-')
-                        : ''
-                }
-                min={startDate || ''}
-            />
-            <input
-                type="time"
-                defaultValue={
-                    defaultValue
-                        ? `${new Date(defaultValue)
-                              .getHours()
-                              .toString()
-                              .padStart(2, '0')}:${new Date(defaultValue)
-                              .getMinutes()
-                              .toString()
-                              .padStart(2, '0')}`
-                        : ''
-                }
-                {...register('end_time')}
-            />
+            <div className={styles.date_wrapper}>
+                <input
+                    type="date"
+                    {...register('end_date', {
+                        required: {
+                            value: true,
+                            message: t('add-page.required'),
+                        },
+                    })}
+                    defaultValue={
+                        defaultValue
+                            ? new Date(defaultValue)
+                                  .toLocaleDateString('ru')
+                                  .split('.')
+                                  .reverse()
+                                  .join('-')
+                            : ''
+                    }
+                    min={startDate || ''}
+                />
+                <input
+                    type="time"
+                    defaultValue={
+                        defaultValue
+                            ? `${new Date(defaultValue)
+                                  .getHours()
+                                  .toString()
+                                  .padStart(2, '0')}:${new Date(defaultValue)
+                                  .getMinutes()
+                                  .toString()
+                                  .padStart(2, '0')}`
+                            : ''
+                    }
+                    {...register('end_time')}
+                />
+            </div>
             <div className={styles.ann_field_err}>
                 {formState?.errors?.end_date?.message}
             </div>

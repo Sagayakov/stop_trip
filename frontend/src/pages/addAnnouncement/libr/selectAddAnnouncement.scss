@@ -4,6 +4,9 @@
     height: 48px;
     .filterAnnouncementCategory__value-container {
         height: 100%;
+        .filterAnnouncementCategory__single-value{
+            margin-left: 0.5rem;
+        } // чтобы курсор при поиске не закрывал текст
         .filterAnnouncementCategory__placeholder {
             height: 100%;
             display: flex;

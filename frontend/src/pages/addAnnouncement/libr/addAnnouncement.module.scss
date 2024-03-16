@@ -102,6 +102,15 @@ input {
                     color: red;
                 }
             }
+            .date_wrapper{
+                display: flex;
+                gap: 0.5rem;
+                input[type="date"],
+                input[type="time"] {
+                    margin: 0;
+                    border-color: grey;
+                }
+            }
             .radio_group,
             .checkbox_group {
                 display: flex;
@@ -262,7 +271,7 @@ input {
             .ann_event {
                 display: flex;
                 flex-direction: column;
-                width: 50%;
+                width: 70%;
             }
         }
     }
@@ -271,7 +280,7 @@ input {
     .add_ann {
         .add_ann_form {
             .ann_event {
-                width: 70%;
+                width: 100%;
             }
         }
     }

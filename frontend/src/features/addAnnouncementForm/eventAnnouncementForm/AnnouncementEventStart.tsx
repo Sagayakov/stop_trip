@@ -25,45 +25,47 @@ export const AnnouncementEventStart = ({
                 {t('filters.date-start')}
                 <span>*</span>:
             </h3>
-            <input
-                type="date"
-                {...register('start_date', {
-                    required: {
-                        value: true,
-                        message: t('add-page.required'),
-                    },
-                })}
-                defaultValue={
-                    defaultValue
-                        ? new Date(defaultValue)
-                              .toLocaleDateString('ru')
-                              .split('.')
-                              .reverse()
-                              .join('-')
-                        : ''
-                }
-                min={new Date()
-                    .toLocaleDateString('ru')
-                    .split('.')
-                    .reverse()
-                    .join('-')}
-                max={endDate}
-            />
-            <input
-                type="time"
-                defaultValue={
-                    defaultValue
-                        ? `${new Date(defaultValue)
-                              .getHours()
-                              .toString()
-                              .padStart(2, '0')}:${new Date(defaultValue)
-                              .getMinutes()
-                              .toString()
-                              .padStart(2, '0')}`
-                        : ''
-                }
-                {...register('start_time')}
-            />
+            <div className={styles.date_wrapper}>
+                <input
+                    type="date"
+                    {...register('start_date', {
+                        required: {
+                            value: true,
+                            message: t('add-page.required'),
+                        },
+                    })}
+                    defaultValue={
+                        defaultValue
+                            ? new Date(defaultValue)
+                                  .toLocaleDateString('ru')
+                                  .split('.')
+                                  .reverse()
+                                  .join('-')
+                            : ''
+                    }
+                    min={new Date()
+                        .toLocaleDateString('ru')
+                        .split('.')
+                        .reverse()
+                        .join('-')}
+                    max={endDate}
+                />
+                <input
+                    type="time"
+                    defaultValue={
+                        defaultValue
+                            ? `${new Date(defaultValue)
+                                  .getHours()
+                                  .toString()
+                                  .padStart(2, '0')}:${new Date(defaultValue)
+                                  .getMinutes()
+                                  .toString()
+                                  .padStart(2, '0')}`
+                            : ''
+                    }
+                    {...register('start_time')}
+                />
+            </div>
             <div className={styles.ann_field_err}>
                 {formState?.errors?.start_date?.message}
             </div>
