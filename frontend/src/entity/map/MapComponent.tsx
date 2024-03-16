@@ -87,6 +87,7 @@ export const MapComponent = ({
         });
 
         isSelected && map.on('click', handleMapClick);
+        isSelected && map.on('singleclick', handleMapClick);
 
         map.setTarget(mapTargetElement.current || '');
         setMap(map);
