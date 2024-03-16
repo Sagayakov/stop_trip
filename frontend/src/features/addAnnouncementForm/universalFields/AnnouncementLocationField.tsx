@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { MapComponent } from 'entity/map/MapComponent.tsx';
@@ -18,14 +18,14 @@ const AnnouncementLocationField = ({
 }: Props) => {
     const { t } = useTranslation();
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (markerPosition) {
             const arr = markerPosition?.split(',');
             const latitude = arr[0];
             const longitude = arr[1];
             setValue('coordinates', `${latitude}, ${longitude}`);
         }
-    }, [markerPosition, setValue]);
+    }, [markerPosition, setValue]); */
 
     const defaultCoordinates = () => {
         if (markerPosition) {
@@ -46,6 +46,7 @@ const AnnouncementLocationField = ({
                     }
                     isSelected={true}
                     setMarkerPosition={setMarkerPosition}
+                    setValue={setValue}
                 />
             </div>
             <div className={styles.ann_field_err}></div>
