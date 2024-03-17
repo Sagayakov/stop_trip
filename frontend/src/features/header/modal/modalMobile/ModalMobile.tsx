@@ -78,7 +78,7 @@ export const ModalMobile = (props: Props) => {
                     >
                         <Favorite color="#f9f9f9" strokeColor="#1F6FDE" />
                         <p className="user-option-text">
-                            {t('modal-logged.favorites')}
+                            {t('modal-logged.favorites')} BETA
                         </p>
                     </NavLink>
                     <NavLink

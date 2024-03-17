@@ -20,6 +20,10 @@ a {
     margin: 1rem auto;
     font-size: 28px;
     font-family: var(--font-inter);
+    span {
+        font-size: 28px;
+        font-weight: 300;
+    }
 }
 
 .no_favorites {
