@@ -4,25 +4,42 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('offers', '0017_alter_advertisement_transport_engine_volume'),
+        ("offers", "0017_alter_advertisement_transport_engine_volume"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='transportbrand',
-            name='ref_id',
-            field=models.PositiveSmallIntegerField(null=True, verbose_name='Внешний ID'),
+            model_name="transportbrand",
+            name="ref_id",
+            field=models.PositiveSmallIntegerField(null=True, verbose_name="Внешний ID"),
         ),
         migrations.AddField(
-            model_name='transportmodel',
-            name='category',
-            field=models.CharField(choices=[('motorcycle', 'Мотоцикл'), ('moped', 'Мопед'), ('car', 'Легковой автомобиль'), ('truck', 'Грузовой автомобиль'), ('bus', 'Автобус'), ('tricycle', 'Трицикл'), ('trailer', 'Трэйлер'), ('roadhouse', 'Дом на колёсах'), ('motorboat', 'Моторная лодка'), ('oar_boat', 'Вёсельная лодка'), ('boat', 'Катер'), ('other', 'Другое')], max_length=50, null=True, verbose_name='Категория транспорта'),
+            model_name="transportmodel",
+            name="category",
+            field=models.CharField(
+                choices=[
+                    ("motorcycle", "Мотоцикл"),
+                    ("moped", "Мопед"),
+                    ("car", "Легковой автомобиль"),
+                    ("truck", "Грузовой автомобиль"),
+                    ("bus", "Автобус"),
+                    ("tricycle", "Трицикл"),
+                    ("trailer", "Трэйлер"),
+                    ("roadhouse", "Дом на колёсах"),
+                    ("motorboat", "Моторная лодка"),
+                    ("oar_boat", "Вёсельная лодка"),
+                    ("boat", "Катер"),
+                    ("other", "Другое"),
+                ],
+                max_length=50,
+                null=True,
+                verbose_name="Категория транспорта",
+            ),
         ),
         migrations.AddField(
-            model_name='transportmodel',
-            name='ref_id',
-            field=models.PositiveSmallIntegerField(null=True, verbose_name='Внешний ID'),
+            model_name="transportmodel",
+            name="ref_id",
+            field=models.PositiveSmallIntegerField(null=True, verbose_name="Внешний ID"),
         ),
     ]
