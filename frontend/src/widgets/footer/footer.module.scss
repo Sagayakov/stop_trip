@@ -84,12 +84,13 @@ footer {
             .contacts {
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
                 gap: 0.5rem;
 
                 a {
                     svg {
-                        width: 43px;
-                        height: 43px;
+                        width: 24px;
+                        height: 24px;
                     }
                 }
             }
@@ -241,6 +242,7 @@ footer {
                 .email_agreement {
                     display: flex;
                     flex-direction: column;
+                    justify-content: space-between;
                     align-items: flex-start;
                     gap: 0.5rem;
                     width: 141px;
@@ -260,10 +262,15 @@ footer {
                     align-items: flex-end;
                     gap: 0.5rem;
                     width: auto;
-
+                    .email_link {
+                        text-decoration: none;
+                        color: var(--main-black);
+                    }
                     .user_agreement {
+                        text-decoration: none;
                         white-space: nowrap;
                         font-size: 10px; // было 16, но футер слишком широкий
+                        color: var(--main-black);
                     }
                 }
             }
@@ -300,7 +307,7 @@ footer {
 @media (max-width: 424px) {
     footer {
         .footer_wrapper {
-            width: 93%;
+            width: 92%;
             .footer_top {
                 .feedback {
                     .feed {
@@ -317,10 +324,27 @@ footer {
                         }
                         input[type='submit'] {
                             width: 35%;
-
                             padding: 12px 4px;
                             font-size: 14px;
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 360px) {
+    footer {
+        .footer_wrapper {
+            .footer_bot {
+                .contacts {
+                    .email_link {
+                        font-size: 12px;
+                    }
+                    .user_agreement {
+                        white-space: wrap;
+                        text-align: right;
                     }
                 }
             }
