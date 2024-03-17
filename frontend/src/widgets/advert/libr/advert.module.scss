@@ -35,7 +35,7 @@
                     color: var(--main-black);
                 }
             }
-            .complain_button{
+            .complain_button {
                 height: 30px;
                 border-radius: var(--radii);
                 border: none;
@@ -43,6 +43,9 @@
                 width: 40%;
                 color: black;
                 font-weight: 600;
+                &:disabled {
+                    cursor: default;
+                }
             }
         }
         .owner_info {
@@ -229,9 +232,9 @@
                 width: 20px;
             }
         }
-        .announcement_info{
-            .product_info{
-                button{
+        .announcement_info {
+            .product_info {
+                button {
                     width: 100%;
                 }
             }
