@@ -31,7 +31,7 @@ const FavoritesPage = () => {
                 &nbsp;{` > ${t('modal-logged.favorites')}`}
             </div>
             <h1 className={styles.title}>
-                {t('modal-logged.favorites')} <span>BETA</span>
+                {t('modal-logged.favorites')} <span>beta</span>
             </h1>
             {targetData && targetData.length ? (
                 <div className={styles.fav_list}>

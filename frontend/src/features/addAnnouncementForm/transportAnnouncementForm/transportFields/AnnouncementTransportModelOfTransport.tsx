@@ -36,6 +36,7 @@ export const AnnouncementTransportModelOfTransport = ({
     const brand = watch('transport_brand');
     const [options, setOptions] = useState<StringOptions[]>([]);
     const { data: availableData } = useGetModelsByBrandQuery(`?brand=${brand}`);
+    const disabled = brand && brand.length ? false : true;
 
     useEffect(() => {
         if (availableData) {
@@ -75,6 +76,7 @@ export const AnnouncementTransportModelOfTransport = ({
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
                 requiredFiled={true}
+                isDisabled={disabled}
             />
             <div className={styles.ann_field_err}>
                 {formState?.errors?.transport_model?.message}

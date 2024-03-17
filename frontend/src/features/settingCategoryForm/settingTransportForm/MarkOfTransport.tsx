@@ -1,6 +1,9 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import {
+    useGetAvailableFiltersQuery,
+    useGetFiltersQuery,
+} from 'app/api/fetchAdverts.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { useEffect, useState } from 'react';
@@ -9,6 +12,7 @@ import styles from 'widgets/settingForm/settingTransport/libr/settingTransportFo
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
     control: Control<TypeSettingTransport, string[]>;
+    watch: UseFormWatch<TypeSettingTransport>;
 }
 
 type SelectType = {
@@ -16,21 +20,30 @@ type SelectType = {
     label: string;
 };
 
-export const MarkOfTransport = ({ setValue, control }: Props) => {
+export const MarkOfTransport = ({ setValue, control, watch }: Props) => {
     const { data } = useGetFiltersQuery('');
-    const [markOfTrasportValues, setMarkOfTrasportValues] = useState<
+    const region = watch('region');
+    const city = watch('city');
+    const [markOfTransportValues, setMarkOfTransportValues] = useState<
         SelectType[]
     >([]);
     const { t } = useTranslation();
+    const { data: availableData } = useGetAvailableFiltersQuery(
+        `?region=${region || 'north-goa'}${city ? `&city=${city}` : ''}`
+    );
 
     useEffect(() => {
-        if (data) {
+        if (data && availableData) {
             const result = (data['transport_brand'] as SelectType[]).filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
+                (el) =>
+                    (
+                        availableData.available_params
+                            .transport_brand as string[]
+                    ).includes(el.value)
             );
-            data && setMarkOfTrasportValues(result as SelectType[]);
+            data && setMarkOfTransportValues(result as SelectType[]);
         }
-    }, [data]);
+    }, [data, availableData]);
 
     return (
         <div className={styles.mark}>
@@ -43,7 +56,7 @@ export const MarkOfTransport = ({ setValue, control }: Props) => {
                 placeholder={t('filters.choose-brand')}
                 closeMenuOnSelect={true}
                 isMulti={false}
-                options={markOfTrasportValues}
+                options={markOfTransportValues}
             />
         </div>
     );
