@@ -18,6 +18,7 @@ class TransportBrand(models.Model):
 
     name = models.CharField("Название", db_index=True)
     slug = models.SlugField("Слаг", unique=True, db_index=True)
+    ref_id = models.PositiveSmallIntegerField("Внешний ID", null=True)
 
     class Meta:
         verbose_name = "Бренд"
@@ -37,9 +38,13 @@ class TransportModel(models.Model):
         verbose_name="Бренд",
         related_name="brand_models",
     )
+    category = models.CharField(
+        "Категория транспорта", max_length=50, choices=TransportCategory.choices, null=True
+    )
 
     name = models.CharField("Название", db_index=True)
     slug = models.SlugField("Слаг", unique=True, db_index=True)
+    ref_id = models.PositiveSmallIntegerField("Внешний ID", null=True)
 
     class Meta:
         verbose_name = "Модель"

@@ -12,4 +12,4 @@ class TransportBrandAdmin(ModelAdmin):
 class TransportModelAdmin(ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     list_display = ("name", "slug", "brand")
-    list_filter = ("brand",)
+    list_filter = ("category", "brand")

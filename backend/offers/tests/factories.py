@@ -150,6 +150,7 @@ class TransportBrandFactory(factory.django.DjangoModelFactory):
 
     name = factory.Faker("word")
     slug = factory.Sequence(lambda x: f"slug_{x}")
+    ref_id = factory.Sequence(lambda x: x + 1)
 
     class Meta:
         model = TransportBrand
@@ -160,7 +161,9 @@ class TransportModelFactory(factory.django.DjangoModelFactory):
 
     name = factory.Faker("word")
     slug = factory.Sequence(lambda x: f"slug_{x}")
+    ref_id = factory.Sequence(lambda x: x + 1)
     brand = factory.SubFactory(TransportBrandFactory)
+    category = fuzzy.FuzzyChoice(choices=TransportCategory.values)
 
     class Meta:
         model = TransportModel

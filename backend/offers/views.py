@@ -221,7 +221,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     )
     @action(detail=False, methods=["GET"])
     def get_regions_by_country(self, request, *args, **kwargs):
-        """Возвращает регионы по стране"""
+        """Возвращает регионы по стране."""
 
         country = request.query_params.get("country")
         if not country:
@@ -244,7 +244,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     )
     @action(detail=False, methods=["GET"])
     def get_cities_by_region(self, request, *args, **kwargs):
-        """Возвращает города по региону"""
+        """Возвращает города по региону."""
 
         region = request.query_params.get("region")
         if not region:
@@ -263,15 +263,25 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 description="Ввести slug бренда транспорта",
                 required=True,
             ),
+            OpenApiParameter(
+                name="category",
+                type=str,
+                location=OpenApiParameter.QUERY,
+                description="Ввести категорию транспорта",
+                required=False,
+            ),
         ]
     )
     @action(detail=False, methods=["GET"])
     def get_transport_models_by_brand(self, request, *args, **kwargs):
-        """Возвращает модели транспорта по марке"""
+        """Возвращает модели транспорта по марке."""
 
         brand = request.query_params.get("brand")
         if not brand:
             return Response("brand - обязательный параметр", status=status.HTTP_400_BAD_REQUEST)
-        queryset = TransportModel.objects.filter(brand__slug=brand)
+        if category := request.query_params.get("category"):
+            queryset = TransportModel.objects.filter(brand__slug=brand, category=category)
+        else:
+            queryset = TransportModel.objects.filter(brand__slug=brand)
         serializer = TransportModelSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
