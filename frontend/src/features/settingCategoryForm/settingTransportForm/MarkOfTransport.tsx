@@ -29,7 +29,7 @@ export const MarkOfTransport = ({ setValue, control, watch }: Props) => {
     >([]);
     const { t } = useTranslation();
     const { data: availableData } = useGetAvailableFiltersQuery(
-        `?region=${region || 'north-goa'}&city=${city}`
+        `?region=${region || 'north-goa'}${city ? `&city=${city}` : ''}`
     );
 
     useEffect(() => {
