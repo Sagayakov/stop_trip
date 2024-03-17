@@ -53,9 +53,23 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
         )
 
 
+class TransportBrandSerializer(serializers.ModelSerializer):
+    """Сериализатор брэндов транспорта."""
+
+    class Meta:
+        model = TransportBrand
+        fields = (
+            "name",
+            "slug",
+        )
+
+
 class TransportModelSerializer(serializers.ModelSerializer):
-    """Серриализатор модели транспорта"""
+    """Сериализатор модели транспорта."""
 
     class Meta:
         model = TransportModel
-        fields = ("name", "slug")
+        fields = (
+            "name",
+            "slug",
+        )

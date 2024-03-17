@@ -19,7 +19,7 @@ from countries.models import Region, City
 from countries.serializers import CitySerializer, RegionSerializer
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
-from .models import Advertisement, PropertyAmenity, TransportModel
+from .models import Advertisement, PropertyAmenity, TransportModel, TransportBrand
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .serializers import (
     PropertyCreateSerializer,
@@ -38,6 +38,7 @@ from .serializers import (
     ExcursionCreateSerializer,
     MyAdvertisementSerializer,
     TransportModelSerializer,
+    TransportBrandSerializer,
 )
 
 
@@ -251,6 +252,15 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
             return Response("region - обязательный параметр", status=status.HTTP_400_BAD_REQUEST)
         queryset = City.objects.filter(region__slug=region)
         serializer = CitySerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # @method_decorator(cache_page(60 * 10))
+    @action(detail=False, methods=["GET"])
+    def get_transport_brands(self, request, *args, **kwargs):
+        """Возвращает все брэнды транспорта."""
+
+        queryset = TransportBrand.objects.all()
+        serializer = TransportBrandSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # @method_decorator(cache_page(60 * 10))

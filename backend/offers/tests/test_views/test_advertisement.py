@@ -58,6 +58,7 @@ class AdvertisementViewSetTest(APITestCase):
             "advertisements-get-available-filtered-params"
         )
         self.my_advertisements_url: str = reverse("advertisements-my-advertisements")
+        self.get_transport_brands_url: str = reverse("advertisements-get-transport-brands")
         self.get_transport_models_by_brand_url: str = reverse(
             "advertisements-get-transport-models-by-brand"
         )
@@ -219,6 +220,16 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(len(res_json), len(my_advertisements) + len(my_unpublished_advertisements))
+
+    def test_get_transport_brands(self):
+        brands = [TransportBrandFactory() for _ in range(10)]
+
+        with self.assertNumQueries(1):
+            res = self.client.get(self.get_transport_brands_url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(brands))
 
     def test_get_transport_models_by_brand(self):
         brand = [TransportBrandFactory() for _ in range(2)]
