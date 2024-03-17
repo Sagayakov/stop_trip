@@ -44,6 +44,7 @@ export const LoadPhotoBtn = ({
     ) => {
         const fileList = event.target.files;
         if (fileList) {
+            console.log(fileList)
             for (const file of fileList) {
                 const fileType = file.type.split('.');
                 const extension = fileType[fileType.length - 1];

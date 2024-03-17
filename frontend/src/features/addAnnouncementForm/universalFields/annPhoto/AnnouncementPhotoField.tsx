@@ -44,6 +44,16 @@ const AnnouncementPhotoField = ({
 
             setPreviewImages(newPreviews);
         }
+        if (uploadImg) {
+            const newImages = [...uploadImg];
+            newImages.splice(index, 1);//удаляем элемент по индексу
+            setValue('upload_images',newImages);
+
+            const newPreviews = [...previewImages]
+            newPreviews.splice(index, 1);
+
+            setPreviewImages(newPreviews);
+        }
     };//удаление фотографий при загрузке
 
     const removeImageEdit = (id: number) => {
