@@ -82,10 +82,16 @@ footer {
             font-weight: 400;
             font-family: var(--font-inter);
             .contacts {
-                height: 20px;
-                width: 50px;
                 display: flex;
                 justify-content: space-between;
+                gap: 0.5rem;
+
+                a {
+                    svg {
+                        width: 43px;
+                        height: 43px;
+                    }
+                }
             }
             .email_agreement {
                 display: flex;
@@ -97,6 +103,7 @@ footer {
                 }
                 .user_agreement {
                     font-size: 14px;
+                    color: black;
                 }
                 .email_link:hover,
                 .user_agreement:hover {
@@ -249,13 +256,14 @@ footer {
                 .contacts {
                     display: flex;
                     flex-direction: column;
+                    justify-content: space-between;
                     align-items: flex-end;
                     gap: 0.5rem;
                     width: auto;
-                    padding-top: 1rem;
+
                     .user_agreement {
                         white-space: nowrap;
-                        font-size: 14px;
+                        font-size: 10px; // было 16, но футер слишком широкий
                     }
                 }
             }

@@ -23,8 +23,7 @@ export const fetchFavorites = createApi({
                 url: 'api/favorites/',
                 method: 'POST',
                 headers: {
-                    "X-Csrftoken": getCsrfToken(),
-                    // 'X-Csrftoken': `${Cookies.get('access_token')}`
+                    'X-Csrftoken': getCsrfToken(),
                 },
                 body,
             }),
@@ -35,8 +34,7 @@ export const fetchFavorites = createApi({
                 url: 'api/favorites/delete_favorite/',
                 method: 'POST',
                 headers: {
-                    "X-Csrftoken": getCsrfToken(),
-                    // 'X-Csrftoken': `${Cookies.get('access_token')}`
+                    'X-Csrftoken': getCsrfToken(),
                 },
                 body,
             }),
@@ -47,8 +45,7 @@ export const fetchFavorites = createApi({
                 url: 'api/favorites/clear_favorite/',
                 method: 'POST',
                 headers: {
-                    "X-Csrftoken": getCsrfToken(),
-                    // 'X-Csrftoken': `${Cookies.get('access_token')}`,
+                    'X-Csrftoken': getCsrfToken(),
                 },
             }),
             invalidatesTags: ['Favorites'],

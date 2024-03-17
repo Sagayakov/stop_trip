@@ -1,4 +1,4 @@
-input{
+input {
     padding: 0;
 }
 .optional_fields {
@@ -17,6 +17,9 @@ input{
             width: 100%;
             border-color: var(--grey-3);
         }
+        input[type='time'] {
+            margin-top: 0.5rem;
+        }
     }
     //.ann_field{
     //    .radio_group{
@@ -33,6 +36,7 @@ input{
         max-height: fit-content;
     }
 }
+
 .background {
     background-color: rgba(28, 28, 30, 0.7);
     z-index: 1001 !important;
@@ -96,6 +100,15 @@ input{
                 margin-bottom: 16px;
                 span {
                     color: red;
+                }
+            }
+            .date_wrapper{
+                display: flex;
+                gap: 0.5rem;
+                input[type="date"],
+                input[type="time"] {
+                    margin: 0;
+                    border-color: grey;
                 }
             }
             .radio_group,
@@ -258,7 +271,7 @@ input{
             .ann_event {
                 display: flex;
                 flex-direction: column;
-                width: 50%;
+                width: 70%;
             }
         }
     }
@@ -267,7 +280,7 @@ input{
     .add_ann {
         .add_ann_form {
             .ann_event {
-                width: 70%;
+                width: 100%;
             }
         }
     }

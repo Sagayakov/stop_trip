@@ -45,11 +45,21 @@ export const AnnouncementTransportEngineCapacity = ({
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"
-                    pattern="^(?:(?:0|[1-9]\d*)(?:[.]\d+)?|[1-9]\d*\/[1-9]\d*)$"
                     autoComplete="off"
-                    {...register('transport_engine_volume')}
-                    min={data?.transport_engine_volume.min || '0.1'}
-                    max={data?.transport_engine_volume.max || '9.9'}
+                    {...register('transport_engine_volume', {
+                        pattern: {
+                            value: /^(?:(?:0|[1-9]\d*)(?:[.]\d+)?|[1-9]\d*\/[1-9]\d*)$/,
+                            message: t('add-page.right-format'),
+                        },
+                        min: {
+                            value: data?.transport_engine_volume.min || '0.1',
+                            message: t('add-page.right-format'),
+                        },
+                        max: {
+                            value: data?.transport_engine_volume.max || '9.9',
+                            message: t('add-page.right-format'),
+                        },
+                    })}
                     placeholder={t('filters.volume')}
                     value={value}
                     onInput={(e) => handleInput(e)}

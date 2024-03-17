@@ -7,6 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 interface Props {
     register: UseFormRegister<TypeOfEventFilter>;
 }
+
 export const DateOfStartEvent = ({ register }: Props) => {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();

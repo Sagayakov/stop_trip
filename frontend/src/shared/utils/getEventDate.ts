@@ -6,13 +6,19 @@ export const getEventDate = (date: string) => {
         year: strDate.getFullYear(),
     };
 
-    const dayToDisplay: string = `${day}.${month + 1}.${year}`;
+    const dayToDisplay: string = `${day.toString().padStart(2, '0')}.${(
+        month + 1
+    )
+        .toString()
+        .padStart(2, '0')}.${year}`;
 
     const hours = strDate.getHours();
     const minutes = strDate.getMinutes();
 
     return {
-        time: `${hours}:${minutes < 10 ? `0${minutes}` : minutes}`,
+        time: `${hours.toString().padStart(2, '0')}:${minutes
+            .toString()
+            .padStart(2, '0')}`,
         day: `${dayToDisplay}`,
     };
 };

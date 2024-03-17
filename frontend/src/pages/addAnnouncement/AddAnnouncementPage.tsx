@@ -67,6 +67,12 @@ const AddAnnouncementPage = () => {
             );
             await addAdvert({
                 ...Object.fromEntries(nonNullableData),
+                start_date: data.start_date
+                    ? `${data.start_date}T${data.start_time ?? ''}`
+                    : undefined,
+                end_date: data.end_date
+                    ? `${data.end_date}T${data.end_time ?? ''}`
+                    : undefined,
                 region: data.region || 'north-goa',
             });
         } catch (error) {
@@ -117,10 +123,19 @@ const AddAnnouncementPage = () => {
                 `input[name="${firstErrorKey}"]`
             );
             if (errorField) {
-                errorField.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                });
+                if (navigator.userAgent === 'safari') {
+                    errorField.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                    });
+                } else {
+                    const y =
+                        errorField.getBoundingClientRect().top +
+                        window.scrollY -
+                        80;
+
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
             }
         }
     }, [formState]); // для скролла в сафари
@@ -189,14 +204,17 @@ const AddAnnouncementPage = () => {
                             setError={setError}
                             clearErrors={clearErrors}
                         />
-                        <YoutubeField register={register} />
+                        <YoutubeField
+                            register={register}
+                            errors={formState.errors}
+                        />
                         <AnnouncementLocationField
                             setValue={setValue}
                             markerPosition={markerPosition}
                             setMarkerPosition={setMarkerPosition}
                         />
                         <AnnouncementSubmitButton
-                            isDisabled={!formState.errors}
+                            isDisabled={!formState.isValid}
                         />
                     </Suspense>
                 </form>

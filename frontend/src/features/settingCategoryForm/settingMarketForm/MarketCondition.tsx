@@ -42,7 +42,7 @@ export const MarketCondition = ({ register }: Props) => {
             <h3>{t('filters.market_condition')}</h3>
             {data && (
                 <UniversalRadioGroup
-                    radioValues={data['market_condition'] as Values[]}
+                    radioValues={data.market_condition as Values[]}
                     register={register}
                     name="market_condition"
                     className={styles.checkbox_group}

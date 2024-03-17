@@ -42,10 +42,17 @@ export const AnnouncementTransportComission = ({
             <div className={styles.inputNumber_group}>
                 <input
                     type="text"
-                    pattern="[0-9]*[.,]?[0-9]+"
                     autoComplete="off"
-                    {...register('transport_commission')}
-                    min={0}
+                    {...register('transport_commission', {
+                        pattern: {
+                            value: /[0-9]*[.,]?[0-9]+/,
+                            message: t('add-page.right-format'),
+                        },
+                        min: {
+                            value: 0,
+                            message: t('add-page.right-format'),
+                        },
+                    })}
                     placeholder={t('filters.transport_commission')}
                     onInput={(e) => handleInput(e)}
                     value={value}

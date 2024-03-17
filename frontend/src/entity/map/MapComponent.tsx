@@ -14,6 +14,8 @@ import { Zoom } from 'ol/control';
 import { Coordinate } from 'ol/coordinate';
 import stylesAddAnnouncement from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import stylesAnnouncementPage from 'entity/location/advertLocation.module.scss';
+import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes';
+import { UseFormSetValue } from 'react-hook-form';
 
 type MapProps = {
     propertyLocation: number[];
@@ -21,12 +23,14 @@ type MapProps = {
     setMarkerPosition?: (
         value: React.SetStateAction<string | undefined>
     ) => void;
+    setValue?: UseFormSetValue<FormAddAnn>;
 };
 
 export const MapComponent = ({
     propertyLocation,
     isSelected,
     setMarkerPosition,
+    setValue,
 }: MapProps) => {
     useGeographic();
 
@@ -45,8 +49,12 @@ export const MapComponent = ({
         const clickedCoord = (mapRef!.current! as Map).getCoordinateFromPixel(
             event.pixel
         );
-        setSelectedCoord && setSelectedCoord(clickedCoord);
+        setSelectedCoord(clickedCoord);
+
+        setValue &&
+            setValue('coordinates', `${clickedCoord[1]}, ${clickedCoord[0]}`);
     };
+
     useEffect(() => {
         const map = new Map({
             layers: [
@@ -71,7 +79,7 @@ export const MapComponent = ({
             ],
             controls: [scaleLineControl, zoomControl],
             view: new View({
-                center: propertyLocation,
+                center: selectedCoord || propertyLocation,
                 zoom: zoom,
                 minZoom: 0,
                 maxZoom: 28,
@@ -79,6 +87,7 @@ export const MapComponent = ({
         });
 
         isSelected && map.on('click', handleMapClick);
+        isSelected && map.on('singleclick', handleMapClick);
 
         map.setTarget(mapTargetElement.current || '');
         setMap(map);
@@ -87,7 +96,7 @@ export const MapComponent = ({
             setMarkerPosition(`${selectedCoord[1]},  ${selectedCoord[0]}`);
 
         return () => map.setTarget('');
-    }, [propertyLocation, selectedCoord]);
+    }, [propertyLocation, selectedCoord, isSelected]);
 
     const handleWheel = () => {
         if (map) {

@@ -11,7 +11,11 @@ interface Props {
     formState: FormState<FormAddAnn>;
 }
 
-export const AnnouncementJobDuration = ({ register, defaultValue, formState }: Props) => {
+export const AnnouncementJobDuration = ({
+    register,
+    defaultValue,
+    formState,
+}: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
 
@@ -23,16 +27,23 @@ export const AnnouncementJobDuration = ({ register, defaultValue, formState }: P
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.job_duration')}<span>*</span>:</h3>
-            <UniversalRadioGroup
-                name="job_duration"
-                radioValues={data!.job_duration}
-                defaultValue={getDefaultValue()}
-                register={register}
-                className={styles.radio_group}
-                requiredField={true}
-            />
-            <div className={styles.ann_field_err}>{formState?.errors?.job_duration?.message}</div>
+            <h3>
+                {t('filters.job_duration')}
+                <span>*</span>:
+            </h3>
+            {data && (
+                <UniversalRadioGroup
+                    name="job_duration"
+                    radioValues={data.job_duration}
+                    defaultValue={getDefaultValue()}
+                    register={register}
+                    className={styles.radio_group}
+                    requiredField={true}
+                />
+            )}
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.job_duration?.message}
+            </div>
         </div>
     );
 };

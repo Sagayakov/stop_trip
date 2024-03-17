@@ -3,7 +3,6 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useEffect } from 'react';
-//import { useLocation } from 'react-router-dom';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -18,8 +17,6 @@ export const AnnouncementRealtyHasFurniture = ({
     setValue,
 }: Props) => {
     const { t } = useTranslation();
-    //const location = useLocation().pathname.split('/')[1];
-    //const isRequired = location !== 'advertisement-editing';
 
     useEffect(() => {
         if (defaultValue === undefined) {
@@ -29,27 +26,19 @@ export const AnnouncementRealtyHasFurniture = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>
-                {t('filters.with-furniture')}
-                {/* {isRequired && <span>*</span>} */}:
-            </h3>
+            <h3>{t('filters.with-furniture')}:</h3>
             <div className={styles.radio_group}>
                 <label>
                     <input
                         type="checkbox"
-                        {...register('property_has_furniture', {
-                            /* required: {
-                                value: isRequired,
-                                message: t('add-page.required'),
-                            }, */
-                        })}
+                        {...register('property_has_furniture')}
                         onChange={(event) =>
                             setValue(
                                 'property_has_furniture',
                                 event.target.checked
                             )
                         }
-                        defaultChecked={defaultValue}
+                        defaultChecked={defaultValue || false}
                         style={{ display: 'none' }}
                     />
                     <span>{t('filters.property_has_furniture')}</span>

@@ -4,16 +4,17 @@
 .modal_add_content {
     position: fixed;
     top: 8rem;
-    left: 25%;
+    left: 20%;
     z-index: 10;
     box-shadow: 0 0 20px 0 #00000012;
-    width: 50%;
+    width: 60%;
     padding: 60px 40px 40px;
     border-radius: 8px;
     background-color: white;
     font-weight: 500;
     font-family: var(--font-sf);
     text-align: center;
+    font-size: 1.4rem;
     svg {
         position: absolute;
         top: 16px;
@@ -22,14 +23,20 @@
     .auth_link {
         cursor: pointer;
         color: var(--main-blue);
+        font-size: 1.4rem;
     }
 }
 
 @media (max-width: 474px) {
     .modal_add_content {
-        width: 60%;
+        width: 70%;
         top: 4rem;
-        left: 20%;
+        left: 15%;
+        padding: 60px 20px 20px;
+        font-size: 18px;
+        .auth_link {
+            font-size: 18px;
+        }
     }
 }
 

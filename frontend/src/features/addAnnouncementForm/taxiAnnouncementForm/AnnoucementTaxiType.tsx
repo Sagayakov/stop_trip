@@ -31,7 +31,7 @@ export const AnnouncementTaxiType = ({
         if (defaultValue) {
             setValue('taxi_type', getDefaultValue()?.value);
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
-    }, []);
+    }, [defaultValue]);
 
     return (
         <div className={styles.ann_field}>
