@@ -22,7 +22,6 @@ export const ProductInfo = ({ data }: Props) => {
     const { t } = useTranslation();
     const { isMobile } = useMatchMedia();
     const { data: userData } = useGetUserQuery('');
-    console.log(userData);
 
     const handleModalOpen = () => {
         !isAuth ? setNeedAuth(true) : setShowComplainModal(true);

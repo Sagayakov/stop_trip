@@ -34,6 +34,7 @@ type RatingProps = {
 export const Rating = ({ id, rating, myRating, refetch }: RatingProps) => {
     const [activeStar, setActiveStar] = useState(myRating);
     const [prepareStar, setPrepareStar] = useState(0);
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const starsAmount = 5;
     const starArray = new Array(starsAmount).fill(1).map((el, i) => el + i);
@@ -51,6 +52,8 @@ export const Rating = ({ id, rating, myRating, refetch }: RatingProps) => {
                         activeStar={activeStar}
                         setActiveStar={setActiveStar}
                         refetch={refetch}
+                        isDisabled={isDisabled}
+                        setIsDisabled={setIsDisabled}
                     />
                 );
             })}
