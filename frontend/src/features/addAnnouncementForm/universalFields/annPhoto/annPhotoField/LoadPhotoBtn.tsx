@@ -15,6 +15,12 @@ const allowableExtensions = [
     'image/jpg',
     'image/jpeg',
     'image/img',
+    'png',
+    'heic',
+    'heif',
+    'jpg',
+    'jpeg',
+    'img',
 ];
 
 interface Props {
@@ -48,7 +54,13 @@ export const LoadPhotoBtn = ({
             for (const file of fileList) {
                 const fileType = file.type.split('.');
                 const extension = fileType[fileType.length - 1];
-                if (!allowableExtensions.includes(extension)) {
+
+                const fileTypeFromName = file.name.split('.');
+                const extensionFromName = fileTypeFromName[fileTypeFromName.length - 1];
+
+                if (!allowableExtensions.includes(extension)
+                    || !allowableExtensions.includes(extensionFromName)
+                ) {
                     const toastId = 'load photo ext toast';
                     toast.error(t('add-page.extension'), { toastId });
                     return;
