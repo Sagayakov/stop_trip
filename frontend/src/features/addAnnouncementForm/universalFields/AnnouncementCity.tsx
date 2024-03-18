@@ -5,12 +5,7 @@ import {
     FormAddAnn,
     SelectOption,
 } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import {
-    Control,
-    FormState,
-    UseFormSetValue,
-    UseFormWatch,
-} from 'react-hook-form';
+import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useGetCitiesByRegionQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues';
@@ -19,22 +14,22 @@ import { NameType } from 'pages/advertPage/libr/types';
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
+    defaultRegion?: NameType | null | undefined;
     defaultValue?: NameType | null | undefined;
     formState: FormState<FormAddAnn>;
-    watch: UseFormWatch<FormAddAnn>;
 }
 
 const AnnouncementCity = ({
     control,
     setValue,
+    defaultRegion,
     defaultValue,
     formState,
-    watch,
 }: Props) => {
     const { t } = useTranslation();
-    const region = watch('region');
+    //const region = watch('region');
     const { data: availableData } = useGetCitiesByRegionQuery(
-        `?region=${region || 'north-goa'}`
+        `?region=${defaultRegion?.slug || 'north-goa'}`
     );
     const [options, setOptions] = useState<StringOptions[]>([]);
     const [defaultCity, setDefaultCity] = useState<SelectOption>({
@@ -58,7 +53,7 @@ const AnnouncementCity = ({
                 });
             }
         }
-    }, [defaultValue, availableData]);
+    }, [defaultValue, availableData, setValue]);
 
     return (
         <div className={styles.ann_field}>
@@ -66,18 +61,20 @@ const AnnouncementCity = ({
                 {t('add-page.city')}
                 <span>*</span>:
             </h3>
-            <UniversalSelectDropdown<FormAddAnn>
-                setValue={setValue}
-                control={control}
-                name="city"
-                prefix="filterAnnouncementCategory"
-                placeholder={t('add-page.city')}
-                closeMenuOnSelect={true}
-                isMulti={false}
-                options={options}
-                requiredFiled={true}
-                defaultValue={defaultCity}
-            />
+            {availableData && (
+                <UniversalSelectDropdown<FormAddAnn>
+                    setValue={setValue}
+                    control={control}
+                    name="city"
+                    prefix="filterAnnouncementCategory"
+                    placeholder={t('add-page.city')}
+                    closeMenuOnSelect={true}
+                    isMulti={false}
+                    options={options}
+                    requiredFiled={true}
+                    defaultValue={defaultCity}
+                />
+            )}
             <div className={styles.ann_field_err}>
                 {formState?.errors?.city?.message}
             </div>

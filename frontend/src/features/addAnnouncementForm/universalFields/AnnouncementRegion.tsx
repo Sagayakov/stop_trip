@@ -5,11 +5,12 @@ import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts';
 import { useEffect, useState } from 'react';
+import { NameType } from 'pages/advertPage/libr/types';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
-    defaultValue?: { name: string } | null;
+    defaultValue?: NameType | null;
     formState: FormState<FormAddAnn>;
 }
 
@@ -59,7 +60,10 @@ const AnnouncementRegion = ({
                 isMulti={false}
                 isDisabled={false}
                 options={options}
-                defaultValue={{ value: 'north-goa', label: 'Северный Гоа' }}
+                defaultValue={{
+                    value: defaultValue?.slug || 'north-goa',
+                    label: defaultValue?.name || 'Северный Гоа',
+                }}
                 //requiredFiled={true}
             />
             <div className={styles.ann_field_err}>
