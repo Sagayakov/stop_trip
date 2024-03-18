@@ -63,10 +63,6 @@ export const LoadPhotoBtn = ({
                     /* !allowableExtensions.includes(extension) || */
                     !allowableExtensions.includes(extensionFromName)
                 ) {
-                    console.log(
-                        allowableExtensions.includes(extensionFromName),
-                        extensionFromName
-                    );
                     const toastId = 'load photo ext toast';
                     toast.error(t('add-page.extension'), { toastId });
                     return;
