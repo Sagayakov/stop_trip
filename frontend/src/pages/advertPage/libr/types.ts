@@ -78,6 +78,7 @@ export type ProductType = {
 
 export type NameType = {
     name: string;
+    slug: string;
 };
 
 export type Amenity = {
