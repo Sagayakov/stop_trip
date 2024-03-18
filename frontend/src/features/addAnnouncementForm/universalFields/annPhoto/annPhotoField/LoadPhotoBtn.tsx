@@ -50,17 +50,23 @@ export const LoadPhotoBtn = ({
     ) => {
         const fileList = event.target.files;
         if (fileList) {
-            console.log(fileList)
+            console.log(fileList);
             for (const file of fileList) {
-                const fileType = file.type.split('.');
-                const extension = fileType[fileType.length - 1];
+                //const fileType = file.type.split('.');
+                //const extension = fileType[fileType.length - 1];
 
                 const fileTypeFromName = file.name.split('.');
-                const extensionFromName = fileTypeFromName[fileTypeFromName.length - 1];
+                const extensionFromName =
+                    fileTypeFromName[fileTypeFromName.length - 1];
 
-                if (!allowableExtensions.includes(extension)
-                    || !allowableExtensions.includes(extensionFromName)
+                if (
+                    /* !allowableExtensions.includes(extension) || */
+                    !allowableExtensions.includes(extensionFromName)
                 ) {
+                    console.log(
+                        allowableExtensions.includes(extensionFromName),
+                        extensionFromName
+                    );
                     const toastId = 'load photo ext toast';
                     toast.error(t('add-page.extension'), { toastId });
                     return;
