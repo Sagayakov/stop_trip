@@ -7,6 +7,8 @@ import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import heic2any from 'heic2any';
+//import convert from 'heic-convert/browser';
 
 const allowableExtensions = [
     'image/png',
@@ -17,6 +19,7 @@ const allowableExtensions = [
     'image/img',
     'png',
     'heic',
+    'HEIC',
     'heif',
     'jpg',
     'jpeg',
@@ -85,7 +88,20 @@ export const LoadPhotoBtn = ({
             } //если мы на странице редактирования, то setValue для поля upload_images
             //если на странице добавления объявлений, то для поля images
 
-            Array.from(fileList).forEach((file) => {
+            Array.from(fileList).forEach(async (file) => {
+                if (file.name.includes('.HEIC')) {
+                    const blobURL = URL.createObjectURL(file);
+                    const blobRes = await fetch(blobURL);
+                    const blob = await blobRes.blob();
+
+                    const converted = await heic2any({
+                        blob,
+                        toType: 'image/jpeg',
+                        quality: 0.5,
+                    });
+
+                    file = new File([converted as Blob], 'image.jpeg');
+                }
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onloadend = () => {
@@ -110,7 +126,7 @@ export const LoadPhotoBtn = ({
                     className={styles.loadphoto_btn_hidden}
                     type="file"
                     ref={inputRef}
-                    accept="image/*,.img,.png,.jpeg,.jpg,.heic,.heif"
+                    accept="image/*,.img,.png,.jpeg,.jpg,.heic,.HEIC,.heif"
                     multiple={true}
                     max={11}
                     onChange={handleImageChange}
