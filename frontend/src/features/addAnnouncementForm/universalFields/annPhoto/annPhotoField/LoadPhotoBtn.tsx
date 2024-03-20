@@ -37,7 +37,7 @@ interface Props {
     watch: UseFormWatch<FormAddAnn>;
 }
 
-export const LoadPhotoBtn = ({
+const LoadPhotoBtn = ({
     inputRef,
     setPreviewImages,
     setValue,
@@ -152,3 +152,4 @@ export const LoadPhotoBtn = ({
     );
 };
 //62914560
+export default LoadPhotoBtn;
