@@ -7,6 +7,10 @@ from ..constants import (
     TransportCategory,
     TransportTransmissionType,
     TransportRentDuration,
+    TransportEngineType,
+    TransportDriveType,
+    TransportBodyType,
+    TransportCondition,
 )
 from ..models import TransportBrand, TransportModel, Advertisement
 
@@ -27,8 +31,18 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
         slug_field="slug",
         required=False,
     )
+    transport_engine_type = serializers.ChoiceField(
+        choices=TransportEngineType.choices, required=False
+    )
+    transport_drive_type = serializers.ChoiceField(
+        choices=TransportDriveType.choices, required=False
+    )
     transport_transmission_type = serializers.ChoiceField(
         choices=TransportTransmissionType.choices, required=False
+    )
+    transport_body_type = serializers.ChoiceField(choices=TransportBodyType.choices, required=False)
+    transport_condition = serializers.ChoiceField(
+        choices=TransportCondition.choices, required=False
     )
     transport_rent_duration = serializers.ChoiceField(choices=TransportRentDuration, required=False)
 
