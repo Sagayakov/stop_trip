@@ -16,6 +16,7 @@ from offers.constants import (
     TransportTransmissionType,
     TransportBodyType,
     TransportCondition,
+    TransportRentDuration,
 )
 from offers.models import Advertisement
 from users.tests.factories import UserFactory
@@ -67,6 +68,7 @@ class TransportTest(APITestCase):
             "transport_commission": 500,
             "images": payload_images,
             "youtube": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+            "transport_rent_duration": TransportRentDuration.DAILY,
         }
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
@@ -120,6 +122,9 @@ class TransportTest(APITestCase):
         self.assertEqual(
             new_advertisement.youtube, "https://www.youtube.com/embed/jNQXAC9IVRw?controls=0"
         )
+        self.assertEqual(
+            new_advertisement.transport_rent_duration, payload["transport_rent_duration"]
+        )
 
     def test_update_transport(self):
         user = UserFactory()
@@ -150,6 +155,7 @@ class TransportTest(APITestCase):
             transport_condition=TransportCondition.USED,
             transport_passengers_quality=5,
             transport_commission=100,
+            transport_rent_duration=TransportRentDuration.DAILY,
         )
         advertisement_images = [
             AdvertisementImageFactory(advertisement=advertisement) for _ in range(5)
@@ -185,6 +191,7 @@ class TransportTest(APITestCase):
             ],
             "upload_images": payload_images,
             "youtube": "https://www.youtube.com/watch?v=VaLXzI92t9M",
+            "transport_rent_duration": TransportRentDuration.PER_MONTHS,
         }
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
@@ -234,6 +241,7 @@ class TransportTest(APITestCase):
         self.assertEqual(
             advertisement.youtube, "https://www.youtube.com/embed/VaLXzI92t9M?controls=0"
         )
+        self.assertEqual(advertisement.transport_rent_duration, payload["transport_rent_duration"])
         new_images_ids = advertisement.images.values_list("id", flat=True)
         for image in advertisement_images[3:]:
             self.assertTrue(image.id not in new_images_ids)
@@ -262,14 +270,8 @@ class TransportTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
-        transport_brands = [
-            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
-        ]
-        transport_models = [
-            TransportModelFactory(name=name, brand=brand)
-            for name in ["1a", "2a", "3a", "4a"]
-            for brand in transport_brands
-        ]
+        transport_brand = TransportBrandFactory()
+        transport_model = TransportModelFactory(brand=transport_brand)
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
@@ -277,15 +279,15 @@ class TransportTest(APITestCase):
                 region=region,
                 city=city,
                 category=CategoryChoices.TRANSPORT.value,
-                price=100_000 + _ * 50_000,
+                price=100_000,
                 transport_type_of_service=[
                     TransportTypeOfService.SALE,
                     TransportTypeOfService.RENT,
                 ][_ % 2],
                 transport_type=TransportType.GROUND,
                 transport_category=TransportCategory.CAR,
-                transport_brand=brand,
-                transport_model=model,
+                transport_brand=transport_brand,
+                transport_model=transport_model,
                 transport_engine_type=TransportEngineType.FUEL,
                 transport_drive_type=TransportDriveType.ALL_WHEEL,
                 transport_engine_volume=3.0,
@@ -293,11 +295,9 @@ class TransportTest(APITestCase):
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
-                transport_passengers_quality=5 + 1 * _,
+                transport_passengers_quality=5,
                 transport_commission=1000,
             )
-            for model in transport_models
-            for brand in transport_brands
             for _ in range(2)
         ]
 
@@ -316,14 +316,8 @@ class TransportTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
-        transport_brands = [
-            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
-        ]
-        transport_models = [
-            TransportModelFactory(name=name, brand=brand)
-            for name in ["1a", "2a", "3a", "4a"]
-            for brand in transport_brands
-        ]
+        transport_brand = TransportBrandFactory()
+        transport_model = TransportModelFactory(brand=transport_brand)
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
@@ -331,15 +325,15 @@ class TransportTest(APITestCase):
                 region=region,
                 city=city,
                 category=CategoryChoices.TRANSPORT.value,
-                price=100_000 + _ * 50_000,
+                price=100_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=[
                     TransportType.GROUND,
                     TransportType.WATER,
                 ][_ % 2],
                 transport_category=TransportCategory.CAR,
-                transport_brand=brand,
-                transport_model=model,
+                transport_brand=transport_brand,
+                transport_model=transport_model,
                 transport_engine_type=TransportEngineType.FUEL,
                 transport_drive_type=TransportDriveType.ALL_WHEEL,
                 transport_engine_volume=3.0,
@@ -347,11 +341,9 @@ class TransportTest(APITestCase):
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
-                transport_passengers_quality=5 + 1 * _,
+                transport_passengers_quality=5,
                 transport_commission=1000,
             )
-            for model in transport_models
-            for brand in transport_brands
             for _ in range(2)
         ]
 
@@ -370,14 +362,8 @@ class TransportTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
-        transport_brands = [
-            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
-        ]
-        transport_models = [
-            TransportModelFactory(name=name, brand=brand)
-            for name in ["1a", "2a", "3a", "4a"]
-            for brand in transport_brands
-        ]
+        transport_brand = TransportBrandFactory()
+        transport_model = TransportModelFactory(brand=transport_brand)
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
@@ -385,15 +371,15 @@ class TransportTest(APITestCase):
                 region=region,
                 city=city,
                 category=CategoryChoices.TRANSPORT.value,
-                price=100_000 + _ * 50_000,
+                price=100_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=[
                     TransportCategory.MOTORCYCLE,
                     TransportCategory.MOPED,
                 ][_ % 2],
-                transport_brand=brand,
-                transport_model=model,
+                transport_brand=transport_brand,
+                transport_model=transport_model,
                 transport_engine_type=TransportEngineType.FUEL,
                 transport_drive_type=TransportDriveType.ALL_WHEEL,
                 transport_engine_volume=3.0,
@@ -401,11 +387,9 @@ class TransportTest(APITestCase):
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
-                transport_passengers_quality=5 + 1 * _,
+                transport_passengers_quality=5,
                 transport_commission=1000,
             )
-            for model in transport_models
-            for brand in transport_brands
             for _ in range(2)
         ]
 
@@ -451,7 +435,7 @@ class TransportTest(APITestCase):
                 region=region,
                 city=city,
                 category=CategoryChoices.TRANSPORT.value,
-                price=100_000 + _ * 50_000,
+                price=100_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=TransportCategory.MOTORCYCLE,
@@ -464,7 +448,7 @@ class TransportTest(APITestCase):
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
-                transport_passengers_quality=5 + 1 * _,
+                transport_passengers_quality=5,
                 transport_commission=1000,
             )
             for model in transport_models
@@ -503,7 +487,7 @@ class TransportTest(APITestCase):
                 region=region,
                 city=city,
                 category=CategoryChoices.TRANSPORT.value,
-                price=100_000 + _ * 50_000,
+                price=100_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=TransportCategory.MOTORCYCLE,
@@ -516,7 +500,7 @@ class TransportTest(APITestCase):
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
-                transport_passengers_quality=5 + 1 * _,
+                transport_passengers_quality=5,
                 transport_commission=1000,
             )
             for model in transport_models
@@ -538,14 +522,8 @@ class TransportTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
-        transport_brands = [
-            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
-        ]
-        transport_models = [
-            TransportModelFactory(name=name, brand=brand)
-            for name in ["1a", "2a", "3a", "4a"]
-            for brand in transport_brands
-        ]
+        transport_brand = TransportBrandFactory()
+        transport_model = TransportModelFactory(brand=transport_brand)
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
@@ -553,12 +531,12 @@ class TransportTest(APITestCase):
                 region=region,
                 city=city,
                 category=CategoryChoices.TRANSPORT.value,
-                price=100_000 + _ * 50_000,
+                price=100_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=TransportCategory.MOTORCYCLE,
-                transport_brand=brand,
-                transport_model=model,
+                transport_brand=transport_brand,
+                transport_model=transport_model,
                 transport_engine_type=[
                     TransportEngineType.FUEL,
                     TransportEngineType.DIESEL,
@@ -569,11 +547,9 @@ class TransportTest(APITestCase):
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
-                transport_passengers_quality=5 + 1 * _,
+                transport_passengers_quality=5,
                 transport_commission=1000,
             )
-            for model in transport_models
-            for brand in transport_brands
             for _ in range(2)
         ]
 
@@ -604,14 +580,8 @@ class TransportTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
-        transport_brands = [
-            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
-        ]
-        transport_models = [
-            TransportModelFactory(name=name, brand=brand)
-            for name in ["1a", "2a", "3a", "4a"]
-            for brand in transport_brands
-        ]
+        transport_brand = TransportBrandFactory()
+        transport_model = TransportModelFactory(brand=transport_brand)
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
@@ -619,12 +589,12 @@ class TransportTest(APITestCase):
                 region=region,
                 city=city,
                 category=CategoryChoices.TRANSPORT.value,
-                price=100_000 + _ * 50_000,
+                price=100_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=TransportCategory.MOTORCYCLE,
-                transport_brand=brand,
-                transport_model=model,
+                transport_brand=transport_brand,
+                transport_model=transport_model,
                 transport_engine_type=TransportEngineType.FUEL,
                 transport_drive_type=[
                     TransportDriveType.ALL_WHEEL,
@@ -635,11 +605,9 @@ class TransportTest(APITestCase):
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
-                transport_passengers_quality=5 + 1 * _,
+                transport_passengers_quality=5,
                 transport_commission=1000,
             )
-            for model in transport_models
-            for brand in transport_brands
             for _ in range(2)
         ]
 
@@ -751,14 +719,8 @@ class TransportTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
-        transport_brands = [
-            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
-        ]
-        transport_models = [
-            TransportModelFactory(name=name, brand=brand)
-            for name in ["1a", "2a", "3a", "4a"]
-            for brand in transport_brands
-        ]
+        transport_brand = TransportBrandFactory()
+        transport_model = TransportModelFactory(brand=transport_brand)
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
@@ -766,12 +728,12 @@ class TransportTest(APITestCase):
                 region=region,
                 city=city,
                 category=CategoryChoices.TRANSPORT.value,
-                price=100_000 + _ * 50_000,
+                price=100_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=TransportCategory.MOTORCYCLE,
-                transport_brand=brand,
-                transport_model=model,
+                transport_brand=transport_brand,
+                transport_model=transport_model,
                 transport_engine_type=TransportEngineType.FUEL,
                 transport_drive_type=TransportDriveType.ALL_WHEEL,
                 transport_engine_volume=3.0,
@@ -782,11 +744,9 @@ class TransportTest(APITestCase):
                 ][_ % 2],
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=TransportCondition.USED,
-                transport_passengers_quality=5 + 1 * _,
+                transport_passengers_quality=5,
                 transport_commission=1000,
             )
-            for model in transport_models
-            for brand in transport_brands
             for _ in range(2)
         ]
 
@@ -820,27 +780,21 @@ class TransportTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
-        transport_brands = [
-            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
-        ]
-        transport_models = [
-            TransportModelFactory(name=name, brand=brand)
-            for name in ["1a", "2a", "3a", "4a"]
-            for brand in transport_brands
-        ]
+        transport_brand = TransportBrandFactory()
+        transport_model = TransportModelFactory(brand=transport_brand)
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
                 category=CategoryChoices.TRANSPORT.value,
-                price=100_000 + _ * 50_000,
+                price=100_000,
                 country=country,
                 region=region,
                 city=city,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=TransportCategory.MOTORCYCLE,
-                transport_brand=brand,
-                transport_model=model,
+                transport_brand=transport_brand,
+                transport_model=transport_model,
                 transport_engine_type=TransportEngineType.FUEL,
                 transport_drive_type=TransportDriveType.ALL_WHEEL,
                 transport_engine_volume=3.0,
@@ -851,11 +805,9 @@ class TransportTest(APITestCase):
                     TransportBodyType.SEDAN,
                 ][_ % 2],
                 transport_condition=TransportCondition.USED,
-                transport_passengers_quality=5 + 1 * _,
+                transport_passengers_quality=5,
                 transport_commission=1000,
             )
-            for model in transport_models
-            for brand in transport_brands
             for _ in range(2)
         ]
 
@@ -888,14 +840,8 @@ class TransportTest(APITestCase):
         country = CountryFactory()
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
-        transport_brands = [
-            TransportBrandFactory(name=name) for name in ["Audi", "BMW", "Honda", "Lada"]
-        ]
-        transport_models = [
-            TransportModelFactory(name=name, brand=brand)
-            for name in ["1a", "2a", "3a", "4a"]
-            for brand in transport_brands
-        ]
+        transport_brand = TransportBrandFactory()
+        transport_model = TransportModelFactory(brand=transport_brand)
         transport_set = [
             TransportAdvertisementFactory(
                 owner=user,
@@ -903,12 +849,12 @@ class TransportTest(APITestCase):
                 region=region,
                 city=city,
                 category=CategoryChoices.TRANSPORT.value,
-                price=100_000 + _ * 50_000,
+                price=100_000,
                 transport_type_of_service=TransportTypeOfService.SALE,
                 transport_type=TransportType.GROUND,
                 transport_category=TransportCategory.MOTORCYCLE,
-                transport_brand=brand,
-                transport_model=model,
+                transport_brand=transport_brand,
+                transport_model=transport_model,
                 transport_engine_type=TransportEngineType.FUEL,
                 transport_drive_type=TransportDriveType.ALL_WHEEL,
                 transport_engine_volume=3.0,
@@ -916,11 +862,9 @@ class TransportTest(APITestCase):
                 transport_transmission_type=TransportTransmissionType.MECHANIC,
                 transport_body_type=TransportBodyType.LIFTBACK,
                 transport_condition=[TransportCondition.USED, TransportCondition.NEW][_ % 2],
-                transport_passengers_quality=5 + 1 * _,
+                transport_passengers_quality=5,
                 transport_commission=1000,
             )
-            for model in transport_models
-            for brand in transport_brands
             for _ in range(2)
         ]
 
@@ -987,3 +931,62 @@ class TransportTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["count"], 3)
+
+    def test_filter_transport_rent_duration(self):
+        user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+        transport_brand = TransportBrandFactory()
+        transport_model = TransportModelFactory(brand=transport_brand)
+        transport_set = [
+            TransportAdvertisementFactory(
+                owner=user,
+                country=country,
+                region=region,
+                city=city,
+                category=CategoryChoices.TRANSPORT.value,
+                price=100_000,
+                transport_type_of_service=TransportTypeOfService.SALE,
+                transport_type=TransportType.GROUND,
+                transport_category=TransportCategory.MOTORCYCLE,
+                transport_brand=transport_brand,
+                transport_model=transport_model,
+                transport_engine_type=TransportEngineType.FUEL,
+                transport_drive_type=TransportDriveType.ALL_WHEEL,
+                transport_engine_volume=3.0,
+                transport_year_of_production=2015,
+                transport_transmission_type=TransportTransmissionType.MECHANIC,
+                transport_body_type=TransportBodyType.LIFTBACK,
+                transport_condition=TransportCondition.USED,
+                transport_passengers_quality=5,
+                transport_commission=1000,
+                transport_rent_duration=[
+                    TransportRentDuration.DAILY,
+                    TransportRentDuration.PER_MONTHS,
+                ][_ % 2],
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(5):
+            res = self.client.get(
+                self.list_url,
+                {"transport_rent_duration": TransportRentDuration.DAILY.value},
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(transport_set) // 2)
+
+        with self.assertNumQueries(5):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "transport_rent_duration": f"{TransportRentDuration.PER_MONTHS.value},{TransportRentDuration.DAILY.value}"
+                },
+            )
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(transport_set))

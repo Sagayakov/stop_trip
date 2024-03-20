@@ -8,8 +8,8 @@ from ..constants import DocumentType, DocumentDuration
 class DocumentCreateSerializers(AdvertisementCreateSerializer):
     """Сериализатор создания документов."""
 
-    document_type = serializers.ChoiceField(choices=DocumentType.choices, required=True)
-    document_duration = serializers.ChoiceField(choices=DocumentDuration.choices, required=True)
+    document_type = serializers.ChoiceField(choices=DocumentType.choices, required=False)
+    document_duration = serializers.ChoiceField(choices=DocumentDuration.choices, required=False)
 
     class Meta:
         model = Advertisement

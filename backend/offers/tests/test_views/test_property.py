@@ -15,6 +15,7 @@ from offers.constants import (
     PropertyRentalCondition,
     PropertyPrepayment,
     PropertyType,
+    PropertyRentDuration,
 )
 from offers.models import Advertisement
 from users.tests.factories import UserFactory
@@ -72,6 +73,7 @@ class PropertyTest(APITestCase):
             "property_commission": 500,
             "images": payload_images,
             "youtube": "https://youtu.be/jNQXAC9IVRw?si=7eaplvei50RcVeFR",
+            "property_rent_duration": PropertyRentDuration.DAILY,
         }
         self.assertEqual(Advertisement.objects.count(), 0)
         user = UserFactory()
@@ -139,6 +141,9 @@ class PropertyTest(APITestCase):
         self.assertEqual(
             new_advertisement.youtube, "https://www.youtube.com/embed/jNQXAC9IVRw?controls=0"
         )
+        self.assertEqual(
+            new_advertisement.property_rent_duration, payload["property_rent_duration"]
+        )
 
     def test_update_property(self):
         user = UserFactory()
@@ -170,6 +175,7 @@ class PropertyTest(APITestCase):
             property_commission=2000,
             property_sleeping_places=2,
             property_rooms_count=2,
+            property_rent_duration=PropertyRentDuration.DAILY,
         )
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
         advertisement.property_amenities.set(property_amenities)
@@ -211,6 +217,7 @@ class PropertyTest(APITestCase):
             ],
             "upload_images": payload_images,
             "youtube": "https://youtu.be/VaLXzI92t9M?si=7eaplvei50RcVeFR",
+            "property_rent_duration": PropertyRentDuration.PER_MONTHS,
         }
 
         self.assertEqual(Advertisement.objects.count(), 1)
@@ -272,6 +279,7 @@ class PropertyTest(APITestCase):
         self.assertEqual(
             advertisement.youtube, "https://www.youtube.com/embed/VaLXzI92t9M?controls=0"
         )
+        self.assertEqual(advertisement.property_rent_duration, payload["property_rent_duration"])
         new_images_ids = advertisement.images.values_list("id", flat=True)
         for image in advertisement_images[3:]:
             self.assertTrue(image.id not in new_images_ids)
@@ -951,6 +959,67 @@ class PropertyTest(APITestCase):
                 {
                     "property_balcony": f"{PropertyBalcony.YES.value},"
                     f"{PropertyBalcony.LOGGIA.value}"
+                },
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(property_set))
+
+    def test_filter_property_rent_duration(self):
+        user = UserFactory()
+        country = CountryFactory()
+        region = RegionFactory(country=country)
+        city = CityFactory(region=region)
+
+        property_set = [
+            PropertyAdvertisementFactory(
+                owner=user,
+                country=country,
+                region=region,
+                city=city,
+                price=100_000,
+                category=CategoryChoices.PROPERTY.value,
+                coordinates="35,35",
+                property_type_of_service=PropertyTypeOfService.SALE,
+                property_building_max_floor=5,
+                property_floor=4,
+                property_bathroom_count=2,
+                property_bathroom_type=PropertyBathroomType.SEPARATE,
+                property_area=35,
+                property_living_area=50,
+                property_balcony=PropertyBalcony.YES,
+                property_has_furniture=True,
+                property_house_type=PropertyHouseType.BLOCK,
+                property_has_parking=True,
+                property_rental_condition=PropertyRentalCondition.FAMILY,
+                property_prepayment=PropertyPrepayment.TWO_MONTHS,
+                property_sleeping_places=5,
+                property_rooms_count=3,
+                property_rent_duration=[
+                    PropertyRentDuration.DAILY,
+                    PropertyRentDuration.PER_MONTHS,
+                ][_ % 2],
+            )
+            for _ in range(2)
+        ]
+
+        with self.assertNumQueries(5):
+            res = self.client.get(
+                self.list_url,
+                {"property_rent_duration": PropertyRentDuration.DAILY.value},
+            )
+
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(property_set) // 2)
+
+        with self.assertNumQueries(5):
+            res = self.client.get(
+                self.list_url,
+                {
+                    "property_rent_duration": f"{PropertyRentDuration.PER_MONTHS.value},"
+                    f"{PropertyRentDuration.DAILY.value}"
                 },
             )
 

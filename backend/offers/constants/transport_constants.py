@@ -67,3 +67,8 @@ class TransportCondition(TextChoices):
     USED = "used", "Б/у"
     SALVAGE = "salvage", "Аварийный"
     SPARE = "spare", "На запчасти"
+
+
+class TransportRentDuration(TextChoices):
+    DAILY = "daily", "Посуточно"
+    PER_MONTHS = "per_months", "Помесячно"

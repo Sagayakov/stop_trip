@@ -8,6 +8,7 @@ from ..constants import (
     PropertyRentalCondition,
     PropertyPrepayment,
     PropertyType,
+    PropertyRentDuration,
 )
 
 
@@ -21,7 +22,6 @@ class AbsProperty(models.Model):
         null=True,
         blank=True,
     )
-
     property_type_of_service = models.CharField(
         "Тип услуги", max_length=25, choices=PropertyTypeOfService.choices, blank=True
     )
@@ -74,6 +74,9 @@ class AbsProperty(models.Model):
     )
     property_commission = models.PositiveSmallIntegerField(
         verbose_name="Комиссия", null=True, blank=True
+    )
+    property_rent_duration = models.CharField(
+        "Срок аренды", max_length=50, choices=PropertyRentDuration.choices, null=True, blank=True
     )
 
     class Meta:

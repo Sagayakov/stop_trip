@@ -6,6 +6,11 @@ from ..constants import (
     TransportType,
     TransportCategory,
     TransportTransmissionType,
+    TransportRentDuration,
+    TransportEngineType,
+    TransportDriveType,
+    TransportBodyType,
+    TransportCondition,
 )
 from ..models import TransportBrand, TransportModel, Advertisement
 
@@ -16,21 +21,30 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
     transport_type_of_service = serializers.ChoiceField(
         choices=TransportTypeOfService.choices, required=True
     )
-    transport_type = serializers.ChoiceField(choices=TransportType.choices, required=True)
+    transport_type = serializers.ChoiceField(choices=TransportType.choices, required=False)
     transport_category = serializers.ChoiceField(choices=TransportCategory.choices, required=True)
     transport_brand = serializers.SlugRelatedField(
-        queryset=TransportBrand.objects.all(),
-        slug_field="slug",
-        required=True,
+        queryset=TransportBrand.objects.all(), slug_field="slug", required=False
     )
     transport_model = serializers.SlugRelatedField(
         queryset=TransportModel.objects.all(),
         slug_field="slug",
-        required=True,
+        required=False,
+    )
+    transport_engine_type = serializers.ChoiceField(
+        choices=TransportEngineType.choices, required=False
+    )
+    transport_drive_type = serializers.ChoiceField(
+        choices=TransportDriveType.choices, required=False
     )
     transport_transmission_type = serializers.ChoiceField(
-        required=True, choices=TransportTransmissionType.choices
+        choices=TransportTransmissionType.choices, required=False
     )
+    transport_body_type = serializers.ChoiceField(choices=TransportBodyType.choices, required=False)
+    transport_condition = serializers.ChoiceField(
+        choices=TransportCondition.choices, required=False
+    )
+    transport_rent_duration = serializers.ChoiceField(choices=TransportRentDuration, required=False)
 
     class Meta:
         model = Advertisement
@@ -50,6 +64,7 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
             "transport_passengers_quality",
             "transport_vin",
             "transport_commission",
+            "transport_rent_duration",
         )
 
 

@@ -10,6 +10,7 @@ from ..constants import (
     TransportBodyType,
     TransportCondition,
     TransportType,
+    TransportRentDuration,
 )
 
 
@@ -71,7 +72,6 @@ class AbsTransport(models.Model):
         null=True,
         blank=True,
     )
-
     transport_brand = models.ForeignKey(
         "offers.TransportBrand",
         on_delete=models.CASCADE,
@@ -88,7 +88,6 @@ class AbsTransport(models.Model):
         null=True,
         blank=True,
     )
-
     transport_engine_type = models.CharField(
         "Тип двигателя", max_length=100, choices=TransportEngineType.choices, null=True, blank=True
     )
@@ -125,6 +124,9 @@ class AbsTransport(models.Model):
     )
     transport_vin = models.CharField("VIN-номер", max_length=17, null=True, blank=True)
     transport_commission = models.PositiveSmallIntegerField("Комиссия", null=True, blank=True)
+    transport_rent_duration = models.CharField(
+        "Срок аренды", max_length=50, choices=TransportRentDuration.choices, null=True, blank=True
+    )
 
     class Meta:
         abstract = True
