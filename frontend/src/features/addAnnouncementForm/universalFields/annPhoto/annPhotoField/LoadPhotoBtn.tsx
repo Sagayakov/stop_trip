@@ -9,6 +9,8 @@ import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import heic2any from 'heic2any';
 //import convert from 'heic-convert/browser';
+import { useState } from 'react';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground';
 
 const allowableExtensions = [
     'image/png',
@@ -35,7 +37,7 @@ interface Props {
     watch: UseFormWatch<FormAddAnn>;
 }
 
-export const LoadPhotoBtn = ({
+const LoadPhotoBtn = ({
     inputRef,
     setPreviewImages,
     setValue,
@@ -47,10 +49,12 @@ export const LoadPhotoBtn = ({
     const path = useLocation().pathname.split('/');
     const images = watch('images');
     const uploadImages = watch('upload_images');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleImageChange = async (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
+        setIsLoading(true);
         const fileList = event.target.files;
         if (fileList) {
             console.log(fileList);
@@ -89,7 +93,10 @@ export const LoadPhotoBtn = ({
             //если на странице добавления объявлений, то для поля images
 
             Array.from(fileList).forEach(async (file) => {
-                if (file.name.includes('.HEIC')) {
+                if (
+                    file.name.toLowerCase().includes('.heic') ||
+                    file.name.toLowerCase().includes('.heif')
+                ) {
                     const blobURL = URL.createObjectURL(file);
                     const blobRes = await fetch(blobURL);
                     const blob = await blobRes.blob();
@@ -112,9 +119,12 @@ export const LoadPhotoBtn = ({
                 }; //для предпросмотра
             });
         }
+        setIsLoading(false);
     };
 
-    return (
+    return isLoading ? (
+        <LoadingWithBackground />
+    ) : (
         <div>
             <div
                 className={styles.loadphoto_btn}
@@ -142,3 +152,4 @@ export const LoadPhotoBtn = ({
     );
 };
 //62914560
+export default LoadPhotoBtn;
