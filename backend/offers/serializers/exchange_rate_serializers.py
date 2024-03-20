@@ -13,7 +13,6 @@ class ExchangeRateCreateSerializer(AdvertisementCreateSerializer):
     exchange_for = serializers.SlugRelatedField(
         slug_field="short_name", queryset=Currency.objects.all(), required=True
     )
-    exchange_rate = serializers.FloatField(required=True, allow_null=False)
 
     class Meta(AdvertisementCreateSerializer.Meta):
         model = Advertisement

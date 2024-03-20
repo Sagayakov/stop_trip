@@ -8,7 +8,7 @@ from ..models import Advertisement
 class TaxiCreateSerializer(AdvertisementCreateSerializer):
     """Сериализатор создания объявления на такси."""
 
-    taxi_unit = serializers.ChoiceField(choices=TaxiUnit.choices, required=True)
+    taxi_unit = serializers.ChoiceField(choices=TaxiUnit.choices, required=False)
 
     class Meta:
         model = Advertisement

@@ -20,9 +20,6 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
 
     property_type = serializers.CharField(required=True)
     property_type_of_service = serializers.CharField(required=True)
-    property_floor = serializers.IntegerField(required=True)
-    property_has_furniture = serializers.BooleanField(required=True)
-    property_rooms_count = serializers.IntegerField(required=True)
     property_amenities = serializers.SlugRelatedField(
         queryset=PropertyAmenity.objects.all(), slug_field="slug", required=False, many=True
     )
@@ -48,4 +45,5 @@ class PropertyCreateSerializer(AdvertisementCreateSerializer):
             "property_sleeping_places",
             "property_rooms_count",
             "property_commission",
+            "property_rent_duration",
         )

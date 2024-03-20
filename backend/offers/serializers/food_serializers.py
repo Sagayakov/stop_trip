@@ -7,9 +7,6 @@ from ..models import Advertisement
 class FoodCreateSerializer(AdvertisementCreateSerializer):
     """Сериализатор создания еды"""
 
-    food_delivery = serializers.BooleanField(required=True)
-    food_establishment = serializers.BooleanField(required=True)
-
     class Meta:
         model = Advertisement
         fields = AdvertisementCreateSerializer.Meta.fields + (

@@ -12,6 +12,7 @@ from ..constants import (
     PropertyType,
     PropertyPrepayment,
     PropertyBalcony,
+    PropertyRentDuration,
 )
 
 
@@ -35,6 +36,9 @@ class PropertyFilter(FilterSet):
     property_amenities = CharInFilter(label="Удобства", method="filter_property_amenities")
     property_prepayment = ChoiceInFilter(label="Предоплата", choices=PropertyPrepayment.choices)
     property_balcony = ChoiceInFilter(label="Балкон", choices=PropertyBalcony.choices)
+    property_rent_duration = ChoiceInFilter(
+        label="Срок аренды", choices=PropertyRentDuration.choices
+    )
 
     @staticmethod
     def filter_property_amenities(queryset, name, value):
@@ -170,6 +174,14 @@ class PropertyFilter(FilterSet):
         }
         specs |= property_balcony_specs
 
+        # Срок аренды
+        property_rent_duration_specs = {
+            "property_rent_duration": [
+                {"value": value, "label": label} for value, label in PropertyRentDuration.choices
+            ]
+        }
+        specs |= property_rent_duration_specs
+
         return specs
 
     @classmethod
@@ -279,6 +291,14 @@ class PropertyFilter(FilterSet):
             .values_list("property_balcony", flat=True)
             .order_by("property_balcony")
             .distinct("property_balcony")
+        )
+
+        # Срок аренды
+        facets["property_rent_duration"] = (
+            queryset.exclude(property_rent_duration__isnull=True)
+            .values_list("property_rent_duration", flat=True)
+            .order_by("property_rent_duration")
+            .distinct("property_rent_duration")
         )
 
         return facets

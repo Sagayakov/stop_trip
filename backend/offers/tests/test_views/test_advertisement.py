@@ -17,6 +17,7 @@ from offers.constants import (
     TransportCategory,
     TransportType,
     TransportTypeOfService,
+    TransportRentDuration,
     TaxiUnit,
     TaxiType,
     PropertyRentalCondition,
@@ -33,6 +34,7 @@ from offers.constants import (
     PropertyType,
     PropertyPrepayment,
     PropertyBalcony,
+    PropertyRentDuration,
 )
 from offers.models import Advertisement, AdvertisementImage
 from users.tests.factories import UserFactory, UserMessengerFactory
@@ -468,6 +470,8 @@ class AdvertisementViewSetTest(APITestCase):
                 self.assertEqual(len(value), len(PropertyPrepayment.choices))
             elif spec == "property_balcony":
                 self.assertEqual(len(value), len(PropertyBalcony.choices))
+            elif spec == "property_rent_duration":
+                self.assertEqual(len(value), len(PropertyRentDuration.choices))
             # service
             elif spec == "service_home_visit":
                 self.assertEqual(
@@ -509,6 +513,8 @@ class AdvertisementViewSetTest(APITestCase):
                 self.assertEqual(len(value), len(TransportCondition.choices))
             elif spec == "transport_commission":
                 self.assertTrue(len(value))
+            elif spec == "transport_rent_duration":
+                self.assertEqual(len(value), len(TransportRentDuration.choices))
             # exchange
             elif spec == "proposed_currency":
                 self.assertEqual(len(value), 0)
@@ -564,7 +570,7 @@ class AdvertisementViewSetTest(APITestCase):
                 assert False, f"Add test for spec = '{spec}'"
 
     def test_get_available_filtered_params(self):
-        with self.assertNumQueries(50):
+        with self.assertNumQueries(52):
             res = self.client.get(self.get_available_filtered_params_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -621,6 +627,8 @@ class AdvertisementViewSetTest(APITestCase):
                 self.assertEqual(len(available_params), 0)
             elif facet == "property_balcony":
                 self.assertEqual(len(available_params), 0)
+            elif facet == "property_rent_duration":
+                self.assertEqual(len(available_params), 0)
             # service
             elif facet == "service_home_visit":
                 self.assertEqual(len(available_params), 0)
@@ -659,6 +667,8 @@ class AdvertisementViewSetTest(APITestCase):
             elif facet == "transport_commission":
                 self.assertEqual(len(available_params), 2)
                 self.assertTrue(all([param in available_params.keys() for param in ["min", "max"]]))
+            elif facet == "transport_rent_duration":
+                self.assertEqual(len(available_params), 0)
             # exchange
             elif facet == "proposed_currency":
                 self.assertEqual(len(available_params), 0)

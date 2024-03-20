@@ -48,3 +48,8 @@ class PropertyPrepayment(TextChoices):
     TWO_MONTHS = "two_months", "Два месяца"
     THREE_MONTHS = "three_months", "Три месяца"
     HALF_A_YEAR = "half_a_year", "Пол года"
+
+
+class PropertyRentDuration(TextChoices):
+    DAILY = "daily", "Посуточно"
+    PER_MONTHS = "per_months", "Помесячно"
