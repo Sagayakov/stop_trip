@@ -8,7 +8,6 @@ import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertF
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import heic2any from 'heic2any';
-//import convert from 'heic-convert/browser';
 import { useState } from 'react';
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground';
 
@@ -97,18 +96,36 @@ const LoadPhotoBtn = ({
                     file.name.toLowerCase().includes('.heic') ||
                     file.name.toLowerCase().includes('.heif')
                 ) {
-                    const blobURL = URL.createObjectURL(file);
-                    const blobRes = await fetch(blobURL);
+                    const fileURL = URL.createObjectURL(file);
+
+                    /* const img = new Image();
+
+                    img.onload = function () {
+                        const { width, height } = img;
+
+                        if (width < height) {
+                            img.width = height;
+                            img.height = width;
+                        }
+                        URL.revokeObjectURL(fileURL);
+                    };
+
+                    img.src = fileURL; */
+
+                    const blobRes = await fetch(fileURL);
                     const blob = await blobRes.blob();
 
                     const converted = await heic2any({
                         blob,
-                        toType: 'image/jpeg',
-                        quality: 0.5,
+                        toType: 'image/png',
+                        quality: 0.1,
                     });
 
-                    file = new File([converted as Blob], 'image.jpeg');
+                    file = new File([converted as Blob], 'image.png', {
+                        type: 'image/png',
+                    });
                 }
+
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onloadend = () => {

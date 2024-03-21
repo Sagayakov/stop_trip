@@ -33,12 +33,15 @@ export const convertFilesToBase64Strings = async (files: File[] | FileList) => {
                 const blob = await blobRes.blob();
                 const converted = await heic2any({
                     blob,
-                    toType: 'image/jpeg',
-                    quality: 0.5,
+                    toType: 'image/png',
+                    quality: 0.1,
                 });
                 const convertedFile = new File(
                     [converted as Blob],
-                    'image.jpeg'
+                    'image.png',
+                    {
+                        type: 'image/png',
+                    }
                 );
                 const base64String = await fileToBase64String(convertedFile);
                 base64Strings.push(base64String as string);

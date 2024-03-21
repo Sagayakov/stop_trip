@@ -4,6 +4,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -25,6 +26,7 @@ export const AnnouncementRealtyAmenities = ({
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     const val: Options[] = [];
     defaultValue?.forEach((el) => {
@@ -38,7 +40,14 @@ export const AnnouncementRealtyAmenities = ({
         <div className={styles.ann_field}>
             <h3>{t('filters.property_amenities')}:</h3>
             <UniversalCheckboxGroup
-                checkboxValues={data?.property_amenities || [{ value: '', label: '' }]}
+                checkboxValues={
+                    (lang === 'ru'
+                        ? data?.property_amenities
+                        : data?.property_amenities.map((el) => ({
+                              value: el.value,
+                              label: el.value,
+                          }))) || [{ value: '', label: '' }]
+                }
                 name="property_amenities"
                 register={register}
                 defaultValue={val}
