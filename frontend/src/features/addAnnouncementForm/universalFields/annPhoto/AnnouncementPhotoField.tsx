@@ -88,6 +88,7 @@ const AnnouncementPhotoField = ({
     const photoCounter = () => {
         return previewImages?.length || 0;
     };
+
     useEffect(() => {
         setValue('delete_images', deleteIdArray);
     }, [deleteIdArray]); //на бэк передаем массив id картинок, которые удаляем

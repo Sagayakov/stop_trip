@@ -98,32 +98,19 @@ const LoadPhotoBtn = ({
                 ) {
                     const fileURL = URL.createObjectURL(file);
 
-                    /* const img = new Image();
-
-                    img.onload = function () {
-                        const { width, height } = img;
-
-                        if (width < height) {
-                            img.width = height;
-                            img.height = width;
-                        }
-                        URL.revokeObjectURL(fileURL);
-                    };
-
-                    img.src = fileURL; */
-
                     const blobRes = await fetch(fileURL);
                     const blob = await blobRes.blob();
 
                     const converted = await heic2any({
                         blob,
-                        toType: 'image/png',
-                        quality: 0.1,
+                        toType: 'image/jpeg',
+                        quality: 0.5,
                     });
 
-                    file = new File([converted as Blob], 'image.png', {
-                        type: 'image/png',
+                    file = new File([converted as Blob], 'image.jpeg', {
+                        type: 'image/jpeg',
                     });
+                    URL.revokeObjectURL(fileURL);
                 }
 
                 const reader = new FileReader();
