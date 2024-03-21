@@ -47,6 +47,7 @@ export type ProductType = {
     property_house_type: string;
     property_living_area: null | string;
     property_prepayment: string;
+    property_rent_duration: null | string;
     property_rental_condition: string;
     property_rooms_count: null | number;
     property_sleeping_places: null | number;
@@ -67,6 +68,7 @@ export type ProductType = {
     transport_engine_volume: null | number;
     transport_model: null | string;
     transport_passengers_quality: null | string;
+    transport_rent_duration: null | string;
     transport_transmission_type: null | string;
     transport_type: null | string;
     transport_type_of_service: null | string;

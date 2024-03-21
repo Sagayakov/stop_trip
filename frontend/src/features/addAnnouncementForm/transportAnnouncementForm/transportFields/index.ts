@@ -11,4 +11,4 @@ export { AnnouncementTransportTransmission } from './AnnouncementTransportTransm
 export { AnnouncementTransportBodyType } from './AnnouncementTransportBodyType'
 export { AnnoucementTransportCondition } from './AnnoucementTransportCondition'
 export { AnnouncementTransportComission } from './AnnouncementTransportComission'
-export {  } from './'
+export { AnnouncementTransportRentDuration } from './AnnouncementTransportRentDuration'

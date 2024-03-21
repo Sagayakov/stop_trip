@@ -20,6 +20,7 @@ import {
     AnnouncementRealtyParking,
     AnnouncementRealtyPrepayment,
     AnnouncementRealtyRentalCondition,
+    AnnouncementRealtyRentDuration,
     AnnouncementRealtyRoomsQuantity,
     AnnouncementRealtyServise,
     AnnouncementRealtySleepingPlaces,
@@ -54,6 +55,11 @@ export const AnnouncementRealty = ({
                 control={control}
                 defaultValue={data?.property_type}
                 formState={formState}
+            />
+            <AnnouncementRealtyRentDuration
+                register={register}
+                formState={formState}
+                defaultValue={data?.property_rent_duration}
             />
             <AnnouncementRealtyHouseType
                 control={control}

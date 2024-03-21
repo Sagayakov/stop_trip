@@ -28,8 +28,7 @@ export const AnnouncementJobType = ({
     return (
         <div className={styles.ann_field}>
             <h3>
-                {t('filters.job_type')}
-                <span>*</span>:
+                {t('filters.job_type')}:
             </h3>
             {data && (
                 <UniversalRadioGroup
@@ -38,7 +37,6 @@ export const AnnouncementJobType = ({
                     defaultValue={getDefaultValue()}
                     register={register}
                     className={styles.radio_group}
-                    requiredField={true}
                 />
             )}
             <div className={styles.ann_field_err}>

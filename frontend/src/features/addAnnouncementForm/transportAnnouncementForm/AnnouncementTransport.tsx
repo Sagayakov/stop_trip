@@ -15,6 +15,7 @@ import {
     AnnouncementTransportEngineType,
     AnnouncementTransportMark,
     AnnouncementTransportModelOfTransport,
+    AnnouncementTransportRentDuration,
     AnnouncementTransportTransmission,
     AnnouncementTransportTranspCategory,
     AnnouncementTransportTypeOfService,
@@ -57,6 +58,11 @@ export const AnnouncementTransport = ({
                 setValue={setValue}
                 defaultValue={data?.transport_category}
                 formState={formState}
+            />
+            <AnnouncementTransportRentDuration
+                register={register}
+                formState={formState}
+                defaultValue={data?.transport_rent_duration}
             />
             <AnnouncementTransportMark
                 control={control}

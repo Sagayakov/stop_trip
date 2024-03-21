@@ -40,19 +40,13 @@ export const AnnouncementExchangeRate = ({
     return (
         <div className={styles.ann_field}>
             <h3>
-                {t('filters.exchange_rate')}
-                <span>*</span>:
+                {t('filters.exchange_rate')}:
             </h3>
             <input
                 type="text"
                 id={styles.ann_field_price}
                 placeholder={t('filters.exchange_rate')}
-                {...register('exchange_rate', {
-                    required: {
-                        value: true,
-                        message: t('add-page.required'),
-                    },
-                })}
+                {...register('exchange_rate')}
                 value={value}
                 onInput={(e) => handleInput(e)}
             />

@@ -36,8 +36,7 @@ export const AnnouncementTransportMark = ({
     return (
         <div className={styles.ann_field}>
             <h3>
-                {t('filters.transport_brand')}
-                <span>*</span>:
+                {t('filters.transport_brand')}:
             </h3>
             {data && (
                 <UniversalSelectDropdown<FormAddAnn>
@@ -55,7 +54,6 @@ export const AnnouncementTransportMark = ({
                     }
                     prefix="filterAnnouncementCategory"
                     setValue={setValue}
-                    requiredFiled={true}
                 />
             )}
             <div className={styles.ann_field_err}>

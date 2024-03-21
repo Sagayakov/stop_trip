@@ -21,7 +21,7 @@ export const AnnouncementTransportTransmission = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.transport_transmission_type')}<span>*</span>:</h3>
+            <h3>{t('filters.transport_transmission_type')}:</h3>
             <UniversalRadioGroup
                 register={register}
                 name="transport_transmission_type"
@@ -30,7 +30,6 @@ export const AnnouncementTransportTransmission = ({
                 )}
                 radioValues={data?.transport_transmission_type || [{value: ' ', label: ' '}]}
                 className={styles.radio_group}
-                requiredField={true}
             />
             <div className={styles.ann_field_err}>{formState?.errors?.transport_transmission_type?.message}</div>
         </div>

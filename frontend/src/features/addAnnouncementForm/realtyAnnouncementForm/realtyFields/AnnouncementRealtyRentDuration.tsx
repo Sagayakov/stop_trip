@@ -10,7 +10,7 @@ interface Props {
     defaultValue?: string | null | undefined;
     formState: FormState<FormAddAnn>;
 }
-export const AnnouncementTransportTypeOfTransport = ({
+export const AnnouncementRealtyRentDuration = ({
     register,
     defaultValue,
     formState,
@@ -20,22 +20,22 @@ export const AnnouncementTransportTypeOfTransport = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>
-                {t('filters.transport_type')}:
-            </h3>
+            <h3>{t('add-page.rent-duration')}:</h3>
             <UniversalRadioGroup
-                name="transport_type"
-                radioValues={
-                    data?.transport_type || [{ value: ' ', label: ' ' }]
-                }
                 register={register}
-                defaultValue={data?.transport_type.find(
+                name="property_rent_duration"
+                radioValues={
+                    data?.property_rent_duration || [
+                        { value: ' ', label: ' ' },
+                    ]
+                }
+                defaultValue={data?.property_rent_duration.find(
                     (el) => el.value === defaultValue
                 )}
                 className={styles.radio_group}
             />
             <div className={styles.ann_field_err}>
-                {formState?.errors?.transport_type?.message}
+                {formState?.errors?.transport_type_of_service?.message}
             </div>
         </div>
     );
