@@ -7,6 +7,7 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -23,6 +24,7 @@ export const AnnouncementPropertyType = ({
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data && defaultValue) {
@@ -46,7 +48,14 @@ export const AnnouncementPropertyType = ({
                 control={control}
                 isMulti={false}
                 name="property_type"
-                options={data?.property_type}
+                options={
+                    lang === 'ru'
+                        ? data?.property_type
+                        : data?.property_type.map((el) => ({
+                              value: el.value,
+                              label: el.value,
+                          }))
+                }
                 placeholder={t('filters.property-type')}
                 defaultValue={
                     getDefaultValue(
