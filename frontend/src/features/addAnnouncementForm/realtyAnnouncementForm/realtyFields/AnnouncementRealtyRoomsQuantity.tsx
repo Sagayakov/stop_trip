@@ -19,8 +19,7 @@ export const AnnouncementRealtyRoomsQuantity = ({
     return (
         <div className={styles.ann_field}>
             <h3>
-                {t('filters.property_rooms_count')}
-                <span>*</span>:
+                {t('filters.property_rooms_count')}:
             </h3>
             <div className={styles.inputNumber_group}>
                 <input
@@ -30,7 +29,7 @@ export const AnnouncementRealtyRoomsQuantity = ({
                     defaultValue={defaultValue || ''}
                     {...register('property_rooms_count', {
                         required: {
-                            value: true,
+                            value: false,
                             message: t('add-page.required'),
                         },
                         pattern: {

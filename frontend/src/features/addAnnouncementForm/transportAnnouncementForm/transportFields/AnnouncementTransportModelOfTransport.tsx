@@ -57,8 +57,7 @@ export const AnnouncementTransportModelOfTransport = ({
     return (
         <div className={styles.ann_field}>
             <h3>
-                {t('filters.transport_model')}
-                <span>*</span>:
+                {t('filters.transport_model')}:
             </h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
@@ -75,7 +74,6 @@ export const AnnouncementTransportModelOfTransport = ({
                 }
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
-                requiredFiled={true}
                 isDisabled={disabled}
             />
             <div className={styles.ann_field_err}>

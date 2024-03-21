@@ -28,8 +28,7 @@ export const AnnouncementTaxiUnit = ({
     return (
         <div className={styles.ann_field}>
             <h3>
-                {t('filters.taxi_unit')}
-                <span>*</span>:
+                {t('filters.taxi_unit')}:
             </h3>
             {data && (
                 <UniversalRadioGroup
@@ -38,7 +37,6 @@ export const AnnouncementTaxiUnit = ({
                     radioValues={data.taxi_unit}
                     className={styles.radio_group}
                     defaultValue={getDefaultValue()}
-                    requiredField={true}
                 />
             )}
             <div className={styles.ann_field_err}>

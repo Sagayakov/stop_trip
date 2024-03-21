@@ -28,14 +28,13 @@ export const AnnouncementMarketCondition = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.market_condition')}<span>*</span>:</h3>
+            <h3>{t('filters.market_condition')}:</h3>
             <UniversalRadioGroup
                 register={register}
                 name="market_condition"
                 radioValues={data?.market_condition || [{ value: '', label: '' }]}
                 defaultValue={getDefaultValue()}
                 className={styles.radio_group}
-                requiredField={true}
             />
             <div className={styles.ann_field_err}>{formState?.errors?.market_condition?.message}</div>
         </div>

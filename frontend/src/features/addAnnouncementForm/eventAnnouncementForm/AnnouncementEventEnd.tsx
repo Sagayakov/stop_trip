@@ -22,18 +22,12 @@ export const AnnouncementEventEnd = ({
     return (
         <div className={styles.ann_field}>
             <h3>
-                {t('filters.date-end')}
-                <span>*</span>:
+                {t('filters.date-end')}:
             </h3>
             <div className={styles.date_wrapper}>
                 <input
                     type="date"
-                    {...register('end_date', {
-                        required: {
-                            value: true,
-                            message: t('add-page.required'),
-                        },
-                    })}
+                    {...register('end_date')}
                     defaultValue={
                         defaultValue
                             ? new Date(defaultValue)

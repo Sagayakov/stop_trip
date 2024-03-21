@@ -37,7 +37,7 @@ export const AnnouncementDocType = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.document_type')}<span>*</span>:</h3>
+            <h3>{t('filters.document_type')}:</h3>
             <UniversalSelectDropdown
                 setValue={setValue}
                 control={control}
@@ -48,7 +48,6 @@ export const AnnouncementDocType = ({
                 isMulti={false}
                 options={data?.document_type}
                 defaultValue={getDefaultValue(defaultValue, data?.document_type) as StringOptions}
-                requiredFiled={true}
             />
             <div className={styles.ann_field_err}>{formState?.errors?.document_type?.message}</div>
         </div>

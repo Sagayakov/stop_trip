@@ -296,7 +296,8 @@
         "complain-error": "You have already left a complaint about this ad!",
         "complain-title": "Complaint about the ad",
         "next": "Next",
-        "send": "Send"
+        "send": "Send",
+        "rent-duration": "Rent duration"
     },
 
     "complain-reason": {

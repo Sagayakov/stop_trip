@@ -37,7 +37,7 @@ export const AnnouncementDocValidityPeriod = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.document_duration')}<span>*</span>:</h3>
+            <h3>{t('filters.document_duration')}:</h3>
             <UniversalSelectDropdown
                 setValue={setValue}
                 control={control}
@@ -48,7 +48,6 @@ export const AnnouncementDocValidityPeriod = ({
                 isMulti={false}
                 defaultValue={getDefaultValue(defaultValue, data?.document_duration) as StringOptions}
                 options={data?.document_duration}
-                requiredFiled={true}
             />
             <div className={styles.ann_field_err}>{formState?.errors?.document_duration?.message}</div>
         </div>

@@ -36,7 +36,7 @@ export const AnnouncementJobPayment = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.job_payment_type')}<span>*</span>:</h3>
+            <h3>{t('filters.job_payment_type')}:</h3>
             <UniversalSelectDropdown
                 closeMenuOnSelect={true}
                 control={control}
@@ -47,7 +47,6 @@ export const AnnouncementJobPayment = ({
                 placeholder={t('filters.job_payment_type')}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}
-                requiredFiled={true}
             />
             <div className={styles.ann_field_err}>{formState?.errors?.job_payment_type?.message}</div>
         </div>
