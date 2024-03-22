@@ -7,6 +7,7 @@ import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts
 import { useEffect } from 'react';
 import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -23,6 +24,7 @@ export const AnnouncementRealtyPrepayment = ({
 }: Props) => {
     const { data } = useGetSelectOptionsQuery('');
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (defaultValue) {
@@ -44,7 +46,16 @@ export const AnnouncementRealtyPrepayment = ({
                 control={control}
                 isMulti={false}
                 name="property_prepayment"
-                options={data?.property_prepayment}
+                options={
+                    lang === 'ru'
+                        ? data?.property_prepayment
+                        : data?.property_prepayment.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
                 placeholder={t('filters.property_prepayment')}
                 defaultValue={
                     getDefaultValue(

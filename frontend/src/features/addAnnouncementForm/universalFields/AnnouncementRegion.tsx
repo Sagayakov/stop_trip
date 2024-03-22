@@ -6,6 +6,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts';
 import { useEffect, useState } from 'react';
 import { NameType } from 'pages/advertPage/libr/types';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -28,6 +29,7 @@ const AnnouncementRegion = ({
     const { t } = useTranslation();
     const [options, setOptions] = useState<SelectType[]>([]);
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -59,10 +61,22 @@ const AnnouncementRegion = ({
                 closeMenuOnSelect={true}
                 isMulti={false}
                 isDisabled={false}
-                options={options}
+                options={
+                    lang === 'ru'
+                        ? options
+                        : options.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
                 defaultValue={{
                     value: defaultValue?.slug || 'north-goa',
-                    label: defaultValue?.name || 'Северный Гоа',
+                    label:
+                        defaultValue?.name || lang === 'ru'
+                            ? 'Северный Гоа'
+                            : 'North Goa',
                 }}
                 //requiredFiled={true}
             />

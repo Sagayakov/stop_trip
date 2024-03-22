@@ -3,6 +3,7 @@ import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { Control, UseFormSetValue } from 'react-hook-form';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -12,7 +13,10 @@ interface Props {
 
 const AnnouncementCountry = ({ control, setValue }: Props) => {
     const { t } = useTranslation();
-    const options = [{ value: 'india', label: 'Индия' }];
+    const lang = useAppSelector((state) => state.setLang.lang);
+    const options = [
+        { value: 'india', label: lang === 'ru' ? 'Индия' : 'India' },
+    ];
 
     return (
         <div className={styles.ann_field}>
