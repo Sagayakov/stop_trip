@@ -6,11 +6,13 @@ import { unInformative } from './utils/unInformativeFields.ts';
 import { useEffect, useState } from 'react';
 import { CharacteristicsListType } from './utils/types.ts';
 import { getValue } from './utils/getValue.tsx';
+import { useAppSelector } from 'app/store/hooks.ts';
 
 export const AdvertCharacteristics = ({ data }: { data: ProductType }) => {
     const { t } = useTranslation();
     const { data: filtersData } = useGetFiltersQuery('');
     const [list, setList] = useState<CharacteristicsListType | undefined>();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         const filteredList = Object.entries(data)
@@ -30,7 +32,7 @@ export const AdvertCharacteristics = ({ data }: { data: ProductType }) => {
                         {t('advert-page.characteristics')}
                     </h2>
                     {list.map((el) => {
-                        const value = getValue(el[0], el[1], filtersData);
+                        const value = getValue(el[0], el[1], filtersData, lang);
                         return (
                             <div
                                 className={styles.characteristics_wrapper}

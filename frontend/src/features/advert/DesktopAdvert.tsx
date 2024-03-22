@@ -51,9 +51,25 @@ export const DesktopAdvert = ({ data, date }: Props) => {
             <h1 className={styles.announcement_header}>{data.title}</h1>
             <p>
                 {data.city
-                    ? `${data.country?.name || ''}, ${
-                          data.region?.name || ''
-                      }, ${data.city?.name || ''}`
+                    ? `${
+                          (lang === 'ru'
+                              ? data.country?.name
+                              : `${data.country?.slug[0].toUpperCase()}${data.country?.slug.slice(
+                                    1
+                                )}`) || ''
+                      }, ${
+                          (lang === 'ru'
+                              ? data.region?.name
+                              : `${data.region?.slug[0].toUpperCase()}${data.region?.slug.slice(
+                                    1
+                                )}`) || ''
+                      }, ${
+                          (lang === 'ru'
+                              ? data.city?.name
+                              : `${data.city?.slug[0].toUpperCase()}${data.city?.slug.slice(
+                                    1
+                                )}`) || ''
+                      }`
                     : `${t('advert-page.no-address')}`}
             </p>
             <div className={styles.announcement_info}>
