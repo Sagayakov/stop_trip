@@ -123,6 +123,7 @@ export const AddMessengerForm = ({
                                         : `${styles.link_input} ${styles.link_input_error}`
                                 }
                                 onFocus={() => setTooltipVisible(true)}
+                                disabled={!selectValue}
                             />
                             {tooltipVisible && (
                                 <p className={styles.link_tooltip}>
