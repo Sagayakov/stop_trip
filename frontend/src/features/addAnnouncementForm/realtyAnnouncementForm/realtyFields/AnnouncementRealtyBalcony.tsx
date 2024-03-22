@@ -4,6 +4,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -18,6 +19,7 @@ export const AnnouncementRealtyBalcony = ({
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     return (
         <div className={styles.ann_field}>
@@ -25,7 +27,14 @@ export const AnnouncementRealtyBalcony = ({
             <UniversalRadioGroup
                 name="property_balcony"
                 radioValues={
-                    data?.property_balcony || [{ value: ' ', label: ' ' }]
+                    (lang === 'ru'
+                        ? data?.property_balcony
+                        : data?.property_balcony.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))) || [{ value: ' ', label: ' ' }]
                 }
                 register={register}
                 defaultValue={data?.property_balcony.find(

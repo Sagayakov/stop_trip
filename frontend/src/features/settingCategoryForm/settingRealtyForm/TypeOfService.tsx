@@ -6,6 +6,7 @@ import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSe
 import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup.tsx';
 import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 import { useSearchParams } from 'react-router-dom';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     register: UseFormRegister<TypeSettingRealty>;
@@ -20,6 +21,7 @@ export const TypeOfService = ({ register }: Props) => {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const [defaultParam, setDefaultParam] = useState<Options | undefined>();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -44,7 +46,16 @@ export const TypeOfService = ({ register }: Props) => {
                     <UniversalRadioGroup
                         register={register}
                         radioValues={
-                            data['property_type_of_service'] as Options[]
+                            lang === 'ru'
+                                ? (data?.property_type_of_service as Options[])
+                                : (
+                                      data?.property_type_of_service as Options[]
+                                  ).map((el) => ({
+                                      value: el.value,
+                                      label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                          1
+                                      )}`,
+                                  }))
                         }
                         name="property_type_of_service"
                         className={styles.radio_group}

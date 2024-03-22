@@ -6,14 +6,15 @@ import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     register: UseFormRegister<TypeForMarketForm>;
 }
 
 interface Values {
-    label: string | number;
-    value: string | number;
+    label: string;
+    value: string;
 }
 
 export const MarketCondition = ({ register }: Props) => {
@@ -21,6 +22,7 @@ export const MarketCondition = ({ register }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [searchParams] = useSearchParams();
     const [defaultParam, setDefaultParam] = useState<Values | undefined>();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -42,7 +44,18 @@ export const MarketCondition = ({ register }: Props) => {
             <h3>{t('filters.market_condition')}</h3>
             {data && (
                 <UniversalRadioGroup
-                    radioValues={data.market_condition as Values[]}
+                    radioValues={
+                        lang === 'ru'
+                            ? (data['market_condition'] as Values[])
+                            : (data['market_condition'] as Values[]).map(
+                                  (el) => ({
+                                      value: el.value,
+                                      label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                          1
+                                      )}`,
+                                  })
+                              )
+                    }
                     register={register}
                     name="market_condition"
                     className={styles.checkbox_group}

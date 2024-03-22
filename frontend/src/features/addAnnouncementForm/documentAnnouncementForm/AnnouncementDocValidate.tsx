@@ -7,6 +7,7 @@ import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts
 import { useEffect } from 'react';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -19,20 +20,22 @@ export const AnnouncementDocValidityPeriod = ({
     control,
     setValue,
     defaultValue,
-    formState
+    formState,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
-        if(defaultValue){
-            setValue('document_duration', String(
-                getDefaultValue(
-                    defaultValue,
-                    data?.document_duration)!.value
+        if (defaultValue) {
+            setValue(
+                'document_duration',
+                String(
+                    getDefaultValue(defaultValue, data?.document_duration)!
+                        .value
                 )
-            )
-        }//если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
+            );
+        } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
     }, []);
 
     return (
@@ -46,10 +49,26 @@ export const AnnouncementDocValidityPeriod = ({
                 placeholder={t('filters.document_duration')}
                 closeMenuOnSelect={true}
                 isMulti={false}
-                defaultValue={getDefaultValue(defaultValue, data?.document_duration) as StringOptions}
-                options={data?.document_duration}
+                defaultValue={
+                    getDefaultValue(
+                        defaultValue,
+                        data?.document_duration
+                    ) as StringOptions
+                }
+                options={
+                    lang === 'ru'
+                        ? data?.document_duration
+                        : data?.document_duration.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
             />
-            <div className={styles.ann_field_err}>{formState?.errors?.document_duration?.message}</div>
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.document_duration?.message}
+            </div>
         </div>
     );
 };

@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useEffect } from 'react';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -29,6 +30,7 @@ export const AnnouncementExchangeFor = ({
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
     const proposed = watch('proposed_currency');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     const getDefaultValue = () => {
         if (defaultValue) {
@@ -53,9 +55,18 @@ export const AnnouncementExchangeFor = ({
                 control={control}
                 isMulti={false}
                 name="exchange_for"
-                options={data?.exchange_for.filter(
-                    (el) => el.value !== proposed
-                )}
+                options={
+                    lang === 'ru'
+                        ? data?.exchange_for.filter(
+                              (el) => el.value !== proposed
+                          )
+                        : data?.exchange_for
+                              .filter((el) => el.value !== proposed)
+                              .map((el) => ({
+                                  value: el.value,
+                                  label: el.value,
+                              }))
+                }
                 defaultValue={getDefaultValue()}
                 placeholder={t('filters.exchange_for')}
                 prefix="filterAnnouncementCategory"

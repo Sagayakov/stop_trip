@@ -4,6 +4,7 @@ import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
@@ -18,6 +19,7 @@ type SelectType = {
 export const ConditionOfTransport = ({ setValue, control }: Props) => {
     const { data } = useGetFiltersQuery('');
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     return (
         <div className={styles.condition}>
@@ -32,7 +34,18 @@ export const ConditionOfTransport = ({ setValue, control }: Props) => {
                         placeholder={t('filters.transport_condition')}
                         closeMenuOnSelect={false}
                         isMulti={true}
-                        options={data['transport_condition'] as SelectType[]}
+                        options={
+                            lang === 'ru'
+                                ? (data.transport_condition as SelectType[])
+                                : (
+                                      data.transport_condition as SelectType[]
+                                  ).map((el) => ({
+                                      value: el.value,
+                                      label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                          1
+                                      )}`,
+                                  }))
+                        }
                     />
                 )}
             </div>

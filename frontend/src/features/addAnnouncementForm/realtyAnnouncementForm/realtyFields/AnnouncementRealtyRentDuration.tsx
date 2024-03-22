@@ -4,6 +4,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -17,6 +18,7 @@ export const AnnouncementRealtyRentDuration = ({
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     return (
         <div className={styles.ann_field}>
@@ -25,9 +27,14 @@ export const AnnouncementRealtyRentDuration = ({
                 register={register}
                 name="property_rent_duration"
                 radioValues={
-                    data?.property_rent_duration || [
-                        { value: ' ', label: ' ' },
-                    ]
+                    (lang === 'ru'
+                        ? data?.property_rent_duration
+                        : data?.property_rent_duration.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))) || [{ value: ' ', label: ' ' }]
                 }
                 defaultValue={data?.property_rent_duration.find(
                     (el) => el.value === defaultValue

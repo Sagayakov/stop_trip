@@ -4,6 +4,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -18,6 +19,7 @@ export const AnnouncementJobType = ({
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     const getDefaultValue = () => {
         if (defaultValue) {
@@ -27,13 +29,20 @@ export const AnnouncementJobType = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>
-                {t('filters.job_type')}:
-            </h3>
+            <h3>{t('filters.job_type')}:</h3>
             {data && (
                 <UniversalRadioGroup
                     name="job_type"
-                    radioValues={data.job_type}
+                    radioValues={
+                        lang === 'ru'
+                            ? data.job_type
+                            : data.job_type.map((el) => ({
+                                  value: el.value,
+                                  label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                      1
+                                  )}`,
+                              }))
+                    }
                     defaultValue={getDefaultValue()}
                     register={register}
                     className={styles.radio_group}

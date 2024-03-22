@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useEffect } from 'react';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -20,6 +21,7 @@ export const AnnouncementTaxiType = ({
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     const getDefaultValue = () => {
         if (defaultValue) {
@@ -42,7 +44,16 @@ export const AnnouncementTaxiType = ({
                 isMulti={false}
                 name="taxi_type"
                 placeholder={t('filters.taxi_type')}
-                options={data?.taxi_type}
+                options={
+                    lang === 'ru'
+                        ? data?.taxi_type
+                        : data?.taxi_type.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
                 defaultValue={getDefaultValue()}
                 prefix="filterAnnouncementCategory"
                 setValue={setValue}

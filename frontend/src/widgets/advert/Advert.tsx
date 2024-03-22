@@ -1,6 +1,5 @@
 import { BreadCrumbs } from 'widgets/breadCrumbs/BreadCrumbs.tsx';
 import styles from './libr/advert.module.scss';
-// import { useGetAdvertBySlugQuery } from 'app/api/fetchAdverts.ts';
 import { useParams } from 'react-router-dom';
 import { getDate } from 'shared/utils/getDate.ts';
 import { useEffect, useState } from 'react';

@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { useGetCitiesByRegionQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues';
 import { NameType } from 'pages/advertPage/libr/types';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -36,6 +37,7 @@ const AnnouncementCity = ({
         value: '',
         label: '',
     });
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (availableData) {
@@ -70,7 +72,16 @@ const AnnouncementCity = ({
                     placeholder={t('add-page.city')}
                     closeMenuOnSelect={true}
                     isMulti={false}
-                    options={options}
+                    options={
+                        lang === 'ru'
+                            ? options
+                            : options.map((el) => ({
+                                  value: el.value,
+                                  label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                      1
+                                  )}`,
+                              }))
+                    }
                     requiredFiled={true}
                     defaultValue={defaultCity}
                 />

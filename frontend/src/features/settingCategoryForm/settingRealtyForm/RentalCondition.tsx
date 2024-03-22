@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -20,6 +21,7 @@ export const RentalCondition = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [rentalValues, setRentalValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -44,7 +46,16 @@ export const RentalCondition = ({ control, setValue }: Props) => {
                     placeholder={t('filters.property_rental_condition')}
                     closeMenuOnSelect={false}
                     isMulti={true}
-                    options={rentalValues}
+                    options={
+                        lang === 'ru'
+                            ? rentalValues
+                            : rentalValues.map((el) => ({
+                                  value: el.value,
+                                  label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                      1
+                                  )}`,
+                              }))
+                    }
                 />
             </div>
         </>

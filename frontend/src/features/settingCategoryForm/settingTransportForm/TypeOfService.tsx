@@ -6,14 +6,15 @@ import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup
 import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
 }
 
 interface Values {
-    label: string | number;
-    value: string | number;
+    label: string;
+    value: string;
 }
 
 export const TypeOfService = ({ register }: Props) => {
@@ -21,6 +22,7 @@ export const TypeOfService = ({ register }: Props) => {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const [defaultParam, setDefaultParam] = useState<Values | undefined>();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -45,7 +47,16 @@ export const TypeOfService = ({ register }: Props) => {
                     <UniversalRadioGroup
                         register={register}
                         radioValues={
-                            data['transport_type_of_service'] as Values[]
+                            lang === 'ru'
+                                ? (data.transport_type_of_service as Values[])
+                                : (
+                                      data.transport_type_of_service as Values[]
+                                  ).map((el) => ({
+                                      value: el.value,
+                                      label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                          1
+                                      )}`,
+                                  }))
                         }
                         name="transport_type_of_service"
                         className={styles.radio_group}

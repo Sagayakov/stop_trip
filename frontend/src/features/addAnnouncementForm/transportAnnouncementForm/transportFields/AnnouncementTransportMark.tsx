@@ -7,6 +7,7 @@ import { getDefaultBrand } from 'features/addAnnouncementForm/getDefaultValue.ts
 import { useGetAllBrandsQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 import { useEffect } from 'react';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -23,6 +24,7 @@ export const AnnouncementTransportMark = ({
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetAllBrandsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (defaultValue && data) {
@@ -35,9 +37,7 @@ export const AnnouncementTransportMark = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>
-                {t('filters.transport_brand')}:
-            </h3>
+            <h3>{t('filters.transport_brand')}:</h3>
             {data && (
                 <UniversalSelectDropdown<FormAddAnn>
                     closeMenuOnSelect={true}
@@ -46,7 +46,12 @@ export const AnnouncementTransportMark = ({
                     name="transport_brand"
                     options={data.map((el) => ({
                         value: el.slug,
-                        label: el.name,
+                        label:
+                            lang === 'ru'
+                                ? el.name
+                                : `${el.slug[0].toUpperCase()}${el.slug.slice(
+                                      1
+                                  )}`,
                     }))}
                     placeholder={t('filters.choose-brand')}
                     defaultValue={

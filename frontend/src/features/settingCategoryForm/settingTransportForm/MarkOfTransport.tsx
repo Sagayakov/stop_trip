@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { useEffect, useState } from 'react';
 import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
@@ -31,6 +32,7 @@ export const MarkOfTransport = ({ setValue, control, watch }: Props) => {
     const { data: availableData } = useGetAvailableFiltersQuery(
         `?region=${region || 'north-goa'}${city ? `&city=${city}` : ''}`
     );
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data && availableData) {
@@ -56,7 +58,16 @@ export const MarkOfTransport = ({ setValue, control, watch }: Props) => {
                 placeholder={t('filters.choose-brand')}
                 closeMenuOnSelect={true}
                 isMulti={false}
-                options={markOfTransportValues}
+                options={
+                    lang === 'ru'
+                        ? markOfTransportValues
+                        : markOfTransportValues.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
             />
         </div>
     );

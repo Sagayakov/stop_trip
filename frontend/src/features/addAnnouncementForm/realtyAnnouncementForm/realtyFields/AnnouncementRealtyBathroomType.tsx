@@ -33,7 +33,9 @@ export const AnnouncementRealtyBathroomType = ({
                                 ? data.property_bathroom_type
                                 : data.property_bathroom_type.map((el) => ({
                                       value: el.value,
-                                      label: el.value,
+                                      label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                          1
+                                      )}`,
                                   }))
                         }
                         register={register}

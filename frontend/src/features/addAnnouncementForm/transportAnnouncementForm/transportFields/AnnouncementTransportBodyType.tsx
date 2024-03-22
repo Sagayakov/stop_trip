@@ -7,6 +7,7 @@ import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts
 import { useEffect } from 'react';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -23,6 +24,7 @@ export const AnnouncementTransportBodyType = ({
 }: Props) => {
     const { data } = useGetSelectOptionsQuery('');
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (defaultValue) {
@@ -44,7 +46,16 @@ export const AnnouncementTransportBodyType = ({
                 control={control}
                 isMulti={false}
                 name="transport_body_type"
-                options={data?.transport_body_type}
+                options={
+                    lang === 'ru'
+                        ? data?.transport_body_type
+                        : data?.transport_body_type.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
                 placeholder={t('filters.choose-body')}
                 defaultValue={
                     getDefaultValue(

@@ -53,7 +53,9 @@ export const AnnouncementPropertyType = ({
                         ? data?.property_type
                         : data?.property_type.map((el) => ({
                               value: el.value,
-                              label: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
                           }))
                 }
                 placeholder={t('filters.property-type')}

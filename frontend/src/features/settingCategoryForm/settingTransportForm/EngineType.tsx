@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { useEffect, useState } from 'react';
 import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     control: Control<TypeSettingTransport, string[]>;
@@ -20,6 +21,7 @@ export const EngineType = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [engineTypeValues, setEngineTypeValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -31,6 +33,7 @@ export const EngineType = ({ control, setValue }: Props) => {
             data && setEngineTypeValues(result as SelectType[]);
         }
     }, [data]);
+
     return (
         <div className={styles.engineType}>
             <h3>{t('filters.transport_engine_type')}</h3>
@@ -42,7 +45,16 @@ export const EngineType = ({ control, setValue }: Props) => {
                 placeholder={t('filters.transport_engine_type')}
                 closeMenuOnSelect={false}
                 isMulti={true}
-                options={engineTypeValues}
+                options={
+                    lang === 'ru'
+                        ? engineTypeValues
+                        : engineTypeValues.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
             />
         </div>
     );

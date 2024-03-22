@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingJob/libr/settingJobFilter.module.scss';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<TypesOfJobs>;
@@ -20,6 +21,7 @@ export const DurationOfWork = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [durationValues, setDurationValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -42,7 +44,16 @@ export const DurationOfWork = ({ control, setValue }: Props) => {
                     placeholder={t('filters.job_duration')}
                     closeMenuOnSelect={false}
                     isMulti={true}
-                    options={durationValues}
+                    options={
+                        lang === 'ru'
+                            ? durationValues
+                            : durationValues.map((el) => ({
+                                  value: el.value,
+                                  label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                      1
+                                  )}`,
+                              }))
+                    }
                 />
             </div>
         </>

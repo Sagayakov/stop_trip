@@ -7,6 +7,7 @@ import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts
 import { useEffect } from 'react';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -23,6 +24,7 @@ export const AnnouncementRealtyRentalCondition = ({
 }: Props) => {
     const { data } = useGetSelectOptionsQuery('');
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (defaultValue) {
@@ -46,7 +48,16 @@ export const AnnouncementRealtyRentalCondition = ({
                 control={control}
                 isMulti={false}
                 name="property_rental_condition"
-                options={data?.property_rental_condition}
+                options={
+                    lang === 'ru'
+                        ? data?.property_rental_condition
+                        : data?.property_rental_condition.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
                 placeholder={t('filters.property_rental_condition')}
                 defaultValue={
                     getDefaultValue(

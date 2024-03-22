@@ -162,9 +162,25 @@ export const CategoryAdvert = (el: Props) => {
                 <h2>{el.title}</h2>
                 {el.city && (
                     <p className={style.description_location}>
-                        {`${el.country?.name || ''}, ${
-                            el.region?.name || ''
-                        }, ${el.city?.name || ''}`}
+                        {`${
+                            (lang === 'ru'
+                                ? el.country?.name
+                                : `${el.country?.slug[0].toUpperCase()}${el.country?.slug.slice(
+                                      1
+                                  )}`) || ''
+                        }, ${
+                            (lang === 'ru'
+                                ? el.region?.name
+                                : `${el.region?.slug[0].toUpperCase()}${el.region?.slug.slice(
+                                      1
+                                  )}`) || ''
+                        }, ${
+                            (lang === 'ru'
+                                ? el.city?.name
+                                : `${el.city?.slug[0].toUpperCase()}${el.city?.slug.slice(
+                                      1
+                                  )}`) || ''
+                        }`}
                     </p>
                 )}
                 <h3>

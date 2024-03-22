@@ -45,7 +45,9 @@ export const AnnouncementRealtyAmenities = ({
                         ? data?.property_amenities
                         : data?.property_amenities.map((el) => ({
                               value: el.value,
-                              label: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
                           }))) || [{ value: '', label: '' }]
                 }
                 name="property_amenities"
