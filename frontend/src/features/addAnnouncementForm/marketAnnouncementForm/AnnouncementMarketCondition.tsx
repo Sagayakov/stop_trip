@@ -4,7 +4,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
-
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -15,14 +15,17 @@ interface Props {
 export const AnnouncementMarketCondition = ({
     register,
     defaultValue,
-    formState
+    formState,
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     const getDefaultValue = () => {
         if (defaultValue) {
-            return data?.market_condition.find((el) => el.value === defaultValue);
+            return data?.market_condition.find(
+                (el) => el.value === defaultValue
+            );
         }
     };
 
@@ -32,11 +35,22 @@ export const AnnouncementMarketCondition = ({
             <UniversalRadioGroup
                 register={register}
                 name="market_condition"
-                radioValues={data?.market_condition || [{ value: '', label: '' }]}
+                radioValues={
+                    (lang === 'ru'
+                        ? data?.market_condition
+                        : data?.market_condition.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))) || [{ value: '', label: '' }]
+                }
                 defaultValue={getDefaultValue()}
                 className={styles.radio_group}
             />
-            <div className={styles.ann_field_err}>{formState?.errors?.market_condition?.message}</div>
+            <div className={styles.ann_field_err}>
+                {formState?.errors?.market_condition?.message}
+            </div>
         </div>
     );
 };
