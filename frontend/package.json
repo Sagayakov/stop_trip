@@ -20,6 +20,7 @@
         "@types/react-select": "^5.0.1",
         "blueimp-load-image": "^5.16.0",
         "esbuild": "^0.19.5",
+        "exif-js": "^2.3.0",
         "heic2any": "^0.0.4",
         "i18next": "^23.7.9",
         "js-cookie": "^3.0.5",

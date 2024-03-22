@@ -2,19 +2,45 @@ import {
     useDeleteMessengerMutation,
     useModifyMessengerMutation,
 } from 'app/api/fetchMessengers';
-import { Result } from 'app/api/types/messengers';
+import { MessengersType, Result } from 'app/api/types/messengers';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { Delete } from 'shared/ui/icons/icons-tools/Delete';
 import { Pencil } from 'shared/ui/icons/icons-tools/Pencil';
 import styles from 'widgets/settingMessengers/libr/settingMessengers.module.scss';
+import {
+    FetchBaseQueryError,
+    FetchBaseQueryMeta,
+    QueryDefinition,
+} from '@reduxjs/toolkit/dist/query';
+import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
+import { QueryReturnValue } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
 
 type UserMessengerProps = {
     messenger: Result;
+    refetch: () => QueryActionCreatorResult<
+        QueryDefinition<
+            string,
+            (
+                args: unknown,
+                api: unknown,
+                extraOptions: unknown
+            ) => Promise<
+                QueryReturnValue<
+                    unknown,
+                    FetchBaseQueryError,
+                    FetchBaseQueryMeta
+                >
+            >,
+            'Messengers',
+            MessengersType,
+            'fetchMessengers'
+        >
+    >;
 };
 
-export const UserMessenger = ({ messenger }: UserMessengerProps) => {
+export const UserMessenger = ({ messenger, refetch }: UserMessengerProps) => {
     const [modifyMessenger, updateResponse] = useModifyMessengerMutation();
     const [deleteMessenger, deleteResponse] = useDeleteMessengerMutation();
     const [newUserLink, setNewUserLink] = useState(messenger.link_to_user);
@@ -28,6 +54,7 @@ export const UserMessenger = ({ messenger }: UserMessengerProps) => {
             .then(() => {
                 const toastId = 'patch messenger success toast';
                 toast.success(t('my-settings.success'), { toastId });
+                refetch();
             })
             .catch(() => {
                 const toastId = 'patch messenger error toast';
@@ -53,6 +80,7 @@ export const UserMessenger = ({ messenger }: UserMessengerProps) => {
                     { toastId }
                 );
             });
+        refetch();
     };
 
     return (
