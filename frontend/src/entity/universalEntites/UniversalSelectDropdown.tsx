@@ -66,7 +66,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                     options.filter((el) => !searchValues?.includes(el.value))
                 );
         }
-    }, [options]);
+    }, [options, name]);
 
     const handleChange = (
         selectedOptions: SelectOption | SelectOption[] | null,

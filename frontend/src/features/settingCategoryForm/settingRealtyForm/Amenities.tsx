@@ -4,6 +4,7 @@ import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
@@ -18,6 +19,7 @@ type SelectType = {
 export const Amenities = ({ setValue, control }: Props) => {
     const { data } = useGetFiltersQuery('');
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     return (
         <div className={styles.amenities}>
@@ -32,7 +34,18 @@ export const Amenities = ({ setValue, control }: Props) => {
                         placeholder={t('filters.property_amenities')}
                         name="property_amenities"
                         prefix="filterForm"
-                        options={data['property_amenities'] as SelectType[]}
+                        options={
+                            lang === 'ru'
+                                ? (data.property_amenities as SelectType[])
+                                : (data.property_amenities as SelectType[]).map(
+                                      (el) => ({
+                                          value: el.value,
+                                          label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                              1
+                                          )}`,
+                                      })
+                                  )
+                        }
                     />
                 )}
             </div>

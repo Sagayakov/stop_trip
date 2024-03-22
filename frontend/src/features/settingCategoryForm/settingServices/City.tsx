@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingServices/libr/settingServicesForm.module.scss';
 import { TypeOfServicesForm } from 'widgets/settingForm/settingServices/libr/TypeOfServicesForm';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfServicesForm>;
@@ -28,6 +29,7 @@ export const City = ({ control, setValue, watch }: Props) => {
     const { data: availableData } = useGetAvailableFiltersQuery(
         `?region=${region || 'north-goa'}`
     );
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data && availableData) {
@@ -52,7 +54,16 @@ export const City = ({ control, setValue, watch }: Props) => {
                     placeholder={t('filters.property_city')}
                     closeMenuOnSelect={false}
                     isMulti={true}
-                    options={cityValues}
+                    options={
+                        lang === 'ru'
+                            ? cityValues
+                            : cityValues.map((el) => ({
+                                  value: el.value,
+                                  label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                      1
+                                  )}`,
+                              }))
+                    }
                 />
             </div>
         </>

@@ -153,6 +153,7 @@
         "property_commission": "Commission",
         "apply": "Apply",
         "reset": "Reset filters",
+        "property_rent_duration": "Rent duration",
 
         "transport_type_of_service": "Service type",
         "transport_type": "Transport type",
@@ -176,6 +177,7 @@
         "transport_passengers_quality": "Number of passengers",
         "transport_condition": "Condition",
         "transport_commission": "Commission",
+        "transport_rent_duration": "Rent duration",
 
         "proposed_currency": "Proposed currency",
         "exchange_for": "Exchange for",

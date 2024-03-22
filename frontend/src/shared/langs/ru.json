@@ -153,6 +153,7 @@
         "property_commission": "Комиссия",
         "apply": "Применить",
         "reset": "Сбросить фильтры",
+        "property_rent_duration": "Срок аренды",
 
         "transport_type_of_service": "Тип услуги",
         "transport_type": "Тип транспорта",
@@ -176,6 +177,7 @@
         "transport_passengers_quality": "Количество пассажиров",
         "transport_condition": "Состояние",
         "transport_commission": "Комиссия",
+        "transport_rent_duration": "Срок аренды",
 
         "proposed_currency": "Предлагаемая валюта",
         "exchange_for": "Обмен на",
