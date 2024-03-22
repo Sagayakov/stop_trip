@@ -14,6 +14,8 @@ import {
 } from 'app/api/fetchUser.ts';
 import { MySettingForm } from 'widgets/mySetting/MySettingForm.tsx';
 import { SettingMessengers } from 'widgets/settingMessengers';
+import { scrollToTop } from 'shared/utils/scrollToTop';
+import { useNavigate } from 'react-router-dom';
 
 const MySettings = () => {
     const { t } = useTranslation();
@@ -25,6 +27,7 @@ const MySettings = () => {
     const [setUser, response] = useSetUserMutation();
     const [setPassword, responsePassword] = useSetPasswordMutation();
     const { data: userData } = useGetUserQuery('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         return () => {
@@ -82,6 +85,11 @@ const MySettings = () => {
     const currentPassword = watch('current_password');
     const reNewPassword = watch('re_new_password');
 
+    const handleCancel = () => {
+        scrollToTop();
+        navigate('/');
+    };
+
     return (
         <section className={styles.my_setting}>
             <div className={styles.bread_crumbs}>
@@ -120,8 +128,8 @@ const MySettings = () => {
                             newPassword !== reNewPassword
                         }
                     />
-                    <button className={styles.goBack}>
-                        {t('add-page.back')}
+                    <button className={styles.goBack} onClick={handleCancel}>
+                        {t('add-page.cancel')}
                     </button>
                 </div>
             </form>
