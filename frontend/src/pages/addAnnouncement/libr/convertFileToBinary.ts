@@ -93,7 +93,11 @@ const fileToBase64String = (file: File, isIos: boolean) => {
                             canvas.width = img.width;
                             canvas.height = img.height;
                             ctx?.drawImage(img, 0, 0);
-                            resolve(canvas.toDataURL('image/jpeg', 0.1));
+                            resolve(
+                                canvas
+                                    .toDataURL('image/jpeg', 0.1)
+                                    .split(',')[1]
+                            );
                         };
 
                         img.src = event.target?.result as string;
