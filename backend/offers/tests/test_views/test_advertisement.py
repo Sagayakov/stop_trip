@@ -222,7 +222,17 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(len(res_json), len(my_advertisements) + len(my_unpublished_advertisements))
 
     def test_get_transport_brands(self):
-        brands = [TransportBrandFactory() for _ in range(10)]
+        brands = [TransportBrandFactory() for _ in range(5)]
+        car_brand_models = [
+            TransportModelFactory(brand=brand, category=TransportCategory.CAR)
+            for brand in brands[:2]
+            for _ in range(5)
+        ]
+        moto_brand_models = [
+            TransportModelFactory(brand=brand, category=TransportCategory.MOTORCYCLE)
+            for brand in brands[2:]
+            for _ in range(5)
+        ]
 
         with self.assertNumQueries(1):
             res = self.client.get(self.get_transport_brands_url)
@@ -231,15 +241,22 @@ class AdvertisementViewSetTest(APITestCase):
         res_json = res.json()
         self.assertEqual(len(res_json), len(brands))
 
+        with self.assertNumQueries(2):
+            res = self.client.get(self.get_transport_brands_url, {"category": "car"})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(brands[:2]))
+
     def test_get_transport_models_by_brand(self):
-        brand = [TransportBrandFactory() for _ in range(2)]
-        brand_0_models = [TransportModelFactory(brand=brand[0]) for _ in range(5)]
-        brand_1_models = [TransportModelFactory(brand=brand[1]) for _ in range(3)]
+        brands = [TransportBrandFactory() for _ in range(2)]
+        brand_0_models = [TransportModelFactory(brand=brands[0]) for _ in range(5)]
+        brand_1_models = [TransportModelFactory(brand=brands[1]) for _ in range(3)]
 
         with self.assertNumQueries(1):
             res = self.client.get(
                 self.get_transport_models_by_brand_url,
-                data={"brand": brand[0].slug},
+                data={"brand": brands[0].slug},
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -249,7 +266,7 @@ class AdvertisementViewSetTest(APITestCase):
         with self.assertNumQueries(1):
             res = self.client.get(
                 self.get_transport_models_by_brand_url,
-                data={"brand": brand[1].slug},
+                data={"brand": brands[1].slug},
             )
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)

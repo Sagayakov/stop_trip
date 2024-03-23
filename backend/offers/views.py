@@ -255,11 +255,29 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # @method_decorator(cache_page(60 * 10))
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="category",
+                type=str,
+                location=OpenApiParameter.QUERY,
+                description="Ввести категорию транспорта",
+                required=False,
+            ),
+        ]
+    )
     @action(detail=False, methods=["GET"])
     def get_transport_brands(self, request, *args, **kwargs):
         """Возвращает все брэнды транспорта."""
 
-        queryset = TransportBrand.objects.all()
+        if category := request.query_params.get("category"):
+            queryset = (
+                TransportBrand.objects.prefetch_related("brand_models")
+                .filter(brand_models__category=category)
+                .distinct()
+            )
+        else:
+            queryset = TransportBrand.objects.all()
         serializer = TransportBrandSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
