@@ -13,6 +13,8 @@ x-app_environment: &app_environment
     - YND_ACCESS_KEY_ID
     - YND_SECRET_ACCESS_KEY
     - YND_STORAGE_BUCKET_NAME
+    - EMAIL_HOST_USER
+    - EMAIL_HOST_PASSWORD
 
 services:
   backend:
