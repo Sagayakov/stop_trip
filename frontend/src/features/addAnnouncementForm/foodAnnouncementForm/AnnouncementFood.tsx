@@ -34,14 +34,14 @@ export const AnnouncementFood = ({
                 defaultValue={data?.food_type}
                 formState={formState}
             />
-            <AnnouncementFoodDelivery
-                register={register}
-                defaultValue={data?.food_delivery}
-                formState={formState}
-            />
             <AnnouncementFoodEsteblishment
                 register={register}
                 defaultValue={data?.food_establishment}
+                formState={formState}
+            />
+            <AnnouncementFoodDelivery
+                register={register}
+                defaultValue={data?.food_delivery}
                 formState={formState}
             />
         </>
