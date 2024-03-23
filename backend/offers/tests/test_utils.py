@@ -6,7 +6,7 @@ from offers.utils import Parser
 
 @mark.django_db
 def test_parser():
-    brand_data = {
+    brands_data = {
         "data": [
             {"id": 1, "name": "Acura"},
             {"id": 2, "name": "Alfa Romeo"},
@@ -28,11 +28,11 @@ def test_parser():
     }
 
     parser = Parser()
-    parser.parse_brands(data=brand_data)
-    parser.parse_models(data=model_data, category="car")
+    parser.parse_brands(data=brands_data)
+    parser.parse_models(brands_data=brands_data, models_data=model_data, category="car")
 
-    assert TransportBrand.objects.count() == len(brand_data["data"])
+    assert TransportBrand.objects.count() == len(brands_data["data"])
     models = TransportModel.objects.all()
     assert models.count() == len(model_data["data"])
-    brand = TransportBrand.objects.get(ref_id=model_data["data"][0]["brand_id"])
+    brand = TransportBrand.objects.get(name=brands_data["data"][0]["name"])
     assert all([model.brand == brand for model in models])

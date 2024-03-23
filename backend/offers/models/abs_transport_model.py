@@ -19,7 +19,6 @@ class TransportBrand(models.Model):
 
     name = models.CharField("Название", db_index=True)
     slug = models.SlugField("Слаг", unique=True, db_index=True)
-    ref_id = models.PositiveSmallIntegerField("Внешний ID", null=True)
 
     class Meta:
         verbose_name = "Бренд"
@@ -45,7 +44,6 @@ class TransportModel(models.Model):
 
     name = models.CharField("Название", db_index=True)
     slug = models.SlugField("Слаг", unique=True, db_index=True)
-    ref_id = models.PositiveSmallIntegerField("Внешний ID", null=True)
 
     class Meta:
         verbose_name = "Модель"

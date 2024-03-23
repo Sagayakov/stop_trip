@@ -83,25 +83,27 @@ class Parser:
                 new_brand = TransportBrand(
                     name=brand_data["name"],
                     slug=slugify(brand_data["name"]),
-                    ref_id=brand_data["id"],
                 )
                 create_brands_list.append(new_brand)
 
         TransportBrand.objects.bulk_create(objs=create_brands_list)
 
     @staticmethod
-    def parse_models(data: dict[str, list[dict]], category: str) -> None:
-        models_data: list[dict] = data["data"]
-        db_brands_ref_ids: dict[int, TransportBrand] = {
-            brand.ref_id: brand for brand in TransportBrand.objects.all()
-        }
+    def parse_models(
+        brands_data: dict[str, list[dict]], models_data: dict[str, list[dict]], category: str
+    ) -> None:
         db_models_names: list[str] = list(TransportModel.objects.values_list("name", flat=True))
         db_models_slugs: list[str] = list(TransportModel.objects.values_list("slug", flat=True))
         create_models_list: list[TransportModel] = []
-        for model_data in models_data:
+
+        modified_brands_data: dict[int, str] = {
+            brand["id"]: slugify(brand["name"]) for brand in brands_data["data"]
+        }
+        for model_data in models_data["data"]:
             if model_data["name"] not in db_models_names:
-                brand = db_brands_ref_ids.get(model_data["brand_id"])
-                if brand:
+                brand_slug: str = modified_brands_data.get(model_data["brand_id"])
+                brand_obj: TransportBrand = TransportBrand.objects.get(slug=brand_slug)
+                if brand_obj:
                     if "+" in model_data["name"]:
                         slug = slugify(model_data["name"]) + " (plus)"
                     else:
@@ -111,11 +113,10 @@ class Parser:
                         continue
 
                     new_car_model = TransportModel(
-                        brand=brand,
+                        brand=brand_obj,
                         category=category,
                         name=model_data["name"],
                         slug=slug,
-                        ref_id=model_data["id"],
                     )
                     create_models_list.append(new_car_model)
                     db_models_names.append(model_data["name"])
