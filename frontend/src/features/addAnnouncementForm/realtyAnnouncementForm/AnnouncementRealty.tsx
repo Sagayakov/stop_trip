@@ -61,12 +61,6 @@ export const AnnouncementRealty = ({
                 formState={formState}
                 defaultValue={data?.property_rent_duration}
             />
-            <AnnouncementRealtyHouseType
-                control={control}
-                setValue={setValue}
-                defaultValue={data?.property_house_type}
-                errors={formState.errors}
-            />
             <AnnouncementRealtyPrepayment
                 control={control}
                 setValue={setValue}
@@ -77,6 +71,12 @@ export const AnnouncementRealty = ({
                 control={control}
                 setValue={setValue}
                 defaultValue={data?.property_rental_condition}
+                errors={formState.errors}
+            />
+            <AnnouncementRealtyHouseType
+                control={control}
+                setValue={setValue}
+                defaultValue={data?.property_house_type}
                 errors={formState.errors}
             />
             <AnnouncementRealtyFloorsQuantity

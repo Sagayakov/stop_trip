@@ -13,8 +13,16 @@ interface Props {
 export const AnnouncementExcursion = ({ register, data, formState }: Props) => {
     return (
         <>
-            <AnnouncementExcursionFood register={register} defaultValue={data?.excursion_food} formState={formState} />
-            <AnnouncementExcursionTransfer register={register} defaultValue={data?.excursion_transfer} formState={formState} />
+            <AnnouncementExcursionTransfer
+                register={register}
+                defaultValue={data?.excursion_transfer}
+                formState={formState}
+            />
+            <AnnouncementExcursionFood
+                register={register}
+                defaultValue={data?.excursion_food}
+                formState={formState}
+            />
         </>
     );
 };
