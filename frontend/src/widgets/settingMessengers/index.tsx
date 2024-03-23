@@ -10,7 +10,7 @@ import { UserMessenger } from 'features/userMessenger';
 export const SettingMessengers = () => {
     const { t } = useTranslation();
     const { data: allMessengersData } = useGetMessengersQuery('');
-    const { data: userMessengersData } = useGetUserMessengersQuery('');
+    const { data: userMessengersData, refetch } = useGetUserMessengersQuery('');
 
     return (
         <section className={styles.messengers_wrapper}>
@@ -20,7 +20,11 @@ export const SettingMessengers = () => {
             {userMessengersData && userMessengersData.results.length ? (
                 <div className={styles.current_messengers}>
                     {userMessengersData.results.map((el) => (
-                        <UserMessenger messenger={el} key={el.id} />
+                        <UserMessenger
+                            messenger={el}
+                            key={el.id}
+                            refetch={refetch}
+                        />
                     ))}
                 </div>
             ) : null}

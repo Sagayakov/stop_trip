@@ -8,8 +8,6 @@ class EventCreateSerializer(AdvertisementCreateSerializer):
     """Сериализатор создания события."""
 
     start_date = serializers.DateTimeField(required=True)
-    end_date = serializers.DateTimeField(required=True)
-    is_online = serializers.BooleanField(required=True)
 
     class Meta:
         model = Advertisement

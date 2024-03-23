@@ -20,6 +20,7 @@ import {
     AnnouncementRealtyParking,
     AnnouncementRealtyPrepayment,
     AnnouncementRealtyRentalCondition,
+    AnnouncementRealtyRentDuration,
     AnnouncementRealtyRoomsQuantity,
     AnnouncementRealtyServise,
     AnnouncementRealtySleepingPlaces,
@@ -55,11 +56,10 @@ export const AnnouncementRealty = ({
                 defaultValue={data?.property_type}
                 formState={formState}
             />
-            <AnnouncementRealtyHouseType
-                control={control}
-                setValue={setValue}
-                defaultValue={data?.property_house_type}
-                errors={formState.errors}
+            <AnnouncementRealtyRentDuration
+                register={register}
+                formState={formState}
+                defaultValue={data?.property_rent_duration}
             />
             <AnnouncementRealtyPrepayment
                 control={control}
@@ -71,6 +71,12 @@ export const AnnouncementRealty = ({
                 control={control}
                 setValue={setValue}
                 defaultValue={data?.property_rental_condition}
+                errors={formState.errors}
+            />
+            <AnnouncementRealtyHouseType
+                control={control}
+                setValue={setValue}
+                defaultValue={data?.property_house_type}
                 errors={formState.errors}
             />
             <AnnouncementRealtyFloorsQuantity

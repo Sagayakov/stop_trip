@@ -72,7 +72,11 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 <City control={control} setValue={setValue} watch={watch} />
                 <TypeOfTransport register={register} watch={watch} />
                 <TransportationCategory setValue={setValue} control={control} />
-                <MarkOfTransport setValue={setValue} control={control} />
+                <MarkOfTransport
+                    setValue={setValue}
+                    watch={watch}
+                    control={control}
+                />
                 <ModelOfTransport
                     register={register}
                     watch={watch}

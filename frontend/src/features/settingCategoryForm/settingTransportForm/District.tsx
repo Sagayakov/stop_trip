@@ -43,7 +43,10 @@ export const District = ({ control, setValue }: Props) => {
                     closeMenuOnSelect={true}
                     isMulti={false}
                     options={districtValues}
-                    defaultValue={{ value: 'north-goa', label: 'Северный Гоа' }}
+                    defaultValue={{
+                        value: 'north-goa',
+                        label: 'Северный Гоа',
+                    }}
                 />
             </div>
         </>

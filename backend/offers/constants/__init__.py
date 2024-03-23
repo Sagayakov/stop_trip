@@ -12,6 +12,7 @@ from .property_constants import (
     PropertyType,
     PropertyHouseType,
     PropertyTypeOfService,
+    PropertyRentDuration,
 )
 from .taxi_constants import (
     TaxiUnit,
@@ -26,6 +27,7 @@ from .transport_constants import (
     TransportEngineType,
     TransportTransmissionType,
     TransportTypeOfService,
+    TransportRentDuration,
 )
 from .food_constants import FoodType
 from .document_constants import (

@@ -140,6 +140,12 @@ const AddAnnouncementPage = () => {
         }
     }, [formState]); // для скролла в сафари
 
+    useEffect(() => {
+        if (category !== undefined) {
+            toast.info(t('add-page.tip'));
+        }
+    }, [category]);
+
     return (
         <>
             {isLoading && <LoadingWithBackground />}
@@ -177,7 +183,6 @@ const AddAnnouncementPage = () => {
                             setValue={setValue}
                             control={control}
                             formState={formState}
-                            watch={watch}
                         />
                         <AnnouncementNameField
                             register={register}

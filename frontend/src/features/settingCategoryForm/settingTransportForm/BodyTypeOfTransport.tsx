@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { useEffect, useState } from 'react';
 import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     control: Control<TypeSettingTransport, string[]>;
@@ -20,6 +21,7 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [bodyTypesValues, setBodyTypesValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -41,7 +43,16 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
                 placeholder={t('filters.transport_body_type')}
                 closeMenuOnSelect={false}
                 isMulti={true}
-                options={bodyTypesValues}
+                options={
+                    lang === 'ru'
+                        ? bodyTypesValues
+                        : bodyTypesValues.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
             />
         </div>
     );

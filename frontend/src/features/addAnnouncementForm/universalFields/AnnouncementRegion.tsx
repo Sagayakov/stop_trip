@@ -5,11 +5,13 @@ import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts';
 import { useEffect, useState } from 'react';
+import { NameType } from 'pages/advertPage/libr/types';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
     control: Control<FormAddAnn, string[]>;
-    defaultValue?: { name: string } | null;
+    defaultValue?: NameType | null;
     formState: FormState<FormAddAnn>;
 }
 
@@ -27,6 +29,7 @@ const AnnouncementRegion = ({
     const { t } = useTranslation();
     const [options, setOptions] = useState<SelectType[]>([]);
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -58,8 +61,23 @@ const AnnouncementRegion = ({
                 closeMenuOnSelect={true}
                 isMulti={false}
                 isDisabled={false}
-                options={options}
-                defaultValue={{ value: 'north-goa', label: 'Северный Гоа' }}
+                options={
+                    lang === 'ru'
+                        ? options
+                        : options.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
+                defaultValue={{
+                    value: defaultValue?.slug || 'north-goa',
+                    label:
+                        defaultValue?.name || lang === 'ru'
+                            ? 'Северный Гоа'
+                            : 'North Goa',
+                }}
                 //requiredFiled={true}
             />
             <div className={styles.ann_field_err}>

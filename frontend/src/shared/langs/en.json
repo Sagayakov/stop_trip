@@ -153,6 +153,7 @@
         "property_commission": "Commission",
         "apply": "Apply",
         "reset": "Reset filters",
+        "property_rent_duration": "Rent duration",
 
         "transport_type_of_service": "Service type",
         "transport_type": "Transport type",
@@ -176,6 +177,7 @@
         "transport_passengers_quality": "Number of passengers",
         "transport_condition": "Condition",
         "transport_commission": "Commission",
+        "transport_rent_duration": "Rent duration",
 
         "proposed_currency": "Proposed currency",
         "exchange_for": "Exchange for",
@@ -284,6 +286,7 @@
         "extension": "Only .png, .jpeg, .jpg, .img, .heic",
         "from-to": "1 to 30",
         "location": "Location",
+        "back": "Back",
         "cancel": "Cancel",
         "edit-success": "Added changes are being processed, the ad will be updated within 10 minutes",
         "required": "Required field",
@@ -295,7 +298,9 @@
         "complain-error": "You have already left a complaint about this ad!",
         "complain-title": "Complaint about the ad",
         "next": "Next",
-        "send": "Send"
+        "send": "Send",
+        "rent-duration": "Rent duration",
+        "tip": "The more fields you fill out, the easier it will be for the customer to find your ad"
     },
 
     "complain-reason": {

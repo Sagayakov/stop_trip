@@ -49,6 +49,7 @@ export interface FormAddAnn {
     //недвижимость
     property_type_of_service?: string;
     property_type?: string;
+    property_rent_duration?: string;
     property_building_max_floor?: number;
     property_floor?: number;
     property_bathroom_count?: number;
@@ -71,6 +72,7 @@ export interface FormAddAnn {
     transport_type_of_service?: string;
     transport_type?: string;
     transport_category?: string;
+    transport_rent_duration?: string;
     transport_brand?: string;
     transport_model?: string;
     transport_engine_type?: string;

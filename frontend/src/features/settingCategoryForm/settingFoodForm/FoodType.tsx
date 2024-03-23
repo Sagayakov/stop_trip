@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingFood/libr/settingFoordForm.module.scss';
 import { useEffect, useState } from 'react';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<TypeForFoodForm>;
@@ -20,6 +21,7 @@ export const FoodType = ({ control, setValue }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetFiltersQuery('');
     const [typeValues, setTypeValues] = useState<SelectType[]>([]);
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -38,7 +40,16 @@ export const FoodType = ({ control, setValue }: Props) => {
                 control={control}
                 isMulti={true}
                 name="food_type"
-                options={typeValues}
+                options={
+                    lang === 'ru'
+                        ? typeValues
+                        : typeValues.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
                 placeholder={t('filters.food_type')}
                 prefix="filterForm"
                 setValue={setValue}

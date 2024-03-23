@@ -13,6 +13,7 @@ from ..constants import (
     TransportTransmissionType,
     TransportBodyType,
     TransportCondition,
+    TransportRentDuration,
 )
 
 
@@ -44,6 +45,9 @@ class TransportFilter(FilterSet):
         label="Состояние транспорта", choices=TransportCondition.choices
     )
     transport_commission = filters.RangeFilter(label="Комиссия")
+    transport_rent_duration = ChoiceInFilter(
+        label="Срок аренды", choices=TransportRentDuration.choices
+    )
 
     @classmethod
     def _transport_filter_specs(cls, queryset) -> dict[str, list[dict]]:
@@ -174,6 +178,14 @@ class TransportFilter(FilterSet):
         }
         specs |= transport_commission_specs
 
+        # Срок аренды
+        transport_rent_duration = {
+            "transport_rent_duration": [
+                {"value": value, "label": label} for value, label in TransportRentDuration.choices
+            ]
+        }
+        specs |= transport_rent_duration
+
         return specs
 
     @classmethod
@@ -286,5 +298,13 @@ class TransportFilter(FilterSet):
             "min": transport_commission_range["min"],
             "max": transport_commission_range["max"],
         }
+
+        # Срок аренды
+        facets["transport_rent_duration"] = (
+            queryset.exclude(transport_rent_duration__isnull=True)
+            .values_list("transport_rent_duration", flat=True)
+            .order_by("transport_rent_duration")
+            .distinct("transport_rent_duration")
+        )
 
         return facets

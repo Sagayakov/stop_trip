@@ -10,6 +10,7 @@ import { createPortal } from 'react-dom';
 import { ModalComplain } from 'features/complainAboutAnnounsement';
 import { ModalAddAdvert } from 'features/header/modal/modalAddAdvert/ModalAddAdvert.tsx';
 import { useAppSelector } from 'app/store/hooks.ts';
+import { useGetUserQuery } from 'app/api/fetchUser';
 
 interface Props {
     data: ProductType;
@@ -17,13 +18,14 @@ interface Props {
 export const ProductInfo = ({ data }: Props) => {
     const [showComplainModal, setShowComplainModal] = useState(false);
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
-    const [needAuth, setNeedAuth] = useState(false)
+    const [needAuth, setNeedAuth] = useState(false);
     const { t } = useTranslation();
     const { isMobile } = useMatchMedia();
+    const { data: userData } = useGetUserQuery('');
 
     const handleModalOpen = () => {
         !isAuth ? setNeedAuth(true) : setShowComplainModal(true);
-    }
+    };
 
     return (
         <section className={styles.product_info}>
@@ -38,18 +40,26 @@ export const ProductInfo = ({ data }: Props) => {
                 </div>
             )}
             {data.coordinates && <AdvertLocation data={data} />}
-            <button className={styles.complain_button} onClick={handleModalOpen} >
+            <button
+                className={styles.complain_button}
+                onClick={handleModalOpen}
+                disabled={data.owner.id === userData?.id}
+            >
                 {t('add-page.complain')}
             </button>
             {showComplainModal &&
                 createPortal(
-                    <ModalComplain setShowComplainModal={setShowComplainModal} />,
-                    document.body)
-            }
-            {needAuth && <ModalAddAdvert
-                closeAddModal={() => setNeedAuth(false)}
-                text={t('add-page.need-auth-complain')}
-            />}
+                    <ModalComplain
+                        setShowComplainModal={setShowComplainModal}
+                    />,
+                    document.body
+                )}
+            {needAuth && (
+                <ModalAddAdvert
+                    closeAddModal={() => setNeedAuth(false)}
+                    text={t('add-page.need-auth-complain')}
+                />
+            )}
         </section>
     );
 };

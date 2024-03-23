@@ -7,6 +7,9 @@ import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import heic2any from 'heic2any';
+import { useState } from 'react';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground';
 
 const allowableExtensions = [
     'image/png',
@@ -17,6 +20,7 @@ const allowableExtensions = [
     'image/img',
     'png',
     'heic',
+    'HEIC',
     'heif',
     'jpg',
     'jpeg',
@@ -32,7 +36,7 @@ interface Props {
     watch: UseFormWatch<FormAddAnn>;
 }
 
-export const LoadPhotoBtn = ({
+const LoadPhotoBtn = ({
     inputRef,
     setPreviewImages,
     setValue,
@@ -44,22 +48,26 @@ export const LoadPhotoBtn = ({
     const path = useLocation().pathname.split('/');
     const images = watch('images');
     const uploadImages = watch('upload_images');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleImageChange = async (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
+        setIsLoading(true);
         const fileList = event.target.files;
         if (fileList) {
-            console.log(fileList)
+            console.log(fileList);
             for (const file of fileList) {
-                const fileType = file.type.split('.');
-                const extension = fileType[fileType.length - 1];
+                //const fileType = file.type.split('.');
+                //const extension = fileType[fileType.length - 1];
 
                 const fileTypeFromName = file.name.split('.');
-                const extensionFromName = fileTypeFromName[fileTypeFromName.length - 1];
+                const extensionFromName =
+                    fileTypeFromName[fileTypeFromName.length - 1];
 
-                if (!allowableExtensions.includes(extension)
-                    || !allowableExtensions.includes(extensionFromName)
+                if (
+                    /* !allowableExtensions.includes(extension) || */
+                    !allowableExtensions.includes(extensionFromName)
                 ) {
                     const toastId = 'load photo ext toast';
                     toast.error(t('add-page.extension'), { toastId });
@@ -83,7 +91,28 @@ export const LoadPhotoBtn = ({
             } //если мы на странице редактирования, то setValue для поля upload_images
             //если на странице добавления объявлений, то для поля images
 
-            Array.from(fileList).forEach((file) => {
+            Array.from(fileList).forEach(async (file) => {
+                if (
+                    file.name.toLowerCase().includes('.heic') ||
+                    file.name.toLowerCase().includes('.heif')
+                ) {
+                    const fileURL = URL.createObjectURL(file);
+
+                    const blobRes = await fetch(fileURL);
+                    const blob = await blobRes.blob();
+
+                    const converted = await heic2any({
+                        blob,
+                        toType: 'image/jpeg',
+                        quality: 0.5,
+                    });
+
+                    file = new File([converted as Blob], 'image.jpeg', {
+                        type: 'image/jpeg',
+                    });
+                    URL.revokeObjectURL(fileURL);
+                }
+
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onloadend = () => {
@@ -94,9 +123,12 @@ export const LoadPhotoBtn = ({
                 }; //для предпросмотра
             });
         }
+        setIsLoading(false);
     };
 
-    return (
+    return isLoading ? (
+        <LoadingWithBackground />
+    ) : (
         <div>
             <div
                 className={styles.loadphoto_btn}
@@ -108,7 +140,7 @@ export const LoadPhotoBtn = ({
                     className={styles.loadphoto_btn_hidden}
                     type="file"
                     ref={inputRef}
-                    accept="image/*,.img,.png,.jpeg,.jpg,.heic,.heif"
+                    accept="image/*,.img,.png,.jpeg,.jpg,.heic,.HEIC,.heif"
                     multiple={true}
                     max={11}
                     onChange={handleImageChange}
@@ -124,3 +156,4 @@ export const LoadPhotoBtn = ({
     );
 };
 //62914560
+export default LoadPhotoBtn;

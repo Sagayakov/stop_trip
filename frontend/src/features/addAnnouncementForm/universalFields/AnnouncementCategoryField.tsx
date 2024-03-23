@@ -23,7 +23,6 @@ const AnnouncementCategoryField = ({
     const { errors } = formState;
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
-
     const { data } = useGetSelectOptionsQuery('');
 
     const getDefaultValue = () => {
@@ -50,7 +49,10 @@ const AnnouncementCategoryField = ({
                     control={control}
                     isMulti={false}
                     name="category"
-                    options={data?.category}
+                    options={data?.category.map((el) => ({
+                        value: el.value,
+                        label: t(`labels.${el.value}`),
+                    }))}
                     placeholder={t('add-page.choose')}
                     prefix="filterAnnouncementCategory"
                     defaultValue={getDefaultValue()}

@@ -27,7 +27,10 @@ type SelectType = {
 };
 
 export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
+    const region = watch('region');
+    const city = watch('city');
     const markOfTransport = watch('transport_brand');
+
     const disabled = markOfTransport && markOfTransport.length ? false : true;
     const { data } = useGetFiltersQuery('');
     const [modelOfTransportValues, setModelOfTransportValues] = useState<
@@ -35,7 +38,9 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
     >([]);
     const { t } = useTranslation();
     const { data: availableData } = useGetAvailableFiltersQuery(
-        `?transport_brand=${markOfTransport}`
+        `?region=${region || 'north-goa'}${city ? `&city=${city}` : ''}${
+            markOfTransport ? `&transport_brand=${markOfTransport}` : ''
+        }`
     );
 
     useEffect(() => {

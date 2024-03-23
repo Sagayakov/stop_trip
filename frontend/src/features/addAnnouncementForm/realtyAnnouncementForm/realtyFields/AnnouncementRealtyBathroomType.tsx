@@ -4,6 +4,7 @@ import { UniversalRadioGroup } from 'entity/universalEntites/UniversalRadioGroup
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -18,6 +19,7 @@ export const AnnouncementRealtyBathroomType = ({
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     return (
         <div className={styles.ann_field}>
@@ -26,7 +28,16 @@ export const AnnouncementRealtyBathroomType = ({
                 {data && (
                     <UniversalRadioGroup
                         name="property_bathroom_type"
-                        radioValues={data.property_bathroom_type}
+                        radioValues={
+                            lang === 'ru'
+                                ? data.property_bathroom_type
+                                : data.property_bathroom_type.map((el) => ({
+                                      value: el.value,
+                                      label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                          1
+                                      )}`,
+                                  }))
+                        }
                         register={register}
                         defaultValue={
                             data?.property_bathroom_type?.find(

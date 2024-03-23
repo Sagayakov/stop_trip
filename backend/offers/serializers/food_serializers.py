@@ -2,13 +2,13 @@ from rest_framework import serializers
 
 from .advertisement_serializers import AdvertisementCreateSerializer
 from ..models import Advertisement
+from ..constants import FoodType
 
 
 class FoodCreateSerializer(AdvertisementCreateSerializer):
     """Сериализатор создания еды"""
 
-    food_delivery = serializers.BooleanField(required=True)
-    food_establishment = serializers.BooleanField(required=True)
+    food_type = serializers.ChoiceField(choices=FoodType.choices, required=False)
 
     class Meta:
         model = Advertisement

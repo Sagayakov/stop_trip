@@ -15,6 +15,7 @@ import {
     AnnouncementTransportEngineType,
     AnnouncementTransportMark,
     AnnouncementTransportModelOfTransport,
+    AnnouncementTransportRentDuration,
     AnnouncementTransportTransmission,
     AnnouncementTransportTranspCategory,
     AnnouncementTransportTypeOfService,
@@ -47,16 +48,21 @@ export const AnnouncementTransport = ({
                 defaultValue={data?.transport_type_of_service}
                 formState={formState}
             />
-            <AnnouncementTransportTypeOfTransport
-                register={register}
-                defaultValue={data?.transport_type}
-                formState={formState}
-            />
             <AnnouncementTransportTranspCategory
                 control={control}
                 setValue={setValue}
                 defaultValue={data?.transport_category}
                 formState={formState}
+            />
+            <AnnouncementTransportTypeOfTransport
+                register={register}
+                defaultValue={data?.transport_type}
+                formState={formState}
+            />
+            <AnnouncementTransportRentDuration
+                register={register}
+                formState={formState}
+                defaultValue={data?.transport_rent_duration}
             />
             <AnnouncementTransportMark
                 control={control}
@@ -70,6 +76,17 @@ export const AnnouncementTransport = ({
                 defaultValue={data?.transport_model}
                 formState={formState}
                 watch={watch}
+            />
+            <AnnouncementTransportYear
+                register={register}
+                defaultValue={data?.transport_year_of_production}
+                errors={formState.errors}
+            />
+            <AnnouncementTransportBodyType
+                control={control}
+                setValue={setValue}
+                defaultValue={data?.transport_body_type}
+                errors={formState.errors}
             />
             <AnnouncementTransportEngineType
                 control={control}
@@ -87,21 +104,10 @@ export const AnnouncementTransport = ({
                 defaultValue={data?.transport_drive_type}
                 errors={formState.errors}
             />
-            <AnnouncementTransportYear
-                register={register}
-                defaultValue={data?.transport_year_of_production}
-                errors={formState.errors}
-            />
             <AnnouncementTransportTransmission
                 register={register}
                 defaultValue={data?.transport_transmission_type}
                 formState={formState}
-            />
-            <AnnouncementTransportBodyType
-                control={control}
-                setValue={setValue}
-                defaultValue={data?.transport_body_type}
-                errors={formState.errors}
             />
             <AnnoucementTransportCondition
                 register={register}

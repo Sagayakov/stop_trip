@@ -30,7 +30,9 @@ const FavoritesPage = () => {
                 <NavLink to="/">{t('category-page.main-link')}</NavLink>
                 &nbsp;{` > ${t('modal-logged.favorites')}`}
             </div>
-            <h1 className={styles.title}>{t('modal-logged.favorites')}</h1>
+            <h1 className={styles.title}>
+                {t('modal-logged.favorites')} <span>beta</span>
+            </h1>
             {targetData && targetData.length ? (
                 <div className={styles.fav_list}>
                     {targetData.map((el, index: number) => (

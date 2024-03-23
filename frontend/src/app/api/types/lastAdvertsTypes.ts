@@ -8,15 +8,9 @@ export interface LastAdvertsTypes {
 export interface AdvertsTypes {
     id: number;
     category: string;
-    country: {
-        name: string | null;
-    };
-    region: {
-        name: string | null;
-    };
-    city: {
-        name: string | null;
-    };
+    country: NameType | null;
+    region: NameType | null;
+    city: NameType | null;
     title: string;
     price: number;
     description?: string;
@@ -28,6 +22,11 @@ export interface AdvertsTypes {
     proposed_currency?: string | null;
     exchange_for?: string | null;
 }
+
+export type NameType = {
+    name: string;
+    slug: string;
+};
 
 export interface LastAdvertsImages {
     id: number;

@@ -18,8 +18,7 @@ export const AnnouncementRealtyFloorNumber = ({
     return (
         <div className={styles.ann_field}>
             <h3>
-                {t('filters.property_floor')}
-                <span>*</span>:
+                {t('filters.property_floor')}:
             </h3>
             <div className={styles.inputNumber_group}>
                 <input
@@ -29,7 +28,7 @@ export const AnnouncementRealtyFloorNumber = ({
                     placeholder={t('filters.property_floor')}
                     {...register('property_floor', {
                         required: {
-                            value: true,
+                            value: false,
                             message: t('add-page.required'),
                         },
                         pattern: {

@@ -3,10 +3,11 @@ import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelect
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
-import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts';
-import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
+import { getDefaultBrand } from 'features/addAnnouncementForm/getDefaultValue.ts';
+import { useGetAllBrandsQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues.ts';
 import { useEffect } from 'react';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -22,42 +23,44 @@ export const AnnouncementTransportMark = ({
     formState,
 }: Props) => {
     const { t } = useTranslation();
-    const { data } = useGetSelectOptionsQuery('');
+    const { data } = useGetAllBrandsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
-        if (defaultValue) {
+        if (defaultValue && data) {
             setValue(
                 'transport_brand',
-                String(
-                    getDefaultValue(defaultValue, data?.transport_brand)!.value
-                )
+                String(getDefaultBrand(defaultValue, data)?.value)
             );
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
-    }, [defaultValue]);
+    }, [defaultValue, data]);
 
     return (
         <div className={styles.ann_field}>
-            <h3>
-                {t('filters.transport_brand')}
-                <span>*</span>:
-            </h3>
-            <UniversalSelectDropdown<FormAddAnn>
-                closeMenuOnSelect={true}
-                control={control}
-                isMulti={false}
-                name="transport_brand"
-                options={data?.transport_brand}
-                placeholder={t('filters.choose-brand')}
-                defaultValue={
-                    getDefaultValue(
-                        defaultValue,
-                        data?.transport_brand
-                    ) as StringOptions
-                }
-                prefix="filterAnnouncementCategory"
-                setValue={setValue}
-                requiredFiled={true}
-            />
+            <h3>{t('filters.transport_brand')}:</h3>
+            {data && (
+                <UniversalSelectDropdown<FormAddAnn>
+                    closeMenuOnSelect={true}
+                    control={control}
+                    isMulti={false}
+                    name="transport_brand"
+                    options={data.map((el) => ({
+                        value: el.slug,
+                        label:
+                            lang === 'ru'
+                                ? el.name
+                                : `${el.slug[0].toUpperCase()}${el.slug.slice(
+                                      1
+                                  )}`,
+                    }))}
+                    placeholder={t('filters.choose-brand')}
+                    defaultValue={
+                        getDefaultBrand(defaultValue, data) as StringOptions
+                    }
+                    prefix="filterAnnouncementCategory"
+                    setValue={setValue}
+                />
+            )}
             <div className={styles.ann_field_err}>
                 {formState?.errors?.transport_brand?.message}
             </div>

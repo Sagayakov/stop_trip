@@ -7,6 +7,7 @@ import { getDefaultValue } from 'features/addAnnouncementForm/getDefaultValue.ts
 import { useEffect } from 'react';
 import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues.ts';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -23,6 +24,7 @@ export const AnnouncementTransportTranspCategory = ({
 }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (defaultValue) {
@@ -49,7 +51,16 @@ export const AnnouncementTransportTranspCategory = ({
                 control={control}
                 isMulti={false}
                 name="transport_category"
-                options={data?.transport_category}
+                options={
+                    lang === 'ru'
+                        ? data?.transport_category
+                        : data?.transport_category.map((el) => ({
+                              value: el.value,
+                              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                                  1
+                              )}`,
+                          }))
+                }
                 placeholder={t('filters.choose-category')}
                 defaultValue={
                     getDefaultValue(

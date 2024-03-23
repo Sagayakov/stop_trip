@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingCurrency/libr/settingCurrencyFilter.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { useEffect, useState } from 'react';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;
@@ -24,6 +25,7 @@ export const ExchangeFor = ({ control, setValue, watch }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [currencyValues, setCurrencyValues] = useState<SelectOption[]>([]);
     const proposed = watch('proposed_currency');
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -43,7 +45,14 @@ export const ExchangeFor = ({ control, setValue, watch }: Props) => {
                 control={control}
                 isMulti={false}
                 name="exchange_for"
-                options={currencyValues}
+                options={
+                    lang === 'ru'
+                        ? currencyValues
+                        : currencyValues.map((el) => ({
+                              value: el.value,
+                              label: el.value,
+                          }))
+                }
                 placeholder={t('filters.exchange_for')}
                 prefix="filterForm"
                 setValue={setValue}

@@ -8,8 +8,8 @@ export const fetchFavorites = createApi({
     baseQuery: baseQueryWithReauth,
     endpoints: (build) => ({
         getFavorites: build.query<number[], number | string>({
-            query: (page = '') => ({
-                url: `api/favorites/${page ? `?page=${page}` : ''}`,
+            query: () => ({
+                url: 'api/favorites/',
                 method: 'GET',
                 credentials: 'include',
                 headers: {

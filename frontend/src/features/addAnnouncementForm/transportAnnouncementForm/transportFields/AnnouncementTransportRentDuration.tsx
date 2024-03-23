@@ -8,11 +8,10 @@ import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
-    defaultValue: string | undefined;
+    defaultValue?: string | null | undefined;
     formState: FormState<FormAddAnn>;
 }
-
-export const AnnouncementMarketCondition = ({
+export const AnnouncementTransportRentDuration = ({
     register,
     defaultValue,
     formState,
@@ -21,35 +20,29 @@ export const AnnouncementMarketCondition = ({
     const { data } = useGetSelectOptionsQuery('');
     const lang = useAppSelector((state) => state.setLang.lang);
 
-    const getDefaultValue = () => {
-        if (defaultValue) {
-            return data?.market_condition.find(
-                (el) => el.value === defaultValue
-            );
-        }
-    };
-
     return (
         <div className={styles.ann_field}>
-            <h3>{t('filters.market_condition')}:</h3>
+            <h3>{t('add-page.rent-duration')}:</h3>
             <UniversalRadioGroup
                 register={register}
-                name="market_condition"
+                name="transport_rent_duration"
                 radioValues={
                     (lang === 'ru'
-                        ? data?.market_condition
-                        : data?.market_condition.map((el) => ({
+                        ? data?.transport_rent_duration
+                        : data?.transport_rent_duration.map((el) => ({
                               value: el.value,
                               label: `${el.value[0].toUpperCase()}${el.value.slice(
                                   1
                               )}`,
-                          }))) || [{ value: '', label: '' }]
+                          }))) || [{ value: ' ', label: ' ' }]
                 }
-                defaultValue={getDefaultValue()}
+                defaultValue={data?.transport_rent_duration.find(
+                    (el) => el.value === defaultValue
+                )}
                 className={styles.radio_group}
             />
             <div className={styles.ann_field_err}>
-                {formState?.errors?.market_condition?.message}
+                {formState?.errors?.transport_type_of_service?.message}
             </div>
         </div>
     );

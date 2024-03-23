@@ -13,6 +13,7 @@ import {
     QueryDefinition,
 } from '@reduxjs/toolkit/dist/query';
 import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
+import { Dispatch, SetStateAction } from 'react';
 
 type StarProps = {
     userId: number;
@@ -21,6 +22,8 @@ type StarProps = {
     setPrepareStar: React.Dispatch<React.SetStateAction<number>>;
     activeStar: number;
     setActiveStar: React.Dispatch<React.SetStateAction<number>>;
+    isDisabled: boolean;
+    setIsDisabled: Dispatch<SetStateAction<boolean>>;
     refetch: () => QueryActionCreatorResult<
         QueryDefinition<
             string,
@@ -46,6 +49,8 @@ export const Star = ({
     activeStar,
     setActiveStar,
     refetch,
+    isDisabled,
+    setIsDisabled,
 }: StarProps) => {
     const { t } = useTranslation();
     const isAuth: boolean = useAppSelector((state) => state.setIsAuth.isAuth);
@@ -67,26 +72,35 @@ export const Star = ({
     const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
         event.preventDefault();
         event.stopPropagation();
-        if (isAuth) {
-            changeRating({ id: userId, body: { rating: id, comment: '' } })
-                .unwrap()
-                .then(() => {
-                    const toastId = 'change rating success toast';
-                    toast.success(t('advert-page.grade-added'), { toastId });
-                    setActiveStar(id);
-                    refetch();
-                })
-                .catch((error) => {
-                    const toastId = 'change rating error toast';
-                    toast.error(
-                        JSON.stringify(error.data.message).slice(1, -1) ||
-                            t('my-settings.smth-wrong'),
-                        { toastId }
+        if (!isDisabled) {
+            setIsDisabled(true);
+            if (isAuth) {
+                changeRating({ id: userId, body: { rating: id, comment: '' } })
+                    .unwrap()
+                    .then(() => {
+                        const toastId = 'change rating success toast';
+                        toast.success(t('advert-page.grade-added'), {
+                            toastId,
+                        });
+                        setActiveStar(id);
+                        refetch();
+                    })
+                    .catch((error) => {
+                        const toastId = 'change rating error toast';
+                        toast.error(
+                            JSON.stringify(error.data.message).slice(1, -1) ||
+                                t('my-settings.smth-wrong'),
+                            { toastId }
+                        );
+                    })
+                    .finally(() =>
+                        setTimeout(() => setIsDisabled(false), 5000)
                     );
-                });
-        } else {
-            const toastId = 'change rating login error toast';
-            toast.error(`${t('advert-page.grade-register')}`, { toastId });
+            } else {
+                const toastId = 'change rating login error toast';
+                toast.error(`${t('advert-page.grade-register')}`, { toastId });
+                setTimeout(() => setIsDisabled(false), 5000);
+            }
         }
     };
 

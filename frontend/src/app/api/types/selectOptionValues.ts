@@ -23,6 +23,7 @@ export interface SelectOptionValues{
     property_balcony: StringOptions[];
     property_has_furniture: BooleanStringOptions[];
     property_house_type: StringOptions[];
+    property_rent_duration: StringOptions[];
     property_rental_condition: StringOptions[];
     property_rooms_count: MinMax;
     property_prepayment: StringOptions[];
@@ -43,6 +44,7 @@ export interface SelectOptionValues{
     transport_engine_type: StringOptions[];
     transport_engine_volume: MinMax;
     transport_model: StringOptions[];
+    transport_rent_duration: StringOptions[];
     transport_transmission_type: StringOptions[];
     transport_type: StringOptions[];
     transport_type_of_service: StringOptions[];
