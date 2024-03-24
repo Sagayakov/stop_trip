@@ -48,29 +48,25 @@ export const AnnouncementTransportMark = ({
     return (
         <div className={styles.ann_field}>
             <h3>{t('filters.transport_brand')}:</h3>
-            {data && (
-                <UniversalSelectDropdown<FormAddAnn>
-                    closeMenuOnSelect={true}
-                    control={control}
-                    isMulti={false}
-                    name="transport_brand"
-                    options={data.map((el) => ({
-                        value: el.slug,
-                        label:
-                            lang === 'ru'
-                                ? el.name
-                                : `${el.slug[0].toUpperCase()}${el.slug.slice(
-                                      1
-                                  )}`,
-                    }))}
-                    placeholder={t('filters.choose-brand')}
-                    defaultValue={
-                        getDefaultBrand(defaultValue, data) as StringOptions
-                    }
-                    prefix="filterAnnouncementCategory"
-                    setValue={setValue}
-                />
-            )}
+            <UniversalSelectDropdown<FormAddAnn>
+                closeMenuOnSelect={true}
+                control={control}
+                isMulti={false}
+                name="transport_brand"
+                options={data?.map((el) => ({
+                    value: el.slug,
+                    label:
+                        lang === 'ru'
+                            ? el.name
+                            : `${el.slug[0].toUpperCase()}${el.slug.slice(1)}`,
+                }))}
+                placeholder={t('filters.choose-brand')}
+                defaultValue={
+                    getDefaultBrand(defaultValue, data) as StringOptions
+                }
+                prefix="filterAnnouncementCategory"
+                setValue={setValue}
+            />
             <div className={styles.ann_field_err}>
                 {formState?.errors?.transport_brand?.message}
             </div>

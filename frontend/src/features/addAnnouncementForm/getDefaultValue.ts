@@ -25,7 +25,7 @@ export const getDefaultValue = (
 
 export const getDefaultBrand = (
     defaultValue: string | null | undefined,
-    valueList: AvailableValuesType[]
+    valueList: AvailableValuesType[] | undefined
 ) => {
     if (defaultValue) {
         if (valueList) {
