@@ -49,7 +49,8 @@ export const fetchAdverts = createApi({
                 `api/advertisements/get_transport_models_by_brand/${filterQuery}`,
         }),
         getAllBrands: build.query<AvailableValuesType[], string>({
-            query: () => `api/advertisements/get_transport_brands/`,
+            query: (filterQuery = '') =>
+                `api/advertisements/get_transport_brands/${filterQuery}`,
         }),
     }),
 });

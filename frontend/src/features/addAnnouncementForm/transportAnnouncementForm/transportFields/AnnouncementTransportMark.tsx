@@ -1,4 +1,9 @@
-import { Control, FormState, UseFormSetValue } from 'react-hook-form';
+import {
+    Control,
+    FormState,
+    UseFormSetValue,
+    UseFormWatch,
+} from 'react-hook-form';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +19,7 @@ interface Props {
     control: Control<FormAddAnn, string[]>;
     defaultValue?: string | null | undefined;
     formState: FormState<FormAddAnn>;
+    watch: UseFormWatch<FormAddAnn>;
 }
 
 export const AnnouncementTransportMark = ({
@@ -21,9 +27,13 @@ export const AnnouncementTransportMark = ({
     control,
     defaultValue,
     formState,
+    watch,
 }: Props) => {
     const { t } = useTranslation();
-    const { data } = useGetAllBrandsQuery('');
+    const category = watch('transport_category');
+    const { data } = useGetAllBrandsQuery(
+        category ? `?category=${category}` : ''
+    );
     const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {

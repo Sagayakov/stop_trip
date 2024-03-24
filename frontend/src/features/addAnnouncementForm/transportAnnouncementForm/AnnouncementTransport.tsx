@@ -69,6 +69,7 @@ export const AnnouncementTransport = ({
                 setValue={setValue}
                 defaultValue={data?.transport_brand}
                 formState={formState}
+                watch={watch}
             />
             <AnnouncementTransportModelOfTransport
                 control={control}
