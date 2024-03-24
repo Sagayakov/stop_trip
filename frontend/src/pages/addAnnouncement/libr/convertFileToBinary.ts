@@ -1,5 +1,5 @@
-import heic2any from 'heic2any';
 import EXIF from 'exif-js';
+import { convertHeicToAny } from 'features/addAnnouncementForm/universalFields/annPhoto/annPhotoField/convertHeicToAny';
 
 const fileToBase64String = (file: File, isIos: boolean) => {
     return new Promise((resolve, reject) => {
@@ -130,27 +130,13 @@ export const convertFilesToBase64Strings = async (files: File[] | FileList) => {
     for (const file of files) {
         try {
             if (file.name.includes('.HEIC') || file.name.includes('.HEIF')) {
-                const blobURL = URL.createObjectURL(file);
-                const blobRes = await fetch(blobURL);
-                const blob = await blobRes.blob();
-                const converted = await heic2any({
-                    blob,
-                    toType: 'image/jpeg',
-                    quality: 0.5,
-                });
-                const convertedFile = new File(
-                    [converted as Blob],
-                    'image.jpeg',
-                    {
-                        type: 'image/jpeg',
-                    }
-                );
-                URL.revokeObjectURL(blobURL);
+                const convertedFile = await convertHeicToAny(file);
                 const base64String = await fileToBase64String(
                     convertedFile,
                     true
                 );
                 base64Strings.push(base64String as string);
+                //});
             } else {
                 const base64String = await fileToBase64String(file, false);
                 base64Strings.push(base64String as string);
