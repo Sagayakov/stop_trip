@@ -12,6 +12,7 @@ import { getAccessTokenWithRefresh } from 'shared/model/getAccessTokenWithRefres
 import { useAppDispatch } from 'app/store/hooks.ts';
 import { useLazyGetUserQuery } from 'app/api/fetchUser.ts';
 import { url } from 'shared/const/url.ts';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 interface Props {
     setShowCaptcha: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,6 +35,8 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
         formState: { isValid, touchedFields },
     } = useForm<TypesFeedbackForm>();
 
+    const { executeRecaptcha } = useGoogleReCaptcha();
+
     const onFocusGetId = async () => {
         if (!showCaptcha) setShowCaptcha(true);
         if (!userInfo && localStorage.getItem('isAuth') === 'true') {
@@ -46,32 +49,6 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
     const onsubmit: SubmitHandler<TypesFeedbackForm> = async (
         feedbackData: TypesFeedbackForm
     ) => {
-        //если Олег скажет точные api_key и site_key, можно попробовать достучаться до гугла
-        //это для капчи
-        // const captchaToken = await getReCaptchaToken();
-        // const createMark = async() => {
-        //     try{
-        //         const response = await fetch(`https://recaptchaenterprise.googleapis.com/v1/projects/${process.env.CAPTCHA_PROJECT_ID}/assessments?key=${process.env.CAPTCHA_API_KEY}`, {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json; charset=utf-8",
-        //             },
-        //             body: JSON.stringify({
-        //                 "event": {
-        //                     "token": captchaToken,
-        //                     "siteKey": `${process.env.CAPTCHA_SITE_KEY}`,
-        //                     "expectedAction": "USER_ACTION"
-        //                 }
-        //             })
-        //         });
-        //         const data = await response.json();
-        //         console.log(data);
-        //     }catch (error) {
-        //         console.log(error);
-        //     }
-        // }
-        // createMark();
-        //это для капчи
 
         if (feedbackData.text.length > 900 || feedbackData.text.length < 10) {
             const toastId = 'feedback length error toast';
@@ -81,6 +58,8 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
         await getAccessTokenWithRefresh(dispatch, refreshToken); //сначала обновляем accessToken
         const { accessToken } = getTokensFromStorage();
         const body = JSON.stringify(feedbackData);
+
+        const recaptchaToken = executeRecaptcha ? await executeRecaptcha('feedback') : '';
 
         if (accessToken) {
             setLoading(true);
@@ -142,9 +121,9 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
                         onChange: (event) => {
                             const toastId = 'feedback long message error toast';
                             event.target.value.length > 900 &&
-                                toast.error(t('feedback.feedback-message'), {
-                                    toastId,
-                                });
+                            toast.error(t('feedback.feedback-message'), {
+                                toastId,
+                            });
                         },
                     }}
                     render={({ field }) => (
