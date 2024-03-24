@@ -25,12 +25,15 @@ export const MarkOfTransport = ({ setValue, control, watch }: Props) => {
     const { data } = useGetFiltersQuery('');
     const region = watch('region');
     const city = watch('city');
+    const category = watch('transport_category');
     const [markOfTransportValues, setMarkOfTransportValues] = useState<
         SelectType[]
     >([]);
     const { t } = useTranslation();
     const { data: availableData } = useGetAvailableFiltersQuery(
-        `?region=${region || 'north-goa'}${city ? `&city=${city}` : ''}`
+        `?region=${region || 'north-goa'}${city ? `&city=${city}` : ''}${
+            category ? `&transport_category=${category}` : ''
+        }`
     );
     const lang = useAppSelector((state) => state.setLang.lang);
 
