@@ -56,7 +56,6 @@ const LoadPhotoBtn = ({
         setIsLoading(true);
         const fileList = event.target.files;
         if (fileList) {
-            console.log(fileList);
             for (const file of fileList) {
                 //const fileType = file.type.split('.');
                 //const extension = fileType[fileType.length - 1];
@@ -93,8 +92,8 @@ const LoadPhotoBtn = ({
 
             Array.from(fileList).forEach(async (file) => {
                 if (
-                    file.name.toLowerCase().includes('.heic') ||
-                    file.name.toLowerCase().includes('.heif')
+                    file.name.includes('.HEIC') ||
+                    file.name.includes('.HEIF')
                 ) {
                     const fileURL = URL.createObjectURL(file);
 
@@ -107,7 +106,7 @@ const LoadPhotoBtn = ({
                         quality: 0.5,
                     });
 
-                    file = new File([converted as Blob], 'image.jpeg', {
+                    file = new File([converted as Blob], `image.jpeg`, {
                         type: 'image/jpeg',
                     });
                     URL.revokeObjectURL(fileURL);

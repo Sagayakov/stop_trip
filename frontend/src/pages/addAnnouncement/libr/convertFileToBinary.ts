@@ -129,10 +129,7 @@ export const convertFilesToBase64Strings = async (files: File[] | FileList) => {
     const base64Strings: string[] = [];
     for (const file of files) {
         try {
-            if (
-                file.name.toLowerCase().includes('.heic') ||
-                file.name.toLowerCase().includes('.heif')
-            ) {
+            if (file.name.includes('.HEIC') || file.name.includes('.HEIF')) {
                 const blobURL = URL.createObjectURL(file);
                 const blobRes = await fetch(blobURL);
                 const blob = await blobRes.blob();

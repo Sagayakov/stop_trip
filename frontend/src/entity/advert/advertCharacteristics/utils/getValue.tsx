@@ -33,7 +33,8 @@ export const getValue = (
     } else {
         if (
             filtersData[key as keyof ProductType] &&
-            Array.isArray(filtersData[key as keyof ProductType])
+            Array.isArray(filtersData[key as keyof ProductType]) &&
+            value !== true
         ) {
             const result = (
                 filtersData[key as keyof ProductType] as SelectType[]
