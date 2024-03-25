@@ -40,6 +40,10 @@ export const fetchAdverts = createApi({
             query: (filterQuery = '') =>
                 `api/advertisements/get_available_filtered_params/${filterQuery}`,
         }),
+        getRegionsByCountry: build.query<AvailableValuesType[], string>({
+            query: (filterQuery = '') =>
+                `/api/advertisements/get_regions_by_country/${filterQuery}`,
+        }),
         getCitiesByRegion: build.query<AvailableValuesType[], string>({
             query: (filterQuery = '') =>
                 `api/advertisements/get_cities_by_region/${filterQuery}`,
@@ -60,6 +64,7 @@ export const {
     useGetFiltersQuery,
     useGetSelectOptionsQuery,
     useGetAvailableFiltersQuery,
+    useGetRegionsByCountryQuery,
     useGetCitiesByRegionQuery,
     useGetModelsByBrandQuery,
     useGetAllBrandsQuery,

@@ -5,7 +5,12 @@ import {
     FormAddAnn,
     SelectOption,
 } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { Control, FormState, UseFormSetValue } from 'react-hook-form';
+import {
+    Control,
+    FormState,
+    UseFormSetValue,
+    UseFormWatch,
+} from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useGetCitiesByRegionQuery } from 'app/api/fetchAdverts.ts';
 import { StringOptions } from 'app/api/types/selectOptionValues';
@@ -18,19 +23,21 @@ interface Props {
     defaultRegion?: NameType | null | undefined;
     defaultValue?: NameType | null | undefined;
     formState: FormState<FormAddAnn>;
+    watch: UseFormWatch<FormAddAnn>;
 }
 
 const AnnouncementCity = ({
     control,
     setValue,
-    defaultRegion,
+    //defaultRegion,
     defaultValue,
     formState,
+    watch,
 }: Props) => {
     const { t } = useTranslation();
-    //const region = watch('region');
+    const region = watch('region');
     const { data: availableData } = useGetCitiesByRegionQuery(
-        `?region=${defaultRegion?.slug || 'north-goa'}`
+        `?region=${region || 'north-goa'}`
     );
     const [options, setOptions] = useState<StringOptions[]>([]);
     const [defaultCity, setDefaultCity] = useState<SelectOption>({
