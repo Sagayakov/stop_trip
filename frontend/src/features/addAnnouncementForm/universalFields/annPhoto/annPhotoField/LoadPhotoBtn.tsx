@@ -95,17 +95,26 @@ const LoadPhotoBtn = ({
                     file.name.includes('.HEIC') ||
                     file.name.includes('.HEIF')
                 ) {
+                    const reader = new FileReader();
                     file = await convertHeicToAny(file);
-                }
+                    reader.readAsDataURL(file);
 
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onloadend = () => {
-                    setPreviewImages((prevPreviews) => [
-                        ...prevPreviews,
-                        reader.result as string,
-                    ]);
-                }; //для предпросмотра
+                    reader.onloadend = () => {
+                        setPreviewImages((prevPreviews) => [
+                            ...prevPreviews,
+                            reader.result as string,
+                        ]);
+                    }; //для предпросмотра
+                } else {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onloadend = () => {
+                        setPreviewImages((prevPreviews) => [
+                            ...prevPreviews,
+                            reader.result as string,
+                        ]);
+                    }; //для предпросмотра
+                }
             });
         }
         setIsLoading(false);
