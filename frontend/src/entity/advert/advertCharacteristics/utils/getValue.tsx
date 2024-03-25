@@ -42,9 +42,9 @@ export const getValue = (
 
             return lang === 'ru'
                 ? result?.label
-                : `${(result?.value as string)[0].toUpperCase()}${(
-                      result?.value as string
-                  ).slice(1)}`;
+                : `${result?.value.toString()[0].toUpperCase()}${result?.value
+                      .toString()
+                      .slice(1)}`;
         } else {
             return value as string | number | boolean | null;
         }

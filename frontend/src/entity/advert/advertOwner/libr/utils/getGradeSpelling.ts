@@ -25,6 +25,6 @@ export const useGradeSpelling = (
 
         return result;
     } else {
-        return '';
+        return lang === 'ru' ? 'ок' : 's';
     }
 };
