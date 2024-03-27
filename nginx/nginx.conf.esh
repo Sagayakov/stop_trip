@@ -56,6 +56,14 @@ server {
         expires 365d;
     }
 
+    location /api/docs/ {
+        <% if [ "$HTPASSWD_NODE" != "off" ]; then -%>
+            auth_basic "Restricted Content";
+            auth_basic_user_file /etc/nginx/.htpasswd;
+        <% fi; -%>
+        include backend;
+    }
+
     location /api/ {
         include backend;
     }
@@ -71,14 +79,6 @@ server {
 
     location @frontend {
         include frontend;
-    }
-
-    location /api/docs/ {
-        <% if [ "$HTPASSWD_NODE" != "off" ]; then -%>
-            auth_basic "Restricted Content";
-            auth_basic_user_file /etc/nginx/.htpasswd;
-        <% fi; -%>
-        include backend;
     }
 
     location / {
