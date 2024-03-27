@@ -5,10 +5,10 @@ const fileToBase64String = async (
     file: File,
     isIos: boolean
 ): Promise<string> => {
-    const exif = await exifr.parse(file);
-    const orientation = exif.Orientation;
 
     if (isIos) {
+        const exif = await exifr.parse(file);
+        const orientation = exif.Orientation;
         const convertedFile = await convertHeicToAny(file);
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
