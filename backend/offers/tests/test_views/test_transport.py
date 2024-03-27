@@ -376,7 +376,7 @@ class TransportTest(APITestCase):
                 transport_type=TransportType.GROUND,
                 transport_category=[
                     TransportCategory.MOTORCYCLE,
-                    TransportCategory.MOPED,
+                    TransportCategory.CAR,
                 ][_ % 2],
                 transport_brand=transport_brand,
                 transport_model=transport_model,
@@ -407,7 +407,7 @@ class TransportTest(APITestCase):
             res = self.client.get(
                 self.list_url,
                 {
-                    "transport_category": f"{TransportCategory.MOTORCYCLE.value},{TransportCategory.MOPED.value}"
+                    "transport_category": f"{TransportCategory.MOTORCYCLE.value},{TransportCategory.CAR.value}"
                 },
             )
 

@@ -14,7 +14,6 @@ class TransportType(TextChoices):
 class TransportCategory(TextChoices):
     # наземный
     MOTORCYCLE = "motorcycle", "Мотоцикл"
-    MOPED = "moped", "Мопед"
     CAR = "car", "Легковой автомобиль"
     TRUCK = "truck", "Грузовой автомобиль"
     BUS = "bus", "Автобус"
