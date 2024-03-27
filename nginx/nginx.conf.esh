@@ -79,6 +79,9 @@ server {
             auth_basic "Restricted Content";
             auth_basic_user_file /etc/nginx/.htpasswd;
         <% fi; -%>
+    }
+
+    location / {
         root /var/www/local_static/;
         try_files $uri @frontend;
     }
