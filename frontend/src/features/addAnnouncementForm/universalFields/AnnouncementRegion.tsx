@@ -6,7 +6,7 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { useGetRegionsByCountryQuery } from 'app/api/fetchAdverts';
 import { useEffect, useState } from 'react';
 import { NameType } from 'pages/advertPage/libr/types';
-import { useAppSelector } from 'app/store/hooks';
+//import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<FormAddAnn>;
@@ -28,7 +28,7 @@ const AnnouncementRegion = ({
 }: Props) => {
     const { t } = useTranslation();
     const [options, setOptions] = useState<SelectType[]>([]);
-    const lang = useAppSelector((state) => state.setLang.lang);
+    //const lang = useAppSelector((state) => state.setLang.lang);
     const { data } = useGetRegionsByCountryQuery('?country=india');
     const [defaultRegion, setDefaultRegion] = useState<SelectType>({
         value: 'north-goa',
@@ -67,14 +67,14 @@ const AnnouncementRegion = ({
                 isMulti={false}
                 isDisabled={false}
                 options={
-                    lang === 'ru'
-                        ? options
-                        : options.map((el) => ({
+                    /* lang === 'ru'
+                        ? */ options
+                    /* : options.map((el) => ({
                               value: el.value,
                               label: `${el.value[0].toUpperCase()}${el.value.slice(
                                   1
                               )}`,
-                          }))
+                          })) */
                 }
                 defaultValue={defaultRegion}
                 //requiredFiled={true}
