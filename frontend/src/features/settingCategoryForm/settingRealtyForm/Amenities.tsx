@@ -1,14 +1,13 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useTranslation } from 'react-i18next';
-import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 import { useAppSelector } from 'app/store/hooks';
+import { UniversalCheckboxGroup } from 'entity/universalEntites';
 
 interface Props {
-    setValue: UseFormSetValue<TypeSettingRealty>;
-    control: Control<TypeSettingRealty, string[]>;
+    register: UseFormRegister<TypeSettingRealty>;
 }
 
 type SelectType = {
@@ -16,7 +15,7 @@ type SelectType = {
     label: string;
 };
 
-export const Amenities = ({ setValue, control }: Props) => {
+export const Amenities = ({ register }: Props) => {
     const { data } = useGetFiltersQuery('');
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
@@ -26,15 +25,10 @@ export const Amenities = ({ setValue, control }: Props) => {
             <h3>{t('filters.property_amenities')}</h3>
             <div className={styles.amenities_setting}>
                 {data && (
-                    <UniversalSelectDropdown<TypeSettingRealty>
-                        control={control}
-                        setValue={setValue}
-                        closeMenuOnSelect={false}
-                        isMulti={true}
-                        placeholder={t('filters.property_amenities')}
-                        name="property_amenities"
-                        prefix="filterForm"
-                        options={
+                    <UniversalCheckboxGroup
+                        className={styles.amenities_checkbox}
+                        register={register}
+                        checkboxValues={
                             lang === 'ru'
                                 ? (data.property_amenities as SelectType[])
                                 : (data.property_amenities as SelectType[]).map(
@@ -46,6 +40,7 @@ export const Amenities = ({ setValue, control }: Props) => {
                                       })
                                   )
                         }
+                        name="property_amenities"
                     />
                 )}
             </div>

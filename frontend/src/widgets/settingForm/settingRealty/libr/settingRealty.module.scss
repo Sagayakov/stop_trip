@@ -15,6 +15,11 @@
             width: fit-content;
         }
     }
+    .amenities_checkbox {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
     .typeOfService,
     .propertyDistrict,
     .propertyCity,
