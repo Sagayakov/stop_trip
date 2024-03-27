@@ -83,7 +83,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 <SleepingPlaces register={register} />
                 <Balcony register={register} />
                 <HasFurniture register={register} />
-                <Amenities setValue={setValue} control={control} />
+                <Amenities register={register} />
                 <RoomsQuantity register={register} />
                 <Bathroom register={register} />
                 <BathroomQuantity register={register} />
