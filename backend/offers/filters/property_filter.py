@@ -4,6 +4,7 @@ from django.db.models import Min, Max
 from django_filters.rest_framework import filters, FilterSet
 
 from common.filters import CharInFilter, ChoiceInFilter
+from offers.models import PropertyAmenity
 from ..constants import (
     PropertyTypeOfService,
     PropertyBathroomType,
@@ -150,10 +151,9 @@ class PropertyFilter(FilterSet):
         property_amenities_specs = {
             "property_amenities": [
                 {"value": value, "label": label}
-                for value, label in queryset.exclude(property_amenities__isnull=True)
-                .values_list("property_amenities__slug", "property_amenities__name")
-                .order_by("property_amenities__slug")
-                .distinct("property_amenities__slug")
+                for value, label in PropertyAmenity.objects.values_list("slug", "name").order_by(
+                    "slug"
+                )
             ],
         }
         specs |= property_amenities_specs
