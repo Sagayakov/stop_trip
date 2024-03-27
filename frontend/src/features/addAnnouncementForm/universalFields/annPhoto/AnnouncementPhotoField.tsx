@@ -111,6 +111,9 @@ const AnnouncementPhotoField = ({
     return (
         <div className={`${styles.ann_field} ${styles.mobile_add_photo}`}>
             <h3>{`${t('add-page.photo')}:`}</h3>
+            <p className={styles.iphone_warning}>
+                {t('add-page.iphone_warning')}
+            </p>
             <div className={styles.loadphoto}>
                 <div className={styles.loadphoto_btn_view}>
                     <LoadPhotoBtn

@@ -277,6 +277,7 @@
         "set-price": "Please, set a price",
         "description": "Description",
         "photo": "Photos",
+        "iphone_warning": "If you own an iPhone of any model, we strongly recommend that you upload horizontal photos or make a screenshot. We're working on a problem with processing vertical photos taken on an iPhone.",
         "choose-photo": "Choose photo",
         "youtube-placeholder": "Link",
         "youtube": "Link to youtube video",

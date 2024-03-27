@@ -1,3 +1,8 @@
+.iphone_warning {
+    font-size: 14px;
+    color: var(--main-blue);
+}
+
 .loadphoto {
     width: 950px;
     padding: 24px;
@@ -5,7 +10,7 @@
     border: none;
     background-color: var(--main-background);
     margin-bottom: 1rem;
-    .ann_field_err{
+    .ann_field_err {
         color: var(--error);
     }
     .loadphoto_btn_view {
@@ -76,6 +81,13 @@
         width: 100%;
     }
 }
+
+@media (max-width: 590px) {
+    .iphone_warning {
+        font-size: 12px;
+    }
+}
+
 @media (max-width: 511px) {
     .mobile_add_photo {
         display: flex;
