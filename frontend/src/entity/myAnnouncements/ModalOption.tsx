@@ -17,7 +17,7 @@ import { isPublishedChange } from 'features/myAnnouncements/libr/isPublishedChan
 import { announcementDelete } from 'features/myAnnouncements/libr/announcementDelete.ts';
 import { useDeleteAnnouncemetMutation } from 'app/api/authFetchAdverts.ts';
 
-interface Props extends MyAnnouncements{
+interface Props extends MyAnnouncements {
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
     refetch: () => QueryActionCreatorResult<
         QueryDefinition<
@@ -42,37 +42,59 @@ export const ModalOption = (data: Props) => {
     const navigate = useNavigate();
     const [
         deleteAnn,
-        { isLoading: deleteLoading, isSuccess: isSuccessDelete, isError: isErrorDelete }
+        {
+            isLoading: deleteLoading,
+            isSuccess: isSuccessDelete,
+            isError: isErrorDelete,
+        },
     ] = useDeleteAnnouncemetMutation();
     const dispatch = useAppDispatch();
-    const publishedLoading = useAppSelector((state) => state.setLoading.loading);
+    const publishedLoading = useAppSelector(
+        (state) => state.setLoading.loading
+    );
 
     return (
         <>
             {(deleteLoading || publishedLoading) && <LoadingWithBackground />}
             <div className={styles.modal_option}>
                 <label className={styles.label_option}>
-                    <input type="checkbox"
-                           checked={is_published}
-                           onChange={
-                               () => isPublishedChange({slug: slug as string, dispatch, is_published, refetch, t})
-                           }
+                    <input
+                        type="checkbox"
+                        checked={is_published}
+                        onChange={() =>
+                            isPublishedChange({
+                                slug: slug as string,
+                                dispatch,
+                                is_published,
+                                refetch,
+                                t,
+                            })
+                        }
                     />
                     <span>{t('myAnnouncements.published')}</span>
                 </label>
                 <div
-                    className={styles.edit}
-                    onClick={() => navigate(`/advertisement-editing/${slug}`)}
+                    className={is_published ? styles.edit : styles.no_edit}
+                    onClick={() =>
+                        is_published &&
+                        navigate(`/advertisement-editing/${slug}`)
+                    }
                 >
-                    <Pencil color="#000000" />
+                    <Pencil color={is_published ? '#000000' : '#bcbcbc'} />
                     {t('myAnnouncements.edit')}
                 </div>
                 <div
                     className={styles.delete}
-                    onClick={
-                        () => announcementDelete(
-                            { setShowModal, refetch, t, slug: slug as string, deleteAnn, isSuccessDelete, isErrorDelete }
-                        )
+                    onClick={() =>
+                        announcementDelete({
+                            setShowModal,
+                            refetch,
+                            t,
+                            slug: slug as string,
+                            deleteAnn,
+                            isSuccessDelete,
+                            isErrorDelete,
+                        })
                     }
                 >
                     <span>❌</span>

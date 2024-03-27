@@ -120,6 +120,14 @@
                 gap: 11px;
                 cursor: pointer;
             }
+            .no_edit {
+                display: flex;
+                align-items: center;
+                gap: 11px;
+                padding: 0.5rem 1rem;
+                cursor: default;
+                color: var(--grey-2);
+            }
             .edit,
             .label_option,
             .delete {
