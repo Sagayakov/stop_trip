@@ -7,9 +7,9 @@ import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import heic2any from 'heic2any';
 import { useState } from 'react';
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground';
+import { convertHeicToAny } from 'features/addAnnouncementForm/universalFields/annPhoto/annPhotoField/convertHeicToAny';
 
 const allowableExtensions = [
     'image/png',
@@ -56,7 +56,6 @@ const LoadPhotoBtn = ({
         setIsLoading(true);
         const fileList = event.target.files;
         if (fileList) {
-            console.log(fileList);
             for (const file of fileList) {
                 //const fileType = file.type.split('.');
                 //const extension = fileType[fileType.length - 1];
@@ -93,34 +92,29 @@ const LoadPhotoBtn = ({
 
             Array.from(fileList).forEach(async (file) => {
                 if (
-                    file.name.toLowerCase().includes('.heic') ||
-                    file.name.toLowerCase().includes('.heif')
+                    file.name.includes('.HEIC') ||
+                    file.name.includes('.HEIF')
                 ) {
-                    const fileURL = URL.createObjectURL(file);
+                    const reader = new FileReader();
+                    file = await convertHeicToAny(file);
+                    reader.readAsDataURL(file);
 
-                    const blobRes = await fetch(fileURL);
-                    const blob = await blobRes.blob();
-
-                    const converted = await heic2any({
-                        blob,
-                        toType: 'image/jpeg',
-                        quality: 0.5,
-                    });
-
-                    file = new File([converted as Blob], 'image.jpeg', {
-                        type: 'image/jpeg',
-                    });
-                    URL.revokeObjectURL(fileURL);
+                    reader.onloadend = () => {
+                        setPreviewImages((prevPreviews) => [
+                            ...prevPreviews,
+                            reader.result as string,
+                        ]);
+                    }; //для предпросмотра
+                } else {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onloadend = () => {
+                        setPreviewImages((prevPreviews) => [
+                            ...prevPreviews,
+                            reader.result as string,
+                        ]);
+                    }; //для предпросмотра
                 }
-
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onloadend = () => {
-                    setPreviewImages((prevPreviews) => [
-                        ...prevPreviews,
-                        reader.result as string,
-                    ]);
-                }; //для предпросмотра
             });
         }
         setIsLoading(false);

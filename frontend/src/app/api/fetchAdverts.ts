@@ -40,6 +40,10 @@ export const fetchAdverts = createApi({
             query: (filterQuery = '') =>
                 `api/advertisements/get_available_filtered_params/${filterQuery}`,
         }),
+        getRegionsByCountry: build.query<AvailableValuesType[], string>({
+            query: (filterQuery = '') =>
+                `/api/advertisements/get_regions_by_country/${filterQuery}`,
+        }),
         getCitiesByRegion: build.query<AvailableValuesType[], string>({
             query: (filterQuery = '') =>
                 `api/advertisements/get_cities_by_region/${filterQuery}`,
@@ -49,7 +53,8 @@ export const fetchAdverts = createApi({
                 `api/advertisements/get_transport_models_by_brand/${filterQuery}`,
         }),
         getAllBrands: build.query<AvailableValuesType[], string>({
-            query: () => `api/advertisements/get_transport_brands/`,
+            query: (filterQuery = '') =>
+                `api/advertisements/get_transport_brands/${filterQuery}`,
         }),
     }),
 });
@@ -59,6 +64,7 @@ export const {
     useGetFiltersQuery,
     useGetSelectOptionsQuery,
     useGetAvailableFiltersQuery,
+    useGetRegionsByCountryQuery,
     useGetCitiesByRegionQuery,
     useGetModelsByBrandQuery,
     useGetAllBrandsQuery,

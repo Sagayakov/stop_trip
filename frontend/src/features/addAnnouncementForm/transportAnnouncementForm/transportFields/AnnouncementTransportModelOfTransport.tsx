@@ -34,8 +34,11 @@ export const AnnouncementTransportModelOfTransport = ({
     const { t } = useTranslation();
     const { data } = useGetSelectOptionsQuery('');
     const brand = watch('transport_brand');
+    const category = watch('transport_category');
     const [options, setOptions] = useState<StringOptions[]>([]);
-    const { data: availableData } = useGetModelsByBrandQuery(`?brand=${brand}`);
+    const { data: availableData } = useGetModelsByBrandQuery(
+        `?brand=${brand}${category ? `&category=${category}` : ''}`
+    );
     const disabled = brand && brand.length ? false : true;
 
     useEffect(() => {
@@ -56,9 +59,7 @@ export const AnnouncementTransportModelOfTransport = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>
-                {t('filters.transport_model')}:
-            </h3>
+            <h3>{t('filters.transport_model')}:</h3>
             <UniversalSelectDropdown<FormAddAnn>
                 closeMenuOnSelect={true}
                 control={control}

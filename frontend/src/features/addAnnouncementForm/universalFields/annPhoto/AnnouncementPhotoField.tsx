@@ -9,15 +9,9 @@ import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts'
 import { MiniLoadPhoto } from 'shared/ui/icons/loadPhoto';
 import { useTranslation } from 'react-i18next';
 import styles from './annPhoto.module.scss';
-import { lazy } from 'react';
-const LoadPhotoBtn = lazy(
-    () =>
-        import(
-            'features/addAnnouncementForm/universalFields/annPhoto/annPhotoField/LoadPhotoBtn.tsx'
-        )
-);
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
 import { toFixed } from 'ol/math';
+import LoadPhotoBtn from './annPhotoField/LoadPhotoBtn';
 
 interface Props {
     watch: UseFormWatch<FormAddAnn>;

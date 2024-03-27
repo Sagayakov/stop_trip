@@ -33,7 +33,8 @@ export const getValue = (
     } else {
         if (
             filtersData[key as keyof ProductType] &&
-            Array.isArray(filtersData[key as keyof ProductType])
+            Array.isArray(filtersData[key as keyof ProductType]) &&
+            value !== true
         ) {
             const result = (
                 filtersData[key as keyof ProductType] as SelectType[]
@@ -41,9 +42,9 @@ export const getValue = (
 
             return lang === 'ru'
                 ? result?.label
-                : `${(result?.value as string)[0].toUpperCase()}${(
-                      result?.value as string
-                  ).slice(1)}`;
+                : `${result?.value.toString()[0].toUpperCase()}${result?.value
+                      .toString()
+                      .slice(1)}`;
         } else {
             return value as string | number | boolean | null;
         }

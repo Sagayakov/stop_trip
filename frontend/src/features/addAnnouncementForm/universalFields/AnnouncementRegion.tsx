@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { Control, FormState, UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
-import { useGetSelectOptionsQuery } from 'app/api/fetchAdverts';
+import { useGetRegionsByCountryQuery } from 'app/api/fetchAdverts';
 import { useEffect, useState } from 'react';
 import { NameType } from 'pages/advertPage/libr/types';
 import { useAppSelector } from 'app/store/hooks';
@@ -28,21 +28,26 @@ const AnnouncementRegion = ({
 }: Props) => {
     const { t } = useTranslation();
     const [options, setOptions] = useState<SelectType[]>([]);
-    const { data } = useGetSelectOptionsQuery('');
     const lang = useAppSelector((state) => state.setLang.lang);
+    const { data } = useGetRegionsByCountryQuery('?country=india');
+    const [defaultRegion, setDefaultRegion] = useState<SelectType>({
+        value: 'north-goa',
+        label: 'Северный Гоа',
+    });
 
     useEffect(() => {
         if (data) {
-            const result = (data['region'] as SelectType[]).filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
-            );
-            setOptions(result as SelectType[]);
-        }
-        if (defaultValue) {
-            const defaultRegion = data?.region.find(
-                (el) => el.label === defaultValue.name
-            );
-            setValue('region', defaultRegion?.value);
+            setOptions(data.map((el) => ({ value: el.slug, label: el.name })));
+            if (defaultValue) {
+                const defRegion = data.find(
+                    (el) => el.slug === defaultValue.slug
+                );
+                setValue('region', defRegion?.slug);
+                setDefaultRegion({
+                    value: defRegion?.slug || '',
+                    label: defRegion?.name || '',
+                });
+            }
         }
     }, [data, defaultValue, setValue]);
 
@@ -71,13 +76,7 @@ const AnnouncementRegion = ({
                               )}`,
                           }))
                 }
-                defaultValue={{
-                    value: defaultValue?.slug || 'north-goa',
-                    label:
-                        defaultValue?.name || lang === 'ru'
-                            ? 'Северный Гоа'
-                            : 'North Goa',
-                }}
+                defaultValue={defaultRegion}
                 //requiredFiled={true}
             />
             <div className={styles.ann_field_err}>

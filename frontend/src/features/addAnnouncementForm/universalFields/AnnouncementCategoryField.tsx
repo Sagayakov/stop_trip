@@ -35,7 +35,7 @@ const AnnouncementCategoryField = ({
         if (defaultValue) {
             setValue('category', getDefaultValue()!.value);
         } //если есть значение по умолчанию, устанавливаем его. Если юзер поменяет выбор, то установится новое значение
-    }, []);
+    }, [defaultValue, getDefaultValue]);
 
     return (
         <>

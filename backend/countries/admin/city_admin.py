@@ -7,6 +7,7 @@ class CityAdmin(ModelAdmin):
     list_display = ("name", "slug", "region", "region_country")
     prepopulated_fields = {"slug": ("name",)}
     list_filter = ("region",)
+    search_fields = ("name", "slug")
 
     def region_country(self, obj):
         return obj.region.country if obj.region else None
