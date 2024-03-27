@@ -74,11 +74,11 @@ server {
     }
 
     location /api/docs/ {
-        include backend;
         <% if [ "$HTPASSWD_NODE" != "off" ]; then -%>
             auth_basic "Restricted Content";
             auth_basic_user_file /etc/nginx/.htpasswd;
         <% fi; -%>
+        include backend;
     }
 
     location / {
