@@ -226,7 +226,6 @@
     .title {
         width: 93%;
         margin: 0 auto 15px;
-        //padding-left: 15px;
     }
 
     .bread_crumbs {
@@ -241,9 +240,9 @@
 }
 @media (max-width: 615px) {
     .title {
-        padding: 0 15px 15px;
-        margin: 0;
-        width: 100%;
+        padding-bottom: 15px;
+        margin: auto;
+        width: 93%;
         font-size: 20px;
     }
     .announcements_list {
@@ -270,13 +269,17 @@
     }
 }
 @media (max-width: 425px) {
+    .bread_crumbs {
+        width: 92%;
+    }
+
     .title {
-        width: 100%;
+        width: 92%;
         margin: 0 auto 16px;
-        padding: 0 15px;
         font-size: 22px;
     }
     .announcements_list {
+        width: 92%;
         .announcement {
             .modal_option {
                 //чтобы модалка не уезжала за экран
