@@ -35,7 +35,6 @@ class MessengerViewSet(
     def get_queryset(self):
         return UserMessenger.objects.filter(owner=self.request.user)
 
-    @method_decorator(cache_page(60 * 10))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
