@@ -29,13 +29,16 @@ export const AnnouncementRealtyAmenities = ({
     const lang = useAppSelector((state) => state.setLang.lang);
 
     const val: Options[] = [];
-    defaultValue?.forEach((el) => {
-        for (const optionValue of data!.property_amenities) {
-            if (el.name.toLowerCase() === optionValue.label.toLowerCase()) {
-                val.push(optionValue);
+    if (data) {
+        defaultValue?.forEach((el) => {
+            for (const optionValue of data.property_amenities) {
+                if (el.name.toLowerCase() === optionValue.label.toLowerCase()) {
+                    val.push(optionValue);
+                }
             }
-        }
-    });
+        });
+    }
+
     return (
         <div className={styles.ann_field}>
             <h3>{t('filters.property_amenities')}:</h3>

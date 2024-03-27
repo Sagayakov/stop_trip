@@ -179,74 +179,76 @@ const AdvertisementEditing = () => {
                     >
                         <h1>{t('add-page.edit')}</h1>
                         {isLoading && user?.id && <LoadingWithBackground />}
-                        {(isSendLoading || isLoading) && <LoadingWithBackground />}
+                        {(isSendLoading || isLoading) && (
+                            <LoadingWithBackground />
+                        )}
                         {/*{dataAdvert && (*/}
-                            <>
-                                {path[1] !== 'advertisement-editing' && (
-                                    <AnnouncementCategoryField
-                                        setValue={setValue}
-                                        control={control}
-                                        formState={formState}
-                                        defaultValue={dataAdvert.category}
-                                    />
-                                )}
-                                <AnnouncementRegion
+                        <>
+                            {path[1] !== 'advertisement-editing' && (
+                                <AnnouncementCategoryField
                                     setValue={setValue}
                                     control={control}
-                                    defaultValue={dataAdvert.region}
                                     formState={formState}
+                                    defaultValue={dataAdvert.category}
                                 />
-                                <AnnouncementCity
-                                    setValue={setValue}
-                                    control={control}
-                                    defaultRegion={dataAdvert.region}
-                                    defaultValue={dataAdvert.city}
-                                    formState={formState}
-                                    watch={watch}
-                                />
-                                <AnnouncementNameField
+                            )}
+                            <AnnouncementRegion
+                                setValue={setValue}
+                                control={control}
+                                defaultValue={dataAdvert.region}
+                                formState={formState}
+                            />
+                            <AnnouncementCity
+                                setValue={setValue}
+                                control={control}
+                                defaultRegion={dataAdvert.region}
+                                defaultValue={dataAdvert.city}
+                                formState={formState}
+                                watch={watch}
+                            />
+                            <AnnouncementNameField
+                                register={register}
+                                formState={formState}
+                                defaultValue={dataAdvert.title}
+                            />
+                            {dataAdvert?.category !== 'exchange_rate' && (
+                                <AnnouncementPriceField
                                     register={register}
                                     formState={formState}
-                                    defaultValue={dataAdvert.title}
+                                    defaultValue={dataAdvert.price}
+                                    category={dataAdvert?.category}
                                 />
-                                {dataAdvert?.category !== 'exchange_rate' && (
-                                    <AnnouncementPriceField
-                                        register={register}
-                                        formState={formState}
-                                        defaultValue={dataAdvert.price}
-                                        category={dataAdvert?.category}
-                                    />
-                                )}
-                                <AnnouncementDescriptionField
-                                    defaultValue={dataAdvert.description}
-                                    control={control}
-                                />
-                                <OptionalFields
-                                    control={control}
-                                    register={register}
-                                    setValue={setValue}
-                                    watch={watch}
-                                    data={dataAdvert}
-                                    formState={formState}
-                                />
-                                <AnnouncementPhotoField
-                                    setValue={setValue}
-                                    clearErrors={clearErrors}
-                                    setError={setError}
-                                    watch={watch}
-                                    editImages={dataAdvert?.images}
-                                />
-                                <YoutubeField
-                                    register={register}
-                                    defaultValue={dataAdvert?.youtube}
-                                    errors={formState.errors}
-                                />
-                                <AnnouncementLocationField
-                                    setValue={setValue}
-                                    markerPosition={markerPosition}
-                                    setMarkerPosition={setMarkerPosition}
-                                />
-                            </>
+                            )}
+                            <AnnouncementDescriptionField
+                                defaultValue={dataAdvert.description}
+                                control={control}
+                            />
+                            <OptionalFields
+                                control={control}
+                                register={register}
+                                setValue={setValue}
+                                watch={watch}
+                                data={dataAdvert}
+                                formState={formState}
+                            />
+                            <AnnouncementPhotoField
+                                setValue={setValue}
+                                clearErrors={clearErrors}
+                                setError={setError}
+                                watch={watch}
+                                editImages={dataAdvert?.images}
+                            />
+                            <YoutubeField
+                                register={register}
+                                defaultValue={dataAdvert?.youtube}
+                                errors={formState.errors}
+                            />
+                            <AnnouncementLocationField
+                                setValue={setValue}
+                                markerPosition={markerPosition}
+                                setMarkerPosition={setMarkerPosition}
+                            />
+                        </>
                         {/*)}*/}
                         <AnnouncementSubmitButton value="edit-advert" />
                     </form>

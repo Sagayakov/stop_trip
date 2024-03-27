@@ -1,20 +1,20 @@
-import exifr from 'exifr';
+//import exifr from 'exifr';
 import { convertHeicToAny } from 'features/addAnnouncementForm/universalFields/annPhoto/annPhotoField/convertHeicToAny';
 
 const fileToBase64String = async (
     file: File,
-    isIos: boolean
+    isHEIC: boolean
 ): Promise<string> => {
-
-    if (isIos) {
-        const exif = await exifr.parse(file);
-        const orientation = exif.Orientation;
+    if (isHEIC) {
+        //const exif = await exifr.parse(file);
+        //const orientation = exif.Orientation;
         const convertedFile = await convertHeicToAny(file);
+
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = function (event) {
                 if (event.target?.result) {
-                    const img = new Image();
+                    /* const img = new Image();
                     img.onload = function () {
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
@@ -36,7 +36,12 @@ const fileToBase64String = async (
                         );
                     };
 
-                    img.src = event.target?.result as string;
+                    img.src = event.target?.result as string; */
+
+                    const base64String = (event.target.result as string).split(
+                        ','
+                    )[1];
+                    resolve(base64String);
                 } else {
                     reject(new Error('Ошибка чтения файла'));
                 }

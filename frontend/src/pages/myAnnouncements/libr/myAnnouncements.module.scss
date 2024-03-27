@@ -15,7 +15,7 @@
 .bread_crumbs {
     color: var(--grey-3);
     margin: 0 auto 20px;
-    max-width: 1240px;
+    width: 1240px;
     padding-top: 130px;
     a {
         text-decoration: none;
@@ -119,6 +119,14 @@
             .edit {
                 gap: 11px;
                 cursor: pointer;
+            }
+            .no_edit {
+                display: flex;
+                align-items: center;
+                gap: 11px;
+                padding: 0.5rem 1rem;
+                cursor: default;
+                color: var(--grey-2);
             }
             .edit,
             .label_option,
@@ -224,13 +232,14 @@
 }
 @media (max-width: 767px) {
     .title {
-        width: 85%;
-        margin: 0 15px 25px;
+        width: 93%;
+        margin: 0 auto 15px;
     }
+
     .bread_crumbs {
-        width: 100%;
+        width: 93%;
         margin: 0 auto;
-        padding: 100px 15px 15px;
+        padding: 100px 15px 15px 0;
     }
 
     .announcements_list {
@@ -239,9 +248,9 @@
 }
 @media (max-width: 615px) {
     .title {
-        padding: 0 15px 15px;
-        margin: 0;
-        width: 100%;
+        padding-bottom: 15px;
+        margin: auto;
+        width: 93%;
         font-size: 20px;
     }
     .announcements_list {
@@ -268,13 +277,17 @@
     }
 }
 @media (max-width: 425px) {
+    .bread_crumbs {
+        width: 92%;
+    }
+
     .title {
-        width: 100%;
+        width: 92%;
         margin: 0 auto 16px;
-        padding: 0 15px;
         font-size: 22px;
     }
     .announcements_list {
+        width: 92%;
         .announcement {
             .modal_option {
                 //чтобы модалка не уезжала за экран
