@@ -69,6 +69,10 @@ server {
     }
 
     location /admin/ {
+        <% if [ "$HTPASSWD_NODE" != "off" ]; then -%>
+            auth_basic "Restricted Content";
+            auth_basic_user_file /etc/nginx/.htpasswd;
+        <% fi; -%>
         client_max_body_size 250M;
         include backend;
     }
