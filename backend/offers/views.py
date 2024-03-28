@@ -191,15 +191,15 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    # @method_decorator(cache_page(60 * 10))
+    @method_decorator(cache_page(60 * 10))
     def list(self, request, *args, **kwargs):
         return super(AdvertisementModelViewSet, self).list(request, *args, **kwargs)
 
-    # @method_decorator(cache_page(60 * 10))
+    @method_decorator(cache_page(60 * 10))
     def retrieve(self, request, *args, **kwargs):
         return super(AdvertisementModelViewSet, self).retrieve(request, *args, **kwargs)
 
-    # @method_decorator(cache_page(60 * 5))
+    @method_decorator(cache_page(60 * 5))
     @action(detail=False, methods=["GET"])
     def my_advertisements(self, request, *args, **kwargs):
         """Мои объявления."""
@@ -208,7 +208,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # @method_decorator(cache_page(60 * 10))
+    @method_decorator(cache_page(60 * 10))
     @extend_schema(
         parameters=[
             OpenApiParameter(
@@ -231,7 +231,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = RegionSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # @method_decorator(cache_page(60 * 10))
+    @method_decorator(cache_page(60 * 10))
     @extend_schema(
         parameters=[
             OpenApiParameter(
@@ -254,7 +254,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = CitySerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # @method_decorator(cache_page(60 * 10))
+    @method_decorator(cache_page(60 * 10))
     @extend_schema(
         parameters=[
             OpenApiParameter(
@@ -281,7 +281,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer = TransportBrandSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # @method_decorator(cache_page(60 * 10))
+    @method_decorator(cache_page(60 * 10))
     @extend_schema(
         parameters=[
             OpenApiParameter(
