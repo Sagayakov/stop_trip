@@ -18,7 +18,6 @@ import { pushAddToFavourite } from 'shared/eCommercy/pushAddToFavourite.ts';
 import { pushRemoveFromFavourite } from 'shared/eCommercy/pushRemoveFromFavourite.ts';
 import { getPrevLocation } from 'shared/eCommercy/getPrevLocation.ts';
 import { prettifyRate } from 'shared/utils/prettifyRate';
-import { useGradeSpelling } from 'entity/advert/advertOwner/libr/utils/getGradeSpelling';
 
 interface Props extends AdvertsTypes {
     index: number;
@@ -44,7 +43,6 @@ export const Cart = (cart: Props) => {
     const [deleteFromFavorites] = useDeleteFromFavoritesMutation();
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
     const { t } = useTranslation();
-    const lang = useAppSelector((state) => state.setLang.lang);
     const [addToFav, setAddToFav] = useState(false);
 
     useEffect(() => {
@@ -87,11 +85,6 @@ export const Cart = (cart: Props) => {
             toast.error(`${t('main-page.toast-favs')}`, { toastId });
         }
     };
-
-    const spelling = `${t('advert-page.grade')}${useGradeSpelling(
-        owner.rating_num,
-        lang
-    )}`;
 
     return (
         <NavLink
@@ -149,7 +142,7 @@ export const Cart = (cart: Props) => {
                     <span className={styles.rating_number}>
                         {owner.avg_rating.toFixed(2)}
                     </span>
-                    <span>{`${owner.rating_num} ${spelling}`}</span>
+                    <span>{`(${owner.rating_num})`}</span>
                 </div>
                 <span>{GetDateOfCreating(dateCreate)}</span>
             </div>
