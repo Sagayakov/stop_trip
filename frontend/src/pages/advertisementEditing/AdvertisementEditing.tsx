@@ -32,6 +32,7 @@ import {
     useEditAdvertMutation,
     useGetAdvertBySlugQuery,
 } from 'app/api/authFetchAdverts.ts';
+import { LoadingWithBackgroundUpload } from 'entity/loading/LoadingWithBackgroundUpload';
 
 const AdvertisementEditing = () => {
     const { t } = useTranslation();
@@ -170,6 +171,7 @@ const AdvertisementEditing = () => {
 
     return (
         <>
+            {isSendLoading && <LoadingWithBackgroundUpload />}
             {dataAdvert && (
                 <section className={styles.add_ann}>
                     <form
@@ -179,10 +181,7 @@ const AdvertisementEditing = () => {
                     >
                         <h1>{t('add-page.edit')}</h1>
                         {isLoading && user?.id && <LoadingWithBackground />}
-                        {(isSendLoading || isLoading) && (
-                            <LoadingWithBackground />
-                        )}
-                        {/*{dataAdvert && (*/}
+                        {isLoading && <LoadingWithBackground />}
                         <>
                             {path[1] !== 'advertisement-editing' && (
                                 <AnnouncementCategoryField

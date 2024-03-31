@@ -301,7 +301,8 @@
         "next": "Next",
         "send": "Send",
         "rent-duration": "Rent duration",
-        "tip": "The more fields you fill out, the easier it will be for the customer to find your ad"
+        "tip": "The more fields you fill out, the easier it will be for the customer to find your ad",
+        "upload_notification": "Depending on the quality and quantity of photos, uploading may take up to 5 minutes"
     },
 
     "complain-reason": {

@@ -1,4 +1,6 @@
-.loading-with-background{
+.loading-with-background {
+    display: flex;
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.3);
@@ -9,4 +11,11 @@
     align-items: center;
     top: 0;
     left: 0;
+
+    .notification {
+        margin: 1rem 3rem;
+        font-family: 'Inter', sans-serif;
+        color: var(--main-background);
+        text-align: center;
+    }
 }
