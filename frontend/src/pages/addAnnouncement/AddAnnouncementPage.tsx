@@ -30,6 +30,7 @@ import {
 import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 import { useAddAdvertMutation } from 'app/api/authFetchAdverts.ts';
 import { useNavigate } from 'react-router-dom';
+import { LoadingWithBackgroundUpload } from 'entity/loading/LoadingWithBackgroundUpload';
 
 const AddAnnouncementPage = () => {
     const {
@@ -148,7 +149,7 @@ const AddAnnouncementPage = () => {
 
     return (
         <>
-            {isLoading && <LoadingWithBackground />}
+            {isLoading && <LoadingWithBackgroundUpload />}
             {modalSuccess && (
                 <BackgroundModal
                     className={styles.background}
