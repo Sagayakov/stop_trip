@@ -44,7 +44,9 @@ class TransportCreateSerializer(AdvertisementCreateSerializer):
     transport_condition = serializers.ChoiceField(
         choices=TransportCondition.choices, required=False
     )
-    transport_rent_duration = serializers.ChoiceField(choices=TransportRentDuration, required=False)
+    transport_rent_duration = serializers.ChoiceField(
+        choices=TransportRentDuration.choices, required=False
+    )
 
     class Meta:
         model = Advertisement

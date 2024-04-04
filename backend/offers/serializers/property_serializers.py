@@ -28,8 +28,10 @@ class PropertyAmenitySerializer(serializers.ModelSerializer):
 class PropertyCreateSerializer(AdvertisementCreateSerializer):
     """Сериализатор создания объекта недвижимости."""
 
-    property_type = serializers.ChoiceField(choices=PropertyType, required=True)
-    property_type_of_service = serializers.ChoiceField(choices=PropertyTypeOfService, required=True)
+    property_type = serializers.ChoiceField(choices=PropertyType.choices, required=True)
+    property_type_of_service = serializers.ChoiceField(
+        choices=PropertyTypeOfService.choices, required=True
+    )
     property_bathroom_type = serializers.ChoiceField(
         choices=PropertyBathroomType.choices, required=False
     )
