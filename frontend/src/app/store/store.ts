@@ -14,6 +14,7 @@ import { fetchRating } from 'app/api/fetchRating';
 import { fetchUser } from 'app/api/fetchUser.ts';
 import { fetchMessengers } from 'app/api/fetchMessengers';
 import { authFetchAdverts } from 'app/api/authFetchAdverts.ts';
+import { setIsDevNotificationVisibleSlice } from 'features/devNotification/model/isDevNotificationVisible';
 
 const setupStore = () =>
     configureStore({
@@ -28,6 +29,8 @@ const setupStore = () =>
             setLang: setLangSlice.reducer,
             setPageMain: setPageMainSlice.reducer,
             setPageCategory: setPageCategorySlice.reducer,
+            setIsDevNotificationVisible:
+                setIsDevNotificationVisibleSlice.reducer,
             [fetchAdverts.reducerPath]: fetchAdverts.reducer,
             [fetchFavorites.reducerPath]: fetchFavorites.reducer,
             [fetchRating.reducerPath]: fetchRating.reducer,
