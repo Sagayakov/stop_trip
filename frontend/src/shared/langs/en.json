@@ -1,5 +1,6 @@
 {
     "main-page": {
+        "dev_notification": "We are actively working to improve our website until August 2024. New features and functionality will be here soon! We apologize for any inconvenience this may cause.",
         "post-advert": "Place an advert",
         "edit-advert": "Save changes",
         "publish": "Publish",

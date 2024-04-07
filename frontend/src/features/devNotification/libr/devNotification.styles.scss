@@ -1,0 +1,39 @@
+.dev_notification {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem 2rem 1rem 0;
+    background-color: var(--main-blue);
+    font-family: var(--font-sf);
+    text-align: center;
+    color: var(--main-background);
+
+    .close_notification {
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-radius: 8px;
+        padding: 8px;
+        svg {
+            width: 15px;
+            height: 15px;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            transition: 0.3s all ease-in;
+        }
+        svg:hover {
+            transform: scale(1.2);
+        }
+    }
+}
+
+.dev_notification_hidden {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .dev_notification {
+        padding: 0.5rem 2rem 0.5rem 0;
+        font-size: 14px;
+    }
+}

@@ -25,6 +25,12 @@ export const Header = () => {
     const isCheckEmailModalOpen = useAppSelector(
         (state) => state.setIsCheckMailModalOpen.isCheckMailModalOpen
     );
+    const isDevNotificationVisible = useAppSelector(
+        (state) => state.setIsDevNotificationVisible.isDevNotificationVisible
+    );
+    const devNotificationHeight = useAppSelector(
+        (state) => state.setIsDevNotificationVisible.height
+    );
 
     const navigate = useNavigate();
 
@@ -55,7 +61,15 @@ export const Header = () => {
         isAuth ? `${styles.addAdvert} ${styles.active}` : `${styles.addAdvert}`;
 
     return (
-        <header ref={ref}>
+        <header
+            ref={ref}
+            style={{
+                top:
+                    isDevNotificationVisible && window.scrollY === 0
+                        ? devNotificationHeight
+                        : '',
+            }}
+        >
             <div className={styles.header_wrapper}>
                 <LogoHeader />
                 <UniversalButton
@@ -73,7 +87,10 @@ export const Header = () => {
                 </UniversalButton>
                 <LangAuthBlock />
                 {isAddModalOpen && (
-                    <ModalAddAdvert closeAddModal={closeAddModal} text={t('modal-add-advert.must')} />
+                    <ModalAddAdvert
+                        closeAddModal={closeAddModal}
+                        text={t('modal-add-advert.must')}
+                    />
                 )}
                 {isCheckEmailModalOpen && <ModalCheckEmail />}
             </div>

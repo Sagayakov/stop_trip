@@ -1,33 +1,36 @@
 header.fixed_header {
     position: fixed;
-    top: 0;
+    top: 0 !important;
     left: 0;
     right: 0;
     margin-bottom: 40px;
 }
 
 header {
+    position: absolute;
+    z-index: 1000;
     width: 100%;
     margin: 0 auto 50px;
     box-shadow: 0 6px 8px 0 #00000014;
-    position: absolute;
-    z-index: 1000;
     background-color: var(--main-background);
-    transition: all 0.7s ease;
+    transition: all 0.3s ease;
 
     .header_wrapper {
-        width: 1240px;
-        padding: 24px 0;
-        margin: 0 auto;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        width: 1240px;
+        padding: 24px 0;
+        margin: 0 auto;
         //cursor: pointer;
         transition: all 0.7s ease;
         svg {
             flex-shrink: 0; //отключаем сужение для svg
         }
         .addAdvert {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 262px;
             height: 3rem;
             padding: 12px 24px 12px 18px;
@@ -35,9 +38,6 @@ header {
             border-radius: var(--radii);
             background-color: var(--grey-2);
             color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             font-family: var(--font-sf);
             cursor: pointer;
             .svg {
@@ -51,14 +51,16 @@ header {
             opacity: 0.75;
         }
         .language_auth {
-            height: 36px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            height: 36px;
             width: auto;
-            //width: 30%;
 
             .auth_button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 width: 197px;
                 height: 44px;
                 margin-left: 1rem;
@@ -69,9 +71,6 @@ header {
                 font-weight: 600;
                 font-family: var(--font-inter);
 
-                display: flex;
-                align-items: center;
-                justify-content: center;
                 cursor: pointer;
             }
             .person_auth {
