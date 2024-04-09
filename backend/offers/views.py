@@ -85,11 +85,6 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
             return queryset
 
-        # elif self.action == self.us_advertisements.__name__:
-        #     queryset = queryset.prefetch_related("images")
-        #
-        #     return queryset
-
         elif self.action == self.retrieve.__name__:
             queryset = (
                 queryset.filter(is_published=True)
@@ -150,9 +145,6 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
         elif self.action in (self.my_advertisements.__name__, self.user_advertisements.__name__):
             return MyAdvertisementSerializer
-
-        # elif self.action == self.us_advertisements.__name__:
-        #     return MyAdvertisementSerializer
 
         return AdvertisementListSerializer
 
@@ -235,7 +227,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         if not user:
             return Response("user - обязательный параметр", status=status.HTTP_400_BAD_REQUEST)
 
-        queryset = self.get_queryset().filter(owner=user)
+        queryset = self.get_queryset().filter(owner=user, is_published=True)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
