@@ -1,6 +1,16 @@
 from rest_framework import serializers
+
 from offers.models import Advertisement
+from .models import LikeModel
 
 
-class FavoriteAdvertisementCreateSerializer(serializers.Serializer):
-    id = serializers.PrimaryKeyRelatedField(queryset=Advertisement.objects.all(), required=True)
+class LikeSerializer(serializers.ModelSerializer):
+    advertisement = serializers.SlugRelatedField(
+        queryset=Advertisement.objects.all(),
+        slug_field="slug",
+        required=False,
+    )
+
+    class Meta:
+        model = LikeModel
+        fields = "__all__"
