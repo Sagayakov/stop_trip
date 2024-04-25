@@ -43,6 +43,7 @@ class AdvertisementFilter(
         fields=("date_create", "price"),
         field_labels={"date_create": "Дата создания", "price": "Цена"},
     )
+    owner = filters.NumberFilter(label="Фильтрация по id пользователя")
 
     class Meta:
         model = Advertisement

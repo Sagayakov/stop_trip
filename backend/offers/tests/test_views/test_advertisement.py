@@ -223,6 +223,27 @@ class AdvertisementViewSetTest(APITestCase):
         res_json = res.json()
         self.assertEqual(len(res_json), len(my_advertisements) + len(my_unpublished_advertisements))
 
+    def test_user_advertisements(self):
+        me = UserFactory()
+        my_advertisements = [BaseAdvertisementFactory(owner=me) for _ in range(5)]
+
+        user = UserFactory()
+        user_advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(5)]
+
+        with self.assertNumQueries(5):
+            res = self.client.get(self.list_url, {"owner": me.id})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(my_advertisements))
+
+        with self.assertNumQueries(5):
+            res = self.client.get(self.list_url, {"owner": user.id})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(user_advertisements))
+
     def test_get_transport_brands(self):
         brands = [TransportBrandFactory() for _ in range(5)]
         car_brand_models = [
