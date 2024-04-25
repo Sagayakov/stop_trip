@@ -60,7 +60,6 @@ class AdvertisementViewSetTest(APITestCase):
             "advertisements-get-available-filtered-params"
         )
         self.my_advertisements_url: str = reverse("advertisements-my-advertisements")
-        self.user_advertisements_url: str = reverse("advertisements-user-advertisements")
         self.get_transport_brands_url: str = reverse("advertisements-get-transport-brands")
         self.get_transport_models_by_brand_url: str = reverse(
             "advertisements-get-transport-models-by-brand"
@@ -225,25 +224,25 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(len(res_json), len(my_advertisements) + len(my_unpublished_advertisements))
 
     def test_user_advertisements(self):
-        user1 = UserFactory()
-        user2 = UserFactory()
+        me = UserFactory()
+        my_advertisements = [BaseAdvertisementFactory(owner=me) for _ in range(5)]
 
-        user1_advertisements = [BaseAdvertisementFactory(owner=user1) for _ in range(5)]
-        user2_advertisements = [BaseAdvertisementFactory(owner=user2) for _ in range(3)]
+        user = UserFactory()
+        user_advertisements = [BaseAdvertisementFactory(owner=user) for _ in range(5)]
 
-        with self.assertNumQueries(2):
-            res = self.client.get(self.user_advertisements_url, data={"user": user1.id})
-
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
-        res_json = res.json()
-        self.assertEqual(len(res_json), len(user1_advertisements))
-
-        with self.assertNumQueries(2):
-            res = self.client.get(self.user_advertisements_url, data={"user": user2.id})
+        with self.assertNumQueries(5):
+            res = self.client.get(self.list_url, {"owner": me.id})
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
-        self.assertEqual(len(res_json), len(user2_advertisements))
+        self.assertEqual(res_json["count"], len(my_advertisements))
+
+        with self.assertNumQueries(5):
+            res = self.client.get(self.list_url, {"owner": user.id})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(res_json["count"], len(user_advertisements))
 
     def test_get_transport_brands(self):
         brands = [TransportBrandFactory() for _ in range(5)]
