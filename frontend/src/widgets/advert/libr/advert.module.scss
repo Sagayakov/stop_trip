@@ -35,11 +35,11 @@
                     color: var(--main-black);
                 }
             }
-            .advert_buttons {
+            /* .advert_buttons {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                width: 100%;
+                width: 100%; */
                 .complain_button {
                     height: 30px;
                     border-radius: var(--radii);
@@ -52,7 +52,7 @@
                         cursor: default;
                     }
                 }
-                .show_user_page_button {
+                /* .show_user_page_button {
                     border-radius: var(--radii);
                     border: none;
                     cursor: pointer;
@@ -63,7 +63,7 @@
                     color: white;
                     font-weight: 600;
                 }
-            }
+            } */
             
             
         }
@@ -131,6 +131,16 @@
                 img {
                     width: 2.5rem;
                 }
+            }
+            .show_user_page_button {
+                border-radius: var(--radii);
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                height: fit-content;
+                padding: 5.8px;
+                color: black;
+                font-weight: 600;
             }
         }
     }
