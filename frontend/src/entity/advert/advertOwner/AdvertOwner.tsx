@@ -5,7 +5,7 @@ import { getDate } from 'shared/utils/getDate.ts';
 import { getUserIcon } from 'shared/utils/userIcon/getUserIcon.ts';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks.ts';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetAdvertBySlugQuery } from 'app/api/authFetchAdverts.ts';
 
 interface Props {
@@ -17,6 +17,7 @@ export const AdvertOwner = ({ className }: Props) => {
     const lang = useAppSelector((state) => state.setLang.lang);
     const { slug } = useParams();
     const { data, refetch } = useGetAdvertBySlugQuery(slug!);
+    const navigate = useNavigate();
 
     const { firstLetters } = getUserIcon(data?.owner.full_name);
 
@@ -36,14 +37,16 @@ export const AdvertOwner = ({ className }: Props) => {
         day = lang === 'ru' ? 'Вчера' : 'Yesterday';
     }
 
+    const handleNavigate = () => navigate(`/user/${data?.owner.id}`);
+
     return (
         <div className={`${styles.owner} ${className}`}>
             {data && (
                 <>
-                    <span className={styles.user_icon}>{firstLetters}</span>
+                    <span className={styles.user_icon} onClick={handleNavigate}>{firstLetters}</span>
                     <div className={styles.owner_characteristics}>
-                        <div>
-                            <p>{`${data.owner.full_name[0].toUpperCase()}${data.owner.full_name.slice(
+                        <div className={styles.name_rating}>
+                            <p onClick={handleNavigate}>{`${data.owner.full_name[0].toUpperCase()}${data.owner.full_name.slice(
                                 1
                             )}`}</p>
                             <span className={styles.rating_number}>
