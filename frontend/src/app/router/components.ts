@@ -28,3 +28,4 @@ export const MySettings = lazy(() => import('pages/mySettings/MySettings.tsx'));
 export const UserAgreement = lazy(
     () => import('pages/userAgreement/UserAgreement.tsx')
 );
+export const UserPage = lazy(() => import('pages/user/UserPage.tsx'))
