@@ -29,7 +29,7 @@ export const ProductInfo = ({ data }: Props) => {
         !isAuth ? setNeedAuth(true) : setShowComplainModal(true);
     };
 
-    const handleNavigate = () => navigate(`/user/${data?.owner.id}`);
+    const handleNavigate = () => navigate(`/users/${data?.owner.id}`);
 
     return (
         <section className={styles.product_info}>

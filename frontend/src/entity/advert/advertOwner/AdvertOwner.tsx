@@ -11,7 +11,7 @@ export const AdvertOwner = ({ className }: Props) => {
     const { data, refetch } = useGetAdvertBySlugQuery(slug!);
     const navigate = useNavigate();
 
-    const handleNavigate = () => navigate(`/user/${data?.owner.id}`);
+    const handleNavigate = () => navigate(`/users/${data?.owner.id}`);
 
     return (
         <>
