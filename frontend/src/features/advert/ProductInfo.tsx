@@ -11,6 +11,7 @@ import { ModalComplain } from 'features/complainAboutAnnounsement';
 import { ModalAddAdvert } from 'features/header/modal/modalAddAdvert/ModalAddAdvert.tsx';
 import { useAppSelector } from 'app/store/hooks.ts';
 import { useGetUserQuery } from 'app/api/fetchUser';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     data: ProductType;
@@ -22,10 +23,13 @@ export const ProductInfo = ({ data }: Props) => {
     const { t } = useTranslation();
     const { isMobile } = useMatchMedia();
     const { data: userData } = useGetUserQuery('');
+    const navigate = useNavigate();
 
     const handleModalOpen = () => {
         !isAuth ? setNeedAuth(true) : setShowComplainModal(true);
     };
+
+    const handleNavigate = () => navigate(`/user/${data?.owner.id}`);
 
     return (
         <section className={styles.product_info}>
@@ -40,13 +44,22 @@ export const ProductInfo = ({ data }: Props) => {
                 </div>
             )}
             {data.coordinates && <AdvertLocation data={data} />}
-            <button
-                className={styles.complain_button}
-                onClick={handleModalOpen}
-                disabled={data.owner.id === userData?.id}
-            >
-                {t('add-page.complain')}
-            </button>
+            <div className={styles.advert_buttons}>
+                <button
+                    className={styles.complain_button}
+                    onClick={handleModalOpen}
+                    disabled={data.owner.id === userData?.id}
+                >
+                    {t('add-page.complain')}
+                </button>
+                <button
+                    className={styles.show_user_page_button}
+                    onClick={handleNavigate}
+                >
+                    {t('add-page.show_user_page')}
+                </button>
+            </div>
+            
             {showComplainModal &&
                 createPortal(
                     <ModalComplain

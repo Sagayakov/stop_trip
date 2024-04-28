@@ -294,6 +294,7 @@
         "required": "Required field",
         "right-format": "Enter data in correct format",
         "complain": "Complain",
+        "show_user_page": "Other user advertisements",
         "need-auth-complain": "To make a complaint about an advertisement, you must",
         "complain-description": "Please describe the problem",
         "complain-success": "Your complaint has been sent! Thank you for making our site better!",
