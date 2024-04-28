@@ -32,7 +32,7 @@ export const publicRoutes: Route[] = [
     { path: '/email/reset/confirm/:uid/:token', component: ResetPassword },
     { path: '/:category/:slug', component: AdvertPage },
     { path: '/user-agreement', component: UserAgreement },
-    { path: '/user/:id', component: UserPage },
+    { path: '/users/:id', component: UserPage },
     { path: '/404', component: PageNotFound },
     ...categoryRoutes,
 ];
@@ -47,6 +47,6 @@ export const privateRoutes: Route[] = [
     { path: '/favorites', component: FavoritesPage },
     { path: '/my-settings', component: MySettings },
     { path: '/user-agreement', component: UserAgreement },
-    { path: '/user/:id', component: UserPage },
+    { path: '/users/:id', component: UserPage },
     ...categoryRoutes,
 ];
