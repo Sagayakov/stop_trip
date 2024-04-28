@@ -114,12 +114,14 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                             <span>{`${day}, ${date.hours}:${date.minutes}`}</span>
                         </p>
                     )}
-                    <button
-                        className={styles.show_user_page_button}
-                        onClick={handleNavigate}
-                    >
-                        {t('add-page.show_user_page')}
-                    </button>
+                    <>
+                        <button
+                            className={styles.show_user_page_button}
+                            onClick={handleNavigate}
+                        >
+                            {t('add-page.show_user_page')}
+                        </button>
+                    </>
                 </section>
             </div>
             {isDesktop && (
