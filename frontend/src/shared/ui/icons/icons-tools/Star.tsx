@@ -14,6 +14,7 @@ import {
 } from '@reduxjs/toolkit/dist/query';
 import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
 import { Dispatch, SetStateAction } from 'react';
+import { LastAdvertsTypes } from 'app/api/types/lastAdvertsTypes';
 
 type StarProps = {
     userId: number;
@@ -37,6 +38,20 @@ type StarProps = {
             'Adverts' | 'MyAnnouncements',
             ProductType,
             'authFetchAdverts'
+        >
+    > | QueryActionCreatorResult<
+        QueryDefinition<
+            string,
+            BaseQueryFn<
+                string | FetchArgs,
+                unknown,
+                FetchBaseQueryError,
+                Record<string, never>,
+                FetchBaseQueryMeta
+            >,
+            "Adverts" | "MyAnnouncements",
+            LastAdvertsTypes,
+            "fetchAdverts"
         >
     >;
 };

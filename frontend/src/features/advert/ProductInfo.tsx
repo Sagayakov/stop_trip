@@ -47,6 +47,7 @@ export const ProductInfo = ({ data }: Props) => {
             >
                 {t('add-page.complain')}
             </button>
+            
             {showComplainModal &&
                 createPortal(
                     <ModalComplain

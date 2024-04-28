@@ -2,7 +2,7 @@ import { PhotoSlider } from 'entity/photoSlider/PhotoSlider.tsx';
 import styles from 'widgets/advert/libr/advert.module.scss';
 import { PriceBlock } from 'entity/advert';
 import { AdvertOwner } from 'entity/advert/advertOwner/AdvertOwner.tsx';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ProductInfo } from 'features/advert/ProductInfo.tsx';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { useTranslation } from 'react-i18next';
@@ -14,8 +14,13 @@ interface Props {
     data: ProductType;
     date: Date | null;
 }
+
 export const MobileAdvert = ({ data, date }: Props) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    
+    const handleNavigate = () => navigate(`/users/${data?.owner.id}`);
+
     // const handleClickWrite = () =>
     //     toast.warn(`${t('main-page.messages-tooltip')}`);
 
@@ -50,6 +55,12 @@ export const MobileAdvert = ({ data, date }: Props) => {
                             <span>{`${date.dayToDisplay}, ${date.hours}:${date.minutes}`}</span>
                         </p>
                     )}
+                    <button
+                        className={styles.show_user_page_button}
+                        onClick={handleNavigate}
+                    >
+                        {t('add-page.show_user_page')}
+                    </button>
                 </section>
                 <ProductInfo data={data} />
             </div>

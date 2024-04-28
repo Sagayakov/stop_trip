@@ -2,7 +2,7 @@ import styles from 'widgets/advert/libr/advert.module.scss';
 import { ProductInfo } from 'features/advert/ProductInfo.tsx';
 import { PriceBlock } from 'entity/advert';
 import { AdvertOwner } from 'entity/advert/advertOwner/AdvertOwner.tsx';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { Date } from 'widgets/advert/libr/types.ts';
@@ -22,6 +22,7 @@ export const DesktopAdvert = ({ data, date }: Props) => {
     const { t } = useTranslation();
     const { isTablet, isDesktop } = useMatchMedia();
     const lang = useAppSelector((state) => state.setLang.lang);
+    const navigate = useNavigate();
 
     const handleClickShowNumber = () => {
         if (data) {
@@ -45,6 +46,8 @@ export const DesktopAdvert = ({ data, date }: Props) => {
             day = lang === 'ru' ? 'Вчера' : 'Yesterday';
         }
     }
+
+    const handleNavigate = () => navigate(`/users/${data?.owner.id}`);
 
     return (
         <>
@@ -111,6 +114,14 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                             <span>{`${day}, ${date.hours}:${date.minutes}`}</span>
                         </p>
                     )}
+                    <>
+                        <button
+                            className={styles.show_user_page_button}
+                            onClick={handleNavigate}
+                        >
+                            {t('add-page.show_user_page')}
+                        </button>
+                    </>
                 </section>
             </div>
             {isDesktop && (

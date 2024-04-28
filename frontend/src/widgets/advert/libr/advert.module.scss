@@ -47,6 +47,7 @@
                     cursor: default;
                 }
             }
+            
         }
         .owner_info {
             display: flex;
@@ -112,6 +113,16 @@
                 img {
                     width: 2.5rem;
                 }
+            }
+            .show_user_page_button {
+                border-radius: var(--radii);
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                height: fit-content;
+                padding: 5.8px;
+                color: black;
+                font-weight: 600;
             }
         }
     }
@@ -190,7 +201,9 @@
                     'title title'
                     'date date'
                     'owner owner'
-                    'call call';
+                    'call call'
+                    'messengers messengers'
+                    'other other';
                 //'write call'; когда будет кнопка "написать"
                 .price_block {
                     grid-area: info;
@@ -212,6 +225,12 @@
                 }
                 .public_date {
                     grid-area: date;
+                }
+                .user_messengers {
+                    grid-area: messengers;
+                }
+                .show_user_page_button {
+                    grid-area: other;
                 }
             }
         }
@@ -236,6 +255,11 @@
             .product_info {
                 button {
                     width: 100%;
+                }
+            }
+            .owner_info {
+                .show_user_page_button {
+                    font-size: 14px;
                 }
             }
         }
