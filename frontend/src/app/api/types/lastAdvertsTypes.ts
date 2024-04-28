@@ -1,3 +1,5 @@
+import { UserMessenger } from "pages/advertPage/libr/types";
+
 export interface LastAdvertsTypes {
     count: number;
     next: string | null;
@@ -42,6 +44,7 @@ export type Owner = {
     avg_rating: number;
     my_rating: number;
     rating_num: number;
+    user_messengers: UserMessenger[];
 };
 
 export type AvailableValuesType = {

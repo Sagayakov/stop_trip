@@ -1,35 +1,6 @@
 import { useState } from 'react';
 import { Star } from '../icons/icons-tools/Star';
-import { ProductType } from 'pages/advertPage/libr/types';
-import {
-    BaseQueryFn,
-    FetchArgs,
-    FetchBaseQueryError,
-    FetchBaseQueryMeta,
-    QueryDefinition,
-} from '@reduxjs/toolkit/dist/query';
-import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
-
-type RatingProps = {
-    id: number;
-    rating: number;
-    myRating: number;
-    refetch: () => QueryActionCreatorResult<
-        QueryDefinition<
-            string,
-            BaseQueryFn<
-                string | FetchArgs,
-                unknown,
-                FetchBaseQueryError,
-                Record<string, never>,
-                FetchBaseQueryMeta
-            >,
-            'Adverts' | 'MyAnnouncements',
-            ProductType,
-            'authFetchAdverts'
-        >
-    >;
-};
+import { RatingProps } from './propType';
 
 export const Rating = ({ id, rating, myRating, refetch }: RatingProps) => {
     const [activeStar, setActiveStar] = useState(myRating);
