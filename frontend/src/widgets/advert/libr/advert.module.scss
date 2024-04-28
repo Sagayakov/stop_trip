@@ -35,36 +35,18 @@
                     color: var(--main-black);
                 }
             }
-            /* .advert_buttons {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%; */
-                .complain_button {
-                    height: 30px;
-                    border-radius: var(--radii);
-                    border: none;
-                    cursor: pointer;
-                    width: 40%;
-                    color: black;
-                    font-weight: 600;
-                    &:disabled {
-                        cursor: default;
-                    }
+            .complain_button {
+                height: 30px;
+                border-radius: var(--radii);
+                border: none;
+                cursor: pointer;
+                width: 40%;
+                color: black;
+                font-weight: 600;
+                &:disabled {
+                    cursor: default;
                 }
-                /* .show_user_page_button {
-                    border-radius: var(--radii);
-                    border: none;
-                    cursor: pointer;
-                    width: 40%;
-                    height: fit-content;
-                    background-color: var(--main-blue);
-                    padding: 5.8px;
-                    color: white;
-                    font-weight: 600;
-                }
-            } */
-            
+            }
             
         }
         .owner_info {
