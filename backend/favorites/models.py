@@ -1,7 +1,5 @@
 from django.db import models
 
-from offers.models import Advertisement
-
 
 class LikeModel(models.Model):
     """Лайки пользователя"""
@@ -11,10 +9,9 @@ class LikeModel(models.Model):
         related_name="likes",
         on_delete=models.CASCADE,
         verbose_name="Создатель",
-        null=True,
     )
     advertisement = models.ForeignKey(
-        Advertisement,
+        "offers.Advertisement",
         related_name="likes",
         on_delete=models.CASCADE,
         verbose_name="Объявление",
@@ -23,3 +20,6 @@ class LikeModel(models.Model):
     class Meta:
         verbose_name = "Лайк"
         verbose_name_plural = "Лайки"
+        # constraints = [
+        #     models.UniqueConstraint(fields=["owner", "advertisement"], name="unique_favorites")
+        # ]

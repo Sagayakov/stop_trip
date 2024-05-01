@@ -10,7 +10,7 @@ from .serializers import LikeSerializer
 
 
 @extend_schema(tags=["Likes"])
-class LikeToggleViewSet(CreateModelMixin, GenericViewSet):
+class LikeViewSet(CreateModelMixin, GenericViewSet):
     """Лайки"""
 
     queryset = LikeModel.objects.all()
@@ -18,17 +18,19 @@ class LikeToggleViewSet(CreateModelMixin, GenericViewSet):
     serializer_class = LikeSerializer
 
     def create(self, request, *args, **kwargs):
-        user = self.request.user
-        data = self.request.data
-        slug = data.get("advertisement")
-        like = LikeModel.objects.filter(owner=user, advertisement__slug=slug).first()
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        advertisement = serializer.validated_data["advertisement"]
+
+        like = LikeModel.objects.filter(
+            owner=self.request.user, advertisement__slug=advertisement.slug
+        ).first()
 
         if like:
             like.delete()
-            return Response({"message": "Лайк удален"}, status=status.HTTP_200_OK)
+            return Response({"message": "Лайк удален"}, status=status.HTTP_204_NO_CONTENT)
         else:
-            serializer = self.get_serializer(data=data)
+            serializer = self.get_serializer(data=self.request.data)
             serializer.is_valid(raise_exception=True)
-            serializer.validated_data["owner"] = user
             serializer.save()
             return Response({"message": "Лайк установлен"}, status=status.HTTP_201_CREATED)

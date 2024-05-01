@@ -5,10 +5,11 @@ from .models import LikeModel
 
 
 class LikeSerializer(serializers.ModelSerializer):
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
     advertisement = serializers.SlugRelatedField(
         queryset=Advertisement.objects.all(),
         slug_field="slug",
-        required=False,
+        required=True,
     )
 
     class Meta:
