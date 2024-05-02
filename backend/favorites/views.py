@@ -56,11 +56,9 @@ class LikeViewSet(CreateModelMixin, GenericViewSet):
                 # "property_amenities",
                 Prefetch(
                     "advertisement",
-                    User.objects.all()
+                    Advertisement.objects.all()
                     .prefetch_related(
-                        Prefetch(
-                            "advertisement", Advertisement.objects.select_related("messenger")
-                        ),
+                        Prefetch("advertisement", Advertisement.objects),
                     )
                     .annotate_avg_rating()
                     .annotate_rating_num()
