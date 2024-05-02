@@ -50,7 +50,7 @@ class LikeViewSet(CreateModelMixin, GenericViewSet):
 
         queryset = (
             LikeModel.objects.filter(owner=self.request.user)
-            .select_related("advertisement")
+            # .select_related("advertisement")
             .prefetch_related(
                 # "images",
                 # "property_amenities",
@@ -58,7 +58,7 @@ class LikeViewSet(CreateModelMixin, GenericViewSet):
                     "advertisement",
                     Advertisement.objects.all()
                     .prefetch_related(
-                        Prefetch("advertisement", Advertisement.objects),
+                        Prefetch("user", User.objects.all()),
                     )
                     .annotate_avg_rating()
                     .annotate_rating_num()
