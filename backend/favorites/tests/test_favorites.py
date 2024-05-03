@@ -65,7 +65,7 @@ class FavoriteAPIViewTest(APITestCase):
 
         self.assertEqual(LikeModel.objects.count(), 5)
 
-        with self.assertNumQueries(22):
+        with self.assertNumQueries(5):
             res = self.client.get(self.all_favorites_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
