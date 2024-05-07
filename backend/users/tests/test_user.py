@@ -1,10 +1,13 @@
 from pytest import mark
 from rest_framework import status
 from rest_framework.test import APITestCase
+from functools import partial
+from django.urls import reverse
 
 from forbidden_words.tests.factories import ForbiddenWordsFactory
 from offers.tests.factories import BaseAdvertisementFactory
 from users.tests.factories import UserFactory, RateFactory
+from users.models import User
 
 
 @mark.django_db
@@ -85,3 +88,40 @@ class UserTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         my_rating = res.json()["owner"]["my_rating"]
         self.assertEqual(my_rating, my_rate.rating)
+
+
+@mark.django_db
+class UserApiTest(APITestCase):
+    def setUp(self):
+        self.detail_url = partial(reverse, "user-detail")
+
+    def test_detail_user(self):
+        user = UserFactory()
+        me = UserFactory()
+
+        self.client.force_login(me)
+
+        with self.assertNumQueries(3):
+            res = self.client.get(self.detail_url(kwargs={"pk": user.id}))
+
+        res_json = res.json()
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res_json["id"], user.id)
+        self.assertEqual(res_json["full_name"], user.full_name)
+        self.assertEqual(res_json["phone"], user.phone)
+        self.assertIsNotNone(res_json["avg_rating"])
+        self.assertIn("rating_num", res_json)
+        self.assertIn("my_rating", res_json)
+        self.assertIn("user_messengers", res_json)
+
+    def test_detail_user_anon(self):
+        user = UserFactory()
+
+        with self.assertNumQueries(2):
+            res = self.client.get(self.detail_url(kwargs={"pk": user.id}))
+
+        res_json = res.json()
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertIsNone(res_json["my_rating"])
