@@ -93,14 +93,15 @@ class UserTest(APITestCase):
 @mark.django_db
 class UserApiTest(APITestCase):
     def setUp(self):
-        self.detail_url = partial(reverse, "user_detail-detail")
+        self.detail_url = partial(reverse, "user-detail")
 
     def test_detail_user(self):
         user = UserFactory()
+        me = UserFactory()
 
-        self.assertEqual(User.objects.count(), 1)
+        self.client.force_login(me)
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(3):
             res = self.client.get(self.detail_url(kwargs={"pk": user.id}))
 
         res_json = res.json()
@@ -113,3 +114,14 @@ class UserApiTest(APITestCase):
         self.assertIn("rating_num", res_json)
         self.assertIn("my_rating", res_json)
         self.assertIn("user_messengers", res_json)
+
+    def test_detail_user_anon(self):
+        user = UserFactory()
+
+        with self.assertNumQueries(2):
+            res = self.client.get(self.detail_url(kwargs={"pk": user.id}))
+
+        res_json = res.json()
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertIsNone(res_json["my_rating"])

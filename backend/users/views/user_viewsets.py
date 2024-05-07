@@ -8,13 +8,12 @@ from ..models import User, UserMessenger
 from ..serializers import UserForRetrieveAdvertisementSerializer
 
 
-@extend_schema(tags=["User_detail"])
+@extend_schema(tags=["User"])
 class UserViewSet(GenericViewSet, RetrieveModelMixin):
-    """Мессенджеры."""
+    """Вывод информации о юзере"""
 
     permission_classes = [AllowAny]
     serializer_class = UserForRetrieveAdvertisementSerializer
-    queryset = User.objects.all()
 
     def get_queryset(self):
         queryset = (
