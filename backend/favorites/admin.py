@@ -1,10 +1,10 @@
 from django.contrib.admin import register, ModelAdmin
 
-from .models import LikeModel
+from .models import FavoriteModel
 
 
-@register(LikeModel)
-class LikeAdmin(ModelAdmin):
+@register(FavoriteModel)
+class FavoriteAdmin(ModelAdmin):
     list_display = (
         "id",
         "owner",

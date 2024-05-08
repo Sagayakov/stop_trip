@@ -2,10 +2,10 @@ from rest_framework import serializers
 
 from offers.models import Advertisement
 from offers.serializers import AdvertisementListSerializer
-from .models import LikeModel
+from .models import FavoriteModel
 
 
-class LikeSerializer(serializers.ModelSerializer):
+class FavoriteSerializer(serializers.ModelSerializer):
     """Сериализатор одного лайка"""
 
     owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
@@ -16,18 +16,15 @@ class LikeSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = LikeModel
-        fields = "__all__"
+        model = FavoriteModel
+        fields = ("owner", "advertisement")
 
 
-class LikeListSerializer(serializers.ModelSerializer):
+class FavoriteListSerializer(serializers.ModelSerializer):
     """Сериализатор вывода лайков."""
 
     advertisement = AdvertisementListSerializer(read_only=True)
 
     class Meta:
-        model = LikeModel
-        fields = (
-            "id",
-            "advertisement",
-        )
+        model = FavoriteModel
+        fields = ("id", "advertisement")
