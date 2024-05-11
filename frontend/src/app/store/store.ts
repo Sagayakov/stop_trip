@@ -15,6 +15,7 @@ import { fetchUser } from 'app/api/fetchUser.ts';
 import { fetchMessengers } from 'app/api/fetchMessengers';
 import { authFetchAdverts } from 'app/api/authFetchAdverts.ts';
 import { setIsDevNotificationVisibleSlice } from 'features/devNotification/model/isDevNotificationVisible';
+import { fetchSeller } from 'app/api/fetchSeller';
 
 const setupStore = () =>
     configureStore({
@@ -37,6 +38,7 @@ const setupStore = () =>
             [fetchUser.reducerPath]: fetchUser.reducer,
             [fetchMessengers.reducerPath]: fetchMessengers.reducer,
             [authFetchAdverts.reducerPath]: authFetchAdverts.reducer,
+            [fetchSeller.reducerPath]: fetchSeller.reducer,
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
@@ -45,7 +47,8 @@ const setupStore = () =>
                 .concat(fetchFavorites.middleware)
                 .concat(fetchRating.middleware)
                 .concat(fetchMessengers.middleware)
-                .concat(authFetchAdverts.middleware),
+                .concat(authFetchAdverts.middleware)
+                .concat(fetchSeller.middleware),
     });
 
 export const store = setupStore();

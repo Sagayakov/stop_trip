@@ -101,6 +101,7 @@ export type Owner = {
 };
 
 export type UserMessenger = {
+    id: number;
     messenger: Messenger;
     link_to_user: string;
 };
