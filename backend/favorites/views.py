@@ -26,10 +26,6 @@ class FavoriteViewSet(CreateModelMixin, DestroyModelMixin, GenericViewSet):
         return FavoriteListSerializer
 
     def create(self, request, *args, **kwargs):
-        # serializer = self.get_serializer(data=request.data)
-        # serializer.is_valid(raise_exception=True)
-        # advertisement = serializer.validated_data["advertisement"]
-        # Оптимальнее ли так получать данные? Меньше запросов получается. -2 запроса к БД
         advertisement = request.data.get("advertisement")
 
         like = FavoriteModel.objects.filter(
@@ -42,7 +38,7 @@ class FavoriteViewSet(CreateModelMixin, DestroyModelMixin, GenericViewSet):
             serializer.save()
             return Response({"message": "Лайк установлен"}, status=status.HTTP_201_CREATED)
         else:
-            return Response({"message": "Лайк уже установлен"}, status=status.HTTP_200_OK)
+            return Response({"message": "Лайк уже установлен"}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, *args, **kwargs):
         advertisement = request.data.get("advertisement")
