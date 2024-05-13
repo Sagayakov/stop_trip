@@ -12,7 +12,8 @@ from users.tests.factories import UserFactory
 class FavoriteAPIViewTest(APITestCase):
     def setUp(self):
         self.list_url: str = reverse("favorites-list")
-        self.all_favorites_url: str = reverse("favorites-my-favorites")
+        self.my_favorites_url: str = reverse("favorites-my-favorites")
+        self.my_likes_url: str = reverse("favorites-my-likes")
 
     def test_create_like(self):
         user = UserFactory()
@@ -66,7 +67,7 @@ class FavoriteAPIViewTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(FavoriteModel.objects.count(), 0)
 
-    def test_my_likes(self):
+    def test_my_favorites(self):
         user = UserFactory()
         me = UserFactory()
         advertisements = [TaxiAdvertisementFactory(owner=user) for _ in range(5)]
@@ -79,7 +80,26 @@ class FavoriteAPIViewTest(APITestCase):
         self.assertEqual(FavoriteModel.objects.count(), 5)
 
         with self.assertNumQueries(5):
-            res = self.client.get(self.all_favorites_url)
+            res = self.client.get(self.my_favorites_url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res_json = res.json()
+        self.assertEqual(len(res_json), len(advertisements))
+
+    def test_my_likes(self):
+        user = UserFactory()
+        me = UserFactory()
+        advertisements = [TaxiAdvertisementFactory(owner=user) for _ in range(5)]
+        self.client.force_login(me)
+        self.assertEqual(FavoriteModel.objects.count(), 0)
+
+        for advertisement in advertisements:
+            self.client.post(self.list_url, data={"advertisement": advertisement.slug})
+
+        self.assertEqual(FavoriteModel.objects.count(), 5)
+
+        with self.assertNumQueries(2):
+            res = self.client.get(self.my_likes_url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()

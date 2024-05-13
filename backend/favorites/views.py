@@ -55,7 +55,7 @@ class FavoriteViewSet(CreateModelMixin, DestroyModelMixin, GenericViewSet):
 
     @action(detail=False, methods=["GET"])
     def my_favorites(self, request, *args, **kwargs):
-        """Мои лайки"""
+        """Мои избранные объявления"""
 
         queryset = FavoriteModel.objects.filter(owner=self.request.user).prefetch_related(
             Prefetch(
@@ -74,3 +74,11 @@ class FavoriteViewSet(CreateModelMixin, DestroyModelMixin, GenericViewSet):
         )
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["GET"])
+    def my_likes(self, request, *args, **kwargs):
+        """Мои установленные лайки"""
+
+        queryset = FavoriteModel.objects.filter(owner=self.request.user)
+        data = queryset.values_list("advertisement__slug", flat=True)
+        return Response(list(data), status=status.HTTP_200_OK)
