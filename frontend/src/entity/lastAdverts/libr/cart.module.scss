@@ -36,6 +36,7 @@
                 align-items: flex-end;
                 width: 87%;
                 margin-bottom: 10px;
+                color: var(--main-blue);
                 .currency_rate {
                     color: var(--main-black);
                 }
@@ -158,6 +159,12 @@
             span {
                 font-size: 13px;
             }
+            .user_main {
+                gap: 0.2rem;
+                .rating_number {
+                    font-size: 13px;
+                }
+            }
         }
     }
 }
@@ -180,6 +187,12 @@
             }
             span {
                 font-size: 12px;
+            }
+            .user_main {
+                gap: 0.2rem;
+                .rating_number {
+                    font-size: 12px;
+                }
             }
         }
     }
