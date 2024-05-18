@@ -176,7 +176,7 @@ export const PhotoSlider = () => {
                             <>
                                 <ShareIcon />
                                 <Like
-                                    id={Number(data.id)}
+                                    slug={data.slug}
                                     color="#ff3f25"
                                     strokeColor="#1C1C1E"
                                 />

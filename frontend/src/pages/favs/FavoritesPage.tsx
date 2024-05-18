@@ -5,11 +5,9 @@ import styles from './libr/favorites.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Cart } from 'entity/lastAdverts/Cart';
 import { useEffect } from 'react';
-import { useGetAdvertsQuery } from 'app/api/fetchAdverts';
 
 const FavoritesPage = () => {
     const { data, isLoading, refetch } = useGetFavoritesQuery('');
-    const { data: advertsData } = useGetAdvertsQuery('');
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -19,10 +17,6 @@ const FavoritesPage = () => {
         sessionStorage.setItem('prevLocation', path); //для условия для яндекс метрики
     }, [refetch, data]);
 
-    const targetData = advertsData?.results?.filter(
-        (el) => data?.includes(el.id)
-    );
-
     return (
         <>
             {isLoading && <LoadingWithBackground />}
@@ -31,12 +25,12 @@ const FavoritesPage = () => {
                 &nbsp;{` > ${t('modal-logged.favorites')}`}
             </div>
             <h1 className={styles.title}>
-                {t('modal-logged.favorites')} <span>beta</span>
+                {t('modal-logged.favorites')}
             </h1>
-            {targetData && targetData.length ? (
+            {data && data.length ? (
                 <div className={styles.fav_list}>
-                    {targetData.map((el, index: number) => (
-                        <Cart key={el.id} {...el} index={index} />
+                    {data.map((el, index: number) => (
+                        <Cart key={el.advertisement.id} {...el.advertisement} index={index} />
                     ))}
                 </div>
             ) : (

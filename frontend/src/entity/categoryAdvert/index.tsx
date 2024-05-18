@@ -2,7 +2,7 @@
 //import { Rating } from 'shared/ui/Rating';
 import {
     useAddFavoriteMutation,
-    useDeleteFromFavoritesMutation,
+    useDeleteFavoriteMutation,
     useGetFavoritesQuery,
 } from 'app/api/fetchFavorites';
 import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes';
@@ -45,8 +45,15 @@ export const CategoryAdvert = (el: Props) => {
     const [addToFav, setAddToFav] = useState(false);
     const { data } = useGetFavoritesQuery('');
     const [addFavorite] = useAddFavoriteMutation();
-    const [deleteFromFavorites] = useDeleteFromFavoritesMutation();
+    const [deleteFavorite] = useDeleteFavoriteMutation();
     const { t } = useTranslation();
+    const [targetLike, setTargetLike] = useState<{id: number, advertisement: AdvertsTypes}>();
+
+    useEffect(() => {
+        const target = data?.find((el) => el.advertisement.id === id);
+        setTargetLike(target);
+        isAuth && setAddToFav(!!target);
+    }, [data, id, isAuth]);
 
     const notFoundImg = [
         '/image-not-found.jpg',
@@ -64,7 +71,7 @@ export const CategoryAdvert = (el: Props) => {
             setAddToFav(!addToFav);
 
             if (!addToFav) {
-                addFavorite({ id });
+                addFavorite({ advertisement: slug });
                 pushAddToFavourite({
                     id,
                     index,
@@ -74,7 +81,7 @@ export const CategoryAdvert = (el: Props) => {
                     listDescription: getPrevLocation(),
                 }); //добавляем в яндекс метрику "добавление в избранное"
             } else {
-                deleteFromFavorites({ id });
+                targetLike && deleteFavorite({ id: targetLike.id });
                 pushRemoveFromFavourite({
                     id,
                     index,
@@ -89,11 +96,6 @@ export const CategoryAdvert = (el: Props) => {
             toast.error(`${t('main-page.toast-favs')}`, { toastId });
         }
     };
-
-    useEffect(() => {
-        const target = data?.find((el) => el === id);
-        isAuth && setAddToFav(!!target);
-    }, [data, id, isAuth]);
 
     const date = getDate(date_create);
     const { dayToDisplay } = date;
