@@ -2,45 +2,48 @@ import { useEffect, useState } from 'react';
 import { Favorite } from '../icons/icons-tools/Favorite';
 import {
     useAddFavoriteMutation,
-    useDeleteFromFavoritesMutation,
+    useDeleteFavoriteMutation,
     useGetFavoritesQuery,
 } from 'app/api/fetchFavorites.ts';
 import { useAppSelector } from 'app/store/hooks.ts';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import styles from 'entity/photoSlider/libr/photoSlider.module.scss';
+import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes';
 
 type LikeProps = {
-    id: number;
+    slug: string;
     color?: string;
     strokeColor?: string;
 };
 
 export const Like = ({
-    id,
+    slug,
     color = '#ff3f25',
     strokeColor = '#8F8F8F',
 }: LikeProps) => {
     const { data } = useGetFavoritesQuery('');
     const [addFavorite] = useAddFavoriteMutation();
-    const [deleteFromFavorites] = useDeleteFromFavoritesMutation();
+    const [deleteFavorite] = useDeleteFavoriteMutation();
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
     const { t } = useTranslation();
 
     const [isLike, setIsLike] = useState(false);
+    const [targetLike, setTargetLike] = useState<{id: number, advertisement: AdvertsTypes}>();
 
     useEffect(() => {
-        const target = data?.find((el) => el === id);
+        const target = data?.find((el) => el.advertisement.slug === slug);
+        setTargetLike(target);
         isAuth && setIsLike(!!target);
-    }, [data, id, isAuth]);
+    }, [data, slug, isAuth]);
 
     const addToFavorite = () => {
         if (isAuth) {
             setIsLike(!isLike);
 
             isLike === false
-                ? addFavorite({ id })
-                : deleteFromFavorites({ id });
+                ? addFavorite({ advertisement: slug })
+                : targetLike && deleteFavorite({ id: targetLike.id });
         } else {
             const toastId = 'product add to fav toast';
             toast.error(`${t('main-page.toast-favs')}`, { toastId });

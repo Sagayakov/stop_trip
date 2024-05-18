@@ -5,7 +5,7 @@ import { Favorite } from 'shared/ui/icons/icons-tools/Favorite.tsx';
 import { GetDateOfCreating } from './libr/getDateOfCreating';
 import {
     useAddFavoriteMutation,
-    useDeleteFromFavoritesMutation,
+    useDeleteFavoriteMutation,
     useGetFavoritesQuery,
 } from 'app/api/fetchFavorites.ts';
 import { useAppSelector } from 'app/store/hooks.ts';
@@ -40,13 +40,15 @@ export const Cart = (cart: Props) => {
     } = cart;
     const { data } = useGetFavoritesQuery('');
     const [addFavorite] = useAddFavoriteMutation();
-    const [deleteFromFavorites] = useDeleteFromFavoritesMutation();
+    const [deleteFavorite] = useDeleteFavoriteMutation();
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
     const { t } = useTranslation();
     const [addToFav, setAddToFav] = useState(false);
+    const [targetLike, setTargetLike] = useState<{id: number, advertisement: AdvertsTypes}>();
 
     useEffect(() => {
-        const target = data?.find((el) => el === id);
+        const target = data?.find((el) => el.advertisement.id === id);
+        setTargetLike(target);
         isAuth && setAddToFav(!!target);
     }, [data, id, isAuth]);
 
@@ -60,7 +62,7 @@ export const Cart = (cart: Props) => {
             setAddToFav(!addToFav);
 
             if (!addToFav) {
-                addFavorite({ id });
+                addFavorite({ advertisement: slug });
                 pushAddToFavourite({
                     id,
                     index,
@@ -70,7 +72,7 @@ export const Cart = (cart: Props) => {
                     listDescription: getPrevLocation(),
                 }); //добавляем в яндекс метрику "добавление в избранное"
             } else {
-                deleteFromFavorites({ id });
+                targetLike && deleteFavorite({ id: targetLike.id });
                 pushRemoveFromFavourite({
                     id,
                     index,
