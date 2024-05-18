@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from users.models import User
 from .models import ReportModel
 from offers.models import Advertisement
 

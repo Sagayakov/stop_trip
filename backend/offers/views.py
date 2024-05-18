@@ -3,8 +3,9 @@ from copy import deepcopy
 from django.db.models import Prefetch
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema, OpenApiParameter
-from rest_framework import status
+from rest_framework import status, filters
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.pagination import PageNumberPagination
@@ -59,6 +60,8 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     filterset_class = AdvertisementFilter
     pagination_class = PageNumberPagination
     lookup_field = "slug"
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ["title", "description"]
 
     def get_queryset(self):
         queryset = Advertisement.objects.select_related(
