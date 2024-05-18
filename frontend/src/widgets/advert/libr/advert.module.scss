@@ -1,6 +1,7 @@
 .announcement_wrapper {
     max-width: 1240px;
     margin: 0 auto 50px;
+    font-family: var(--font-inter);
     .announcement_header {
         font-size: 1.63rem;
         margin: 1.5rem 0;
@@ -30,9 +31,14 @@
                     font-weight: 600;
                     color: var(--main-black);
                 }
-                p {
-                    font-size: 20px;
-                    color: var(--main-black);
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    p {
+                        font-size: 20px;
+                        color: var(--main-black);
+                    }
                 }
             }
             .complain_button {

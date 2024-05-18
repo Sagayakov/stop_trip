@@ -36,7 +36,9 @@ export const ProductInfo = ({ data }: Props) => {
                     <div className={styles.description_header}>
                         {t('advert-page.description')}
                     </div>
-                    <p>{data.description}</p>
+                    <div>{data.description.split('\r\n').map((el) => (
+                        <p>{el}</p>
+                    ))}</div>
                 </div>
             )}
             {data.coordinates && <AdvertLocation data={data} />}
