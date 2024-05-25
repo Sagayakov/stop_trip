@@ -48,7 +48,7 @@
                 height: 50px;
                 border: 1px solid var(--grey-1);
                 padding: 16px 16px 16px 50px;
-                z-index: -1; //чтобы сработало уведмление "в разработке"
+                //z-index: -1; //чтобы сработало уведмление "в разработке"
                 &:focus {
                     border: 1px solid var(--main-blue);
                 }

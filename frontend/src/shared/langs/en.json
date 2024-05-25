@@ -420,5 +420,12 @@
         "8_10_text": "The Site owner undertakes to take all necessary measures to protect the personal data of the user from unauthorized access, alteration, distribution, or destruction.",
         "8_11_text": "By confirming their agreement with the terms of this Agreement, the user also agrees with the Privacy Policy published on the Site.",
         "final_text": "The user confirms their agreement with the terms of this Agreement by using the Site and posting information on it."
+    },
+    "search_ad_page": {
+        "results_found": "At your request we found {{count}} {{declension}}",
+        "one": "announcement",
+        "few": "announcements",
+        "many": "announcements",
+        "no_results": "Unfortunately, nothing was found for your request"
     }
 }

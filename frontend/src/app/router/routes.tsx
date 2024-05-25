@@ -14,6 +14,7 @@ import {
     MySettings,
     UserAgreement,
     UserPage,
+    AdvertisementSearch,
 } from './components';
 
 interface Route {
@@ -34,6 +35,7 @@ export const publicRoutes: Route[] = [
     { path: '/user-agreement', component: UserAgreement },
     { path: '/users/:id', component: UserPage },
     { path: '/404', component: PageNotFound },
+    { path: '/advertisement-search', component: AdvertisementSearch },
     ...categoryRoutes,
 ];
 

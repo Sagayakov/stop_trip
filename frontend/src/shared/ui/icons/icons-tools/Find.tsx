@@ -1,6 +1,9 @@
-export const Find = () => {
+interface Props extends React.SVGProps<SVGSVGElement> {}
+
+export const Find = (props: Props) => {
   return (
     <svg
+      {...props}
       width="24"
       height="24"
       viewBox="0 0 24 24"

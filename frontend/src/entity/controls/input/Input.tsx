@@ -1,32 +1,51 @@
 import { Find } from 'shared/ui/icons/icons-tools/Find.tsx';
 import { useTranslation } from 'react-i18next';
 import styles from 'features/controls/controls.module.scss';
-import { toast } from 'react-toastify';
 import { useMatchMedia } from 'app/hooks/useMatchMedia';
 import { Tooltip } from 'react-tooltip';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Input = () => {
     const { t } = useTranslation();
     const { isDesktop } = useMatchMedia();
+    const [searchValue, setSearchValue] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleClick = () => {
-        const toastId = 'search toast';
-        toast.warn(`${t('main-page.search-tooltip')}`, { toastId });
+    const handleSearch = (searchValue: string) => {
+        if (!searchValue) {
+            return;
+        }
+        navigate('/advertisement-search', { state: { query: searchValue } });
     };
-    // isTablet && toast.warn(`${t('main-page.search-tooltip')}`);
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleSearch(searchValue);
+        }
+    };
+
+    useEffect(() => {
+        if (location.state?.query) {
+            setSearchValue(location.state.query);
+        }
+    }, [location.state]);
+
+    useEffect(() => () => setSearchValue(''), []); // на размонтирование
 
     return (
         <div
             className={styles.input_wrapper}
-            onClick={handleClick}
             data-tooltip-id="search-tooltip"
-            data-tooltip-content={t('main-page.search-tooltip')}
         >
-            <Find />
+            <Find onClick={() => handleSearch(searchValue)} />
             <input
                 name="search_input"
                 placeholder={t('main-page.find')}
-                disabled
+                autoComplete="off"
+                value={searchValue}
+                onChange={(event) => setSearchValue((event.target.value).toLowerCase())}
+                onKeyDown={handleKeyDown}
             />
             {isDesktop && (
                 <Tooltip

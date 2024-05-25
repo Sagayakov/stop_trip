@@ -29,3 +29,4 @@ export const UserAgreement = lazy(
     () => import('pages/userAgreement/UserAgreement.tsx')
 );
 export const UserPage = lazy(() => import('pages/user/UserPage.tsx'))
+export const AdvertisementSearch = lazy(() => import('pages/advertisementSearch/AdvertisementSearch.tsx'));
