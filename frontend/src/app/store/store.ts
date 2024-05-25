@@ -16,6 +16,7 @@ import { fetchMessengers } from 'app/api/fetchMessengers';
 import { authFetchAdverts } from 'app/api/authFetchAdverts.ts';
 import { setIsDevNotificationVisibleSlice } from 'features/devNotification/model/isDevNotificationVisible';
 import { fetchSeller } from 'app/api/fetchSeller';
+import { fetchSearchAdverts } from 'app/api/fetchSearchAdverts.ts';
 
 const setupStore = () =>
     configureStore({
@@ -39,6 +40,7 @@ const setupStore = () =>
             [fetchMessengers.reducerPath]: fetchMessengers.reducer,
             [authFetchAdverts.reducerPath]: authFetchAdverts.reducer,
             [fetchSeller.reducerPath]: fetchSeller.reducer,
+            [fetchSearchAdverts.reducerPath]: fetchSearchAdverts.reducer,
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
@@ -48,6 +50,7 @@ const setupStore = () =>
                 .concat(fetchRating.middleware)
                 .concat(fetchMessengers.middleware)
                 .concat(authFetchAdverts.middleware)
+                .concat(fetchSearchAdverts.middleware)
                 .concat(fetchSeller.middleware),
     });
 
