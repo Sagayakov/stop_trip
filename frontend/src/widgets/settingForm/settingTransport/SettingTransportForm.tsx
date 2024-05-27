@@ -28,6 +28,7 @@ import formStyle from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingTransportForm/District';
+import { StickyButton } from 'features/stickyButton/StickyButton';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -92,7 +93,7 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 <ConditionOfTransport control={control} setValue={setValue} />
                 <TransportCommission register={register} />
                 <SettingTransportPrice register={register} />
-                <input type="submit" value={t('filters.apply')} />
+                <StickyButton />
                 <UniversalButton
                     onClick={handleReset}
                     className={`${formStyle.reset_setting_form} ${styles.reset_setting_form}`}
