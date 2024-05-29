@@ -1,9 +1,11 @@
 import { getMultiQuery } from 'shared/utils/getMultiQuery';
+import { Price } from './TypeOfDocumentFilter';
 
 export const searchParamsForDocument = (
-    city?: string[],
-    document_duration?: string[],
-    document_type?: string[]
+    city: string[],
+    document_duration: string[],
+    document_type: string[],
+    price: Price,
 ) => {
     const documentCity = getMultiQuery('city', city);
 
@@ -15,5 +17,13 @@ export const searchParamsForDocument = (
         ? `&document_type=${document_type.join('%2C')}`
         : '';
 
-    return { documentCity, duration, types };
+    const priceMaxQuery = price.max
+        ? `&price_max=${price.max.toString().replace(/,/g, '.')}`
+        : '';
+
+    const priceMinQuery = price.min
+        ? `&price_min=${price.min.toString().replace(/,/g, '.')}`
+        : '';
+
+    return { documentCity, duration, types, priceMaxQuery, priceMinQuery };
 };

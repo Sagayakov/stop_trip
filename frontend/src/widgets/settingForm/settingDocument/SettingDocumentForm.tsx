@@ -16,6 +16,7 @@ import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingDocumentForm/District';
 import { StickyButton } from 'features/stickyButton/StickyButton';
+import { DocumentPrice } from 'features/settingCategoryForm/settingDocumentForm/DocumentPrice';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -31,20 +32,21 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
         event.stopPropagation();
     };
 
-    const { handleSubmit, reset, setValue, control, watch } =
+    const { handleSubmit, reset, setValue, control, watch, register } =
         useForm<TypeOfDocumentFilter>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeOfDocumentFilter> = (data) => {
-        const { city, document_duration, document_type } = data;
+        const { city, document_duration, document_type, price } = data;
 
-        const { documentCity, duration, types } = searchParamsForDocument(
+        const { documentCity, duration, types, priceMaxQuery, priceMinQuery } = searchParamsForDocument(
             city,
             document_duration,
-            document_type
+            document_type,
+            price,
         );
 
         setSearchParams(
-            `category=document${documentCity}${types}${duration}&page=1`
+            `category=document${documentCity}${types}${duration}${priceMaxQuery}${priceMinQuery}&page=1`
         );
 
         setShowFilters(false);
@@ -68,6 +70,7 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                 <City control={control} setValue={setValue} watch={watch} />
                 <DocumentType control={control} setValue={setValue} />
                 <DocumentDuration control={control} setValue={setValue} />
+                <DocumentPrice register={register} />
                 <StickyButton />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
