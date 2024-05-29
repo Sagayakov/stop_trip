@@ -15,6 +15,7 @@ import { getDefaultValues } from './libr/getDefaultValues';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { District } from 'features/settingCategoryForm/settingMarketForm/District';
 import { StickyButton } from 'features/stickyButton/StickyButton';
+import { MarketPrice } from 'features/settingCategoryForm/settingMarketForm/MarketPrice';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -34,14 +35,22 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         useForm<TypeForMarketForm>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeForMarketForm> = (data) => {
-        const { city, market_condition } = data;
+        const { city, market_condition, price } = data;
 
         const marketCity = getMultiQuery('city', city);
         const condition = market_condition
             ? `&market_condition=${market_condition}`
             : '';
 
-        setSearchParams(`category=market${marketCity}${condition}&page=1`);
+        const priceMaxQuery = price.max
+            ? `&price_max=${price.max.toString().replace(/,/g, '.')}`
+            : '';
+    
+        const priceMinQuery = price.min
+            ? `&price_min=${price.min.toString().replace(/,/g, '.')}`
+            : '';
+
+        setSearchParams(`category=market${marketCity}${condition}${priceMaxQuery}${priceMinQuery}&page=1`);
         setShowFilters(false);
         scrollToTop();
     };
@@ -62,6 +71,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                 <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} watch={watch} />
                 <MarketCondition register={register} />
+                <MarketPrice register={register} />
                 <StickyButton />
                 <button
                     className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`}
