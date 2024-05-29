@@ -16,6 +16,7 @@ import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingExcursionForm/District';
 import { StickyButton } from 'features/stickyButton/StickyButton';
+import { ExcursionPrice } from 'features/settingCategoryForm/settingExcursionForm/ExcursionPrice';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -35,12 +36,13 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
         useForm<TypeForExcursionFilter>({ defaultValues });
 
     const onSubmit: SubmitHandler<TypeForExcursionFilter> = (data) => {
-        const { city, excursion_food, excursion_transfer } = data;
+        const { city, excursion_food, excursion_transfer, price } = data;
 
         const filters = getSearchParams(
             city,
             excursion_food,
-            excursion_transfer
+            excursion_transfer,
+            price
         );
 
         setSearchParams(`category=excursion${filters}&page=1`);
@@ -65,6 +67,7 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
                 <City control={control} setValue={setValue} watch={watch} />
                 <ExcursionFood register={register} />
                 <ExcursionTransfer register={register} />
+                <ExcursionPrice register={register} />
                 <StickyButton />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
