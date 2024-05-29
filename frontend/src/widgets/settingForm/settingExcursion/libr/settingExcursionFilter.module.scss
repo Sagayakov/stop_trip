@@ -52,8 +52,15 @@
         .settingExcursionTransfer {
             grid-area: transfer;
         }
-        .eventPrice {
+        .price {
             grid-area: price;
+            width: 100%;
+            .setting_price {
+                gap: 1rem;
+                input {
+                    width: 100%;
+                }
+            }
         }
         .reset_setting_form {
             grid-area: resetBnt;
