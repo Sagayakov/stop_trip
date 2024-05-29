@@ -16,6 +16,7 @@ import { searchParamsForExchange } from './libr/searchParamsForExchange';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingCurrencyForm/District';
+import { StickyButton } from 'features/stickyButton/StickyButton';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -81,7 +82,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
                     watch={watch}
                 />
                 <ExchangeRate register={register} />
-                <input type="submit" value={t('filters.apply')} />
+                <StickyButton />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}

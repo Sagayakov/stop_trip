@@ -19,6 +19,17 @@
             font-weight: 700;
         }
     }
+    input[type='number'] {
+        height: auto;
+        border: none;
+    }
+    .price {
+        .setting_price {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -30,6 +41,7 @@
             'district city'
             'foodType .'
             'foodDel foodEst'
+            'price price'
             'submitBtn resetBnt';
 
         .propertyDistrict {
@@ -48,6 +60,16 @@
         }
         .foodType {
             grid-area: foodType;
+        }
+        .price {
+            grid-area: price;
+            width: 100%;
+            .setting_price {
+                gap: 1rem;
+                input {
+                    width: 100%;
+                }
+            }
         }
         .reset_setting_form {
             width: 135%;

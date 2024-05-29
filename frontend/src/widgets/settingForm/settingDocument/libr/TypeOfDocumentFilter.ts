@@ -3,9 +3,10 @@ export interface TypeOfDocumentFilter {
     city: string[];
     document_type: string[];
     document_duration: string[];
+    price: Price;
 }
 
-/* interface Document {
-    value: string;
-    label: string;
-} */
+export interface Price {
+    min: number;
+    max: number;
+}

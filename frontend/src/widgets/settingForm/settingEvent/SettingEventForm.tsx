@@ -17,6 +17,7 @@ import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
 import { District } from 'features/settingCategoryForm/settingEvent/District.tsx';
+import { StickyButton } from 'features/stickyButton/StickyButton.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -70,7 +71,7 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
                 <DateOfEndEvent register={register} />
                 <EventPrice register={register} />
                 <IsOnlineEvent register={register} />
-                <input type="submit" value={t('filters.apply')} />
+                <StickyButton />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}

@@ -18,6 +18,7 @@ import styles from './libr/settingJobFilter.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
 import { District } from 'features/settingCategoryForm/settingJob/District.tsx';
+import { StickyButton } from 'features/stickyButton/StickyButton.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -80,7 +81,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
                 <TypeOfPayment control={control} setValue={setValue} />
                 <PriceOfJob register={register} />
                 <WithExperience register={register} />
-                <input type="submit" value={t('filters.apply')} />
+                <StickyButton />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}

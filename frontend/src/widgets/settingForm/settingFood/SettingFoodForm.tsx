@@ -16,6 +16,8 @@ import stylesForm from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingFoodForm/District';
+import { StickyButton } from 'features/stickyButton/StickyButton';
+import { FoodPrice } from 'features/settingCategoryForm/settingFoodForm/FoodPrice';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -35,16 +37,17 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
         useForm<TypeForFoodForm>({ defaultValues });
 
     const onsubmit: SubmitHandler<TypeForFoodForm> = (data) => {
-        const { city, food_delivery, food_establishment, food_type } = data;
+        const { city, food_delivery, food_establishment, food_type, price } = data;
 
-        const { foodCity, delivery, establishment, type } = searchParamsForFood(
+        const { foodCity, delivery, establishment, type, priceMaxQuery, priceMinQuery } = searchParamsForFood(
             city,
             food_delivery,
             food_establishment,
-            food_type
+            food_type,
+            price,
         );
         setSearchParams(
-            `category=food${foodCity}${type}${delivery}${establishment}&page=1`
+            `category=food${foodCity}${type}${delivery}${establishment}${priceMaxQuery}${priceMinQuery}&page=1`
         );
 
         setShowFilters(false);
@@ -69,7 +72,8 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
                 <FoodType control={control} setValue={setValue} />
                 <FoodDelivery register={register} />
                 <FoodEstablishment register={register} />
-                <input type="submit" value={t('filters.apply')} />
+                <FoodPrice register={register} />
+                <StickyButton />
                 <button
                     className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}

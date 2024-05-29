@@ -15,6 +15,17 @@
             font-weight: 700;
         }
     }
+    input[type='number'] {
+        height: auto;
+        border: none;
+    }
+    .price {
+        .setting_price {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -24,6 +35,7 @@
         grid-template-areas:
             'district city'
             'duration type'
+            'price price'
             'resetBtn submitBtn';
         gap: 16px;
 
@@ -38,6 +50,16 @@
         }
         .documentType {
             grid-area: type;
+        }
+        .price {
+            grid-area: price;
+            width: 100%;
+            .setting_price {
+                gap: 1rem;
+                input {
+                    width: 100%;
+                }
+            }
         }
         input[type='submit'] {
             grid-area: submitBtn;

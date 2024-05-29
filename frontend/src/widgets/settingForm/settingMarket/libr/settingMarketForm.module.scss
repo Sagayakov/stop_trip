@@ -18,6 +18,17 @@
             font-weight: 700;
         }
     }
+    input[type='number'] {
+        height: auto;
+        border: none;
+    }
+    .price {
+        .setting_price {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -27,7 +38,7 @@
         gap: 16px;
         grid-template-areas:
             'district city'
-            'cond .'
+            'cond price'
             'submitBtn resetbtn';
 
         .propertyDistrict {
@@ -38,6 +49,16 @@
         }
         .marketCondition {
             grid-area: cond;
+        }
+        .price {
+            grid-area: price;
+            width: 100%;
+            .setting_price {
+                gap: 1rem;
+                input {
+                    width: 100%;
+                }
+            }
         }
         .reset_setting_form {
             grid-area: resetbtn;
