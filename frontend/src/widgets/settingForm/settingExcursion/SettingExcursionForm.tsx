@@ -15,6 +15,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingExcursionForm/District';
+import { StickyButton } from 'features/stickyButton/StickyButton';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -64,7 +65,7 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
                 <City control={control} setValue={setValue} watch={watch} />
                 <ExcursionFood register={register} />
                 <ExcursionTransfer register={register} />
-                <input type="submit" value={t('filters.apply')} />
+                <StickyButton />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}

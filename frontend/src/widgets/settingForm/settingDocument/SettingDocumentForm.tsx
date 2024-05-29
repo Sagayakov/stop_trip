@@ -15,6 +15,7 @@ import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingDocumentForm/District';
+import { StickyButton } from 'features/stickyButton/StickyButton';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -67,7 +68,7 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                 <City control={control} setValue={setValue} watch={watch} />
                 <DocumentType control={control} setValue={setValue} />
                 <DocumentDuration control={control} setValue={setValue} />
-                <input type="submit" value={t('filters.apply')} />
+                <StickyButton />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}

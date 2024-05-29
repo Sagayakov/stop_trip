@@ -14,6 +14,7 @@ import { getMultiQuery } from 'shared/utils/getMultiQuery';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { District } from 'features/settingCategoryForm/settingMarketForm/District';
+import { StickyButton } from 'features/stickyButton/StickyButton';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -61,7 +62,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                 <District control={control} setValue={setValue} />
                 <City control={control} setValue={setValue} watch={watch} />
                 <MarketCondition register={register} />
-                <input type="submit" value={t('filters.apply')} />
+                <StickyButton />
                 <button
                     className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}
