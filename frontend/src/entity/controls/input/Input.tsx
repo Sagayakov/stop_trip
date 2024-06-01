@@ -4,7 +4,7 @@ import styles from 'features/controls/controls.module.scss';
 import { useMatchMedia } from 'app/hooks/useMatchMedia';
 import { Tooltip } from 'react-tooltip';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 export const Input = () => {
     const { t } = useTranslation();
@@ -12,12 +12,20 @@ export const Input = () => {
     const [searchValue, setSearchValue] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
+    const [_, setSearchParams] = useSearchParams();
 
     const handleSearch = (searchValue: string) => {
         if (!searchValue) {
             return;
         }
-        navigate('/advertisement-search', { state: { query: searchValue } });
+        const params = new URLSearchParams(searchValue);
+
+        if (searchValue.trim() !== '') {
+            params.toString();
+            params.set('search', searchValue);
+            setSearchParams(params);
+        }
+        navigate(`/advertisement-search?${params}`, { state: { query: searchValue } });
     };
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
