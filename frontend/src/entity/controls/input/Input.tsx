@@ -12,20 +12,27 @@ export const Input = () => {
     const [searchValue, setSearchValue] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    const [_, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
+
 
     const handleSearch = (searchValue: string) => {
         if (!searchValue) {
             return;
         }
-        const params = new URLSearchParams(searchValue);
 
         if (searchValue.trim() !== '') {
-            params.toString();
-            params.set('search', searchValue);
-            setSearchParams(params);
+            setSearchParams(prevParams => {
+                const newParams = new URLSearchParams(prevParams);
+                newParams.set('search', searchValue);
+                return newParams;
+            });
+
+            const updatedSearchParams = new URLSearchParams(searchParams.toString());
+            updatedSearchParams.set('search', searchValue);
+            const searchQueryString = updatedSearchParams.toString();
+
+            navigate(`/advertisement-search?${searchQueryString}`, { state: { query: searchValue } });
         }
-        navigate(`/advertisement-search?${params}`, { state: { query: searchValue } });
     };
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
