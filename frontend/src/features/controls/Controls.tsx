@@ -16,12 +16,8 @@ const Controls = () => {
                         setShowModal={setShowModal}
                     />
                 )}
-                {!isMobile && (
-                    <>
-                        <Input />
-                        <SelectGeo />
-                    </>
-                )}
+                <Input />
+                {!isMobile && <SelectGeo />}
                 <ModalWindow
                     showModal={showModal}
                     setShowModal={setShowModal}

@@ -6,10 +6,13 @@ import styles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { Price as PriceType } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { Filters } from 'widgets/advertisementSearch';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
 import { SearchAdBlock } from 'widgets/advertisementSearch';
 import { Pagination } from 'features/pagination';
+import { ArrowLeft10x24 } from 'shared/ui/icons/icons-tools/ArrowLeft10x24.tsx';
+import { HorizontalMixer } from 'shared/ui/icons/icons-tools/HorizontalMixer.tsx';
+import { useTranslation } from 'react-i18next';
 
 
 export interface SearchFormTypes {
@@ -26,9 +29,15 @@ export interface SearchOptions {
 const AdvertisementSearch = () => {
     const parentRef = useRef<HTMLDivElement>(null);
     const [showFilters, setShowFilters] = useState<boolean>(false);
+    const { t } = useTranslation();
     const { isDesktop } = useMatchMedia();
     const queryParam = useLocation().search;
     const { data } = useGetAdvertsQuery(queryParam);
+
+    const filterBtnStyle = {
+        display: `${isDesktop ? 'none' : 'flex'}`,
+        backgroundColor: `${showFilters ? '#CDE1FF' : '#EBF3FF'}`,
+    };
 
     const handleClickFilterForm = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -45,6 +54,27 @@ const AdvertisementSearch = () => {
     return (
         <Suspense fallback={<LoaidngWithoutBackground />}>
             <Controls />
+            {!isDesktop && (
+                <div className={style.bread_crumbs}>
+                    <NavLink to="/">
+                        <ArrowLeft10x24
+                            style={{
+                                cursor: 'pointer',
+                                marginRight: '8px',
+                            }}
+                        />
+                        <h1>{t('add-page.back')}</h1>
+                    </NavLink>
+                    <div
+                        className={style.filter_btn}
+                        onClick={() => setShowFilters(!showFilters)}
+                        style={filterBtnStyle}
+                    >
+                        <HorizontalMixer />
+                        {t('filters.filters')}
+                    </div>
+                </div>
+            )}
             <div className={style.category_content_wrapper} ref={parentRef}>
                 <div className={style.filters_announcement}>
                     <div

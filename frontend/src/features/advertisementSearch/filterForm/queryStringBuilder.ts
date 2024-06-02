@@ -18,6 +18,9 @@ export const queryStringBuilder = (currentParams: URLSearchParams, data: SearchF
                 if (price.max !== null && price.max !== undefined && price.max) {
                     params.set('price_max', String(price.max));
                 }
+                if (price.limit !== null && price.limit !== undefined) {
+                    params.set('price_limit', String(price.limit));
+                }
             } else {
                 (Object.keys(value) as Array<keyof typeof value>).forEach(subKey => {
                     const subValue = value[subKey];
