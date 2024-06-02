@@ -1,8 +1,8 @@
-import styles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SearchFormTypes } from 'pages/advertisementSearch/AdvertisementSearch.tsx';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 
 interface Props {
     register: UseFormRegister<SearchFormTypes>;

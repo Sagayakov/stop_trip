@@ -1,9 +1,9 @@
-import styles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { SearchFormTypes } from 'pages/advertisementSearch/AdvertisementSearch.tsx';
 import { categories } from 'shared/const/categories.tsx';
 import { useTranslation } from 'react-i18next';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 
 interface Props {
     control: Control<SearchFormTypes>;
@@ -21,7 +21,7 @@ export const Category = ({ control, setValue }: Props) => {
     );
 
     return (
-        <div className={styles.filter_realty_form}>
+        <div className={styles.propertyDistrict}>
             <h3>{t('labels.category')}</h3>
             <UniversalSelectDropdown
                 setValue={setValue}

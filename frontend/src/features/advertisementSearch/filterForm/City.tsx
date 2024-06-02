@@ -5,7 +5,7 @@ import { useAppSelector } from 'app/store/hooks.ts';
 import { useTranslation } from 'react-i18next';
 import { SearchFormTypes, SearchOptions } from 'pages/advertisementSearch/AdvertisementSearch.tsx';
 import { Control, UseFormSetValue } from 'react-hook-form';
-import styles from 'widgets/settingForm/forms/filtersForm.module.scss';
+import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 
 interface Props {
     control: Control<SearchFormTypes>;

@@ -1,19 +1,16 @@
-import styles from 'widgets/lastAdverts/libr/LastAdverts.module.scss';
 import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
-import { Cart } from 'entity/lastAdverts';
-import { Pagination } from 'features/pagination';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useRef } from 'react';
-import { useGetSearchAdvertsQuery } from 'app/api/fetchSearchAdverts.ts';
 import { getDeclension } from 'shared/utils/getDeclension.ts';
+import { CategoryAdvert } from 'entity/categoryAdvert';
+import { useGetAdvertsQuery } from 'app/api/fetchAdverts.ts';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground.tsx';
+import style from 'pages/categoryPage/style/categoryPage.module.scss';
 
 export const SearchAdBlock = () => {
-    const location = useLocation();
-    const searchValue = location.state?.query;
     const { t } = useTranslation();
-    const parentRef = useRef<HTMLDivElement>(null);
-    const { data, isSuccess } = useGetSearchAdvertsQuery(searchValue);
+    const queryParam = useLocation().search;
+    const { data, isSuccess, isLoading } = useGetAdvertsQuery(queryParam);
 
     const h3Text = () => {
         if (isSuccess) {
@@ -25,19 +22,19 @@ export const SearchAdBlock = () => {
     }
 
     return (
-        <section className={styles.last_announcement}>
-            {isSuccess && <div
-                className={styles.last_announcement_wrapper}
-                ref={parentRef}
-            >
-                <h3>{h3Text()}</h3>
-                <div className={styles.announcement_list}>
-                    {data.results.map((ad: AdvertsTypes, index: number) => (
-                        <Cart {...ad} key={ad.id} index={index} />
-                    ))}
-                </div>
-                <Pagination data={data} parentRef={parentRef} />
-            </div>}
+        <section className={style.announcement}>
+            <h3 style={{fontSize: '20px'}} >{h3Text()}</h3>
+            {isLoading && <LoadingWithBackground />}
+            {isSuccess
+                && data.results.length > 0
+                && data.results.length
+                && data.results.map((el: AdvertsTypes, index: number) => (
+                    <CategoryAdvert
+                        {...el}
+                        key={el.id}
+                        index={index}
+                    />
+                ))}
         </section>
     )
 }
