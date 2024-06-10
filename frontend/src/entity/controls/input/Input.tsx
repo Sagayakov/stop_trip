@@ -16,10 +16,6 @@ export const Input = () => {
 
 
     const handleSearch = (searchValue: string) => {
-        if (!searchValue) {
-            return;
-        }
-
         if (searchValue.trim() !== '') {
             setSearchParams(prevParams => {
                 const newParams = new URLSearchParams(prevParams);
