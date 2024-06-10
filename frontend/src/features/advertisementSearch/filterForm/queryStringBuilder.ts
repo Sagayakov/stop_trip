@@ -4,6 +4,13 @@ import { Price } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.
 export const queryStringBuilder = (currentParams: URLSearchParams, data: SearchFormTypes) => {
     const params = new URLSearchParams(currentParams);
 
+    Array.from(params.keys()).forEach(key => {
+        const keyInData = key.split('[')[0];
+        if (!(keyInData in data)) {
+            params.delete(key);
+        }
+    });
+
     (Object.keys(data) as Array<keyof SearchFormTypes>).forEach(key => {
         const value = data[key];
 
@@ -12,10 +19,10 @@ export const queryStringBuilder = (currentParams: URLSearchParams, data: SearchF
         } else if (typeof value === 'object' && value !== null) {
             if (key === 'price') {
                 const price = value as Price;
-                if (price.min !== null && price.min !== undefined && price.min) {
+                if (price.min !== null && price.min !== undefined && price.min && price.min < price.max) {
                     params.set('price_min', String(price.min));
                 }
-                if (price.max !== null && price.max !== undefined && price.max) {
+                if (price.max !== null && price.max !== undefined && price.max && price.max > price.min) {
                     params.set('price_max', String(price.max));
                 }
                 if (price.limit !== null && price.limit !== undefined) {
