@@ -25,6 +25,7 @@ export const Filters = () => {
         reset();
         setSearchParams();
         location.reload();
+        sessionStorage.removeItem('searchValue');
     };
 
     return (
