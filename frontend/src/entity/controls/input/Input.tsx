@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import styles from 'features/controls/controls.module.scss';
 import { useMatchMedia } from 'app/hooks/useMatchMedia';
 import { Tooltip } from 'react-tooltip';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 export const Input = () => {
@@ -36,6 +36,12 @@ export const Input = () => {
         }
     };
 
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const value =  event.target.value.toLowerCase();
+        sessionStorage.setItem('searchValue', value);
+        setSearchValue(value);
+    }
+
     useEffect(() => {
         if (location.state?.query) {
             setSearchValue(location.state.query);
@@ -55,7 +61,7 @@ export const Input = () => {
                 placeholder={t('main-page.find')}
                 autoComplete="off"
                 value={searchValue}
-                onChange={(event) => setSearchValue((event.target.value).toLowerCase())}
+                onChange={handleChange}
                 onKeyDown={handleKeyDown}
             />
             {isDesktop && (

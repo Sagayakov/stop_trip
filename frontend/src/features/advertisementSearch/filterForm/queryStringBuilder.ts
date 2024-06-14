@@ -2,12 +2,12 @@ import { SearchFormTypes } from 'pages/advertisementSearch/AdvertisementSearch.t
 import { Price } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 
 export const queryStringBuilder = (currentParams: URLSearchParams, data: SearchFormTypes) => {
-    const params = new URLSearchParams(currentParams);
+    const params = new URLSearchParams(currentParams); // получаем текущие параметры
 
     Array.from(params.keys()).forEach(key => {
         const keyInData = key.split('[')[0];
         if (!(keyInData in data)) {
-            params.delete(key);
+            params.delete(key); // удаляем старые значения, чтобы избежать дублирования
         }
     });
 
@@ -40,6 +40,10 @@ export const queryStringBuilder = (currentParams: URLSearchParams, data: SearchF
             params.set(key, String(value));
         }
     });
+
+    if (sessionStorage.getItem('searchValue')) {
+        params.set('search', sessionStorage.getItem('searchValue') ?? '');
+    }
 
     return params.toString();
 };

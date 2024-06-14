@@ -27,6 +27,10 @@ export const ProductInfo = ({ data }: Props) => {
         !isAuth ? setNeedAuth(true) : setShowComplainModal(true);
     };
 
+    const formattedDescription = data.description.split('\n').map((line, index) => (
+        <p key={index}>{line.trim()}</p>
+    ));
+
     return (
         <section className={styles.product_info}>
             {!isMobile && <PhotoSlider />}
@@ -36,9 +40,7 @@ export const ProductInfo = ({ data }: Props) => {
                     <div className={styles.description_header}>
                         {t('advert-page.description')}
                     </div>
-                    <div>{data.description.split('\r\n').map((el) => (
-                        <p>{el}</p>
-                    ))}</div>
+                    <div>{formattedDescription}</div>
                 </div>
             )}
             {data.coordinates && <AdvertLocation data={data} />}
@@ -49,7 +51,7 @@ export const ProductInfo = ({ data }: Props) => {
             >
                 {t('add-page.complain')}
             </button>
-            
+
             {showComplainModal &&
                 createPortal(
                     <ModalComplain
