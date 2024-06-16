@@ -38,6 +38,13 @@ export const ProposedCurrency = ({ control, setValue, available_params }: Props)
         }
     }, [data, available_params]);
 
+    const options = lang === 'ru'
+        ? currencyValues
+        : currencyValues.map((el) => ({
+              value: el.value,
+              label: el.value,
+          }));
+
     return (
         <>
             <div className={styles.proposedCurrency}>
@@ -47,18 +54,12 @@ export const ProposedCurrency = ({ control, setValue, available_params }: Props)
                     control={control}
                     isMulti={false}
                     name="proposed_currency"
-                    options={
-                        lang === 'ru'
-                            ? currencyValues
-                            : currencyValues.map((el) => ({
-                                  value: el.value,
-                                  label: el.value,
-                              }))
-                    }
+                    options={options}
                     placeholder={t('filters.proposed_currency')}
                     prefix="filterForm"
                     setValue={setValue}
                     isSearchable={!isMobile}
+                    defaultValue={options.length === 1 ? options[0] : undefined}
                 />
             </div>
         </>

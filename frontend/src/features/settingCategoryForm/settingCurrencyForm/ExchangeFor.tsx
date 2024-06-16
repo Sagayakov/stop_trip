@@ -38,6 +38,13 @@ export const ExchangeFor = ({ control, setValue, available_params }: Props) => {
         }
     }, [data, available_params]);
 
+    const options = lang === 'ru'
+        ? currencyValues
+        : currencyValues.map((el) => ({
+              value: el.value,
+              label: el.value,
+          }));
+
     return (
         <div className={styles.exchangeFor}>
             <h3>{t('filters.exchange_for')}</h3>
@@ -46,18 +53,12 @@ export const ExchangeFor = ({ control, setValue, available_params }: Props) => {
                 control={control}
                 isMulti={false}
                 name="exchange_for"
-                options={
-                    lang === 'ru'
-                        ? currencyValues
-                        : currencyValues.map((el) => ({
-                              value: el.value,
-                              label: el.value,
-                          }))
-                }
+                options={options}
                 placeholder={t('filters.exchange_for')}
                 prefix="filterForm"
                 setValue={setValue}
                 isSearchable={!isMobile}
+                defaultValue={options.length === 1 ? options[0] : undefined}
             />
         </div>
     );

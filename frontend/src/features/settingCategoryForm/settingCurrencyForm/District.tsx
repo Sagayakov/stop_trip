@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingCurrency/libr/settingCurrencyFilter.module.scss';
 import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;
@@ -20,6 +21,7 @@ export const District = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [districtValues, setDistrictValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -29,6 +31,16 @@ export const District = ({ control, setValue }: Props) => {
             data && setDistrictValues(result as SelectType[]);
         }
     }, [data]);
+
+    const options = lang === 'ru'
+        ? districtValues
+        : districtValues.map((el) => ({
+              value: el.value,
+              label: `${el.value
+                .split('-')
+                .map((item) => `${item[0].toUpperCase()}${item.slice(1)}`)
+                .join(' ')}`,
+          }));
 
     return (
         <>
@@ -42,8 +54,8 @@ export const District = ({ control, setValue }: Props) => {
                     placeholder={t('filters.property_district')}
                     closeMenuOnSelect={true}
                     isMulti={false}
-                    options={districtValues}
-                    defaultValue={{ value: 'north-goa', label: 'Северный Гоа' }}
+                    options={options}
+                    defaultValue={options.length === 1 ? options[0] : undefined}
                 />
             </div>
         </>

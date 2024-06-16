@@ -36,6 +36,15 @@ export const City = ({ control, setValue, available_params }: Props) => {
         }
     }, [data, available_params]);
 
+    const options = lang === 'ru'
+        ? cityValues
+        : cityValues.map((el) => ({
+              value: el.value,
+              label: `${el.value[0].toUpperCase()}${el.value.slice(
+                  1
+              )}`,
+          }));
+
     return (
         <>
             <div className={styles.propertyCity}>
@@ -48,16 +57,8 @@ export const City = ({ control, setValue, available_params }: Props) => {
                     placeholder={t('filters.property_city')}
                     closeMenuOnSelect={false}
                     isMulti={true}
-                    options={
-                        lang === 'ru'
-                            ? cityValues
-                            : cityValues.map((el) => ({
-                                  value: el.value,
-                                  label: `${el.value[0].toUpperCase()}${el.value.slice(
-                                      1
-                                  )}`,
-                              }))
-                    }
+                    options={options}
+                    defaultValue={options.length === 1 ? options[0] : undefined}
                 />
             </div>
         </>
