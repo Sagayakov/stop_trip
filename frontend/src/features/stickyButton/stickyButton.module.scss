@@ -14,4 +14,11 @@
     position: sticky;
     bottom: 1.5rem;
     animation: pulse 2.5s infinite;
+
+    &:disabled {
+        position: static;
+        animation: none;
+        background-color: var(--grey-2) !important;
+        cursor: default !important;
+    }
 }

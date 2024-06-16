@@ -1,10 +1,10 @@
+import { useMemo } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingCurrency/libr/settingCurrencyFilter.module.scss';
 import { useSearchParams } from 'react-router-dom';
 import { RangeType } from 'app/api/types/filtersType';
-import { useEffect, useState } from 'react';
 
 interface Props {
     register: UseFormRegister<TypeOfCurrencyFilter>;
@@ -15,14 +15,15 @@ export const ExchangeRate = ({ register, available_params }: Props) => {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const searchValue = searchParams.get('exchange_rate');
-    const [params, setParams] = useState<RangeType>();
-
-    useEffect(() => {
-        if (available_params) {
-            const { min, max } = available_params as RangeType;
-            setParams({ min, max });
-        }
-    }, [available_params]);
+    const params = useMemo<RangeType | undefined>(
+        () => {
+            if (available_params) {
+                const { min, max } = available_params as RangeType;
+                return { min, max };
+            }
+        },    
+        [available_params],
+    );
 
     return (
         <div className={styles.exchangeRate}>

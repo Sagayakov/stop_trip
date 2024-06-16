@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingDocument/libr/settingDocumentForm.module.scss';
 import { TypeOfDocumentFilter } from 'widgets/settingForm/settingDocument/libr/TypeOfDocumentFilter';
+import { useAppSelector } from 'app/store/hooks';
+import { getDashOptions } from 'shared/utils';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfDocumentFilter>;
@@ -20,6 +22,7 @@ export const District = ({ control, setValue }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [districtValues, setDistrictValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
         if (data) {
@@ -29,6 +32,8 @@ export const District = ({ control, setValue }: Props) => {
             data && setDistrictValues(result as SelectType[]);
         }
     }, [data]);
+
+    const options = getDashOptions(lang, districtValues);
 
     return (
         <>
@@ -42,8 +47,8 @@ export const District = ({ control, setValue }: Props) => {
                     placeholder={t('filters.property_district')}
                     closeMenuOnSelect={true}
                     isMulti={false}
-                    options={districtValues}
-                    defaultValue={{ value: 'north-goa', label: 'Северный Гоа' }}
+                    options={options}
+                    defaultValue={options.length === 1 ? options[0] : undefined}
                 />
             </div>
         </>

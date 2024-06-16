@@ -6,6 +6,7 @@ import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelect
 import styles from 'widgets/settingForm/settingCurrency/libr/settingCurrencyFilter.module.scss';
 import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter';
 import { useAppSelector } from 'app/store/hooks';
+import { getCityOptions } from 'shared/utils';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;
@@ -36,14 +37,7 @@ export const City = ({ control, setValue, available_params }: Props) => {
         }
     }, [data, available_params]);
 
-    const options = lang === 'ru'
-        ? cityValues
-        : cityValues.map((el) => ({
-              value: el.value,
-              label: `${el.value[0].toUpperCase()}${el.value.slice(
-                  1
-              )}`,
-          }));
+    const options = getCityOptions(lang, cityValues);
 
     return (
         <>

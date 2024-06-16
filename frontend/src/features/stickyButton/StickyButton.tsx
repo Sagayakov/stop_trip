@@ -10,6 +10,7 @@ export const StickyButton = ({ count }: { count: number | undefined }) => {
             type="submit"
             value={t('filters.show.show', { count, declension: getDeclension(count || 0, t) })}
             className={styles.sticky_button}
+            disabled={count === 0}
         />
     );
 };

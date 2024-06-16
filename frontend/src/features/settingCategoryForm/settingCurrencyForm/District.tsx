@@ -6,6 +6,7 @@ import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelect
 import styles from 'widgets/settingForm/settingCurrency/libr/settingCurrencyFilter.module.scss';
 import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter';
 import { useAppSelector } from 'app/store/hooks';
+import { getDashOptions } from 'shared/utils';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;
@@ -32,15 +33,7 @@ export const District = ({ control, setValue }: Props) => {
         }
     }, [data]);
 
-    const options = lang === 'ru'
-        ? districtValues
-        : districtValues.map((el) => ({
-              value: el.value,
-              label: `${el.value
-                .split('-')
-                .map((item) => `${item[0].toUpperCase()}${item.slice(1)}`)
-                .join(' ')}`,
-          }));
+    const options = getDashOptions(lang, districtValues);
 
     return (
         <>
