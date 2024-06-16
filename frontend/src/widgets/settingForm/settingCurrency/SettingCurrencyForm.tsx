@@ -31,19 +31,11 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetFiltersQuery('');
     const defaultValues = getDefaultValues(searchParams, data);
-    const category = searchParams.get('category');
 
     const { handleSubmit, reset, control, setValue, register, watch } =
         useForm<TypeOfCurrencyFilter>({
             defaultValues,
         });
-
-    const query = getLightFiltersQuery({
-        filters: ['region', 'city', 'exchange_for', 'exchange_rate', 'proposed_currency'],
-        watch,
-    });
-
-    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
 
     const onSubmit: SubmitHandler<TypeOfCurrencyFilter> = (data) => {
         const { city, exchange_for, exchange_rate, proposed_currency } = data;
@@ -70,6 +62,13 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
         setSearchParams('category=exchange_rate&page=1');
         location.reload();
     };
+
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'exchange_for', 'exchange_rate', 'proposed_currency'],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
 
     return (
         <section className={styles.filters} onClick={handleClick}>

@@ -28,7 +28,6 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const { data } = useGetFiltersQuery('');
     const defaultValues = getDefaultValues(searchParams, data);
-    const category = searchParams.get('category');
 
     const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.stopPropagation();
@@ -36,13 +35,6 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
 
     const { handleSubmit, reset, setValue, control, watch, register } =
         useForm<TypeOfDocumentFilter>({ defaultValues });
-
-    const query = getLightFiltersQuery({
-        filters: ['region', 'city', 'document_type', 'document_duration', 'price'],
-        watch,
-    });
-
-    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
 
     const onsubmit: SubmitHandler<TypeOfDocumentFilter> = (data) => {
         const { city, document_duration, document_type, price } = data;
@@ -67,6 +59,13 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
         setSearchParams('category=document&page=1');
         location.reload();
     };
+
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'document_type', 'document_duration', 'price'],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
 
     return (
         <section className={formStyles.filters} onClick={handleClick}>
