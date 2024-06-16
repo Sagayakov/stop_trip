@@ -13,11 +13,12 @@ import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingFoordForm.module.scss';
 import stylesForm from 'widgets/settingForm/forms/filtersForm.module.scss';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingFoodForm/District';
 import { StickyButton } from 'features/stickyButton/StickyButton';
 import { FoodPrice } from 'features/settingCategoryForm/settingFoodForm/FoodPrice';
+import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -60,6 +61,13 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
         location.reload();
     };
 
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'excursion_food', 'excursion_transfer', 'price'],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
+
     return (
         <section className={stylesForm.filters} onClick={handleClick}>
             <form
@@ -67,13 +75,28 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-food"
             >
-                <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} watch={watch} />
-                <FoodType control={control} setValue={setValue} />
+                <District
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.region}
+                />
+                <City
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                />
+                <FoodType
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.food_type}
+                />
                 <FoodDelivery register={register} />
                 <FoodEstablishment register={register} />
-                <FoodPrice register={register} />
-                <StickyButton />
+                <FoodPrice
+                    register={register}
+                    available_params={availableData?.available_params.price}
+                />
+                <StickyButton count={availableData?.count} />
                 <button
                     className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}
