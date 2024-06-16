@@ -10,7 +10,6 @@ interface Props<T extends FieldValues> {
 export const getLightFiltersQuery = <T extends FieldValues>({ filters, watch }: Props<T>) => {
     const watches = filters.map((el) => watch(el as unknown as WatchObserver<T>));
     const query = filters.map((el, i) => {
-        console.log(watches[i]);
         if (watches[i]) {
              if (el === 'price') {
                 let result = '';

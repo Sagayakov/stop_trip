@@ -3,7 +3,7 @@ type SelectType = {
     label: string;
 };
 
-export const getDashOptions = (lang: 'ru' | 'en', values: SelectType[]) => 
+export const getDashOptions = (lang: 'ru' | 'en', values: SelectType[] | undefined = []) => 
     lang === 'ru'
         ? values
         : values.map((el) => ({

@@ -1,16 +1,17 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { useEffect, useState } from 'react';
+import { useGetRegionsByCountryQuery } from 'app/api/fetchAdverts.ts';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingDocument/libr/settingDocumentForm.module.scss';
-import { TypeOfDocumentFilter } from 'widgets/settingForm/settingDocument/libr/TypeOfDocumentFilter';
+import { TypeOfDocumentFilter, Price } from 'widgets/settingForm/settingDocument/libr/TypeOfDocumentFilter';
 import { useAppSelector } from 'app/store/hooks';
 import { getDashOptions } from 'shared/utils';
 
 interface Props {
     setValue: UseFormSetValue<TypeOfDocumentFilter>;
     control: Control<TypeOfDocumentFilter, string[]>;
+    available_params: string[] | Price | undefined;
 }
 
 type SelectType = {
@@ -18,20 +19,22 @@ type SelectType = {
     label: string;
 };
 
-export const District = ({ control, setValue }: Props) => {
-    const { data } = useGetFiltersQuery('');
-    const [districtValues, setDistrictValues] = useState<SelectType[]>([]);
+export const District = ({ control, setValue, available_params }: Props) => {
+    const { data: regionsData } = useGetRegionsByCountryQuery('?country=india');
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
-
-    useEffect(() => {
-        if (data) {
-            const result = (data['region'] as SelectType[]).filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
-            );
-            data && setDistrictValues(result as SelectType[]);
-        }
-    }, [data]);
+    const districtValues = useMemo<SelectType[] | undefined>(
+        () => {
+            if (regionsData && available_params) {
+                return regionsData.map((el) => ({ value: el.slug, label: el.name })).filter((el) =>
+                    (available_params as string[]).includes(
+                        el.value
+                    )
+                )
+            }
+        },    
+        [regionsData, available_params],
+    );
 
     const options = getDashOptions(lang, districtValues);
 

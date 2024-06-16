@@ -1,14 +1,17 @@
+import { useMemo } from 'react';
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
-import { useEffect, useState } from 'react';
+import { useGetRegionsByCountryQuery } from 'app/api/fetchAdverts.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingExcursion/libr/settingExcursionFilter.module.scss';
-import { TypeForExcursionFilter } from 'widgets/settingForm/settingExcursion/libr/TypeForExcursionFilter';
+import { TypeForExcursionFilter, Price } from 'widgets/settingForm/settingExcursion/libr/TypeForExcursionFilter';
+import { useAppSelector } from 'app/store/hooks';
+import { getDashOptions } from 'shared/utils';
 
 interface Props {
     setValue: UseFormSetValue<TypeForExcursionFilter>;
     control: Control<TypeForExcursionFilter, string[]>;
+    available_params: string[] | Price | undefined;
 }
 
 type SelectType = {
@@ -16,19 +19,24 @@ type SelectType = {
     label: string;
 };
 
-export const District = ({ control, setValue }: Props) => {
-    const { data } = useGetFiltersQuery('');
-    const [districtValues, setDistrictValues] = useState<SelectType[]>([]);
+export const District = ({ control, setValue, available_params }: Props) => {
+    const { data: regionsData } = useGetRegionsByCountryQuery('?country=india');
     const { t } = useTranslation();
-
-    useEffect(() => {
-        if (data) {
-            const result = (data['region'] as SelectType[]).filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
-            );
-            data && setDistrictValues(result as SelectType[]);
-        }
-    }, [data]);
+    const lang = useAppSelector((state) => state.setLang.lang);
+    const districtValues = useMemo<SelectType[] | undefined>(
+        () => {
+            if (regionsData && available_params) {
+                return regionsData.map((el) => ({ value: el.slug, label: el.name })).filter((el) =>
+                    (available_params as string[]).includes(
+                        el.value
+                    )
+                )
+            }
+        },    
+        [regionsData, available_params],
+    );
+    
+    const options = getDashOptions(lang, districtValues);
 
     return (
         <>
@@ -42,8 +50,8 @@ export const District = ({ control, setValue }: Props) => {
                     placeholder={t('filters.property_district')}
                     closeMenuOnSelect={true}
                     isMulti={false}
-                    options={districtValues}
-                    defaultValue={{ value: 'north-goa', label: 'Северный Гоа' }}
+                    options={options}
+                    defaultValue={options.length === 1 ? options[0] : undefined}
                 />
             </div>
         </>

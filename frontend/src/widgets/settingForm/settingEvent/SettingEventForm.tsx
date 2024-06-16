@@ -73,7 +73,11 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-event"
             >
-                <District control={control} setValue={setValue} />
+                <District
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.region}
+                />
                 <City
                     control={control}
                     setValue={setValue}

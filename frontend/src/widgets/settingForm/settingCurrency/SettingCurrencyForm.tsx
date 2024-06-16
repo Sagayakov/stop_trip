@@ -77,7 +77,11 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onSubmit)}
                 id="form-setting-currency"
             >
-                <District control={control} setValue={setValue} />
+                <District
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.region}
+                />
                 <City
                     control={control}
                     setValue={setValue}
