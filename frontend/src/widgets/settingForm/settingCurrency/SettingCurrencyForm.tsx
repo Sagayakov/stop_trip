@@ -1,4 +1,4 @@
-import { SubmitHandler, WatchObserver, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import {
     City,
@@ -17,6 +17,7 @@ import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAd
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingCurrencyForm/District';
 import { StickyButton } from 'features/stickyButton/StickyButton';
+import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -37,12 +38,12 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
             defaultValues,
         });
 
-    const filters = ['city', 'exchange_for', 'exchange_rate', 'proposed_currency'];
-    const watches = filters.map((el) => watch(el as unknown as WatchObserver<TypeOfCurrencyFilter>));
-    const query = filters.map((el, i) => watches[i] ? `${el}=${watches[i]}` : null);
-    query.unshift('region=north-goa');
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'exchange_for', 'exchange_rate', 'proposed_currency'],
+        watch,
+    });
 
-    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query.join('&')}`);
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
 
     const onSubmit: SubmitHandler<TypeOfCurrencyFilter> = (data) => {
         const { city, exchange_for, exchange_rate, proposed_currency } = data;

@@ -37,7 +37,10 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
     const { handleSubmit, reset, setValue, control, watch, register } =
         useForm<TypeOfDocumentFilter>({ defaultValues });
 
-    const query = getLightFiltersQuery({ filters: ['city', 'document_type', 'document_duration', 'price'], watch });
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'document_type', 'document_duration', 'price'],
+        watch,
+    });
 
     const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
 
