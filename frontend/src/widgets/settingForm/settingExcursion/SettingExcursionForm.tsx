@@ -12,11 +12,12 @@ import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { getSearchParams } from './libr/getSearchParams';
 import { useSearchParams } from 'react-router-dom';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingExcursionForm/District';
 import { StickyButton } from 'features/stickyButton/StickyButton';
 import { ExcursionPrice } from 'features/settingCategoryForm/settingExcursionForm/ExcursionPrice';
+import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -56,6 +57,13 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
         location.reload();
     };
 
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'excursion_food', 'excursion_transfer', 'price'],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
+
     return (
         <section className={formStyles.filters} onClick={handleClick}>
             <form
@@ -64,11 +72,18 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
                 id="form-setting-excursion"
             >
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} watch={watch} />
+                <City
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                />
                 <ExcursionFood register={register} />
                 <ExcursionTransfer register={register} />
-                <ExcursionPrice register={register} />
-                <StickyButton />
+                <ExcursionPrice
+                    register={register}
+                    available_params={availableData?.available_params.price}
+                />
+                <StickyButton count={availableData?.count} />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}

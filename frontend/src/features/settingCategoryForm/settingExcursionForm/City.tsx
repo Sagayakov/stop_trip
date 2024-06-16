@@ -1,19 +1,17 @@
-import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
-import {
-    useGetAvailableFiltersQuery,
-    useGetFiltersQuery,
-} from 'app/api/fetchAdverts.ts';
+import { Control, UseFormSetValue } from 'react-hook-form';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingExcursion/libr/settingExcursionFilter.module.scss';
-import { TypeForExcursionFilter } from 'widgets/settingForm/settingExcursion/libr/TypeForExcursionFilter';
+import { TypeForExcursionFilter, Price } from 'widgets/settingForm/settingExcursion/libr/TypeForExcursionFilter';
 import { useAppSelector } from 'app/store/hooks';
+import { getCityOptions } from 'shared/utils';
 
 interface Props {
     setValue: UseFormSetValue<TypeForExcursionFilter>;
-    watch: UseFormWatch<TypeForExcursionFilter>;
     control: Control<TypeForExcursionFilter, string[]>;
+    available_params: string[] | Price | undefined;
 }
 
 type SelectOption = {
@@ -21,26 +19,24 @@ type SelectOption = {
     label: string;
 };
 
-export const City = ({ control, setValue, watch }: Props) => {
+export const City = ({ control, setValue, available_params }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [cityValues, setCityValues] = useState<SelectOption[]>([]);
     const { t } = useTranslation();
-    const region = watch('region');
-    const { data: availableData } = useGetAvailableFiltersQuery(
-        `?region=${region || 'north-goa'}`
-    );
     const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
-        if (data && availableData) {
+        if (data && available_params) {
             const result = (data['city'] as SelectOption[]).filter((el) =>
-                (availableData.available_params.city as string[]).includes(
+                (available_params as string[]).includes(
                     el.value
                 )
             );
             setCityValues(result as SelectOption[]);
         }
-    }, [data, availableData]);
+    }, [data, available_params]);
+
+    const options = getCityOptions(lang, cityValues);
 
     return (
         <>
@@ -54,16 +50,8 @@ export const City = ({ control, setValue, watch }: Props) => {
                     placeholder={t('filters.property_city')}
                     closeMenuOnSelect={false}
                     isMulti={true}
-                    options={
-                        lang === 'ru'
-                            ? cityValues
-                            : cityValues.map((el) => ({
-                                  value: el.value,
-                                  label: `${el.value[0].toUpperCase()}${el.value.slice(
-                                      1
-                                  )}`,
-                              }))
-                    }
+                    options={options}
+                    defaultValue={options.length === 1 ? options[0] : undefined}
                 />
             </div>
         </>
