@@ -7,7 +7,7 @@ export type ChoicesType = {
     choices: SelectType[] | boolean[];
 };
 
-type RangeType = {
+export type RangeType = {
     min: number | null;
     max: number | null;
 };

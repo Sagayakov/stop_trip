@@ -50,5 +50,6 @@ export const privateRoutes: Route[] = [
     { path: '/my-settings', component: MySettings },
     { path: '/user-agreement', component: UserAgreement },
     { path: '/users/:id', component: UserPage },
+    { path: '/advertisement-search', component: AdvertisementSearch },
     ...categoryRoutes,
 ];

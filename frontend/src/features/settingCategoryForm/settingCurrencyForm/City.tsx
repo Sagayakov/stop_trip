@@ -1,8 +1,5 @@
-import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
-import {
-    useGetAvailableFiltersQuery,
-    useGetFiltersQuery,
-} from 'app/api/fetchAdverts.ts';
+import { Control, UseFormSetValue } from 'react-hook-form';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
@@ -13,7 +10,7 @@ import { useAppSelector } from 'app/store/hooks';
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;
     control: Control<TypeOfCurrencyFilter, string[]>;
-    watch: UseFormWatch<TypeOfCurrencyFilter>;
+    available_params: string[] | { min: number; max: number; } | undefined;
 }
 
 interface SelectOption {
@@ -21,27 +18,23 @@ interface SelectOption {
     label: string;
 }
 
-export const City = ({ control, setValue, watch }: Props) => {
+export const City = ({ control, setValue, available_params }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [cityValues, setCityValues] = useState<SelectOption[]>([]);
     const { t } = useTranslation();
-    const region = watch('region');
-    const { data: availableData } = useGetAvailableFiltersQuery(
-        `?region=${region || 'north-goa'}`
-    );
     const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
-        if (data && availableData) {
+        if (data && available_params) {
             const result = (data['city'] as SelectOption[]).filter((el) =>
-                (availableData.available_params.city as string[]).includes(
+                (available_params as string[]).includes(
                     el.value
                 )
             );
 
             setCityValues(result as SelectOption[]);
         }
-    }, [data, availableData]);
+    }, [data, available_params]);
 
     return (
         <>

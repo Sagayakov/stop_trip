@@ -153,6 +153,12 @@
         "property_prepayment": "Prepayment",
         "property_commission": "Commission",
         "apply": "Apply",
+        "show": {
+            "show": "Show {{count}} {{declension}}",
+            "one": "announcement",
+            "few": "announcements",
+            "many": "announcements"
+        },
         "reset": "Reset filters",
         "property_rent_duration": "Rent duration",
 

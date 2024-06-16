@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, WatchObserver, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import {
     City,
@@ -13,7 +13,7 @@ import { scrollToTop } from 'shared/utils/scrollToTop';
 import styles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import formStyles from './libr/settingCurrencyFilter.module.scss';
 import { searchParamsForExchange } from './libr/searchParamsForExchange';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingCurrencyForm/District';
 import { StickyButton } from 'features/stickyButton/StickyButton';
@@ -30,11 +30,19 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetFiltersQuery('');
     const defaultValues = getDefaultValues(searchParams, data);
+    const category = searchParams.get('category');
 
     const { handleSubmit, reset, control, setValue, register, watch } =
         useForm<TypeOfCurrencyFilter>({
             defaultValues,
         });
+
+    const filters = ['city', 'exchange_for', 'exchange_rate', 'proposed_currency'];
+    const watches = filters.map((el) => watch(el as unknown as WatchObserver<TypeOfCurrencyFilter>));
+    const query = filters.map((el, i) => watches[i] ? `${el}=${watches[i]}` : null);
+    query.unshift('region=north-goa');
+
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query.join('&')}`);
 
     const onSubmit: SubmitHandler<TypeOfCurrencyFilter> = (data) => {
         const { city, exchange_for, exchange_rate, proposed_currency } = data;
@@ -70,19 +78,26 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
                 id="form-setting-currency"
             >
                 <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} watch={watch} />
+                <City
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                />
                 <ProposedCurrency
                     control={control}
                     setValue={setValue}
-                    watch={watch}
+                    available_params={availableData?.available_params.proposed_currency}
                 />
                 <ExchangeFor
                     control={control}
                     setValue={setValue}
-                    watch={watch}
+                    available_params={availableData?.available_params.exchange_for}
                 />
-                <ExchangeRate register={register} />
-                <StickyButton />
+                <ExchangeRate
+                    register={register}
+                    available_params={availableData?.available_params.exchange_rate}
+                />
+                <StickyButton count={availableData?.count} />
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}
