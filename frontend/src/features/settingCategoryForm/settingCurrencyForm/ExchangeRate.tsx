@@ -14,7 +14,6 @@ interface Props {
 export const ExchangeRate = ({ register, available_params }: Props) => {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
-    const searchValue = searchParams.get('exchange_rate');
     const params = useMemo<RangeType | undefined>(
         () => {
             if (available_params) {
@@ -25,17 +24,29 @@ export const ExchangeRate = ({ register, available_params }: Props) => {
         [available_params],
     );
 
+    const min = searchParams.get('exchange_rate_min')
+        ? Number(searchParams.get('exchange_rate_min'))
+        : undefined;
+    const max = searchParams.get('exchange_rate_max')
+        ? Number(searchParams.get('exchange_rate_max'))
+        : undefined;
+
     return (
         <div className={styles.exchangeRate}>
             <h3>{t('filters.exchange_rate')}</h3>
             <div className={styles.exchangeRateInput}>
                 <input
                     type="number"
-                    placeholder={params ? `${params.min} - ${params.max}` : t('filters.exchange_rate')}
-                    min={0}
-                    step={0.01}
-                    defaultValue={searchValue || ''}
-                    {...register('exchange_rate')}
+                    min="0"
+                    placeholder={params?.min ? `${params?.min}` : t('filters.from')}
+                    defaultValue={min}
+                    {...register('exchange_rate.min')}
+                />
+                <input
+                    type="number"
+                    placeholder={params?.max ? `${params?.max}` : t('filters.up-to')}
+                    defaultValue={max}
+                    {...register('exchange_rate.max')}
                 />
             </div>
         </div>

@@ -16,6 +16,12 @@
             font-weight: 700;
         }
     }
+    .exchangeRate {
+        .exchangeRateInput {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {

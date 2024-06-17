@@ -3,5 +3,10 @@ export interface TypeOfCurrencyFilter {
     city: string[];
     proposed_currency: string;
     exchange_for: string;
-    exchange_rate: number;
+    exchange_rate: Rate;
+}
+
+export interface Rate {
+    min: number;
+    max: number;
 }
