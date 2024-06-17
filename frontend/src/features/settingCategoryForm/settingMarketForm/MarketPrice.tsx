@@ -1,16 +1,28 @@
+import { useMemo } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingMarket/libr/settingMarketForm.module.scss';
 import { useSearchParams } from 'react-router-dom';
-import { TypeForMarketForm } from 'widgets/settingForm/settingMarket/libr/TypeForMarketForm';
+import { TypeForMarketForm, Price } from 'widgets/settingForm/settingMarket/libr/TypeForMarketForm';
 
 interface Props {
     register: UseFormRegister<TypeForMarketForm>;
+    available_params: string[] | Price | undefined;
 }
 
-export const MarketPrice = ({ register }: Props) => {
+export const MarketPrice = ({ register, available_params }: Props) => {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
+    const params = useMemo<Price | undefined>(
+        () => {
+            if (available_params) {
+                const { min, max } = available_params as Price;
+                return { min, max };
+            }
+        },    
+        [available_params],
+    );
+    
     const min = searchParams.get('price_min')
         ? Number(searchParams.get('price_min'))
         : undefined;
@@ -25,13 +37,13 @@ export const MarketPrice = ({ register }: Props) => {
                 <input
                     type="number"
                     min="0"
-                    placeholder={t('filters.from')}
+                    placeholder={params?.min ? `${params?.min}` : t('filters.from')}
                     defaultValue={min}
                     {...register('price.min')}
                 />
                 <input
                     type="number"
-                    placeholder={t('filters.up-to')}
+                    placeholder={params?.max ? `${params?.max}` : t('filters.up-to')}
                     defaultValue={max}
                     {...register('price.max')}
                 />

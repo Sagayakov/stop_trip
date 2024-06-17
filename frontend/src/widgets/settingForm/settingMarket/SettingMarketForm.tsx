@@ -12,10 +12,11 @@ import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { getMultiQuery } from 'shared/utils/getMultiQuery';
 import { getDefaultValues } from './libr/getDefaultValues';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { District } from 'features/settingCategoryForm/settingMarketForm/District';
 import { StickyButton } from 'features/stickyButton/StickyButton';
 import { MarketPrice } from 'features/settingCategoryForm/settingMarketForm/MarketPrice';
+import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -61,6 +62,13 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         location.reload();
     };
 
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'market_condition', 'price'],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
+
     return (
         <section className={stylesForm.filters} onClick={handleClick}>
             <form
@@ -68,11 +76,22 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-market"
             >
-                <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} watch={watch} />
+                <District
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.region}
+                />
+                <City
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                />
                 <MarketCondition register={register} />
-                <MarketPrice register={register} />
-                <StickyButton />
+                <MarketPrice
+                    register={register}
+                    available_params={availableData?.available_params.price}
+                />
+                <StickyButton count={availableData?.count} />
                 <button
                     className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}
