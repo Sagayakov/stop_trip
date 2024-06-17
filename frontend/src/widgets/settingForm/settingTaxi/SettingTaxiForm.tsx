@@ -13,10 +13,11 @@ import { getSearchParams } from 'widgets/settingForm/settingTaxi/libr/getSearchP
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingTaxiForm.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingTaxiForm/District';
 import { StickyButton } from 'features/stickyButton/StickyButton';
+import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -49,6 +50,13 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
         location.reload();
     };
 
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'service_home_visit', 'price'],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
+
     return (
         <section className={formStyles.filters} onClick={handleClick}>
             <form
@@ -57,12 +65,27 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 autoComplete="off"
                 id="form-setting-taxi"
             >
-                <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} watch={watch} />
+                <District
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.region}
+                />
+                <City
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                />
                 <UnitOfMeasurement register={register} />
-                <TypeOfTaxi control={control} setValue={setValue} />
-                <SettingTaxiPrice register={register} />
-                <StickyButton />
+                <TypeOfTaxi
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                />
+                <SettingTaxiPrice
+                    register={register}
+                    available_params={availableData?.available_params.city}
+                />
+                <StickyButton count={availableData?.count} />
                 <button
                     className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}
