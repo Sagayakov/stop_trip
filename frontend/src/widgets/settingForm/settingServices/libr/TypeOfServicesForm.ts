@@ -5,7 +5,7 @@ export interface TypeOfServicesForm {
     price: Price;
 }
 
-interface Price {
+export interface Price {
     min: number;
     max: number;
 }

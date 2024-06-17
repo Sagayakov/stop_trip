@@ -12,10 +12,11 @@ import { getSearchParams } from './libr/getSearchParams.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingServicesForm.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
 import { District } from 'features/settingCategoryForm/settingServices/District.tsx';
 import { StickyButton } from 'features/stickyButton/StickyButton.tsx';
+import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery.ts';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -48,6 +49,13 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
         location.reload();
     };
 
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'service_home_visit', 'price'],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
+
     return (
         <section className={formStyles.filters} onClick={handleClick}>
             <form
@@ -56,11 +64,22 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
                 autoComplete="off"
                 id="form-setting-service"
             >
-                <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} watch={watch} />
+                <District
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.region}
+                />
+                <City
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                />
                 <HouseCall register={register} />
-                <SettingServicePrice register={register} />
-                <StickyButton />
+                <SettingServicePrice
+                    register={register}
+                    available_params={availableData?.available_params.price}
+                />
+                <StickyButton count={availableData?.count} />
                 <button
                     className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}
