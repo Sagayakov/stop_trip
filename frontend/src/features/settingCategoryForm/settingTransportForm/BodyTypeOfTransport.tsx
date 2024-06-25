@@ -1,15 +1,17 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
+import { TypeSettingTransport, Price } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { useEffect, useState } from 'react';
 import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
 import { useAppSelector } from 'app/store/hooks';
+import { getDashOptions } from 'shared/utils';
 
 interface Props {
     control: Control<TypeSettingTransport, string[]>;
     setValue: UseFormSetValue<TypeSettingTransport>;
+    available_params: string[] | Price | undefined;
 }
 
 type SelectType = {
@@ -17,20 +19,22 @@ type SelectType = {
     label: string;
 };
 
-export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
+export const BodyTypeOfTransport = ({ setValue, control, available_params }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [bodyTypesValues, setBodyTypesValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
-        if (data) {
+        if (data && available_params) {
             const result = (data['transport_body_type'] as SelectType[]).filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
+                (el) => (available_params as string[]).includes(el.value)
             );
             data && setBodyTypesValues(result as SelectType[]);
         }
-    }, [data]);
+    }, [data, available_params]);
+
+    const options = getDashOptions(lang, bodyTypesValues);
 
     return (
         <div className={styles.bodyType}>
@@ -43,16 +47,8 @@ export const BodyTypeOfTransport = ({ setValue, control }: Props) => {
                 placeholder={t('filters.transport_body_type')}
                 closeMenuOnSelect={false}
                 isMulti={true}
-                options={
-                    lang === 'ru'
-                        ? bodyTypesValues
-                        : bodyTypesValues.map((el) => ({
-                              value: el.value,
-                              label: `${el.value[0].toUpperCase()}${el.value.slice(
-                                  1
-                              )}`,
-                          }))
-                }
+                options={options}
+                defaultValue={options.length === 1 ? options[0] : undefined}
             />
         </div>
     );

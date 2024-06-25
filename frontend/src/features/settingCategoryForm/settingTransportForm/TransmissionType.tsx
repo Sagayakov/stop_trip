@@ -1,14 +1,17 @@
+import { useEffect, useState } from 'react';
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
+import { TypeSettingTransport, Price } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
 import { useAppSelector } from 'app/store/hooks';
+import { getDashOptions } from 'shared/utils';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTransport>;
     control: Control<TypeSettingTransport, string[]>;
+    available_params: string[] | Price | undefined;
 }
 
 type SelectType = {
@@ -16,38 +19,38 @@ type SelectType = {
     value: string;
 };
 
-export const TransmissionType = ({ setValue, control }: Props) => {
+export const TransmissionType = ({ setValue, control, available_params }: Props) => {
     const { data } = useGetFiltersQuery('');
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
+    const [values, setValues] = useState<SelectType[]>([]);
+
+    useEffect(() => {
+        if (data && available_params) {
+            const result = ( data['transport_transmission_type'] as SelectType[] ).filter(
+                (el) => (available_params as string[]).includes(el.value)
+            );
+            setValues(result as SelectType[]);
+        }
+    }, [data, available_params]);
+
+    const options = getDashOptions(lang, values);
 
     return (
         <div className={styles.transmissionType}>
             <h3>{t('filters.transport_transmission_type')}</h3>
             <div className={styles.select_transmissionType}>
-                {data && (
-                    <UniversalSelectDropdown<TypeSettingTransport>
-                        setValue={setValue}
-                        control={control}
-                        name="transport_transmission_type"
-                        prefix="filterForm"
-                        placeholder={t('filters.transport_transmission_type')}
-                        closeMenuOnSelect={false}
-                        isMulti={true}
-                        options={
-                            lang === 'ru'
-                                ? (data.transport_transmission_type as SelectType[])
-                                : (
-                                      data.transport_transmission_type as SelectType[]
-                                  ).map((el) => ({
-                                      value: el.value,
-                                      label: `${el.value[0].toUpperCase()}${el.value.slice(
-                                          1
-                                      )}`,
-                                  }))
-                        }
-                    />
-                )}
+                <UniversalSelectDropdown<TypeSettingTransport>
+                    setValue={setValue}
+                    control={control}
+                    name="transport_transmission_type"
+                    prefix="filterForm"
+                    placeholder={t('filters.transport_transmission_type')}
+                    closeMenuOnSelect={false}
+                    isMulti={true}
+                    options={options}
+                    defaultValue={options.length === 1 ? options[0] : undefined}
+                />
             </div>
         </div>
     );

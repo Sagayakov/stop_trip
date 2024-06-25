@@ -4,21 +4,21 @@ import {
     UseFormSetValue,
     UseFormWatch,
 } from 'react-hook-form';
-import { TypeSettingTransport } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
-import {
-    useGetAvailableFiltersQuery,
-    useGetFiltersQuery,
-} from 'app/api/fetchAdverts.ts';
+import { TypeSettingTransport, Price } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingTransport/libr/settingTransportForm.module.scss';
+import { getDashOptions } from 'shared/utils';
+import { useAppSelector } from 'app/store/hooks';
 
 interface Props {
     register: UseFormRegister<TypeSettingTransport>;
     watch: UseFormWatch<TypeSettingTransport>;
     setValue: UseFormSetValue<TypeSettingTransport>;
     control: Control<TypeSettingTransport, string[]>;
+    available_params: string[] | Price | undefined;
 }
 
 type SelectType = {
@@ -26,35 +26,26 @@ type SelectType = {
     label: string;
 };
 
-export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
-    const region = watch('region');
-    const city = watch('city');
+export const ModelOfTransport = ({ watch, setValue, control, available_params }: Props) => {
     const markOfTransport = watch('transport_brand');
-
     const disabled = markOfTransport && markOfTransport.length ? false : true;
     const { data } = useGetFiltersQuery('');
     const [modelOfTransportValues, setModelOfTransportValues] = useState<
         SelectType[]
     >([]);
     const { t } = useTranslation();
-    const { data: availableData } = useGetAvailableFiltersQuery(
-        `?region=${region || 'north-goa'}${city ? `&city=${city}` : ''}${
-            markOfTransport ? `&transport_brand=${markOfTransport}` : ''
-        }`
-    );
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
-        if (data && availableData) {
+        if (data && available_params) {
             const result = (data['transport_model'] as SelectType[]).filter(
-                (el) =>
-                    (
-                        availableData.available_params
-                            .transport_model as string[]
-                    ).includes(el.value)
+                (el) => (available_params as string[]).includes(el.value)
             );
             setModelOfTransportValues(result as SelectType[]);
         }
-    }, [data, availableData]);
+    }, [data, available_params]);
+
+    const options = getDashOptions(lang, modelOfTransportValues);
 
     return (
         <div className={styles.model}>
@@ -68,7 +59,8 @@ export const ModelOfTransport = ({ watch, setValue, control }: Props) => {
                 closeMenuOnSelect={false}
                 isDisabled={disabled}
                 isMulti={true}
-                options={modelOfTransportValues}
+                options={options}
+                defaultValue={options.length === 1 ? options[0] : undefined}
             />
         </div>
     );

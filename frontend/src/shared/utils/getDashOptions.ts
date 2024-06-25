@@ -9,7 +9,7 @@ export const getDashOptions = (lang: 'ru' | 'en', values: SelectType[] | undefin
         : values.map((el) => ({
               value: el.value,
               label: `${el.value
-                .split('-')
+                .split('_')
                 .map((item) => `${item[0].toUpperCase()}${item.slice(1)}`)
                 .join(' ')}`,
           }));
