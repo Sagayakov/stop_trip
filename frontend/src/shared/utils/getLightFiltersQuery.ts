@@ -1,6 +1,7 @@
 import { RangeType } from "app/api/types/filtersType";
 import { FieldValues, UseFormWatch, WatchObserver } from "react-hook-form";
 import { TypeDate } from "widgets/settingForm/settingEvent/libr/TypeOfEventFilter";
+import { Limit } from "widgets/settingForm/settingRealty/libr/TypeSettingRealty";
 
 interface Props<T extends FieldValues> {
     filters: string[];
@@ -18,6 +19,9 @@ export const getLightFiltersQuery = <T extends FieldValues>({ filters, watch }: 
                 }
                 if ((watches[i] as unknown as RangeType).max) {
                     result += `&${el}_max=${(watches[i] as unknown as RangeType).max}`;
+                }
+                if ((watches[i] as unknown as RangeType & { limit: Limit })?.limit) {
+                    result += `&${el}_max=${(watches[i] as unknown as RangeType & { limit: Limit })?.limit}`;
                 }
                 return result;
             }

@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
+import { TypeSettingRealty, Price } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 import { useSearchParams } from 'react-router-dom';
@@ -7,11 +8,22 @@ import { useSearchParams } from 'react-router-dom';
 interface Props {
     watch: UseFormWatch<TypeSettingRealty>;
     register: UseFormRegister<TypeSettingRealty>;
+    available_params: string[] | { min: number; max: number } | Price | undefined;
 }
 
-export const SettingPrice = ({ register, watch }: Props) => {
+export const SettingPrice = ({ register, watch, available_params }: Props) => {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
+    const params = useMemo<{ min: number; max: number; } | undefined>(
+        () => {
+            if (available_params) {
+                const { min, max } = available_params as Price;
+                return { min, max };
+            }
+        },    
+        [available_params],
+    );
+    
     const min = searchParams.get('price_min')
         ? Number(searchParams.get('price_min'))
         : undefined;
@@ -50,13 +62,13 @@ export const SettingPrice = ({ register, watch }: Props) => {
                 <input
                     type="number"
                     min="0"
-                    placeholder={t('filters.from')}
+                    placeholder={params?.min ? `${params?.min}` : t('filters.from')}
                     defaultValue={min}
                     {...register('price.min')}
                 />
                 <input
                     type="number"
-                    placeholder={t('filters.up-to')}
+                    placeholder={params?.max ? `${params?.max}` : t('filters.up-to')}
                     defaultValue={max}
                     {...register('price.max')}
                 />

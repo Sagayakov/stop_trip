@@ -1,15 +1,17 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
+import { TypeSettingRealty, Price } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 import { useAppSelector } from 'app/store/hooks';
+import { getDashOptions } from 'shared/utils';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
     control: Control<TypeSettingRealty, string[]>;
+    available_params: string[] | { min: number; max: number } | Price | undefined;
 }
 
 type SelectType = {
@@ -17,20 +19,24 @@ type SelectType = {
     label: string;
 };
 
-export const PropertyType = ({ control, setValue }: Props) => {
+export const PropertyType = ({ control, setValue, available_params }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [propertyType, setPropertyType] = useState<SelectType[]>([]);
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
-        if (data) {
-            const result = (data['property_type'] as SelectType[]).filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
+        if (data && available_params) {
+            const result = (data['property_type'] as SelectType[]).filter((el) =>
+                (available_params as string[]).includes(
+                    el.value
+                )
             );
-            data && setPropertyType(result as SelectType[]);
+            setPropertyType(result as SelectType[]);
         }
-    }, [data]);
+    }, [data, available_params]);
+
+    const options = getDashOptions(lang, propertyType);
 
     return (
         <>
@@ -44,16 +50,8 @@ export const PropertyType = ({ control, setValue }: Props) => {
                     placeholder={t('filters.property_type')}
                     closeMenuOnSelect={false}
                     isMulti={true}
-                    options={
-                        lang === 'ru'
-                            ? propertyType
-                            : propertyType.map((el) => ({
-                                  value: el.value,
-                                  label: `${el.value[0].toUpperCase()}${el.value.slice(
-                                      1
-                                  )}`,
-                              }))
-                    }
+                    options={options}
+                    defaultValue={options.length === 1 ? options[0] : undefined}
                 />
             </div>
         </>
