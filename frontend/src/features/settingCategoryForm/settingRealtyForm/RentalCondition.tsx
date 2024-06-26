@@ -1,15 +1,17 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
+import { TypeSettingRealty, Price } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
 import { useAppSelector } from 'app/store/hooks';
+import { getDashOptions } from 'shared/utils';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
     control: Control<TypeSettingRealty, string[]>;
+    available_params: string[] | { min: number; max: number } | Price | undefined;
 }
 
 type SelectType = {
@@ -17,22 +19,22 @@ type SelectType = {
     label: string;
 };
 
-export const RentalCondition = ({ control, setValue }: Props) => {
+export const RentalCondition = ({ control, setValue, available_params }: Props) => {
     const { data } = useGetFiltersQuery('');
     const [rentalValues, setRentalValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
-        if (data) {
+        if (data && available_params) {
             const result = (
                 data['property_rental_condition'] as SelectType[]
-            ).filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
-            );
-            data && setRentalValues(result as SelectType[]);
+            ).filter((el) => (available_params as string[]).includes(el.value));
+            setRentalValues(result as SelectType[]);
         }
-    }, [data]);
+    }, [data, available_params]);
+
+    const options = getDashOptions(lang, rentalValues);
 
     return (
         <>
@@ -46,16 +48,8 @@ export const RentalCondition = ({ control, setValue }: Props) => {
                     placeholder={t('filters.property_rental_condition')}
                     closeMenuOnSelect={false}
                     isMulti={true}
-                    options={
-                        lang === 'ru'
-                            ? rentalValues
-                            : rentalValues.map((el) => ({
-                                  value: el.value,
-                                  label: `${el.value[0].toUpperCase()}${el.value.slice(
-                                      1
-                                  )}`,
-                              }))
-                    }
+                    options={options}
+                    defaultValue={options.length === 1 ? options[0] : undefined}
                 />
             </div>
         </>

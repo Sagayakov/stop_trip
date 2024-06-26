@@ -1,6 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
-    City,
     DurationOfWork,
     PriceOfJob,
     TypeOfJob,
@@ -15,10 +14,12 @@ import { getSearchParams } from './libr/getSearchParams.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import styles from './libr/settingJobFilter.module.scss';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
-import { District } from 'features/settingCategoryForm/settingJob/District.tsx';
-import { StickyButton } from 'features/stickyButton/StickyButton.tsx';
+import { StickyButton } from 'entity/stickyButton/StickyButton.tsx';
+import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery.ts';
+import { CityFilter } from 'entity/cityFilter/CityFilter.tsx';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -67,6 +68,13 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
         location.reload();
     };
 
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'job_type', 'job_payment_type', 'job_experience', 'job_duration', 'price'],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
+
     return (
         <section className={formStyles.filters} onClick={handleClick}>
             <form
@@ -74,14 +82,33 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-job"
             >
-                <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} watch={watch} />
+                <RegionFilter
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.region}
+                />
+                <CityFilter
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                 />
                 <TypeOfJob register={register} />
-                <DurationOfWork control={control} setValue={setValue} />
-                <TypeOfPayment control={control} setValue={setValue} />
-                <PriceOfJob register={register} />
+                <DurationOfWork
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.job_duration}
+                />
+                <TypeOfPayment
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.job_duration}
+                />
+                <PriceOfJob
+                    register={register}
+                    available_params={availableData?.available_params.price}
+                />
                 <WithExperience register={register} />
-                <StickyButton />
+                {availableData && <StickyButton count={availableData.count} />}
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}

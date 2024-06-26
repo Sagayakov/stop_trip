@@ -3,8 +3,6 @@ import {
     Amenities,
     Bathroom,
     BathroomQuantity,
-    City,
-    District,
     Balcony,
     HasFurniture,
     HouseType,
@@ -30,9 +28,12 @@ import { UniversalButton } from 'entity/universalEntites';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingRealty.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
-import { StickyButton } from 'features/stickyButton/StickyButton';
+import { StickyButton } from 'entity/stickyButton/StickyButton';
+import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
+import { CityFilter } from 'entity/cityFilter/CityFilter';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -64,6 +65,34 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
         location.reload();
     };
 
+    const query = getLightFiltersQuery({
+        filters: [
+            'region',
+            'city',
+            'property_type_of_service',
+            'property_house_type',
+            'property_floor',
+            'property_rental_condition',
+            'price',
+            'property_type',
+            'property_area',
+            'property_living_area',
+            'property_sleeping_places',
+            'property_has_furniture',
+            'property_amenities',
+            'property_rooms_count',
+            'property_bathroom_type',
+            'property_bathroom_count',
+            'property_balcony',
+            'property_has_parking',
+            'property_commission',
+            'property_prepayment',
+        ],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
+
     return (
         <section className={formStyles.filters} onClick={handleClick}>
             <form
@@ -72,26 +101,72 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 id="form-setting-property"
             >
                 <TypeOfService register={register} />
-                <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} watch={watch} />
-                <HouseType control={control} setValue={setValue} />
-                <PropertyType setValue={setValue} control={control} />
-                <SettingPrice register={register} watch={watch} />
-                <RentalCondition control={control} setValue={setValue} />
-                <TotalArea register={register} />
-                <LivingSpace register={register} />
+                <RegionFilter
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.region}
+                />
+                <CityFilter
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                />
+                <HouseType
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.property_house_type}
+                />
+                <PropertyType
+                    setValue={setValue}
+                    control={control}
+                    available_params={availableData?.available_params.property_type}
+                />
+                <SettingPrice
+                    register={register}
+                    watch={watch}
+                    available_params={availableData?.available_params.price}
+                />
+                <RentalCondition
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.property_rental_condition}
+                />
+                <TotalArea
+                    register={register}
+                    available_params={availableData?.available_params.property_area}
+                />
+                <LivingSpace
+                    register={register}
+                    available_params={availableData?.available_params.property_living_area}
+                />
                 <Floor register={register} />
-                <SleepingPlaces register={register} />
+                <SleepingPlaces
+                    register={register}
+                    available_params={availableData?.available_params.property_sleeping_places}
+                />
                 <Balcony register={register} />
                 <HasFurniture register={register} />
                 <Amenities register={register} />
-                <RoomsQuantity register={register} />
+                <RoomsQuantity
+                    register={register}
+                    available_params={availableData?.available_params.property_rooms_count}
+                />
                 <Bathroom register={register} />
-                <BathroomQuantity register={register} />
+                <BathroomQuantity
+                    register={register}
+                    available_params={availableData?.available_params.property_bathroom_count}
+                />
                 <HasParking register={register} />
-                <Prepayment control={control} setValue={setValue} />
-                <RealtyCommission register={register} />
-                <StickyButton />
+                <Prepayment
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.property_prepayment}
+                />
+                <RealtyCommission
+                    register={register}
+                    available_params={availableData?.available_params.property_commission}
+                />
+                {availableData && <StickyButton count={availableData.count} />}
                 <UniversalButton
                     className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}

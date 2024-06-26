@@ -1,0 +1,15 @@
+.propertyCity {
+    margin-bottom: 24px;
+    .heading {
+        margin-bottom: 8px;
+        font-size: 16px;
+        font-weight: 700;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .propertyCity {
+        grid-area: city;
+        margin-bottom: 0;
+    }
+}

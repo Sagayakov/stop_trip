@@ -31,7 +31,7 @@ export interface Price {
     min: number;
     max: number;
 }
-type Limit = null | '15000' | '30000';
+export type Limit = null | '15000' | '30000';
 
 export interface RoomsCount {
     min: number;

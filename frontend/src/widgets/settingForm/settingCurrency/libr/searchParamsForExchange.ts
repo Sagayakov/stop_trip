@@ -1,9 +1,10 @@
 import { getMultiQuery } from 'shared/utils/getMultiQuery';
+import { Rate } from './TypeOfCurrencyFilter';
 
 type SearchParamsProps = {
     city?: string[];
     exchange_for?: string;
-    exchange_rate?: number;
+    exchange_rate?: Rate;
     proposed_currency?: string;
 };
 
@@ -21,9 +22,13 @@ export const searchParamsForExchange = ({
 
     const exFor = exchange_for ? `&exchange_for=${exchange_for}` : '';
 
-    const rate = exchange_rate
-        ? `&exchange_rate=${exchange_rate.toString().replace(/,/g, '.')}`
+    const rateMax = exchange_rate?.max
+        ? `&exchange_rate_max=${exchange_rate.max.toString().replace(/,/g, '.')}`
         : '';
 
-    return { currencyCity, proposed, exFor, rate };
+    const rateMin = exchange_rate?.min
+        ? `&exchange_rate_min=${exchange_rate.min.toString().replace(/,/g, '.')}`
+        : '';
+
+    return { currencyCity, proposed, exFor, rateMax, rateMin };
 };

@@ -1,17 +1,17 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { TypeSettingRealty } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
-//import { valuesOfPropertyForm } from 'widgets/settingForm/settingRealty/libr/valuesOfPropertyForm.ts';
+import { TypeSettingRealty, Price } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import styles from 'widgets/settingForm/settingRealty/libr/settingRealty.module.scss';
-//import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { useAppSelector } from 'app/store/hooks';
+import { getDashOptions } from 'shared/utils';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingRealty>;
     control: Control<TypeSettingRealty, string[]>;
+    available_params: string[] | { min: number; max: number } | Price | undefined;
 }
 
 type SelectType = {
@@ -19,30 +19,22 @@ type SelectType = {
     label: string;
 };
 
-export const Prepayment = ({ control, setValue }: Props) => {
+export const Prepayment = ({ control, setValue, available_params }: Props) => {
     const { t } = useTranslation();
     const { data } = useGetFiltersQuery('');
     const [prepaymentValues, setPrepaymentValues] = useState<SelectType[]>([]);
     const lang = useAppSelector((state) => state.setLang.lang);
-    //const [searchParams] = useSearchParams();
-    /* const prepaymentParams = searchParams
-        .get('property_prepayment')
-        ?.split(',')
-        .map((el) => ({
-            value: el,
-            label: (data?.property_prepayment as SelectType[]).find(
-                (item) => item.value === el
-            )?.label,
-        })); */
-
+    
     useEffect(() => {
-        if (data) {
-            const result = (data['property_prepayment'] as SelectType[]).filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
-            );
+        if (data && available_params) {
+            const result = (
+                data['property_prepayment'] as SelectType[]
+            ).filter((el) => (available_params as string[]).includes(el.value));
             setPrepaymentValues(result as SelectType[]);
         }
-    }, [data]);
+    }, [data, available_params]);
+
+    const options = getDashOptions(lang, prepaymentValues);
 
     return (
         <>
@@ -56,16 +48,8 @@ export const Prepayment = ({ control, setValue }: Props) => {
                     placeholder={t('filters.property_prepayment')}
                     closeMenuOnSelect={false}
                     isMulti={true}
-                    options={
-                        lang === 'ru'
-                            ? prepaymentValues
-                            : prepaymentValues.map((el) => ({
-                                  value: el.value,
-                                  label: `${el.value[0].toUpperCase()}${el.value.slice(
-                                      1
-                                  )}`,
-                              }))
-                    }
+                    options={options}
+                    defaultValue={options.length === 1 ? options[0] : undefined}
                 />
             </div>
         </>

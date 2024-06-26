@@ -1,9 +1,6 @@
 import {
     TypeSettingTransport,
-    Commission,
     Price,
-    EngineCapacity,
-    YearOfProduction,
 } from 'widgets/settingForm/settingTransport/libr/TypeSettingTransport.ts';
 import { getMultiQuery } from './getMultiQuery';
 
@@ -24,27 +21,21 @@ export const getTransportQuery = (data: TypeSettingTransport) => {
                     data[key as keyof TypeSettingTransport] as string[]
                 );
             } else {
-                type Total =
-                    | Price
-                    | EngineCapacity
-                    | Commission
-                    | YearOfProduction;
-
                 const maxQuery = (
-                    data[key as keyof TypeSettingTransport] as Total
+                    data[key as keyof TypeSettingTransport] as Price
                 ).max
                     ? `&${key}_max=${(
-                          data[key as keyof TypeSettingTransport] as Total
+                          data[key as keyof TypeSettingTransport] as Price
                       ).max
                           .toString()
                           .replace(/,/g, '.')}`
                     : '';
 
                 const minQuery = (
-                    data[key as keyof TypeSettingTransport] as Total
+                    data[key as keyof TypeSettingTransport] as Price
                 ).min
                     ? `&${key}_min=${(
-                          data[key as keyof TypeSettingTransport] as Total
+                          data[key as keyof TypeSettingTransport] as Price
                       ).min
                           .toString()
                           .replace(/,/g, '.')}`

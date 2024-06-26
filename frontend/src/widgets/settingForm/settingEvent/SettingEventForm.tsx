@@ -2,10 +2,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeOfEventFilter } from './libr/TypeOfEventFilter';
 import {
-    City,
     DateOfEndEvent,
     DateOfStartEvent,
-    EventPrice,
     IsOnlineEvent,
 } from 'features/settingCategoryForm/settingEvent';
 import { useSearchParams } from 'react-router-dom';
@@ -14,10 +12,13 @@ import { getSearchParams } from './libr/getSearchParams.ts';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingEventFilter.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
+import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
-import { District } from 'features/settingCategoryForm/settingEvent/District.tsx';
-import { StickyButton } from 'features/stickyButton/StickyButton.tsx';
+import { StickyButton } from 'entity/stickyButton/StickyButton.tsx';
+import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery.ts';
+import { PriceFilter } from 'entity/priceFilter/PriceFilter.tsx';
+import { CityFilter } from 'entity/cityFilter/CityFilter.tsx';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -58,6 +59,13 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
         location.reload();
     };
 
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'end_date', 'start_date', 'is_online', 'price'],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
+
     return (
         <section className={formStyles.filters} onClick={handleClick}>
             <form
@@ -65,13 +73,24 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-event"
             >
-                <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} watch={watch} />
+                <RegionFilter
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.region}
+                />
+                <CityFilter
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                />
                 <DateOfStartEvent register={register} />
                 <DateOfEndEvent register={register} />
-                <EventPrice register={register} />
+                <PriceFilter
+                    register={register}
+                    available_params={availableData?.available_params.price}
+                />
                 <IsOnlineEvent register={register} />
-                <StickyButton />
+                {availableData && <StickyButton count={availableData.count} />}
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}

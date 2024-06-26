@@ -35,7 +35,7 @@
         grid-template-areas:
             'district city'
             'type unit'
-            'price .'
+            'price price'
             'btnSubmit btnReset';
         .propertyDistrict {
             grid-area: district;

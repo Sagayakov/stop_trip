@@ -153,6 +153,12 @@
         "property_prepayment": "Предоплата",
         "property_commission": "Комиссия",
         "apply": "Применить",
+        "show": {
+            "show": "Показать {{count}} {{declension}}",
+            "one": "объявление",
+            "few": "объявления",
+            "many": "объявлений"
+        },
         "reset": "Сбросить фильтры",
         "property_rent_duration": "Срок аренды",
 

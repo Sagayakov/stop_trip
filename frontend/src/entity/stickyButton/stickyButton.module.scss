@@ -13,6 +13,12 @@
 .sticky_button {
     position: sticky;
     bottom: 1.5rem;
-    z-index: 10;
     animation: pulse 2.5s infinite;
+
+    &:disabled {
+        position: static;
+        animation: none;
+        background-color: var(--grey-2) !important;
+        cursor: default !important;
+    }
 }

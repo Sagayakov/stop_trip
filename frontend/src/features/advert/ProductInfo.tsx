@@ -27,7 +27,7 @@ export const ProductInfo = ({ data }: Props) => {
         !isAuth ? setNeedAuth(true) : setShowComplainModal(true);
     };
 
-    const formattedDescription = data.description.split('\n').map((line, index) => (
+    const formattedDescription = data.description?.split('\n').map((line, index) => (
         <p key={index}>{line.trim()}</p>
     ));
 

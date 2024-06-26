@@ -10,7 +10,7 @@ export interface SelectOption {
     label: string;
 }
 
-interface Price {
+export interface Price {
     min: number;
     max: number;
 }

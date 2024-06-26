@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { Control, UseFormSetValue } from 'react-hook-form';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown';
 import { TypeOfCurrencyFilter } from 'widgets/settingForm/settingCurrency/libr/TypeOfCurrencyFilter.ts';
@@ -11,7 +11,7 @@ import { useAppSelector } from 'app/store/hooks';
 interface Props {
     setValue: UseFormSetValue<TypeOfCurrencyFilter>;
     control: Control<TypeOfCurrencyFilter, string[]>;
-    watch: UseFormWatch<TypeOfCurrencyFilter>;
+    available_params: string[] | { min: number; max: number; } | undefined;
 }
 
 type SelectOption = {
@@ -19,23 +19,31 @@ type SelectOption = {
     label: string;
 };
 
-export const ExchangeFor = ({ control, setValue, watch }: Props) => {
+export const ExchangeFor = ({ control, setValue, available_params }: Props) => {
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
     const { data } = useGetFiltersQuery('');
     const [currencyValues, setCurrencyValues] = useState<SelectOption[]>([]);
-    const proposed = watch('proposed_currency');
     const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
-        if (data) {
-            const result = (data['exchange_for'] as SelectOption[]).filter(
-                (el) => el.value !== proposed
+        if (data && available_params) {
+            const result = (data['exchange_for'] as SelectOption[]).filter((el) =>
+                (available_params as string[]).includes(
+                    el.value
+                )
             );
 
             setCurrencyValues(result as SelectOption[]);
         }
-    }, [data, proposed]);
+    }, [data, available_params]);
+
+    const options = lang === 'ru'
+        ? currencyValues
+        : currencyValues.map((el) => ({
+              value: el.value,
+              label: el.value,
+          }));
 
     return (
         <div className={styles.exchangeFor}>
@@ -45,18 +53,12 @@ export const ExchangeFor = ({ control, setValue, watch }: Props) => {
                 control={control}
                 isMulti={false}
                 name="exchange_for"
-                options={
-                    lang === 'ru'
-                        ? currencyValues
-                        : currencyValues.map((el) => ({
-                              value: el.value,
-                              label: el.value,
-                          }))
-                }
+                options={options}
                 placeholder={t('filters.exchange_for')}
                 prefix="filterForm"
                 setValue={setValue}
                 isSearchable={!isMobile}
+                defaultValue={options.length === 1 ? options[0] : undefined}
             />
         </div>
     );

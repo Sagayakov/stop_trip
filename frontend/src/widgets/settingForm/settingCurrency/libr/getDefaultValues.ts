@@ -12,9 +12,14 @@ export const getDefaultValues = (
 
             proposed_currency: params.get('proposed_currency') || undefined,
 
-            exchange_rate: params.get('exchange_rate')
-                ? Number(params.get('exchange_rate'))
-                : undefined,
+            exchange_rate: {
+                min: params.get('exchange_rate_min')
+                    ? Number(params.get('exchange_rate_min'))
+                    : undefined,
+                max: params.get('exchange_rate_max')
+                    ? Number(params.get('exchange_rate_max'))
+                    : undefined,
+            },
         };
     }
 };

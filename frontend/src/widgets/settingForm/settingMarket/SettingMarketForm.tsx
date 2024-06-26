@@ -1,9 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
-import {
-    City,
-    MarketCondition,
-} from 'features/settingCategoryForm/settingMarketForm';
+import { MarketCondition } from 'features/settingCategoryForm/settingMarketForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForMarketForm } from './libr/TypeForMarketForm';
 import styles from './libr/settingMarketForm.module.scss';
@@ -12,10 +9,12 @@ import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { getMultiQuery } from 'shared/utils/getMultiQuery';
 import { getDefaultValues } from './libr/getDefaultValues';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts';
-import { District } from 'features/settingCategoryForm/settingMarketForm/District';
-import { StickyButton } from 'features/stickyButton/StickyButton';
-import { MarketPrice } from 'features/settingCategoryForm/settingMarketForm/MarketPrice';
+import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { StickyButton } from 'entity/stickyButton/StickyButton';
+import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
+import { PriceFilter } from 'entity/priceFilter/PriceFilter';
+import { CityFilter } from 'entity/cityFilter/CityFilter';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -61,6 +60,13 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
         location.reload();
     };
 
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'market_condition', 'price'],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
+
     return (
         <section className={stylesForm.filters} onClick={handleClick}>
             <form
@@ -68,11 +74,22 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-market"
             >
-                <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} watch={watch} />
+                <RegionFilter
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.region}
+                />
+                <CityFilter
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                />
                 <MarketCondition register={register} />
-                <MarketPrice register={register} />
-                <StickyButton />
+                <PriceFilter
+                    register={register}
+                    available_params={availableData?.available_params.price}
+                />
+                {availableData && <StickyButton count={availableData.count} />}
                 <button
                     className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}

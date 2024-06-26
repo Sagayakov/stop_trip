@@ -1,15 +1,17 @@
 import { Control, UseFormSetValue } from 'react-hook-form';
-import { TypeSettingTaxi } from 'widgets/settingForm/settingTaxi/libr/TypeSettingTaxi.ts';
+import { TypeSettingTaxi, Price } from 'widgets/settingForm/settingTaxi/libr/TypeSettingTaxi.ts';
 import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from 'widgets/settingForm/settingTaxi/libr/settingTaxiForm.module.scss';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
 import { useAppSelector } from 'app/store/hooks';
+import { getDashOptions } from 'shared/utils';
 
 interface Props {
     setValue: UseFormSetValue<TypeSettingTaxi>;
     control: Control<TypeSettingTaxi, string[]>;
+    available_params: string[] | Price | undefined;
 }
 
 type SelectType = {
@@ -17,20 +19,25 @@ type SelectType = {
     label: string;
 };
 
-export const TypeOfTaxi = ({ control, setValue }: Props) => {
+export const TypeOfTaxi = ({ control, setValue, available_params }: Props) => {
     const { data } = useGetFiltersQuery('');
-    const [typeValues, setTypeValues] = useState<SelectType[]>([]);
+    const [values, setValues] = useState<SelectType[]>([]);
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
 
     useEffect(() => {
-        if (data) {
-            const result = (data['taxi_type'] as SelectType[]).filter(
-                (el) => (el as SelectType).value && (el as SelectType).label
+        if (data && available_params) {
+            const result = (data['document_type'] as SelectType[]).filter((el) =>
+                (available_params as string[]).includes(
+                    el.value
+                )
             );
-            data && setTypeValues(result as SelectType[]);
+
+            setValues(result as SelectType[]);
         }
-    }, [data]);
+    }, [data, available_params]);
+
+    const options = getDashOptions(lang, values);
 
     return (
         <div className={styles.typeOfTaxi}>
@@ -43,16 +50,8 @@ export const TypeOfTaxi = ({ control, setValue }: Props) => {
                 placeholder={t('filters.taxi_type')}
                 closeMenuOnSelect={false}
                 isMulti={true}
-                options={
-                    lang === 'ru'
-                        ? typeValues
-                        : typeValues.map((el) => ({
-                              value: el.value,
-                              label: `${el.value[0].toUpperCase()}${el.value.slice(
-                                  1
-                              )}`,
-                          }))
-                }
+                options={options}
+                defaultValue={options.length === 1 ? options[0] : undefined}
             />
         </div>
     );

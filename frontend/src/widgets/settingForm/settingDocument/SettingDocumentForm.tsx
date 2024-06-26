@@ -1,7 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import {
-    City,
     DocumentDuration,
     DocumentType,
 } from 'features/settingCategoryForm/settingDocumentForm';
@@ -12,11 +11,13 @@ import { useTranslation } from 'react-i18next';
 import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import styles from './libr/settingDocumentForm.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts';
+import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
-import { District } from 'features/settingCategoryForm/settingDocumentForm/District';
-import { StickyButton } from 'features/stickyButton/StickyButton';
-import { DocumentPrice } from 'features/settingCategoryForm/settingDocumentForm/DocumentPrice';
+import { StickyButton } from 'entity/stickyButton/StickyButton';
+import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
+import { PriceFilter } from 'entity/priceFilter/PriceFilter';
+import { CityFilter } from 'entity/cityFilter/CityFilter';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -59,6 +60,13 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
         location.reload();
     };
 
+    const query = getLightFiltersQuery({
+        filters: ['region', 'city', 'document_type', 'document_duration', 'price'],
+        watch,
+    });
+    const category = searchParams.get('category');
+    const { data: availableData } = useGetAvailableFiltersQuery(`?category=${category}&${query}`);
+
     return (
         <section className={formStyles.filters} onClick={handleClick}>
             <form
@@ -66,12 +74,31 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-document"
             >
-                <District control={control} setValue={setValue} />
-                <City control={control} setValue={setValue} watch={watch} />
-                <DocumentType control={control} setValue={setValue} />
-                <DocumentDuration control={control} setValue={setValue} />
-                <DocumentPrice register={register} />
-                <StickyButton />
+                <RegionFilter
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.region}
+                />
+                <CityFilter
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.city}
+                />
+                <DocumentType
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.document_type}
+                />
+                <DocumentDuration
+                    control={control}
+                    setValue={setValue}
+                    available_params={availableData?.available_params.document_duration}
+                />
+                <PriceFilter
+                    register={register}
+                    available_params={availableData?.available_params.city}
+                />
+                {availableData && <StickyButton count={availableData.count} />}
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}
