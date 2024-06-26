@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { City, TypeOfTaxi, UnitOfMeasurement } from 'features/settingCategoryForm/settingTaxiForm';
+import { TypeOfTaxi, UnitOfMeasurement } from 'features/settingCategoryForm/settingTaxiForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeSettingTaxi } from './libr/TypeSettingTaxi';
 import { useSearchParams } from 'react-router-dom';
@@ -14,6 +14,7 @@ import { District } from 'features/settingCategoryForm/settingTaxiForm/District'
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 import { PriceFilter } from 'entity/priceFilter/PriceFilter';
+import { CityFilter } from 'entity/cityFilter/CityFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -66,7 +67,7 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                     setValue={setValue}
                     available_params={availableData?.available_params.region}
                 />
-                <City
+                <CityFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.city}

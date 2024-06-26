@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { City, HouseCall } from 'features/settingCategoryForm/settingServices';
+import { HouseCall } from 'features/settingCategoryForm/settingServices';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeOfServicesForm } from './libr/TypeOfServicesForm';
 import { useSearchParams } from 'react-router-dom';
@@ -14,6 +14,7 @@ import { District } from 'features/settingCategoryForm/settingServices/District.
 import { StickyButton } from 'entity/stickyButton/StickyButton.tsx';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery.ts';
 import { PriceFilter } from 'entity/priceFilter/PriceFilter.tsx';
+import { CityFilter } from 'entity/cityFilter/CityFilter.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -66,7 +67,7 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
                     setValue={setValue}
                     available_params={availableData?.available_params.region}
                 />
-                <City
+                <CityFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.city}

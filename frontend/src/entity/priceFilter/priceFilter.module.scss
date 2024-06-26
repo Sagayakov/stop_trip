@@ -15,8 +15,17 @@
     }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (max-width: 1023px) {
     .price {
         grid-area: price;
+
+        .setting_price {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            input[type="number"] {
+                width: 100%;
+            }
+        }
     }
 }

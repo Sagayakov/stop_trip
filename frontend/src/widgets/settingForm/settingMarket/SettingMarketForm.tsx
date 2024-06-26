@@ -1,9 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
-import {
-    City,
-    MarketCondition,
-} from 'features/settingCategoryForm/settingMarketForm';
+import { MarketCondition } from 'features/settingCategoryForm/settingMarketForm';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeForMarketForm } from './libr/TypeForMarketForm';
 import styles from './libr/settingMarketForm.module.scss';
@@ -17,6 +14,7 @@ import { District } from 'features/settingCategoryForm/settingMarketForm/Distric
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 import { PriceFilter } from 'entity/priceFilter/PriceFilter';
+import { CityFilter } from 'entity/cityFilter/CityFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -81,7 +79,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                     setValue={setValue}
                     available_params={availableData?.available_params.region}
                 />
-                <City
+                <CityFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.city}

@@ -1,7 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import {
-    City,
     DocumentDuration,
     DocumentType,
 } from 'features/settingCategoryForm/settingDocumentForm';
@@ -18,6 +17,7 @@ import { District } from 'features/settingCategoryForm/settingDocumentForm/Distr
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 import { PriceFilter } from 'entity/priceFilter/PriceFilter';
+import { CityFilter } from 'entity/cityFilter/CityFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -79,7 +79,7 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                     setValue={setValue}
                     available_params={availableData?.available_params.region}
                 />
-                <City
+                <CityFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.city}

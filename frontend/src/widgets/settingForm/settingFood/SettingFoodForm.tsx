@@ -1,7 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import {
-    City,
     FoodDelivery,
     FoodEstablishment,
     FoodType,
@@ -19,6 +18,7 @@ import { District } from 'features/settingCategoryForm/settingFoodForm/District'
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 import { PriceFilter } from 'entity/priceFilter/PriceFilter';
+import { CityFilter } from 'entity/cityFilter/CityFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -80,7 +80,7 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
                     setValue={setValue}
                     available_params={availableData?.available_params.region}
                 />
-                <City
+                <CityFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.city}

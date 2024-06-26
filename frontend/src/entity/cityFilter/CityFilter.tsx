@@ -1,17 +1,21 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
-import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Control, FieldValues, Path, UseFormSetValue } from 'react-hook-form';
+import { useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
-import styles from 'widgets/settingForm/settingEvent/libr/settingEventFilter.module.scss';
-import { TypeOfEventFilter, Price } from 'widgets/settingForm/settingEvent/libr/TypeOfEventFilter';
 import { useAppSelector } from 'app/store/hooks';
 import { getCityOptions } from 'shared/utils';
+import styles from './cityFilter.module.scss';
 
-interface Props {
-    setValue: UseFormSetValue<TypeOfEventFilter>;
-    control: Control<TypeOfEventFilter, string[]>;
+interface Props<T extends FieldValues> {
+    setValue: UseFormSetValue<T>;
+    control: Control<T, string[]>;
     available_params: string[] | Price | undefined;
+}
+
+interface Price {
+    min: number;
+    max: number;
 }
 
 type SelectOption = {
@@ -19,7 +23,7 @@ type SelectOption = {
     label: string;
 };
 
-export const City = ({ control, setValue, available_params }: Props) => {
+export const CityFilter = <T extends FieldValues>({ control, setValue, available_params }: Props<T>) => {
     const { data } = useGetFiltersQuery('');
     const [cityValues, setCityValues] = useState<SelectOption[]>([]);
     const { t } = useTranslation();
@@ -32,7 +36,8 @@ export const City = ({ control, setValue, available_params }: Props) => {
                     el.value
                 )
             );
-            data && setCityValues(result as SelectOption[]);
+
+            setCityValues(result as SelectOption[]);
         }
     }, [data, available_params]);
 
@@ -41,11 +46,11 @@ export const City = ({ control, setValue, available_params }: Props) => {
     return (
         <>
             <div className={styles.propertyCity}>
-                <h3>{t('filters.property_city')}</h3>
-                <UniversalSelectDropdown<TypeOfEventFilter>
+                <h3 className={styles.heading}>{t('filters.property_city')}</h3>
+                <UniversalSelectDropdown<T>
                     setValue={setValue}
                     control={control}
-                    name="city"
+                    name={"city" as Path<T>}
                     prefix="filterForm"
                     placeholder={t('filters.property_city')}
                     closeMenuOnSelect={false}

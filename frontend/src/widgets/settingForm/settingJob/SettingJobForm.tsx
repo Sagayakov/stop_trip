@@ -1,6 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
-    City,
     DurationOfWork,
     PriceOfJob,
     TypeOfJob,
@@ -20,6 +19,7 @@ import { getDefaultValues } from './libr/getDefaultValues.ts';
 import { District } from 'features/settingCategoryForm/settingJob/District.tsx';
 import { StickyButton } from 'entity/stickyButton/StickyButton.tsx';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery.ts';
+import { CityFilter } from 'entity/cityFilter/CityFilter.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -87,7 +87,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
                     setValue={setValue}
                     available_params={availableData?.available_params.region}
                 />
-                <City
+                <CityFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.city}

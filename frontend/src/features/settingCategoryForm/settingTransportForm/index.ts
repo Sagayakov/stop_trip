@@ -11,4 +11,3 @@ export { TypeOfService } from './TypeOfService';
 export { TypeOfTransport } from './TypeOfTransport';
 export { YearOfProduction } from './YearOfProduction';
 export { TransportCommission } from './TransportCommission';
-export { City } from './City';

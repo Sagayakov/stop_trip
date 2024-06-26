@@ -3,7 +3,6 @@ import {
     Amenities,
     Bathroom,
     BathroomQuantity,
-    City,
     District,
     Balcony,
     HasFurniture,
@@ -34,6 +33,7 @@ import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAd
 import { getDefaultValues } from './libr/getDefaultValues';
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
+import { CityFilter } from 'entity/cityFilter/CityFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -106,7 +106,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                     setValue={setValue}
                     available_params={availableData?.available_params.region}
                 />
-                <City
+                <CityFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.city}
