@@ -3,7 +3,6 @@ import {
     Amenities,
     Bathroom,
     BathroomQuantity,
-    District,
     Balcony,
     HasFurniture,
     HouseType,
@@ -34,6 +33,7 @@ import { getDefaultValues } from './libr/getDefaultValues';
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 import { CityFilter } from 'entity/cityFilter/CityFilter';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -101,7 +101,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                 id="form-setting-property"
             >
                 <TypeOfService register={register} />
-                <District
+                <RegionFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.region}

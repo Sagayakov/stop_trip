@@ -25,11 +25,11 @@ import styles from './libr/settingTransportForm.module.scss';
 import formStyle from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
-import { District } from 'features/settingCategoryForm/settingTransportForm/District';
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 import { PriceFilter } from 'entity/priceFilter/PriceFilter';
 import { CityFilter } from 'entity/cityFilter/CityFilter';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -94,7 +94,7 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                 id="form-setting-transport"
             >
                 <TypeOfService register={register} />
-                <District
+                <RegionFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.region}

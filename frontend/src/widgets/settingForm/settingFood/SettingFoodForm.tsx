@@ -14,11 +14,11 @@ import styles from './libr/settingFoordForm.module.scss';
 import stylesForm from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
-import { District } from 'features/settingCategoryForm/settingFoodForm/District';
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 import { PriceFilter } from 'entity/priceFilter/PriceFilter';
 import { CityFilter } from 'entity/cityFilter/CityFilter';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -75,7 +75,7 @@ const SettingFoodForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-food"
             >
-                <District
+                <RegionFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.region}

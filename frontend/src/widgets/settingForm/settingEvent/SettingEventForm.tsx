@@ -14,11 +14,11 @@ import styles from './libr/settingEventFilter.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
-import { District } from 'features/settingCategoryForm/settingEvent/District.tsx';
 import { StickyButton } from 'entity/stickyButton/StickyButton.tsx';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery.ts';
 import { PriceFilter } from 'entity/priceFilter/PriceFilter.tsx';
 import { CityFilter } from 'entity/cityFilter/CityFilter.tsx';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -73,7 +73,7 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-event"
             >
-                <District
+                <RegionFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.region}

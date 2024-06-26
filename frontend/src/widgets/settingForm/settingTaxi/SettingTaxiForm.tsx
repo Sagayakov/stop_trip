@@ -10,11 +10,11 @@ import styles from './libr/settingTaxiForm.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
-import { District } from 'features/settingCategoryForm/settingTaxiForm/District';
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 import { PriceFilter } from 'entity/priceFilter/PriceFilter';
 import { CityFilter } from 'entity/cityFilter/CityFilter';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -62,7 +62,7 @@ const SettingTaxiForm = ({ setShowFilters }: Props) => {
                 autoComplete="off"
                 id="form-setting-taxi"
             >
-                <District
+                <RegionFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.region}

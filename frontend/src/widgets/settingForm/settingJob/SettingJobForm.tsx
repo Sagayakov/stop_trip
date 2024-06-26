@@ -16,10 +16,10 @@ import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import styles from './libr/settingJobFilter.module.scss';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
-import { District } from 'features/settingCategoryForm/settingJob/District.tsx';
 import { StickyButton } from 'entity/stickyButton/StickyButton.tsx';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery.ts';
 import { CityFilter } from 'entity/cityFilter/CityFilter.tsx';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -82,7 +82,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-job"
             >
-                <District
+                <RegionFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.region}

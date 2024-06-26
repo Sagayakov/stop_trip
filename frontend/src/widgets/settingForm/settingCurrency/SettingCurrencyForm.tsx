@@ -14,10 +14,10 @@ import formStyles from './libr/settingCurrencyFilter.module.scss';
 import { searchParamsForExchange } from './libr/searchParamsForExchange';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
-import { District } from 'features/settingCategoryForm/settingCurrencyForm/District';
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 import { CityFilter } from 'entity/cityFilter/CityFilter';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -77,7 +77,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onSubmit)}
                 id="form-setting-currency"
             >
-                <District
+                <RegionFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.region}

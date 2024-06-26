@@ -1,17 +1,21 @@
-import { Control, UseFormSetValue } from 'react-hook-form';
-import { useGetRegionsByCountryQuery } from 'app/api/fetchAdverts.ts';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Control, FieldValues, Path, UseFormSetValue } from 'react-hook-form';
+import { useGetRegionsByCountryQuery } from 'app/api/fetchAdverts.ts';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
-import { TypeOfServicesForm, Price } from 'widgets/settingForm/settingServices/libr/TypeOfServicesForm';
-import styles from 'widgets/settingForm/settingServices/libr/settingServicesForm.module.scss';
 import { useAppSelector } from 'app/store/hooks';
 import { getDashOptions } from 'shared/utils';
+import styles from './regionFilter.module.scss';
 
-interface Props {
-    setValue: UseFormSetValue<TypeOfServicesForm>;
-    control: Control<TypeOfServicesForm, string[]>;
+interface Props<T extends FieldValues> {
+    setValue: UseFormSetValue<T>;
+    control: Control<T, string[]>;
     available_params: string[] | Price | undefined;
+}
+
+interface Price {
+    min: number;
+    max: number;
 }
 
 type SelectType = {
@@ -19,7 +23,7 @@ type SelectType = {
     label: string;
 };
 
-export const District = ({ control, setValue, available_params }: Props) => {
+export const RegionFilter = <T extends FieldValues>({ control, setValue, available_params }: Props<T>) => {
     const { data: regionsData } = useGetRegionsByCountryQuery('?country=india');
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
@@ -42,11 +46,11 @@ export const District = ({ control, setValue, available_params }: Props) => {
     return (
         <>
             <div className={styles.propertyDistrict}>
-                <h3>{t('filters.property_district')}</h3>
-                <UniversalSelectDropdown<TypeOfServicesForm>
+                <h3 className={styles.heading}>{t('filters.property_district')}</h3>
+                <UniversalSelectDropdown<T>
                     setValue={setValue}
                     control={control}
-                    name="region"
+                    name={"region" as Path<T>}
                     prefix="filterForm"
                     placeholder={t('filters.property_district')}
                     closeMenuOnSelect={true}

@@ -5,7 +5,6 @@ export { TotalArea } from './TotalArea';
 export { SettingPrice } from './SettingPrice';
 export { RealtyCommission } from './RealtyCommission';
 export { TypeOfService } from './TypeOfService';
-export { District } from './District';
 export { Floor } from './Floor';
 export { BathroomQuantity } from './BathroomQuantity';
 export { HouseType } from './HouseType';

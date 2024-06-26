@@ -13,11 +13,11 @@ import { getSearchParams } from './libr/getSearchParams';
 import { useSearchParams } from 'react-router-dom';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
-import { District } from 'features/settingCategoryForm/settingExcursionForm/District';
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 import { PriceFilter } from 'entity/priceFilter/PriceFilter';
 import { CityFilter } from 'entity/cityFilter/CityFilter';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -71,7 +71,7 @@ const SettingExcursionForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onSubmit)}
                 id="form-setting-excursion"
             >
-                <District
+                <RegionFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.region}

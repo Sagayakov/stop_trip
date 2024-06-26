@@ -10,11 +10,11 @@ import { scrollToTop } from 'shared/utils/scrollToTop.ts';
 import { getMultiQuery } from 'shared/utils/getMultiQuery';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
-import { District } from 'features/settingCategoryForm/settingMarketForm/District';
 import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 import { PriceFilter } from 'entity/priceFilter/PriceFilter';
 import { CityFilter } from 'entity/cityFilter/CityFilter';
+import { RegionFilter } from 'entity/regionFilter/RegionFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -74,7 +74,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                 onSubmit={handleSubmit(onsubmit)}
                 id="form-setting-market"
             >
-                <District
+                <RegionFilter
                     control={control}
                     setValue={setValue}
                     available_params={availableData?.available_params.region}
