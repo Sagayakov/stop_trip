@@ -32,7 +32,7 @@ import styles from './libr/settingRealty.module.scss';
 import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
-import { StickyButton } from 'features/stickyButton/StickyButton';
+import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 
 interface Props {
@@ -166,7 +166,7 @@ const SettingRealtyForm = ({ setShowFilters }: Props) => {
                     register={register}
                     available_params={availableData?.available_params.property_commission}
                 />
-                <StickyButton count={availableData?.count} />
+                {availableData && <StickyButton count={availableData.count} />}
                 <UniversalButton
                     className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}

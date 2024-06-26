@@ -1,16 +1,20 @@
 import { useMemo } from 'react';
-import { UseFormRegister } from 'react-hook-form';
-import { TypeOfEventFilter, Price } from 'widgets/settingForm/settingEvent/libr/TypeOfEventFilter.ts';
 import { useTranslation } from 'react-i18next';
-import styles from 'widgets/settingForm/settingEvent/libr/settingEventFilter.module.scss';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
+import styles from './priceFilter.module.scss';
 
-interface Props {
-    register: UseFormRegister<TypeOfEventFilter>;
+interface Price {
+    min: number;
+    max: number;
+}
+
+interface Props<T extends FieldValues> {
+    register: UseFormRegister<T>;
     available_params: string[] | Price | undefined;
 }
 
-export const EventPrice = ({ register, available_params }: Props) => {
+export const PriceFilter = <T extends FieldValues>({ register, available_params }: Props<T>) => {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const params = useMemo<Price | undefined>(
@@ -31,21 +35,21 @@ export const EventPrice = ({ register, available_params }: Props) => {
         : undefined;
 
     return (
-        <div className={styles.eventPrice}>
+        <div className={styles.price}>
             <h3>{t('filters.price')}</h3>
-            <div className={styles.setting_eventPrice}>
+            <div className={styles.setting_price}>
                 <input
                     type="number"
-                    min="0"
                     placeholder={params?.min ? `${params?.min}` : t('filters.from')}
+                    min="0"
                     defaultValue={min}
-                    {...register('price.min')}
+                    {...register('price.min' as Path<T>)}
                 />
                 <input
                     type="number"
                     placeholder={params?.max ? `${params?.max}` : t('filters.up-to')}
                     defaultValue={max}
-                    {...register('price.max')}
+                    {...register('price.max' as Path<T>)}
                 />
             </div>
         </div>

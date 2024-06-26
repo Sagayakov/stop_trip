@@ -7,7 +7,6 @@ import {
     EngineCapacity,
     MarkOfTransport,
     ModelOfTransport,
-    SettingTransportPrice,
     TransmissionType,
     TransportCommission,
     TransportationCategory,
@@ -28,8 +27,9 @@ import formStyle from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingTransportForm/District';
-import { StickyButton } from 'features/stickyButton/StickyButton';
+import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
+import { PriceFilter } from 'entity/priceFilter/PriceFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -159,11 +159,11 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                     register={register}
                     available_params={availableData?.available_params.transport_commission}
                 />
-                <SettingTransportPrice
+                <PriceFilter
                     register={register}
                     available_params={availableData?.available_params.price}
                 />
-                <StickyButton count={availableData?.count} />
+                {availableData && <StickyButton count={availableData.count} />}
                 <UniversalButton
                     onClick={handleReset}
                     className={`${formStyle.reset_setting_form} ${styles.reset_setting_form}`}

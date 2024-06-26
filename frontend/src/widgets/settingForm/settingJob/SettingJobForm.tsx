@@ -18,7 +18,7 @@ import styles from './libr/settingJobFilter.module.scss';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
 import { District } from 'features/settingCategoryForm/settingJob/District.tsx';
-import { StickyButton } from 'features/stickyButton/StickyButton.tsx';
+import { StickyButton } from 'entity/stickyButton/StickyButton.tsx';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery.ts';
 
 interface Props {
@@ -108,7 +108,7 @@ const SettingJobForm = ({ setShowFilters }: Props) => {
                     available_params={availableData?.available_params.price}
                 />
                 <WithExperience register={register} />
-                <StickyButton count={availableData?.count} />
+                {availableData && <StickyButton count={availableData.count} />}
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}

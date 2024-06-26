@@ -16,7 +16,7 @@ import { searchParamsForExchange } from './libr/searchParamsForExchange';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingCurrencyForm/District';
-import { StickyButton } from 'features/stickyButton/StickyButton';
+import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
 
 interface Props {
@@ -101,7 +101,7 @@ const SettingCurrencyForm = ({ setShowFilters }: Props) => {
                     register={register}
                     available_params={availableData?.available_params.exchange_rate}
                 />
-                <StickyButton count={availableData?.count} />
+                {availableData && <StickyButton count={availableData.count} />}
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}

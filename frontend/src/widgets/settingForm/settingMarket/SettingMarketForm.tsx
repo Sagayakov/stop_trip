@@ -14,9 +14,9 @@ import { getMultiQuery } from 'shared/utils/getMultiQuery';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { District } from 'features/settingCategoryForm/settingMarketForm/District';
-import { StickyButton } from 'features/stickyButton/StickyButton';
-import { MarketPrice } from 'features/settingCategoryForm/settingMarketForm/MarketPrice';
+import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
+import { PriceFilter } from 'entity/priceFilter/PriceFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -87,11 +87,11 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                     available_params={availableData?.available_params.city}
                 />
                 <MarketCondition register={register} />
-                <MarketPrice
+                <PriceFilter
                     register={register}
                     available_params={availableData?.available_params.price}
                 />
-                <StickyButton count={availableData?.count} />
+                {availableData && <StickyButton count={availableData.count} />}
                 <button
                     className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}

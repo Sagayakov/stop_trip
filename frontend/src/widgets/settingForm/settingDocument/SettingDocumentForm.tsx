@@ -15,9 +15,9 @@ import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts';
 import { getDefaultValues } from './libr/getDefaultValues';
 import { District } from 'features/settingCategoryForm/settingDocumentForm/District';
-import { StickyButton } from 'features/stickyButton/StickyButton';
-import { DocumentPrice } from 'features/settingCategoryForm/settingDocumentForm/DocumentPrice';
+import { StickyButton } from 'entity/stickyButton/StickyButton';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery';
+import { PriceFilter } from 'entity/priceFilter/PriceFilter';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -94,11 +94,11 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                     setValue={setValue}
                     available_params={availableData?.available_params.document_duration}
                 />
-                <DocumentPrice
+                <PriceFilter
                     register={register}
                     available_params={availableData?.available_params.city}
                 />
-                <StickyButton count={availableData?.count} />
+                {availableData && <StickyButton count={availableData.count} />}
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}

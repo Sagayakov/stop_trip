@@ -1,9 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import {
-    City,
-    HouseCall,
-    SettingServicePrice,
-} from 'features/settingCategoryForm/settingServices';
+import { City, HouseCall } from 'features/settingCategoryForm/settingServices';
 import { Reset } from 'shared/ui/icons/icons-tools/Reset.tsx';
 import { TypeOfServicesForm } from './libr/TypeOfServicesForm';
 import { useSearchParams } from 'react-router-dom';
@@ -15,8 +11,9 @@ import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
 import { District } from 'features/settingCategoryForm/settingServices/District.tsx';
-import { StickyButton } from 'features/stickyButton/StickyButton.tsx';
+import { StickyButton } from 'entity/stickyButton/StickyButton.tsx';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery.ts';
+import { PriceFilter } from 'entity/priceFilter/PriceFilter.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -75,11 +72,11 @@ const SettingServicesForm = ({ setShowFilters }: Props) => {
                     available_params={availableData?.available_params.city}
                 />
                 <HouseCall register={register} />
-                <SettingServicePrice
+                <PriceFilter
                     register={register}
                     available_params={availableData?.available_params.price}
                 />
-                <StickyButton count={availableData?.count} />
+                {availableData && <StickyButton count={availableData.count} />}
                 <button
                     className={`${formStyles.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}

@@ -5,7 +5,6 @@ import {
     City,
     DateOfEndEvent,
     DateOfStartEvent,
-    EventPrice,
     IsOnlineEvent,
 } from 'features/settingCategoryForm/settingEvent';
 import { useSearchParams } from 'react-router-dom';
@@ -17,8 +16,9 @@ import formStyles from 'widgets/settingForm/forms/filtersForm.module.scss';
 import { useGetAvailableFiltersQuery, useGetFiltersQuery } from 'app/api/fetchAdverts.ts';
 import { getDefaultValues } from './libr/getDefaultValues.ts';
 import { District } from 'features/settingCategoryForm/settingEvent/District.tsx';
-import { StickyButton } from 'features/stickyButton/StickyButton.tsx';
+import { StickyButton } from 'entity/stickyButton/StickyButton.tsx';
 import { getLightFiltersQuery } from 'shared/utils/getLightFiltersQuery.ts';
+import { PriceFilter } from 'entity/priceFilter/PriceFilter.tsx';
 
 interface Props {
     setShowFilters: (value: React.SetStateAction<boolean>) => void;
@@ -85,9 +85,12 @@ const SettingEventForm = ({ setShowFilters }: Props) => {
                 />
                 <DateOfStartEvent register={register} />
                 <DateOfEndEvent register={register} />
-                <EventPrice register={register} available_params={availableData?.available_params.price} />
+                <PriceFilter
+                    register={register}
+                    available_params={availableData?.available_params.price}
+                />
                 <IsOnlineEvent register={register} />
-                <StickyButton count={availableData?.count} />
+                {availableData && <StickyButton count={availableData.count} />}
                 <button
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}
