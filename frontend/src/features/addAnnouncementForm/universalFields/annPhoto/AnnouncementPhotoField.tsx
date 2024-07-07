@@ -87,7 +87,7 @@ const AnnouncementPhotoField = ({
         setValue('delete_images', deleteIdArray);
     }, [deleteIdArray]); //на бэк передаем массив id картинок, которые удаляем
 
-    const getImgSize = useCallback(() => {
+    /* const getImgSize = useCallback(() => {
         let imgSize = 0;
         let uploadImgSize = 0;
         images?.forEach((img) => (imgSize += img.length));
@@ -106,7 +106,7 @@ const AnnouncementPhotoField = ({
             clearErrors('images');
             clearErrors('upload_images');
         }
-    }, [images, uploadImg]);
+    }, [images, uploadImg]); */
 
     return (
         <div className={`${styles.ann_field} ${styles.mobile_add_photo}`}>

@@ -61,12 +61,20 @@ const AddAnnouncementPage = () => {
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
+        console.log(data)
+        const formData = new FormData();
 
         try {
             const nonNullableData = Object.entries(data).filter(
-                (el) => el[1] !== null && el[1] !== undefined && el[1] !== ''
+                (el) => el[1] !== null && el[1] !== undefined && el[1] !== '' && el[0] !== 'delete_images'
             );
-            await addAdvert({
+            nonNullableData.forEach((el) => {
+                formData.append(el[0], JSON.stringify(el[1]));
+            })
+            console.log(nonNullableData)
+            formData.append('region', 'north-goa');
+            formData.append('is_published', JSON.stringify(false));
+            /* await addAdvert({
                 ...Object.fromEntries(nonNullableData),
                 start_date: data.start_date
                     ? `${data.start_date}T${data.start_time ?? ''}`
@@ -75,7 +83,9 @@ const AddAnnouncementPage = () => {
                     ? `${data.end_date}T${data.end_time ?? ''}`
                     : undefined,
                 region: data.region || 'north-goa',
-            });
+                is_published: false,
+            }); */
+            await addAdvert(formData);
         } catch (error) {
             console.log(error);
             const toastId = 'add advert error toast';

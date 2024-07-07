@@ -81,12 +81,12 @@ const LoadPhotoBtn = ({
                 }
                 setValue('upload_images', base64Strings as string[]);
             } else {
-                const base64Strings =
+                /* const base64Strings =
                     await convertFilesToBase64Strings(fileList);
                 if (images) {
                     base64Strings.push(...images); //если что-то было, пушим в массив
-                }
-                setValue('images', base64Strings as string[]);
+                } */
+                setValue('images', fileList);
             } //если мы на странице редактирования, то setValue для поля upload_images
             //если на странице добавления объявлений, то для поля images
 

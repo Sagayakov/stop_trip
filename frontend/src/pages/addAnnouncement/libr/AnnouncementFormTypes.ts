@@ -9,7 +9,7 @@ export interface FormAddAnn {
     city?: string;
     slug?: string;
     //фото
-    images?: string[];
+    images?: FileList;
     upload_images?: string[];
     delete_images?: number[];
     //youtube
@@ -85,6 +85,7 @@ export interface FormAddAnn {
     transport_passengers_quality?: number;
     transport_vin?: string;
     transport_commission?: number;
+    is_published?: boolean;
 }
 
 export interface SelectOption {
