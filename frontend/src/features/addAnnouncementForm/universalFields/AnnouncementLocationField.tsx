@@ -38,7 +38,7 @@ const AnnouncementLocationField = ({
 
     return (
         <div className={styles.ann_field}>
-            <h3>{`${t('add-page.location')}:`}</h3>
+            <h3>{`${t('add-page.on_map')}:`}</h3>
             <div className={styles.map_wrapper}>
                 <MapComponent
                     propertyLocation={
