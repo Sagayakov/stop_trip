@@ -14,7 +14,7 @@ export const authFetchAdverts = createApi({
     tagTypes: ['Adverts', 'MyAnnouncements'],
     baseQuery: baseQueryWithReauth,
     endpoints: (build) => ({
-        addAdvert: build.mutation<ProductType, FormAddAnn>({
+        addAdvert: build.mutation<ProductType, FormData>({
             query: (body) => ({
                 url: 'api/advertisements/',
                 method: 'POST',

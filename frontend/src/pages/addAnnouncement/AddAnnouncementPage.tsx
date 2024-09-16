@@ -69,11 +69,19 @@ const AddAnnouncementPage = () => {
                 (el) => el[1] !== null && el[1] !== undefined && el[1] !== '' && el[0] !== 'delete_images'
             );
             nonNullableData.forEach((el) => {
-                formData.append(el[0], JSON.stringify(el[1]));
+                if (el[0] === 'images') {
+                    Array.from(el[1]).forEach((item) => {
+                        formData.append('images[]', item as File);
+                    })
+                    return;
+                }
+                formData.append(el[0], el[1]);
             })
-            console.log(nonNullableData)
             formData.append('region', 'north-goa');
-            formData.append('is_published', JSON.stringify(false));
+            formData.append('is_published', 'false');
+            for (const pair of formData.entries()) {
+                console.log(pair[0]+ ': ' + pair[1]); 
+            }
             /* await addAdvert({
                 ...Object.fromEntries(nonNullableData),
                 start_date: data.start_date
