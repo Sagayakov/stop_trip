@@ -6,10 +6,12 @@ from typing import Optional
 from uuid import uuid4
 
 from PIL import Image
+from django.core import files as django_files
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from slugify import slugify
 
+from common.constants import BYTES_IN_MEGABYTES
 from .models import Advertisement, AdvertisementImage, TransportBrand, TransportModel
 
 
@@ -37,6 +39,12 @@ def compression_photo(
         file.seek(0)
         images_list.append(AdvertisementImage(advertisement=advertisement, image=image_content))
     return images_list
+
+
+def get_file_size_in_megabytes(file: django_files.File) -> float:
+    """Метод перевода байтов в мегабайты."""
+
+    return round(file.size / BYTES_IN_MEGABYTES, 2)
 
 
 def change_link(youtube_link) -> Optional[str]:

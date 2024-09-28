@@ -202,7 +202,6 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     def retrieve(self, request, *args, **kwargs):
         return super(AdvertisementModelViewSet, self).retrieve(request, *args, **kwargs)
 
-    @method_decorator(cache_page(60 * 5))
     @action(detail=False, methods=["GET"])
     def my_advertisements(self, request, *args, **kwargs):
         """Мои объявления."""

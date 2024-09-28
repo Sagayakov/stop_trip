@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
 from countries.models import Country, Region, City
@@ -16,7 +17,7 @@ from ..models import (
     TransportModel,
     Currency,
 )
-from ..utils import compression_photo, change_link
+from ..utils import compression_photo, change_link, get_file_size_in_megabytes
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
@@ -86,12 +87,19 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
 class AdvertisementImageSerializer(serializers.ModelSerializer):
     """Сериализатор картинок объявления."""
 
+    size = serializers.SerializerMethodField()
+
     class Meta:
         model = AdvertisementImage
         fields = (
             "id",
             "image",
+            "size",
         )
+
+    @extend_schema_field(serializers.FloatField)
+    def get_size(self, obj: AdvertisementImage) -> int:
+        return get_file_size_in_megabytes(obj.image) if obj.image else 0
 
 
 class AdvertisementPropertyAmenitySerializer(serializers.ModelSerializer):
