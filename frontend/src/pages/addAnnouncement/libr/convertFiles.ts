@@ -50,7 +50,7 @@ const fileToBase64String = async (
             reader.onerror = function (error) {
                 reject(error);
             };
-            reader.readAsDataURL(convertedFile);
+            if (convertedFile) reader.readAsDataURL(convertedFile);
         });
     } else {
         return new Promise((resolve, reject) => {
@@ -107,4 +107,32 @@ export const convertFilesToBase64Strings = async (files: File[] | FileList) => {
         }
     }
     return base64Strings;
+};
+
+export const convertHeicFilesToPng = async (files: File[]) => {
+    const promises = files.map(async (file) => {
+        try {
+            let convertedFile: File | null = null;
+            if (
+                file.name.toLowerCase().includes('.heic') ||
+                file.name.toLowerCase().includes('.heif')
+            ) {
+                const fileWithLowerCaseExtension = new File(
+                    [file],
+                    file.name.toLowerCase(),
+                    { type: file.type }
+                );
+                convertedFile = await convertHeicToAny(fileWithLowerCaseExtension);
+            } else {
+                convertedFile = file;
+            }
+            return convertedFile;
+        } catch (error) {
+            console.error('Ошибка при чтении файла:', error);
+            return null;
+        }
+    });
+
+    const converted = await Promise.all(promises);
+    return converted.filter((file): file is File => file !== null);
 };

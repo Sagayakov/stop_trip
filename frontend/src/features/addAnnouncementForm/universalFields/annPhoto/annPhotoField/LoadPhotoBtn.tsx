@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next';
 import styles from '../annPhoto.module.scss';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
-import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFileToBinary.ts';
+import {
+    convertFilesToBase64Strings, convertHeicFilesToPng,
+} from 'pages/addAnnouncement/libr/convertFiles';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground';
-import { convertHeicToAny } from 'features/addAnnouncementForm/universalFields/annPhoto/annPhotoField/convertHeicToAny';
 
 const allowableExtensions = [
     'image/png',
@@ -56,66 +57,37 @@ const LoadPhotoBtn = ({
         setIsLoading(true);
         const fileList = event.target.files;
         if (fileList) {
-            for (const file of fileList) {
-                //const fileType = file.type.split('.');
-                //const extension = fileType[fileType.length - 1];
-
+            const fileArray = Array.from(fileList);
+            for (const file of fileArray) {
                 const fileTypeFromName = file.name.split('.');
                 const extensionFromName =
                     fileTypeFromName[fileTypeFromName.length - 1];
 
-                if (
-                    /* !allowableExtensions.includes(extension) || */
-                    !allowableExtensions.includes(extensionFromName)
-                ) {
+                if (!allowableExtensions.includes(extensionFromName)) {
                     const toastId = 'load photo ext toast';
                     toast.error(t('add-page.extension'), { toastId });
+                    setIsLoading(false);
                     return;
                 }
-            } // проверяем расширение файла
+            }
+
+            let convertedFiles = await convertHeicFilesToPng(fileArray);
+
             if (path[1] === 'advertisement-editing') {
                 const base64Strings =
-                    await convertFilesToBase64Strings(fileList);
+                    await convertFilesToBase64Strings(fileArray);
                 if (uploadImages) {
                     base64Strings.push(...uploadImages); //если что-то было, пушим в массив
                 }
                 setValue('upload_images', base64Strings as string[]);
             } else {
-                const base64Strings =
-                    await convertFilesToBase64Strings(fileList);
-                if (images) {
-                    base64Strings.push(...images); //если что-то было, пушим в массив
-                }
-                setValue('images', base64Strings as string[]);
+                if (images) convertedFiles = [...images, ...convertedFiles];
+                setValue('images', convertedFiles);
             } //если мы на странице редактирования, то setValue для поля upload_images
             //если на странице добавления объявлений, то для поля images
 
-            Array.from(fileList).forEach(async (file) => {
-                if (
-                    file.name.includes('.HEIC') ||
-                    file.name.includes('.HEIF')
-                ) {
-                    const reader = new FileReader();
-                    file = await convertHeicToAny(file);
-                    reader.readAsDataURL(file);
-
-                    reader.onloadend = () => {
-                        setPreviewImages((prevPreviews) => [
-                            ...prevPreviews,
-                            reader.result as string,
-                        ]);
-                    }; //для предпросмотра
-                } else {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onloadend = () => {
-                        setPreviewImages((prevPreviews) => [
-                            ...prevPreviews,
-                            reader.result as string,
-                        ]);
-                    }; //для предпросмотра
-                }
-            });
+            const previews = convertedFiles.map((el) => URL.createObjectURL(el));
+            setPreviewImages(previews);
         }
         setIsLoading(false);
     };
