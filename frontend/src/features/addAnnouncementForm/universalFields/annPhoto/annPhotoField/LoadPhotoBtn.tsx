@@ -46,7 +46,7 @@ const LoadPhotoBtn = ({
 }: Props) => {
     const { t } = useTranslation();
     const path = useLocation().pathname.split('/');
-    const images = watch('images');
+    /* const images = watch('images'); */
     const uploadImages = watch('upload_images');
     const [isLoading, setIsLoading] = useState(false);
 

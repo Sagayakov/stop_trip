@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { /* useCallback,  */useEffect, useRef, useState } from 'react';
 import {
     ErrorOption,
     FieldPath,
@@ -10,7 +10,7 @@ import { MiniLoadPhoto } from 'shared/ui/icons/loadPhoto';
 import { useTranslation } from 'react-i18next';
 import styles from './annPhoto.module.scss';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
-import { toFixed } from 'ol/math';
+/* import { toFixed } from 'ol/math'; */
 import LoadPhotoBtn from './annPhotoField/LoadPhotoBtn';
 
 interface Props {
@@ -35,8 +35,8 @@ const AnnouncementPhotoField = ({
     watch,
     setValue,
     editImages: img,
-    setError,
-    clearErrors,
+    /* setError,
+    clearErrors, */
 }: Props) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const { t } = useTranslation();
@@ -45,7 +45,7 @@ const AnnouncementPhotoField = ({
     const [editImages, setEditImages] = useState<
         LastAdvertsImages[] | undefined
     >(img);
-    const [imgSize, setImgSize] = useState(0);
+    /* const [imgSize, setImgSize] = useState(0); */
     const images = watch('images');
     const uploadImg = watch('upload_images');
 
@@ -53,7 +53,7 @@ const AnnouncementPhotoField = ({
         if (images) {
             const newImages = [...images];
             newImages.splice(index, 1); //удаляем элемент по индексу
-            setValue('images', newImages);
+            /* setValue('images', newImages); */
 
             const newPreviews = [...previewImages];
             newPreviews.splice(index, 1);
@@ -120,7 +120,7 @@ const AnnouncementPhotoField = ({
                         setValue={setValue}
                         inputRef={inputRef}
                         setPreviewImages={setPreviewImages}
-                        imgSize={imgSize}
+                        imgSize={0}
                         previewImages={previewImages}
                         watch={watch}
                     />
@@ -129,7 +129,7 @@ const AnnouncementPhotoField = ({
                             <MiniLoadPhoto />
                             {t('add-page.uploaded')} {photoCounter()}/10
                         </div>
-                        <div>{imgSize}/60mb</div>
+                        <div>{0}/60mb</div>
                     </div>
                 </div>
                 <div className={styles.preview}>
