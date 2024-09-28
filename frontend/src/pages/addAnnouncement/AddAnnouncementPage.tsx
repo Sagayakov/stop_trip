@@ -62,7 +62,6 @@ const AddAnnouncementPage = () => {
 
     const onsubmit = async (data: FormAddAnn) => {
         setValue('country', 'india');
-        console.log(data)
         const formData = new FormData();
 
         try {
@@ -85,9 +84,6 @@ const AddAnnouncementPage = () => {
             }
             if (data.end_date) {
                 formData.append('end_date', `${data.end_date}T${data.end_time ?? ''}`);
-            }
-            for (const pair of formData.entries()) {
-                console.log(pair[0]+ ': ' + pair[1]); 
             }
             await addAdvert(formData);
         } catch (error) {
