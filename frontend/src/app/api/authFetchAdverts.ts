@@ -1,12 +1,8 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-// import { url } from 'shared/const/url.ts';
 import { MyAnnouncements } from 'app/api/types/myAnnouncements.ts';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
-import {
-    baseQueryWithReauth,
-    // refetchAccessTokenForPrepareHeaders,
-} from 'app/api/handlers/baseQueryWithReauth.ts';
+import { baseQueryWithReauth } from 'app/api/handlers/baseQueryWithReauth.ts';
 import { getCsrfToken } from 'app/api/handlers/getCsrfToken.ts';
 
 export const authFetchAdverts = createApi({
@@ -20,10 +16,8 @@ export const authFetchAdverts = createApi({
                 method: 'POST',
                 headers: {
                     'X-Csrftoken': getCsrfToken(),
-                    "Content-Type": "multipart/form-data; boundary=------------",
                 },
                 body,
-                //body: JSON.stringify(body),
             }),
             invalidatesTags: ['Adverts'],
         }),

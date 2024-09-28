@@ -9,7 +9,7 @@ export interface FormAddAnn {
     city?: string;
     slug?: string;
     //фото
-    images?: FileList;
+    images?: File[];
     upload_images?: string[];
     delete_images?: number[];
     //youtube

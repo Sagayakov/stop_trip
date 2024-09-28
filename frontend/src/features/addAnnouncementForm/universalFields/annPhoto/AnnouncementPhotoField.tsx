@@ -1,4 +1,4 @@
-import { /* useCallback,  */useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
     ErrorOption,
     FieldPath,
@@ -10,7 +10,7 @@ import { MiniLoadPhoto } from 'shared/ui/icons/loadPhoto';
 import { useTranslation } from 'react-i18next';
 import styles from './annPhoto.module.scss';
 import { LastAdvertsImages } from 'app/api/types/lastAdvertsTypes.ts';
-/* import { toFixed } from 'ol/math'; */
+import { toFixed } from 'ol/math';
 import LoadPhotoBtn from './annPhotoField/LoadPhotoBtn';
 
 interface Props {
@@ -35,8 +35,8 @@ const AnnouncementPhotoField = ({
     watch,
     setValue,
     editImages: img,
-    /* setError,
-    clearErrors, */
+    setError,
+    clearErrors,
 }: Props) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const { t } = useTranslation();
@@ -45,7 +45,7 @@ const AnnouncementPhotoField = ({
     const [editImages, setEditImages] = useState<
         LastAdvertsImages[] | undefined
     >(img);
-    /* const [imgSize, setImgSize] = useState(0); */
+    const [imgSize, setImgSize] = useState(0);
     const images = watch('images');
     const uploadImg = watch('upload_images');
 
@@ -53,7 +53,7 @@ const AnnouncementPhotoField = ({
         if (images) {
             const newImages = [...images];
             newImages.splice(index, 1); //удаляем элемент по индексу
-            /* setValue('images', newImages); */
+            setValue('images', newImages);
 
             const newPreviews = [...previewImages];
             newPreviews.splice(index, 1);
@@ -87,10 +87,10 @@ const AnnouncementPhotoField = ({
         setValue('delete_images', deleteIdArray);
     }, [deleteIdArray]); //на бэк передаем массив id картинок, которые удаляем
 
-    /* const getImgSize = useCallback(() => {
+    const getImgSize = useCallback(() => {
         let imgSize = 0;
         let uploadImgSize = 0;
-        images?.forEach((img) => (imgSize += img.length));
+        images?.forEach((img) => (imgSize += img.size));
         uploadImg?.forEach((img) => (uploadImgSize += img.length));
         const size = toFixed((imgSize + uploadImgSize) / 1024 / 1024, 2);
         setImgSize(size);
@@ -106,21 +106,18 @@ const AnnouncementPhotoField = ({
             clearErrors('images');
             clearErrors('upload_images');
         }
-    }, [images, uploadImg]); */
+    }, [images, uploadImg]);
 
     return (
         <div className={`${styles.ann_field} ${styles.mobile_add_photo}`}>
             <h3>{`${t('add-page.photo')}:`}</h3>
-            <p className={styles.iphone_warning}>
-                {t('add-page.iphone_warning')}
-            </p>
             <div className={styles.loadphoto}>
                 <div className={styles.loadphoto_btn_view}>
                     <LoadPhotoBtn
                         setValue={setValue}
                         inputRef={inputRef}
                         setPreviewImages={setPreviewImages}
-                        imgSize={0}
+                        imgSize={imgSize}
                         previewImages={previewImages}
                         watch={watch}
                     />
@@ -129,7 +126,7 @@ const AnnouncementPhotoField = ({
                             <MiniLoadPhoto />
                             {t('add-page.uploaded')} {photoCounter()}/10
                         </div>
-                        <div>{0}/60mb</div>
+                        <div>{imgSize}/60mb</div>
                     </div>
                 </div>
                 <div className={styles.preview}>
@@ -166,6 +163,7 @@ const AnnouncementPhotoField = ({
                                 style={{
                                     maxWidth: '100px',
                                     margin: '5px',
+                                    objectFit: 'cover',
                                 }}
                             />
                             <span>&#x2716;</span>
