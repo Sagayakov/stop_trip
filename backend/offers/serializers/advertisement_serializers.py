@@ -55,7 +55,6 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
         if youtube_link := validated_data.get("youtube"):
             validated_data["youtube"] = change_link(youtube_link)
         advertisement = super().create(validated_data)
-        print(f"ADV - {advertisement}")
         if images:
             AdvertisementImage.objects.bulk_create(
                 compression_photo(advertisement=advertisement, images=images)
