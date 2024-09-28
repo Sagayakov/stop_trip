@@ -160,6 +160,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         request_data = deepcopy(request.data)
         images = request_data.pop("images", [])
         property_amenities = request_data.pop("property_amenities", [])
+        print(f"REQUEST_DATA - {request_data}")
         serializer = self.get_serializer(data=request_data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["images"] = images
