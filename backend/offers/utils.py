@@ -20,12 +20,14 @@ def compression_photo(
 
     images_list: list[AdvertisementImage] = []
     for image in images:
+        print(f"IMG_TYPE - {type(image)}")
         # Превращаем base64 в bytes
         if isinstance(image, InMemoryUploadedFile):
             byte_image = image.read()
             image.seek(0)
         else:
             byte_image = base64.b64decode(image)
+        print(f"CONVERTED_TO_BYTES")
         image_stream = io.BytesIO(byte_image)
         img = Image.open(image_stream)
         # Разрешение фото. При таком весит примерно 150кб
@@ -36,6 +38,7 @@ def compression_photo(
         image_content = ContentFile(file.getvalue(), name=str(uuid4()))
         file.seek(0)
         images_list.append(AdvertisementImage(advertisement=advertisement, image=image_content))
+    print(f"IMG_LIST - {images_list}")
     return images_list
 
 
