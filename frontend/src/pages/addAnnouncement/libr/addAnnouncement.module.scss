@@ -85,10 +85,11 @@ input {
     width: 1240px;
     padding-top: 110px;
     margin: 0 auto 80px;
+    font-family: var(--font-sf);
     .add_ann_form {
         h1 {
             font-size: 34px;
-            margin: 0 0 16px 0;
+            margin: 2rem 0 3rem 0;
         }
         h2 {
             font-size: 30px;
@@ -99,6 +100,14 @@ input {
             h3 {
                 margin-bottom: 16px;
                 span {
+                    color: red;
+                }
+            }
+            h2 {
+                margin-bottom: 16px;
+                font-size: 24px;
+                span {
+                    font-size: 24px;
                     color: red;
                 }
             }

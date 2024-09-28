@@ -7,18 +7,25 @@ from uuid import uuid4
 
 from PIL import Image
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from slugify import slugify
 
 from .models import Advertisement, AdvertisementImage, TransportBrand, TransportModel
 
 
-def compression_photo(advertisement: Advertisement, images: list[str]) -> list[AdvertisementImage]:
+def compression_photo(
+    advertisement: Advertisement, images: list[str | InMemoryUploadedFile]
+) -> list[AdvertisementImage]:
     """Функция для сжатия качества загружаемых фото"""
 
     images_list: list[AdvertisementImage] = []
     for image in images:
         # Превращаем base64 в bytes
-        byte_image = base64.b64decode(image)
+        if isinstance(image, InMemoryUploadedFile):
+            byte_image = image.read()
+            image.seek(0)
+        else:
+            byte_image = base64.b64decode(image)
         image_stream = io.BytesIO(byte_image)
         img = Image.open(image_stream)
         # Разрешение фото. При таком весит примерно 150кб

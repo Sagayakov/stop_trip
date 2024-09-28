@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import {
     Control,
     FormState,
@@ -19,10 +20,11 @@ import {
     AnnouncementTransportTransmission,
     AnnouncementTransportTranspCategory,
     AnnouncementTransportTypeOfService,
-    AnnouncementTransportTypeOfTransport,
+    //AnnouncementTransportTypeOfTransport,
     AnnouncementTransportYear,
 } from './transportFields';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
+import { ShowDetailsButton } from 'entity/showDetailsButton';
 
 interface Props {
     register: UseFormRegister<FormAddAnn>;
@@ -41,6 +43,10 @@ export const AnnouncementTransport = ({
     formState,
     watch,
 }: Props) => {
+    const [showDetails, setShowDetails] = useState(false);
+
+    const toggleShowDetails = useCallback(() => setShowDetails((prev) => !prev), []);
+    
     return (
         <>
             <AnnouncementTransportTypeOfService
@@ -54,11 +60,16 @@ export const AnnouncementTransport = ({
                 defaultValue={data?.transport_category}
                 formState={formState}
             />
-            <AnnouncementTransportTypeOfTransport
+            <AnnouncementTransportComission
+                register={register}
+                defaultValue={data?.transport_commission}
+                errors={formState.errors}
+            />
+            {/* <AnnouncementTransportTypeOfTransport
                 register={register}
                 defaultValue={data?.transport_type}
                 formState={formState}
-            />
+            /> */}
             <AnnouncementTransportRentDuration
                 register={register}
                 formState={formState}
@@ -78,48 +89,48 @@ export const AnnouncementTransport = ({
                 formState={formState}
                 watch={watch}
             />
-            <AnnouncementTransportYear
-                register={register}
-                defaultValue={data?.transport_year_of_production}
-                errors={formState.errors}
-            />
-            <AnnouncementTransportBodyType
-                control={control}
-                setValue={setValue}
-                defaultValue={data?.transport_body_type}
-                errors={formState.errors}
-            />
-            <AnnouncementTransportEngineType
-                control={control}
-                setValue={setValue}
-                defaultValue={data?.transport_engine_type}
-                errors={formState.errors}
-            />
-            <AnnouncementTransportEngineCapacity
-                register={register}
-                defaultValue={data?.transport_engine_volume}
-                formState={formState}
-            />
-            <AnnoucementTransportDriveType
-                register={register}
-                defaultValue={data?.transport_drive_type}
-                errors={formState.errors}
-            />
-            <AnnouncementTransportTransmission
-                register={register}
-                defaultValue={data?.transport_transmission_type}
-                formState={formState}
-            />
-            <AnnoucementTransportCondition
-                register={register}
-                defaultValue={data?.transport_condition}
-                errors={formState.errors}
-            />
-            <AnnouncementTransportComission
-                register={register}
-                defaultValue={data?.transport_commission}
-                errors={formState.errors}
-            />
+            <ShowDetailsButton isOpen={showDetails} onClick={toggleShowDetails} />
+            {showDetails && (
+                <>
+                    <AnnouncementTransportYear
+                        register={register}
+                        defaultValue={data?.transport_year_of_production}
+                        errors={formState.errors}
+                    />
+                    <AnnouncementTransportBodyType
+                        control={control}
+                        setValue={setValue}
+                        defaultValue={data?.transport_body_type}
+                        errors={formState.errors}
+                    />
+                    <AnnouncementTransportEngineType
+                        control={control}
+                        setValue={setValue}
+                        defaultValue={data?.transport_engine_type}
+                        errors={formState.errors}
+                    />
+                    <AnnouncementTransportEngineCapacity
+                        register={register}
+                        defaultValue={data?.transport_engine_volume}
+                        formState={formState}
+                    />
+                    <AnnoucementTransportDriveType
+                        register={register}
+                        defaultValue={data?.transport_drive_type}
+                        errors={formState.errors}
+                    />
+                    <AnnouncementTransportTransmission
+                        register={register}
+                        defaultValue={data?.transport_transmission_type}
+                        formState={formState}
+                    />
+                    <AnnoucementTransportCondition
+                        register={register}
+                        defaultValue={data?.transport_condition}
+                        errors={formState.errors}
+                    />
+                </>
+            )}
         </>
     );
 };

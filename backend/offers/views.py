@@ -140,7 +140,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
             else:
                 raise ValidationError
 
-        elif self.action == self.update.__name__:
+        elif self.action in [self.update.__name__, self.partial_update.__name__]:
             return AdvertisementUpdateSerializer
 
         elif self.action == self.retrieve.__name__:

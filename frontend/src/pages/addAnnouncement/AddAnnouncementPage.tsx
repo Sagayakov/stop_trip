@@ -31,6 +31,7 @@ import { YoutubeField } from 'features/addAnnouncementForm/youtubeFiled';
 import { useAddAdvertMutation } from 'app/api/authFetchAdverts.ts';
 import { useNavigate } from 'react-router-dom';
 import { LoadingWithBackgroundUpload } from 'entity/loading/LoadingWithBackgroundUpload';
+import { Separator } from 'shared/ui/separator';
 
 const AddAnnouncementPage = () => {
     const {
@@ -189,6 +190,8 @@ const AddAnnouncementPage = () => {
                             setValue={setValue}
                             formState={formState}
                         />
+                        <Separator />
+                        <h2>{t('add-page.location')}</h2>
                         <AnnouncementCountry
                             setValue={setValue}
                             control={control}
@@ -204,6 +207,8 @@ const AddAnnouncementPage = () => {
                             formState={formState}
                             watch={watch}
                         />
+                        <Separator />
+                        <h2>{t('add-page.basic_info')}</h2>
                         <AnnouncementNameField
                             register={register}
                             formState={formState}
@@ -216,6 +221,12 @@ const AddAnnouncementPage = () => {
                             />
                         )}
                         <AnnouncementDescriptionField control={control} />
+                        {category && (
+                            <>
+                                <Separator />
+                                <h2>{t('add-page.detail_info')}</h2>
+                            </>
+                        )}
                         <OptionalFields
                             control={control}
                             register={register}
@@ -223,6 +234,8 @@ const AddAnnouncementPage = () => {
                             watch={watch}
                             formState={formState}
                         />
+                        <Separator />
+                        <h2>{t('add-page.visual')}</h2>
                         <AnnouncementPhotoField
                             watch={watch}
                             setValue={setValue}
@@ -233,6 +246,7 @@ const AddAnnouncementPage = () => {
                             register={register}
                             errors={formState.errors}
                         />
+                        <Separator />
                         <AnnouncementLocationField
                             setValue={setValue}
                             markerPosition={markerPosition}

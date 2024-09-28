@@ -40,10 +40,10 @@ const AnnouncementCategoryField = ({
     return (
         <>
             <div className={styles.ann_field}>
-                <h3>
+                <h2>
                     {t('labels.category')}
                     <span>*</span>:
-                </h3>
+                </h2>
                 <UniversalSelectDropdown
                     closeMenuOnSelect={true}
                     control={control}

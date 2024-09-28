@@ -1,0 +1,21 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 12px 20px;
+    border-radius: var(--radii);
+    border: 1px solid var(--main-blue);
+    background-color: white;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    color: var(--main-blue);
+    font-family: var(--font-lato);
+    font-weight: 600;
+
+    svg {
+        width: 24px;
+        height: 24px;
+        color: var(--main-blue);
+    }
+}
