@@ -90,7 +90,7 @@ const AnnouncementPhotoField = ({
     const getImgSize = useCallback(() => {
         let imgSize = 0;
         let uploadImgSize = 0;
-        images?.forEach((img) => (imgSize += img.length));
+        images?.forEach((img) => (imgSize += img.size));
         uploadImg?.forEach((img) => (uploadImgSize += img.length));
         const size = toFixed((imgSize + uploadImgSize) / 1024 / 1024, 2);
         setImgSize(size);
@@ -111,9 +111,6 @@ const AnnouncementPhotoField = ({
     return (
         <div className={`${styles.ann_field} ${styles.mobile_add_photo}`}>
             <h3>{`${t('add-page.photo')}:`}</h3>
-            <p className={styles.iphone_warning}>
-                {t('add-page.iphone_warning')}
-            </p>
             <div className={styles.loadphoto}>
                 <div className={styles.loadphoto_btn_view}>
                     <LoadPhotoBtn
@@ -166,6 +163,7 @@ const AnnouncementPhotoField = ({
                                 style={{
                                     maxWidth: '100px',
                                     margin: '5px',
+                                    objectFit: 'cover',
                                 }}
                             />
                             <span>&#x2716;</span>
