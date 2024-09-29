@@ -38,9 +38,7 @@ const fileToBase64String = async (
 
                     img.src = event.target?.result as string; */
 
-                    const base64String = (event.target.result as string).split(
-                        ','
-                    )[1];
+                    const base64String = (event.target.result as string).split(',')[1];
                     resolve(base64String);
                 } else {
                     reject(new Error('Ошибка чтения файла'));
@@ -82,22 +80,7 @@ export const convertFilesToBase64Strings = async (files: File[] | FileList) => {
                 file.name.toLowerCase().includes('.heic') ||
                 file.name.toLowerCase().includes('.heif')
             ) {
-                if (
-                    file.name.includes('.HEIC') ||
-                    file.name.includes('.HEIF')
-                ) {
-                    const fileWithLowerCaseExtension = new File(
-                        [file],
-                        file.name.toLowerCase(),
-                        { type: file.type }
-                    );
-                    base64String = await fileToBase64String(
-                        fileWithLowerCaseExtension,
-                        true
-                    );
-                } else {
-                    base64String = await fileToBase64String(file, false);
-                }
+                base64String = await fileToBase64String(file, true);
             } else {
                 base64String = await fileToBase64String(file, false);
             }
@@ -112,21 +95,10 @@ export const convertFilesToBase64Strings = async (files: File[] | FileList) => {
 export const convertHeicFilesToPng = async (files: File[]) => {
     const promises = files.map(async (file) => {
         try {
-            let convertedFile: File | null = null;
-            if (
-                file.name.toLowerCase().includes('.heic') ||
-                file.name.toLowerCase().includes('.heif')
-            ) {
-                const fileWithLowerCaseExtension = new File(
-                    [file],
-                    file.name.toLowerCase(),
-                    { type: file.type }
-                );
-                convertedFile = await convertHeicToAny(fileWithLowerCaseExtension);
-            } else {
-                convertedFile = file;
-            }
-            return convertedFile;
+            return file.name.toLowerCase().includes('.heic')
+              || file.name.toLowerCase().includes('.heif')
+              ? await convertHeicToAny(file)
+              : file;
         } catch (error) {
             console.error('Ошибка при чтении файла:', error);
             return null;
