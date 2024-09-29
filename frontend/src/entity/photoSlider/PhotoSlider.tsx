@@ -16,8 +16,8 @@ export const PhotoSlider = () => {
     const { slug } = useParams();
     const { data } = useGetAdvertBySlugQuery(slug!);
     const [activeImage, setActiveImage] = useState(0);
-    const [imageWidth, setImageWidth] = useState<number>(0);
-    const [imageHeight, setImageHeight] = useState<number>(0);
+    const [imageWidth/* , setImageWidth */] = useState<number>(0);
+    const [imageHeight/* , setImageHeight */] = useState<number>(0);
     const imageRef = useRef<null | HTMLImageElement>(null);
     const { isMobile } = useMatchMedia();
     const [isPortalOpen, setIsPortalOpen] = useState(false);
@@ -57,8 +57,8 @@ export const PhotoSlider = () => {
             : data?.images[activeImage].image;
 
     const handleOnLoad = () => {
-        setImageWidth(imageRef.current!.naturalWidth);
-        setImageHeight(imageRef.current!.naturalHeight);
+        /* setImageWidth(imageRef.current!.naturalWidth);
+        setImageHeight(imageRef.current!.naturalHeight); */
     };
 
     const openPhoto = () => {
@@ -183,7 +183,7 @@ export const PhotoSlider = () => {
                             </>
                         )}
 
-                        {!!data.images.length && imageHeight > imageWidth && (
+                        {!!data.images.length && /* imageHeight > imageWidth && */ (
                             <>
                                 <img
                                     className={styles.blur_left}
