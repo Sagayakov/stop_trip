@@ -80,7 +80,7 @@ const AnnouncementPhotoField = ({
     }; //удаление фотографий при редактировании
 
     const photoCounter = () => {
-        return previewImages?.length || 0;
+        return (previewImages?.length || 0) + (editImages?.length || 0);
     };
 
     useEffect(() => {
@@ -92,10 +92,13 @@ const AnnouncementPhotoField = ({
         let uploadImgSize = 0;
         images?.forEach((img) => (imgSize += img.size));
         uploadImg?.forEach((img) => (uploadImgSize += img.length));
-        const size = toFixed((imgSize + uploadImgSize) / 1024 / 1024, 2);
-        setImgSize(size);
+        let size = (imgSize + uploadImgSize) / 1024 / 1024;
+        if (editImages) {
+            size += editImages.map((el) => el.size).reduce((acc, el) => acc + el, 0);
+        }
+        setImgSize(toFixed(size, 2));
         return size;
-    }, [images, uploadImg]);
+    }, [images, uploadImg, editImages]);
 
     useEffect(() => {
         getImgSize();
@@ -145,6 +148,7 @@ const AnnouncementPhotoField = ({
                                 style={{
                                     maxWidth: '100px',
                                     margin: '5px',
+                                    objectFit: 'cover',
                                 }}
                             />
                             <span>&#x2716;</span>

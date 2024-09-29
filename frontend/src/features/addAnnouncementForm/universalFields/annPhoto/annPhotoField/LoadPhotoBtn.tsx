@@ -87,7 +87,7 @@ const LoadPhotoBtn = ({
             //если на странице добавления объявлений, то для поля images
 
             const previews = convertedFiles.map((el) => URL.createObjectURL(el));
-            setPreviewImages(previews);
+            setPreviewImages((prev) => [...prev, ...previews]);
         }
         setIsLoading(false);
     };

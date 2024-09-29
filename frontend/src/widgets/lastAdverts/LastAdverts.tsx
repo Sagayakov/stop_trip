@@ -7,10 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks.ts';
 import { Suspense, useRef } from 'react';
 import { LoaidngWithoutBackground } from 'entity/loading/LoaidngWithoutBackground.tsx';
+import { LoadingWithBackground } from 'entity/loading/LoadingWithBackground';
 
 const LastAdverts = () => {
     const pageMain = useAppSelector((state) => state.setPageMain.pageMain);
-    const { data  } = useGetAdvertsQuery(`?page=${pageMain}`);
+    const { data, isLoading  } = useGetAdvertsQuery(`?page=${pageMain}`);
     const { t } = useTranslation();
     const parentRef = useRef<HTMLDivElement>(null);
 
@@ -18,6 +19,7 @@ const LastAdverts = () => {
     //     pushViewListWithDataResults(data, "Последние объявления");//добавляем в яндекс метрику просмотр списка товаров
     // }, [data]);
 
+    if (isLoading) return <LoadingWithBackground />;
 
     return (
         <Suspense fallback={<LoaidngWithoutBackground />}>
