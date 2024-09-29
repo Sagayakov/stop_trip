@@ -6,7 +6,7 @@ interface InitState {
 }
 
 const initialState: InitState = {
-    isDevNotificationVisible: true,
+    isDevNotificationVisible: false,
     height: '',
 };
 
