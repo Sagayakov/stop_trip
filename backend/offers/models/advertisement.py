@@ -125,6 +125,14 @@ class AdvertisementImage(models.Model):
         blank=True,
         null=True,
     )
+    size = models.DecimalField(
+        "Размер фотографии (в МБ)",
+        max_digits=6,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        default=0,
+    )
 
     class Meta:
         verbose_name = "Изображение"

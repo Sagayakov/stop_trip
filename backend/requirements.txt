@@ -35,6 +35,7 @@ djoser==2.2.0
 drf-spectacular==0.26.4
 factory-boy==3.3.0
 Faker==19.6.1
+gunicorn==23.0.0
 idna==3.4
 inflection==0.5.1
 iniconfig==2.0.0

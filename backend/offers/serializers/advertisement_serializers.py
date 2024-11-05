@@ -17,7 +17,7 @@ from ..models import (
     TransportModel,
     Currency,
 )
-from ..utils import compression_photo, change_link, get_file_size_in_megabytes
+from ..utils import compression_photo, change_link
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
@@ -87,7 +87,7 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
 class AdvertisementImageSerializer(serializers.ModelSerializer):
     """Сериализатор картинок объявления."""
 
-    size = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
 
     class Meta:
         model = AdvertisementImage
@@ -98,8 +98,12 @@ class AdvertisementImageSerializer(serializers.ModelSerializer):
         )
 
     @extend_schema_field(serializers.FloatField)
-    def get_size(self, obj: AdvertisementImage) -> int:
-        return get_file_size_in_megabytes(obj.image) if obj.image else 0
+    def get_size(self, obj: AdvertisementImage) -> float:
+        return float(obj.image.size)
+
+    @extend_schema_field(serializers.CharField)
+    def get_image(self, obj: AdvertisementImage) -> str | None:
+        return obj.image.url if obj.image else None
 
 
 class AdvertisementPropertyAmenitySerializer(serializers.ModelSerializer):

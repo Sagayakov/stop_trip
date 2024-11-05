@@ -37,7 +37,13 @@ def compression_photo(
         img.save(file, format="JPEG", quality=70)
         image_content = ContentFile(file.getvalue(), name=str(uuid4()))
         file.seek(0)
-        images_list.append(AdvertisementImage(advertisement=advertisement, image=image_content))
+        images_list.append(
+            AdvertisementImage(
+                advertisement=advertisement,
+                image=image_content,
+                size=get_file_size_in_megabytes(image_content),
+            )
+        )
     return images_list
 
 

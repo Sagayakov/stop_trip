@@ -12,7 +12,7 @@ class AdvertisementImageInline(StackedInline):
 @register(Advertisement)
 class AdvertisementAdmin(ModelAdmin):
     inlines = (AdvertisementImageInline,)
-    list_display = ("title", "owner", "date_create")
+    list_display = ("title", "owner", "date_create", "is_published")
     readonly_fields = ("slug", "date_create", "date_update")
     fieldsets = (
         (

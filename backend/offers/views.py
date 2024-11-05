@@ -194,11 +194,11 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    @method_decorator(cache_page(60 * 10))
+    # @method_decorator(cache_page(60 * 10))
     def list(self, request, *args, **kwargs):
         return super(AdvertisementModelViewSet, self).list(request, *args, **kwargs)
 
-    @method_decorator(cache_page(60 * 10))
+    # @method_decorator(cache_page(60 * 10))
     def retrieve(self, request, *args, **kwargs):
         return super(AdvertisementModelViewSet, self).retrieve(request, *args, **kwargs)
 
