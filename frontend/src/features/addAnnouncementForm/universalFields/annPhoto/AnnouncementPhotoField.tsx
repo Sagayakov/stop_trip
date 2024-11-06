@@ -94,7 +94,7 @@ const AnnouncementPhotoField = ({
         uploadImg?.forEach((img) => (uploadImgSize += img.length));
         let size = (imgSize + uploadImgSize) / 1024 / 1024;
         if (editImages) {
-            size += editImages.map((el) => el.size).reduce((acc, el) => acc + el, 0);
+            size += editImages.map((el) => +el.size).reduce((acc, el) => acc + el, 0);
         }
         setImgSize(toFixed(size, 2));
         return size;

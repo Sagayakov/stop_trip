@@ -33,7 +33,7 @@ export type NameType = {
 export interface LastAdvertsImages {
     id: number;
     image: string;
-    size: number;
+    size: string;
 }
 
 export type Owner = {
