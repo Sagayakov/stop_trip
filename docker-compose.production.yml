@@ -8,7 +8,7 @@ services:
     restart: always
     build:
       context: ./backend
-    command: sh -c "python manage.py migrate && gunicorn config.wsgi:application -w ${GUNICORN_WORKERS:-5} --keep-alive 120 -b 0.0.0.0:8000 --max-requests 10000 --max-requests-jitter 1000 --access-logfile - --error-logfile -"
+    command: sh -c "python manage.py migrate && gunicorn config.wsgi:application -w ${GUNICORN_WORKERS:-1} --keep-alive 120 -b 0.0.0.0:8000 --max-requests 10000 --max-requests-jitter 1000 --access-logfile - --error-logfile -"
     environment:
       - DEBUG=False
     depends_on:
