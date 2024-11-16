@@ -37,7 +37,9 @@ export const DevNotification = () => {
                     : 'dev_notification_hidden'
             }
         >
-            {t('main-page.dev_notification')}
+            {t('main-page.prize_notification').split('\n').map((el) => (
+                <p dangerouslySetInnerHTML={{ __html: el }} />
+            ))}
             <div
                 className="close_notification"
                 onClick={handleCloseNotification}

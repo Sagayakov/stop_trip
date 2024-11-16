@@ -11,7 +11,9 @@ export const AdvertMessengers = ({ messengers }: AdvertMessengersProps) => {
         <div className={styles.user_messengers}>
             {messengers.map((el) => (
                 <Link
-                    to={`https://${el.messenger.link_to_messenger}${el.link_to_user}`}
+                    to={`https://${el.messenger.link_to_messenger}${el.link_to_user}${el.messenger.name === 'WhatsApp'
+                        ? '?text=Здравствуйте!+Я+по+поводу+вашего+объявления'
+                        : ''}`}
                     target="_blank"
                     key={el.messenger.id}
                 >
