@@ -165,9 +165,8 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer.validated_data["images"] = images
         serializer.validated_data["slug"] = slugify(request.data["title"])
         if property_amenities:
-            print(f"AMENITIES: {property_amenities}, {type(property_amenities)}")
             serializer.validated_data["property_amenities"] = (
-                PropertyAmenity.objects.filter(slug__in=property_amenities)
+                PropertyAmenity.objects.filter(slug__in=property_amenities[0].split(","))
                 .values_list("id", flat=True)
                 .distinct()
             )
@@ -188,7 +187,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
             serializer.validated_data["slug"] = slugify(title)
         if property_amenities:
             serializer.validated_data["property_amenities"] = (
-                PropertyAmenity.objects.filter(slug__in=property_amenities)
+                PropertyAmenity.objects.filter(slug__in=property_amenities[0].split(","))
                 .values_list("id", flat=True)
                 .distinct()
             )

@@ -44,6 +44,7 @@ class PropertyTest(APITestCase):
         region = RegionFactory(country=country)
         city = CityFactory(region=region)
         property_amenities = [PropertyAmenityFactory() for _ in range(10)]
+        payload_amenities = ",".join([amenity.slug for amenity in property_amenities[:5]])
         payload_images = [encode_bytes_to_base64(generate_image_file()) for _ in range(5)]
         payload = {
             "category": CategoryChoices.PROPERTY.value,
@@ -63,7 +64,7 @@ class PropertyTest(APITestCase):
             "property_living_area": 30,
             "property_balcony": PropertyBalcony.YES,
             "property_has_furniture": True,
-            "property_amenities": [amenity.slug for amenity in property_amenities[:5]],
+            "property_amenities": payload_amenities,
             "property_house_type": PropertyHouseType.BLOCK,
             "property_has_parking": True,
             "property_rental_condition": PropertyRentalCondition.FAMILY,
@@ -134,7 +135,7 @@ class PropertyTest(APITestCase):
         self.assertEqual(new_advertisement.property_rooms_count, payload["property_rooms_count"])
         self.assertEqual(
             new_advertisement.property_amenities.count(),
-            len(payload["property_amenities"]),
+            len(property_amenities[:5]),
         )
         self.assertEqual(new_advertisement.property_commission, payload["property_commission"])
         self.assertEqual(new_advertisement.images.count(), len(payload_images))
@@ -186,6 +187,7 @@ class PropertyTest(APITestCase):
         new_country = CountryFactory(name="Vietnam")
         new_region = RegionFactory(country=country, name="V1")
         new_city = CityFactory(region=region, name="Hue")
+        payload_amenities = ",".join([amenity.slug for amenity in property_amenities[:5]])
         payload_images = [encode_bytes_to_base64(generate_image_file()) for _ in range(5)]
         payload = {
             "title": "test",
@@ -204,7 +206,7 @@ class PropertyTest(APITestCase):
             "property_living_area": 30,
             "property_balcony": PropertyBalcony.YES,
             "property_has_furniture": True,
-            "property_amenities": [amenity.slug for amenity in property_amenities[:5]],
+            "property_amenities": payload_amenities,
             "property_house_type": PropertyHouseType.BLOCK,
             "property_has_parking": True,
             "property_rental_condition": PropertyRentalCondition.FAMILY,
@@ -267,12 +269,12 @@ class PropertyTest(APITestCase):
         )
         self.assertEqual(advertisement.property_rooms_count, payload["property_rooms_count"])
         self.assertEqual(
-            advertisement.property_amenities.count(), len(payload["property_amenities"])
+            advertisement.property_amenities.count(), len(property_amenities[:5])
         )
         self.assertTrue(
             all(
                 payload_am in [amenity.slug for amenity in advertisement.property_amenities.all()]
-                for payload_am in payload["property_amenities"]
+                for payload_am in payload["property_amenities"].split(",")
             )
         )
         self.assertEqual(advertisement.images.count(), len(payload_images) + 3)
