@@ -12,7 +12,7 @@ export const AdvertMessengers = ({ messengers }: AdvertMessengersProps) => {
             {messengers.map((el) => (
                 <Link
                     to={`https://${el.messenger.link_to_messenger}${el.link_to_user}${el.messenger.name === 'WhatsApp'
-                        ? '?text=Здравствуйте!+Я+по+поводу+вашего+объявления'
+                        ? '?text=Здравствуйте!+Я+по+поводу+вашего+объявления+на+https://stoptrip.com/'
                         : ''}`}
                     target="_blank"
                     key={el.messenger.id}
