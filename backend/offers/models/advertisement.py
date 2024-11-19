@@ -68,7 +68,7 @@ class Advertisement(
     title = models.CharField("Название", max_length=100)
     price = models.DecimalField("Цена", max_digits=10, decimal_places=2, null=True, blank=True)
     coordinates = PlainLocationField(verbose_name="Координаты", blank=True)
-    description = models.TextField("Описание", max_length=1000, null=True, blank=True)
+    description = models.TextField("Описание", max_length=5000, null=True, blank=True)
     is_published = models.BooleanField("Опубликованно", default=True)
     date_create = models.DateTimeField("Дата создания", auto_now_add=True)
     date_update = models.DateTimeField("Дата редактирования", auto_now=True)
