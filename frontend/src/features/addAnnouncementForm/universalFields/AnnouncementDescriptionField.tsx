@@ -21,7 +21,7 @@ const AnnouncementDescriptionField = ({ defaultValue, control }: Props) => {
                     <textarea
                         {...field}
                         placeholder={t('add-page.description')}
-                        maxLength={1000}
+                        maxLength={5000}
                     />
                 )}
             />
