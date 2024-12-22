@@ -20,17 +20,10 @@ export const Header = () => {
     const ref = useRef(null);
     const { t } = useTranslation();
 
-    const [top, setTop] = useState('');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const isAuth = useAppSelector((state) => state.setIsAuth.isAuth);
     const isCheckEmailModalOpen = useAppSelector(
         (state) => state.setIsCheckMailModalOpen.isCheckMailModalOpen
-    );
-    const isDevNotificationVisible = useAppSelector(
-        (state) => state.setIsDevNotificationVisible.isDevNotificationVisible
-    );
-    const devNotificationHeight = useAppSelector(
-        (state) => state.setIsDevNotificationVisible.height
     );
 
     const navigate = useNavigate();
@@ -51,10 +44,6 @@ export const Header = () => {
         };
     }, [accessToken, refreshToken, dispatch]);
 
-    useEffect(() => {
-        setTop(isDevNotificationVisible && window.scrollY === 0 ? devNotificationHeight : '');
-    }, [isDevNotificationVisible, devNotificationHeight]);
-
     const addAdvert = () => {
         setIsAddModalOpen(true);
     };
@@ -66,10 +55,7 @@ export const Header = () => {
         isAuth ? `${styles.addAdvert} ${styles.active}` : `${styles.addAdvert}`;
 
     return (
-        <header
-            ref={ref}
-            style={{ top }}
-        >
+        <header ref={ref}>
             <div className={styles.header_wrapper}>
                 <LogoHeader />
                 <UniversalButton
