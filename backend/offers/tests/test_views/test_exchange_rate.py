@@ -140,7 +140,8 @@ class ExchangeRateTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(14):
+        # Учтены запросы на сброс кэша (сигналы) и проверку лимита фото.
+        with self.assertNumQueries(16):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )

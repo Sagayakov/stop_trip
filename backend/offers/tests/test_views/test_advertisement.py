@@ -145,8 +145,8 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        # +1 запрос: проверка, что фото после правки не больше 10.
-        with self.assertNumQueries(10):
+        # Учтены запросы на сброс кэша (сигналы) и проверку лимита фото.
+        with self.assertNumQueries(11):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
