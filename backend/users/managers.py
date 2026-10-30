@@ -1,7 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
 
-from forbidden_words.models import ForbiddenWords
+from forbidden_words.utils import find_forbidden_word
 from .queryset import UserQuerySet
 
 
@@ -17,14 +17,8 @@ class CustomUserManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
-        forbidden_words = ForbiddenWords.objects.first()
-
-        if forbidden_words:
-            all_words = forbidden_words.russian_words + forbidden_words.english_words
-
-            for word in all_words:
-                if word.lower() in user.full_name.lower():
-                    raise ValueError("Имя пользователя содержит запрещенное слово.")
+        if find_forbidden_word(user.full_name):
+            raise ValueError("Имя пользователя содержит запрещенное слово.")
 
         user.save()
         return user

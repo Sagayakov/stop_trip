@@ -3,7 +3,6 @@ from rest_framework import serializers
 
 from countries.models import Country, Region, City
 from countries.serializers import CountrySerializer, RegionSerializer, CitySerializer
-from forbidden_words.models import ForbiddenWords
 from users.serializers import (
     UserForListAdvertisementSerializer,
     UserForRetrieveAdvertisementSerializer,
@@ -17,7 +16,8 @@ from ..models import (
     TransportModel,
     Currency,
 )
-from ..utils import compression_photo, change_link
+from forbidden_words.utils import find_forbidden_word
+from ..utils import compress_images, build_advertisement_images, change_link
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
@@ -53,12 +53,14 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         images = validated_data.pop("images", [])
+        # Сжимаем фото до создания объявления: битый файл вернёт 400, а не объявление без фото.
+        compressed_images = compress_images(images)
         if youtube_link := validated_data.get("youtube"):
             validated_data["youtube"] = change_link(youtube_link)
         advertisement = super().create(validated_data)
-        if images:
+        if compressed_images:
             AdvertisementImage.objects.bulk_create(
-                compression_photo(advertisement=advertisement, images=images)
+                build_advertisement_images(advertisement, compressed_images)
             )
         return advertisement
 
@@ -66,13 +68,8 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
         errors = {}
 
         title = attrs.get("title")
-        forbidden_words = ForbiddenWords.objects.first()
-        if forbidden_words and title:
-            all_words = forbidden_words.russian_words + forbidden_words.english_words
-
-            for word in all_words:
-                if word.lower() in title.lower():
-                    errors["title"] = "Название объявления содержит запрещенное слово."
+        if title and find_forbidden_word(title):
+            errors["title"] = "Название объявления содержит запрещенное слово."
 
         if "proposed_currency" in attrs.keys() and "exchange_for" in attrs.keys():
             if attrs["proposed_currency"] == attrs["exchange_for"]:
@@ -200,7 +197,6 @@ class AdvertisementRetrieveSerializer(serializers.ModelSerializer):
 class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     """Сериализатор обновления объявления."""
 
-    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
     country = serializers.SlugRelatedField(
         queryset=Country.objects.all(), slug_field="slug", required=False
     )
@@ -240,7 +236,9 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Advertisement
+        # owner исключён: владельца объявления нельзя сменить через API.
         exclude = (
+            "owner",
             "date_create",
             "date_update",
             "slug",
@@ -249,15 +247,16 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         upload_images = validated_data.pop("upload_images", [])
         delete_images = validated_data.pop("delete_images", [])
+        compressed_images = compress_images(upload_images)
         if youtube_link := validated_data.get("youtube"):
             validated_data["youtube"] = change_link(youtube_link)
         advertisement = super().update(instance, validated_data)
 
         if delete_images:
             AdvertisementImage.objects.filter(advertisement=instance, id__in=delete_images).delete()
-        if upload_images:
+        if compressed_images:
             AdvertisementImage.objects.bulk_create(
-                compression_photo(advertisement=advertisement, images=upload_images)
+                build_advertisement_images(advertisement, compressed_images)
             )
         return advertisement
 
@@ -265,13 +264,8 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
         errors = {}
 
         title = attrs.get("title")
-        forbidden_words = ForbiddenWords.objects.first()
-        if forbidden_words and title:
-            all_words = forbidden_words.russian_words + forbidden_words.english_words
-
-            for word in all_words:
-                if word.lower() in title.lower():
-                    errors["title"] = "Название объявления содержит запрещенное слово."
+        if title and find_forbidden_word(title):
+            errors["title"] = "Название объявления содержит запрещенное слово."
 
         if "proposed_currency" in attrs.keys() and "exchange_for" in attrs.keys():
             if attrs["proposed_currency"] == attrs["exchange_for"]:

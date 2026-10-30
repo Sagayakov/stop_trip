@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django_filters.rest_framework import DjangoFilterBackend
@@ -47,15 +47,22 @@ from .serializers import (
 class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
     """Объявления."""
 
+    # Права на каждое действие. Действия, которых здесь нет, требуют авторизации
+    # (см. DEFAULT_PERMISSION_CLASSES в settings).
     custom_permission_classes = {
         "create": [IsAuthenticated],
         "update": [OwnerPermission],
+        "partial_update": [OwnerPermission],
         "destroy": [OwnerOrAdminPermission],
         "list": [AllowAny],
         "retrieve": [AllowAny],
         "get_filter_params": [AllowAny],
         "get_available_filtered_params": [AllowAny],
         "my_advertisements": [IsAuthenticated],
+        "get_regions_by_country": [AllowAny],
+        "get_cities_by_region": [AllowAny],
+        "get_transport_brands": [AllowAny],
+        "get_transport_models_by_brand": [AllowAny],
     }
     filterset_class = AdvertisementFilter
     pagination_class = PageNumberPagination
@@ -89,8 +96,12 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
             return queryset
 
         elif self.action == self.retrieve.__name__:
+            # Снятое с публикации объявление видит только его владелец.
+            visibility = Q(is_published=True)
+            if self.request.user.is_authenticated:
+                visibility |= Q(owner=self.request.user)
             queryset = (
-                queryset.filter(is_published=True)
+                queryset.filter(visibility)
                 .select_related(
                     "transport_brand",
                     "transport_model",
@@ -135,10 +146,10 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
                 CategoryChoices.EXCURSION: ExcursionCreateSerializer,
             }
 
-            if category := self.request.data.get("category"):
-                return subcategories_serializers[category]
-            else:
-                raise ValidationError
+            category = self.request.data.get("category")
+            if category not in subcategories_serializers:
+                raise ValidationError({"category": ["Укажите корректную категорию объявления."]})
+            return subcategories_serializers[category]
 
         elif self.action in [self.update.__name__, self.partial_update.__name__]:
             return AdvertisementUpdateSerializer
@@ -183,8 +194,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["upload_images"] = upload_images
         serializer.validated_data["delete_images"] = delete_images
-        if title := request.data.get("title"):
-            serializer.validated_data["slug"] = slugify(title)
+        # slug при смене заголовка не меняем: иначе ломаются ссылки на объявление, избранное и SEO.
         if property_amenities:
             serializer.validated_data["property_amenities"] = (
                 PropertyAmenity.objects.filter(slug__in=property_amenities[0].split(","))
@@ -194,13 +204,9 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    @method_decorator(cache_page(60 * 10))
-    def list(self, request, *args, **kwargs):
-        return super(AdvertisementModelViewSet, self).list(request, *args, **kwargs)
-
-    @method_decorator(cache_page(60 * 10))
-    def retrieve(self, request, *args, **kwargs):
-        return super(AdvertisementModelViewSet, self).retrieve(request, *args, **kwargs)
+    # list и retrieve намеренно не кэшируются: ответ зависит от пользователя (my_rating,
+    # доступ к своим скрытым объявлениям), а кэш показывал новые и изменённые объявления
+    # только через 10 минут.
 
     @action(detail=False, methods=["GET"])
     def my_advertisements(self, request, *args, **kwargs):

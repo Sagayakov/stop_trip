@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 
-from forbidden_words.models import ForbiddenWords
+from forbidden_words.utils import find_forbidden_word
 from ..managers import CustomUserManager
 
 
@@ -26,14 +26,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def clean(self):
         """Проверяет, содержит ли поле full_name запрещенные слова."""
-        forbidden_words = ForbiddenWords.objects.first()
-
-        if forbidden_words:
-            all_words = forbidden_words.russian_words + forbidden_words.english_words
-
-            for word in all_words:
-                if word.lower() in self.full_name.lower():
-                    raise ValidationError("Имя пользователя содержит запрещенное слово.")
+        if find_forbidden_word(self.full_name):
+            raise ValidationError("Имя пользователя содержит запрещенное слово.")
 
     class Meta:
         verbose_name: str = "Пользователь"

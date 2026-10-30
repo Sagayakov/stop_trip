@@ -1,5 +1,6 @@
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema, OpenApiParameter
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -39,7 +40,13 @@ class RateViewSet(GenericViewSet):
     )
     @action(detail=False, methods=["POST"])
     def change_rate(self, request, *args, **kwargs):
-        to_user_pk = int(request.query_params.get("to_user"))
+        try:
+            to_user_pk = int(request.query_params.get("to_user", ""))
+        except ValueError:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                data={"message": "to_user is required and must be an integer."},
+            )
         from_user_pk = self.request.user.pk
         if to_user_pk == from_user_pk:
             return Response(
@@ -59,7 +66,7 @@ class RateViewSet(GenericViewSet):
         else:
             user_rate = Rate(
                 from_user=User.objects.get(pk=from_user_pk),
-                to_user=User.objects.get(pk=to_user_pk),
+                to_user=get_object_or_404(User, pk=to_user_pk),
                 rating=serializer.validated_data["rating"],
                 comment=serializer.validated_data["comment"],
             )

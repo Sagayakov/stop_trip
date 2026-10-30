@@ -3,7 +3,7 @@ from django.db import models
 from autoslug import AutoSlugField
 from location_field.models.plain import PlainLocationField
 
-from forbidden_words.models import ForbiddenWords
+from forbidden_words.utils import find_forbidden_word
 from .abs_event_model import AbsEvent
 from .abs_exchange_rate_model import AbsExchangeRate
 from .abs_job_model import AbsJob
@@ -90,13 +90,8 @@ class Advertisement(
         super().clean()
         errors = {}
 
-        forbidden_words = ForbiddenWords.objects.first()
-        if forbidden_words:
-            all_words = forbidden_words.russian_words + forbidden_words.english_words
-
-            for word in all_words:
-                if word.lower() in self.title.lower():
-                    errors["title"] = "Название объявления содержит запрещенное слово."
+        if find_forbidden_word(self.title):
+            errors["title"] = "Название объявления содержит запрещенное слово."
 
         if self.proposed_currency and self.exchange_for:
             if self.proposed_currency == self.exchange_for:
