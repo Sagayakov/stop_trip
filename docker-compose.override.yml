@@ -16,6 +16,13 @@ services:
     command: npm run dev
     environment:
       - VITE_BASE_URL=http://localhost:8000
+      # Следить за изменениями файлов на Windows (нужно для мгновенного обновления сайта)
+      - CHOKIDAR_USEPOLLING=true
+    # Код сайта подключён «вживую»: правки видны в браузере без пересборки
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/index.html:/app/index.html
     ports:
       - 3000:3000
     depends_on:
