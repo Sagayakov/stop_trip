@@ -20,19 +20,25 @@ def rollback_generate_images_sizes(apps, schema_editor) -> None:
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('offers', '0022_alter_advertisement_transport_category_and_more'),
+        ("offers", "0022_alter_advertisement_transport_category_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='advertisementimage',
-            name='size',
-            field=models.DecimalField(blank=True, decimal_places=2, default=0, max_digits=6, null=True, verbose_name='Размер фотографии (в МБ)'),
+            model_name="advertisementimage",
+            name="size",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=2,
+                default=0,
+                max_digits=6,
+                null=True,
+                verbose_name="Размер фотографии (в МБ)",
+            ),
         ),
         migrations.RunPython(
             code=generate_images_sizes,
             reverse_code=rollback_generate_images_sizes,
-        )
+        ),
     ]

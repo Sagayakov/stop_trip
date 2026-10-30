@@ -268,9 +268,7 @@ class PropertyTest(APITestCase):
             advertisement.property_sleeping_places, payload["property_sleeping_places"]
         )
         self.assertEqual(advertisement.property_rooms_count, payload["property_rooms_count"])
-        self.assertEqual(
-            advertisement.property_amenities.count(), len(property_amenities[:5])
-        )
+        self.assertEqual(advertisement.property_amenities.count(), len(property_amenities[:5]))
         self.assertTrue(
             all(
                 payload_am in [amenity.slug for amenity in advertisement.property_amenities.all()]
