@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.views.static import serve
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 from .admin import admin
@@ -27,5 +28,11 @@ if settings.DEBUG:
     urlpatterns += [
         path("api/__debug__/", include(debug_toolbar.urls)),
     ]
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG and not settings.USE_S3:
+    # Локально фото отдаёт сам Django. MEDIA_URL может быть полным адресом
+    # (http://localhost:8000/m/), поэтому путь задан явно. На сервере /m/ отдаёт nginx.
+    urlpatterns += [
+        re_path(r"^m/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
+    ]

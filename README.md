@@ -33,20 +33,31 @@
 
 ## Локальный запуск приложения
 
+Нужен только [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
+1. В корне проекта должен лежать файл `.env` (пример — ниже, раздел ENV).
+2. Запуск (первый раз — 5–15 минут, дальше быстрее):
 ```shell
-docker-compose build
+docker compose up --build
 ```
-Не забудьте создать файл .env
+3. Открыть:
+   - сайт — http://localhost:3000
+   - админка — http://localhost:8000/admin/
+   - документация API (Swagger) — http://localhost:8000/api/docs/
+4. Создать администратора (в отдельном окне терминала, из папки проекта):
 ```shell
-docker-compose up
+docker compose exec backend python manage.py createsuperuser
+```
+5. Тесты бэкенда:
+```shell
+docker compose run --rm backend pytest -p no:warnings
 ```
 
-### После разворота
+Локально: фото хранятся на диске (`backend/media`), письма (например, ссылка активации
+аккаунта) не отправляются, а печатаются в лог контейнера `backend`, nginx не запускается.
 
-Swagger - http://0.0.0.0:8000/api/docs/
-
-Admin - http://0.0.0.0:8000/admin/
+Страна, валюта и центр карты задаются в `frontend/src/shared/const/geo.ts`,
+список провинций и городов — в `backend/countries/data/vietnam.py`.
 
 ***
 
@@ -60,28 +71,41 @@ Admin - http://0.0.0.0:8000/admin/
 
 ## ENV
 
-### Backend
+Файл `.env` в корне проекта. Для локального запуска:
 ```shell
-SITE_HOST=localhost
-SECRET_KEY=my_secret_key
 DEBUG=True
+SECRET_KEY=любая-длинная-случайная-строка
+SITE_HOST=localhost:3000
 POSTGRES_NAME=postgres
 POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
+POSTGRES_PASSWORD=любой-пароль
 POSTGRES_PORT=5432
+MEDIA_URL=http://localhost:8000/m/
 TLS_MODE=off
 HTPASSWD_NODE=off
 HTPASSWD=off
+```
+
+Дополнительно для сервера:
+```shell
+DEBUG=False
+SITE_HOST=stoptrip.com
+ALLOWED_HOSTS=stoptrip.com
+CORS_ALLOWED_ORIGINS=https://stoptrip.com
+MEDIA_URL=/m/
+GUNICORN_WORKERS=3
 # Вход через Google (ключи из Google Cloud Console)
 GOOGLE_OAUTH2_KEY=
 GOOGLE_OAUTH2_SECRET=
-# Только для сервера: через запятую
-ALLOWED_HOSTS=stoptrip.com
-CORS_ALLOWED_ORIGINS=https://stoptrip.com
+# Почта для писем активации (без неё письма пишутся в лог)
+EMAIL_HOST_USER=
+EMAIL_HOST_PASSWORD=
+# Необязательно: хранить фото в Yandex Object Storage вместо диска сервера
+YND_ACCESS_KEY_ID=
+YND_SECRET_ACCESS_KEY=
+YND_STORAGE_BUCKET_NAME=
 ```
 
-`DEBUG` по умолчанию выключен — для локальной разработки обязательно укажите `DEBUG=True`.
 `POSTGRES_PASSWORD` обязателен: без него `docker compose` не запустится.
-
 Порты базы (15239) и бэкенда (8000) открываются только при локальном запуске через
 `docker-compose.override.yml`. На сервере, где файлы передаются через `-f`, они закрыты.

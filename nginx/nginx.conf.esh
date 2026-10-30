@@ -39,7 +39,7 @@ server {
     gzip_min_length 1000;
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
     http2_push_preload on;
-    client_max_body_size 50M;
+    client_max_body_size 30M;
     merge_slashes off;
     add_header X-Frame-Options "SAMEORIGIN";
 
@@ -49,6 +49,13 @@ server {
         # alias /var/www/static/;
         include backend;
         expires 365d;
+    }
+
+    # Фото объявлений, если файлы хранятся на диске сервера (без Yandex Object Storage)
+    location /m/ {
+        alias /var/www/media/;
+        expires 30d;
+        add_header Cache-Control "public";
     }
 
     location /n/ {

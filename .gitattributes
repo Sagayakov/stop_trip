@@ -1,0 +1,3 @@
+# Скрипты для Linux-контейнеров всегда с LF, иначе на Windows они не запускаются
+*.sh text eol=lf
+backend/wait-for text eol=lf

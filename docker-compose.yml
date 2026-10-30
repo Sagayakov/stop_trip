@@ -1,4 +1,5 @@
-version: "3.8"
+# Общая конфигурация. Локально к ней автоматически добавляется docker-compose.override.yml,
+# на сервере — docker-compose.production.yml (через флаг -f).
 
 x-app_environment: &app_environment
   environment:
@@ -19,6 +20,10 @@ x-app_environment: &app_environment
     - CORS_ALLOWED_ORIGINS
     - GOOGLE_OAUTH2_KEY
     - GOOGLE_OAUTH2_SECRET
+    - MEDIA_URL
+    - REDIS_CACHE_URL
+    - THROTTLE_CONTACTS_ANON
+    - THROTTLE_CONTACTS_USER
 
 services:
   backend:
@@ -30,6 +35,7 @@ services:
     command: sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
+      - redis
     # Порт 8000 наружу открывается только локально — см. docker-compose.override.yml.
     # На сервере бэкенд доступен только через nginx.
     <<: *app_environment
@@ -39,18 +45,26 @@ services:
       context: ./db
     volumes:
       - postgresdata:/var/lib/postgresql/data
-    # Пароль берётся из .env (раньше был зашит как "postgres", а порт базы был открыт в интернет).
-    # Порт базы наружу открывается только локально — см. docker-compose.override.yml.
+    # Пароль берётся из .env. Порт базы наружу открывается только локально (override).
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?Задайте POSTGRES_PASSWORD в .env}
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
       - POSTGRES_DB=${POSTGRES_NAME:-postgres}
     restart: unless-stopped
 
+  # Кэш и сессии
+  redis:
+    image: redis:7.2-alpine
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+
   nginx:
     volumes:
       - nginx_cache:/var/lib/nginx/proxy_cache
       - static:/var/www/static/:ro
+      # Фото объявлений (когда файлы хранятся на диске сервера, а не в облаке)
+      - ./backend/media:/var/www/media/:ro
       - acme.sh:/acme.sh:delegated
       - certs:/etc/nginx/certs
     build:
@@ -65,31 +79,6 @@ services:
       - TLS_MODE
       - HTPASSWD_NODE
       - HTPASSWD
-
-  redis:
-    image: redis:6.2-alpine
-    volumes:
-      - redisdata:/data
-
-  celery:
-    build:
-      context: ./backend
-    restart: unless-stopped
-    command: celery -A config worker -l info -c 1 -n celery@dats.com -Q celery
-    depends_on:
-      - db
-      - redis
-    <<: *app_environment
-
-#  frontend:
-#    build:
-#      context: ./frontend
-#    restart: unless-stopped
-#    command: sh -c "npm run dev"
-#    depends_on:
-#      - backend
-#    ports:
-#      - 3000:3000
 
 volumes:
   postgresdata:

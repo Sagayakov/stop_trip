@@ -1,6 +1,5 @@
-# Подхватывается автоматически только при локальном запуске `docker compose up` без флагов -f.
-# На сервере (docker compose -f docker-compose.yml -f docker-compose.production.yml ...) этот файл
-# не используется, поэтому база и бэкенд не торчат наружу.
+# Локальный запуск. Подхватывается автоматически командой `docker compose up` (без флагов -f).
+# На сервере этот файл не используется, поэтому база и бэкенд не торчат наружу.
 services:
   backend:
     ports:
@@ -9,3 +8,20 @@ services:
   db:
     ports:
       - 15239:5432
+
+  # Сайт (фронтенд) в режиме разработки: http://localhost:3000
+  frontend:
+    build:
+      context: ./frontend
+    command: npm run dev
+    environment:
+      - VITE_BASE_URL=http://localhost:8000
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+
+  # nginx локально не нужен: сайт открывается на :3000, API — на :8000.
+  # Запустится, только если явно попросить: docker compose --profile prod up
+  nginx:
+    profiles: ["prod"]

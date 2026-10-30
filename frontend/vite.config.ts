@@ -6,7 +6,9 @@ import EnvironmentPlugin from 'vite-plugin-environment';
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
-    process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+    // Переменные окружения контейнера/системы важнее файла .env —
+    // так docker-compose может задать адрес API для локального запуска.
+    process.env = { ...loadEnv(mode, process.cwd()), ...process.env };
     const config = {
         plugins: [react(), EnvironmentPlugin('all')],
         server: {

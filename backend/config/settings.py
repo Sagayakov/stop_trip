@@ -170,18 +170,29 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # Static
 STATIC_URL = "/s/"
 STATIC_ROOT = join(BASE_DIR, "static")
-STATICFILES_STORAGE = "common.storages.CustomS3Boto3Storage"
 
 # Media
-MEDIA_URL = "/m/"
+# MEDIA_URL можно задать полным адресом (например, http://localhost:8000/m/), чтобы
+# фото открывались с фронтенда, запущенного на другом порту.
+MEDIA_URL = getenv("MEDIA_URL", "/m/")
 MEDIA_ROOT = join(BASE_DIR, "media")
 
-if TESTING:
+# Файлы храним в облаке Yandex Object Storage, только если заданы ключи.
+# Без ключей (локально или на недорогом сервере) — на диске; это проще и бесплатно.
+USE_S3 = bool(getenv("YND_ACCESS_KEY_ID")) and not TESTING
+
+if USE_S3:
+    STATICFILES_STORAGE = "common.storages.CustomS3Boto3Storage"
+    DEFAULT_FILE_STORAGE = "common.storages.HashedFilenameS3Boto3Storage"
+    BASE_FILE_STORAGE = "common.storages.CustomS3Boto3Storage"
+elif TESTING:
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
     BASE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 else:
-    DEFAULT_FILE_STORAGE = "common.storages.HashedFilenameS3Boto3Storage"
-    BASE_FILE_STORAGE = "common.storages.CustomS3Boto3Storage"
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+    DEFAULT_FILE_STORAGE = "common.storages.HashedFilenameFileSystemStorage"
+    BASE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
 FILE_UPLOAD_PERMISSIONS = 0o644
@@ -259,6 +270,11 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 12,
+    # Лимиты частоты запросов. Показ телефона ограничен, чтобы номера нельзя было собрать ботом.
+    "DEFAULT_THROTTLE_RATES": {
+        "contacts_anon": getenv("THROTTLE_CONTACTS_ANON", "20/hour"),
+        "contacts_user": getenv("THROTTLE_CONTACTS_USER", "100/hour"),
+    },
 }
 AUTHENTICATION_BACKENDS = (
     "social_core.backends.google.GoogleOAuth2",
@@ -270,7 +286,8 @@ SIMPLE_JWT = {
         "JWT",
     ),
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    # Пользователь остаётся залогиненным 15 дней (столько же хранит cookie на фронте).
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }
 
@@ -336,7 +353,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 SITE_ID = 1
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# Без почтового ящика (локально) письма не отправляются, а печатаются в лог backend:
+# там же видна ссылка активации аккаунта.
+EMAIL_BACKEND = (
+    "django.core.mail.backends.smtp.EmailBackend"
+    if getenv("EMAIL_HOST_PASSWORD")
+    else "django.core.mail.backends.console.EmailBackend"
+)
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = getenv("EMAIL_HOST_USER")
@@ -380,13 +403,9 @@ AWS_QUERYSTRING_AUTH = False
 AWS_S3_FILE_OVERWRITE = False
 
 # Максимальные размеры на загрузку медиа до сжатия
-DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
-FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 30 * 1024 * 1024  # 10 фото по 2 МБ в base64 + поля формы
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
 
-# Celery
-CELERY_TASK_SERIALIZER = "json"
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TIMEZONE = "Europe/Moscow"
-CELERY_RESULT_SERIALIZER = "json"
-CELERY_BROKER_URL = "redis://redis:6379/0"
-CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+# Фото объявлений
+MAX_IMAGES_PER_ADVERTISEMENT = 10
+MAX_IMAGE_UPLOAD_SIZE = 2 * 1024 * 1024  # 2 МБ на одно фото (сайт сжимает фото перед отправкой)

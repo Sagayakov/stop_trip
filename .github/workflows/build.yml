@@ -61,12 +61,6 @@ jobs:
           docker compose -f docker-compose.yml build redis
           docker compose -f docker-compose.yml push redis
 
-      # Pulling celery service and build-check
-      - name: Celery
-        run: |
-          docker compose -f docker-compose.yml pull celery || true
-          docker compose -f docker-compose.yml build celery
-          docker compose -f docker-compose.yml push celery
 
   tests:
     runs-on: ubuntu-latest

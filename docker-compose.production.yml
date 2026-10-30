@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   nginx:
     restart: always
@@ -8,11 +6,11 @@ services:
     restart: always
     build:
       context: ./backend
-    command: sh -c "python manage.py migrate && gunicorn config.wsgi:application -w ${GUNICORN_WORKERS:-1} --keep-alive 120 -b 0.0.0.0:8000 --max-requests 10000 --max-requests-jitter 1000 --access-logfile - --error-logfile -"
+    # 3 процесса × 4 потока — с запасом на 300+ одновременных пользователей на сервере с 2 ядрами.
+    # Число процессов можно поменять переменной GUNICORN_WORKERS в .env.
+    command: sh -c "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn config.wsgi:application --workers ${GUNICORN_WORKERS:-3} --threads 4 --keep-alive 120 -b 0.0.0.0:8000 --max-requests 10000 --max-requests-jitter 1000 --access-logfile - --error-logfile -"
     environment:
       - DEBUG=False
     depends_on:
       - db
-
-  celery:
-    restart: always
+      - redis
