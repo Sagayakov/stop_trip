@@ -109,7 +109,9 @@ class UserApiTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res_json["id"], user.id)
         self.assertEqual(res_json["full_name"], user.full_name)
-        self.assertEqual(res_json["phone"], user.phone)
+        # Телефон и email не отдаются публично — защита от сбора контактов ботами.
+        self.assertNotIn("phone", res_json)
+        self.assertNotIn("email", res_json)
         self.assertIsNotNone(res_json["avg_rating"])
         self.assertIn("rating_num", res_json)
         self.assertIn("my_rating", res_json)

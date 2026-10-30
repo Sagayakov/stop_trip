@@ -117,8 +117,8 @@ class AdvertisementAccessTest(APITestCase):
 
     def test_reference_endpoints_are_public(self):
         for name, params in (
-            ("advertisements-get-regions-by-country", {"country": "india"}),
-            ("advertisements-get-cities-by-region", {"region": "north-goa"}),
+            ("advertisements-get-regions-by-country", {"country": "vietnam"}),
+            ("advertisements-get-cities-by-region", {"region": "khanh-hoa"}),
             ("advertisements-get-transport-brands", {}),
             ("advertisements-get-transport-models-by-brand", {"brand": "audi"}),
         ):

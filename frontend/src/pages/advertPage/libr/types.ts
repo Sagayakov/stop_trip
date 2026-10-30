@@ -90,10 +90,12 @@ export type Amenity = {
 
 export type Owner = {
     date_joined: string;
-    email: string;
     full_name: string;
     id: number;
-    phone: string;
+    // Телефона и email в публичном ответе больше нет: телефон загружается по кнопке
+    // (features/sellerPhone). Поля оставлены необязательными для совместимости.
+    email?: string;
+    phone?: string;
     avg_rating: number;
     my_rating: number;
     rating_num: number;

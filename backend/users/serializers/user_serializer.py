@@ -55,7 +55,12 @@ class UserForListAdvertisementSerializer(serializers.ModelSerializer):
 
 
 class UserForRetrieveAdvertisementSerializer(serializers.ModelSerializer):
-    """Сериализатор пользоваля для деталки объявлений."""
+    """
+    Публичные данные пользователя (карточка объявления, страница пользователя).
+
+    Телефона и email здесь нет специально: их собирают боты. Телефон продавца отдаётся
+    отдельно — GET /api/advertisements/<slug>/contacts/ с ограничением частоты.
+    """
 
     user_messengers = MessengerListSerializer(many=True)
     avg_rating = serializers.FloatField()
@@ -67,8 +72,6 @@ class UserForRetrieveAdvertisementSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "full_name",
-            "phone",
-            "email",
             "date_joined",
             "avg_rating",
             "rating_num",

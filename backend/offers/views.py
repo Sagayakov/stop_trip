@@ -14,6 +14,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from slugify import slugify
 
+from common.cache import cache_for_anonymous
 from common.filters import GetFilterParams
 from users.models import User, UserMessenger
 from countries.models import Region, City
@@ -22,6 +23,7 @@ from .constants import CategoryChoices
 from .filters import AdvertisementFilter
 from .models import Advertisement, PropertyAmenity, TransportModel, TransportBrand
 from .permissions import OwnerPermission, OwnerOrAdminPermission
+from .throttles import ContactsAnonThrottle, ContactsUserThrottle
 from .serializers import (
     PropertyCreateSerializer,
     AdvertisementListSerializer,
@@ -59,6 +61,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         "get_filter_params": [AllowAny],
         "get_available_filtered_params": [AllowAny],
         "my_advertisements": [IsAuthenticated],
+        "contacts": [AllowAny],
         "get_regions_by_country": [AllowAny],
         "get_cities_by_region": [AllowAny],
         "get_transport_brands": [AllowAny],
@@ -95,13 +98,12 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
             return queryset
 
+        elif self.action == self.contacts.__name__:
+            return Advertisement.objects.filter(self._visibility_filter()).select_related("owner")
+
         elif self.action == self.retrieve.__name__:
-            # Снятое с публикации объявление видит только его владелец.
-            visibility = Q(is_published=True)
-            if self.request.user.is_authenticated:
-                visibility |= Q(owner=self.request.user)
             queryset = (
-                queryset.filter(visibility)
+                queryset.filter(self._visibility_filter())
                 .select_related(
                     "transport_brand",
                     "transport_model",
@@ -128,7 +130,19 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
 
             return queryset
 
+        elif self.action in ("get_filter_params", "get_available_filtered_params"):
+            # Значения фильтров считаем только по опубликованным объявлениям.
+            return queryset.filter(is_published=True)
+
         return queryset
+
+    def _visibility_filter(self) -> Q:
+        """Опубликованные объявления видят все, снятые с публикации — только владелец."""
+
+        visibility = Q(is_published=True)
+        if self.request.user.is_authenticated:
+            visibility |= Q(owner=self.request.user)
+        return visibility
 
     def get_serializer_class(self):
         if self.action == self.create.__name__:
@@ -204,9 +218,15 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    # list и retrieve намеренно не кэшируются: ответ зависит от пользователя (my_rating,
-    # доступ к своим скрытым объявлениям), а кэш показывал новые и изменённые объявления
-    # только через 10 минут.
+    # Лента и карточка кэшируются для гостей в Redis и сбрасываются при любом изменении
+    # объявлений (см. common/cache.py). Вошедшие пользователи получают свежие данные.
+    @cache_for_anonymous()
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @cache_for_anonymous()
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
 
     @action(detail=False, methods=["GET"])
     def my_advertisements(self, request, *args, **kwargs):
@@ -215,6 +235,24 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         queryset = self.get_queryset().filter(owner=self.request.user)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @extend_schema(responses={200: {"type": "object", "properties": {"phone": {"type": "string"}}}})
+    @action(
+        detail=True,
+        methods=["GET"],
+        throttle_classes=[ContactsAnonThrottle, ContactsUserThrottle],
+    )
+    def contacts(self, request, *args, **kwargs):
+        """
+        Телефон продавца. Отдаётся только по нажатию кнопки «Показать телефон».
+
+        Номера нет в списке и карточке объявления, а частота запросов ограничена
+        (см. DEFAULT_THROTTLE_RATES), поэтому массово собрать номера скриптом не получится.
+        """
+
+        advertisement = self.get_object()
+        phone = advertisement.owner.phone
+        return Response({"phone": str(phone) if phone else None}, status=status.HTTP_200_OK)
 
     @method_decorator(cache_page(60 * 10))
     @extend_schema(

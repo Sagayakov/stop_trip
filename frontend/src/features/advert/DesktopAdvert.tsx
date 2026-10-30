@@ -1,8 +1,9 @@
+import { useSellerPhone } from 'features/sellerPhone';
 import styles from 'widgets/advert/libr/advert.module.scss';
 import { ProductInfo } from 'features/advert/ProductInfo.tsx';
 import { PriceBlock } from 'entity/advert';
 import { AdvertOwner } from 'entity/advert/advertOwner/AdvertOwner.tsx';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { Date } from 'widgets/advert/libr/types.ts';
@@ -24,14 +25,22 @@ export const DesktopAdvert = ({ data, date }: Props) => {
     const lang = useAppSelector((state) => state.setLang.lang);
     const navigate = useNavigate();
 
-    const handleClickShowNumber = () => {
-        if (data) {
+    const { getPhone, isLoading: isPhoneLoading } = useSellerPhone(data.slug);
+
+    const handleClickShowNumber = async () => {
+        const phone = await getPhone();
+        if (phone) {
             const toastId = 'copy number toast';
-            toast.success(<CopyNumberMessage phone={data.owner.phone} />, {
+            toast.success(<CopyNumberMessage phone={phone} />, {
                 autoClose: false,
                 toastId,
             });
         }
+    };
+
+    const handleClickCall = async () => {
+        const phone = await getPhone();
+        if (phone) window.location.href = `tel:${phone}`;
     };
 
     // const handleClickWrite = () =>
@@ -81,16 +90,18 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                     <PriceBlock data={data} />
                     <AdvertOwner className={styles.owner} />
                     {isTablet ? (
-                        <Link
+                        <button
                             className={styles.call_button}
-                            to={`tel:${data.owner.phone}`}
+                            onClick={handleClickCall}
+                            disabled={isPhoneLoading}
                         >
                             {t('advert-page.call')}
-                        </Link>
+                        </button>
                     ) : (
                         <button
                             className={styles.call_button}
                             onClick={handleClickShowNumber}
+                            disabled={isPhoneLoading}
                         >
                             {t('advert-page.show-number')}
                         </button>

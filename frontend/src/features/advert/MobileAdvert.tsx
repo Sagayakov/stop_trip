@@ -1,8 +1,9 @@
+import { useSellerPhone } from 'features/sellerPhone';
 import { PhotoSlider } from 'entity/photoSlider/PhotoSlider.tsx';
 import styles from 'widgets/advert/libr/advert.module.scss';
 import { PriceBlock } from 'entity/advert';
 import { AdvertOwner } from 'entity/advert/advertOwner/AdvertOwner.tsx';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ProductInfo } from 'features/advert/ProductInfo.tsx';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +22,12 @@ export const MobileAdvert = ({ data, date }: Props) => {
     
     const handleNavigate = () => navigate(`/users/${data?.owner.id}`);
 
+    const { getPhone, isLoading: isPhoneLoading } = useSellerPhone(data.slug);
+    const handleClickCall = async () => {
+        const phone = await getPhone();
+        if (phone) window.location.href = `tel:${phone}`;
+    };
+
     // const handleClickWrite = () =>
     //     toast.warn(`${t('main-page.messages-tooltip')}`);
 
@@ -32,12 +39,13 @@ export const MobileAdvert = ({ data, date }: Props) => {
                     <PriceBlock data={data} />
                     <h1 className={styles.full_title}>{data.title}</h1>
                     <AdvertOwner className={styles.owner} />
-                    <Link
+                    <button
                         className={styles.call_button}
-                        to={`tel:${data.owner.phone}`}
+                        onClick={handleClickCall}
+                        disabled={isPhoneLoading}
                     >
                         {t('advert-page.call')}
-                    </Link>
+                    </button>
                     {/*<button*/}
                     {/*    className={styles.write_button}*/}
                     {/*    onClick={handleClickWrite}*/}
