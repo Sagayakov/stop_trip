@@ -1,3 +1,4 @@
+from django.conf import settings
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
@@ -16,7 +17,7 @@ from ..models import (
     TransportModel,
     Currency,
 )
-from forbidden_words.utils import find_forbidden_word
+from forbidden_words.utils import find_forbidden_fields
 from ..utils import compress_images, build_advertisement_images, change_link
 
 
@@ -67,9 +68,13 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         errors = {}
 
-        title = attrs.get("title")
-        if title and find_forbidden_word(title):
+        forbidden = find_forbidden_fields(
+            {"title": attrs.get("title"), "description": attrs.get("description")}
+        )
+        if "title" in forbidden:
             errors["title"] = "Название объявления содержит запрещенное слово."
+        if "description" in forbidden:
+            errors["description"] = "Описание объявления содержит запрещенное слово."
 
         if "proposed_currency" in attrs.keys() and "exchange_for" in attrs.keys():
             if attrs["proposed_currency"] == attrs["exchange_for"]:
@@ -247,6 +252,13 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         upload_images = validated_data.pop("upload_images", [])
         delete_images = validated_data.pop("delete_images", [])
+        if upload_images:
+            remaining = instance.images.exclude(id__in=delete_images).count()
+            max_count = settings.MAX_IMAGES_PER_ADVERTISEMENT
+            if remaining + len(upload_images) > max_count:
+                raise serializers.ValidationError(
+                    {"images": [f"Можно загрузить не больше {max_count} фото."]}
+                )
         compressed_images = compress_images(upload_images)
         if youtube_link := validated_data.get("youtube"):
             validated_data["youtube"] = change_link(youtube_link)
@@ -263,9 +275,13 @@ class AdvertisementUpdateSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         errors = {}
 
-        title = attrs.get("title")
-        if title and find_forbidden_word(title):
+        forbidden = find_forbidden_fields(
+            {"title": attrs.get("title"), "description": attrs.get("description")}
+        )
+        if "title" in forbidden:
             errors["title"] = "Название объявления содержит запрещенное слово."
+        if "description" in forbidden:
+            errors["description"] = "Описание объявления содержит запрещенное слово."
 
         if "proposed_currency" in attrs.keys() and "exchange_for" in attrs.keys():
             if attrs["proposed_currency"] == attrs["exchange_for"]:

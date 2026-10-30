@@ -6,6 +6,7 @@ from typing import Optional
 from uuid import uuid4
 
 from PIL import Image, ImageOps, UnidentifiedImageError
+from django.conf import settings
 from django.core import files as django_files
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import UploadedFile
@@ -36,7 +37,16 @@ def compress_image(image: str | UploadedFile) -> ContentFile:
             image.seek(0)
         else:
             byte_image = base64.b64decode(image)
+    except (ValueError, TypeError):
+        raise ValidationError({"images": ["Не удалось прочитать изображение."]})
 
+    max_size = settings.MAX_IMAGE_UPLOAD_SIZE
+    if len(byte_image) > max_size:
+        raise ValidationError(
+            {"images": [f"Фото больше {max_size // (1024 * 1024)} МБ. Уменьшите его и загрузите снова."]}
+        )
+
+    try:
         img = Image.open(io.BytesIO(byte_image))
         img = ImageOps.exif_transpose(img)
         img.thumbnail((MAX_IMAGE_SIDE, MAX_IMAGE_SIDE))
@@ -56,6 +66,9 @@ def compress_images(images: list[str | UploadedFile]) -> list[ContentFile]:
     Вызывать до сохранения объявления, чтобы битый файл не оставил объявление без фото.
     """
 
+    max_count = settings.MAX_IMAGES_PER_ADVERTISEMENT
+    if len(images) > max_count:
+        raise ValidationError({"images": [f"Можно загрузить не больше {max_count} фото."]})
     return [compress_image(image) for image in images]
 
 

@@ -4,9 +4,11 @@ import { useTranslation } from 'react-i18next';
 import styles from '../annPhoto.module.scss';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { convertFilesToBase64Strings } from 'pages/addAnnouncement/libr/convertFiles';
 import {
-    convertFilesToBase64Strings, convertHeicFilesToPng,
-} from 'pages/addAnnouncement/libr/convertFiles';
+    MAX_IMAGES,
+    prepareImagesForUpload,
+} from 'pages/addAnnouncement/libr/compressImages';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
@@ -71,11 +73,26 @@ const LoadPhotoBtn = ({
                 }
             }
 
-            let convertedFiles = await convertHeicFilesToPng(fileArray);
+            // HEIC → JPEG, сжатие до 2 МБ и не больше 10 фото на объявление.
+            const prepared = await prepareImagesForUpload(
+                fileArray,
+                previewImages.length
+            );
+            if (prepared.skippedByCount) {
+                toast.error(t('add-page.max-photos', { count: MAX_IMAGES }), {
+                    toastId: 'max photos toast',
+                });
+            }
+            if (prepared.failed) {
+                toast.error(t('add-page.photo-failed'), {
+                    toastId: 'photo failed toast',
+                });
+            }
+            let convertedFiles = prepared.files;
 
             if (path[1] === 'advertisement-editing') {
                 const base64Strings =
-                    await convertFilesToBase64Strings(fileArray);
+                    await convertFilesToBase64Strings(convertedFiles);
                 if (uploadImages) {
                     base64Strings.push(...uploadImages); //если что-то было, пушим в массив
                 }
@@ -108,13 +125,12 @@ const LoadPhotoBtn = ({
                     ref={inputRef}
                     accept="image/*,.img,.png,.jpeg,.jpg,.heic,.HEIC,.heif"
                     multiple={true}
-                    max={11}
                     onChange={handleImageChange}
                 />
             </div>
             <div className={styles.ann_field_err}>
                 {previewImages &&
-                    previewImages.length > 10 &&
+                    previewImages.length > MAX_IMAGES &&
                     `${t('add-page.please-select')}`}
                 {imgSize > 60 && <p>{t('add-page.limit')}</p>}
             </div>

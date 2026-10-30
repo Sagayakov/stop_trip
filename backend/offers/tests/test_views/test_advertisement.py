@@ -36,7 +36,7 @@ from offers.constants import (
     PropertyBalcony,
     PropertyRentDuration,
 )
-from offers.models import Advertisement, AdvertisementImage
+from offers.models import Advertisement, AdvertisementImage, Currency
 from users.tests.factories import UserFactory, UserMessengerFactory
 from ..factories import (
     BaseAdvertisementFactory,
@@ -145,7 +145,8 @@ class AdvertisementViewSetTest(APITestCase):
         self.assertEqual(Advertisement.objects.count(), 1)
         self.client.force_login(user)
 
-        with self.assertNumQueries(9):
+        # +1 запрос: проверка, что фото после правки не больше 10.
+        with self.assertNumQueries(10):
             res = self.client.put(
                 self.detail_url(kwargs={"slug": advertisement.slug}), data=payload
             )
@@ -554,10 +555,11 @@ class AdvertisementViewSetTest(APITestCase):
             elif spec == "transport_rent_duration":
                 self.assertEqual(len(value), len(TransportRentDuration.choices))
             # exchange
+            # Валюты (VND, USD, EUR, RUB) создаются миграцией.
             elif spec == "proposed_currency":
-                self.assertEqual(len(value), 0)
+                self.assertEqual(len(value), Currency.objects.count())
             elif spec == "exchange_for":
-                self.assertEqual(len(value), 0)
+                self.assertEqual(len(value), Currency.objects.count())
             elif spec == "exchange_rate":
                 self.assertTrue(len(value))
             # food
