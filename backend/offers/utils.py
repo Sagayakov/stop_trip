@@ -5,46 +5,81 @@ from io import BytesIO
 from typing import Optional
 from uuid import uuid4
 
-from PIL import Image
+from PIL import Image, ImageOps, UnidentifiedImageError
 from django.core import files as django_files
 from django.core.files.base import ContentFile
-from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files.uploadedfile import UploadedFile
+from rest_framework.exceptions import ValidationError
 from slugify import slugify
 
 from common.constants import BYTES_IN_MEGABYTES
 from .models import Advertisement, AdvertisementImage, TransportBrand, TransportModel
 
+# Максимальная сторона фото после сжатия. При таком размере фото весит примерно 150 КБ.
+MAX_IMAGE_SIDE = 1600
+JPEG_QUALITY = 70
 
-def compression_photo(
-    advertisement: Advertisement, images: list[str | InMemoryUploadedFile]
-) -> list[AdvertisementImage]:
-    """Функция для сжатия качества загружаемых фото"""
 
-    images_list: list[AdvertisementImage] = []
-    for image in images:
-        # Превращаем base64 в bytes
-        if isinstance(image, InMemoryUploadedFile):
+def compress_image(image: str | UploadedFile) -> ContentFile:
+    """
+    Сжимает одно фото (base64-строка или загруженный файл) в JPEG.
+
+    Поворачивает фото согласно EXIF-тегу Orientation: телефоны (особенно iPhone)
+    сохраняют кадр «как лёг сенсор» и пишут поворот в EXIF. При пересохранении
+    EXIF теряется, поэтому поворот нужно применить к пикселям заранее,
+    иначе фото на сайте окажется перевёрнутым.
+    """
+
+    try:
+        if isinstance(image, UploadedFile):
             byte_image = image.read()
             image.seek(0)
         else:
             byte_image = base64.b64decode(image)
-        image_stream = io.BytesIO(byte_image)
-        img = Image.open(image_stream)
-        # Разрешение фото. При таком весит примерно 150кб
-        img.thumbnail((1600, 1600))
-        file = BytesIO()
+
+        img = Image.open(io.BytesIO(byte_image))
+        img = ImageOps.exif_transpose(img)
+        img.thumbnail((MAX_IMAGE_SIDE, MAX_IMAGE_SIDE))
         img = img.convert("RGB")
-        img.save(file, format="JPEG", quality=70)
-        image_content = ContentFile(file.getvalue(), name=str(uuid4()))
-        file.seek(0)
-        images_list.append(
-            AdvertisementImage(
-                advertisement=advertisement,
-                image=image_content,
-                size=get_file_size_in_megabytes(image_content),
-            )
+    except (UnidentifiedImageError, ValueError, OSError, Image.DecompressionBombError):
+        raise ValidationError({"images": ["Не удалось прочитать изображение."]})
+
+    file = BytesIO()
+    img.save(file, format="JPEG", quality=JPEG_QUALITY)
+    return ContentFile(file.getvalue(), name=f"{uuid4()}.jpg")
+
+
+def compress_images(images: list[str | UploadedFile]) -> list[ContentFile]:
+    """
+    Сжимает список фото.
+
+    Вызывать до сохранения объявления, чтобы битый файл не оставил объявление без фото.
+    """
+
+    return [compress_image(image) for image in images]
+
+
+def build_advertisement_images(
+    advertisement: Advertisement, compressed_images: list[ContentFile]
+) -> list[AdvertisementImage]:
+    """Создаёт (не сохраняя) объекты фото объявления из уже сжатых файлов."""
+
+    return [
+        AdvertisementImage(
+            advertisement=advertisement,
+            image=image_content,
+            size=get_file_size_in_megabytes(image_content),
         )
-    return images_list
+        for image_content in compressed_images
+    ]
+
+
+def compression_photo(
+    advertisement: Advertisement, images: list[str | UploadedFile]
+) -> list[AdvertisementImage]:
+    """Сжимает фото и возвращает несохранённые объекты AdvertisementImage."""
+
+    return build_advertisement_images(advertisement, compress_images(images))
 
 
 def get_file_size_in_megabytes(file: django_files.File) -> float:

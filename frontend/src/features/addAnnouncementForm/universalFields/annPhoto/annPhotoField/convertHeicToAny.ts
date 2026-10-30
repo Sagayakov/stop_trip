@@ -27,29 +27,29 @@ export const convertHeicToAny = async (file: File): Promise<File | null> => {
     }
 
     const nameArr = file.name.split('.');
-    const newNamePng = `${nameArr.slice(0, -1).join('')}${Date.now()}.png`;
     const newNameJpeg = `${nameArr.slice(0, -1).join('')}${Date.now()}.jpeg`;
 
     try {
       const arrayBuffer = await file.arrayBuffer();
       const uniqueBlob = new Blob([arrayBuffer], { type: file.type });
-      let pngBlob = await heic2any({
+      // Конвертируем в JPEG, а не в PNG: PNG из фото с iPhone весит 10–20 МБ,
+      // JPEG — в разы меньше. Сервер всё равно пересжимает фото в JPEG.
+      let jpegBlob = await heic2any({
         blob: uniqueBlob,
-        toType: 'image/png',
+        toType: 'image/jpeg',
+        quality: 0.9,
       });
 
-      if (Array.isArray(pngBlob)) {
+      if (Array.isArray(jpegBlob)) {
         // eslint-disable-next-line prefer-destructuring
-        pngBlob = pngBlob[0];
+        jpegBlob = jpegBlob[0];
       }
 
-      const pngFile = new File(
-        [pngBlob],
-        newNamePng,
-        { type: 'image/png' },
+      return new File(
+        [jpegBlob],
+        newNameJpeg,
+        { type: 'image/jpeg' },
       );
-
-      return pngFile;
     } catch (error: unknown) {
       if ((error as { message: string }).message === `ERR_USER Image is already browser readable: ${type}`) {
         return new File(
