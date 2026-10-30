@@ -72,4 +72,16 @@ POSTGRES_PORT=5432
 TLS_MODE=off
 HTPASSWD_NODE=off
 HTPASSWD=off
+# Вход через Google (ключи из Google Cloud Console)
+GOOGLE_OAUTH2_KEY=
+GOOGLE_OAUTH2_SECRET=
+# Только для сервера: через запятую
+ALLOWED_HOSTS=stoptrip.com
+CORS_ALLOWED_ORIGINS=https://stoptrip.com
 ```
+
+`DEBUG` по умолчанию выключен — для локальной разработки обязательно укажите `DEBUG=True`.
+`POSTGRES_PASSWORD` обязателен: без него `docker compose` не запустится.
+
+Порты базы (15239) и бэкенда (8000) открываются только при локальном запуске через
+`docker-compose.override.yml`. На сервере, где файлы передаются через `-f`, они закрыты.

@@ -1,0 +1,11 @@
+# Подхватывается автоматически только при локальном запуске `docker compose up` без флагов -f.
+# На сервере (docker compose -f docker-compose.yml -f docker-compose.production.yml ...) этот файл
+# не используется, поэтому база и бэкенд не торчат наружу.
+services:
+  backend:
+    ports:
+      - 8000:8000
+
+  db:
+    ports:
+      - 15239:5432

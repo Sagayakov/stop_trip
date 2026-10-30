@@ -12,9 +12,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = getenv("SECRET_KEY")
 
 TESTING = "test" in argv or len(argv) >= 1 and "pytest" in argv[0]
-DEBUG = getenv("DEBUG", "True") == "True" and not TESTING
+# По умолчанию отладка выключена: если на сервере забыть DEBUG, наружу не утекут трейсбеки и настройки.
+# Для локальной разработки задайте DEBUG=True в .env.
+DEBUG = getenv("DEBUG", "False") == "True" and not TESTING
 
-ALLOWED_HOSTS = ["*"]
+
+def env_list(name: str, default: str = "") -> list[str]:
+    """Читает из окружения список значений через запятую."""
+
+    return [item.strip() for item in getenv(name, default).split(",") if item.strip()]
+
+
+ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", "*")
 CSRF_TRUSTED_ORIGINS = [
     "http://stoptrip",
     "http://stoptrip:3000",
@@ -240,7 +249,8 @@ CKEDITOR_CONFIGS = {
 }
 
 REST_FRAMEWORK = {
-    # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    # Всё, что явно не открыто во вьюхе, требует авторизации.
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -287,11 +297,9 @@ DJOSER = {
         "user_delete": "djoser.serializers.UserSerializer",
     },
 }
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
-    "392624207533-l03qv8p45f871emi39q0kiaho46fmkg3.apps.googleusercontent.com"
-)
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+# Ключи Google OAuth берутся из .env. Старый секрет был в коде и в истории GitHub — его нужно отозвать.
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = getenv("GOOGLE_OAUTH2_KEY", "")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = getenv("GOOGLE_OAUTH2_SECRET", "")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/userinfo.profile",
@@ -305,11 +313,25 @@ if not DEBUG:
 SESSION_COOKIE_AGE = 31_536_000
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
+# Кэш и сессии храним в Redis (раньше — в памяти каждого процесса: кэш расходился между
+# воркерами gunicorn, а сессии пропадали при каждом перезапуске).
+if TESTING:
+    CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": getenv("REDIS_CACHE_URL", "redis://redis:6379/1"),
+        }
+    }
+
 # Кастомный пользователь
 AUTH_USER_MODEL = "users.User"
 
 # Cors
-CORS_ALLOW_ALL_ORIGINS = True
+# В разработке разрешены любые источники. В проде — только перечисленные в CORS_ALLOWED_ORIGINS.
+CORS_ALLOW_ALL_ORIGINS = DEBUG
+CORS_ALLOWED_ORIGINS = env_list("CORS_ALLOWED_ORIGINS", "https://stoptrip.com")
 CORS_ALLOW_CREDENTIALS = True
 
 SITE_ID = 1

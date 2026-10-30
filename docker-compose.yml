@@ -15,6 +15,10 @@ x-app_environment: &app_environment
     - YND_STORAGE_BUCKET_NAME
     - EMAIL_HOST_USER
     - EMAIL_HOST_PASSWORD
+    - ALLOWED_HOSTS
+    - CORS_ALLOWED_ORIGINS
+    - GOOGLE_OAUTH2_KEY
+    - GOOGLE_OAUTH2_SECRET
 
 services:
   backend:
@@ -26,8 +30,8 @@ services:
     command: sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
-    ports:
-      - 8000:8000
+    # Порт 8000 наружу открывается только локально — см. docker-compose.override.yml.
+    # На сервере бэкенд доступен только через nginx.
     <<: *app_environment
 
   db:
@@ -35,14 +39,13 @@ services:
       context: ./db
     volumes:
       - postgresdata:/var/lib/postgresql/data
+    # Пароль берётся из .env (раньше был зашит как "postgres", а порт базы был открыт в интернет).
+    # Порт базы наружу открывается только локально — см. docker-compose.override.yml.
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_PORT=postgres
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?Задайте POSTGRES_PASSWORD в .env}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_DB=${POSTGRES_NAME:-postgres}
     restart: unless-stopped
-    ports:
-      - 15239:5432
 
   nginx:
     volumes:
