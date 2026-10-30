@@ -1,3 +1,4 @@
+import { COUNTRY } from 'shared/const/geo.ts';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import 'pages/addAnnouncement/libr/selectAddAnnouncement.scss';
 import { useForm } from 'react-hook-form';
@@ -78,7 +79,7 @@ const AdvertisementEditing = () => {
     }
 
     const onsubmit = async (data: FormAddAnn) => {
-        setValue('country', 'india');
+        setValue('country', COUNTRY.slug);
 
         try {
             const nonNullableData = Object.entries(data).filter(
@@ -93,7 +94,7 @@ const AdvertisementEditing = () => {
                     end_date: data.end_date
                         ? `${data.end_date}T${data.end_time ?? ''}`
                         : undefined,
-                    region: data.region || 'north-goa',
+                    region: data.region,
                 },
                 addSlug,
             });
@@ -107,7 +108,7 @@ const AdvertisementEditing = () => {
     };
 
     useEffect(() => {
-        setValue('country', 'india');
+        setValue('country', COUNTRY.slug);
 
         dataAdvert && setMarkerPosition(dataAdvert.coordinates);
         dataAdvert?.slug && setValue('slug', dataAdvert?.slug);

@@ -1,3 +1,4 @@
+import { PRICE_PRESETS, formatMoney } from 'shared/const/geo.ts';
 import { useMemo } from 'react';
 import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { TypeSettingRealty, Price } from 'widgets/settingForm/settingRealty/libr/TypeSettingRealty.ts';
@@ -41,22 +42,19 @@ export const SettingPrice = ({ register, watch, available_params }: Props) => {
         <div className={styles.setting_price}>
             <h3>{t('filters.price')}</h3>
             <div className={styles.setting_price_announcement}>
-                <label style={radio === '15000' ? checkedStyle : {}}>
-                    <input
-                        type="radio"
-                        value="15000"
-                        {...register('price.limit')}
-                    />
-                    {`${t('filters.max')} 15 000₹`}
-                </label>
-                <label style={radio === '30000' ? checkedStyle : {}}>
-                    <input
-                        type="radio"
-                        value="30000"
-                        {...register('price.limit')}
-                    />
-                    {`${t('filters.max')} 30 000₹`}
-                </label>
+                {PRICE_PRESETS.map((preset) => (
+                    <label
+                        key={preset}
+                        style={radio === preset ? checkedStyle : {}}
+                    >
+                        <input
+                            type="radio"
+                            value={preset}
+                            {...register('price.limit')}
+                        />
+                        {`${t('filters.max')} ${formatMoney(preset)}`}
+                    </label>
+                ))}
             </div>
             <div className={styles.setting_price_inputs}>
                 <input

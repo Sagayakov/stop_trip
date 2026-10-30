@@ -1,3 +1,4 @@
+import { MAP_CENTER, MAP_COUNTRY_ZOOM } from 'shared/const/geo.ts';
 //import { useEffect } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
 import { FormAddAnn } from 'pages/addAnnouncement/libr/AnnouncementFormTypes.ts';
@@ -41,9 +42,9 @@ const AnnouncementLocationField = ({
             <h3>{`${t('add-page.on_map')}:`}</h3>
             <div className={styles.map_wrapper}>
                 <MapComponent
-                    propertyLocation={
-                        defaultCoordinates() || [73.821235, 15.483506]
-                    }
+                    propertyLocation={defaultCoordinates() || MAP_CENTER}
+                    // Без отметки показываем всю страну, с отметкой — район.
+                    initialZoom={markerPosition ? 10 : MAP_COUNTRY_ZOOM}
                     isSelected={true}
                     setMarkerPosition={setMarkerPosition}
                     setValue={setValue}

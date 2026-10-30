@@ -1,3 +1,4 @@
+import { COUNTRY } from 'shared/const/geo.ts';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Control, FieldValues, Path, UseFormSetValue } from 'react-hook-form';
@@ -24,7 +25,7 @@ type SelectType = {
 };
 
 export const RegionFilter = <T extends FieldValues>({ control, setValue, available_params }: Props<T>) => {
-    const { data: regionsData } = useGetRegionsByCountryQuery('?country=india');
+    const { data: regionsData } = useGetRegionsByCountryQuery(`?country=${COUNTRY.slug}`);
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
 

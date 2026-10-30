@@ -1,8 +1,4 @@
-export const prettifyPrice = (price: number) => {
-    const str = price.toString();
-    const dotIndex = str.indexOf('.');
+import { formatMoney } from 'shared/const/geo.ts';
 
-    return `₹ ${Number(str.slice(0, dotIndex)).toLocaleString(
-        'ru'
-    )},${str.slice(dotIndex + 1)}`;
-};
+/** Цена для показа: «5000000.00» → «5 000 000 ₫». Валюта задаётся в shared/const/geo.ts. */
+export const prettifyPrice = (price: number | string) => formatMoney(price);

@@ -1,3 +1,4 @@
+import { COUNTRY } from 'shared/const/geo.ts';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { useTranslation } from 'react-i18next';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
@@ -29,11 +30,11 @@ const AnnouncementRegion = ({
     const { t } = useTranslation();
     const [options, setOptions] = useState<SelectType[]>([]);
     //const lang = useAppSelector((state) => state.setLang.lang);
-    const { data } = useGetRegionsByCountryQuery('?country=india');
-    const [defaultRegion, setDefaultRegion] = useState<SelectType>({
-        value: 'north-goa',
-        label: 'Северный Гоа',
-    });
+    const { data } = useGetRegionsByCountryQuery(`?country=${COUNTRY.slug}`);
+    // Регион по умолчанию не выбран: пользователь выбирает провинцию сам.
+    const [defaultRegion, setDefaultRegion] = useState<SelectType | undefined>(
+        undefined
+    );
 
     useEffect(() => {
         if (data) {

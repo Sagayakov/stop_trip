@@ -1,3 +1,4 @@
+import { COUNTRY, getCountryName } from 'shared/const/geo.ts';
 import { useTranslation } from 'react-i18next';
 import styles from 'pages/addAnnouncement/libr/addAnnouncement.module.scss';
 import { UniversalSelectDropdown } from 'entity/universalEntites/UniversalSelectDropdown.tsx';
@@ -14,9 +15,7 @@ interface Props {
 const AnnouncementCountry = ({ control, setValue }: Props) => {
     const { t } = useTranslation();
     const lang = useAppSelector((state) => state.setLang.lang);
-    const options = [
-        { value: 'india', label: lang === 'ru' ? 'Индия' : 'India' },
-    ];
+    const options = [{ value: COUNTRY.slug, label: getCountryName(lang) }];
 
     return (
         <div className={styles.ann_field}>

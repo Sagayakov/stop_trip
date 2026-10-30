@@ -231,6 +231,8 @@ class CurrencyFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Currency
+        # Валюты VND/USD/EUR/RUB уже созданы миграцией — случайный код может совпасть.
+        django_get_or_create = ("short_name",)
 
 
 class ExchangeAdvertisementFactory(BaseAdvertisementFactory):

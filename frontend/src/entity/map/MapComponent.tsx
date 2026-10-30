@@ -24,6 +24,7 @@ type MapProps = {
         value: React.SetStateAction<string | undefined>
     ) => void;
     setValue?: UseFormSetValue<FormAddAnn>;
+    initialZoom?: number;
 };
 
 export const MapComponent = ({
@@ -31,6 +32,7 @@ export const MapComponent = ({
     isSelected,
     setMarkerPosition,
     setValue,
+    initialZoom = 10,
 }: MapProps) => {
     useGeographic();
 
@@ -40,7 +42,7 @@ export const MapComponent = ({
     const mapRef = useRef<Map>();
     mapRef.current = map;
     const [selectedCoord, setSelectedCoord] = useState<Coordinate>();
-    const [zoom, setZoom] = useState<number | undefined>(10);
+    const [zoom, setZoom] = useState<number | undefined>(initialZoom);
 
     const scaleLineControl = new ScaleLineControl();
     const zoomControl = new Zoom({});

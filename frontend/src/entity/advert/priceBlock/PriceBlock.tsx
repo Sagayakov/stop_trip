@@ -1,3 +1,4 @@
+import { CURRENCY } from 'shared/const/geo.ts';
 import styles from 'widgets/advert/libr/advert.module.scss';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
 import { useTranslation } from 'react-i18next';
@@ -47,10 +48,10 @@ export const PriceBlock = ({ data }: Props) => {
             }
         }
         if (category === 'transport' && transport_commission) {
-            return `${currencyPrice} / ₹ ${transport_commission}`;
+            return `${currencyPrice} / ${CURRENCY.symbol} ${transport_commission}`;
         }
         if (category === 'property' && property_commission) {
-            return `${currencyPrice} / ₹ ${property_commission}`;
+            return `${currencyPrice} / ${CURRENCY.symbol} ${property_commission}`;
         }
         return currencyPrice;
     };

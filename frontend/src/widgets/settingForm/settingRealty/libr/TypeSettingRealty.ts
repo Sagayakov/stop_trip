@@ -31,7 +31,8 @@ export interface Price {
     min: number;
     max: number;
 }
-export type Limit = null | '15000' | '30000';
+// Значения быстрых кнопок цены — см. PRICE_PRESETS в shared/const/geo.ts
+export type Limit = null | string;
 
 export interface RoomsCount {
     min: number;

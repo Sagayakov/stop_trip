@@ -1,3 +1,5 @@
+import { COUNTRY, getCountryName } from 'shared/const/geo.ts';
+import { useAppSelector } from 'app/store/hooks';
 import { useRef } from 'react';
 import { MapIcon } from 'shared/ui/icons/icons-tools/MapIcon.tsx';
 import { useMatchMedia } from 'app/hooks/useMatchMedia.ts';
@@ -8,6 +10,7 @@ export const SelectGeo = () => {
     const selectRef = useRef<null | HTMLSelectElement>(null);
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
 
     return (
         <div className={styles.select_wrapper}>
@@ -17,7 +20,7 @@ export const SelectGeo = () => {
                 <p>{t('main-page.in-city')}</p>
             )}
             <select name="city_select" ref={selectRef} disabled>
-                <option value={t('main-page.goa')}>{t('main-page.goa')}</option>
+                <option value={COUNTRY.slug}>{getCountryName(lang)}</option>
             </select>
         </div>
     );

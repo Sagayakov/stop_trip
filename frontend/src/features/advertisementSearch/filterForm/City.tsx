@@ -20,8 +20,9 @@ export const City = (props: Props) => {
     const { t } = useTranslation();
     const [cityValues, setCityValues] = useState<SearchOptions[]>([]);
     const region = watch('region');
+    // Без выбранной провинции показываем города всей страны.
     const { data: availableData } = useGetAvailableFiltersQuery(
-        `?region=${region || 'north-goa'}`
+        region ? `?region=${region}` : ''
     );
     const lang = useAppSelector((state) => state.setLang.lang);
 

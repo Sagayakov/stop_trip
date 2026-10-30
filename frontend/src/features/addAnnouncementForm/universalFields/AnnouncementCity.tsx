@@ -36,8 +36,10 @@ const AnnouncementCity = ({
 }: Props) => {
     const { t } = useTranslation();
     const region = watch('region');
+    // Пока провинция не выбрана, города не запрашиваем.
     const { data: availableData } = useGetCitiesByRegionQuery(
-        `?region=${region || 'north-goa'}`
+        `?region=${region}`,
+        { skip: !region }
     );
     const [options, setOptions] = useState<StringOptions[]>([]);
     const [defaultCity, setDefaultCity] = useState<SelectOption>({

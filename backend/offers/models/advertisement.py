@@ -3,7 +3,7 @@ from django.db import models
 from autoslug import AutoSlugField
 from location_field.models.plain import PlainLocationField
 
-from forbidden_words.utils import find_forbidden_word
+from forbidden_words.utils import find_forbidden_fields
 from .abs_event_model import AbsEvent
 from .abs_exchange_rate_model import AbsExchangeRate
 from .abs_job_model import AbsJob
@@ -66,7 +66,7 @@ class Advertisement(
 
     category = models.CharField("Категории", max_length=100, choices=CategoryChoices.choices)
     title = models.CharField("Название", max_length=100)
-    price = models.DecimalField("Цена", max_digits=10, decimal_places=2, null=True, blank=True)
+    price = models.DecimalField("Цена", max_digits=15, decimal_places=2, null=True, blank=True)
     coordinates = PlainLocationField(verbose_name="Координаты", blank=True)
     description = models.TextField("Описание", max_length=5000, null=True, blank=True)
     is_published = models.BooleanField("Опубликованно", default=True)
@@ -85,13 +85,22 @@ class Advertisement(
         verbose_name = "Объявление"
         verbose_name_plural = "Объявления"
         ordering = ("-date_create",)
+        indexes = (
+            # Лента объявлений: только опубликованные, новые сверху.
+            models.Index(fields=["is_published", "-date_create"], name="adv_published_date_idx"),
+            # Фильтр по категории.
+            models.Index(fields=["category", "is_published"], name="adv_category_idx"),
+        )
 
     def clean(self):
         super().clean()
         errors = {}
 
-        if find_forbidden_word(self.title):
+        forbidden = find_forbidden_fields({"title": self.title, "description": self.description})
+        if "title" in forbidden:
             errors["title"] = "Название объявления содержит запрещенное слово."
+        if "description" in forbidden:
+            errors["description"] = "Описание объявления содержит запрещенное слово."
 
         if self.proposed_currency and self.exchange_for:
             if self.proposed_currency == self.exchange_for:

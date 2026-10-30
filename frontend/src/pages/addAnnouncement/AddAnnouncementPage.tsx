@@ -1,3 +1,4 @@
+import { COUNTRY } from 'shared/const/geo.ts';
 import { Suspense, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AnnouncementSubmitButton } from 'entity/addAnnouncementForm/universalFields';
@@ -61,7 +62,7 @@ const AddAnnouncementPage = () => {
     useGetSelectOptionsQuery(''); //запрашиваем данные, потом будем доставать из кэша
 
     const onsubmit = async (data: FormAddAnn) => {
-        setValue('country', 'india');
+        setValue('country', COUNTRY.slug);
         const formData = new FormData();
 
         try {
@@ -77,7 +78,6 @@ const AddAnnouncementPage = () => {
                 }
                 formData.append(el[0], `${el[1]}`);
             })
-            formData.append('region', 'north-goa');
 
             if (data.start_date) {
                 formData.append('start_date', `${data.start_date}T${data.start_time ?? ''}`);
@@ -124,7 +124,7 @@ const AddAnnouncementPage = () => {
                 setError(el[0] as keyof FormAddAnn, { message: el[1][0] });
             });
         }
-        setValue('country', 'india');
+        setValue('country', COUNTRY.slug);
     }, [isSuccess, isError]);
 
     useEffect(() => {
