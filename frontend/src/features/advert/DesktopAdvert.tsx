@@ -1,3 +1,4 @@
+import { formatPlace } from 'shared/utils/formatPlace.ts';
 import { useSellerPhone } from 'features/sellerPhone';
 import styles from 'widgets/advert/libr/advert.module.scss';
 import { ProductInfo } from 'features/advert/ProductInfo.tsx';
@@ -61,27 +62,9 @@ export const DesktopAdvert = ({ data, date }: Props) => {
     return (
         <>
             <h1 className={styles.announcement_header}>{data.title}</h1>
-            <p>
+            <p className={styles.location}>
                 {data.city
-                    ? `${
-                          (lang === 'ru'
-                              ? data.country?.name
-                              : `${data.country?.slug[0].toUpperCase()}${data.country?.slug.slice(
-                                    1
-                                )}`) || ''
-                      }, ${
-                          (lang === 'ru'
-                              ? data.region?.name
-                              : `${data.region?.slug[0].toUpperCase()}${data.region?.slug.slice(
-                                    1
-                                )}`) || ''
-                      }, ${
-                          (lang === 'ru'
-                              ? data.city?.name
-                              : `${data.city?.slug[0].toUpperCase()}${data.city?.slug.slice(
-                                    1
-                                )}`) || ''
-                      }`
+                    ? formatPlace(data, lang)
                     : `${t('advert-page.no-address')}`}
             </p>
             <div className={styles.announcement_info}>

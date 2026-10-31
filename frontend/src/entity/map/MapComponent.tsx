@@ -75,7 +75,7 @@ export const MapComponent = ({
                     }),
                     style: {
                         'circle-radius': 10,
-                        'circle-fill-color': '#1f6fde',
+                        'circle-fill-color': '#0E6B5C',
                     },
                 }),
             ],

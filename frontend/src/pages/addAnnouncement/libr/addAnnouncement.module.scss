@@ -81,26 +81,67 @@ input {
     }
 }
 
+// Форма размещения: одна колонка по центру, белая карточка, разделы с заголовками
 .add_ann {
-    width: 1240px;
-    padding-top: 110px;
+    width: calc(100% - 48px);
+    max-width: 820px;
+    padding-top: 116px;
     margin: 0 auto 80px;
-    font-family: var(--font-sf);
     .add_ann_form {
+        padding: 40px 48px 48px;
+        border-radius: 24px;
+        background-color: var(--white);
+        box-shadow: var(--shadow-sm);
         h1 {
-            font-size: 34px;
-            margin: 2rem 0 3rem 0;
+            margin: 0 0 32px;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
         }
         h2 {
-            font-size: 30px;
-            margin-bottom: 27px;
+            margin: 8px 0 20px;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+        }
+        // Поля ввода одной ширины со списками; описание — на всю ширину формы
+        // :not(...) — не трогаем скрытое поле поиска внутри выпадающих списков react-select
+        .ann_field input[type='text']:not([class*='__input']),
+        .ann_field input[type='number'],
+        .ann_field input[type='url'] {
+            width: 100%;
+            max-width: 440px;
+            height: 48px;
+            padding: 0 14px;
+            border: 1px solid var(--line);
+            border-radius: var(--radii);
+            font-size: 15px;
+            outline: none;
+            &:focus {
+                border-color: var(--jade);
+                box-shadow: var(--focus-ring);
+            }
+        }
+        .ann_field textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--line);
+            border-radius: var(--radii);
+            font-size: 15px;
+            outline: none;
+            &:focus {
+                border-color: var(--jade);
+                box-shadow: var(--focus-ring);
+            }
         }
         .ann_field {
-            margin-bottom: 9px;
+            margin-bottom: 18px;
             h3 {
-                margin-bottom: 16px;
+                margin-bottom: 8px;
+                font-size: 15px;
+                font-weight: 600;
                 span {
-                    color: red;
+                    color: var(--error);
                 }
             }
             h2 {
@@ -140,11 +181,12 @@ input {
                 font-size: 14px;
             }
             #ann_field_price {
-                width: 25%;
+                width: 100%;
+                max-width: 220px;
             }
             input[type='text'],
             textarea {
-                width: 50%;
+                width: 100%;
                 height: 36px;
                 padding: 12px;
                 border-radius: var(--radii);
@@ -208,13 +250,15 @@ input {
     }
 }
 
-@media (max-width: 1439px) {
+@media (max-width: 767px) {
     .add_ann {
-        width: 85%;
-        padding-top: 110px;
-        margin: 0 auto 80px;
+        width: calc(100% - 32px);
         .add_ann_form {
-            width: 100%;
+            padding: 24px 20px 28px;
+            border-radius: 20px;
+            h1 {
+                font-size: 26px;
+            }
         }
     }
 }

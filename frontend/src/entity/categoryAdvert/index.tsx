@@ -1,3 +1,4 @@
+import { formatPlace } from 'shared/utils/formatPlace.ts';
 //import { Like } from 'shared/ui/Like';
 //import { Rating } from 'shared/ui/Rating';
 import {
@@ -164,25 +165,7 @@ export const CategoryAdvert = (el: Props) => {
                 <h2>{el.title}</h2>
                 {el.city && (
                     <p className={style.description_location}>
-                        {`${
-                            (lang === 'ru'
-                                ? el.country?.name
-                                : `${el.country?.slug[0].toUpperCase()}${el.country?.slug.slice(
-                                      1
-                                  )}`) || ''
-                        }, ${
-                            (lang === 'ru'
-                                ? el.region?.name
-                                : `${el.region?.slug[0].toUpperCase()}${el.region?.slug.slice(
-                                      1
-                                  )}`) || ''
-                        }, ${
-                            (lang === 'ru'
-                                ? el.city?.name
-                                : `${el.city?.slug[0].toUpperCase()}${el.city?.slug.slice(
-                                      1
-                                  )}`) || ''
-                        }`}
+                        {formatPlace(el, lang)}
                     </p>
                 )}
                 <h3>
@@ -205,9 +188,11 @@ export const CategoryAdvert = (el: Props) => {
                     {`${el.owner.full_name[0].toUpperCase()}${el.owner.full_name.slice(
                         1
                     )}`}
-                    <span className={style.rating_number}>
-                        {el.owner.avg_rating.toFixed(2)}
-                    </span>
+                    {el.owner.rating_num > 0 && (
+                        <span className={style.rating_number}>
+                            {el.owner.avg_rating.toFixed(1)}
+                        </span>
+                    )}
                     {/* <Rating rating={4.5} /> */}
                 </div>
                 <p className={style.time}>

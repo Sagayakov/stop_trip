@@ -10,3 +10,12 @@ class OfferConfig(AppConfig):
         from .signals import connect_cache_invalidation
 
         connect_cache_invalidation(apps)
+
+        # После запуска (в том числе после обновления кода) сбрасываем кэш ответов API,
+        # чтобы посетители не получили ответы в старом формате.
+        try:
+            from common.cache import bump_data_version
+
+            bump_data_version()
+        except Exception:  # Redis может быть ещё не запущен — не мешаем старту
+            pass

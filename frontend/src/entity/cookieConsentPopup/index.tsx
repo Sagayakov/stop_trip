@@ -23,11 +23,11 @@ export const CookieConsentPopup = ({
         <div className={styles.popup}>
             <CookieConsent
                 location="bottom"
-                buttonText="OK"
+                buttonText={t('cookie-ok')}
                 cookieName="user_consent"
                 contentClasses={styles.accept_cookie_text}
                 containerClasses={styles.accept_cookie_wrapper}
-                style={{ background: '#2B373B' }}
+                disableStyles={false}
                 buttonClasses={styles.accept_button}
                 expires={150}
             >

@@ -15,20 +15,24 @@ services:
       context: ./frontend
     command: npm run dev
     environment:
-      - VITE_BASE_URL=http://localhost:8000
-      # Следить за изменениями файлов на Windows (нужно для мгновенного обновления сайта)
-      - CHOKIDAR_USEPOLLING=true
+      # Сайт обращается к API по своему же адресу, а Vite пересылает запросы в backend
+      - VITE_BASE_URL=http://localhost:3000
+      - VITE_PROXY_TARGET=http://backend:8000
+      # Проверять изменения файлов раз в секунду (на Windows без этого сайт не обновляется сам).
+      # Частая проверка сильно грузила процессор, поэтому интервал увеличен — см. vite.config.ts.
+      - VITE_WATCH_POLLING=true
     # Код сайта подключён «вживую»: правки видны в браузере без пересборки
     volumes:
       - ./frontend/src:/app/src
       - ./frontend/public:/app/public
       - ./frontend/index.html:/app/index.html
+      - ./frontend/vite.config.ts:/app/vite.config.ts
     ports:
       - 3000:3000
     depends_on:
       - backend
 
-  # nginx локально не нужен: сайт открывается на :3000, API — на :8000.
+  # nginx локально не нужен: всё открывается на http://localhost:3000 (API — через Vite).
   # Запустится, только если явно попросить: docker compose --profile prod up
   nginx:
     profiles: ["prod"]

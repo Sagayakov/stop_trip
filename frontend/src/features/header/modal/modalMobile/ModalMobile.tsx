@@ -76,7 +76,7 @@ export const ModalMobile = (props: Props) => {
                         to={'/favorites'}
                         onClick={() => setShowUserMenu(false)}
                     >
-                        <Favorite color="transparent" strokeColor="#1F6FDE" />
+                        <Favorite color="transparent" strokeColor="#0E6B5C" />
                         <p className="user-option-text">
                             {t('modal-logged.favorites')}
                         </p>
@@ -86,7 +86,7 @@ export const ModalMobile = (props: Props) => {
                         className="user-option"
                         onClick={() => setShowUserMenu(false)}
                     >
-                        <Setting color="#1F6FDE" stroke="#1F6FDE" />
+                        <Setting color="#0E6B5C" stroke="#0E6B5C" />
                         <p className="user-option-text">
                             {t('modal-logged.settings')}
                         </p>

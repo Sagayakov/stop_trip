@@ -1,356 +1,142 @@
-header.fixed_header {
-    position: fixed;
-    top: 0 !important;
-    left: 0;
-    right: 0;
-    margin-bottom: 40px;
-}
+// Шапка: белая, тонкая линия снизу, при прокрутке закрепляется сверху с лёгкой тенью.
+// Позиционирование (absolute → fixed при прокрутке) сохранено: под него подогнаны отступы страниц.
 
 header {
     position: absolute;
     z-index: 1000;
     width: 100%;
-    margin: 0 auto 50px;
-    box-shadow: 0 6px 8px 0 #00000014;
-    background-color: var(--main-background);
-    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+    transition: box-shadow 0.2s ease;
 
     .header_wrapper {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        width: 1240px;
-        padding: 24px 0;
+        gap: 24px;
+        width: calc(100% - 48px);
+        max-width: 1240px;
+        height: 76px;
         margin: 0 auto;
-        //cursor: pointer;
-        transition: all 0.7s ease;
+
         svg {
-            flex-shrink: 0; //отключаем сужение для svg
+            flex-shrink: 0;
         }
+
+        // «Разместить объявление» — главное действие сайта
         .addAdvert {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 262px;
-            height: 3rem;
-            padding: 12px 24px 12px 18px;
+            gap: 8px;
+            height: 44px;
+            margin-left: auto;
+            padding: 0 20px 0 16px;
             border: none;
-            border-radius: var(--radii);
-            background-color: var(--grey-2);
-            color: white;
-            font-family: var(--font-sf);
+            border-radius: 999px;
+            background-color: var(--jade);
+            color: var(--white);
+            font-size: 15px;
+            font-weight: 600;
+            white-space: nowrap;
             cursor: pointer;
-            .svg {
-                margin-right: 0.5rem;
+            transition: background-color 0.15s ease;
+
+            &:hover {
+                background-color: var(--jade-hover);
+            }
+            &:active {
+                transform: translateY(1px);
             }
         }
         .addAdvert.active {
-            background-color: var(--main-blue);
+            background-color: var(--jade);
         }
-        .addAdvert:active {
-            opacity: 0.75;
-        }
+
         .language_auth {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            height: 36px;
-            width: auto;
+            gap: 12px;
 
             .auth_button {
-                display: flex;
+                display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                width: 197px;
                 height: 44px;
-                margin-left: 1rem;
-                color: var(--main-blue);
-                background-color: var(--main-background);
-                border: 2px solid var(--main-blue);
-                border-radius: var(--radii);
+                padding: 0 18px;
+                border: 1px solid var(--line);
+                border-radius: 999px;
+                background: var(--white);
+                color: var(--ink);
+                font-size: 15px;
                 font-weight: 600;
-                font-family: var(--font-inter);
-
                 cursor: pointer;
+                transition: border-color 0.15s ease;
+
+                &:hover {
+                    border-color: var(--ink);
+                }
             }
+
             .person_auth {
-                margin-left: 1rem;
+                display: flex;
+                align-items: center;
                 cursor: pointer;
+
                 svg {
-                    height: 3rem;
-                    flex-shrink: 0;
+                    height: 40px;
                 }
             }
         }
     }
 }
 
-@media (min-width: 1440px) {
-    header.fixed_header {
-        .header_wrapper {
-            padding: 10px 0;
-        }
-    }
-}
-
-@media (max-width: 1439px) {
-    header {
-        width: 100%;
-        margin: 0 auto;
-        .header_wrapper {
-            width: 85%;
-            margin: 0 auto;
-            justify-content: space-between;
-            .addAdvert,
-            .language_auth {
-                margin: 0;
-            }
-        }
-    }
-}
-
-@media (max-width: 1023px) {
-    header {
-        width: 100%;
-        margin: 0 auto;
-        .header_wrapper {
-            .addAdvert {
-                width: 192px;
-                padding: 8px;
-                font-size: 14px;
-            }
-        }
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1439px) {
-    header.fixed_header {
-        .header_wrapper {
-            padding: 5px 0;
-            #logo {
-                transform: scale(0.9);
-                margin: 0 0 0 -7px;
-            }
-            .addAdvert {
-                height: 35px;
-            }
-            .auth_button {
-                height: 35px;
-            }
-        }
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-    header {
-        .header_wrapper {
-            width: 85%;
-            justify-content: space-between;
-            padding: 10px 0;
-            .addAdvert {
-                width: 30%;
-                justify-content: center;
-            }
-            .language_auth {
-                .auth_button {
-                    width: 85%;
-                    padding: 0 10px;
-                }
-            }
-        }
-    }
+header.fixed_header {
+    position: fixed;
+    top: 0 !important;
+    left: 0;
+    right: 0;
+    box-shadow: 0 6px 20px -12px rgba(18, 32, 28, 0.25);
 }
 
 @media (max-width: 767px) {
     header {
         .header_wrapper {
-            .language_auth {
-                gap: 0.5rem;
-            }
-            .addAdvert {
-                //width: 40px;
-                height: 36px;
-                cursor: pointer;
-            }
-        }
-    }
-}
+            gap: 12px;
+            width: calc(100% - 32px);
+            height: 64px;
 
-@media (min-width: 601px) and (max-width: 767px) {
-    header.fixed_header {
-        .header_wrapper {
-            height: 40px;
-            #logo {
-                transform: scale(0.9);
-                margin: 0 0 0 -10px;
-            }
-            .addAdvert {
-                height: 30px;
-                transition: all 0.6s ease;
-            }
-        }
-    }
-    header {
-        .header_wrapper {
-            height: 70px;
-            width: 93%;
-            justify-content: space-between;
-            .addAdvert {
-                justify-content: center;
-                //width: 130px;
-                transition: all 0.6s ease;
-            }
-            .addAdvert + svg {
-                width: 40px;
-                height: 40px;
-                cursor: pointer;
-            }
-        }
-    }
-}
-
-@media (max-width: 600px) {
-    header.fixed_header {
-        .header_wrapper {
-            height: 40px;
-            #logo {
-                transform: scale(0.9);
-                margin: 0 0 0 -10px;
-                transition: all 0.6s ease;
-            }
-            .addAdvert {
-                height: 30px;
-                transition: all 0.6s ease;
-            }
-            .addAdvert + svg {
-                height: 30px;
-                transition: all 0.6s ease;
-            }
-        }
-    }
-    header {
-        .header_wrapper {
-            height: 60px;
-            width: 93%;
-            justify-content: space-between;
-            #logo {
-                transition: all 0.6s ease;
-            }
-            .addAdvert {
-                width: auto;
-                text-align: center;
-                transition: all 0.6s ease;
-            }
-            .addAdvert + svg {
-                width: 35px;
-                height: 35px;
-                cursor: pointer;
-                transition: all 0.6s ease;
-            }
-        }
-    }
-}
-
-@media (min-width: 425px) and (max-width: 476px) {
-    header.fixed_header {
-        height: 40px;
-        margin: 0 auto;
-        .header_wrapper {
-            height: 30px;
-            margin: 0 auto;
-            padding: 20px 0;
-            #logo {
-                transform: scale(0.9);
-                margin: 0 0 0 -8px;
-                transition: all 0.6s ease;
-            }
-            .addAdvert {
-                height: 30px;
-                transition: all 0.6s ease;
-            }
-            .addAdvert + svg {
-                height: 30px;
-                transition: all 0.6s ease;
-            }
-        }
-    }
-    header {
-        height: 50px;
-        .header_wrapper {
-            margin-bottom: 1.5rem;
-            width: 93%;
-            height: 33px;
-            justify-content: space-between;
             #logo {
                 width: 110px;
             }
             .addAdvert {
-                //width: 192px;
-                height: 30px;
-                padding: 8px;
+                height: 40px;
+                padding: 0 14px 0 12px;
                 font-size: 14px;
-                margin: 0;
             }
-            .addAdvert + svg {
-                cursor: pointer;
+            .language_auth {
+                gap: 8px;
+                .person_auth svg,
+                > svg {
+                    width: 36px;
+                    height: 36px;
+                }
             }
-
-            /* .language_auth {
-                display: none;
-            } */
         }
     }
 }
 
-@media (max-width: 424px) {
-    header.fixed_header {
-        height: 40px;
-        margin: 0 auto;
-        .header_wrapper {
-            height: 30px;
-            margin: 0 auto;
-            padding: 20px 0;
-            #logo {
-                height: 30px;
-                margin: 0 0 0 -3px;
-                transition: all 0.6s ease;
-            }
-            .addAdvert {
-                height: 30px;
-                transition: all 0.6s ease;
-            }
-            .addAdvert + svg {
-                height: 30px;
-                transition: all 0.6s ease;
-            }
-        }
-    }
+@media (max-width: 423px) {
     header {
         .header_wrapper {
-            width: 92%;
-            height: 33px;
-            justify-content: space-between;
             #logo {
-                width: 100px;
-                transition: all 0.6s ease;
+                width: 96px;
             }
+            // На узких экранах на кнопке остаётся только «+»
             .addAdvert {
-                width: auto;
-                height: 30px;
-                padding: 8px;
-                font-size: 14px;
-                margin: 0 1rem 0 0;
-                transition: all 0.6s ease;
-            }
-            .addAdvert + svg {
-                cursor: pointer;
-                transition: all 0.6s ease;
-            }
-            .language_auth {
-                justify-content: flex-end;
-                .language {
-                    margin-left: auto;
-                }
+                width: 40px;
+                padding: 0;
             }
         }
     }

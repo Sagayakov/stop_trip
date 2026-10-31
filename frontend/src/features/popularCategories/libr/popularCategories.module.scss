@@ -1,237 +1,125 @@
+// Категории: компактные плитки «иконка + название», без рамок.
+
 .popular_categories {
-    width: 1440px;
-    margin: 0 auto 50px;
+    width: calc(100% - 48px);
+    max-width: 1240px;
+    margin: 0 auto 64px;
+
     .popular_categories_wrapper {
-        width: 1240px;
-        margin: 0 auto;
-        font-family: var(--font-sf);
-        h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 40px;
-        }
-        .categories_list {
-            width: 100%;
+        .categories_titles {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            & div {
-                flex-grow: 1;
-                min-width: 190px;
-                max-width: 295px;
-                border: 1px solid var(--main-blue);
-                border-radius: 1rem;
-                padding: 1.5rem;
-                cursor: pointer;
-                p {
-                    font-weight: 600;
-                    font-size: 18px;
-                }
-                span {
-                    display: flex;
-                    align-items: center;
-                    font-weight: 400;
-                    font-size: 14px;
-                    color: var(--main-blue);
-                }
-            }
-        }
-    }
-}
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
 
-@media (max-width: 1439px) {
-    .popular_categories {
-        width: 100%;
-        margin: 0 auto 40px;
-        .popular_categories_wrapper {
-            width: 85%;
-            margin: 0 auto 40px;
-            font-family: var(--font-inter);
             h3 {
-                font-size: 1.5rem;
+                font-size: 24px;
                 font-weight: 700;
-                margin-bottom: 10px;
-                font-family: var(--font-sf);
+                letter-spacing: -0.02em;
             }
-            .categories_list {
-                overflow-x: scroll;
-                &::-webkit-scrollbar {
-                    width: 0;
-                }
-                width: 100%;
-                gap: 8px;
-                & div {
-                    width: 18%;
-                    padding: 8px 12px;
+        }
 
-                    & svg {
-                        width: 30px;
-                        height: 30px;
-                    }
-                    p {
-                        font-weight: 600;
-                        font-size: 14px;
-                    }
+        .categories_list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+
+            .category {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                min-width: 0;
+                padding: 16px 18px;
+                border-radius: 16px;
+                background-color: var(--white);
+                box-shadow: var(--shadow-sm);
+                cursor: pointer;
+                transition:
+                    box-shadow 0.15s ease,
+                    transform 0.15s ease;
+
+                svg {
+                    flex-shrink: 0;
+                    width: 28px;
+                    height: 28px;
+                }
+
+                p {
+                    overflow: hidden;
+                    font-size: 15px;
+                    font-weight: 600;
+                    line-height: 1.25;
+                    color: var(--ink);
+                }
+
+                &:hover {
+                    box-shadow: var(--shadow-md);
+                    transform: translateY(-1px);
                 }
             }
         }
     }
 }
 
-@media (max-width: 1155px) {
-    .popular_categories {
-        .popular_categories_wrapper {
-            .categories_list {
-                justify-content: space-between;
-                width: 99.95%;
-                .category {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    align-items: center;
-                    min-width: unset;
-                    max-width: 24.5%;
-                    height: 90px;
-                    p {
-                        width: auto;
-                        height: 30px;
-                        text-align: center;
-                    }
-                    span {
-                        display: none;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media (max-width: 921px) {
-    .popular_categories {
-        .popular_categories_wrapper {
-            .categories_list {
-                .category {
-                    align-items: center;
-                    max-width: 33%;
-                    height: 90px;
-                    p {
-                        height: 30px;
-                        text-align: center;
-                    }
-                }
-            }
-        }
+@media (max-width: 1100px) {
+    .popular_categories .popular_categories_wrapper .categories_list {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 767px) {
     .popular_categories {
         width: 100%;
-        margin: 0 auto 20px;
-        .popular_categories_wrapper {
-            width: 100%;
-            margin-bottom: 20px;
+        margin-bottom: 40px;
 
-            padding-left: 3.25%;
-            font-family: var(--font-inter);
+        .popular_categories_wrapper {
             .categories_titles {
+                padding: 0 16px;
+
+                h3 {
+                    font-size: 20px;
+                }
+
+                // Кнопка «Все категории» — компактная на телефоне
+                > div {
+                    height: 36px;
+                    padding: 0 14px 0 12px;
+                    border-radius: 999px;
+                    font-size: 14px;
+
+                    svg {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+            }
+
+            // На телефоне — горизонтальная лента, которую можно листать пальцем
+            .categories_list {
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 97%;
-                h3 {
-                    font-size: 1.5rem;
-                    font-weight: 700;
-                    margin-bottom: 10px;
-                    font-family: var(--font-sf);
-                }
-            }
-            .categories_list {
-                flex-wrap: nowrap;
-                overflow-x: scroll;
-                &::-webkit-scrollbar {
-                    width: 0;
-                }
-                width: 100%;
-                height: 100px;
-                gap: 8px;
-                .category {
-                    padding: 8px 12px 12px;
-                    height: 100%;
-                    width: auto;
-
-                    & svg {
-                        width: 30px;
-                        height: 30px;
-                    }
-                    p {
-                        font-weight: 500;
-                        font-size: 14px;
-                    }
-                    span {
-                        display: none;
-                    }
-                }
-                .transport {
-                    min-width: 106px;
-                }
-                .food {
-                    min-width: 100px;
-                }
-                .docs {
-                    min-width: 106px;
-                }
-                .currency {
-                    min-width: 100px;
-                }
-                .excursion {
-                    min-width: 106px;
-                }
-                .job {
-                    min-width: 84px;
-                }
-                .taxi {
-                    min-width: 84px;
-                }
-                .buysell {
-                    min-width: 100px;
-                }
-                .service {
-                    min-width: 84px;
-                }
-            }
-        }
-    }
-}
-
-@media (max-width: 615px) {
-    .popular_categories {
-        .popular_categories_wrapper {
-            .categories_titles {
-                h3 {
-                    font-size: 16px;
-                }
-            }
-        }
-    }
-}
-
-@media (max-width: 474px) {
-    .popular_categories {
-        margin-bottom: 10px;
-        .popular_categories_wrapper {
-            margin-bottom: 10px;
-            .categories_titles {
                 gap: 10px;
-                h3 {
-                    font-size: 16px;
+                padding: 0 16px 4px;
+                scroll-padding-left: 16px;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
                 }
-            }
-            .categories_list {
+
                 .category {
-                    max-width: unset;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 10px;
+                    flex: 0 0 auto;
+                    width: 128px;
+                    padding: 14px;
+                    scroll-snap-align: start;
+
                     p {
-                        width: auto;
+                        font-size: 13px;
+                        overflow-wrap: anywhere;
                     }
                 }
             }

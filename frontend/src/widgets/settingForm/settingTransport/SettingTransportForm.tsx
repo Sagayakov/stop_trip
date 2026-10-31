@@ -168,7 +168,7 @@ const SettingTransportForm = ({ setShowFilters }: Props) => {
                     onClick={handleReset}
                     className={`${formStyle.reset_setting_form} ${styles.reset_setting_form}`}
                 >
-                    <Reset color="#1F6FDE" />
+                    <Reset color="#0E6B5C" />
                     {t('filters.reset')}
                 </UniversalButton>
             </form>

@@ -129,7 +129,7 @@ const AnnouncementPhotoField = ({
                             <MiniLoadPhoto />
                             {t('add-page.uploaded')} {photoCounter()}/10
                         </div>
-                        <div>{imgSize}/60mb</div>
+                        <div>{t('add-page.photo-hint')}</div>
                     </div>
                 </div>
                 <div className={styles.preview}>

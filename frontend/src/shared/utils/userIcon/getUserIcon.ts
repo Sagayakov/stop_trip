@@ -1,13 +1,18 @@
-import { getOppositeColor } from './getOppositeColor';
-import { getRandomColor } from './getRandomColor';
 
 export const getUserIcon = (name: string | undefined) => {
     if (name) {
-        const arr = name.split(' ');
-        const firstLetters = arr.map((el) => el[0].toUpperCase()).join('');
+        // Инициалы: первые буквы первых двух слов, без скобок и цифр («Анна (демо)» → «АД»)
+        const firstLetters = name
+            .split(/\s+/)
+            .map((word) => word.replace(/[^\p{L}]/gu, ''))
+            .filter(Boolean)
+            .slice(0, 2)
+            .map((word) => word[0].toUpperCase())
+            .join('');
 
-        const lettersColor = getRandomColor();
-        const bgColor = getOppositeColor(lettersColor);
+        // Цвета аватара — фирменные, а не случайные при каждой отрисовке
+        const lettersColor = '#0E6B5C';
+        const bgColor = '#E4F1EE';
 
         return {
             firstLetters,

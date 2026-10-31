@@ -27,7 +27,7 @@ export const LangAuthBlockDesktop = ({
             {isAuth ? (
                 <div className={styles.person_auth}>
                     <Person
-                        stroke={isAuth ? '#1f6fde' : '#1C1C1E'}
+                        stroke={isAuth ? '#0E6B5C' : '#1C1C1E'}
                         handleClick={() => setShowUserMenu(!showUserMenu)}
                     />
                 </div>

@@ -35,7 +35,7 @@ export const SettingPrice = ({ register, watch, available_params }: Props) => {
     const radio = watch('price.limit');
     const checkedStyle = {
         color: 'white',
-        backgroundColor: '#1F6FDE',
+        backgroundColor: '#0E6B5C',
     };
 
     return (

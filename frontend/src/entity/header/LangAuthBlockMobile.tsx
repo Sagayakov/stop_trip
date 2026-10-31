@@ -22,7 +22,7 @@ export const LangAuthBlockMobile = ({
         <div className={styles.language_auth}>
             <Langs />
             <Person
-                stroke={isAuth ? '#1f6fde' : '#1C1C1E'}
+                stroke={isAuth ? '#0E6B5C' : '#1C1C1E'}
                 handleClick={
                     isAuth
                         ? () => setShowUserMenu(!showUserMenu)

@@ -36,6 +36,7 @@ export const Cart = (cart: Props) => {
         exchange_rate,
         exchange_for,
         proposed_currency,
+        city,
         index,
     } = cart;
     const { data } = useGetFavoritesQuery('');
@@ -137,16 +138,23 @@ export const Cart = (cart: Props) => {
                     </span>
                 </div>
                 <p>{title}</p>
+                <div className={styles.meta}>
+                    {city && <span>{city.name}</span>}
+                    <span>{GetDateOfCreating(dateCreate)}</span>
+                </div>
                 <div className={styles.user_main}>
                     {`${owner.full_name[0].toUpperCase()}${owner.full_name.slice(
                         1
                     )}`}
-                    <span className={styles.rating_number}>
-                        {owner.avg_rating.toFixed(2)}
-                    </span>
-                    <span>{`(${owner.rating_num})`}</span>
+                    {owner.rating_num > 0 && (
+                        <>
+                            <span className={styles.rating_number}>
+                                {owner.avg_rating.toFixed(1)}
+                            </span>
+                            <span>{`(${owner.rating_num})`}</span>
+                        </>
+                    )}
                 </div>
-                <span>{GetDateOfCreating(dateCreate)}</span>
             </div>
         </NavLink>
     );

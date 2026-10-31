@@ -1,37 +1,96 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lato:wght@700&display=swap');
-@import url('https://fonts.cdnfonts.com/css/sf-ui-display?styles=16099,16101,16097');
+// Шрифт Onest — современный гротеск с хорошей кириллицей
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-size: 16px;
-    //-webkit-user-select: none;
-    //-moz-user-select: none;
-    //-ms-user-select: none;
-    //user-select: none;
 }
 
+/*
+ * Дизайн-токены StopTrip.
+ * Палитра: глубокий нефрит (основной цвет действий), почти чёрный с зеленцой для текста,
+ * «лаковое» золото — только для цены и рейтинга. Старые имена переменных сохранены,
+ * чтобы все компоненты сразу получили новые цвета.
+ */
 :root {
-    //colors
-    --main-blue: #1f6fde;
-    --main-black: #1c1c1e;
-    --main-green: #02c66e;
+    // основные цвета
+    --ink: #12201c;
+    --jade: #0e6b5c;
+    --jade-hover: #0a5649;
+    --jade-soft: #e4f1ee;
+    --gold: #a87a1f;
+    --gold-soft: #f6ecd6;
+    --surface: #f4f6f5;
+    --line: #e2e7e5;
+    --muted: #63736e;
+
+    // старые имена → новые значения
+    --main-blue: var(--jade);
+    --main-black: var(--ink);
+    --main-green: var(--jade);
     --white: #ffffff;
-    --error: #ff3f25;
-    --main-background: #f9f9f9;
-    --grey-1: #dcdcdc;
-    --grey-2: #bcbcbc;
-    --grey-3: #8f8f8f;
-    --grey-4: #f8f8f8;
+    --error: #d1432f;
+    --main-background: var(--surface);
+    --grey-1: var(--line);
+    --grey-2: #c3ccc8;
+    --grey-3: var(--muted);
+    --grey-4: #f8faf9;
 
-    // fonts
-    --font-inter: 'Inter', sans-serif;
-    --font-lato: 'Lato', sans-serif;
-    --font-sf: 'SF UI Display', sans-serif;
+    // шрифты: один на весь сайт
+    --font-main: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-inter: var(--font-main);
+    --font-lato: var(--font-main);
+    --font-sf: var(--font-main);
 
-    //border-radius
-    --radii: 8px;
+    // скругления и тени
+    --radii: 12px;
+    --radii-sm: 8px;
+    --radii-lg: 20px;
+    --shadow-sm: 0 1px 2px rgba(18, 32, 28, 0.06);
+    --shadow-md: 0 12px 32px -16px rgba(18, 32, 28, 0.22);
+    --focus-ring: 0 0 0 3px rgba(14, 107, 92, 0.25);
 }
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--font-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+input,
+textarea,
+select,
+button {
+    font-family: var(--font-main);
+}
+
+button {
+    cursor: pointer;
+}
+
+:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
 #root {
     display: flex;
     flex-direction: column;
@@ -96,8 +155,11 @@ input[type='number']:focus {
 }
 // чтобы стрелочек не было в инпутах
 
+// width: 100% обязателен: без него main внутри flex-колонки с margin: auto
+// сжимается до ширины содержимого
 main {
-    max-width: 1440px;
+    width: 100%;
+    max-width: 1280px;
     margin: 0 auto;
 }
 @media (max-width: 1439px) {

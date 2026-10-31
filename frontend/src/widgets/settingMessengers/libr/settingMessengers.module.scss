@@ -123,7 +123,7 @@
             .submit {
                 grid-area: submit;
                 height: 2.5rem;
-                background-color: #02c66e;
+                background-color: var(--main-green);
                 border: none;
                 border-radius: 8px;
                 margin-left: 5px;
@@ -131,7 +131,7 @@
                 color: white;
                 cursor: pointer;
                 &:hover {
-                    background-color: #02c66e;
+                    background-color: var(--main-green);
                 }
                 &:disabled {
                     background-color: var(--grey-2);

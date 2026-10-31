@@ -1,7 +1,14 @@
+// Выпадающие списки формы: на всю ширину поля, но не шире 440px
 .filterAnnouncementCategory__control {
-    width: 30%;
+    width: 100%;
+    max-width: 440px;
+    border-color: var(--line) !important;
     border-radius: var(--radii)!important;
     height: 48px;
+    box-shadow: none !important;
+    &:hover {
+        border-color: var(--grey-2) !important;
+    }
     .filterAnnouncementCategory__value-container {
         height: 100%;
         .filterAnnouncementCategory__single-value{
@@ -40,7 +47,10 @@
     }
 }
 .filterAnnouncementCategory__menu {
-    width: 30% !important;
+    width: 100% !important;
+    max-width: 440px;
+    border-radius: var(--radii) !important;
+    overflow: hidden;
 
     .filterAnnouncementCategory__menu-list {
         max-height: 200px;
@@ -49,14 +59,7 @@
     }
 }
 
-@media (min-width: 511px) and (max-width: 767px) {
-    .filterAnnouncementCategory__control {
-        width: 70% !important;
-    }
-    .filterAnnouncementCategory__menu {
-        width: 70% !important;
-    }
-}
+
 
 @media (max-width: 511px) {
     .filterAnnouncementCategory__menu {

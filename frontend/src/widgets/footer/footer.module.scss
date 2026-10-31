@@ -1,182 +1,163 @@
+// Подвал: тёмный блок, форма пожеланий, контакты и соглашение.
+
 footer {
-    width: 1440px;
-    margin: 0 auto 50px;
-    font-family: var(--font-lato);
-    font-weight: 600;
+    width: 100%;
+    margin-top: auto;
+    background-color: var(--ink);
+    color: rgba(255, 255, 255, 0.86);
+
     .footer_wrapper {
-        width: 1240px;
-        //height: 102px;
+        width: calc(100% - 48px);
+        max-width: 1240px;
         margin: 0 auto;
+        padding: 56px 0 32px;
+    }
+
+    .footer_top {
         display: grid;
-        grid-template-rows: 49px auto auto;
-        .footer_top {
-            display: flex;
-            flex-direction: row;
-            .feedback {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-left: 166px;
-                .feed {
-                    display: flex;
-                    svg {
-                        margin-right: 30px;
-                        align-self: center;
-                    }
-                }
-                form {
-                    display: flex;
-                    align-items: center;
-                    textarea {
-                        width: 495px;
-                        height: 49px;
-                        border: 1px solid var(--grey-2);
-                        border-radius: var(--radii);
-                        resize: none;
-                        padding: 8px 16px 16px;
-                        margin: 0 1.5rem;
-                        outline: none;
-                        font-family: var(--font-inter);
-                        font-weight: 400;
-                    }
-                    textarea:focus {
-                        border-color: var(--main-blue);
-                    }
-                    input[type='submit'] {
-                        width: 122px;
-                        height: 43px;
-                        color: var(--white);
-                        font-weight: 600;
-                        padding: 12px 20px;
-                        border-radius: var(--radii);
-                        background-color: var(--main-green);
-                        border: none;
-                        cursor: pointer;
-                    }
-                    input[type='submit']:active {
-                        opacity: 0.75;
-                    }
-                }
-            }
-        }
-        .hr {
-            padding: 0 0 16.25px 0;
-            .reCaptcha_brand {
-                font-size: 12px;
-                text-align: right;
-                font-weight: 400;
-                color: grey;
-                a {
-                    color: #1f6fde;
-                    font-size: 12px;
-                }
-            }
-            hr {
-                height: 0.5px;
-            }
-        }
-        .footer_bot {
-            display: flex;
-            justify-content: space-between;
-            color: var(--main-black);
-            font-weight: 400;
-            font-family: var(--font-inter);
-            .contacts {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 0.5rem;
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 48px;
+        align-items: start;
 
-                a {
-                    svg {
-                        width: 24px;
-                        height: 24px;
-                    }
+        // Логотип в подвале — светлый
+        #logo,
+        > svg {
+            filter: invert(1) brightness(2);
+        }
+
+        .feedback {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+
+            .feed {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                p {
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: var(--white);
                 }
             }
-            .email_agreement {
+
+            form {
                 display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-                gap: 0.5rem;
-                .email_link {
-                    color: black;
+                align-items: stretch;
+                gap: 12px;
+
+                textarea {
+                    flex: 1;
+                    width: auto;
+                    min-width: 0;
+                    min-height: 52px;
+                    height: 52px;
+                    padding: 14px 16px;
+                    border: 1px solid rgba(255, 255, 255, 0.14);
+                    border-radius: 14px;
+                    background: rgba(255, 255, 255, 0.06);
+                    color: var(--white);
+                    font-size: 15px;
+                    resize: vertical;
+                    outline: none;
+                    transition: border-color 0.15s ease;
+
+                    &::placeholder {
+                        color: rgba(255, 255, 255, 0.5);
+                    }
+                    &:focus {
+                        border-color: #5fb8a8;
+                    }
+                }
+
+                input[type='submit'] {
+                    flex-shrink: 0;
+                    width: auto; // общее правило input { width: 100% } со страницы добавления
+                    height: 52px;
+                    padding: 0 24px;
+                    border: none;
+                    border-radius: 14px;
+                    color: var(--white);
+                    font-size: 15px;
+                    font-weight: 600;
                     cursor: pointer;
-                }
-                .user_agreement {
-                    font-size: 14px;
-                    color: black;
-                }
-                .email_link:hover,
-                .user_agreement:hover {
-                    color: var(--main-blue);
-                }
-            }
-        }
-    }
-}
 
-@media (max-width: 1439px) {
-    footer {
-        width: 100%;
-        .footer_wrapper {
-            width: 85%;
-            margin: 0 auto;
-            .footer_top {
-                .feedback {
-                    margin-left: 13%;
-                    width: 75%;
-                    form {
-                        width: 100%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        textarea {
-                            width: 63%;
-                        }
-                        input[type='submit'] {
-                            width: 25%;
-                            padding: 12px;
-                        }
-                        input[type='submit']:active {
-                            opacity: 0.75;
-                        }
+                    &:disabled {
+                        cursor: default;
+                        color: rgba(255, 255, 255, 0.5);
                     }
                 }
             }
         }
     }
-}
 
-@media (min-width: 768px) and (max-width: 1024px) {
-    footer {
-        width: 100%;
-        margin: 0 auto 20px;
-        .footer_wrapper {
-            width: 85%;
-            margin: 0 auto;
-            .footer_top {
-                .feedback {
-                    margin-left: 7%;
-                    .feed {
-                        display: flex;
-                        svg {
-                            width: 30px;
-                            margin-right: 15px;
-                        }
-                        p {
-                            font-size: 14px;
-                        }
-                    }
-                    form {
-                        textarea {
-                            width: 60%;
-                            margin: 0;
-                        }
-                        input[type='submit'] {
-                            width: 35%;
-                        }
-                    }
+    .hr {
+        position: relative;
+        margin: 40px 0 24px;
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .reCaptcha_brand {
+            position: absolute;
+            top: -28px;
+            left: 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            transition: opacity 0.2s ease;
+
+            a {
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 12px;
+            }
+        }
+    }
+
+    .footer_bot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+
+        .contacts,
+        .contacts_logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.08);
+                transition: background 0.15s ease;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.16);
+                }
+            }
+        }
+
+        .email_agreement {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+
+            a,
+            .email_link,
+            .user_agreement {
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.7);
+                text-decoration: none;
+
+                &:hover {
+                    color: var(--white);
                 }
             }
         }
@@ -185,169 +166,28 @@ footer {
 
 @media (max-width: 767px) {
     footer {
-        width: 100%;
-        margin: 0 auto 20px;
         .footer_wrapper {
-            width: 93%;
-            height: 206px;
-            margin: 0 auto;
-            grid-template-rows: 80px auto 65px;
-            //grid-template-rows: 80px 61px 45px;
-            .footer_top {
-                width: 100%;
-                height: 80px;
-                .feedback {
-                    width: 100%;
-                    margin-left: 0;
-                    display: grid;
-                    justify-content: stretch;
-                    .feed {
-                        display: flex;
-                        svg {
-                            margin: 0;
-                            grid-column: 1/2;
-                            grid-row: 1/2;
-                        }
-                        p {
-                            grid-column: 2/3;
-                            grid-row: 1/2;
-                            margin-left: 8px;
-                        }
-                    }
-                    form {
-                        grid-row: 2/3;
-                        grid-column: 1/3;
-                        width: 100%;
-                        textarea {
-                            width: 66%;
-                            margin: 0;
-                        }
-                        input[type='submit'] {
-                            width: 28%;
-                            margin-left: 16px;
-                        }
-                    }
-                }
-            }
-            .hr {
-                padding: 0;
-                .reCaptcha_brand {
-                    font-size: 10px;
-                    margin-top: 5px;
-                    a {
-                        font-size: 10px;
-                    }
-                }
-            }
-            .footer_bot {
-                .email_agreement {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    align-items: flex-start;
-                    gap: 0.5rem;
-                    width: 141px;
-                    height: 65px;
-                    .contacts_logo {
-                        display: flex;
-                        gap: 0.5rem;
-                        width: 100%;
-                        height: 20px;
-                        padding-left: 0.5rem;
-                    }
-                }
-                .contacts {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    align-items: flex-end;
-                    gap: 0.5rem;
-                    width: auto;
-                    .email_link {
-                        text-decoration: none;
-                        color: var(--main-black);
-                    }
-                    .user_agreement {
-                        text-decoration: none;
-                        white-space: nowrap;
-                        font-size: 10px; // было 16, но футер слишком широкий
-                        color: var(--main-black);
-                    }
-                }
+            width: calc(100% - 32px);
+            padding: 36px 0 28px;
+        }
+
+        .footer_top {
+            grid-template-columns: 1fr;
+            gap: 0;
+
+            .feedback form {
+                flex-direction: column;
             }
         }
-    }
-}
 
-@media (max-width: 475px) {
-    footer {
-        width: 100%;
-        margin: 0 auto 20px;
-        .footer_wrapper {
-            width: 93%;
-            height: 186px;
-            margin: 0 auto;
-            .footer_top {
-                .feedback {
-                    form {
-                        textarea {
-                            width: 268px;
-                            margin: 0;
-                        }
-                        input[type='submit'] {
-                            width: 120px;
-                            margin-left: 8px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+        .footer_bot {
+            flex-direction: column;
+            align-items: flex-start;
 
-@media (max-width: 424px) {
-    footer {
-        .footer_wrapper {
-            width: 92%;
-            .footer_top {
-                .feedback {
-                    .feed {
-                        align-items: center;
-                        p {
-                            font-size: 14px;
-                        }
-                    }
-                    form {
-                        textarea {
-                            width: 60%;
-                            margin: 0;
-                            font-size: 14px;
-                        }
-                        input[type='submit'] {
-                            width: 35%;
-                            padding: 12px 4px;
-                            font-size: 14px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media (max-width: 360px) {
-    footer {
-        .footer_wrapper {
-            .footer_bot {
-                .contacts {
-                    .email_link {
-                        font-size: 12px;
-                    }
-                    .user_agreement {
-                        white-space: wrap;
-                        text-align: right;
-                    }
-                }
+            .email_agreement {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
             }
         }
     }

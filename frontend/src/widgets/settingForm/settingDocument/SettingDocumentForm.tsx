@@ -103,7 +103,7 @@ const SettingDocumentForm = ({ setShowFilters }: Props) => {
                     className={`${styles.reset_setting_form} ${formStyles.reset_setting_form}`}
                     onClick={handleReset}
                 >
-                    <Reset color="#1F6FDE" />
+                    <Reset color="#0E6B5C" />
                     {t('filters.reset')}
                 </button>
             </form>

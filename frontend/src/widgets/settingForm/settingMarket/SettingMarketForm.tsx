@@ -94,7 +94,7 @@ const SettingMarketForm = ({ setShowFilters }: Props) => {
                     className={`${stylesForm.reset_setting_form} ${styles.reset_setting_form}`}
                     onClick={handleReset}
                 >
-                    <Reset color="#1F6FDE" />
+                    <Reset color="#0E6B5C" />
                     {t('filters.reset')}
                 </button>
             </form>

@@ -13,7 +13,7 @@ const MainPage = () => {
 
     return (
         <>
-            <Controls />
+            <Controls hero />
             <PopularCategories />
             <Suspense fallback={<LoaidngWithoutBackground />}>
                 <LastAdverts />

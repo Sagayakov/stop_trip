@@ -56,15 +56,21 @@ h1 {
 
         .card {
             position: relative;
-            border-radius: 16px;
-            background-color: var(--main-background);
             display: flex;
-            font-family: var(--font-inter);
-            color: var(--main-black);
+            gap: 4px;
             width: 100%;
-            height: 280px; //иначе картинка поплывет
+            height: 236px; //иначе картинка поплывет
+            padding: 12px;
+            border-radius: 20px;
+            background-color: var(--white);
+            box-shadow: var(--shadow-sm);
+            color: var(--ink);
             text-decoration: none;
             cursor: pointer;
+            transition: box-shadow 0.15s ease;
+            &:hover {
+                box-shadow: var(--shadow-md);
+            }
             .add_to_favorite {
                 position: absolute;
                 top: 16px;
@@ -75,10 +81,10 @@ h1 {
             }
             .image {
                 img {
-                    border-radius: 16px 0 0 16px;
+                    border-radius: 14px;
                     margin-right: 16px;
-                    width: 319px;
-                    height: 280px;
+                    width: 300px;
+                    height: 212px;
                     object-fit: cover;
                 }
             }
@@ -86,9 +92,10 @@ h1 {
                 padding: 16px 8px 16px 0;
                 position: relative;
                 h2 {
-                    font-size: 26px;
+                    font-size: 21px;
                     font-weight: 700;
-                    margin-bottom: 16px;
+                    letter-spacing: -0.015em;
+                    margin-bottom: 6px;
                     -ms-text-overflow: ellipsis;
                     text-overflow: ellipsis;
                     overflow: hidden;
@@ -102,15 +109,16 @@ h1 {
                     box-orient: vertical;
                 }
                 .description_location {
-                    font-weight: 600;
-                    margin-bottom: 16px;
+                    font-size: 14px;
+                    color: var(--muted);
+                    margin-bottom: 14px;
                 }
                 h3 {
-                    font-size: 26px;
+                    font-size: 22px;
                     font-weight: 700;
-                    color: var(--main-blue);
-                    letter-spacing: 3px;
-                    margin-bottom: 16px;
+                    color: var(--ink);
+                    letter-spacing: -0.01em;
+                    margin-bottom: 10px;
                     .currency_rate {
                         color: var(--main-black);
                     }
@@ -135,26 +143,23 @@ h1 {
                 .time,
                 .author {
                     display: flex;
-                    gap: 16px;
-                    font-size: 14px;
+                    gap: 8px;
+                    font-size: 13px;
                     font-weight: 400;
-                    margin-bottom: 16px;
+                    color: var(--muted);
+                    margin-bottom: 4px;
                 }
                 .author {
                     display: flex;
                     align-items: center;
                     margin-bottom: 4px;
                     .rating_number {
-                        min-width: 38px;
-                        height: 26px;
-                        padding: 4px 5px;
-                        background-color: #ffd87366;
-                        border-radius: 50%;
-                        margin: 0 0.5rem;
-                        font-size: 16px;
-                        font-weight: 700;
-                        color: #434343;
-                        text-align: center;
+                        color: var(--gold);
+                        font-size: 14px;
+                        font-weight: 600;
+                        &::before {
+                            content: '★ ';
+                        }
                     }
                     p {
                         display: flex;
@@ -168,10 +173,10 @@ h1 {
                         }
                         .hover_star {
                             transform: scale(1.2);
-                            fill: #ffd873;
+                            fill: var(--gold);
                         }
                         .active_star {
-                            fill: #ffd873;
+                            fill: var(--gold);
                         }
                     }
                 }

@@ -122,7 +122,7 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
     return (
         <div className={styles.feedback}>
             <div className={styles.feed}>
-                <Pencil color="#02C66E" />
+                <Pencil color="#5FB8A8" />
                 <p>{t('main-page.suggestions')}</p>
             </div>
             <form onSubmit={handleSubmit(onsubmit)} id="form-feedback">
@@ -153,7 +153,7 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
                             placeholder={t('main-page.enter-text')}
                             style={
                                 !isValid && touchedFields.text
-                                    ? { border: '1px solid #ff2d55' }
+                                    ? { borderColor: 'var(--error)' }
                                     : {}
                             }
                             onFocus={onFocusGetId}
@@ -166,7 +166,11 @@ export const FeedbackForm = ({ setShowCaptcha, showCaptcha }: Props) => {
                 <InputTypeSubmit
                     disabled={!isValid}
                     value={t('main-page.send')}
-                    style={{ backgroundColor: isValid ? '#02c66e' : 'gray' }}
+                    style={{
+                        backgroundColor: isValid
+                            ? 'var(--jade)'
+                            : 'rgba(255, 255, 255, 0.1)',
+                    }}
                 />
             </form>
             {loading && <LoadingWithBackground />}

@@ -41,9 +41,11 @@ export const UserInfo = ({ user, className, refetch, handleNavigate }: UserInfoP
                     <p onClick={handleNavigate}  style={!className ? { cursor: 'default' } : {}}>
                         {`${user.full_name[0].toUpperCase()}${user.full_name.slice(1)}`}
                     </p>
-                    <span className={styles.rating_number}>
-                        {user.avg_rating.toFixed(2)}
-                    </span>
+                    {user.rating_num > 0 && (
+                        <span className={styles.rating_number}>
+                            {user.avg_rating.toFixed(1)}
+                        </span>
+                    )}
                 </div>
                 <div className={styles.rating_block}>
                     <Rating
