@@ -1,3 +1,5 @@
+import { useAppSelector } from 'app/store/hooks';
+import { COUNTRY_PLACE, findPopularCity } from 'shared/const/geo.ts';
 import { useState } from 'react';
 import { AllCategories, Input, ModalWindow, SelectGeo } from 'entity/controls';
 import styles from './controls.module.scss';
@@ -13,6 +15,8 @@ const Controls = ({ hero = false }: Props) => {
     const [showModal, setShowModal] = useState(false);
     const { isMobile } = useMatchMedia();
     const { t } = useTranslation();
+    const lang = useAppSelector((state) => state.setLang.lang);
+    const city = findPopularCity(useAppSelector((state) => state.selectedCity.city));
 
     return (
         <div
@@ -22,7 +26,15 @@ const Controls = ({ hero = false }: Props) => {
         >
             {hero && (
                 <div className={styles.hero_text}>
-                    <h1>{t('main-page.hero-title')}</h1>
+                    <h1>
+                        {t('main-page.hero-title', {
+                            place: city
+                                ? lang === 'ru'
+                                    ? city.inRu
+                                    : `in ${city.en}`
+                                : COUNTRY_PLACE[lang === 'ru' ? 'ru' : 'en'],
+                        })}
+                    </h1>
                 </div>
             )}
             <div className={styles.controls_wrapper}>
@@ -33,7 +45,8 @@ const Controls = ({ hero = false }: Props) => {
                     />
                 )}
                 <Input />
-                {!isMobile && <SelectGeo />}
+                {/* Выбор города — только на главной: он фильтрует ленту свежих объявлений */}
+                {hero && <SelectGeo />}
                 <ModalWindow
                     showModal={showModal}
                     setShowModal={setShowModal}

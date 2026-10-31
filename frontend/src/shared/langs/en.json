@@ -4,7 +4,7 @@
         "prize_notification": "Place an ad on <b>StopTrip</b> and win <b style=\"color: #00FF7F; font-size: 20px; white-space: nowrap;\">500 USDT!</b>\nThe more ads - the <b style=\"font-size: 20px;\">higher your chances</b>!\nDraw on <b style=\"font-size: 20px;\">December 27</b>!",
         "post-advert": "Place an advert",
         "hero-subtitle": "Housing, bike rentals, transfers, tours and services directly from people who live nearby.",
-        "hero-title": "Listings from Russian speakers in Vietnam",
+        "hero-title": "Listings from Russian speakers {{place}}",
         "edit-advert": "Save changes",
         "publish": "Publish",
         "login-register": "Sign in",
@@ -242,6 +242,8 @@
         "price-negotiated": "Price negotiable",
         "call": "Call",
         "show-number": "Show phone number",
+        "share": "Share",
+        "link-copied": "Link copied",
         "no-phone": "The seller has not provided a phone number",
         "phone-limit": "Too many phone requests. Please try again in an hour.",
         "write": "Write",
@@ -393,6 +395,11 @@
         "smth-wrong": "Something went wrong. Please, try again"
     },
 
+    "city-select": {
+        "all": "All of {{country}}",
+        "reset": "Show listings from the whole country",
+        "empty": "No listings in this city yet. Choose another city or the whole country."
+    },
     "footer": {
         "suggest": "Suggest an improvement"
     },

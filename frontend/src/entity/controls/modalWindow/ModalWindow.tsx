@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from 'shared/ui/icons/icons-tools/ArrowRight.tsx';
 import { Category, categories } from 'shared/const/categories.tsx';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'app/store/hooks';
@@ -41,15 +40,17 @@ export const ModalWindow = ({ showModal, setShowModal }: Props) => {
                 onClick={(event) => event.stopPropagation()}
             >
                 {Object.entries(categories).map((el) => {
+                    const { icon: Icon } = el[1];
                     return (
-                        <div
+                        <button
+                            type="button"
                             key={el[0]}
                             className={styles.modal_category}
                             onClick={() => navigateAndClose(el)}
                         >
+                            <Icon />
                             <span>{t(`categories.${el[0]}`)}</span>
-                            <ArrowRight color="#1C1C1E" />
-                        </div>
+                        </button>
                     );
                 })}
             </div>

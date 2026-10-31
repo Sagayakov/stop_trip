@@ -131,13 +131,16 @@ export const Cart = (cart: Props) => {
                               : `${t('advert-page.price-negotiated')}`}
                         {category !== 'exchange_rate' && <RubApprox vnd={price} />}
                     </p>
-                    <span className={styles.fav_absolute}>
-                        <Favorite
-                            color={style.color}
-                            strokeColor={style.strokeColor}
-                            addToFavorite={handleAddToFavorite}
-                        />
-                    </span>
+                    {/* «Избранное» — только для вошедших пользователей */}
+                    {isAuth && (
+                        <span className={styles.fav_absolute}>
+                            <Favorite
+                                color={style.color}
+                                strokeColor={style.strokeColor}
+                                addToFavorite={handleAddToFavorite}
+                            />
+                        </span>
+                    )}
                 </div>
                 <p>{title}</p>
                 <div className={styles.meta}>

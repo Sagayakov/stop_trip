@@ -126,16 +126,18 @@ export const CategoryAdvert = (el: Props) => {
                 })
             } //добаляем в яндекс метрику клик по товару
         >
-            <span
-                onClick={(event) => event.stopPropagation()}
-                className={style.add_to_favorite}
-            >
-                <Favorite
-                    color={styleFav.color}
-                    strokeColor={styleFav.strokeColor}
-                    addToFavorite={handleAddToFavorite}
-                />
-            </span>
+            {isAuth && (
+                <span
+                    onClick={(event) => event.stopPropagation()}
+                    className={style.add_to_favorite}
+                >
+                    <Favorite
+                        color={styleFav.color}
+                        strokeColor={styleFav.strokeColor}
+                        addToFavorite={handleAddToFavorite}
+                    />
+                </span>
+            )}
             <div className={style.image}>
                 {isMobile ? (
                     <>

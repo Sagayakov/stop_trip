@@ -15,6 +15,30 @@ export const COUNTRY = {
 export const getCountryName = (lang: string) =>
     lang === 'ru' ? COUNTRY.nameRu : COUNTRY.nameEn;
 
+/** «во Вьетнаме» / «in Vietnam» — для заголовка главной, когда город не выбран. */
+export const COUNTRY_PLACE = { ru: 'во Вьетнаме', en: 'in Vietnam' };
+
+/**
+ * Популярные города для быстрого выбора на главной (slug — как в базе, см.
+ * backend/countries/data/vietnam.py). inRu — форма для заголовка: «Объявления … в Нячанге».
+ */
+export const POPULAR_CITIES = [
+    { slug: 'nha-trang', ru: 'Нячанг', inRu: 'в Нячанге', en: 'Nha Trang' },
+    { slug: 'phu-quoc', ru: 'Фукуок', inRu: 'на Фукуоке', en: 'Phu Quoc' },
+    { slug: 'da-nang', ru: 'Дананг', inRu: 'в Дананге', en: 'Da Nang' },
+    { slug: 'ho-chi-minh', ru: 'Хошимин', inRu: 'в Хошимине', en: 'Ho Chi Minh City' },
+    { slug: 'hanoi', ru: 'Ханой', inRu: 'в Ханое', en: 'Hanoi' },
+    { slug: 'da-lat', ru: 'Далат', inRu: 'в Далате', en: 'Da Lat' },
+    { slug: 'hoi-an', ru: 'Хойан', inRu: 'в Хойане', en: 'Hoi An' },
+    { slug: 'mui-ne', ru: 'Муйне', inRu: 'в Муйне', en: 'Mui Ne' },
+    { slug: 'vung-tau', ru: 'Вунгтау', inRu: 'в Вунгтау', en: 'Vung Tau' },
+];
+
+export type PopularCity = (typeof POPULAR_CITIES)[number];
+
+export const findPopularCity = (slug: string | null | undefined) =>
+    POPULAR_CITIES.find((city) => city.slug === slug);
+
 /** Валюта цен в объявлениях. */
 export const CURRENCY = {
     code: process.env.VITE_CURRENCY_CODE || 'VND',

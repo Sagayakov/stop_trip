@@ -50,6 +50,9 @@ export const Like = ({
         }
     };
 
+    // Гостям «избранное» не показываем: добавить в него можно только после входа
+    if (!isAuth) return null;
+
     return (
         <div className={styles.add_to_favorite}>
             <Favorite

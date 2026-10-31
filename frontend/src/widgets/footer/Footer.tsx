@@ -2,7 +2,7 @@ import { FeedbackForm } from 'features/footer';
 import { LogoHeader } from 'shared/ui/icons/icons-tools/LogoHeader.tsx';
 import styles from './footer.module.scss';
 import { FooterBottomMobile } from 'entity/footer/FooterBottomMobile.tsx';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -13,6 +13,15 @@ export const Footer = () => {
     const { t } = useTranslation();
     const [showCaptcha, setShowCaptcha] = useState(false);
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+    const panelRef = useRef<HTMLDivElement>(null);
+
+    // Форма раскрывается внизу страницы, за краем экрана — прокручиваем к ней и ставим курсор
+    useEffect(() => {
+        if (isFeedbackOpen && panelRef.current) {
+            panelRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            panelRef.current.querySelector('textarea')?.focus({ preventScroll: true });
+        }
+    }, [isFeedbackOpen]);
 
     return (
         <footer>
@@ -30,7 +39,7 @@ export const Footer = () => {
                     </button>
                 </div>
                 {isFeedbackOpen && (
-                    <div className={styles.feedback_panel}>
+                    <div className={styles.feedback_panel} ref={panelRef}>
                         <FeedbackForm
                             showCaptcha={showCaptcha}
                             setShowCaptcha={setShowCaptcha}

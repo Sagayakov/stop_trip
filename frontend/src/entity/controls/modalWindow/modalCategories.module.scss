@@ -1,121 +1,85 @@
+// «Все категории» — компактная панель: две колонки категорий с иконками.
+// Затемнённый фон закрывает панель по клику мимо неё.
+
 .modal_categories {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    background: rgba(18, 32, 28, 0.25);
     opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 0.6s ease;
-    background: none;
+    visibility: hidden;
+    transition:
+        opacity 0.15s ease,
+        visibility 0.15s ease;
+
     &.visible {
         opacity: 1;
-        max-height: 120vh;
-    }
-}
-.modal_content {
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-    transition:
-        opacity 0.7s ease,
-        height 0.7s ease;
-    &.visible_content {
-        opacity: 1;
-        height: fit-content;
+        visibility: visible;
     }
 }
 
-.modal_categories {
-    width: 100%;
-    height: 120vh;
+.modal_content {
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 12;
-}
-
-.modal_content {
-    width: 280px;
-    height: 584px;
-    padding: 2.5rem;
-    border-radius: var(--radii);
-    border: none;
-    box-shadow: 0 0 20px 0 #00000012;
+    top: 96px;
+    left: 50%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    width: min(520px, calc(100vw - 32px));
+    padding: 10px;
+    border-radius: 20px;
     background-color: var(--white);
-    position: absolute;
-    top: 197px;
-    left: calc(50% - 625px);
-    z-index: 13;
+    box-shadow: var(--shadow-md);
+    transform: translate(-50%, -6px);
+    transition: transform 0.15s ease;
+
+    &.visible_content {
+        transform: translate(-50%, 0);
+    }
+
     .modal_category {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        height: 2.85rem;
+        gap: 12px;
+        height: 48px;
+        padding: 0 12px;
+        border: none;
+        border-radius: 12px;
+        background: transparent;
+        text-align: left;
         cursor: pointer;
-        padding-left: 0.5rem;
+
+        svg {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
         span {
-            font-family: var(--font-sf);
+            font-size: 15px;
             font-weight: 500;
-            color: var(--main-black);
+            color: var(--ink);
+        }
+
+        &:hover {
+            background-color: var(--jade-soft);
         }
     }
-    .modal_category:hover {
-        background-color: var(--grey-1);
-        border-radius: var(--radii);
-    }
 }
 
-@media (max-width: 1439px) {
+@media (max-width: 767px) {
+    // На телефоне — лист снизу экрана, как привычно в мобильных приложениях
     .modal_content {
-        top: 186px;
-        left: 7.4%;
-    }
-}
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 16px 12px calc(16px + env(safe-area-inset-bottom));
+        border-radius: 20px 20px 0 0;
+        transform: translateY(12px);
 
-@media (max-width: 1023px) {
-    .modal_content {
-        top: 155px;
-    }
-}
-
-@media (min-width: 710px) and (max-width: 767px) {
-    .modal_content {
-        width: 300px;
-        top: 255px;
-        left: calc(90% - 250px);
-    }
-}
-
-@media (min-width: 642px) and (max-width: 709px) {
-    .modal_content {
-        width: 300px;
-        top: 255px;
-        left: calc(89% - 250px);
-    }
-}
-
-@media (min-width: 545px) and (max-width: 641px) {
-    .modal_content {
-        width: 300px;
-        top: 255px;
-        left: calc(88% - 250px);
-    }
-}
-
-@media (min-width: 475px) and (max-width: 544px) {
-    .modal_content {
-        width: 300px;
-        top: 255px;
-        left: calc(87% - 250px);
-    }
-}
-
-@media (max-width: 474px) {
-    .modal_categories {
-        background: rgba(0, 0, 0, $alpha: 0.4);
-        z-index: 100;
-        position: fixed;
-    }
-    .modal_content {
-        width: 300px;
-        top: calc((100vh - 504px) / 4);
-        left: calc((100vw - 300px) / 2);
+        &.visible_content {
+            transform: translateY(0);
+        }
     }
 }

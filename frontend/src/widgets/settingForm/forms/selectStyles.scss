@@ -1,3 +1,53 @@
+// Выпадающие списки в фильтрах: компактные, без синей обводки, с фирменным фокусом
+.filterForm__control {
+    min-height: 42px !important;
+    border-color: var(--line) !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    transition: border-color 0.15s ease;
+    &:hover {
+        border-color: var(--grey-2) !important;
+    }
+    &.filterForm__control--is-focused {
+        border-color: var(--jade) !important;
+    }
+    .filterForm__placeholder {
+        color: var(--muted);
+        font-size: 14px;
+    }
+    .filterForm__single-value {
+        color: var(--ink);
+        font-size: 14px;
+    }
+    .filterForm__indicator-separator {
+        display: none;
+    }
+    .filterForm__multi-value {
+        border-radius: 999px;
+        background-color: var(--jade-soft);
+        .filterForm__multi-value__label {
+            font-size: 13px;
+            color: var(--ink);
+        }
+    }
+}
+.filterForm__menu {
+    border-radius: 12px !important;
+    overflow: hidden;
+    box-shadow: var(--shadow-md) !important;
+    .filterForm__option {
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .filterForm__option--is-focused {
+        background-color: var(--surface) !important;
+    }
+    .filterForm__option--is-selected {
+        background-color: var(--jade-soft) !important;
+        color: var(--ink) !important;
+    }
+}
 .filterForm__control {
     width: 100%;
     .filterForm__indicators {

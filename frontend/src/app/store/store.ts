@@ -17,6 +17,7 @@ import { authFetchAdverts } from 'app/api/authFetchAdverts.ts';
 import { setIsDevNotificationVisibleSlice } from 'features/devNotification/model/isDevNotificationVisible';
 import { fetchSeller } from 'app/api/fetchSeller';
 import { fetchSearchAdverts } from 'app/api/fetchSearchAdverts.ts';
+import { selectedCitySlice } from 'features/citySelect/model/selectedCity.ts';
 
 const setupStore = () =>
     configureStore({
@@ -31,6 +32,7 @@ const setupStore = () =>
             setLang: setLangSlice.reducer,
             setPageMain: setPageMainSlice.reducer,
             setPageCategory: setPageCategorySlice.reducer,
+            selectedCity: selectedCitySlice.reducer,
             setIsDevNotificationVisible:
                 setIsDevNotificationVisibleSlice.reducer,
             [fetchAdverts.reducerPath]: fetchAdverts.reducer,

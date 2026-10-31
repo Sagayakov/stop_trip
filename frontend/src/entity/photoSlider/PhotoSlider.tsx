@@ -173,14 +173,15 @@ export const PhotoSlider = () => {
 
                         {((!data.youtube && !data.images.length) ||
                             activeImage !== data.images.length) && (
-                            <>
+                            // Кнопки над фото: «Поделиться» и (для вошедших) «В избранное»
+                            <div className={styles.photo_actions}>
                                 <ShareIcon />
                                 <Like
                                     slug={data.slug}
                                     color="#ff3f25"
                                     strokeColor="#1C1C1E"
                                 />
-                            </>
+                            </div>
                         )}
 
                         {!!data.images.length && /* imageHeight > imageWidth && */ (

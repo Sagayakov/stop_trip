@@ -12,11 +12,45 @@ a {
         display: flex;
         flex-direction: column;
 
-        h3 {
+        .heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             margin-bottom: 20px;
+        }
+
+        h3 {
             font-size: 24px;
             font-weight: 700;
             letter-spacing: -0.02em;
+        }
+
+        // Выбранный город — «таблетка» с крестиком для сброса
+        .city_chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            height: 32px;
+            padding: 0 10px 0 14px;
+            border: none;
+            border-radius: 999px;
+            background-color: var(--jade-soft);
+            color: var(--ink);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+
+            span {
+                font-size: 18px;
+                line-height: 1;
+                color: var(--muted);
+            }
+        }
+
+        .empty {
+            margin: 8px 0 32px;
+            color: var(--muted);
+            font-size: 15px;
         }
 
         .announcement_list {

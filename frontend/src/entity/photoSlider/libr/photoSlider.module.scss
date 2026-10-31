@@ -206,3 +206,35 @@
         }
     }
 }
+
+// Кнопки над фото: в один ряд справа сверху, круглые и заметные
+.photo_actions {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 4;
+    display: flex;
+    gap: 8px;
+
+    .share_icon,
+    .add_to_favorite {
+        position: static !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 40px !important;
+        height: 40px !important;
+        padding: 0;
+        border: none;
+        border-radius: 50% !important;
+        background-color: rgba(255, 255, 255, 0.94) !important;
+        box-shadow: var(--shadow-sm) !important;
+        color: var(--ink);
+        cursor: pointer;
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

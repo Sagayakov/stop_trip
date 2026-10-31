@@ -48,6 +48,9 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
     requiredFiled,
 }: Props<T>) => {
     const animated = makeAnimated();
+    // В фильтрах (prefix «filterForm») список — это выбор, а не поиск: без курсора ввода,
+    // и с крестиком, чтобы выбор можно было отменить. Явно переданные props важнее.
+    const isFilter = prefix === 'filterForm';
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const searchValues = searchParams.get(name)?.split(',');
@@ -73,6 +76,21 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
         context: ActionMeta<SelectOption>
     ) => {
         defaultValue = undefined;
+
+        // Выбор очищен крестиком — сбрасываем значение (раньше очистка игнорировалась,
+        // и выбранную провинцию нельзя было отменить)
+        if (
+            !selectedOptions ||
+            context.action === 'clear' ||
+            (Array.isArray(selectedOptions) && selectedOptions.length === 0)
+        ) {
+            setSearchOptions([]);
+            if (options) {
+                setAvailableOptions(options);
+            }
+            setValue(name, (isMulti ? [] : undefined) as PathValue<T, Path<T>>);
+            return;
+        }
 
         if (selectedOptions) {
             let optionsArray = [];
@@ -138,7 +156,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                             placeholder={placeholder}
                             closeMenuOnSelect={closeMenuOnSelect}
                             isMulti={isMulti}
-                            isClearable={isClearable}
+                            isClearable={isClearable ?? isFilter}
                             options={
                                 availableOptions.length
                                     ? availableOptions
@@ -146,7 +164,7 @@ export const UniversalSelectDropdown = <T extends FieldValues>({
                             }
                             defaultValue={defaultValue || searchOptions}
                             isDisabled={isDisabled}
-                            isSearchable={isSearchable}
+                            isSearchable={isSearchable ?? !isFilter}
                             onChange={(selectedOptions, context) => {
                                 handleChange(
                                     selectedOptions as
