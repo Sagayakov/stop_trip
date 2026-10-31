@@ -5,9 +5,9 @@ header {
     position: absolute;
     z-index: 1000;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: saturate(180%) blur(12px);
-    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    // Сплошной белый фон. backdrop-filter здесь нельзя: он делает шапку «контейнером»
+    // для position: fixed, и мобильное меню внутри неё сжимается до высоты шапки.
+    background-color: var(--white);
     border-bottom: 1px solid var(--line);
     transition: box-shadow 0.2s ease;
 

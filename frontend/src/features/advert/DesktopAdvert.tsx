@@ -124,7 +124,7 @@ export const DesktopAdvert = ({ data, date }: Props) => {
                     variant="warning"
                     place="bottom"
                     opacity={1}
-                    style={{ zIndex: '5', fontFamily: 'Inter' }}
+                    style={{ zIndex: '5', fontFamily: 'var(--font-main)' }}
                 />
             )}
         </>

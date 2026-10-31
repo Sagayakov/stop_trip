@@ -1,17 +1,22 @@
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { fetchSellerPhone, PhoneLimitError } from './fetchSellerPhone.ts';
+import { fetchSellerPhone, PhoneLimitError, PhoneSource } from './fetchSellerPhone.ts';
 
-/** Загружает телефон продавца по нажатию и показывает понятные ошибки. */
-export const useSellerPhone = (slug: string) => {
+/**
+ * Загружает телефон продавца по нажатию и показывает понятные ошибки.
+ * Источник — объявление (строка slug) или продавец ({ userId }).
+ */
+export const useSellerPhone = (source: string | { userId: number }) => {
     const { t } = useTranslation();
     const [isLoading, setIsLoading] = useState(false);
 
     const getPhone = useCallback(async (): Promise<string | null> => {
         setIsLoading(true);
         try {
-            const phone = await fetchSellerPhone(slug);
+            const phoneSource: PhoneSource =
+                typeof source === 'string' ? { advertSlug: source } : source;
+            const phone = await fetchSellerPhone(phoneSource);
             if (!phone) {
                 toast.info(`${t('advert-page.no-phone')}`, { toastId: 'no phone toast' });
             }
@@ -26,7 +31,7 @@ export const useSellerPhone = (slug: string) => {
         } finally {
             setIsLoading(false);
         }
-    }, [slug, t]);
+    }, [source, t]);
 
     return { getPhone, isLoading };
 };

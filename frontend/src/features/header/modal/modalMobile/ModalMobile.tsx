@@ -103,7 +103,7 @@ export const ModalMobile = (props: Props) => {
                     variant="warning"
                     place="top"
                     opacity={1}
-                    style={{ zIndex: '10', fontFamily: 'Inter' }}
+                    style={{ zIndex: '10', fontFamily: 'var(--font-main)' }}
                 />
             )} */}
         </div>

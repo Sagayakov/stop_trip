@@ -1,5 +1,11 @@
 .messengers_wrapper {
-    width: 50%;
+    // раздел «Мессенджеры» — такая же белая карточка, как остальные разделы настроек
+    margin-bottom: 16px;
+    padding: 24px 32px;
+    border-radius: 20px;
+    background-color: var(--white);
+    box-shadow: var(--shadow-sm);
+    width: 100%;
 
     .messengers_header {
         margin: 1rem 0;

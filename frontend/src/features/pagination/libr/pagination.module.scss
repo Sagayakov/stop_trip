@@ -3,22 +3,28 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    // Номера страниц — круглые кнопки, текущая выделена фирменным цветом
     .page_number {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 22px;
-        height: 24px;
+        min-width: 40px;
+        height: 40px;
+        padding: 0 8px;
+        border-radius: 999px;
         cursor: pointer;
-        font-family: var(--font-inter);
-        font-size: 20px;
-        color: var(--grey-3);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ink);
+        transition: background-color 0.15s ease;
+        &:hover {
+            background-color: var(--white);
+        }
     }
     .page_number.active {
-        background-color: var(--main-black);
-        border-radius: 6px;
-        cursor: unset;
-        color: #ffffff;
+        background-color: var(--jade);
+        color: var(--white);
+        cursor: default;
     }
     .dots {
         font-family: var(--font-inter);

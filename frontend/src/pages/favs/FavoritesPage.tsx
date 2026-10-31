@@ -35,9 +35,14 @@ const FavoritesPage = () => {
                 </div>
             ) : (
                 !isLoading && (
-                    <h3 className={styles.no_favorites}>
-                        {t('favorites.no-favorites')}
-                    </h3>
+                    // Пустое избранное — подсказка, как добавить, и путь к объявлениям
+                    <div className={styles.no_favorites}>
+                        <h3>{t('favorites.no-favorites')}</h3>
+                        <p>{t('favorites.how-to')}</p>
+                        <NavLink to="/" className={styles.to_adverts}>
+                            {t('favorites.to-adverts')}
+                        </NavLink>
+                    </div>
                 )
             )}
         </>

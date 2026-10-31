@@ -1,14 +1,17 @@
-input {
-    border: 1px solid var(--grey-1);
-}
+// Настройки: колонка по центру, разделы — белые карточки (как форма размещения)
 .my_setting {
-    width: 1240px;
+    width: calc(100% - 48px);
+    max-width: 820px;
     margin: 0 auto 80px;
-    font-family: var(--font-inter);
     .title {
         width: 100%;
-        margin: 1rem 0;
-        font-size: 28px;
+        margin: 0 0 20px;
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+    }
+    input {
+        border: 1px solid var(--line);
     }
     .bread_crumbs {
         color: var(--grey-3);
@@ -20,24 +23,32 @@ input {
             color: var(--grey-3);
         }
     }
+    .user_email,
+    .setting_form {
+        margin-bottom: 16px;
+        padding: 24px 32px;
+        border-radius: 20px;
+        background-color: var(--white);
+        box-shadow: var(--shadow-sm);
+    }
     .user_email {
-        padding: 1rem 0;
-        border-bottom: 1px solid var(--grey-1);
-        font-size: 20px;
+        font-size: 15px;
+        color: var(--muted);
         b {
-            font-size: 20px;
+            font-size: 15px;
+            color: var(--ink);
         }
     }
     .setting_form {
-        padding-top: 1rem;
-
         .input_wrapper {
             display: flex;
             flex-direction: column;
-            width: 50%;
+            width: 100%;
+            max-width: 440px;
             h2 {
                 margin: 1.5rem 0 1rem;
-                font-size: 24px;
+                font-size: 20px;
+                font-weight: 700;
             }
             .password_div {
                 position: relative;
@@ -62,16 +73,17 @@ input {
             }
         }
         .button_wrapper {
-            width: 50%;
+            width: 100%;
+            max-width: 440px;
             display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 24px;
 
             input[type='submit'] {
-                width: 60%;
+                flex: 1;
                 height: 48px;
                 padding: 12px 20px;
-                border-radius: var(--radii);
+                border-radius: 12px;
                 border: none;
                 color: white;
                 background-color: var(--main-blue);
@@ -86,14 +98,12 @@ input {
             }
 
             .goBack {
-                width: 30%;
                 padding: 12px 20px;
-                color: var(--main-blue);
-                font-family: var(--font-lato);
-                font-weight: 700;
-                background-color: white;
-                border-radius: var(--radii);
-                border: 1px solid var(--main-blue);
+                color: var(--ink);
+                font-weight: 600;
+                background-color: transparent;
+                border-radius: 12px;
+                border: 1px solid var(--line);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -103,20 +113,7 @@ input {
         }
     }
 }
-@media (max-width: 1439px) {
-    .my_setting {
-        width: 85%;
-        margin: 0 auto 40px;
-        .title {
-            width: 85%;
-        }
-        .bread_crumbs {
-            width: 85%;
-            margin: 0;
-            padding-top: 130px;
-        }
-    }
-}
+
 @media (min-width: 768px) and (max-width: 1023px) {
     .my_setting {
         .bread_crumbs {
@@ -148,7 +145,7 @@ input {
     .my_setting {
         padding-top: 70px;
         margin: 0 auto 40px;
-        width: 93.5%;
+        width: calc(100% - 32px);
         .title,
         .bread_crumbs {
             width: 100%;
@@ -158,8 +155,9 @@ input {
         .title {
             padding: 0;
         }
+        .user_email,
         .setting_form {
-            padding: 1rem 0 0;
+            padding: 20px;
             .input_wrapper {
                 width: 100%;
                 .password_div {

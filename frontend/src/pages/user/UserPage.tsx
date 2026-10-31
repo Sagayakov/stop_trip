@@ -1,5 +1,6 @@
+import { useSellerPhone } from 'features/sellerPhone';
 import styles from './libr/userPage.module.scss';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetAdvertsQuery } from 'app/api/fetchAdverts';
 import { UserInfo } from 'entity/userInfo/UserInfo';
 import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes';
@@ -21,14 +22,23 @@ const UserPage = () => {
 
     const handleNavigateBack = () => navigate(-1);
 
-    const handleClickShowNumber = () => {
-        if (data) {
+    const { getPhone, isLoading: isPhoneLoading } = useSellerPhone({ userId: Number(id) });
+
+    // Номер не приходит вместе со страницей — загружаем по нажатию (защита от сбора номеров)
+    const handleClickShowNumber = async () => {
+        const phone = await getPhone();
+        if (phone) {
             const toastId = 'copy number toast';
-            toast.success(<CopyNumberMessage phone={sellerData!.phone} />, {
+            toast.success(<CopyNumberMessage phone={phone} />, {
                 autoClose: false,
                 toastId,
             });
         }
+    };
+
+    const handleClickCall = async () => {
+        const phone = await getPhone();
+        if (phone) window.location.href = `tel:${phone}`;
     };
 
     return (
@@ -41,16 +51,18 @@ const UserPage = () => {
                     <section className={styles.owner_section}>
                         <UserInfo user={sellerData} className='' refetch={refetch} />
                         {!isDesktop ? (
-                            <Link
+                            <button
                                 className={styles.call_button}
-                                to={`tel:${sellerData.phone}`}
+                                onClick={handleClickCall}
+                                disabled={isPhoneLoading}
                             >
                                 {t('advert-page.call')}
-                            </Link>
+                            </button>
                         ) : (
                             <button
                                 className={styles.call_button}
                                 onClick={handleClickShowNumber}
+                                disabled={isPhoneLoading}
                             >
                                 {t('advert-page.show-number')}
                             </button>

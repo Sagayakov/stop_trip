@@ -366,7 +366,9 @@
     },
 
     "favorites": {
-        "no-favorites": "You don't have any favorites yet"
+        "no-favorites": "You don't have any favorites yet",
+        "how-to": "Tap ♡ on a listing photo to save it here.",
+        "to-adverts": "Browse listings"
     },
 
     "my-settings": {

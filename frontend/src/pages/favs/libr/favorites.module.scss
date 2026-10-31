@@ -109,3 +109,47 @@ a {
         gap: 0.75rem;
     }
 }
+
+// Пустое избранное
+div.no_favorites {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 440px;
+    margin: 48px auto 80px;
+    padding: 40px 32px;
+    border-radius: 20px;
+    background-color: var(--white);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+
+    h3 {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    p {
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--muted);
+    }
+
+    .to_adverts {
+        display: inline-flex;
+        align-items: center;
+        height: 44px;
+        margin-top: 10px;
+        padding: 0 20px;
+        border-radius: 999px;
+        background-color: var(--jade);
+        color: var(--white);
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            background-color: var(--jade-hover);
+        }
+    }
+}
