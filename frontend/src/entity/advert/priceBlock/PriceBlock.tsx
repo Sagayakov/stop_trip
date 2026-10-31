@@ -1,3 +1,4 @@
+import { RubApprox } from 'shared/ui/priceRub/RubApprox.tsx';
 import { CURRENCY } from 'shared/const/geo.ts';
 import styles from 'widgets/advert/libr/advert.module.scss';
 import { ProductType } from 'pages/advertPage/libr/types.ts';
@@ -69,6 +70,7 @@ export const PriceBlock = ({ data }: Props) => {
                     {/*      ? prettifyPrice(price)*/}
                     {/*      : `${t('advert-page.price-negotiated')}`}*/}
                     {viewPrice()}
+                    {category !== 'exchange_rate' && <RubApprox vnd={price} />}
                 </span>
             </div>
         </>

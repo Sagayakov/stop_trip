@@ -1,0 +1,9 @@
+// Примерная цена в рублях — вторична по отношению к цене в донгах
+.rub {
+    margin-left: 0.4em;
+    font-size: 0.72em;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--muted);
+    white-space: nowrap;
+}

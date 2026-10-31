@@ -23,7 +23,6 @@ const Controls = ({ hero = false }: Props) => {
             {hero && (
                 <div className={styles.hero_text}>
                     <h1>{t('main-page.hero-title')}</h1>
-                    <p>{t('main-page.hero-subtitle')}</p>
                 </div>
             )}
             <div className={styles.controls_wrapper}>

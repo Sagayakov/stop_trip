@@ -10,6 +10,7 @@ WATCHED_MODELS = (
     ("offers", "AdvertisementImage"),
     ("offers", "PropertyAmenity"),
     ("offers", "Currency"),
+    ("offers", "RubExchangeRate"),
     ("offers", "TransportBrand"),
     ("offers", "TransportModel"),
     ("users", "User"),

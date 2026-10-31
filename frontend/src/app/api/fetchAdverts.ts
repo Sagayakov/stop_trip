@@ -52,6 +52,10 @@ export const fetchAdverts = createApi({
             query: (filterQuery = '') =>
                 `api/advertisements/get_transport_models_by_brand/${filterQuery}`,
         }),
+        // Курс рубля для примерной цены в рублях (задаётся в админке)
+        getRubRate: build.query<{ vnd_per_rub: number | null }, string>({
+            query: () => `api/advertisements/rub_rate/`,
+        }),
         getAllBrands: build.query<AvailableValuesType[], string>({
             query: (filterQuery = '') =>
                 `api/advertisements/get_transport_brands/${filterQuery}`,
@@ -68,4 +72,5 @@ export const {
     useGetCitiesByRegionQuery,
     useGetModelsByBrandQuery,
     useGetAllBrandsQuery,
+    useGetRubRateQuery,
 } = fetchAdverts;

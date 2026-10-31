@@ -5,3 +5,4 @@ from .abs_transport_model import (
     TransportModel,
 )
 from .advertisement import Advertisement, AdvertisementImage
+from .rub_rate import RubExchangeRate

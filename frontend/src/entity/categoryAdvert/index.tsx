@@ -1,3 +1,4 @@
+import { RubApprox } from 'shared/ui/priceRub/RubApprox.tsx';
 import { formatPlace } from 'shared/utils/formatPlace.ts';
 //import { Like } from 'shared/ui/Like';
 //import { Rating } from 'shared/ui/Rating';
@@ -182,6 +183,7 @@ export const CategoryAdvert = (el: Props) => {
                         : el.price
                           ? prettifyPrice(el.price)
                           : `${t('advert-page.price-negotiated')}`}
+                    {category !== 'exchange_rate' && <RubApprox vnd={el.price} />}
                 </h3>
                 <p className={style.card_description}>{el.description}</p>
                 <div className={style.author}>

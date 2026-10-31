@@ -1,3 +1,4 @@
+import { RubApprox } from 'shared/ui/priceRub/RubApprox.tsx';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AdvertsTypes } from 'app/api/types/lastAdvertsTypes.ts';
@@ -128,6 +129,7 @@ export const Cart = (cart: Props) => {
                             : price
                               ? prettifyPrice(price)
                               : `${t('advert-page.price-negotiated')}`}
+                        {category !== 'exchange_rate' && <RubApprox vnd={price} />}
                     </p>
                     <span className={styles.fav_absolute}>
                         <Favorite

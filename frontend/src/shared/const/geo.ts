@@ -31,3 +31,14 @@ export const MAP_COUNTRY_ZOOM = 5;
 /** «5000000» → «5 000 000 ₫» */
 export const formatMoney = (value: number | string) =>
     `${Math.round(Number(value)).toLocaleString('ru')} ${CURRENCY.symbol}`;
+
+/**
+ * Примерная цена в рублях: «≈ 5 200 ₽». Округляем, чтобы не создавать ложной точности:
+ * до 10 ₽ для небольших сумм и до 100 ₽ для крупных.
+ */
+export const formatRubApprox = (vnd: number | string, vndPerRub: number) => {
+    const rub = Number(vnd) / vndPerRub;
+    const step = rub < 1000 ? 10 : 100;
+    const rounded = Math.max(step, Math.round(rub / step) * step);
+    return `≈ ${rounded.toLocaleString('ru')} ₽`;
+};

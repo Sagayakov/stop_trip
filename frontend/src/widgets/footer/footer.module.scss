@@ -1,34 +1,113 @@
-// Подвал: тёмный блок, форма пожеланий, контакты и соглашение.
+// Подвал — компактная тёмная строка. Форма пожеланий раскрывается по кнопке.
 
 footer {
     width: 100%;
     margin-top: auto;
     background-color: var(--ink);
-    color: rgba(255, 255, 255, 0.86);
+    color: rgba(255, 255, 255, 0.8);
 
     .footer_wrapper {
         width: calc(100% - 48px);
         max-width: 1240px;
         margin: 0 auto;
-        padding: 56px 0 32px;
+        padding: 20px 0;
     }
 
-    .footer_top {
-        display: grid;
-        grid-template-columns: 220px minmax(0, 1fr);
-        gap: 48px;
-        align-items: start;
+    .footer_row {
+        display: flex;
+        align-items: center;
+        gap: 24px;
 
-        // Логотип в подвале — светлый
-        #logo,
+        // Логотип в подвале — светлый и поменьше
         > svg {
+            width: 96px;
+            height: auto;
             filter: invert(1) brightness(2);
         }
+    }
+
+    .footer_bot {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex: 1;
+
+        .contacts,
+        .contacts_logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            order: 2;
+            margin-left: auto;
+
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.08);
+                transition: background 0.15s ease;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.16);
+                }
+
+                svg {
+                    width: 18px;
+                    height: 18px;
+                }
+            }
+        }
+
+        .email_agreement {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            order: 1;
+
+            a,
+            .email_link,
+            .user_agreement {
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.7);
+                text-decoration: none;
+
+                &:hover {
+                    color: var(--white);
+                }
+            }
+        }
+    }
+
+    .feedback_toggle {
+        flex-shrink: 0;
+        height: 36px;
+        padding: 0 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--white);
+        font-size: 13px;
+        font-weight: 600;
+        transition: border-color 0.15s ease;
+
+        &:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+    }
+
+    .feedback_panel {
+        position: relative;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
 
         .feedback {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
 
             .feed {
                 display: flex;
@@ -36,7 +115,7 @@ footer {
                 gap: 10px;
 
                 p {
-                    font-size: 18px;
+                    font-size: 15px;
                     font-weight: 600;
                     color: var(--white);
                 }
@@ -51,17 +130,16 @@ footer {
                     flex: 1;
                     width: auto;
                     min-width: 0;
-                    min-height: 52px;
-                    height: 52px;
-                    padding: 14px 16px;
+                    min-height: 48px;
+                    height: 48px;
+                    padding: 13px 16px;
                     border: 1px solid rgba(255, 255, 255, 0.14);
-                    border-radius: 14px;
+                    border-radius: 12px;
                     background: rgba(255, 255, 255, 0.06);
                     color: var(--white);
                     font-size: 15px;
                     resize: vertical;
                     outline: none;
-                    transition: border-color 0.15s ease;
 
                     &::placeholder {
                         color: rgba(255, 255, 255, 0.5);
@@ -74,12 +152,12 @@ footer {
                 input[type='submit'] {
                     flex-shrink: 0;
                     width: auto; // общее правило input { width: 100% } со страницы добавления
-                    height: 52px;
-                    padding: 0 24px;
+                    height: 48px;
+                    padding: 0 22px;
                     border: none;
-                    border-radius: 14px;
+                    border-radius: 12px;
                     color: var(--white);
-                    font-size: 15px;
+                    font-size: 14px;
                     font-weight: 600;
                     cursor: pointer;
 
@@ -90,75 +168,16 @@ footer {
                 }
             }
         }
-    }
-
-    .hr {
-        position: relative;
-        margin: 40px 0 24px;
-
-        hr {
-            border: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
-        }
 
         .reCaptcha_brand {
-            position: absolute;
-            top: -28px;
-            left: 0;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
+            margin-top: 8px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.45);
             transition: opacity 0.2s ease;
 
             a {
-                color: rgba(255, 255, 255, 0.7);
-                font-size: 12px;
-            }
-        }
-    }
-
-    .footer_bot {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-
-        .contacts,
-        .contacts_logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-
-            a {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.08);
-                transition: background 0.15s ease;
-
-                &:hover {
-                    background: rgba(255, 255, 255, 0.16);
-                }
-            }
-        }
-
-        .email_agreement {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-
-            a,
-            .email_link,
-            .user_agreement {
-                font-size: 14px;
-                color: rgba(255, 255, 255, 0.7);
-                text-decoration: none;
-
-                &:hover {
-                    color: var(--white);
-                }
+                font-size: 11px;
+                color: rgba(255, 255, 255, 0.65);
             }
         }
     }
@@ -168,27 +187,32 @@ footer {
     footer {
         .footer_wrapper {
             width: calc(100% - 32px);
-            padding: 36px 0 28px;
+            padding: 20px 0 24px;
         }
 
-        .footer_top {
-            grid-template-columns: 1fr;
-            gap: 0;
-
-            .feedback form {
-                flex-direction: column;
-            }
+        .footer_row {
+            flex-wrap: wrap;
+            gap: 12px 16px;
         }
 
         .footer_bot {
-            flex-direction: column;
-            align-items: flex-start;
+            order: 3;
+            flex-basis: 100%;
+            flex-wrap: wrap;
+            gap: 12px;
 
             .email_agreement {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
+                gap: 14px;
+                flex-wrap: wrap;
             }
+        }
+
+        .feedback_toggle {
+            margin-left: auto;
+        }
+
+        .feedback_panel .feedback form {
+            flex-direction: column;
         }
     }
 }

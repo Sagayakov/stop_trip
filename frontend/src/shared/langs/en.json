@@ -391,6 +391,9 @@
         "smth-wrong": "Something went wrong. Please, try again"
     },
 
+    "footer": {
+        "suggest": "Suggest an improvement"
+    },
     "feedback": {
         "feedback-message": "10 to 900 characters"
     },

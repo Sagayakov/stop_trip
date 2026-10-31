@@ -1,3 +1,4 @@
+import { RubApprox } from 'shared/ui/priceRub/RubApprox.tsx';
 import styles from 'pages/myAnnouncements/libr/myAnnouncements.module.scss';
 import { GetDateOfCreating } from 'entity/lastAdverts/libr/getDateOfCreating.ts';
 import { useTranslation } from 'react-i18next';
@@ -42,6 +43,7 @@ export const MyAnnouncementDescription = ({
                         : price
                           ? prettifyPrice(price)
                           : `${t('advert-page.negotiated')}`}
+                    {category !== 'exchange_rate' && <RubApprox vnd={price} />}
                 </p>
             </div>
             <p>{title}</p>

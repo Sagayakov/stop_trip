@@ -21,7 +21,13 @@ from countries.models import Region, City
 from countries.serializers import CitySerializer, RegionSerializer
 from .constants import CategoryChoices
 from .filters import AdvertisementFilter
-from .models import Advertisement, PropertyAmenity, TransportModel, TransportBrand
+from .models import (
+    Advertisement,
+    PropertyAmenity,
+    RubExchangeRate,
+    TransportModel,
+    TransportBrand,
+)
 from .permissions import OwnerPermission, OwnerOrAdminPermission
 from .throttles import ContactsAnonThrottle, ContactsUserThrottle
 from .serializers import (
@@ -62,6 +68,7 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         "get_available_filtered_params": [AllowAny],
         "my_advertisements": [IsAuthenticated],
         "contacts": [AllowAny],
+        "rub_rate": [AllowAny],
         "get_regions_by_country": [AllowAny],
         "get_cities_by_region": [AllowAny],
         "get_transport_brands": [AllowAny],
@@ -253,6 +260,17 @@ class AdvertisementModelViewSet(ModelViewSet, GetFilterParams):
         advertisement = self.get_object()
         phone = advertisement.owner.phone
         return Response({"phone": str(phone) if phone else None}, status=status.HTTP_200_OK)
+
+    @extend_schema(
+        responses={200: {"type": "object", "properties": {"vnd_per_rub": {"type": "number"}}}}
+    )
+    @action(detail=False, methods=["GET"])
+    @cache_for_anonymous()
+    def rub_rate(self, request, *args, **kwargs):
+        """Курс рубля: сколько донгов за 1 рубль. null — курс не задан, рубли не показываем."""
+
+        rate = RubExchangeRate.get_solo().vnd_per_rub
+        return Response({"vnd_per_rub": float(rate) if rate > 0 else None})
 
     @method_decorator(cache_page(60 * 10))
     @extend_schema(

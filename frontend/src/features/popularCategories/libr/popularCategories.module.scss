@@ -1,86 +1,87 @@
-// Категории: компактные плитки «иконка + название», без рамок.
+// Категории — одна строка компактных «таблеток» над объявлениями.
+// Строка листается горизонтально, чтобы не занимать место на первом экране.
 
 .popular_categories {
     width: calc(100% - 48px);
     max-width: 1240px;
-    margin: 0 auto 64px;
+    margin: 0 auto 32px;
 
     .popular_categories_wrapper {
+        // Заголовок «Категории» не нужен: и так понятно. На телефоне в этой строке
+        // остаётся только кнопка «Все категории».
         .categories_titles {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-
-            h3 {
-                font-size: 24px;
-                font-weight: 700;
-                letter-spacing: -0.02em;
-            }
+            display: none;
         }
 
         .categories_list {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scroll-snap-type: x proximity;
+            scrollbar-width: none;
+            // мягкое затухание справа — подсказка, что строку можно листать
+            mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent);
+            -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent);
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
 
             .category {
-                display: flex;
+                display: inline-flex;
                 align-items: center;
-                gap: 14px;
-                min-width: 0;
-                padding: 16px 18px;
-                border-radius: 16px;
+                gap: 8px;
+                flex: 0 0 auto;
+                height: 44px;
+                padding: 0 16px 0 12px;
+                border: 1px solid var(--line);
+                border-radius: 999px;
                 background-color: var(--white);
-                box-shadow: var(--shadow-sm);
+                scroll-snap-align: start;
                 cursor: pointer;
                 transition:
-                    box-shadow 0.15s ease,
-                    transform 0.15s ease;
+                    border-color 0.15s ease,
+                    background-color 0.15s ease;
 
                 svg {
                     flex-shrink: 0;
-                    width: 28px;
-                    height: 28px;
+                    width: 20px;
+                    height: 20px;
                 }
 
                 p {
-                    overflow: hidden;
-                    font-size: 15px;
-                    font-weight: 600;
-                    line-height: 1.25;
+                    font-size: 14px;
+                    font-weight: 500;
+                    white-space: nowrap;
                     color: var(--ink);
                 }
 
                 &:hover {
-                    box-shadow: var(--shadow-md);
-                    transform: translateY(-1px);
+                    border-color: var(--jade);
+                    background-color: var(--jade-soft);
                 }
             }
         }
-    }
-}
-
-@media (max-width: 1100px) {
-    .popular_categories .popular_categories_wrapper .categories_list {
-        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 767px) {
     .popular_categories {
         width: 100%;
-        margin-bottom: 40px;
+        margin-bottom: 24px;
 
         .popular_categories_wrapper {
             .categories_titles {
+                display: flex;
+                justify-content: flex-start;
+                margin-bottom: 10px;
                 padding: 0 16px;
 
                 h3 {
-                    font-size: 20px;
+                    display: none;
                 }
 
-                // Кнопка «Все категории» — компактная на телефоне
+                // Кнопка «Все категории» — компактная
                 > div {
                     height: 36px;
                     padding: 0 14px 0 12px;
@@ -94,33 +95,12 @@
                 }
             }
 
-            // На телефоне — горизонтальная лента, которую можно листать пальцем
             .categories_list {
-                display: flex;
-                gap: 10px;
-                padding: 0 16px 4px;
+                padding: 0 16px;
                 scroll-padding-left: 16px;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                scrollbar-width: none;
-
-                &::-webkit-scrollbar {
-                    display: none;
-                }
 
                 .category {
-                    flex-direction: column;
-                    align-items: flex-start;
-                    gap: 10px;
-                    flex: 0 0 auto;
-                    width: 128px;
-                    padding: 14px;
-                    scroll-snap-align: start;
-
-                    p {
-                        font-size: 13px;
-                        overflow-wrap: anywhere;
-                    }
+                    height: 40px;
                 }
             }
         }
